@@ -97,6 +97,8 @@ class HomePageFragment : BaseFragment() {
         Repository.getBanner().observe(this, Observer {
             val bannerList = it.getOrNull()
             if (bannerList != null) {
+                if (viewModel.bannerList.size > 0)
+                    viewModel.bannerList.clear()
                 viewModel.bannerList.addAll(bannerList)
                 bannerAdapter.notifyDataSetChanged()
             }
