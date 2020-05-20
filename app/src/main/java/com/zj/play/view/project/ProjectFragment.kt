@@ -7,12 +7,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.zj.core.view.BaseFragment
 import com.zj.core.view.FragmentAdapter
 import com.zj.play.R
+import com.zj.play.network.Repository
 import com.zj.play.view.project.list.ProjectListFragment
 import kotlinx.android.synthetic.main.fragment_project.*
 
 class ProjectFragment : BaseFragment() {
 
-    private val viewModel by lazy { ViewModelProvider(this).get(ProjectViewModel::class.java) }
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_project
@@ -28,7 +28,7 @@ class ProjectFragment : BaseFragment() {
 
     override fun initData() {
         startLoading()
-        viewModel.getProjectTree().observe(this, Observer {
+        Repository.getProjectTree().observe(this, Observer {
             if (it.isSuccess) {
                 loadFinished()
                 val projectTree = it.getOrNull()

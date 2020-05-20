@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.youth.banner.indicator.CircleIndicator
 import com.zj.core.view.BaseFragment
 import com.zj.play.R
+import com.zj.play.network.Repository
 import com.zj.play.view.article.ArticleAdapter
 import com.zj.play.view.home.search.SearchActivity
 import kotlinx.android.synthetic.main.fragment_home_page.*
@@ -69,13 +70,7 @@ class HomePageFragment : BaseFragment() {
     }
 
     override fun initData() {
-        viewModel.getBanner().observe(this, Observer {
-            val bannerList = it.getOrNull()
-            if (bannerList != null) {
-                viewModel.bannerList.addAll(bannerList)
-                bannerAdapter.notifyDataSetChanged()
-            }
-        })
+        initBanner()
         viewModel.articleLiveData.observe(this, Observer {
             if (it.isSuccess) {
                 val articleList = it.getOrNull()
@@ -98,10 +93,20 @@ class HomePageFragment : BaseFragment() {
         getArticleList()
     }
 
+    private fun initBanner() {
+        Repository.getBanner().observe(this, Observer {
+            val bannerList = it.getOrNull()
+            if (bannerList != null) {
+                viewModel.bannerList.addAll(bannerList)
+                bannerAdapter.notifyDataSetChanged()
+            }
+        })
+    }
+
     private fun getArticleList() {
         startLoading()
         viewModel.getArticleList(page)
-        if (page == 1) viewModel.getBanner()
+        if (page == 1) initBanner()
     }
 
     override fun onPause() {

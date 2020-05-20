@@ -12,12 +12,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.zj.core.util.showToast
 import com.zj.core.view.BaseActivity
 import com.zj.play.R
+import com.zj.play.network.Repository
 import com.zj.play.view.home.search.article.ArticleListActivity
 import kotlinx.android.synthetic.main.activity_search.*
 
 class SearchActivity : BaseActivity(), View.OnClickListener {
-
-    private val viewModel by lazy { ViewModelProvider(this).get(SearchViewModel::class.java) }
 
     override fun getLayoutId(): Int {
         return R.layout.activity_search
@@ -26,7 +25,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
     private val list = arrayListOf<String>()
 
     override fun initData() {
-        viewModel.getHotKey().observe(this, Observer {
+        Repository.getHotKey().observe(this, Observer {
             if (it.isSuccess) {
                 loadFinished()
                 val hoeKey = it.getOrNull()
