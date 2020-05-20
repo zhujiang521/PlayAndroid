@@ -1,0 +1,14 @@
+<resources>
+
+    <string name="activity_permission_setting">在设置中允许以下权限</string>
+    <string name="activity_permission">需要下列权限</string>
+
+    <string name="activity_permission_cancel">取消</string>
+    <string name="activity_permission_sure">确定</string>
+    <string name="layout_error_text_0">无法连接到网络</string>
+    <string name="layout_error_text_1">请检查网络设置或点击重试</string>
+    <string name="layout_error_text_2">重试</string>
+    <string name="layout_title_text_0">已取消</string>
+    <string name="bad_network_view_tip">您的网络不给力，点击屏幕可重新加载</string>
+    <string name="load_failed_click_to_reload">加载失败，点击可重新加载</string>
+</resources>

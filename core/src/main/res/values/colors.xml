@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#25C84C</color>
+    <color name="colorPrimaryDark">#25C84C</color>
+    <color name="colorAccent">#25C84C</color>
+    <!-- 白色 -->
+    <color name="white">#ffffff</color>
+    <!-- 字体颜色 -->
+    <color name="text_color_dark">#464646</color>
+    <color name="text_color">#666666</color>
+    <color name="text_green_dark">#FF006E73</color>
+    <color name="text_green">#25C84C</color>
+    <color name="text_color_black">#202020</color>
+    <!-- 下拉刷新颜色 -->
+    <color name="refresh">#F8F8F8</color>
+    <!--取消按钮-->
+    <color name="red_btn_bg_color">#DD6B55</color>
+
+    <color name="transparent">#00000000</color>
+
+    <color name="default_color">#F3F3F3</color>
+
+    <!-- 灰白 -->
+    <color name="grayWhite">#e9e5e5</color>
+
+    <color name="gray_green">#ff32af85</color>
+
+    <color name="secondary_text">#757575</color>
+    <color name="color_35A975">#35A975</color>
+    <color name="color_F80202">#F80202</color>
+    <color name="color_FFFFFF">#FFFFFF</color>
+    <color name="color_000">#000</color>
+    <color name="wall">#fff5f5f5</color>
+
+</resources>

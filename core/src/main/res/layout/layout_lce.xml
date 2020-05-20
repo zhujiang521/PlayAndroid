@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/loading" />
+
+    <ViewStub
+        android:id="@+id/badNetworkView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/bad_network_view" />
+
+    <ViewStub
+        android:id="@+id/loadErrorView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/load_error_view" />
+
+</FrameLayout>

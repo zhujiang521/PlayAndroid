@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.profile.ProfileFragment">
+
+    <com.zj.core.util.TitleBar
+        android:id="@+id/profileTitleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_170"
+        android:background="@color/colorPrimary">
+
+        <com.zj.core.view.RoundImageView
+            android:id="@+id/profileIvHead"
+            android:layout_width="@dimen/dp_70"
+            android:layout_height="@dimen/dp_70"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_30"
+            android:src="@drawable/img_nomal_head" />
+
+        <TextView
+            android:id="@+id/profileTvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_58"
+            android:layout_toEndOf="@id/profileIvHead"
+            android:text="Zhujiang"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dp_17" />
+
+        <TextView
+            android:id="@+id/profileTvRank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profileTvName"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_toEndOf="@id/profileIvHead"
+            android:text="等级 9  排名 984  积分 1020"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dp_15" />
+
+    </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_15"
+        app:cardCornerRadius="@dimen/dp_5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_5">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/profileRv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/profileBtnLogout"
+        android:layout_width="@dimen/dp_180"
+        android:layout_height="@dimen/dp_35"
+        android:layout_gravity="center"
+        android:layout_marginTop="-8dp"
+        android:background="@drawable/btn"
+        android:text="退出登录"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dp_14" />
+
+</LinearLayout>
