@@ -37,8 +37,9 @@ class ArticleListActivity : BaseActivity() {
                     if (page == 1 && viewModel.articleList.size > 0) {
                         viewModel.articleList.clear()
                     }
+                    val start = viewModel.articleList.size
                     viewModel.articleList.addAll(articleList.datas)
-                    articleAdapter.notifyDataSetChanged()
+                    articleAdapter.notifyItemRangeInserted(start,articleList.datas.size)
                 } else {
                     showLoadErrorView()
                 }
