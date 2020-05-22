@@ -35,7 +35,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
         pageUrl = intent.getStringExtra(PAGE_URL) ?: ""
         articleTxtTitle.text = Html.fromHtml(pageName)
         articleWebView.loadUrl(pageUrl)
-        initWebView()
+        //initWebView()
     }
 
     private fun initWebView() {
@@ -116,7 +116,12 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
         val bottomDialogRv = dialogView.findViewById<RecyclerView>(R.id.bottomDialogRv)
         bottomDialogRv.layoutManager = GridLayoutManager(this, 4)
         bottomDialogRv.adapter =
-            BottomDialogAdapter(this, R.layout.dialog_bottom_item, profileItemList,bottomSheetDialog)
+            BottomDialogAdapter(
+                this,
+                R.layout.dialog_bottom_item,
+                profileItemList,
+                bottomSheetDialog
+            )
         bottomSheetDialog.setContentView(dialogView) //给布局设置透明背景色
         ((dialogView.parent) as View).setBackgroundColor(Color.TRANSPARENT)
         bottomSheetDialog.show()
