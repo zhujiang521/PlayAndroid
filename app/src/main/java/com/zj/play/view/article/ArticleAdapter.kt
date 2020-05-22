@@ -17,6 +17,7 @@ import com.zj.play.model.Article
 import com.zj.play.network.CollectRepository
 import com.zj.play.view.account.LoginActivity
 
+
 class ArticleAdapter(context: Context, layoutId: Int, articleList: ArrayList<Article>) :
     CommonAdapter<Article>(context, layoutId, articleList) {
 
@@ -37,7 +38,21 @@ class ArticleAdapter(context: Context, layoutId: Int, articleList: ArrayList<Art
         if (!TextUtils.isEmpty(t.envelopePic)) {
             articleIvImg.visibility = View.VISIBLE
             Glide.with(mContext).load(t.envelopePic).into(articleIvImg)
+        }else{
+            articleIvImg.visibility = View.GONE
+            //Glide.with(mContext).clear(articleIvImg)
+            //articleIvImg.setImageDrawable(null)
+            //articleIvImg.setTag(R.id.tag_glide, position)
         }
+
+//        val tag = articleIvImg.getTag(R.id.tag_glide)
+//        if (tag != null && tag as Int != position) {
+//            //如果tag不是Null,并且同时tag不等于当前的position。
+//            //说明当前的viewHolder是复用来的
+//            //Cancel any pending loads Glide may have for the view
+//            //and free any resources that may have been loaded for the view.
+//            Glide.with(mContext).clear(articleIvImg)
+//        }
         articleTvTop.visibility = if (t.type > 0) View.VISIBLE else View.GONE
         articleTvNew.visibility = if (t.fresh) View.VISIBLE else View.GONE
         if (t.collect) {
