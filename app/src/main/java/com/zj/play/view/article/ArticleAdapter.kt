@@ -12,10 +12,14 @@ import com.zhy.adapter.recyclerview.CommonAdapter
 import com.zhy.adapter.recyclerview.base.ViewHolder
 import com.zj.core.Play
 import com.zj.core.util.setSafeListener
+import com.zj.core.util.showToast
 import com.zj.play.R
 import com.zj.play.model.Article
-import com.zj.play.network.CollectRepository
+import com.zj.play.network.CollectRepository.cancelCollects
+import com.zj.play.network.CollectRepository.toCollects
 import com.zj.play.view.account.LoginActivity
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class ArticleAdapter(context: Context, layoutId: Int, articleList: ArrayList<Article>) :
@@ -38,7 +42,7 @@ class ArticleAdapter(context: Context, layoutId: Int, articleList: ArrayList<Art
         if (!TextUtils.isEmpty(t.envelopePic)) {
             articleIvImg.visibility = View.VISIBLE
             Glide.with(mContext).load(t.envelopePic).into(articleIvImg)
-        }else{
+        } else {
             articleIvImg.visibility = View.GONE
             //Glide.with(mContext).clear(articleIvImg)
             //articleIvImg.setImageDrawable(null)
@@ -67,7 +71,8 @@ class ArticleAdapter(context: Context, layoutId: Int, articleList: ArrayList<Art
                 } else {
                     articleTvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
                 }
-                setCollect(t.id, !t.collect)
+                setCollect(t.id, t.collect)
+                //articleCollectCallback?.collectArticle(t.id,t.collect)
             } else {
                 LoginActivity.actionStart(mContext)
             }
@@ -78,15 +83,24 @@ class ArticleAdapter(context: Context, layoutId: Int, articleList: ArrayList<Art
     }
 
     private fun setCollect(id: Int, collect: Boolean) {
-        if (collect) {
-            CollectRepository.toCollect(id)
-        } else {
-            CollectRepository.cancelCollect(id)
-        }
-    }
+        GlobalScope.launch {
+            if (collect) {
+                val cancelCollects = cancelCollects(id)
+                if (cancelCollects.errorCode == 0){
+                    showToast("取消收藏成功")
+                }else{
+                    showToast("取消收藏失败")
+                }
+            } else {
+                val toCollects = toCollects(id)
+                if (toCollects.errorCode == 0){
+                    showToast("收藏成功")
+                }else{
+                    showToast("收藏失败")
+                }
 
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
+            }
+        }
     }
 
 }

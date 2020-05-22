@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_home_page.*
 import kotlin.system.measureTimeMillis
 
 
-class HomePageFragment : BaseFragment() {
+class HomePageFragment : BaseFragment(){
 
     private val viewModel by lazy { ViewModelProvider(this).get(HomePageViewModel::class.java) }
 
@@ -120,4 +120,5 @@ class HomePageFragment : BaseFragment() {
         @JvmStatic
         fun newInstance() = HomePageFragment()
     }
+
 }

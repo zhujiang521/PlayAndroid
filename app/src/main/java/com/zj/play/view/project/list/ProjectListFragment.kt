@@ -6,7 +6,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.core.view.BaseFragment
-
 import com.zj.play.R
 import com.zj.play.view.article.ArticleAdapter
 import kotlinx.android.synthetic.main.fragment_project_list.*
@@ -96,4 +95,5 @@ class ProjectListFragment : BaseFragment() {
                 }
             }
     }
+
 }

@@ -11,11 +11,15 @@ import com.bumptech.glide.Glide
 import com.zhy.adapter.recyclerview.CommonAdapter
 import com.zhy.adapter.recyclerview.base.ViewHolder
 import com.zj.core.util.setSafeListener
+import com.zj.core.util.showToast
 import com.zj.play.R
-import com.zj.play.model.Article
 import com.zj.play.model.CollectX
 import com.zj.play.network.CollectRepository
 import com.zj.play.view.article.ArticleActivity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CollectAdapter(context: Context, layoutId: Int, articleList: ArrayList<CollectX>) :
     CommonAdapter<CollectX>(context, layoutId, articleList) {
@@ -37,21 +41,32 @@ class CollectAdapter(context: Context, layoutId: Int, articleList: ArrayList<Col
         if (!TextUtils.isEmpty(t.envelopePic)) {
             articleIvImg.visibility = View.VISIBLE
             Glide.with(mContext).load(t.envelopePic).into(articleIvImg)
+        } else {
+            articleIvImg.visibility = View.GONE
         }
         articleTvTop.visibility = View.GONE
         articleTvNew.visibility = View.GONE
         articleTvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
         articleTvCollect.setSafeListener {
-            articleTvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
+            cancelCollect(t.originId, position)
         }
         articleLlItem.setOnClickListener {
             ArticleActivity.actionStart(mContext, t.title, t.link)
         }
     }
 
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
+    private fun cancelCollect(id: Int, position: Int) {
+        GlobalScope.launch {
+            val cancelCollects = CollectRepository.cancelCollects(id)
+            withContext(Dispatchers.Main) {
+                if (cancelCollects.errorCode == 0) {
+                    showToast("取消收藏成功")
+                    notifyItemRemoved(position)
+                } else {
+                    showToast("取消收藏失败")
+                }
+            }
+        }
     }
 
 }

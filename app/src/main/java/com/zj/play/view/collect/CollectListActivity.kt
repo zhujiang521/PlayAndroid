@@ -8,11 +8,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.core.view.BaseActivity
 import com.zj.play.R
-import com.zj.play.view.article.ArticleAdapter
 import kotlinx.android.synthetic.main.activity_collect_list.*
 import kotlin.system.measureTimeMillis
 
-class CollectListActivity : BaseActivity() {
+class CollectListActivity : BaseActivity(){
 
     private val viewModel by lazy { ViewModelProvider(this).get(CollectListViewModel::class.java) }
 

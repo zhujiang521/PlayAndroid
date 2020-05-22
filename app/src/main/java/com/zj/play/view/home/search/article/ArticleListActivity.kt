@@ -39,7 +39,7 @@ class ArticleListActivity : BaseActivity() {
                     }
                     val start = viewModel.articleList.size
                     viewModel.articleList.addAll(articleList.datas)
-                    articleAdapter.notifyItemRangeInserted(start,articleList.datas.size)
+                    articleAdapter.notifyDataSetChanged()
                 } else {
                     showLoadErrorView()
                 }

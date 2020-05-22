@@ -11,7 +11,7 @@ import com.zj.play.view.article.ArticleAdapter
 import kotlinx.android.synthetic.main.fragment_official_list.*
 import kotlin.system.measureTimeMillis
 
-private const val PROJECT_CID = "PROJECT_CID"
+const val PROJECT_CID = "PROJECT_CID"
 
 class OfficialListFragment : BaseFragment() {
 
@@ -96,4 +96,5 @@ class OfficialListFragment : BaseFragment() {
                 }
             }
     }
+
 }

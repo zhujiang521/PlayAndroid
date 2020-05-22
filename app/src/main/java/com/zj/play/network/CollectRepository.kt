@@ -55,5 +55,7 @@ object CollectRepository {
         }
     }
 
+    suspend fun cancelCollects(id: Int) = PlayAndroidNetwork.cancelCollect(id)
+    suspend fun toCollects(id: Int) = PlayAndroidNetwork.toCollect(id)
 
 }
