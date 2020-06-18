@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".view.profile.user.UserActivity"
     android:background="@color/colorPrimary">
@@ -10,7 +11,9 @@
     <com.zj.core.util.TitleBar
         android:id="@+id/userTitleBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:titleName="关于我"
+        app:backImageVisiable="true"/>
 
     <com.zj.core.view.RoundImageView
         android:layout_width="@dimen/dp_70"

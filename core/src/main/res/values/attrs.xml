@@ -139,4 +139,9 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="TitleBar">
+        <attr name="titleName" format="string" />
+        <attr name="backImageVisiable" format="boolean" />
+    </declare-styleable>
+
 </resources>

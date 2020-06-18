@@ -14,9 +14,7 @@ class UserActivity : BaseActivity() {
 
     override fun initData() {}
 
-    override fun initView() {
-        userTitleBar.setTitle("关于我")
-    }
+    override fun initView() {}
 
     companion object {
         fun actionStart(context: Context) {

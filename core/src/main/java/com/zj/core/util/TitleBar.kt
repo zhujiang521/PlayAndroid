@@ -24,6 +24,14 @@ class TitleBar @JvmOverloads constructor(
     private lateinit var mImgBack: ImageView
     private lateinit var mImgRight: ImageView
     private lateinit var mTxtRight: TextView
+    private var titleName: String? = null
+    private var backImageVisiable: Boolean? = null
+
+    init {
+        val attr = context.obtainStyledAttributes(attrs, R.styleable.TitleBar)
+        titleName = attr.getString(R.styleable.TitleBar_titleName)
+        backImageVisiable = attr.getBoolean(R.styleable.TitleBar_backImageVisiable,true)
+    }
 
     /**
      * 初始化布局
@@ -41,6 +49,12 @@ class TitleBar @JvmOverloads constructor(
         //右边文字
         mTxtRight = findViewById(R.id.txtRight)
         mImgBack.setOnClickListener(this)
+        if (titleName != null) {
+            mTitleTv.text = titleName
+        }
+        if (backImageVisiable !=null){
+            setBackImageVisiable(backImageVisiable!!)
+        }
     }
 
     /**

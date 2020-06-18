@@ -34,6 +34,8 @@
                 android:background="@drawable/edit_gray_radus"
                 android:hint="请输入关键字"
                 android:paddingStart="@dimen/dp_5"
+                android:singleLine="true"
+                android:maxLines="1"
                 android:textColorHint="@color/gray"
                 android:textColor="@color/white"
                 android:textSize="@dimen/dp_16" />
