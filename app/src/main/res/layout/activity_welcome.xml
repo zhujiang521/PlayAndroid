@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/rlWelcomeBg"
-    android:background="@color/calader_grendin"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:background="@drawable/img_welcome"
     tools:ignore="MissingDefaultResource" />

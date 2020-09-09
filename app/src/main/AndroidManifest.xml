@@ -40,6 +40,7 @@
         <activity android:name=".view.main.MainActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize"/>
         <activity android:name=".WelcomeActivity"
+            android:theme="@style/AppTheme.NoActionBars"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_welcome.*
 class WelcomeActivity : BaseActivity(),
     View.OnClickListener {
     private var exitTime: Long = 0
-    private var animationTime: Long = 50
+    private var animationTime: Long = 500
 
     override fun getLayoutId(): Int {
         return R.layout.activity_welcome

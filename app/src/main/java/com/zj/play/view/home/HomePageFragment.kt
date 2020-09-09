@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.youth.banner.indicator.CircleIndicator
 import com.zj.core.view.BaseFragment
 import com.zj.play.R
-import com.zj.play.network.Repository
 import com.zj.play.view.article.ArticleAdapter
 import com.zj.play.view.home.search.SearchActivity
 import com.zj.play.view.main.MainActivity
@@ -15,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_home_page.*
 import kotlin.system.measureTimeMillis
 
 
-class HomePageFragment : BaseFragment(){
+class HomePageFragment : BaseFragment() {
 
     private val viewModel by lazy { ViewModelProvider(this).get(HomePageViewModel::class.java) }
 
