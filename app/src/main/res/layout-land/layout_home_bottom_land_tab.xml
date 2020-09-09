@@ -1,31 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:ignore="MissingDefaultResource">
 
     <FrameLayout
         android:id="@+id/flHomeFragment"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical" >
-
-    </FrameLayout>
+        android:layout_height="match_parent" />
 
     <com.cpacm.FloatingMusicMenu
         android:id="@+id/fabMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="16dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         app:fmm_button_interval="2dp"
-        app:fmm_cover="@android:drawable/ic_menu_view"
-        app:fmm_floating_direction="up"
+        app:fmm_cover="@drawable/ic_nav_news_actived"
+        app:fmm_floating_direction="left"
+        app:fmm_backgroundTint="@color/rb_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -33,9 +30,10 @@
             android:id="@+id/fabHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:src="@mipmap/ic_nav_home_white"
+            android:src="@drawable/ic_nav_news_normal"
+            app:backgroundTint="@color/rb_gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -43,9 +41,10 @@
             android:id="@+id/fabRepo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:src="@mipmap/ic_nav_task_white"
+            android:src="@drawable/ic_nav_tweet_normal"
+            app:backgroundTint="@color/rb_gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -53,9 +52,10 @@
             android:id="@+id/fabProject"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:src="@mipmap/ic_nav_mine_white"
+            android:src="@drawable/ic_nav_discover_normal"
+            app:backgroundTint="@color/rb_gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -63,12 +63,13 @@
             android:id="@+id/fabProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:src="@mipmap/ic_nav_mine_white"
+            android:src="@drawable/ic_nav_my_normal"
+            app:backgroundTint="@color/rb_gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
     </com.cpacm.FloatingMusicMenu>
 
-</LinearLayout>
+</FrameLayout>

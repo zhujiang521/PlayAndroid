@@ -21,22 +21,24 @@ class HomeBottomTabWidget @JvmOverloads constructor(
     private var textViews: ArrayList<TextView>? = null
     private var mFragments: java.util.ArrayList<Fragment>? = null
     private var mLastFgIndex = 0
+    private lateinit var mViewModel: MainViewModel
 
     /**
      * 外部调用初始化，传入必要的参数
      *
      * @param fm
      */
-    fun init(fm: FragmentManager?) {
+    fun init(fm: FragmentManager?, viewModel: MainViewModel) {
         mFragmentManager = fm
+        mViewModel = viewModel
         if (mFragments == null) {
             mFragments = arrayListOf()
             mFragments?.add(getCurrentFragment(0)!!)
             mFragments?.add(getCurrentFragment(1)!!)
             mFragments?.add(getCurrentFragment(2)!!)
             mFragments?.add(getCurrentFragment(3)!!)
-            fragmentManger(0)
         }
+        fragmentManger(viewModel.getPage() ?: 0)
     }
 
     /**
@@ -46,10 +48,10 @@ class HomeBottomTabWidget @JvmOverloads constructor(
      */
     private fun initView(view: View) { //默认第一个碎片
         textViews = arrayListOf(
-            view.findViewById(R.id.llHomeATHome)
-            , view.findViewById(R.id.llHomeATCalendar)
-            , view.findViewById(R.id.llHomeATObject)
-            , view.findViewById(R.id.llHomeATMy)
+            view.findViewById(R.id.llHomeATHome),
+            view.findViewById(R.id.llHomeATCalendar),
+            view.findViewById(R.id.llHomeATObject),
+            view.findViewById(R.id.llHomeATMy)
         )
         for (textView in textViews!!) {
             textView.setOnClickListener(this)
@@ -92,6 +94,7 @@ class HomeBottomTabWidget @JvmOverloads constructor(
      * @param position 序号
      */
     private fun fragmentManger(position: Int) {
+        mViewModel.setPage(position)
         for (j in textViews!!.indices) {
             textViews!![j].isSelected = position == j
         }

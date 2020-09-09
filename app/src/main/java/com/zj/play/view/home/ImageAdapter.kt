@@ -36,7 +36,7 @@ open class ImageAdapter(private val mContext: Context, mData: List<BannerBean>) 
         return BannerViewHolder(imageView)
     }
 
-    inner class BannerViewHolder(view: ImageView) :
+    class BannerViewHolder(view: ImageView) :
         RecyclerView.ViewHolder(view) {
         var imageView: ImageView = view
     }

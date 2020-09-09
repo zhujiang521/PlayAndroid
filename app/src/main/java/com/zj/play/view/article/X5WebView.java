@@ -4,17 +4,12 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
@@ -33,10 +28,7 @@ import java.util.List;
 
 public class X5WebView extends WebView {
 
-    private static final int MAX_LENGTH = 8;
-
-    ProgressBar progressBar;
-    private List<String> newList;
+    private ProgressBar progressBar;
 
 
     public X5WebView(Context context) {
@@ -65,7 +57,7 @@ public class X5WebView extends WebView {
 
     private void initUI() {
 
-        getX5WebViewExtension().setScrollBarFadingEnabled(false);
+        //getX5WebViewExtension().setScrollBarFadingEnabled(false);
         setHorizontalScrollBarEnabled(false);//水平不显示小方块
         setVerticalScrollBarEnabled(false); //垂直不显示小方块
 
@@ -95,12 +87,7 @@ public class X5WebView extends WebView {
         setWebChromeClient(chromeClient);
         setDownloadListener(downloadListener);
         setClickable(true);
-        setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return false;
-            }
-        });
+        setOnTouchListener((v, event) -> false);
         WebSettings webSetting = getSettings();
         webSetting.setJavaScriptEnabled(true);
         webSetting.setBuiltInZoomControls(true);
@@ -171,11 +158,7 @@ public class X5WebView extends WebView {
             cookieManager.setAcceptCookie(true);
             String endCookie = cookieManager.getCookie(url);
             Log.i("TAG", "onPageFinished: endCookie : " + endCookie);
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                CookieSyncManager.getInstance().sync();//同步cookie
-            } else {
-                CookieManager.getInstance().flush();
-            }
+            CookieManager.getInstance().flush();
             super.onPageFinished(webView, url);
         }
 
@@ -210,7 +193,7 @@ public class X5WebView extends WebView {
 //            Log.i(TAG, "onLoadResource: onLoadResource : " + reUrl);
             List<String> urlList = new ArrayList<>();
             urlList.add(reUrl);
-            newList = new ArrayList();
+            List<String> newList = new ArrayList();
             for (String cd : urlList) {
                 if (!newList.contains(cd)) {
                     newList.add(cd);
@@ -239,13 +222,7 @@ public class X5WebView extends WebView {
             String newCookie = cookieManager.getCookie(url);
             Log.i("TAG", "syncCookie: newCookie == " + newCookie);
             //sdk21之后CookieSyncManager被抛弃了，换成了CookieManager来进行管理。
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                CookieSyncManager.getInstance().sync();//同步cookie
-            } else {
-                CookieManager.getInstance().flush();
-            }
-        } else {
-
+            CookieManager.getInstance().flush();
         }
 
     }
@@ -257,11 +234,7 @@ public class X5WebView extends WebView {
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.removeSessionCookie();
         cookieManager.removeAllCookie();
-        if (Build.VERSION.SDK_INT < 21) {
-            CookieSyncManager.getInstance().sync();
-        } else {
-            CookieManager.getInstance().flush();
-        }
+        CookieManager.getInstance().flush();
 
     }
 
@@ -279,12 +252,9 @@ public class X5WebView extends WebView {
         return domain;
     }
 
-    DownloadListener downloadListener = new DownloadListener() {
-        @Override
-        public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
-            Uri uri = Uri.parse(url);
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            getContext().startActivity(intent);
-        }
+    DownloadListener downloadListener = (url, userAgent, contentDisposition, mimetype, contentLength) -> {
+        Uri uri = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        getContext().startActivity(intent);
     };
 }

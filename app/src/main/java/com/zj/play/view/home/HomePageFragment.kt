@@ -10,6 +10,7 @@ import com.zj.play.R
 import com.zj.play.network.Repository
 import com.zj.play.view.article.ArticleAdapter
 import com.zj.play.view.home.search.SearchActivity
+import com.zj.play.view.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_home_page.*
 import kotlin.system.measureTimeMillis
 
@@ -28,21 +29,24 @@ class HomePageFragment : BaseFragment(){
     }
 
     private lateinit var bannerAdapter: ImageAdapter
+    private lateinit var bannerAdapter2: ImageAdapter
     private lateinit var articleAdapter: ArticleAdapter
     private var page = 1
 
     override fun initView() {
-        homeTitleBar.setTitle("首页")
         homeTitleBar.setRightText("搜索")
-        homeTitleBar.setBackImageVisiable(false)
         homeTitleBar.setRightTextOnClickListener(View.OnClickListener {
             SearchActivity.actionStart(
                 context!!
             )
         })
         bannerAdapter = ImageAdapter(context!!, viewModel.bannerList)
+        bannerAdapter2 = ImageAdapter(context!!, viewModel.bannerList2)
         homeBanner.adapter = bannerAdapter
         homeBanner.setIndicator(CircleIndicator(context))
+            .start()
+        homeBanner2.adapter = bannerAdapter2
+        homeBanner2.setIndicator(CircleIndicator(context))
             .start()
         homeRecycleView.layoutManager = LinearLayoutManager(context)
         articleAdapter = ArticleAdapter(
@@ -94,21 +98,34 @@ class HomePageFragment : BaseFragment(){
     }
 
     private fun initBanner() {
-        Repository.getBanner().observe(this, Observer {
+        viewModel.bannerLists.observe(this, Observer {
             val bannerList = it.getOrNull()
             if (bannerList != null) {
+                val main = activity as MainActivity
                 if (viewModel.bannerList.size > 0)
                     viewModel.bannerList.clear()
-                viewModel.bannerList.addAll(bannerList)
+                if (viewModel.bannerList2.size > 0)
+                    viewModel.bannerList2.clear()
+                if (main.isPort) {
+                    viewModel.bannerList.addAll(bannerList)
+                } else {
+                    for (index in bannerList.indices) {
+                        if (index / 2 == 0) {
+                            viewModel.bannerList.add(bannerList[index])
+                        } else {
+                            viewModel.bannerList2.add(bannerList[index])
+                        }
+                    }
+                }
                 bannerAdapter.notifyDataSetChanged()
+                bannerAdapter2.notifyDataSetChanged()
             }
         })
     }
 
     private fun getArticleList() {
-        startLoading()
         viewModel.getArticleList(page)
-        if (page == 1) initBanner()
+        //if (page == 1) initBanner()
     }
 
     override fun onPause() {

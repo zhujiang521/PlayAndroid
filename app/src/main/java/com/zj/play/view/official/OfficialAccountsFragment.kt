@@ -9,10 +9,12 @@ import com.zj.core.view.FragmentAdapter
 import com.zj.play.R
 import com.zj.play.network.Repository
 import com.zj.play.view.official.list.OfficialListFragment
+import com.zj.play.view.project.ProjectViewModel
 import kotlinx.android.synthetic.main.fragment_official_accounts.*
 
 class OfficialAccountsFragment : BaseFragment() {
 
+    private val viewModel by lazy { ViewModelProvider(this).get(OfficialViewModel::class.java) }
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_official_accounts
@@ -28,7 +30,7 @@ class OfficialAccountsFragment : BaseFragment() {
 
     override fun initData() {
         startLoading()
-        Repository.getOfficialTree().observe(this, Observer {
+        viewModel.officialTreeLiveData.observe(this, Observer {
             if (it.isSuccess) {
                 loadFinished()
                 val projectTree = it.getOrNull()

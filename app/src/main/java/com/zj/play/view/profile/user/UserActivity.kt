@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import com.zj.core.view.BaseActivity
 import com.zj.play.R
-import kotlinx.android.synthetic.main.activity_user_info.*
 
 class UserActivity : BaseActivity() {
 

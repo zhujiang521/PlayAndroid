@@ -21,23 +21,33 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <com.youth.banner.Banner
-                android:id="@+id/homeBanner"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_180" />
+            <LinearLayout
+                android:layout_width="@dimen/dp_300"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <com.youth.banner.Banner
-                android:id="@+id/homeBanner2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
+                <com.youth.banner.Banner
+                    android:id="@+id/homeBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <com.youth.banner.Banner
+                    android:id="@+id/homeBanner2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
 
             <com.scwang.smartrefresh.layout.SmartRefreshLayout
                 android:id="@+id/homeSmartRefreshLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/homeRecycleView"

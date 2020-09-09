@@ -1,6 +1,7 @@
 package com.zj.play.view.main
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
@@ -23,22 +24,24 @@ class HomeBottomLandTabWidget @JvmOverloads constructor(
     private var mFragments: java.util.ArrayList<Fragment>? = null
     private var fabMenu: FloatingMusicMenu? = null
     private var mLastFgIndex = 0
+    private lateinit var mViewModel: MainViewModel
 
     /**
      * 外部调用初始化，传入必要的参数
      *
      * @param fm
      */
-    fun init(fm: FragmentManager?) {
+    fun init(fm: FragmentManager?, viewModel: MainViewModel) {
         mFragmentManager = fm
+        mViewModel = viewModel
         if (mFragments == null) {
             mFragments = arrayListOf()
             mFragments?.add(getCurrentFragment(0)!!)
             mFragments?.add(getCurrentFragment(1)!!)
             mFragments?.add(getCurrentFragment(2)!!)
             mFragments?.add(getCurrentFragment(3)!!)
-            fragmentManger(0)
         }
+        fragmentManger(viewModel.getPage() ?: 0)
     }
 
     /**
@@ -48,10 +51,10 @@ class HomeBottomLandTabWidget @JvmOverloads constructor(
      */
     private fun initView(view: View) { //默认第一个碎片
         floatingButtons = arrayListOf(
-            view.findViewById(R.id.fabHome)
-            , view.findViewById(R.id.fabRepo)
-            , view.findViewById(R.id.fabProject)
-            , view.findViewById(R.id.fabProfile)
+            view.findViewById(R.id.fabHome),
+            view.findViewById(R.id.fabRepo),
+            view.findViewById(R.id.fabProject),
+            view.findViewById(R.id.fabProfile)
         )
         fabMenu = view.findViewById(R.id.fabMenu)
         for (textView in floatingButtons!!) {
@@ -82,10 +85,18 @@ class HomeBottomLandTabWidget @JvmOverloads constructor(
      */
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.llHomeATHome -> fragmentManger(0)
-            R.id.llHomeATCalendar -> fragmentManger(1)
-            R.id.llHomeATObject -> fragmentManger(2)
-            R.id.llHomeATMy -> fragmentManger(3)
+            R.id.fabHome -> {
+                fragmentManger(0)
+            }
+            R.id.fabRepo -> {
+                fragmentManger(1)
+            }
+            R.id.fabProject -> {
+                fragmentManger(2)
+            }
+            R.id.fabProfile -> {
+                fragmentManger(3)
+            }
         }
     }
 
@@ -95,6 +106,19 @@ class HomeBottomLandTabWidget @JvmOverloads constructor(
      * @param position 序号
      */
     private fun fragmentManger(position: Int) {
+        mViewModel.setPage(position)
+        fabMenu?.setMusicCover(
+            BitmapFactory.decodeResource(
+                context.resources,
+                when(position){
+                    0 -> R.drawable.ic_nav_news_actived
+                    1 -> R.drawable.ic_nav_tweet_actived
+                    2 -> R.drawable.ic_nav_discover_actived
+                    3 -> R.drawable.ic_nav_my_pressed
+                    else -> R.drawable.ic_nav_news_actived
+                }
+            )
+        )
         if (fabMenu != null && fabMenu!!.isExpanded)
             fabMenu!!.toggle()
         for (j in floatingButtons!!.indices) {

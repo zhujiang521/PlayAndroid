@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:id="@+id/flHomeFragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"/>
+
+    <View
+        android:layout_width="@dimen/dp_0_1"
+        android:layout_height="match_parent"
+        android:background="@color/text_color" />
+
+    <LinearLayout
+        android:layout_width="@dimen/dp_55"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/llHomeATHome"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/selector_one"
+            android:drawablePadding="@dimen/dp_3"
+            android:gravity="center"
+            android:text="首页"
+            android:textColor="@color/color_bottom_tv"
+            android:textSize="@dimen/sp_11" />
+
+
+        <TextView
+            android:id="@+id/llHomeATCalendar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/selector_two"
+            android:drawablePadding="@dimen/dp_3"
+            android:gravity="center"
+            android:text="项目"
+            android:textColor="@color/color_bottom_tv"
+            android:textSize="@dimen/sp_11" />
+
+        <TextView
+            android:id="@+id/llHomeATObject"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/selector_three"
+            android:drawablePadding="@dimen/dp_3"
+            android:gravity="center"
+            android:text="公众号"
+            android:textColor="@color/color_bottom_tv"
+            android:textSize="@dimen/sp_11" />
+
+        <TextView
+            android:id="@+id/llHomeATMy"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/selector_four"
+            android:drawablePadding="@dimen/dp_3"
+            android:gravity="center"
+            android:text="我的"
+            android:textColor="@color/color_bottom_tv"
+            android:textSize="@dimen/sp_11" />
+
+    </LinearLayout>
+
+</LinearLayout>

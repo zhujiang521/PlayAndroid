@@ -19,11 +19,15 @@ class HomePageViewModel : ViewModel() {
 
     val bannerList = ArrayList<BannerBean>()
 
+    val bannerList2 = ArrayList<BannerBean>()
+
     val articleList = ArrayList<Article>()
 
     val articleLiveData = Transformations.switchMap(pageLiveData) { page ->
         Repository.getArticleList(page)
     }
+
+    val bannerLists =  Repository.getBanner()
 
     fun getArticleList(page: Int) {
         pageLiveData.value = page
