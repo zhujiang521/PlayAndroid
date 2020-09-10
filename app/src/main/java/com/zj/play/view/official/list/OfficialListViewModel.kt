@@ -1,10 +1,11 @@
 package com.zj.play.view.official.list
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.zj.play.model.Article
-import com.zj.play.network.Repository
+import com.zj.play.view.official.OfficialRepository
 import com.zj.play.view.project.list.QueryArticle
 
 /**
@@ -15,14 +16,14 @@ import com.zj.play.view.project.list.QueryArticle
  * 描述：PlayAndroid
  *
  */
-class OfficialListViewModel : ViewModel() {
+class OfficialListViewModel(context: Context) : ViewModel() {
 
     val articleList = ArrayList<Article>()
 
     private val pageLiveData = MutableLiveData<QueryArticle>()
 
     val articleLiveData = Transformations.switchMap(pageLiveData) { query ->
-        Repository.getWxArticle(query.page, query.cid)
+        OfficialRepository(context).getWxArticle(query.page, query.cid)
     }
 
     fun getArticleList(page: Int, cid: Int) {

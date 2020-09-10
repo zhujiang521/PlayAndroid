@@ -7,12 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.zj.core.util.showToast
 import com.zj.core.view.BaseActivity
 import com.zj.play.R
-import com.zj.play.network.Repository
 import com.zj.play.view.home.search.article.ArticleListActivity
 import kotlinx.android.synthetic.main.activity_search.*
 
@@ -25,7 +22,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
     private val list = arrayListOf<String>()
 
     override fun initData() {
-        Repository.getHotKey().observe(this, Observer {
+        SearchRepository.getHotKey().observe(this, {
             if (it.isSuccess) {
                 loadFinished()
                 val hoeKey = it.getOrNull()
@@ -38,7 +35,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
                     showLoadErrorView()
                 }
             } else {
-                showBadNetworkView(View.OnClickListener { initData() })
+                showBadNetworkView { initData() }
             }
         })
     }

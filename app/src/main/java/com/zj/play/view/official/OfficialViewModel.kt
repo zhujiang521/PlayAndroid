@@ -1,11 +1,7 @@
 package com.zj.play.view.official
 
 import android.content.Context
-import androidx.lifecycle.*
-import com.zj.play.model.BannerBean
-import com.zj.play.model.Article
-import com.zj.play.network.Repository
-import com.zj.play.room.PlayDatabase
+import androidx.lifecycle.ViewModel
 
 /**
  * 版权：渤海新能 版权所有
@@ -18,5 +14,5 @@ import com.zj.play.room.PlayDatabase
 class OfficialViewModel(context: Context) : ViewModel() {
 
     val officialTreeLiveData =
-        OfficialRepository(PlayDatabase.getDatabase(context).projectClassifyDao()).getProjectTree()
+        OfficialRepository(context).getProjectTree()
 }

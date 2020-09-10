@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.core.view.BaseActivity
 import com.zj.play.R
-import com.zj.play.view.rank.list.RankActivity
 import kotlinx.android.synthetic.main.activity_user_rank.*
 import kotlin.system.measureTimeMillis
 

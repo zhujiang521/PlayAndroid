@@ -2,15 +2,11 @@ package com.zj.play.view.official
 
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.zj.core.view.BaseFragment
 import com.zj.core.view.FragmentAdapter
 import com.zj.play.R
-import com.zj.play.network.Repository
 import com.zj.play.view.official.list.OfficialListFragment
-import com.zj.play.view.project.ProjectViewModel
-import com.zj.play.view.project.ProjectViewModelFactory
 import kotlinx.android.synthetic.main.fragment_official_accounts.*
 
 class OfficialAccountsFragment : BaseFragment() {

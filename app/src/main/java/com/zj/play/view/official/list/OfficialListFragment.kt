@@ -1,8 +1,6 @@
 package com.zj.play.view.official.list
 
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +14,7 @@ const val PROJECT_CID = "PROJECT_CID"
 
 class OfficialListFragment : BaseFragment() {
 
-    private val viewModel by lazy { ViewModelProvider(this).get(OfficialListViewModel::class.java) }
+    private lateinit var viewModel: OfficialListViewModel
 
     private var projectCid: Int? = null
     private lateinit var articleAdapter: ArticleAdapter
@@ -34,6 +32,8 @@ class OfficialListFragment : BaseFragment() {
     }
 
     override fun initView() {
+        viewModel = ViewModelProvider(this, OfficialListViewModelFactory(context!!))
+            .get(OfficialListViewModel::class.java)
         offListRecycleView.layoutManager = LinearLayoutManager(context)
         articleAdapter = ArticleAdapter(
             context!!,
@@ -80,9 +80,7 @@ class OfficialListFragment : BaseFragment() {
                     showLoadErrorView()
                 }
             } else {
-                showBadNetworkView(View.OnClickListener {
-                    getArticleList()
-                })
+                showBadNetworkView { getArticleList() }
             }
         })
         getArticleList()

@@ -15,7 +15,7 @@ private const val PROJECT_CID = "PROJECT_CID"
 
 class ProjectListFragment : BaseFragment() {
 
-    private val viewModel by lazy { ViewModelProvider(this).get(ProjectListViewModel::class.java) }
+    private lateinit var viewModel: ProjectListViewModel
 
     private var projectCid: Int? = null
     private lateinit var articleAdapter: ArticleAdapter
@@ -33,6 +33,8 @@ class ProjectListFragment : BaseFragment() {
     }
 
     override fun initView() {
+        viewModel = ViewModelProvider(this, ProjectListViewModelFactory(context!!))
+            .get(ProjectListViewModel::class.java)
         proListRecycleView.layoutManager = LinearLayoutManager(context)
         articleAdapter = ArticleAdapter(
             context!!,

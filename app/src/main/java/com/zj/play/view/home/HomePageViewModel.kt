@@ -1,10 +1,10 @@
 package com.zj.play.view.home
 
-import android.util.Log
-import androidx.lifecycle.*
-import com.zj.play.model.BannerBean
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
 import com.zj.play.model.Article
-import com.zj.play.network.Repository
+import com.zj.play.model.BannerBean
 
 /**
  * 版权：渤海新能 版权所有
@@ -25,10 +25,10 @@ class HomePageViewModel : ViewModel() {
     val articleList = ArrayList<Article>()
 
     val articleLiveData = Transformations.switchMap(pageLiveData) { page ->
-        Repository.getArticleList(page)
+        HomeRepository.getArticleList(page)
     }
 
-    val bannerLists =  Repository.getBanner()
+    val bannerLists =  HomeRepository.getBanner()
 
     fun getArticleList(page: Int) {
         pageLiveData.value = page

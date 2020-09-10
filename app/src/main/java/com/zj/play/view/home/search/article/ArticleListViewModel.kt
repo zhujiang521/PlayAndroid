@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.zj.play.model.Article
-import com.zj.play.network.Repository
+import com.zj.play.view.home.search.SearchRepository
 
 /**
  * 版权：渤海新能 版权所有
@@ -21,7 +21,7 @@ class ArticleListViewModel : ViewModel() {
     private val pageLiveData = MutableLiveData<QueryKeyArticle>()
 
     val articleLiveData = Transformations.switchMap(pageLiveData) { query ->
-        Repository.getQueryArticleList(query.page, query.k)
+        SearchRepository.getQueryArticleList(query.page, query.k)
     }
 
     fun getArticleList(page: Int, k: String) {
