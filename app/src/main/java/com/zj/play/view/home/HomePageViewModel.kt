@@ -28,8 +28,6 @@ class HomePageViewModel : ViewModel() {
         HomeRepository.getArticleList(page)
     }
 
-    val bannerLists =  HomeRepository.getBanner()
-
     fun getArticleList(page: Int) {
         pageLiveData.value = page
     }

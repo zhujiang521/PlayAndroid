@@ -3,18 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/loading" />
+    <include layout="@layout/loading"
+        android:visibility="gone"/>
 
-    <ViewStub
+    <include
         android:id="@+id/badNetworkView"
+        layout="@layout/bad_network_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout="@layout/bad_network_view" />
+        android:visibility="gone"/>
 
-    <ViewStub
+    <include
         android:id="@+id/loadErrorView"
+        layout="@layout/load_error_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout="@layout/load_error_view" />
+        android:visibility="gone"/>
 
 </FrameLayout>

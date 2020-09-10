@@ -36,39 +36,6 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
         pageUrl = intent.getStringExtra(PAGE_URL) ?: ""
         articleTxtTitle.text = Html.fromHtml(pageName)
         articleWebView.loadUrl(pageUrl)
-        //initWebView()
-    }
-
-    private fun initWebView() {
-        //防止用浏览器打开网页
-        articleWebView.webViewClient = WebViewClient()
-        val webSettings: WebSettings = articleWebView.settings
-        //支持缩放，默认为true。
-        webSettings.setSupportZoom(false)
-        //调整图片至适合webview的大小
-        webSettings.useWideViewPort = true
-        // 缩放至屏幕的大小
-        webSettings.loadWithOverviewMode = true
-        //设置默认编码
-        webSettings.defaultTextEncodingName = "utf-8"
-        //设置自动加载图片
-        webSettings.loadsImagesAutomatically = true
-        //多窗口
-        webSettings.supportMultipleWindows();
-        //获取触摸焦点
-        articleWebView.requestFocusFromTouch();
-        //允许访问文件
-        webSettings.allowFileAccess = true;
-        //开启javascript
-        webSettings.javaScriptEnabled = true;
-        //支持通过JS打开新窗口
-        webSettings.javaScriptCanOpenWindowsAutomatically = true;
-        //提高渲染的优先级
-        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
-        //支持内容重新布局
-        webSettings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN;
-        //关闭webview中缓存
-        webSettings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK;
     }
 
     override fun initView() {

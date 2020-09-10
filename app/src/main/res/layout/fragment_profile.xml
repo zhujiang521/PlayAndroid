@@ -83,4 +83,8 @@
         android:textColor="@color/white"
         android:textSize="@dimen/dp_14" />
 
+    <include
+        layout="@layout/layout_lce"
+        android:visibility="gone"/>
+
 </LinearLayout>
