@@ -19,6 +19,7 @@
             android:layout_centerVertical="true"
             android:paddingTop="@dimen/dp_8"
             android:paddingBottom="@dimen/dp_8"
+            android:backgroundTint="@color/white"
             android:src="@drawable/img_back" />
 
         <ImageView
@@ -28,6 +29,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:paddingHorizontal="@dimen/dp_8"
+            android:backgroundTint="@color/white"
             android:visibility="gone" />
 
         <TextView
@@ -36,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="玩安卓"
-            android:textColor="@color/white"
+            android:textColor="@color/color_FFFFFF"
             android:textSize="@dimen/sp_18" />
 
         <TextView
@@ -47,7 +49,7 @@
             android:layout_centerVertical="true"
             android:gravity="center"
             android:padding="@dimen/dp_8"
-            android:textColor="@color/white"
+            android:textColor="@color/color_FFFFFF"
             android:textSize="@dimen/sp_16"
             android:visibility="gone"
             tools:ignore="RtlSymmetry" />

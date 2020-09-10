@@ -84,8 +84,9 @@
                     android:layout_marginRight="@dimen/dp_35"
                     android:layout_marginBottom="@dimen/dp_20"
                     android:background="@drawable/phone_login_button_bg"
+                    android:backgroundTint="@color/gray"
                     android:text="登录"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/dp_16" />
 
             </LinearLayout>

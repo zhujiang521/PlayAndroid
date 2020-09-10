@@ -17,6 +17,7 @@
             android:layout_width="@dimen/dp_40"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
+            android:backgroundTint="@color/white"
             android:paddingTop="@dimen/dp_14"
             android:paddingBottom="@dimen/dp_14"
             android:src="@drawable/img_back" />
@@ -27,6 +28,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:backgroundTint="@color/white"
             android:paddingTop="@dimen/dp_14"
             android:paddingBottom="@dimen/dp_14"
             android:visibility="gone" />
@@ -47,9 +49,9 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:paddingEnd="@dimen/dp_7"
             android:paddingStart="@dimen/dp_7"
             android:paddingTop="@dimen/dp_14"
+            android:paddingEnd="@dimen/dp_7"
             android:paddingBottom="@dimen/dp_14"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_16"
