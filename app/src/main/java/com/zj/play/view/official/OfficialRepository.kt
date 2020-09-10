@@ -1,4 +1,4 @@
-package com.zj.play.view.project
+package com.zj.play.view.official
 
 import android.util.Log
 import com.zj.play.network.PlayAndroidNetwork
@@ -13,17 +13,27 @@ import com.zj.play.room.dao.ProjectClassifyDao
  * 描述：PlayAndroid
  *
  */
-class ProjectRepository(private val projectClassifyDao: ProjectClassifyDao) {
+class OfficialRepository(private val projectClassifyDao: ProjectClassifyDao) {
+
+    fun getOfficialTree() = fire {
+        val projectTree = PlayAndroidNetwork.getWxArticleTree()
+        if (projectTree.errorCode == 0) {
+            val bannerList = projectTree.data
+            Result.success(bannerList)
+        } else {
+            Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
+        }
+    }
 
     /**
-     * 获取项目标题列表
+     * 获取公众号标题列表
      */
     fun getProjectTree() = fire {
-        val projectClassifyLists = projectClassifyDao.getAllProject()
+        val projectClassifyLists = projectClassifyDao.getAllOfficial()
         if (projectClassifyLists.isNotEmpty()) {
             Result.success(projectClassifyLists)
         } else {
-            val projectTree = PlayAndroidNetwork.getProjectTree()
+            val projectTree = PlayAndroidNetwork.getWxArticleTree()
             if (projectTree.errorCode == 0) {
                 val projectList = projectTree.data
                 projectClassifyDao.insertList(projectList)

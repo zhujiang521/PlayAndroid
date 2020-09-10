@@ -101,17 +101,6 @@ object Repository {
         }
     }
 
-    fun getOfficialTree() = fire {
-        val projectTree = PlayAndroidNetwork.getWxArticleTree()
-        if (projectTree.errorCode == 0) {
-            val bannerList = projectTree.data
-            Result.success(bannerList)
-        } else {
-            Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
-        }
-    }
-
-
     fun getWxArticle(page: Int, cid: Int) = fire {
         val projectTree = PlayAndroidNetwork.getWxArticle(page, cid)
         if (projectTree.errorCode == 0) {

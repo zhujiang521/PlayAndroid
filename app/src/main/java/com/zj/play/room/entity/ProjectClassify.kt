@@ -19,7 +19,7 @@ data class ProjectClassify(
     @ColumnInfo(name = "course_id") val courseId: Int,
     @ColumnInfo(name = "id") val id: Int,
     @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "order") val order: Int,
+    @ColumnInfo(name = "order_classify") val order: Int,
     @ColumnInfo(name = "parent_chapter_id") val parentChapterId: Int,
     @ColumnInfo(name = "user_control_set_top") val userControlSetTop: Boolean,
     @ColumnInfo(name = "visible") val visible: Int
