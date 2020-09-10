@@ -2,6 +2,7 @@ package com.zj.play.view.article
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.PixelFormat
 import android.text.Html
@@ -114,7 +115,11 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
             null
         )
         val bottomDialogRv = dialogView.findViewById<RecyclerView>(R.id.bottomDialogRv)
-        bottomDialogRv.layoutManager = GridLayoutManager(this, 4)
+        if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            bottomDialogRv.layoutManager = GridLayoutManager(this, 4)
+        }else{
+            bottomDialogRv.layoutManager = GridLayoutManager(this, 5)
+        }
         bottomDialogRv.adapter =
             BottomDialogAdapter(
                 this,

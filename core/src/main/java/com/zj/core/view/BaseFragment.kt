@@ -1,6 +1,7 @@
 package com.zj.core.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,6 +51,7 @@ abstract class BaseFragment : Fragment(), RequestLifecycle {
     ): View? {
         val view = inflater.inflate(getLayoutId(), container, false)
         onCreateView(view)
+        Log.e("ZHUJIANG", "onCreateView: ")
         // Inflate  the layout for this fragment
         return view
     }
@@ -82,6 +84,7 @@ abstract class BaseFragment : Fragment(), RequestLifecycle {
         super.onActivityCreated(savedInstanceState)
         initView()
         initData()
+        Log.e("ZHUJIANG", "onActivityCreated: ")
     }
 
     abstract fun initView()

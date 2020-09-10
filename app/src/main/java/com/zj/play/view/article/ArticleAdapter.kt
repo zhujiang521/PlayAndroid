@@ -103,4 +103,8 @@ class ArticleAdapter(context: Context, layoutId: Int, articleList: ArrayList<Art
         }
     }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
 }

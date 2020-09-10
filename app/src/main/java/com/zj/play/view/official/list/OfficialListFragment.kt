@@ -1,6 +1,7 @@
 package com.zj.play.view.official.list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -59,7 +60,8 @@ class OfficialListFragment : BaseFragment() {
     }
 
     private fun getArticleList() {
-        startLoading()
+        if (viewModel.articleList.size <= 0)
+            startLoading()
         viewModel.getArticleList(page, projectCid!!)
     }
 
@@ -87,7 +89,6 @@ class OfficialListFragment : BaseFragment() {
     }
 
     companion object {
-
         @JvmStatic
         fun newInstance(cid: Int) =
             OfficialListFragment().apply {

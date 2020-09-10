@@ -10,11 +10,12 @@
     <com.zj.core.util.TitleBar
         android:id="@+id/profileTitleBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:titleName="我的"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -26,7 +27,7 @@
                 android:id="@+id/profileIvHead"
                 android:layout_width="@dimen/dp_70"
                 android:layout_height="@dimen/dp_70"
-                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/dp_110"
                 android:layout_marginStart="@dimen/dp_30"
                 android:src="@drawable/img_nomal_head" />
 
@@ -35,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_20"
-                android:layout_marginTop="@dimen/dp_58"
+                android:layout_marginTop="@dimen/dp_115"
                 android:layout_toEndOf="@id/profileIvHead"
                 android:text="Zhujiang"
                 android:textColor="@color/white"
@@ -49,7 +50,7 @@
                 android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_toEndOf="@id/profileIvHead"
-                android:text="等级 9  排名 984  积分 1020"
+                android:text="账号"
                 android:textColor="@color/white"
                 android:textSize="@dimen/dp_15" />
 
@@ -58,36 +59,42 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_15"
+            android:layout_margin="@dimen/dp_5"
             app:cardCornerRadius="@dimen/dp_5">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/dp_5">
+                android:layout_height="match_parent">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/profileRv"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dp_5">
 
-            </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/profileRv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <Button
+                        android:id="@+id/profileBtnLogout"
+                        android:layout_width="@dimen/dp_180"
+                        android:layout_height="@dimen/dp_35"
+                        android:layout_gravity="center"
+                        android:layout_marginVertical="@dimen/dp_20"
+                        android:background="@drawable/btn"
+                        android:text="退出登录"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/dp_14" />
+
+                </LinearLayout>
+
+            </ScrollView>
 
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 
-
-    <Button
-        android:id="@+id/profileBtnLogout"
-        android:layout_width="@dimen/dp_180"
-        android:layout_height="@dimen/dp_35"
-        android:layout_gravity="center"
-        android:background="@drawable/btn"
-        android:text="退出登录"
-        android:layout_marginTop="@dimen/dp_20"
-        android:textColor="@color/white"
-        android:textSize="@dimen/dp_14" />
 
 </LinearLayout>

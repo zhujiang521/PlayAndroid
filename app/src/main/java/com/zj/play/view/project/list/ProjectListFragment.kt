@@ -59,7 +59,8 @@ class ProjectListFragment : BaseFragment() {
     }
 
     private fun getArticleList() {
-        startLoading()
+        if (viewModel.articleList.size <= 0)
+            startLoading()
         viewModel.getArticleList(page, projectCid!!)
     }
 

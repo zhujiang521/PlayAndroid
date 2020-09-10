@@ -27,8 +27,7 @@
 
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-        <include
-            layout="@layout/layout_lce"/>
+        <include layout="@layout/layout_lce" />
 
     </FrameLayout>
 

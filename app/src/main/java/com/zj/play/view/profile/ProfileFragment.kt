@@ -7,7 +7,6 @@ import com.zj.core.Play
 import com.zj.core.Play.logout
 import com.zj.core.islogin.NeedLogin
 import com.zj.core.islogin.NeedLogin.SHOW_DIALOG
-import com.zj.core.util.showToast
 import com.zj.core.view.BaseFragment
 import com.zj.play.R
 import com.zj.play.network.Repository
@@ -25,7 +24,6 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
     private var profileItemList = ArrayList<ProfileItem>()
 
     override fun initView() {
-        profileTitleBar.setTitle("我的")
         profileTitleBar.setRightImage(R.drawable.ic_equalizer_black_24dp)
         profileTitleBar.setBackImageVisiable(false)
         profileTitleBar.setRightImgOnClickListener(View.OnClickListener {
@@ -42,15 +40,17 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
             profileIvHead.setImageResource(R.drawable.ic_head)
             profileTvName.text = Play.getNickName()
             profileTvRank.text = Play.getUsername()
+            profileBtnLogout.visibility = View.VISIBLE
         } else {
             clearInfo()
         }
     }
 
     private fun clearInfo() {
+        profileBtnLogout.visibility = View.GONE
         profileIvHead.setImageResource(R.drawable.img_nomal_head)
         profileTvName.text = "未登录"
-        profileTvRank.text = "请点击登陆领取"
+        profileTvRank.text = "请点击进行登录"
     }
 
     override fun initData() {
@@ -67,12 +67,8 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.profileIvHead, R.id.profileTvName, R.id.profileTvRank -> {
-                personalInformation()
-            }
-            R.id.profileBtnLogout -> {
-                setLogout()
-            }
+            R.id.profileIvHead, R.id.profileTvName, R.id.profileTvRank -> personalInformation()
+            R.id.profileBtnLogout -> setLogout()
         }
     }
 
@@ -91,9 +87,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
 
     @NeedLogin(tipType = SHOW_DIALOG, LoginActivity = LoginActivity::class)
     private fun personalInformation() {
-        if (Play.isLogin()) {
-            showToast("点击了")
-        } else {
+        if (!Play.isLogin()) {
             LoginActivity.actionStart(context!!)
         }
     }

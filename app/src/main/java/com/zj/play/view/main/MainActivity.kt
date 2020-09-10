@@ -16,10 +16,10 @@ class MainActivity : BaseActivity() {
     var isPort = true
 
     override fun initView() {
-        isPort= resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+        isPort = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
         when (isPort) {
-            true -> homeView.init(supportFragmentManager,viewModel)
-            false -> homeLandView.init(supportFragmentManager,viewModel)
+            true -> homeView.init(supportFragmentManager, viewModel)
+            false -> homeLandView.init(supportFragmentManager, viewModel)
         }
     }
 

@@ -14,13 +14,13 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_20"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorPrimary" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/projectTabLayout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_50"
-            app:tabBackground="@color/colorPrimary"
+            android:background="@color/colorPrimary"
             app:tabGravity="fill"
             app:tabIndicatorColor="@color/white"
             app:tabIndicatorFullWidth="false"
@@ -39,7 +39,6 @@
 
     </LinearLayout>
 
-    <include
-        layout="@layout/layout_lce"/>
+    <include layout="@layout/layout_lce" />
 
 </FrameLayout>

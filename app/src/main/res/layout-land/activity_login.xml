@@ -11,7 +11,7 @@
         android:layout_width="@dimen/dp_70"
         android:layout_height="@dimen/dp_70"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_150"
+        android:layout_marginTop="@dimen/dp_50"
         android:src="@drawable/logo_reverse" />
 
     <FrameLayout
@@ -56,8 +56,9 @@
 
                 <EditText
                     android:id="@+id/loginUserNumberEdit"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/dp_300"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginHorizontal="@dimen/dp_35"
                     android:hint="请输入账号"
                     android:textColor="@color/white"
@@ -65,8 +66,9 @@
 
                 <EditText
                     android:id="@+id/loginPassNumberEdit"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/dp_300"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginHorizontal="@dimen/dp_35"
                     android:hint="请输入密码"
                     android:textColor="@color/white"
@@ -74,10 +76,11 @@
 
                 <Button
                     android:id="@+id/loginButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/dp_300"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/dp_35"
-                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_20"
                     android:layout_marginRight="@dimen/dp_35"
                     android:layout_marginBottom="@dimen/dp_20"
                     android:background="@drawable/phone_login_button_bg"

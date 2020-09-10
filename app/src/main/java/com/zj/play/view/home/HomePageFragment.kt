@@ -1,5 +1,6 @@
 package com.zj.play.view.home
 
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -124,7 +125,6 @@ class HomePageFragment : BaseFragment() {
 
     private fun getArticleList() {
         viewModel.getArticleList(page)
-        //if (page == 1) initBanner()
     }
 
     override fun onPause() {

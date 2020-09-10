@@ -1,5 +1,6 @@
 package com.zj.play.view.home
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.zj.play.model.BannerBean
 import com.zj.play.model.Article

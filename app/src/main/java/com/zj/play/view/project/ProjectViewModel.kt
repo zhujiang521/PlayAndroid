@@ -1,9 +1,8 @@
 package com.zj.play.view.project
 
-import androidx.lifecycle.*
-import com.zj.play.model.BannerBean
-import com.zj.play.model.Article
-import com.zj.play.network.Repository
+import android.content.Context
+import androidx.lifecycle.ViewModel
+import com.zj.play.room.PlayDatabase
 
 /**
  * 版权：渤海新能 版权所有
@@ -13,8 +12,9 @@ import com.zj.play.network.Repository
  * 描述：PlayAndroid
  *
  */
-class ProjectViewModel : ViewModel() {
+class ProjectViewModel(context: Context) : ViewModel() {
 
-    val projectTreeLiveData = Repository.getProjectTree()
+    val projectTreeLiveData =
+        ProjectRepository(PlayDatabase.getDatabase(context).projectClassifyDao()).getProjectTree()
 
 }

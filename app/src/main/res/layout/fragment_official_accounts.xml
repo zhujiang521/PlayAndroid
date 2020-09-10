@@ -14,13 +14,13 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_20"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorPrimary" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/officialTabLayout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_50"
-            app:tabBackground="@color/colorPrimary"
+            android:background="@color/colorPrimary"
             app:tabGravity="fill"
             app:tabIndicatorColor="@color/white"
             app:tabIndicatorFullWidth="false"
@@ -31,7 +31,6 @@
             app:tabTextAppearance="@style/TabLayoutTextStyle"
             app:tabTextColor="@color/white" />
 
-
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/officialViewPager"
             android:layout_width="match_parent"
@@ -39,7 +38,6 @@
 
     </LinearLayout>
 
-    <include
-        layout="@layout/layout_lce"/>
+    <include layout="@layout/layout_lce" />
 
 </FrameLayout>

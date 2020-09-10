@@ -19,10 +19,10 @@
         android:layout_gravity="bottom|right"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        app:fmm_backgroundTint="@color/rb_gray"
         app:fmm_button_interval="2dp"
         app:fmm_cover="@drawable/ic_nav_news_actived"
         app:fmm_floating_direction="left"
-        app:fmm_backgroundTint="@color/rb_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -33,7 +33,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:src="@drawable/selector_one"
-            app:backgroundTint="@color/rb_gray"
+            app:backgroundTint="@color/gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -44,7 +44,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:src="@drawable/selector_two"
-            app:backgroundTint="@color/rb_gray"
+            app:backgroundTint="@color/gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -55,7 +55,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:src="@drawable/selector_three"
-            app:backgroundTint="@color/rb_gray"
+            app:backgroundTint="@color/gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -66,7 +66,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:src="@drawable/selector_four"
-            app:backgroundTint="@color/rb_gray"
+            app:backgroundTint="@color/gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

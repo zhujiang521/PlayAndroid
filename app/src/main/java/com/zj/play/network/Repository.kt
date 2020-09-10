@@ -37,7 +37,7 @@ object Repository {
             if (page == 1) {
                 val topArticleListDeferred = async { PlayAndroidNetwork.getTopArticleList() }
                 val topArticleList = topArticleListDeferred.await()
-                if (topArticleList.errorCode == 0 || articleList.errorCode == 0) {
+                if (topArticleList.errorCode == 0 && articleList.errorCode == 0) {
                     val res = arrayListOf<Article>()
                     res.addAll(topArticleList.data)
                     res.addAll(articleList.data.datas)
@@ -50,7 +50,6 @@ object Repository {
                     )
                 }
             } else {
-                Log.e("文章:", articleList.toString())
                 if (articleList.errorCode == 0) {
                     val res = arrayListOf<Article>()
                     res.addAll(articleList.data.datas)
@@ -84,20 +83,6 @@ object Repository {
      */
     fun getQueryArticleList(page: Int, k: String) = fire {
         val projectTree = PlayAndroidNetwork.getQueryArticleList(page, k)
-        if (projectTree.errorCode == 0) {
-            val bannerList = projectTree.data
-            Result.success(bannerList)
-        } else {
-            Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
-        }
-    }
-
-
-    /**
-     * 获取项目标题列表
-     */
-    fun getProjectTree() = fire {
-        val projectTree = PlayAndroidNetwork.getProjectTree()
         if (projectTree.errorCode == 0) {
             val bannerList = projectTree.data
             Result.success(bannerList)

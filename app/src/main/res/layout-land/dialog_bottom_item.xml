@@ -10,10 +10,10 @@
 
     <ImageView
         android:id="@+id/bottomDialogIv"
-        android:layout_width="@dimen/dp_58"
-        android:layout_height="@dimen/dp_58"
+        android:layout_width="@dimen/dp_38"
+        android:layout_height="@dimen/dp_38"
         android:background="@drawable/bottom_item"
-        android:padding="@dimen/dp_12"
+        android:padding="@dimen/dp_9"
         android:src="@drawable/ic_favorite_black_24dp" />
 
     <TextView
