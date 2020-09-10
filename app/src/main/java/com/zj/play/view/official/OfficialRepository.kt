@@ -15,16 +15,6 @@ import com.zj.play.room.dao.ProjectClassifyDao
  */
 class OfficialRepository(private val projectClassifyDao: ProjectClassifyDao) {
 
-    fun getOfficialTree() = fire {
-        val projectTree = PlayAndroidNetwork.getWxArticleTree()
-        if (projectTree.errorCode == 0) {
-            val bannerList = projectTree.data
-            Result.success(bannerList)
-        } else {
-            Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
-        }
-    }
-
     /**
      * 获取公众号标题列表
      */
