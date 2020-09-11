@@ -82,7 +82,11 @@ class ArticleAdapter(context: Context, layoutId: Int, articleList: ArrayList<Art
         articleLlItem.setOnClickListener {
             ArticleActivity.actionStart(mContext, t.title, t.link)
             val browseHistoryDao = PlayDatabase.getDatabase(mContext).browseHistoryDao()
-            GlobalScope.launch(Dispatchers.IO) { browseHistoryDao.insert(t) }
+            GlobalScope.launch(Dispatchers.IO) {
+                if (browseHistoryDao.getArticle(t.id) == null) {
+                    browseHistoryDao.insert(t)
+                }
+            }
         }
     }
 

@@ -3,6 +3,7 @@ package com.zj.play.room.dao
 import androidx.room.*
 import com.zj.play.room.entity.Article
 
+
 /**
  * 版权：联想 版权所有
  *
@@ -17,7 +18,10 @@ interface BrowseHistoryDao {
     @Query("SELECT * FROM browse_history")
     suspend fun getAllArticle(): List<Article>
 
-    @Query("SELECT * FROM browse_history order by uid limit :page*10,20")
+    @Query("SELECT * FROM browse_history where id = :id")
+    suspend fun getArticle(id: Int): Article?
+
+    @Query("SELECT * FROM browse_history order by uid desc limit :page,20")
     suspend fun getArticleList(page: Int): List<Article>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -25,6 +29,9 @@ interface BrowseHistoryDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(article: Article)
+
+    @Update
+    suspend fun update(article: Article): Int
 
     @Delete
     suspend fun delete(article: Article): Int
