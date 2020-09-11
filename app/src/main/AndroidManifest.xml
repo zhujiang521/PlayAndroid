@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:replace="android:theme">
-        <activity android:name=".view.profile.history.BrowseHistoryActivity"></activity>
+        <activity android:name=".view.profile.history.BrowseHistoryActivity" />
         <activity
             android:name=".view.profile.user.UserActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
