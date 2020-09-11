@@ -2,7 +2,6 @@ package com.zj.play.view.home.search.article
 
 import android.content.Context
 import android.content.Intent
-import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,16 +36,13 @@ class ArticleListActivity : BaseActivity() {
                     if (page == 1 && viewModel.articleList.size > 0) {
                         viewModel.articleList.clear()
                     }
-                    val start = viewModel.articleList.size
                     viewModel.articleList.addAll(articleList.datas)
                     articleAdapter.notifyDataSetChanged()
                 } else {
                     showLoadErrorView()
                 }
             } else {
-                showBadNetworkView(View.OnClickListener {
-                    getArticleList()
-                })
+                showBadNetworkView { getArticleList() }
             }
         })
         getArticleList()

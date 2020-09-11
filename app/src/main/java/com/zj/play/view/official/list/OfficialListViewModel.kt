@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.zj.play.room.entity.Article
 import com.zj.play.view.official.OfficialRepository
 import com.zj.play.view.project.list.QueryArticle
@@ -28,6 +29,14 @@ class OfficialListViewModel(context: Context) : ViewModel() {
 
     fun getArticleList(page: Int, cid: Int) {
         pageLiveData.value = QueryArticle(page, cid)
+    }
+
+}
+
+class OfficialListViewModelFactory(private val context: Context) : ViewModelProvider.Factory{
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return OfficialListViewModel(context) as T
     }
 
 }
