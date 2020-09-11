@@ -14,10 +14,12 @@ import com.zj.core.Play
 import com.zj.core.util.setSafeListener
 import com.zj.core.util.showToast
 import com.zj.play.R
-import com.zj.play.model.Article
 import com.zj.play.network.CollectRepository.cancelCollects
 import com.zj.play.network.CollectRepository.toCollects
+import com.zj.play.room.PlayDatabase
+import com.zj.play.room.entity.Article
 import com.zj.play.view.account.LoginActivity
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -79,6 +81,8 @@ class ArticleAdapter(context: Context, layoutId: Int, articleList: ArrayList<Art
         }
         articleLlItem.setOnClickListener {
             ArticleActivity.actionStart(mContext, t.title, t.link)
+            val browseHistoryDao = PlayDatabase.getDatabase(mContext).browseHistoryDao()
+            GlobalScope.launch(Dispatchers.IO) { browseHistoryDao.insert(t) }
         }
     }
 
@@ -86,16 +90,16 @@ class ArticleAdapter(context: Context, layoutId: Int, articleList: ArrayList<Art
         GlobalScope.launch {
             if (collect) {
                 val cancelCollects = cancelCollects(id)
-                if (cancelCollects.errorCode == 0){
+                if (cancelCollects.errorCode == 0) {
                     showToast("取消收藏成功")
-                }else{
+                } else {
                     showToast("取消收藏失败")
                 }
             } else {
                 val toCollects = toCollects(id)
-                if (toCollects.errorCode == 0){
+                if (toCollects.errorCode == 0) {
                     showToast("收藏成功")
-                }else{
+                } else {
                     showToast("收藏失败")
                 }
 

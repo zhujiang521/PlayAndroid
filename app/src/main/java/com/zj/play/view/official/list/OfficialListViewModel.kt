@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.zj.play.model.Article
+import com.zj.play.room.entity.Article
 import com.zj.play.view.official.OfficialRepository
 import com.zj.play.view.project.list.QueryArticle
 

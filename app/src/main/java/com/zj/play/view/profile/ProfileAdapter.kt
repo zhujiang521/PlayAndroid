@@ -7,10 +7,12 @@ import android.widget.TextView
 import com.zhy.adapter.recyclerview.CommonAdapter
 import com.zhy.adapter.recyclerview.base.ViewHolder
 import com.zj.core.Play
+import com.zj.core.util.showToast
 import com.zj.play.R
 import com.zj.play.view.account.LoginActivity
 import com.zj.play.view.article.ArticleActivity
 import com.zj.play.view.collect.CollectListActivity
+import com.zj.play.view.profile.history.BrowseHistoryActivity
 import com.zj.play.view.profile.user.UserActivity
 import com.zj.play.view.rank.user.UserRankActivity
 
@@ -58,6 +60,9 @@ class ProfileAdapter(context: Context, layoutId: Int, profileItemList: ArrayList
                     "我的博客",
                     "https://zhujiang.blog.csdn.net/"
                 )
+            }
+            "浏览历史" -> {
+                BrowseHistoryActivity.actionStart(mContext)
             }
             "掘金" -> {
                 ArticleActivity.actionStart(

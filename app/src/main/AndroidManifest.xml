@@ -19,29 +19,39 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:replace="android:theme">
-        <activity android:name=".view.profile.user.UserActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize"/>
-        <activity android:name=".view.collect.CollectListActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize"/>
-        <activity android:name=".view.rank.user.UserRankActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize"/>
-        <activity android:name=".view.account.LoginActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize"/>
-        <activity android:name=".view.rank.list.RankActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize"/>
+        <activity android:name=".view.profile.history.BrowseHistoryActivity"></activity>
+        <activity
+            android:name=".view.profile.user.UserActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
+        <activity
+            android:name=".view.collect.CollectListActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
+        <activity
+            android:name=".view.rank.user.UserRankActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
+        <activity
+            android:name=".view.account.LoginActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
+        <activity
+            android:name=".view.rank.list.RankActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
         <activity
             android:name=".view.article.ArticleActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".view.home.search.article.ArticleListActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize"/>
-        <activity android:name=".view.home.search.SearchActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize"/>
-        <activity android:name=".view.main.MainActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize"/>
-        <activity android:name=".WelcomeActivity"
-            android:theme="@style/AppTheme.NoActionBars"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize">
+        <activity
+            android:name=".view.home.search.article.ArticleListActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
+        <activity
+            android:name=".view.home.search.SearchActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
+        <activity
+            android:name=".view.main.MainActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
+        <activity
+            android:name=".WelcomeActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize"
+            android:theme="@style/AppTheme.NoActionBars">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

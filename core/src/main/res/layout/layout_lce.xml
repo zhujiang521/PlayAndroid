@@ -7,6 +7,13 @@
         android:visibility="gone"/>
 
     <include
+        android:id="@+id/noContentView"
+        layout="@layout/no_content_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <include
         android:id="@+id/badNetworkView"
         layout="@layout/bad_network_view"
         android:layout_width="match_parent"

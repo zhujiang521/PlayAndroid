@@ -1,8 +1,8 @@
 package com.zj.play.view.home
 
-import com.zj.play.model.Article
 import com.zj.play.network.PlayAndroidNetwork
 import com.zj.play.network.fire
+import com.zj.play.room.entity.Article
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 

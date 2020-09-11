@@ -58,6 +58,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
             profileItemList.add(ProfileItem("我的积分", R.drawable.ic_message_black_24dp))
             profileItemList.add(ProfileItem("我的收藏", R.drawable.ic_collections_black_24dp))
             profileItemList.add(ProfileItem("我的博客", R.drawable.ic_account_blog_black_24dp))
+            profileItemList.add(ProfileItem("浏览历史", R.drawable.ic_baseline_history_24))
             profileItemList.add(ProfileItem("掘金", R.drawable.ic_bug_report_black_24dp))
             profileItemList.add(ProfileItem("Github", R.drawable.ic_github_black_24dp))
             profileItemList.add(ProfileItem("关于我", R.drawable.ic_account_circle_black_24dp))

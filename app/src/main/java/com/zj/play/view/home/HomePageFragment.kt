@@ -1,7 +1,5 @@
 package com.zj.play.view.home
 
-import android.util.Log
-import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.youth.banner.indicator.CircleIndicator
@@ -71,7 +69,6 @@ class HomePageFragment : BaseFragment() {
     }
 
     override fun initData() {
-        Log.e("ZHUJIANG", "initData: ")
         startLoading()
         initBanner()
         viewModel.articleLiveData.observe(this, {

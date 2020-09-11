@@ -1,5 +1,7 @@
 package com.zj.play.model
 
+import com.zj.play.room.entity.Article
+
 data class ArticleListModel(
     val `data`: ArticleList,
     val errorCode: Int,

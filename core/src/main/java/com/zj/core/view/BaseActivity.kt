@@ -4,24 +4,18 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Context
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewStub
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toolbar
+import android.widget.*
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import com.zj.core.R
 import com.zj.core.util.AndroidVersion
 import com.zj.core.util.logWarn
 import java.lang.ref.WeakReference
-import java.util.*
 
 /**
  * 应用程序中所有Activity的基类。
@@ -109,6 +103,9 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
 
     protected open fun setupViews() {
         loading = findViewById(R.id.loading)
+        noContentView = findViewById(R.id.noContentView)
+        badNetworkView = findViewById(R.id.badNetworkView)
+        loadErrorView = findViewById(R.id.loadErrorView)
     }
 
 
@@ -165,15 +162,12 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
      * 界面中的提示信息
      */
     protected fun showLoadErrorView(tip: String = "加载数据失败") {
+        loadFinished()
         if (loadErrorView != null) {
-            loadErrorView?.visibility = View.VISIBLE
-            return
-        }
-        val viewStub = findViewById<ViewStub>(R.id.loadErrorView)
-        if (viewStub != null) {
-            loadErrorView = viewStub.inflate()
             val loadErrorText = loadErrorView?.findViewById<TextView>(R.id.loadErrorText)
             loadErrorText?.text = tip
+            loadErrorView?.visibility = View.VISIBLE
+            return
         }
     }
 
@@ -184,16 +178,12 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
      * 重新加载点击事件回调
      */
     protected fun showBadNetworkView(listener: View.OnClickListener) {
+        loadFinished()
         if (badNetworkView != null) {
             badNetworkView?.visibility = View.VISIBLE
             return
         }
-        val viewStub = findViewById<ViewStub>(R.id.badNetworkView)
-        if (viewStub != null) {
-            badNetworkView = viewStub.inflate()
-            val badNetworkRootView = badNetworkView?.findViewById<View>(R.id.badNetworkRootView)
-            badNetworkRootView?.setOnClickListener(listener)
-        }
+        badNetworkView?.setOnClickListener(listener)
     }
 
     /**
@@ -202,16 +192,10 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
      * 界面中的提示信息
      */
     protected fun showNoContentView(tip: String) {
-        if (noContentView != null) {
-            noContentView?.visibility = View.VISIBLE
-            return
-        }
-        val viewStub = findViewById<ViewStub>(R.id.noContentView)
-        if (viewStub != null) {
-            noContentView = viewStub.inflate()
-            val noContentText = noContentView?.findViewById<TextView>(R.id.noContentText)
-            noContentText?.text = tip
-        }
+        loadFinished()
+        val noContentText = noContentView?.findViewById<TextView>(R.id.noContentText)
+        noContentText?.text = tip
+        noContentView?.visibility = View.VISIBLE
     }
 
     /**
@@ -268,20 +252,26 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
 
     @CallSuper
     override fun startLoading() {
+        hideBadNetworkView()
+        hideNoContentView()
+        hideLoadErrorView()
         loading?.visibility = View.VISIBLE
+    }
+
+    @CallSuper
+    override fun loadFinished() {
+        loading?.visibility = View.GONE
         hideBadNetworkView()
         hideNoContentView()
         hideLoadErrorView()
     }
 
     @CallSuper
-    override fun loadFinished() {
-        loading?.visibility = View.GONE
-    }
-
-    @CallSuper
     override fun loadFailed(msg: String?) {
         loading?.visibility = View.GONE
+        hideBadNetworkView()
+        hideNoContentView()
+        hideLoadErrorView()
     }
 
     companion object {

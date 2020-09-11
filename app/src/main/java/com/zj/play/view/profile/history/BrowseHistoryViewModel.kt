@@ -1,9 +1,9 @@
-package com.zj.play.view.home
+package com.zj.play.view.profile.history
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.zj.play.model.BannerBean
 import com.zj.play.room.entity.Article
 
 /**
@@ -14,18 +14,14 @@ import com.zj.play.room.entity.Article
  * 描述：PlayAndroid
  *
  */
-class HomePageViewModel : ViewModel() {
+class BrowseHistoryViewModel(context: Context) : ViewModel() {
 
     private val pageLiveData = MutableLiveData<Int>()
-
-    val bannerList = ArrayList<BannerBean>()
-
-    val bannerList2 = ArrayList<BannerBean>()
 
     val articleList = ArrayList<Article>()
 
     val articleLiveData = Transformations.switchMap(pageLiveData) { page ->
-        HomeRepository.getArticleList(page)
+        BrowseHistoryRepository(context).getBrowseHistory(page)
     }
 
     fun getArticleList(page: Int) {
