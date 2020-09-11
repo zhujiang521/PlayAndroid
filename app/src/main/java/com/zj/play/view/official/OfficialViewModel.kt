@@ -2,6 +2,7 @@ package com.zj.play.view.official
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 
 /**
  * 版权：渤海新能 版权所有
@@ -15,4 +16,12 @@ class OfficialViewModel(context: Context) : ViewModel() {
 
     val officialTreeLiveData =
         OfficialRepository(context).getProjectTree()
+}
+
+class OfficialViewModelFactory(private val context: Context) : ViewModelProvider.Factory{
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return OfficialViewModel(context) as T
+    }
+
 }

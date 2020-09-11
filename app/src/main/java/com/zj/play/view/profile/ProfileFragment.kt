@@ -26,9 +26,9 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
     override fun initView() {
         profileTitleBar.setRightImage(R.drawable.ic_equalizer_black_24dp)
         profileTitleBar.setBackImageVisiable(false)
-        profileTitleBar.setRightImgOnClickListener(View.OnClickListener {
+        profileTitleBar.setRightImgOnClickListener {
             RankActivity.actionStart(context!!)
-        })
+        }
         profileIvHead.setOnClickListener(this)
         profileTvName.setOnClickListener(this)
         profileTvRank.setOnClickListener(this)

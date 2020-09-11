@@ -86,7 +86,7 @@
                         android:background="@drawable/btn"
                         android:text="退出登录"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/dp_14" />
+                        android:textSize="@dimen/dp_13" />
 
                 </LinearLayout>
 

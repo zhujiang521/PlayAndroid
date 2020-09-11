@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.zj.play.room.entity.Article
 
 /**
@@ -26,6 +27,14 @@ class BrowseHistoryViewModel(context: Context) : ViewModel() {
 
     fun getArticleList(page: Int) {
         pageLiveData.value = page
+    }
+
+}
+
+class BrowseHistoryViewModelFactory(private val context: Context) : ViewModelProvider.Factory{
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return BrowseHistoryViewModel(context) as T
     }
 
 }

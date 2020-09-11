@@ -11,7 +11,7 @@
         android:id="@+id/profileTitleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleName="我的"/>
+        app:titleName="我的" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -81,10 +81,10 @@
         android:background="@drawable/btn"
         android:text="退出登录"
         android:textColor="@color/white"
-        android:textSize="@dimen/dp_14" />
+        android:textSize="@dimen/dp_13" />
 
     <include
         layout="@layout/layout_lce"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </LinearLayout>
