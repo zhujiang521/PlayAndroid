@@ -19,7 +19,8 @@
         android:orientation="horizontal">
 
         <RelativeLayout
-            android:layout_width="@dimen/dp_300"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
             android:layout_height="match_parent"
             android:background="@color/colorPrimary">
 
@@ -57,7 +58,8 @@
         </RelativeLayout>
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="2"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_5"
             app:cardCornerRadius="@dimen/dp_5">
