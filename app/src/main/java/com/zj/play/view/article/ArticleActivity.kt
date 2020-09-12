@@ -11,8 +11,6 @@ import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.tencent.smtt.sdk.WebSettings
-import com.tencent.smtt.sdk.WebViewClient
 import com.zj.core.view.BaseActivity
 import com.zj.play.R
 import com.zj.play.view.profile.ProfileItem

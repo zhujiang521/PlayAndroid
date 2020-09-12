@@ -2,8 +2,17 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply from: 'and_res_guard.gradle'//压缩apk
 
 android {
+    signingConfigs {
+        play {
+            storeFile file('/Users/zhujiang/AndroidSoft/wanAndroid/wanAndroid.jks')
+            storePassword '123456'
+            keyAlias 'wanAndroid'
+            keyPassword '123456'
+        }
+    }
     compileSdkVersion cfgs.compileSdkVersion
     buildToolsVersion cfgs.buildToolsVersion
 
@@ -20,11 +29,13 @@ android {
             abiFilters 'armeabi'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64', 'armeabi-v7a'
         }
+        signingConfig signingConfigs.play
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true // 混淆
+            shrinkResources true // 去除无用资源 与lint不同
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -52,7 +63,8 @@ dependencies {
 
     def room_version = "2.2.5"
     implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
+    kapt "androidx.room:room-compiler:$room_version"
+    // For Kotlin use kapt instead of annotationProcessor
 
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$room_version"

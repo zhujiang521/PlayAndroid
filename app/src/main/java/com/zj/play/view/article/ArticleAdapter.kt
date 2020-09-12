@@ -37,7 +37,8 @@ class ArticleAdapter(context: Context, layoutId: Int, articleList: ArrayList<Art
         val articleTvTitle = holder.getView<TextView>(R.id.articleTvTitle)
         val articleTvChapterName = holder.getView<TextView>(R.id.articleTvChapterName)
         val articleTvCollect = holder.getView<ImageView>(R.id.articleIvCollect)
-        articleTvTitle.text = Html.fromHtml(t.title)
+        if (!TextUtils.isEmpty(t.title))
+            articleTvTitle.text = Html.fromHtml(t.title)
         articleTvChapterName.text = t.superChapterName
         articleTvAuthor.text = if (TextUtils.isEmpty(t.author)) t.shareUser else t.author
         articleTvTime.text = t.niceShareDate

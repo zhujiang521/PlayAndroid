@@ -4,6 +4,14 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'android-aspectjx'
 
 android {
+    signingConfigs {
+        play {
+            storeFile file('/Users/zhujiang/AndroidSoft/wanAndroid/wanAndroid.jks')
+            storePassword '123456'
+            keyAlias 'wanAndroid'
+            keyPassword '123456'
+        }
+    }
     compileSdkVersion cfgs.compileSdkVersion
     buildToolsVersion cfgs.buildToolsVersion
 
@@ -17,11 +25,12 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
+        signingConfig signingConfigs.play
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true // 混淆
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

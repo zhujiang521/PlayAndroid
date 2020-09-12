@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
 import android.view.View
-import androidx.lifecycle.Observer
 import com.zj.core.Play
 import com.zj.core.util.showToast
 import com.zj.core.view.ActivityCollector
