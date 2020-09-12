@@ -37,9 +37,7 @@ class UserRankActivity : BaseActivity() {
                     showLoadErrorView()
                 }
             } else {
-                showBadNetworkView(View.OnClickListener {
-                    getRankList()
-                })
+                showBadNetworkView { getRankList() }
             }
         })
         getRankList()
@@ -69,7 +67,7 @@ class UserRankActivity : BaseActivity() {
     }
 
     private fun getRankList() {
-        startLoading()
+        if (viewModel.rankList.size <= 0) startLoading()
         viewModel.getRankList(page)
     }
 

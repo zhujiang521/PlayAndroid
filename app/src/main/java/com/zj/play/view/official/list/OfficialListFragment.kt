@@ -1,7 +1,6 @@
 package com.zj.play.view.official.list
 
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.core.view.BaseFragment
@@ -58,13 +57,12 @@ class OfficialListFragment : BaseFragment() {
     }
 
     private fun getArticleList() {
-        if (viewModel.articleList.size <= 0)
-            startLoading()
+        if (viewModel.articleList.size <= 0) startLoading()
         viewModel.getArticleList(page, projectCid!!)
     }
 
     override fun initData() {
-        viewModel.articleLiveData.observe(this, Observer {
+        viewModel.articleLiveData.observe(this, {
             if (it.isSuccess) {
                 val articleList = it.getOrNull()
                 if (articleList != null) {

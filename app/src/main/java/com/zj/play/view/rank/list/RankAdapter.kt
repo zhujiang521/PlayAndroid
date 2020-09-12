@@ -21,4 +21,8 @@ class RankAdapter(context: Context, layoutId: Int, rankList: ArrayList<DataX>) :
         rankAdTvLevel.text = "${t.level}级"
     }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
 }

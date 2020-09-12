@@ -1,6 +1,5 @@
 package com.zj.play.view.official
 
-import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.zj.core.view.BaseFragment

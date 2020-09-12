@@ -2,8 +2,6 @@ package com.zj.play.view.rank.list
 
 import android.content.Context
 import android.content.Intent
-import android.view.View
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.core.view.BaseActivity
@@ -23,7 +21,7 @@ class RankActivity : BaseActivity() {
     private var page = 1
 
     override fun initData() {
-        viewModel.rankLiveData.observe(this, Observer {
+        viewModel.rankLiveData.observe(this, {
             if (it.isSuccess) {
                 val articleList = it.getOrNull()
                 if (articleList != null) {
@@ -37,9 +35,7 @@ class RankActivity : BaseActivity() {
                     showLoadErrorView()
                 }
             } else {
-                showBadNetworkView(View.OnClickListener {
-                    getRankList()
-                })
+                showBadNetworkView { getRankList() }
             }
         })
         getRankList()
@@ -73,7 +69,7 @@ class RankActivity : BaseActivity() {
     }
 
     private fun getRankList() {
-        startLoading()
+        if (viewModel.rankList.size <= 0) startLoading()
         viewModel.getRankList(page)
     }
 
