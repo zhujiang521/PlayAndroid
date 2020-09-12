@@ -13,6 +13,8 @@ import androidx.lifecycle.AndroidViewModel
  */
 class OfficialViewModel(application: Application) : AndroidViewModel(application) {
 
+    var position = 0
+
     val officialTreeLiveData =
         OfficialRepository(application).getProjectTree()
 }

@@ -2,7 +2,6 @@ package com.zj.play.view.project
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 
 /**
  * 版权：渤海新能 版权所有
@@ -13,6 +12,8 @@ import androidx.lifecycle.ViewModel
  *
  */
 class ProjectViewModel(application: Application) : AndroidViewModel(application) {
+
+    var position = 0
 
     val projectTreeLiveData =
         ProjectRepository(application).getProjectTree()
