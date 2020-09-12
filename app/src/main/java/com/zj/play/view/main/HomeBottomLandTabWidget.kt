@@ -17,39 +17,18 @@ class HomeBottomLandTabWidget @JvmOverloads constructor(
     context: Context?,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : LinearLayout(context, attrs, defStyleAttr), View.OnClickListener {
+) : BaseHomeBottomTabWidget(context, attrs, defStyleAttr, R.layout.layout_home_bottom_land_tab),
+    View.OnClickListener {
 
-    private var mFragmentManager: FragmentManager? = null
     private var floatingButtons: ArrayList<FloatingActionButton>? = null
-    private var mFragments: java.util.ArrayList<Fragment>? = null
     private var fabMenu: FloatingMusicMenu? = null
-    private var mLastFgIndex = 0
-    private lateinit var mViewModel: MainViewModel
-
-    /**
-     * 外部调用初始化，传入必要的参数
-     *
-     * @param fm
-     */
-    fun init(fm: FragmentManager?, viewModel: MainViewModel) {
-        mFragmentManager = fm
-        mViewModel = viewModel
-        if (mFragments == null) {
-            mFragments = arrayListOf()
-            mFragments?.add(getCurrentFragment(0)!!)
-            mFragments?.add(getCurrentFragment(1)!!)
-            mFragments?.add(getCurrentFragment(2)!!)
-            mFragments?.add(getCurrentFragment(3)!!)
-        }
-        fragmentManger(viewModel.getPage() ?: 0)
-    }
 
     /**
      * 初始化 设置点击事件。
      *
      * @param view /
      */
-    private fun initView(view: View) { //默认第一个碎片
+    override fun initView(view: View) { //默认第一个碎片
         floatingButtons = arrayListOf(
             view.findViewById(R.id.fabHome),
             view.findViewById(R.id.fabRepo),
@@ -57,26 +36,19 @@ class HomeBottomLandTabWidget @JvmOverloads constructor(
             view.findViewById(R.id.fabProfile)
         )
         fabMenu = view.findViewById(R.id.fabMenu)
-        for (textView in floatingButtons!!) {
-            textView.setOnClickListener(this)
+        for (floatingButton in floatingButtons!!) {
+            floatingButton.setOnClickListener(this)
         }
     }
 
     /**
      * 销毁，避免内存泄漏
      */
-    fun destroy() {
-        if (null != mFragmentManager) {
-            if (!mFragmentManager!!.isDestroyed)
-                mFragmentManager = null
-        }
+    override fun destroy() {
+        super.destroy()
         if (!floatingButtons.isNullOrEmpty()) {
             floatingButtons!!.clear()
             floatingButtons = null
-        }
-        if (!mFragments.isNullOrEmpty()) {
-            mFragments?.clear()
-            mFragments = null
         }
     }
 
@@ -105,12 +77,12 @@ class HomeBottomLandTabWidget @JvmOverloads constructor(
      *
      * @param position 序号
      */
-    private fun fragmentManger(position: Int) {
-        mViewModel.setPage(position)
+    override fun fragmentManger(position: Int) {
+        super.fragmentManger(position)
         fabMenu?.setMusicCover(
             BitmapFactory.decodeResource(
                 context.resources,
-                when(position){
+                when (position) {
                     0 -> R.drawable.ic_nav_news_actived
                     1 -> R.drawable.ic_nav_tweet_actived
                     2 -> R.drawable.ic_nav_discover_actived
@@ -124,26 +96,6 @@ class HomeBottomLandTabWidget @JvmOverloads constructor(
         for (j in floatingButtons!!.indices) {
             floatingButtons!![j].isSelected = position == j
         }
-        val fragmentTransaction =
-            mFragmentManager!!.beginTransaction()
-
-        val targetFg: Fragment = mFragments!![position]
-        val lastFg: Fragment = mFragments!![mLastFgIndex]
-        mLastFgIndex = position
-        fragmentTransaction.hide(lastFg)
-        if (!targetFg.isAdded) {
-            mFragmentManager!!.beginTransaction().remove(targetFg)
-                .commitAllowingStateLoss()
-            fragmentTransaction.add(R.id.flHomeFragment, targetFg)
-        }
-        fragmentTransaction.show(targetFg)
-        fragmentTransaction.commitAllowingStateLoss()
-    }
-
-    init {
-        val view =
-            View.inflate(context, R.layout.layout_home_bottom_land_tab, this)
-        initView(view)
     }
 
 }

@@ -1,10 +1,10 @@
 package com.zj.play.view.profile.history
 
-import android.content.Context
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.zj.play.room.entity.Article
 
 /**
@@ -15,14 +15,14 @@ import com.zj.play.room.entity.Article
  * 描述：PlayAndroid
  *
  */
-class BrowseHistoryViewModel(context: Context) : ViewModel() {
+class BrowseHistoryViewModel(application: Application) : AndroidViewModel(application) {
 
     private val pageLiveData = MutableLiveData<Int>()
 
     val articleList = ArrayList<Article>()
 
     val articleLiveData = Transformations.switchMap(pageLiveData) { page ->
-        BrowseHistoryRepository(context).getBrowseHistory(page)
+        BrowseHistoryRepository(application).getBrowseHistory(page)
     }
 
     fun getArticleList(page: Int) {
@@ -31,10 +31,10 @@ class BrowseHistoryViewModel(context: Context) : ViewModel() {
 
 }
 
-class BrowseHistoryViewModelFactory(private val context: Context) : ViewModelProvider.Factory{
-
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return BrowseHistoryViewModel(context) as T
-    }
-
-}
+//class BrowseHistoryViewModelFactory(private val context: Activity) : ViewModelProvider.Factory{
+//
+//    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+//        return BrowseHistoryViewModel(context.application) as T
+//    }
+//
+//}

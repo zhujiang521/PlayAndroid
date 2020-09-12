@@ -13,7 +13,7 @@ import kotlin.system.measureTimeMillis
 
 class BrowseHistoryActivity : BaseActivity() {
 
-    private lateinit var viewModel: BrowseHistoryViewModel
+    private val viewModel by lazy { ViewModelProvider(this).get(BrowseHistoryViewModel::class.java) }
     private lateinit var articleAdapter: ArticleAdapter
     private var page = 1
 
@@ -22,8 +22,6 @@ class BrowseHistoryActivity : BaseActivity() {
     }
 
     override fun initView() {
-        viewModel = ViewModelProvider(this, BrowseHistoryViewModelFactory(this))
-            .get(BrowseHistoryViewModel::class.java)
         historyRecycleView.layoutManager = LinearLayoutManager(this)
         articleAdapter = ArticleAdapter(
             this,

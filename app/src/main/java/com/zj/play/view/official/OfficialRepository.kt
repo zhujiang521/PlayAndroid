@@ -1,6 +1,8 @@
 package com.zj.play.view.official
 
+import android.app.Application
 import android.content.Context
+import com.zj.play.App
 import com.zj.play.network.PlayAndroidNetwork
 import com.zj.play.network.fire
 import com.zj.play.room.PlayDatabase
@@ -13,9 +15,9 @@ import com.zj.play.room.PlayDatabase
  * 描述：PlayAndroid
  *
  */
-class OfficialRepository(context: Context) {
+class OfficialRepository(application: Application) {
 
-    private val projectClassifyDao = PlayDatabase.getDatabase(context).projectClassifyDao()
+    private val projectClassifyDao = PlayDatabase.getDatabase(application).projectClassifyDao()
 
     /**
      * 获取公众号标题列表

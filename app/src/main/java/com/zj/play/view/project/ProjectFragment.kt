@@ -7,11 +7,12 @@ import com.zj.core.view.BaseFragment
 import com.zj.core.view.FragmentAdapter
 import com.zj.play.R
 import com.zj.play.view.project.list.ProjectListFragment
+import com.zj.play.view.project.list.ProjectListViewModel
 import kotlinx.android.synthetic.main.fragment_project.*
 
 class ProjectFragment : BaseFragment() {
 
-    private lateinit var viewModel: ProjectViewModel
+    private val viewModel by lazy { ViewModelProvider(this).get(ProjectViewModel::class.java) }
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_project
@@ -20,8 +21,6 @@ class ProjectFragment : BaseFragment() {
     private lateinit var adapter: FragmentAdapter
 
     override fun initView() {
-        viewModel = ViewModelProvider(this, ProjectViewModelFactory(context!!))
-            .get(ProjectViewModel::class.java)
         adapter = FragmentAdapter(activity?.supportFragmentManager)
         projectViewPager.adapter = adapter
         projectTabLayout.setupWithViewPager(projectViewPager)

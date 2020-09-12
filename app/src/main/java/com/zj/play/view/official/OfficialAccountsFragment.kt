@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.fragment_official_accounts.*
 
 class OfficialAccountsFragment : BaseFragment() {
 
-    private lateinit var viewModel: OfficialViewModel
+    private val viewModel by lazy { ViewModelProvider(this).get(OfficialViewModel::class.java) }
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_official_accounts
@@ -20,8 +20,6 @@ class OfficialAccountsFragment : BaseFragment() {
     private lateinit var adapter: FragmentAdapter
 
     override fun initView() {
-        viewModel = ViewModelProvider(this, OfficialViewModelFactory(context!!))
-            .get(OfficialViewModel::class.java)
         adapter = FragmentAdapter(activity?.supportFragmentManager)
         officialViewPager.adapter = adapter
         officialTabLayout.setupWithViewPager(officialViewPager)
@@ -47,7 +45,7 @@ class OfficialAccountsFragment : BaseFragment() {
                     showLoadErrorView()
                 }
             } else {
-                showBadNetworkView(View.OnClickListener { initData() })
+                showBadNetworkView { initData() }
             }
         })
     }

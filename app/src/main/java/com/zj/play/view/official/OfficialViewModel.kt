@@ -1,6 +1,8 @@
 package com.zj.play.view.official
 
+import android.app.Application
 import android.content.Context
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
@@ -12,16 +14,8 @@ import androidx.lifecycle.ViewModelProvider
  * 描述：PlayAndroid
  *
  */
-class OfficialViewModel(context: Context) : ViewModel() {
+class OfficialViewModel(application: Application) : AndroidViewModel(application) {
 
     val officialTreeLiveData =
-        OfficialRepository(context).getProjectTree()
-}
-
-class OfficialViewModelFactory(private val context: Context) : ViewModelProvider.Factory{
-
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return OfficialViewModel(context) as T
-    }
-
+        OfficialRepository(application).getProjectTree()
 }

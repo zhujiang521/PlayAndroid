@@ -15,38 +15,17 @@ class HomeBottomTabWidget @JvmOverloads constructor(
     context: Context?,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : LinearLayout(context, attrs, defStyleAttr), View.OnClickListener {
+) : BaseHomeBottomTabWidget(context, attrs, defStyleAttr, R.layout.layout_home_bottom_tab),
+    View.OnClickListener {
 
-    private var mFragmentManager: FragmentManager? = null
     private var textViews: ArrayList<TextView>? = null
-    private var mFragments: java.util.ArrayList<Fragment>? = null
-    private var mLastFgIndex = 0
-    private lateinit var mViewModel: MainViewModel
-
-    /**
-     * 外部调用初始化，传入必要的参数
-     *
-     * @param fm
-     */
-    fun init(fm: FragmentManager?, viewModel: MainViewModel) {
-        mFragmentManager = fm
-        mViewModel = viewModel
-        if (mFragments == null) {
-            mFragments = arrayListOf()
-            mFragments?.add(getCurrentFragment(0)!!)
-            mFragments?.add(getCurrentFragment(1)!!)
-            mFragments?.add(getCurrentFragment(2)!!)
-            mFragments?.add(getCurrentFragment(3)!!)
-        }
-        fragmentManger(viewModel.getPage() ?: 0)
-    }
 
     /**
      * 初始化 设置点击事件。
      *
      * @param view /
      */
-    private fun initView(view: View) { //默认第一个碎片
+    override fun initView(view: View) { //默认第一个碎片
         textViews = arrayListOf(
             view.findViewById(R.id.llHomeATHome),
             view.findViewById(R.id.llHomeATCalendar),
@@ -61,18 +40,11 @@ class HomeBottomTabWidget @JvmOverloads constructor(
     /**
      * 销毁，避免内存泄漏
      */
-    fun destroy() {
-        if (null != mFragmentManager) {
-            if (!mFragmentManager!!.isDestroyed)
-                mFragmentManager = null
-        }
+    override fun destroy() {
+        super.destroy()
         if (!textViews.isNullOrEmpty()) {
             textViews!!.clear()
             textViews = null
-        }
-        if (!mFragments.isNullOrEmpty()) {
-            mFragments?.clear()
-            mFragments = null
         }
     }
 
@@ -93,31 +65,11 @@ class HomeBottomTabWidget @JvmOverloads constructor(
      *
      * @param position 序号
      */
-    private fun fragmentManger(position: Int) {
-        mViewModel.setPage(position)
+    override fun fragmentManger(position: Int) {
+        super.fragmentManger(position)
         for (j in textViews!!.indices) {
             textViews!![j].isSelected = position == j
         }
-        val fragmentTransaction =
-            mFragmentManager!!.beginTransaction()
-
-        val targetFg: Fragment = mFragments!![position]
-        val lastFg: Fragment = mFragments!![mLastFgIndex]
-        mLastFgIndex = position
-        fragmentTransaction.hide(lastFg)
-        if (!targetFg.isAdded) {
-            mFragmentManager!!.beginTransaction().remove(targetFg)
-                .commitAllowingStateLoss()
-            fragmentTransaction.add(R.id.flHomeFragment, targetFg)
-        }
-        fragmentTransaction.show(targetFg)
-        fragmentTransaction.commitAllowingStateLoss()
-    }
-
-    init {
-        val view =
-            View.inflate(context, R.layout.layout_home_bottom_tab, this)
-        initView(view)
     }
 
 }
