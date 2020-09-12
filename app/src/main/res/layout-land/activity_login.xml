@@ -4,14 +4,14 @@
     android:id="@+id/loginRootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorAccent"
     android:orientation="vertical">
 
     <ImageView
         android:layout_width="@dimen/dp_70"
         android:layout_height="@dimen/dp_70"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_50"
+        android:layout_marginTop="@dimen/dp_30"
         android:src="@drawable/logo_reverse" />
 
     <FrameLayout
@@ -82,12 +82,26 @@
                     android:layout_marginLeft="@dimen/dp_35"
                     android:layout_marginTop="@dimen/dp_20"
                     android:layout_marginRight="@dimen/dp_35"
-                    android:layout_marginBottom="@dimen/dp_20"
                     android:background="@drawable/phone_login_button_bg"
                     android:backgroundTint="@color/gray"
                     android:text="登录"
                     android:textColor="@color/white"
                     android:textSize="@dimen/dp_16" />
+
+                <Button
+                    android:id="@+id/loginBtnRegister"
+                    android:layout_width="@dimen/dp_300"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/dp_35"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_35"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:background="@drawable/phone_login_button_bg"
+                    android:backgroundTint="@color/gray"
+                    android:text="注册账号"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dp_15" />
 
             </LinearLayout>
 

@@ -16,12 +16,16 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
 
+    private var mUserName = ""
+    private var mPassWord = ""
+
     override fun getLayoutId(): Int {
         return R.layout.activity_login
     }
 
     override fun initData() {
         loginButton.setOnClickListener(this)
+        loginBtnRegister.setOnClickListener(this)
     }
 
     override fun initView() {
@@ -33,22 +37,42 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             R.id.loginButton -> {
                 toLogin()
             }
+            R.id.loginBtnRegister -> {
+                toRegister()
+            }
         }
     }
 
-    private fun toLogin() {
-        val userName = loginUserNumberEdit.text.toString()
-        val passWord = loginPassNumberEdit.text.toString()
-        if (TextUtils.isEmpty(userName) || userName.length < 6) {
-            loginUserNumberEdit.error = "请输入正确的用户名格式"
-            return
-        }
-        if (TextUtils.isEmpty(passWord) || passWord.length < 6) {
-            loginPassNumberEdit.error = "请输入正确的密码格式"
+    private fun toRegister() {
+        if (!judge()) {
             return
         }
         toProgressVisible(true)
-        Repository.getLogin(userName, passWord).observe(this, Observer {
+        Repository.getRegister(mUserName, mPassWord, mPassWord).observe(this, {
+            toProgressVisible(false)
+            if (it.isSuccess) {
+                val projectTree = it.getOrNull()
+                if (projectTree != null) {
+                    Play.setLogin(true)
+                    Play.setUserInfo(projectTree.nickname, projectTree.username)
+                    ActivityCollector.finishAll()
+                    MainActivity.actionStart(this)
+                    showToast("注册成功")
+                } else {
+                    showToast("用户名已被注册！")
+                }
+            } else {
+                showToast("用户名已被注册！")
+            }
+        })
+    }
+
+    private fun toLogin() {
+        if (!judge()) {
+            return
+        }
+        toProgressVisible(true)
+        Repository.getLogin(mUserName, mPassWord).observe(this, {
             toProgressVisible(false)
             if (it.isSuccess) {
                 val projectTree = it.getOrNull()
@@ -65,6 +89,20 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 showToast("账号密码不匹配！")
             }
         })
+    }
+
+    private fun judge(): Boolean {
+        mUserName = loginUserNumberEdit.text.toString()
+        mPassWord = loginPassNumberEdit.text.toString()
+        if (TextUtils.isEmpty(mUserName) || mUserName.length < 6) {
+            loginUserNumberEdit.error = "请输入正确的用户名格式"
+            return false
+        }
+        if (TextUtils.isEmpty(mPassWord) || mPassWord.length < 6) {
+            loginPassNumberEdit.error = "请输入正确的密码格式"
+            return false
+        }
+        return true
     }
 
     private fun toProgressVisible(b: Boolean) {

@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#303030</color>
     <color name="colorPrimaryDark">#303030</color>
-    <color name="colorAccent">#303030</color>
+    <color name="colorAccent">#423F3F</color>
     <!-- 白色 -->
     <color name="white">#E3E3E3</color>
     <!-- 字体颜色 -->
