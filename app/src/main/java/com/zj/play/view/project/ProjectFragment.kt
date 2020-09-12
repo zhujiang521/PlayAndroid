@@ -1,18 +1,14 @@
 package com.zj.play.view.project
 
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
-import com.zj.core.view.BaseFragment
 import com.zj.core.view.FragmentAdapter
 import com.zj.play.R
 import com.zj.play.view.project.list.ProjectListFragment
 import kotlinx.android.synthetic.main.fragment_project.*
 
-class ProjectFragment : BaseFragment(), ViewPager.OnPageChangeListener,
-    TabLayout.OnTabSelectedListener {
+class ProjectFragment : BaseTabFragment() {
 
     private val viewModel by lazy { ViewModelProvider(this).get(ProjectViewModel::class.java) }
 
@@ -56,19 +52,8 @@ class ProjectFragment : BaseFragment(), ViewPager.OnPageChangeListener,
         })
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = ProjectFragment()
-    }
-
-    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-    }
-
     override fun onPageSelected(position: Int) {
         viewModel.position = position
-    }
-
-    override fun onPageScrollStateChanged(state: Int) {
     }
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -76,9 +61,9 @@ class ProjectFragment : BaseFragment(), ViewPager.OnPageChangeListener,
             viewModel.position = tab.position
     }
 
-    override fun onTabUnselected(tab: TabLayout.Tab?) {
+    companion object {
+        @JvmStatic
+        fun newInstance() = ProjectFragment()
     }
 
-    override fun onTabReselected(tab: TabLayout.Tab?) {
-    }
 }

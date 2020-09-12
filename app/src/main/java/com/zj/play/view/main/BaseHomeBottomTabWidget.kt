@@ -83,7 +83,7 @@ abstract class BaseHomeBottomTabWidget @JvmOverloads constructor(
             fragmentTransaction.add(R.id.flHomeFragment, targetFg)
         }
         fragmentTransaction.show(targetFg)
-        fragmentTransaction.commitAllowingStateLoss()
+        fragmentTransaction.commit()
     }
 
     init {
