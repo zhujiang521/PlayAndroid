@@ -2,6 +2,7 @@ package com.zj.play.view.home.search.article
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.core.view.BaseActivity
@@ -36,6 +37,9 @@ class ArticleListActivity : BaseActivity() {
                         viewModel.articleList.clear()
                     }
                     viewModel.articleList.addAll(articleList.datas)
+                    if (page == 1 && viewModel.articleList.size == 0) {
+                        showNoContentView("没有关于 $keyword 的数据，请更换关键字搜索")
+                    }
                     articleAdapter.notifyDataSetChanged()
                 } else {
                     showLoadErrorView()

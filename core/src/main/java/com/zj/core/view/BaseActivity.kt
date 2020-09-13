@@ -181,9 +181,9 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
         loadFinished()
         if (badNetworkView != null) {
             badNetworkView?.visibility = View.VISIBLE
+            badNetworkView?.setOnClickListener(listener)
             return
         }
-        badNetworkView?.setOnClickListener(listener)
     }
 
     /**
