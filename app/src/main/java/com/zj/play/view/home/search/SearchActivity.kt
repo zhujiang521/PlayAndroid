@@ -7,11 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import com.zj.core.util.showToast
 import com.zj.core.view.BaseActivity
 import com.zj.play.R
+import com.zj.play.room.PlayDatabase
+import com.zj.play.room.dao.HotKeyDao
+import com.zj.play.room.entity.HotKey
 import com.zj.play.view.home.search.article.ArticleListActivity
 import kotlinx.android.synthetic.main.activity_search.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class SearchActivity : BaseActivity(), View.OnClickListener {
 
@@ -19,16 +25,19 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
         return R.layout.activity_search
     }
 
-    private val list = arrayListOf<String>()
+    private lateinit var hotKeyDao: HotKeyDao
+    private val viewModel by lazy { ViewModelProvider(this).get(SearchViewModel::class.java) }
+
 
     override fun initData() {
-        SearchRepository.getHotKey().observe(this, {
+        hotKeyDao = PlayDatabase.getDatabase(this).hotKeyDao()
+        viewModel.hotKeyLiveData.observe(this, {
             if (it.isSuccess) {
                 loadFinished()
                 val hoeKey = it.getOrNull()
                 if (hoeKey != null) {
-                    hoeKey.forEach { key ->
-                        list.add(key.name)
+                    if (viewModel.hotKey.size <= 0) {
+                        viewModel.hotKey.addAll(hoeKey)
                     }
                     addFlowView()
                 } else {
@@ -50,22 +59,26 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
         if (searchFlowLayout != null) {
             searchFlowLayout.removeAllViews()
         }
-
-        for (i in 0 until list.size) {
-            val tv = TextView(this)
-            tv.setPadding(28, 10, 28, 10)
-            tv.text = list[i]
-            tv.maxEms = 10
-            tv.setTextColor(resources.getColor(R.color.white))
-            tv.setSingleLine()
-            tv.setBackgroundResource(R.drawable.btn)
-            tv.layoutParams = layoutParams
-            tv.setOnClickListener {
-                ArticleListActivity.actionStart(this, list[i])
+        for (i in 0 until viewModel.hotKey.size) {
+            val item = View.inflate(this, R.layout.layout_search_item, null)
+            val tv = item.findViewById<TextView>(R.id.searchTvName)
+            val delete = item.findViewById<LinearLayout>(R.id.searchLlDelete)
+            val name = viewModel.hotKey[i].name
+            if (viewModel.hotKey[i].order > 0) {
+                delete.visibility = View.GONE
             }
-            searchFlowLayout.addView(tv, layoutParams)
+            tv.text = name
+            tv.setOnClickListener {
+                ArticleListActivity.actionStart(this, name)
+            }
+            delete.setOnClickListener {
+                GlobalScope.launch {
+                    hotKeyDao.delete(viewModel.hotKey[i])
+                }
+                searchFlowLayout.removeView(item)
+            }
+            searchFlowLayout.addView(item, layoutParams)
         }
-
     }
 
 
@@ -85,6 +98,11 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
                     showToast("搜索关键字不能为空")
                     return
                 }
+
+                GlobalScope.launch {
+                    hotKeyDao.insert(HotKey(id = -1, name = keyword))
+                }
+                viewModel.hotKeyLiveData
                 ArticleListActivity.actionStart(this, keyword)
             }
         }

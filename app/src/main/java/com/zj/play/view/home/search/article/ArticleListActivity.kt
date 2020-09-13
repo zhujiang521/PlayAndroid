@@ -2,7 +2,6 @@ package com.zj.play.view.home.search.article
 
 import android.content.Context
 import android.content.Intent
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.core.view.BaseActivity
@@ -28,7 +27,7 @@ class ArticleListActivity : BaseActivity() {
     override fun initData() {
         keyword = intent.getStringExtra(KEYWORD) ?: ""
         articleListTitleBar.setTitle(keyword)
-        viewModel.articleLiveData.observe(this, Observer {
+        viewModel.articleLiveData.observe(this, {
             if (it.isSuccess) {
                 val articleList = it.getOrNull()
                 if (articleList != null) {
@@ -75,7 +74,7 @@ class ArticleListActivity : BaseActivity() {
     }
 
     private fun getArticleList() {
-        startLoading()
+        if (viewModel.articleList.size <= 0) startLoading()
         viewModel.getArticleList(page, keyword)
     }
 

@@ -3,9 +3,6 @@ package com.zj.play
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Application
-import android.content.Intent
-import android.os.Bundle
-import android.util.Log
 import com.bumptech.glide.request.target.ViewTarget
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter

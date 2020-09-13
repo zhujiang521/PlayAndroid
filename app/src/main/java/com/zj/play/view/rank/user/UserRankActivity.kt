@@ -2,8 +2,6 @@ package com.zj.play.view.rank.user
 
 import android.content.Context
 import android.content.Intent
-import android.view.View
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.core.view.BaseActivity
@@ -23,7 +21,7 @@ class UserRankActivity : BaseActivity() {
     private var page = 1
 
     override fun initData() {
-        viewModel.rankLiveData.observe(this, Observer {
+        viewModel.rankLiveData.observe(this, {
             if (it.isSuccess) {
                 val articleList = it.getOrNull()
                 if (articleList != null) {

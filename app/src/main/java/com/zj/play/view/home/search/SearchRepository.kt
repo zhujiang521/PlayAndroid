@@ -1,7 +1,9 @@
 package com.zj.play.view.home.search
 
+import android.content.Context
 import com.zj.play.network.PlayAndroidNetwork
 import com.zj.play.network.fire
+import com.zj.play.room.PlayDatabase
 
 /**
  * 版权：联想 版权所有
@@ -11,18 +13,26 @@ import com.zj.play.network.fire
  * 描述：PlayAndroid
  *
  */
-object SearchRepository {
+class SearchRepository(context: Context) {
+
+    private val hotKeyDao = PlayDatabase.getDatabase(context).hotKeyDao()
 
     /**
      * 获取搜索热词
      */
     fun getHotKey() = fire {
-        val projectTree = PlayAndroidNetwork.getHotKey()
-        if (projectTree.errorCode == 0) {
-            val bannerList = projectTree.data
-            Result.success(bannerList)
-        } else {
-            Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
+        val hotKeyList = hotKeyDao.getHotKeyList()
+        if (hotKeyList.isNotEmpty()){
+            Result.success(hotKeyList)
+        }else {
+            val projectTree = PlayAndroidNetwork.getHotKey()
+            if (projectTree.errorCode == 0) {
+                val bannerList = projectTree.data
+                hotKeyDao.insertList(bannerList)
+                Result.success(bannerList)
+            } else {
+                Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
+            }
         }
     }
 

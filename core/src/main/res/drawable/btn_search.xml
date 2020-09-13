@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <stroke
+        android:width="@dimen/dp_0_5"
+        android:color="@color/red_btn_bg_color" />
+
+    <solid android:color="@color/red_btn_bg_color" />
+
+    <corners
+        android:bottomLeftRadius="@dimen/dp_8"
+        android:bottomRightRadius="@dimen/dp_8"
+        android:topLeftRadius="@dimen/dp_8"
+        android:topRightRadius="@dimen/dp_8" />
+    <!--圆角矩形白色背景-->
+</shape>
