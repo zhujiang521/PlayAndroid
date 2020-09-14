@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.zj.core.util.showToast
 import com.zj.core.view.BaseActivity
@@ -61,6 +62,8 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
 
     private fun setBottomDialog() {
         bottomSheetDialog = BottomSheetDialog(this)
+        val behavior: BottomSheetBehavior<*> = bottomSheetDialog!!.behavior
+        behavior.state = BottomSheetBehavior.STATE_EXPANDED
         val dialogView: View = bottomSheetDialog?.layoutInflater!!.inflate(
             R.layout.dialog_bottom_sheet,
             null
