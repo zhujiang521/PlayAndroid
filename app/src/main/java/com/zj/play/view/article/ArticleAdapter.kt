@@ -81,7 +81,7 @@ class ArticleAdapter(context: Context, layoutId: Int, articleList: ArrayList<Art
             }
         }
         articleLlItem.setOnClickListener {
-            ArticleActivity.actionStart(mContext, t.title, t.link)
+            ArticleActivity.actionStart(mContext, t.title, t.link, t.id, if (t.collect) 1 else 0)
             val browseHistoryDao = PlayDatabase.getDatabase(mContext).browseHistoryDao()
             GlobalScope.launch(Dispatchers.IO) {
                 if (browseHistoryDao.getArticle(t.id) == null) {
@@ -92,24 +92,7 @@ class ArticleAdapter(context: Context, layoutId: Int, articleList: ArrayList<Art
     }
 
     private fun setCollect(id: Int, collect: Boolean) {
-        GlobalScope.launch {
-            if (collect) {
-                val cancelCollects = cancelCollects(id)
-                if (cancelCollects.errorCode == 0) {
-                    showToast("取消收藏成功")
-                } else {
-                    showToast("取消收藏失败")
-                }
-            } else {
-                val toCollects = toCollects(id)
-                if (toCollects.errorCode == 0) {
-                    showToast("收藏成功")
-                } else {
-                    showToast("收藏失败")
-                }
-
-            }
-        }
+        ArticleUtils.collect(collect, id)
     }
 
     override fun getItemId(position: Int): Long {

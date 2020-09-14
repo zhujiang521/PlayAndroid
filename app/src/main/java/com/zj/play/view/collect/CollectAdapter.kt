@@ -51,7 +51,7 @@ class CollectAdapter(context: Context, layoutId: Int, articleList: ArrayList<Col
             cancelCollect(t.originId, position)
         }
         articleLlItem.setOnClickListener {
-            ArticleActivity.actionStart(mContext, t.title, t.link)
+            ArticleActivity.actionStart(mContext, t.title, t.link,t.id,1)
         }
     }
 

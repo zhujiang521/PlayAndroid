@@ -2,8 +2,6 @@ package com.zj.play.view.collect
 
 import android.content.Context
 import android.content.Intent
-import android.view.View
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.core.view.BaseActivity
@@ -11,7 +9,7 @@ import com.zj.play.R
 import kotlinx.android.synthetic.main.activity_collect_list.*
 import kotlin.system.measureTimeMillis
 
-class CollectListActivity : BaseActivity(){
+class CollectListActivity : BaseActivity() {
 
     private val viewModel by lazy { ViewModelProvider(this).get(CollectListViewModel::class.java) }
 
@@ -24,7 +22,7 @@ class CollectListActivity : BaseActivity(){
 
     override fun initData() {
         collectTitleBar.setTitle("我的收藏")
-        viewModel.collectLiveData.observe(this, Observer {
+        viewModel.collectLiveData.observe(this, {
             if (it.isSuccess) {
                 val articleList = it.getOrNull()
                 if (articleList != null) {
@@ -38,9 +36,7 @@ class CollectListActivity : BaseActivity(){
                     showLoadErrorView()
                 }
             } else {
-                showBadNetworkView(View.OnClickListener {
-                    getArticleList()
-                })
+                showBadNetworkView { getArticleList() }
             }
         })
         getArticleList()
@@ -73,7 +69,7 @@ class CollectListActivity : BaseActivity(){
     }
 
     private fun getArticleList() {
-        startLoading()
+        if (viewModel.collectList.size <= 0) startLoading()
         viewModel.getArticleList(page)
     }
 
