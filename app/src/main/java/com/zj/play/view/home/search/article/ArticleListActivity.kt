@@ -37,7 +37,7 @@ class ArticleListActivity : BaseActivity() {
                         viewModel.articleList.clear()
                     }
                     viewModel.articleList.addAll(articleList.datas)
-                    if (page == 1 && viewModel.articleList.size == 0) {
+                    if (viewModel.articleList.size == 0) {
                         showNoContentView("没有关于 $keyword 的数据，请更换关键字搜索")
                     }
                     articleAdapter.notifyDataSetChanged()
