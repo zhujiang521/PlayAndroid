@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.PixelFormat
 import android.text.Html
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.ImageView
@@ -115,6 +116,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
                     showToast("当前页面不可收藏")
                     return
                 }
+                ArticleBroadCast.sendArticleChangesReceiver(this)
                 ArticleUtils.setCollect(isCollection == 1, pageId)
                 if (isCollection != 1) {
                     isCollection = 1;

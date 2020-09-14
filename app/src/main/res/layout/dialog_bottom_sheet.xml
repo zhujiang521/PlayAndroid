@@ -6,8 +6,7 @@
     android:layout_gravity="center_horizontal"
     android:background="@color/grayWhite"
     android:orientation="vertical"
-    android:paddingTop="@dimen/dp_10"
-    android:paddingBottom="@dimen/dp_10">
+    android:paddingVertical="@dimen/dp_20">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,10 +24,10 @@
 
             <ImageView
                 android:id="@+id/bottomDialogIvCollect"
-                android:layout_width="@dimen/dp_38"
-                android:layout_height="@dimen/dp_38"
+                android:layout_width="@dimen/dp_48"
+                android:layout_height="@dimen/dp_48"
                 android:background="@drawable/bottom_item"
-                android:padding="@dimen/dp_9"
+                android:padding="@dimen/dp_11"
                 android:src="@drawable/ic_favorite_black_24dp" />
 
             <TextView
@@ -54,10 +53,10 @@
 
             <ImageView
                 android:id="@+id/bottomDialogIvCopy"
-                android:layout_width="@dimen/dp_38"
-                android:layout_height="@dimen/dp_38"
+                android:layout_width="@dimen/dp_48"
+                android:layout_height="@dimen/dp_48"
                 android:background="@drawable/bottom_item"
-                android:padding="@dimen/dp_10"
+                android:padding="@dimen/dp_12"
                 android:src="@drawable/ic_collections_black_24dp" />
 
             <TextView
@@ -83,10 +82,10 @@
 
             <ImageView
                 android:id="@+id/bottomDialogIvBrowser"
-                android:layout_width="@dimen/dp_38"
-                android:layout_height="@dimen/dp_38"
+                android:layout_width="@dimen/dp_48"
+                android:layout_height="@dimen/dp_48"
                 android:background="@drawable/bottom_item"
-                android:padding="@dimen/dp_10"
+                android:padding="@dimen/dp_12"
                 android:src="@drawable/ic_account_blog_black_24dp" />
 
             <TextView
@@ -112,10 +111,10 @@
 
             <ImageView
                 android:id="@+id/bottomDialogIvShare"
-                android:layout_width="@dimen/dp_38"
-                android:layout_height="@dimen/dp_38"
+                android:layout_width="@dimen/dp_48"
+                android:layout_height="@dimen/dp_48"
                 android:background="@drawable/bottom_item"
-                android:padding="@dimen/dp_10"
+                android:padding="@dimen/dp_12"
                 android:src="@drawable/ic_bug_report_black_24dp" />
 
             <TextView
@@ -135,7 +134,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_12"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -149,8 +148,8 @@
 
             <ImageView
                 android:id="@+id/bottomDialogIvReload"
-                android:layout_width="@dimen/dp_38"
-                android:layout_height="@dimen/dp_38"
+                android:layout_width="@dimen/dp_48"
+                android:layout_height="@dimen/dp_48"
                 android:background="@drawable/bottom_item"
                 android:padding="@dimen/dp_9"
                 android:src="@drawable/ic_github_black_24dp" />
