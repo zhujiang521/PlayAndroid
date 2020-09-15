@@ -26,7 +26,8 @@ class BrowseHistoryActivity : ArticleCollectBaseActivity() {
         articleAdapter = ArticleAdapter(
             this,
             R.layout.adapter_article,
-            viewModel.articleList
+            viewModel.articleList,
+            false
         )
         articleAdapter.setHasStableIds(true)
         historyRecycleView.adapter = articleAdapter

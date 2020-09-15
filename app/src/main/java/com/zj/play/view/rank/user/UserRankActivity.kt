@@ -42,7 +42,6 @@ class UserRankActivity : BaseActivity() {
     }
 
     override fun initView() {
-        userRankTitleBar.setTitle("排行榜")
         userRankListRecycleView.layoutManager = LinearLayoutManager(this)
         rankAdapter = UserRankAdapter(this, R.layout.adapter_rank, viewModel.rankList)
         rankAdapter.setHasStableIds(true)

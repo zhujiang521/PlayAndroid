@@ -24,7 +24,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class ArticleAdapter(context: Context, layoutId: Int, articleList: ArrayList<Article>) :
+class ArticleAdapter(
+    context: Context,
+    layoutId: Int,
+    articleList: ArrayList<Article>,
+    private val isShowCollect: Boolean = true
+) :
     CommonAdapter<Article>(context, layoutId, articleList) {
 
     override fun convert(holder: ViewHolder, t: Article, position: Int) {
@@ -62,6 +67,8 @@ class ArticleAdapter(context: Context, layoutId: Int, articleList: ArrayList<Art
 //        }
         articleTvTop.visibility = if (t.type > 0) View.VISIBLE else View.GONE
         articleTvNew.visibility = if (t.fresh) View.VISIBLE else View.GONE
+
+        articleTvCollect.visibility = if (isShowCollect) View.VISIBLE else View.GONE
         if (t.collect) {
             articleTvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
         } else {

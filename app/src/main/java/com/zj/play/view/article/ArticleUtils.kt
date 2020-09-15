@@ -22,18 +22,19 @@ import kotlinx.coroutines.launch
  */
 object ArticleUtils {
 
-    fun setCollect(collect: Boolean, id: Int, context: Context) {
+    fun setCollect(collect: Boolean, id: Int, originId: Int, context: Context) {
         if (Play.isLogin()) {
-            collect(collect, id, context)
+            collect(collect, id, originId, context)
         } else {
             showToast("当前未登录")
         }
     }
 
-    fun collect(collect: Boolean, id: Int, context: Context) {
+    fun collect(collect: Boolean, id: Int, originId: Int, context: Context) {
         GlobalScope.launch {
             if (collect) {
-                val cancelCollects = CollectRepository.cancelCollects(id)
+                val cancelCollects =
+                    CollectRepository.cancelCollects(if (originId != -1) originId else id)
                 if (cancelCollects.errorCode == 0) {
                     showToast("取消收藏成功")
                     ArticleBroadCast.sendArticleChangesReceiver(context)
