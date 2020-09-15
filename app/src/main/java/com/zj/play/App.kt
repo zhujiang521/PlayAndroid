@@ -3,7 +3,6 @@ package com.zj.play
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Application
-import com.bumptech.glide.request.target.ViewTarget
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
@@ -35,8 +34,8 @@ class App : Application() {
 
     private fun initData() {
         // Glide错误解决
-        ViewTarget.setTagId(R.id.tag_glide)
-        GlobalScope.launch(Dispatchers.IO){
+        //ViewTarget.setTagId(R.id.tag_glide)
+        GlobalScope.launch(Dispatchers.IO) {
             initQbSdk()
         }
     }
