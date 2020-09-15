@@ -19,15 +19,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:replace="android:theme">
-        <receiver
-            android:name="com.zj.play.view.article.ArticleBroadcastReceiver"
-            android:enabled="true"
-            android:exported="true"
-            tools:ignore="Instantiatable">
-            <intent-filter>
-                <action android:name="com.zj.play.COLLECT" />
-            </intent-filter>
-        </receiver>
         <activity android:name=".view.profile.history.BrowseHistoryActivity" />
         <activity
             android:name=".view.profile.user.UserActivity"

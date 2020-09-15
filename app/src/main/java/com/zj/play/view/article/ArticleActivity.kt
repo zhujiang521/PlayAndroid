@@ -116,8 +116,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
                     showToast("当前页面不可收藏")
                     return
                 }
-                ArticleBroadCast.sendArticleChangesReceiver(this)
-                ArticleUtils.setCollect(isCollection == 1, pageId)
+                ArticleUtils.setCollect(isCollection == 1, pageId,this)
                 if (isCollection != 1) {
                     isCollection = 1;
                     bottomDialogIvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)

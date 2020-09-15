@@ -22,20 +22,21 @@ import kotlinx.coroutines.launch
  */
 object ArticleUtils {
 
-    fun setCollect(collect: Boolean, id: Int) {
+    fun setCollect(collect: Boolean, id: Int, context: Context) {
         if (Play.isLogin()) {
-            collect(collect,id)
+            collect(collect, id, context)
         } else {
             showToast("当前未登录")
         }
     }
 
-    fun collect(collect: Boolean, id: Int) {
+    fun collect(collect: Boolean, id: Int, context: Context) {
         GlobalScope.launch {
             if (collect) {
                 val cancelCollects = CollectRepository.cancelCollects(id)
                 if (cancelCollects.errorCode == 0) {
                     showToast("取消收藏成功")
+                    ArticleBroadCast.sendArticleChangesReceiver(context)
                 } else {
                     showToast("取消收藏失败")
                 }
@@ -43,6 +44,7 @@ object ArticleUtils {
                 val toCollects = CollectRepository.toCollects(id)
                 if (toCollects.errorCode == 0) {
                     showToast("收藏成功")
+                    ArticleBroadCast.sendArticleChangesReceiver(context)
                 } else {
                     showToast("收藏失败")
                 }
@@ -57,13 +59,13 @@ object ArticleUtils {
         systemService.setPrimaryClip(ClipData.newPlainText("text", text))
     }
 
-    fun jumpBrowser(context: Context, url: String){
+    fun jumpBrowser(context: Context, url: String) {
         val uri: Uri = Uri.parse(url)
         val intent = Intent(Intent.ACTION_VIEW, uri)
         context.startActivity(intent)
     }
 
-    fun shareUrl(context: Context, url: String, name: String){
+    fun shareUrl(context: Context, url: String, name: String) {
         val textIntent = Intent(Intent.ACTION_SEND)
         textIntent.type = "text/plain"
         textIntent.putExtra(Intent.EXTRA_TEXT, url)

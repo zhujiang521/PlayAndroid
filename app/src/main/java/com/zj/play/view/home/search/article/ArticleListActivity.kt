@@ -2,18 +2,17 @@ package com.zj.play.view.home.search.article
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zj.core.view.BaseActivity
 import com.zj.play.R
 import com.zj.play.view.article.ArticleAdapter
+import com.zj.play.view.home.ArticleCollectBaseActivity
 import kotlinx.android.synthetic.main.activity_article_list.*
 import kotlin.system.measureTimeMillis
 
 private const val KEYWORD = "KEYWORD"
 
-class ArticleListActivity : BaseActivity() {
+class ArticleListActivity : ArticleCollectBaseActivity() {
 
     private val viewModel by lazy { ViewModelProvider(this).get(ArticleListViewModel::class.java) }
 

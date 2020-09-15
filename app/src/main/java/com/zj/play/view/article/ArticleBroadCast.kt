@@ -22,6 +22,7 @@ object ArticleBroadCast {
 
     fun sendArticleChangesReceiver(c: Context) {
         val intent = Intent(COLLECT_RECEIVER)
+        intent.setPackage(c.packageName)
         c.sendBroadcast(intent)
     }
 
@@ -29,7 +30,8 @@ object ArticleBroadCast {
         val filter = IntentFilter()
         filter.addAction(COLLECT_RECEIVER)
         val r = ArticleBroadcastReceiver(block)
-        LocalBroadcastManager.getInstance(c).registerReceiver(r, filter)
+        //LocalBroadcastManager.getInstance(c).registerReceiver(r, filter)
+        c.registerReceiver(r, filter)
         return r
     }
 
@@ -44,7 +46,9 @@ private class ArticleBroadcastReceiver(val block: () -> Unit) :
     BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
+        Log.e("ZHUJIANG", "111onReceive: "+intent.action )
         if (intent.action == ArticleBroadCast.COLLECT_RECEIVER) {
+            Log.e("ZHUJIANG", "222onReceive: "+intent.action )
             block.invoke()
         }
     }

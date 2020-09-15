@@ -2,14 +2,15 @@ package com.zj.play.view.collect
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zj.core.view.BaseActivity
 import com.zj.play.R
+import com.zj.play.view.home.ArticleCollectBaseActivity
 import kotlinx.android.synthetic.main.activity_collect_list.*
 import kotlin.system.measureTimeMillis
 
-class CollectListActivity : BaseActivity() {
+class CollectListActivity : ArticleCollectBaseActivity() {
 
     private val viewModel by lazy { ViewModelProvider(this).get(CollectListViewModel::class.java) }
 
@@ -30,6 +31,7 @@ class CollectListActivity : BaseActivity() {
                     if (page == 1 && viewModel.collectList.size > 0) {
                         viewModel.collectList.clear()
                     }
+                    Log.e("ZHUJIANG","${articleList.datas.size}   initDatas: ")
                     viewModel.collectList.addAll(articleList.datas)
                     articleAdapter.notifyDataSetChanged()
                 } else {

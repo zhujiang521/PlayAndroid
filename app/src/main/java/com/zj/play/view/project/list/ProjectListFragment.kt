@@ -7,12 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.core.view.BaseFragment
 import com.zj.play.R
 import com.zj.play.view.article.ArticleAdapter
+import com.zj.play.view.home.ArticleCollectBaseFragment
 import kotlinx.android.synthetic.main.fragment_project_list.*
 import kotlin.system.measureTimeMillis
 
 private const val PROJECT_CID = "PROJECT_CID"
 
-class ProjectListFragment : BaseFragment() {
+class ProjectListFragment : ArticleCollectBaseFragment() {
 
     private val viewModel by lazy { ViewModelProvider(this).get(ProjectListViewModel::class.java) }
 

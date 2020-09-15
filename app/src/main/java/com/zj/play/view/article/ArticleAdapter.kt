@@ -14,8 +14,7 @@ import com.zj.core.Play
 import com.zj.core.util.setSafeListener
 import com.zj.core.util.showToast
 import com.zj.play.R
-import com.zj.play.network.CollectRepository.cancelCollects
-import com.zj.play.network.CollectRepository.toCollects
+import com.zj.play.network.CollectRepository
 import com.zj.play.room.PlayDatabase
 import com.zj.play.room.entity.Article
 import com.zj.play.view.account.LoginActivity
@@ -92,7 +91,24 @@ class ArticleAdapter(context: Context, layoutId: Int, articleList: ArrayList<Art
     }
 
     private fun setCollect(id: Int, collect: Boolean) {
-        ArticleUtils.collect(collect, id)
+        GlobalScope.launch {
+            if (collect) {
+                val cancelCollects = CollectRepository.cancelCollects(id)
+                if (cancelCollects.errorCode == 0) {
+                    showToast("取消收藏成功")
+                } else {
+                    showToast("取消收藏失败")
+                }
+            } else {
+                val toCollects = CollectRepository.toCollects(id)
+                if (toCollects.errorCode == 0) {
+                    showToast("收藏成功")
+                } else {
+                    showToast("收藏失败")
+                }
+
+            }
+        }
     }
 
     override fun getItemId(position: Int): Long {

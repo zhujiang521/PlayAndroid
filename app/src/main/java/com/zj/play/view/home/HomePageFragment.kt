@@ -1,23 +1,21 @@
 package com.zj.play.view.home
 
-import android.content.BroadcastReceiver
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.youth.banner.indicator.CircleIndicator
-import com.zj.core.view.BaseFragment
 import com.zj.play.R
 import com.zj.play.view.article.ArticleAdapter
-import com.zj.play.view.article.ArticleBroadCast
 import com.zj.play.view.home.search.SearchActivity
 import com.zj.play.view.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_home_page.*
 import kotlin.system.measureTimeMillis
 
 
-class HomePageFragment : BaseFragment() {
+class HomePageFragment : ArticleCollectBaseFragment() {
 
     private val viewModel by lazy { ViewModelProvider(this).get(HomePageViewModel::class.java) }
-    private var articleReceiver: BroadcastReceiver? = null
+
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_home_page
@@ -26,8 +24,6 @@ class HomePageFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         homeBanner.start()
-        articleReceiver =
-            ArticleBroadCast.setArticleChangesReceiver(activity!!) { getArticleList() }
     }
 
     private lateinit var bannerAdapter: ImageAdapter
@@ -133,7 +129,6 @@ class HomePageFragment : BaseFragment() {
     override fun onPause() {
         super.onPause()
         homeBanner.stop()
-        ArticleBroadCast.clearTimeChangesReceiver(activity!!, articleReceiver)
     }
 
     companion object {
