@@ -74,6 +74,7 @@ class ArticleAdapter(context: Context, layoutId: Int, articleList: ArrayList<Art
                     articleTvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
                 }
                 setCollect(t.id, t.collect)
+                t.collect = !t.collect
                 //articleCollectCallback?.collectArticle(t.id,t.collect)
             } else {
                 LoginActivity.actionStart(mContext)

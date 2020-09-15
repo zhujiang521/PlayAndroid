@@ -21,7 +21,7 @@ data class Article(
     @ColumnInfo(name = "can_edit") val canEdit: Boolean,
     @ColumnInfo(name = "chapter_id") val chapterId: Int,
     @ColumnInfo(name = "chapter_name") val chapterName: String,
-    @ColumnInfo(name = "collect") val collect: Boolean,
+    @ColumnInfo(name = "collect") var collect: Boolean,
     @ColumnInfo(name = "course_id") val courseId: Int,
     @ColumnInfo(name = "desc") val desc: String,
     @ColumnInfo(name = "desc_md") val descMd: String,
