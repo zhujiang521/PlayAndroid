@@ -21,6 +21,7 @@ import com.zj.play.view.account.LoginActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class ArticleAdapter(context: Context, layoutId: Int, articleList: ArrayList<Article>) :
@@ -68,12 +69,7 @@ class ArticleAdapter(context: Context, layoutId: Int, articleList: ArrayList<Art
         }
         articleTvCollect.setSafeListener {
             if (Play.isLogin()) {
-                if (!t.collect) {
-                    articleTvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
-                } else {
-                    articleTvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
-                }
-                setCollect(t.id, t.collect)
+                setCollect(t.id, t.collect, articleTvCollect)
                 t.collect = !t.collect
                 //articleCollectCallback?.collectArticle(t.id,t.collect)
             } else {
@@ -91,19 +87,25 @@ class ArticleAdapter(context: Context, layoutId: Int, articleList: ArrayList<Art
         }
     }
 
-    private fun setCollect(id: Int, collect: Boolean) {
+    private fun setCollect(id: Int, collect: Boolean, articleTvCollect: ImageView) {
         GlobalScope.launch {
             if (collect) {
                 val cancelCollects = CollectRepository.cancelCollects(id)
                 if (cancelCollects.errorCode == 0) {
-                    showToast("取消收藏成功")
+                    withContext(Dispatchers.Main) {
+                        articleTvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
+                        showToast("取消收藏成功")
+                    }
                 } else {
                     showToast("取消收藏失败")
                 }
             } else {
                 val toCollects = CollectRepository.toCollects(id)
                 if (toCollects.errorCode == 0) {
-                    showToast("收藏成功")
+                    withContext(Dispatchers.Main) {
+                        articleTvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
+                        showToast("收藏成功")
+                    }
                 } else {
                     showToast("收藏失败")
                 }
