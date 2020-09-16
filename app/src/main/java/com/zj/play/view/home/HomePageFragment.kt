@@ -1,6 +1,5 @@
 package com.zj.play.view.home
 
-import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.youth.banner.indicator.CircleIndicator
@@ -93,7 +92,7 @@ class HomePageFragment : ArticleCollectBaseFragment() {
     }
 
     private fun initBanner() {
-        HomeRepository.getBanner().observe(this, {
+        viewModel.bannerLiveData.observe(this, {
             if (it.isSuccess) {
                 val bannerList = it.getOrNull()
                 if (bannerList != null) {

@@ -1,10 +1,11 @@
 package com.zj.play.view.home
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import com.zj.play.model.BannerBean
 import com.zj.play.room.entity.Article
+import com.zj.play.room.entity.BannerBean
 
 /**
  * 版权：渤海新能 版权所有
@@ -14,7 +15,7 @@ import com.zj.play.room.entity.Article
  * 描述：PlayAndroid
  *
  */
-class HomePageViewModel : ViewModel() {
+class HomePageViewModel(application: Application) : AndroidViewModel(application) {
 
     private val pageLiveData = MutableLiveData<Int>()
 
@@ -27,6 +28,9 @@ class HomePageViewModel : ViewModel() {
     val articleLiveData = Transformations.switchMap(pageLiveData) { page ->
         HomeRepository.getArticleList(page)
     }
+
+    val bannerLiveData = HomeRepository.getBanner(application)
+
 
     fun getArticleList(page: Int) {
         pageLiveData.value = page

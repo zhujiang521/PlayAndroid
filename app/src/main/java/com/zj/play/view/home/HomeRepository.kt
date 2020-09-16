@@ -1,10 +1,18 @@
 package com.zj.play.view.home
 
+import android.app.Application
+import android.util.Log
+import com.blankj.utilcode.util.SPUtils
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
+import com.zj.core.util.Preference
 import com.zj.play.network.PlayAndroidNetwork
 import com.zj.play.network.fire
+import com.zj.play.room.PlayDatabase
+import com.zj.play.room.dao.BannerBeanDao
 import com.zj.play.room.entity.Article
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
+import com.zj.play.room.entity.BannerBean
+import kotlinx.coroutines.*
 
 /**
  * 版权：联想 版权所有
@@ -16,16 +24,51 @@ import kotlinx.coroutines.coroutineScope
  */
 object HomeRepository {
 
+    private const val ONE_DAY = 1000 * 60 * 60 * 24
+    private const val DOWN_IMAGE_TIME = "DownImageTime"
+
     /**
-     * 获banner
+     * 获取banner
      */
-    fun getBanner() = fire() {
-        val bannerResponse = PlayAndroidNetwork.getBanner()
-        if (bannerResponse.errorCode == 0) {
-            val bannerList = bannerResponse.data
-            Result.success(bannerList)
+    fun getBanner(application: Application) = fire {
+        val spUtils = SPUtils.getInstance()
+        val downImageTime by Preference(DOWN_IMAGE_TIME, System.currentTimeMillis())
+        val bannerBeanDao = PlayDatabase.getDatabase(application).bannerBeanDao()
+        val bannerBeanList = bannerBeanDao.getBannerBeanList()
+        if (bannerBeanList.isNotEmpty() && downImageTime > 0 && downImageTime - System.currentTimeMillis() < ONE_DAY) {
+            Result.success(bannerBeanList)
         } else {
-            Result.failure(RuntimeException("response status is ${bannerResponse.errorCode}  msg is ${bannerResponse.errorMsg}"))
+            val bannerResponse = PlayAndroidNetwork.getBanner()
+            if (bannerResponse.errorCode == 0) {
+                val bannerList = bannerResponse.data
+                spUtils.put(DOWN_IMAGE_TIME, System.currentTimeMillis())
+                if (bannerBeanList.isNotEmpty() && bannerBeanList[0].url == bannerList[0].url) {
+                    Result.success(bannerBeanList)
+                } else {
+                    bannerBeanDao.deleteAll()
+                    insertBannerList(application, bannerBeanDao, bannerList)
+                    Result.success(bannerList)
+                }
+            } else {
+                Result.failure(RuntimeException("response status is ${bannerResponse.errorCode}  msg is ${bannerResponse.errorMsg}"))
+            }
+        }
+    }
+
+    private suspend fun insertBannerList(
+        application: Application,
+        bannerBeanDao: BannerBeanDao,
+        bannerList: List<BannerBean>
+    ) {
+        bannerList.forEach {
+            GlobalScope.launch(Dispatchers.IO) {
+                val file = Glide.with(application)
+                    .load(it.imagePath)
+                    .downloadOnly(SIZE_ORIGINAL, SIZE_ORIGINAL)
+                    .get()
+                it.filePath = file.absolutePath
+                bannerBeanDao.insert(it)
+            }
         }
     }
 

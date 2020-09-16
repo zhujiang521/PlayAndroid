@@ -1,12 +1,13 @@
 package com.zj.play.view.home
 
 import android.content.Context
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.youth.banner.adapter.BannerAdapter
-import com.zj.play.model.BannerBean
+import com.zj.play.room.entity.BannerBean
 import com.zj.play.view.article.ArticleActivity
 
 
@@ -47,9 +48,10 @@ open class ImageAdapter(private val mContext: Context, mData: List<BannerBean>) 
         position: Int,
         size: Int
     ) {
-        Glide.with(mContext).load(data?.imagePath).into(holder!!.imageView)
+        Glide.with(mContext).load(if (data?.filePath == null) data?.imagePath else data.filePath)
+            .into(holder!!.imageView)
         holder.imageView.setOnClickListener {
-            ArticleActivity.actionStart(mContext,data!!.title, data.url)
+            ArticleActivity.actionStart(mContext, data!!.title, data.url)
         }
     }
 }
