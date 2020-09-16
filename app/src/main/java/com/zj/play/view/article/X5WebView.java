@@ -193,7 +193,7 @@ public class X5WebView extends WebView {
 //            Log.i(TAG, "onLoadResource: onLoadResource : " + reUrl);
             List<String> urlList = new ArrayList<>();
             urlList.add(reUrl);
-            List<String> newList = new ArrayList();
+            List<String> newList = new ArrayList<>();
             for (String cd : urlList) {
                 if (!newList.contains(cd)) {
                     newList.add(cd);

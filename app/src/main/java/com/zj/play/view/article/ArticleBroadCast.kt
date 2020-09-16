@@ -46,9 +46,7 @@ private class ArticleBroadcastReceiver(val block: () -> Unit) :
     BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        Log.e("ZHUJIANG", "111onReceive: "+intent.action )
         if (intent.action == ArticleBroadCast.COLLECT_RECEIVER) {
-            Log.e("ZHUJIANG", "222onReceive: "+intent.action )
             block.invoke()
         }
     }
