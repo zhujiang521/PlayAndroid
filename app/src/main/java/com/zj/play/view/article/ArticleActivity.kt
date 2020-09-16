@@ -119,7 +119,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
                     showToast("当前页面不可收藏")
                     return
                 }
-                ArticleUtils.setCollect(isCollection == 1, pageId, originId,this)
+                ArticleUtils.setCollect(isCollection == 1, pageId, originId, this)
                 if (isCollection != 1) {
                     isCollection = 1;
                     bottomDialogIvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
