@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.zj.core.view.BaseActivity
 import com.zj.play.R
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.system.exitProcess
 
 class MainActivity : BaseActivity() {
 
@@ -32,6 +33,11 @@ class MainActivity : BaseActivity() {
 
     override fun getLayoutId(): Int {
         return R.layout.activity_main
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        exitProcess(0)
     }
 
     companion object {
