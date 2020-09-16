@@ -69,5 +69,9 @@ class CollectAdapter(context: Context, layoutId: Int, articleList: ArrayList<Col
         }
     }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
 }
 

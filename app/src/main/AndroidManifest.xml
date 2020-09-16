@@ -18,6 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
+        android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity android:name=".view.profile.history.BrowseHistoryActivity" />
         <activity
