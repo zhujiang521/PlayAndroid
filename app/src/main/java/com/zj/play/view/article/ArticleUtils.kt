@@ -22,14 +22,6 @@ import kotlinx.coroutines.launch
  */
 object ArticleUtils {
 
-    fun setCollect(collect: Boolean, id: Int, originId: Int, context: Context) {
-        if (Play.isLogin()) {
-            collect(collect, id, originId, context)
-        } else {
-            showToast("当前未登录")
-        }
-    }
-
     fun collect(collect: Boolean, id: Int, originId: Int, context: Context) {
         GlobalScope.launch {
             if (collect) {

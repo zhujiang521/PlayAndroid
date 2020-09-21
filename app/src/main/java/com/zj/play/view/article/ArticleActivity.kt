@@ -11,8 +11,10 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.zj.core.Play
 import com.zj.core.util.showToast
 import com.zj.core.view.BaseActivity
 import com.zj.play.R
@@ -116,10 +118,16 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
             R.id.bottomDialogLlCollect -> {
                 bottomSheetDialog?.dismiss()
                 if (isCollection == -1 || pageId == -1) {
-                    showToast("当前页面不可收藏")
+                    Toast.makeText(this,"当前页面不可收藏",Toast.LENGTH_SHORT).show()
                     return
                 }
-                ArticleUtils.setCollect(isCollection == 1, pageId, originId, this)
+
+                if (!Play.isLogin()) {
+                    Toast.makeText(this,"当前未登录",Toast.LENGTH_SHORT).show()
+                    return
+                }
+
+                ArticleUtils.collect(isCollection == 1, pageId, originId, this)
                 if (isCollection != 1) {
                     isCollection = 1;
                     bottomDialogIvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
