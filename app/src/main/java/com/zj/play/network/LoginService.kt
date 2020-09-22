@@ -1,7 +1,7 @@
 package com.zj.play.network
 
-import com.zj.play.model.LoginModel
 import com.zj.play.model.BaseModel
+import com.zj.play.model.Login
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -21,16 +21,16 @@ interface LoginService {
     fun getLogin(
         @Query("username") username: String,
         @Query("password") password: String
-    ): Call<LoginModel>
+    ): Call<BaseModel<Login>>
 
     @POST("user/register")
     fun getRegister(
         @Query("username") username: String,
         @Query("password") password: String,
         @Query("repassword") repassword: String
-    ): Call<LoginModel>
+    ): Call<BaseModel<Login>>
 
     @GET("user/logout/json")
-    fun getLogout(): Call<BaseModel>
+    fun getLogout(): Call<BaseModel<Any>>
 
 }

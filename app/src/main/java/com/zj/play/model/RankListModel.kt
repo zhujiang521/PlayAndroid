@@ -1,11 +1,5 @@
 package com.zj.play.model
 
-data class RankListModel(
-    val `data`: RankList,
-    val errorCode: Int,
-    val errorMsg: String
-)
-
 data class RankList(
     val curPage: Int,
     val datas: List<Ranks>,

@@ -1,8 +1,6 @@
 package com.zj.play.network
 
-import com.zj.play.model.RankListModel
-import com.zj.play.model.RankModel
-import com.zj.play.model.UserInfoModel
+import com.zj.play.model.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -18,12 +16,12 @@ import retrofit2.http.Path
 interface RankService {
 
     @GET("coin/rank/{page}/json")
-    fun getRankList(@Path("page") page: Int): Call<RankModel>
+    fun getRankList(@Path("page") page: Int): Call<BaseModel<Data>>
 
     @GET("lg/coin/userinfo/json")
-    fun getUserInfo(): Call<UserInfoModel>
+    fun getUserInfo(): Call<BaseModel<UserInfo>>
 
     @GET("lg/coin/list/{page}/json")
-    fun getUserRank(@Path("page") page: Int): Call<RankListModel>
+    fun getUserRank(@Path("page") page: Int): Call<BaseModel<RankList>>
 
 }

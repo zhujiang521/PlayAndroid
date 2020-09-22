@@ -1,11 +1,5 @@
 package com.zj.play.model
 
-data class CollectModel(
-    val `data`: Collect,
-    val errorCode: Int,
-    val errorMsg: String
-)
-
 data class Collect(
     val curPage: Int,
     val datas: List<CollectX>,

@@ -1,14 +1,11 @@
 package com.zj.play.network
 
-import com.zj.play.model.ArticleListModel
-import com.zj.play.model.BannerModel
 import com.zj.play.model.BaseModel
-import com.zj.play.model.CollectModel
+import com.zj.play.model.Collect
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 /**
  * 版权：渤海新能 版权所有
@@ -21,12 +18,12 @@ import retrofit2.http.Query
 interface CollectService {
 
     @GET("lg/collect/list/{page}/json")
-    fun getCollectList(@Path("page") page: Int): Call<CollectModel>
+    fun getCollectList(@Path("page") page: Int): Call<BaseModel<Collect>>
 
     @POST("lg/collect/{id}/json")
-    fun toCollect(@Path("id") id: Int): Call<BaseModel>
+    fun toCollect(@Path("id") id: Int): Call<BaseModel<Any>>
 
     @POST("lg/uncollect_originId/{id}/json")
-    fun cancelCollect(@Path("id") id: Int): Call<BaseModel>
+    fun cancelCollect(@Path("id") id: Int): Call<BaseModel<Any>>
 
 }

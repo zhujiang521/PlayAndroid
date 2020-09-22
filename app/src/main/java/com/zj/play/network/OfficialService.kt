@@ -1,11 +1,11 @@
 package com.zj.play.network
 
-import com.zj.play.model.ArticleListModel
-import com.zj.play.model.ProjectTreeModel
+import com.zj.play.model.ArticleList
+import com.zj.play.model.BaseModel
+import com.zj.play.room.entity.ProjectClassify
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 /**
  * 版权：渤海新能 版权所有
@@ -18,9 +18,9 @@ import retrofit2.http.Query
 interface OfficialService {
 
     @GET("wxarticle/chapters/json")
-    fun getWxArticleTree(): Call<ProjectTreeModel>
+    fun getWxArticleTree(): Call<BaseModel<List<ProjectClassify>>>
 
     @GET("wxarticle/list/{cid}/{page}/json")
-    fun getWxArticle(@Path("page") page: Int, @Path("cid") cid: Int): Call<ArticleListModel>
+    fun getWxArticle(@Path("page") page: Int, @Path("cid") cid: Int): Call<BaseModel<ArticleList>>
 
 }

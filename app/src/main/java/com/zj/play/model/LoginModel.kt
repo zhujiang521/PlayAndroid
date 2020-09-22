@@ -1,12 +1,5 @@
 package com.zj.play.model
 
-data class LoginModel(
-    val `data`: Login,
-    val errorCode: Int,
-    val errorMsg: String
-)
-
-
 data class Login(
     val admin: Boolean,
     val chapterTops: List<Any>,
