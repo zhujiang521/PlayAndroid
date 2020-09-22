@@ -15,44 +15,22 @@ object CollectRepository {
      *
      * @param page 页码
      */
-    fun getCollectList(page: Int) = fire {
-        val projectTree = PlayAndroidNetwork.getCollectList(page)
-        if (projectTree.errorCode == 0) {
-            val bannerList = projectTree.data
-            Result.success(bannerList)
-        } else {
-            Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
-        }
-    }
+    fun getCollectList(page: Int) = fires { PlayAndroidNetwork.getCollectList(page) }
 
     /**
      * 收藏文章
      *
      * @param id 文章id
      */
-    fun toCollect(id: Int) = fire {
-        val projectTree = PlayAndroidNetwork.toCollect(id)
-        if (projectTree.errorCode == 0) {
-            val bannerList = projectTree.data
-            Result.success(bannerList)
-        } else {
-            Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
-        }
-    }
+    fun toCollect(id: Int) = fires { PlayAndroidNetwork.toCollect(id) }
 
     /**
      * 取消收藏
      *
      * @param id 文章id
      */
-    fun cancelCollect(id: Int) = fire {
-        val projectTree = PlayAndroidNetwork.cancelCollect(id)
-        if (projectTree.errorCode == 0) {
-            val bannerList = projectTree.data
-            Result.success(bannerList)
-        } else {
-            Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
-        }
+    fun cancelCollect(id: Int) = fires {
+        PlayAndroidNetwork.cancelCollect(id)
     }
 
     suspend fun cancelCollects(id: Int) = PlayAndroidNetwork.cancelCollect(id)

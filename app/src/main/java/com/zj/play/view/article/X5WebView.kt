@@ -72,7 +72,7 @@ class X5WebView : WebView {
         webChromeClient = chromeClient
         setDownloadListener(downloadListener)
         isClickable = true
-        setOnTouchListener { v: View?, event: MotionEvent? -> false }
+        setOnTouchListener { _: View?, _: MotionEvent? -> false }
         val webSetting = settings
         webSetting.javaScriptEnabled = true
         webSetting.builtInZoomControls = true
@@ -218,7 +218,7 @@ class X5WebView : WebView {
     }
 
     private val downloadListener =
-        DownloadListener { url: String?, userAgent: String?, contentDisposition: String?, mimetype: String?, contentLength: Long ->
+        DownloadListener { url: String?, _: String?, _: String?, _: String?, _: Long ->
             val uri = Uri.parse(url)
             val intent = Intent(Intent.ACTION_VIEW, uri)
             context.startActivity(intent)

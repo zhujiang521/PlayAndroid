@@ -2,6 +2,7 @@ package com.zj.play.network
 
 import android.util.Log
 import androidx.lifecycle.liveData
+import com.zj.play.model.BaseModel
 
 /**
  * 版权：渤海新能 版权所有
@@ -13,45 +14,42 @@ import androidx.lifecycle.liveData
  */
 object Repository {
 
-    fun getLogin(username: String, password: String) = fire {
-        val projectTree = PlayAndroidNetwork.getLogin(username, password)
-        if (projectTree.errorCode == 0) {
-            val bannerList = projectTree.data
-            Result.success(bannerList)
-        } else {
-            Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
-        }
+    fun getLogin(username: String, password: String) = fires {
+        PlayAndroidNetwork.getLogin(username, password)
     }
 
-    fun getRegister(username: String, password: String, repassword: String) = fire {
-        val projectTree = PlayAndroidNetwork.getRegister(username, password, repassword)
-        if (projectTree.errorCode == 0) {
-            val bannerList = projectTree.data
-            Result.success(bannerList)
-        } else {
-            Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
-        }
-    }
+    fun getRegister(username: String, password: String, repassword: String) =
+        fires { PlayAndroidNetwork.getRegister(username, password, repassword) }
 
-    fun getLogout() = fire {
-        val projectTree = PlayAndroidNetwork.getLogout()
-        if (projectTree.errorCode == 0) {
-            val bannerList = projectTree.data
-            Result.success(bannerList)
-        } else {
-            Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
-        }
-    }
+    fun getLogout() = fires { PlayAndroidNetwork.getLogout() }
 
 }
+
+
+fun <T> fires(block: suspend () -> BaseModel<T>) =
+    liveData {
+        val result = try {
+            val baseModel = block()
+            if (baseModel.errorCode == 0) {
+                val model = baseModel.data
+                Result.success(model)
+            } else {
+                Result.failure(RuntimeException("response status is ${baseModel.errorCode}  msg is ${baseModel.errorMsg}"))
+            }
+        } catch (e: Exception) {
+            Log.e("ZHUJIANG哈哈哈fires", e.toString())
+            Result.failure(e)
+        }
+        emit(result)
+    }
 
 fun <T> fire(block: suspend () -> Result<T>) =
     liveData {
         val result = try {
             block()
         } catch (e: Exception) {
-            Log.e("ZHUJIANG哈哈哈", e.toString())
-            Result.failure<T>(e)
+            Log.e("ZHUJIANG哈哈哈fire", e.toString())
+            Result.failure(e)
         }
         emit(result)
     }

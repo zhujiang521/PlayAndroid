@@ -15,43 +15,19 @@ object RankRepository {
      *
      * @param page 页码
      */
-    fun getRankList(page: Int) = fire {
-        val projectTree = PlayAndroidNetwork.getRankList(page)
-        if (projectTree.errorCode == 0) {
-            val bannerList = projectTree.data
-            Result.success(bannerList)
-        } else {
-            Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
-        }
-    }
+    fun getRankList(page: Int) = fires { PlayAndroidNetwork.getRankList(page) }
 
     /**
      * 获取个人积分获取列表
      *
      * @param page 页码
      */
-    fun getUserRank(page: Int) = fire {
-        val projectTree = PlayAndroidNetwork.getUserRank(page)
-        if (projectTree.errorCode == 0) {
-            val bannerList = projectTree.data
-            Result.success(bannerList)
-        } else {
-            Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
-        }
-    }
+    fun getUserRank(page: Int) = fires { PlayAndroidNetwork.getUserRank(page) }
 
     /**
      * 获取个人积分信息
      */
-    fun getUserInfo() = fire {
-        val projectTree = PlayAndroidNetwork.getUserInfo()
-        if (projectTree.errorCode == 0) {
-            val bannerList = projectTree.data
-            Result.success(bannerList)
-        } else {
-            Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
-        }
-    }
+    fun getUserInfo() = fires { PlayAndroidNetwork.getUserInfo() }
 
 
 }

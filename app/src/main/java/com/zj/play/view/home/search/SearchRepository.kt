@@ -3,6 +3,7 @@ package com.zj.play.view.home.search
 import android.content.Context
 import com.zj.play.network.PlayAndroidNetwork
 import com.zj.play.network.fire
+import com.zj.play.network.fires
 import com.zj.play.room.PlayDatabase
 
 /**
@@ -22,9 +23,9 @@ class SearchRepository(context: Context) {
      */
     fun getHotKey() = fire {
         val hotKeyList = hotKeyDao.getHotKeyList()
-        if (hotKeyList.isNotEmpty()){
+        if (hotKeyList.isNotEmpty()) {
             Result.success(hotKeyList)
-        }else {
+        } else {
             val projectTree = PlayAndroidNetwork.getHotKey()
             if (projectTree.errorCode == 0) {
                 val bannerList = projectTree.data
@@ -39,14 +40,8 @@ class SearchRepository(context: Context) {
     /**
      * 获取搜索结果
      */
-    fun getQueryArticleList(page: Int, k: String) = fire {
-        val projectTree = PlayAndroidNetwork.getQueryArticleList(page, k)
-        if (projectTree.errorCode == 0) {
-            val bannerList = projectTree.data
-            Result.success(bannerList)
-        } else {
-            Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
-        }
+    fun getQueryArticleList(page: Int, k: String) = fires {
+        PlayAndroidNetwork.getQueryArticleList(page, k)
     }
 
 }
