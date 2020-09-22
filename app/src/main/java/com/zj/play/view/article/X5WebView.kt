@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.tencent.smtt.sdk.*
+import com.zj.core.util.showToast
 import com.zj.play.R
 import java.util.*
 
@@ -151,7 +152,7 @@ class X5WebView : WebView {
                     intent.data = Uri.parse(url)
                     view.context.startActivity(intent)
                 } catch (e: ActivityNotFoundException) {
-                    Toast.makeText(view.context, "手机还没有安装支持打开此网页的应用！", Toast.LENGTH_SHORT).show()
+                    showToast("手机还没有安装支持打开此网页的应用！")
                 }
                 true
             }

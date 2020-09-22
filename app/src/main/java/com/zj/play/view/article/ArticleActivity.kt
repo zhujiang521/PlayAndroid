@@ -118,12 +118,12 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
             R.id.bottomDialogLlCollect -> {
                 bottomSheetDialog?.dismiss()
                 if (isCollection == -1 || pageId == -1) {
-                    Toast.makeText(this,"当前页面不可收藏",Toast.LENGTH_SHORT).show()
+                    showToast("当前页面不可收藏")
                     return
                 }
 
                 if (!Play.isLogin()) {
-                    Toast.makeText(this,"当前未登录",Toast.LENGTH_SHORT).show()
+                    showToast("当前未登录")
                     return
                 }
 

@@ -5,7 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.KeyEvent
 import androidx.lifecycle.ViewModelProvider
+import com.blankj.utilcode.util.ToastUtils
+import com.zj.core.util.showToast
 import com.zj.core.view.BaseActivity
 import com.zj.play.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -38,6 +41,25 @@ class MainActivity : BaseActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         exitProcess(0)
+    }
+
+    private var exitTime: Long = 0
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit()
+            return false
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+    private fun exit() {
+        if (System.currentTimeMillis() - exitTime > 2000) {
+            showToast("再按一次退出程序")
+            exitTime = System.currentTimeMillis()
+        } else {
+            exitProcess(0)
+        }
     }
 
     companion object {

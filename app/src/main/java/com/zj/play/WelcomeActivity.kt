@@ -5,6 +5,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.animation.*
 import android.widget.Toast
+import com.zj.core.util.showToast
 import com.zj.core.view.BaseActivity
 import com.zj.play.view.main.MainActivity
 import kotlinx.android.synthetic.main.activity_welcome.*
@@ -98,10 +99,7 @@ class WelcomeActivity : BaseActivity(),
 
     private fun exit() {
         if (System.currentTimeMillis() - exitTime > 2000) {
-            Toast.makeText(
-                applicationContext, "再按一次退出程序",
-                Toast.LENGTH_SHORT
-            ).show()
+            showToast("再按一次退出程序")
             exitTime = System.currentTimeMillis()
         } else {
             App.getInstance().exit()
