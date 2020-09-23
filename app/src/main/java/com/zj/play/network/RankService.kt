@@ -16,7 +16,7 @@ import retrofit2.http.Path
 interface RankService {
 
     @GET("coin/rank/{page}/json")
-    fun getRankList(@Path("page") page: Int): Call<BaseModel<Data>>
+    fun getRankList(@Path("page") page: Int): Call<BaseModel<RankData>>
 
     @GET("lg/coin/userinfo/json")
     fun getUserInfo(): Call<BaseModel<UserInfo>>

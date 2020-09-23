@@ -5,12 +5,12 @@ import android.widget.TextView
 import com.zhy.adapter.recyclerview.CommonAdapter
 import com.zhy.adapter.recyclerview.base.ViewHolder
 import com.zj.play.R
-import com.zj.play.model.DataX
+import com.zj.play.model.Rank
 import java.util.*
 
-class RankAdapter(context: Context, layoutId: Int, rankList: ArrayList<DataX>) :
-    CommonAdapter<DataX>(context, layoutId, rankList) {
-    override fun convert(holder: ViewHolder, t: DataX, position: Int) {
+class RankAdapter(context: Context, layoutId: Int, rankList: ArrayList<Rank>) :
+    CommonAdapter<Rank>(context, layoutId, rankList) {
+    override fun convert(holder: ViewHolder, t: Rank, position: Int) {
         val rankAdTvUsername = holder.getView<TextView>(R.id.rankAdTvUsername)
         val rankAdTvRank = holder.getView<TextView>(R.id.rankAdTvRank)
         val rankAdTvCoinCount = holder.getView<TextView>(R.id.rankAdTvCoinCount)

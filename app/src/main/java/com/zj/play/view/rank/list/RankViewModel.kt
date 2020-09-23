@@ -3,7 +3,7 @@ package com.zj.play.view.rank.list
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.zj.play.model.DataX
+import com.zj.play.model.Rank
 import com.zj.play.network.RankRepository
 
 /**
@@ -16,7 +16,7 @@ import com.zj.play.network.RankRepository
  */
 class RankViewModel : ViewModel() {
 
-    val rankList = ArrayList<DataX>()
+    val rankList = ArrayList<Rank>()
 
     private val pageLiveData = MutableLiveData<Int>()
 

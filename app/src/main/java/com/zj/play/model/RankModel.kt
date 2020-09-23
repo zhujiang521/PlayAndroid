@@ -1,8 +1,8 @@
 package com.zj.play.model
 
-data class Data(
+data class RankData(
     val curPage: Int,
-    val datas: List<DataX>,
+    val datas: List<Rank>,
     val offset: Int,
     val over: Boolean,
     val pageCount: Int,
@@ -10,7 +10,7 @@ data class Data(
     val total: Int
 )
 
-data class DataX(
+data class Rank(
     val coinCount: Int,
     val level: Int,
     val rank: String,
