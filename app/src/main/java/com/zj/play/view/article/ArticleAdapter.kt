@@ -84,7 +84,14 @@ class ArticleAdapter(
             }
         }
         articleLlItem.setOnClickListener {
-            ArticleActivity.actionStart(mContext, t.title, t.link, t.id, if (t.collect) 1 else 0)
+            ArticleActivity.actionStart(
+                mContext,
+                t.title,
+                t.link,
+                t.id,
+                if (t.collect) 1 else 0,
+                userId = t.userId
+            )
             val browseHistoryDao = PlayDatabase.getDatabase(mContext).browseHistoryDao()
             GlobalScope.launch(Dispatchers.IO) {
                 if (browseHistoryDao.getArticle(t.id) == null) {

@@ -9,7 +9,7 @@ import com.zj.core.util.showToast
 import com.zj.core.view.ActivityCollector
 import com.zj.core.view.BaseActivity
 import com.zj.play.R
-import com.zj.play.network.Repository
+import com.zj.play.network.AccountRepository
 import com.zj.play.view.main.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -47,7 +47,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             return
         }
         toProgressVisible(true)
-        Repository.getRegister(mUserName, mPassWord, mPassWord).observe(this, {
+        AccountRepository.getRegister(mUserName, mPassWord, mPassWord).observe(this, {
             toProgressVisible(false)
             if (it.isSuccess) {
                 val projectTree = it.getOrNull()
@@ -71,7 +71,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             return
         }
         toProgressVisible(true)
-        Repository.getLogin(mUserName, mPassWord).observe(this, {
+        AccountRepository.getLogin(mUserName, mPassWord).observe(this, {
             toProgressVisible(false)
             if (it.isSuccess) {
                 val projectTree = it.getOrNull()

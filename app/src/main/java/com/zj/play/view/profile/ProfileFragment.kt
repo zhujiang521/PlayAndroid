@@ -7,11 +7,13 @@ import com.zj.core.Play
 import com.zj.core.Play.logout
 import com.zj.core.islogin.NeedLogin
 import com.zj.core.islogin.NeedLogin.SHOW_DIALOG
+import com.zj.core.util.showToast
 import com.zj.core.view.BaseFragment
 import com.zj.play.R
-import com.zj.play.network.Repository
+import com.zj.play.network.AccountRepository
 import com.zj.play.view.account.LoginActivity
 import com.zj.play.view.rank.list.RankActivity
+import com.zj.play.view.share.ShareActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : BaseFragment(), View.OnClickListener {
@@ -82,7 +84,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
                 dialog?.dismiss()
                 clearInfo()
                 logout()
-                Repository.getLogout()
+                AccountRepository.getLogout()
             }.show()
     }
 
@@ -90,6 +92,8 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
     private fun personalInformation() {
         if (!Play.isLogin()) {
             LoginActivity.actionStart(context!!)
+        } else {
+            ShareActivity.actionStart(context!!,true)
         }
     }
 

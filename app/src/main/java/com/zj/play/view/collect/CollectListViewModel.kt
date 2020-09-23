@@ -21,7 +21,7 @@ class CollectListViewModel : ViewModel() {
     private val pageLiveData = MutableLiveData<Int>()
 
     val collectLiveData = Transformations.switchMap(pageLiveData) { page ->
-        CollectRepository.getCollectList(page-1)
+        CollectRepository.getCollectList(page - 1)
     }
 
     fun getArticleList(page: Int) {

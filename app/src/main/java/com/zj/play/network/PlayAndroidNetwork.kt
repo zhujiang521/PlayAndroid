@@ -3,6 +3,7 @@ package com.zj.play.network
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Query
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -51,6 +52,17 @@ object PlayAndroidNetwork {
         loginService.getRegister(username, password, repassword).await()
 
     suspend fun getLogout() = loginService.getLogout().await()
+
+    private val shareService = ServiceCreator.create(ShareService::class.java)
+
+    suspend fun getMyShareList(page: Int) = shareService.getMyShareList(page).await()
+
+    suspend fun getShareList(cid: Int, page: Int) = shareService.getShareList(cid, page).await()
+
+    suspend fun deleteMyArticle(cid: Int) = shareService.deleteMyArticle(cid).await()
+
+    suspend fun shareArticle(title: String, link: String) =
+        shareService.shareArticle(title, link).await()
 
     private val rankService = ServiceCreator.create(RankService::class.java)
 

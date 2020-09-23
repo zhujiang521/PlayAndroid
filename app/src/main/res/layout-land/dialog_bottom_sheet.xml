@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottomDialogRv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -125,6 +126,36 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dp_3"
             android:text="三方分享"
+            android:textColor="@color/text_color_dark"
+            android:textSize="@dimen/dp_12" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomDialogLlDynamic"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/bottomDialogIvDynamic"
+            android:layout_width="@dimen/dp_38"
+            android:layout_height="@dimen/dp_38"
+            android:background="@drawable/bottom_item"
+            android:padding="@dimen/dp_9"
+            android:src="@drawable/ic_github_black_24dp"
+            app:tint="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/bottomDialogTvDynamic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_3"
+            android:text="作者动态"
             android:textColor="@color/text_color_dark"
             android:textSize="@dimen/dp_12" />
 

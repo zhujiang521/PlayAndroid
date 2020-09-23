@@ -18,6 +18,7 @@ import com.zj.core.Play
 import com.zj.core.util.showToast
 import com.zj.core.view.BaseActivity
 import com.zj.play.R
+import com.zj.play.view.share.ShareActivity
 import kotlinx.android.synthetic.main.activity_article.*
 
 
@@ -25,6 +26,7 @@ const val PAGE_NAME = "PAGE_NAME"
 const val PAGE_URL = "PAGE_URL"
 const val PAGE_ID = "PAGE_ID"
 const val ORIGIN_ID = "ORIGIN_ID"
+const val USER_ID = "USER_ID"
 const val IS_COLLECTION = "IS_COLLECTION"
 
 class ArticleActivity : BaseActivity(), View.OnClickListener {
@@ -37,6 +39,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
     private var pageUrl = ""
     private var pageId = -1
     private var originId = -1
+    private var userId = -1
     private var isCollection = -1
     private lateinit var bottomDialogIvCollect: ImageView
     private lateinit var bottomDialogTvCollect: TextView
@@ -48,6 +51,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
         pageId = intent.getIntExtra(PAGE_ID, -1)
         isCollection = intent.getIntExtra(IS_COLLECTION, -1)
         originId = intent.getIntExtra(ORIGIN_ID, -1)
+        userId = intent.getIntExtra(USER_ID, -1)
         articleTxtTitle.text = Html.fromHtml(pageName)
         articleWebView.loadUrl(pageUrl)
     }
@@ -83,6 +87,8 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
         val bottomDialogLlBrowser =
             dialogView.findViewById<LinearLayout>(R.id.bottomDialogLlBrowser)
         val bottomDialogLlShare = dialogView.findViewById<LinearLayout>(R.id.bottomDialogLlShare)
+        val bottomDialogLlDynamic =
+            dialogView.findViewById<LinearLayout>(R.id.bottomDialogLlDynamic)
         val bottomDialogLlReload = dialogView.findViewById<LinearLayout>(R.id.bottomDialogLlReload)
         if (isCollection == 1) {
             bottomDialogIvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
@@ -95,6 +101,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
         bottomDialogLlCopy.setOnClickListener(this)
         bottomDialogLlBrowser.setOnClickListener(this)
         bottomDialogLlShare.setOnClickListener(this)
+        bottomDialogLlDynamic.setOnClickListener(this)
         bottomDialogLlReload.setOnClickListener(this)
         bottomSheetDialog!!.setContentView(dialogView) //给布局设置透明背景色
         ((dialogView.parent) as View).setBackgroundColor(Color.TRANSPARENT)
@@ -151,6 +158,9 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
                 bottomSheetDialog?.dismiss()
                 ArticleUtils.shareUrl(this, pageUrl, pageName)
             }
+            R.id.bottomDialogLlDynamic -> {
+                ShareActivity.actionStart(this, false, userId)
+            }
             R.id.bottomDialogLlReload -> {
                 bottomSheetDialog?.dismiss()
                 articleWebView.reload()
@@ -170,7 +180,8 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
             pageUrl: String,
             pageId: Int = -1,
             isCollection: Int = -1,
-            originId: Int = -1
+            originId: Int = -1,
+            userId: Int = -1
         ) {
             val intent = Intent(context, ArticleActivity::class.java).apply {
                 putExtra(PAGE_NAME, pageName)
@@ -178,6 +189,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
                 putExtra(PAGE_ID, pageId)
                 putExtra(IS_COLLECTION, isCollection)
                 putExtra(ORIGIN_ID, originId)
+                putExtra(USER_ID, userId)
             }
             context.startActivity(intent)
         }

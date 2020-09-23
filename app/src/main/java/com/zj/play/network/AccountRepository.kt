@@ -12,7 +12,7 @@ import com.zj.play.model.BaseModel
  * 描述：PlayAndroid
  *
  */
-object Repository {
+object AccountRepository {
 
     fun getLogin(username: String, password: String) = fires {
         PlayAndroidNetwork.getLogin(username, password)
