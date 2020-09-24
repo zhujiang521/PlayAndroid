@@ -5,14 +5,14 @@ import android.content.Intent
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zj.core.util.showToast
-import com.zj.core.view.BaseActivity
+import com.zj.core.Play
 import com.zj.play.R
 import com.zj.play.model.CoinInfo
 import com.zj.play.model.ShareModel
 import com.zj.play.view.article.ArticleAdapter
 import com.zj.play.view.home.ArticleCollectBaseActivity
 import com.zj.play.view.rank.user.UserRankActivity
+import com.zj.play.view.share.add.AddShareActivity
 import kotlinx.android.synthetic.main.activity_share.*
 import kotlin.system.measureTimeMillis
 
@@ -43,6 +43,12 @@ class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
             viewModel.articleAndCidLiveData.observe(this, {
                 setData(it)
             })
+        }
+        if (Play.isLogin()) {
+            shareTitleBar.setRightText("新增")
+            shareTitleBar.setRightTextOnClickListener {
+                AddShareActivity.actionStart(this)
+            }
         }
         getArticleList()
     }
@@ -78,10 +84,6 @@ class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
     override fun initView() {
         shareTvRank.setOnClickListener(this)
         shareRecycleView.layoutManager = LinearLayoutManager(this)
-        shareTitleBar.setRightText("新增")
-        shareTitleBar.setRightTextOnClickListener {
-            showToast("新增动态")
-        }
         articleAdapter = ArticleAdapter(
             this,
             R.layout.adapter_article,

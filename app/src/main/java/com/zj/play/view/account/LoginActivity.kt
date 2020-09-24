@@ -60,8 +60,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 } else {
                     showToast("用户名已被注册！")
                 }
-            } else {
-                showToast("用户名已被注册！")
             }
         })
     }
@@ -84,8 +82,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 } else {
                     showToast("账号密码不匹配！")
                 }
-            } else {
-                showToast("账号密码不匹配！")
             }
         })
     }

@@ -159,6 +159,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
                 ArticleUtils.shareUrl(this, pageUrl, pageName)
             }
             R.id.bottomDialogLlDynamic -> {
+                bottomSheetDialog?.dismiss()
                 ShareActivity.actionStart(this, false, userId)
             }
             R.id.bottomDialogLlReload -> {

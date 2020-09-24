@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.share.add.AddShareActivity">
+
+    <com.zj.core.util.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleName="新建分享" />
+
+    <EditText
+        android:id="@+id/addShareEtTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:hint="请输入文章标题"
+        android:lines="1"
+        android:maxLines="1"
+        android:singleLine="true" />
+
+    <EditText
+        android:id="@+id/addShareEtLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_10"
+        android:gravity="start"
+        android:hint="请输入文章链接" />
+
+    <Button
+        android:id="@+id/addShareBtnAdd"
+        android:layout_width="@dimen/dp_200"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="提交" />
+
+</LinearLayout>

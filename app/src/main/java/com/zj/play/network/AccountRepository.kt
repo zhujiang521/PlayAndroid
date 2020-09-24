@@ -2,6 +2,7 @@ package com.zj.play.network
 
 import android.util.Log
 import androidx.lifecycle.liveData
+import com.zj.core.util.showToast
 import com.zj.play.model.BaseModel
 
 /**
@@ -34,7 +35,12 @@ fun <T> fires(block: suspend () -> BaseModel<T>) =
                 val model = baseModel.data
                 Result.success(model)
             } else {
-                Result.failure(RuntimeException("response status is ${baseModel.errorCode}  msg is ${baseModel.errorMsg}"))
+                Log.e(
+                    "ZHUJIANG哈哈fires",
+                    "fires: response status is ${baseModel.errorCode}  msg is ${baseModel.errorMsg}"
+                )
+                showToast(baseModel.errorMsg)
+                Result.failure(RuntimeException(baseModel.errorMsg))
             }
         } catch (e: Exception) {
             Log.e("ZHUJIANG哈哈哈fires", e.toString())

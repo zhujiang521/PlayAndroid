@@ -25,12 +25,12 @@ interface ShareService {
     fun getMyShareList(@Path("page") page: Int): Call<BaseModel<ShareModel>>
 
     @POST("lg/user_article/delete/{cid}/json")
-    fun deleteMyArticle(@Path("cid") cid: Int): Call<BaseModel<Login>>
+    fun deleteMyArticle(@Path("cid") cid: Int): Call<BaseModel<Any>>
 
     @POST("lg/user_article/add/json")
     fun shareArticle(
         @Query("title") title: String,
         @Query("link") link: String
-    ): Call<BaseModel<Login>>
+    ): Call<BaseModel<Any>>
 
 }

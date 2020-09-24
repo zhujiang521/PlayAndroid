@@ -20,7 +20,8 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
-        <activity android:name=".view.share.ShareActivity"></activity>
+        <activity android:name=".view.share.add.AddShareActivity"></activity>
+        <activity android:name=".view.share.ShareActivity" />
         <activity android:name=".view.profile.history.BrowseHistoryActivity" />
         <activity
             android:name=".view.profile.user.UserActivity"
