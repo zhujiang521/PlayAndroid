@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.fragment.app.FragmentActivity
 import com.blankj.utilcode.util.ToastUtils
 import com.zj.core.R
+import com.zj.core.util.showLongToast
 import java.lang.StringBuilder
 
 /**
@@ -51,7 +52,7 @@ object PermissionXUtils {
                     if (allGranted) {
                         callback.permissionCallback()
                     } else {
-                        ToastUtils.showLong("已拒绝：${getDeniedList(deniedList)}")
+                        showLongToast("已拒绝：${getDeniedList(deniedList)}")
                         Log.e("拒绝权限: ", "拒绝 $deniedList")
                     }
                 }

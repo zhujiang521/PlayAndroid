@@ -5,8 +5,6 @@ import android.os.Build
 /**
  * 以更加可读的方式提供Android系统版本号的判断方法。
  *
- * @author guolin
- * @since 2017/4/30
  */
 object AndroidVersion {
 

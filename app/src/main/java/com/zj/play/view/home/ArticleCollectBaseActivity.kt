@@ -19,12 +19,12 @@ abstract class ArticleCollectBaseActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         articleReceiver =
-            ArticleBroadCast.setArticleChangesReceiver(activity!!) { initData() }
+            ArticleBroadCast.setArticleChangesReceiver(this) { initData() }
     }
 
     override fun onPause() {
         super.onPause()
-        ArticleBroadCast.clearTimeChangesReceiver(activity!!, articleReceiver)
+        ArticleBroadCast.clearTimeChangesReceiver(this, articleReceiver)
     }
 
 

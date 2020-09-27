@@ -29,8 +29,6 @@ const val SETTINGS_CODE = 2
  * An invisible fragment to embedded into activity for handling permission requests.
  * This is very lightweight. Will not affect your app's efficiency.
  *
- * @author guolin
- * @since 2019/11/2
  */
 class InvisibleFragment : Fragment() {
 

@@ -3,33 +3,25 @@ package com.zj.core.view
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import com.zj.core.R
 import com.zj.core.util.AndroidVersion
-import com.zj.core.util.logWarn
 import java.lang.ref.WeakReference
 
 /**
  * 应用程序中所有Activity的基类。
  *
- * @author guolin
- * @since 17/2/16
  */
 @SuppressLint("Registered")
 abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
-
-    /**
-     * 判断当前Activity是否在前台。
-     */
-    protected var isActive: Boolean = false
 
     /**
      * 当前Activity的实例。
@@ -39,7 +31,7 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
     /**
      * Activity中显示加载等待的控件。
      */
-    protected var loading: ProgressBar? = null
+    private var loading: ProgressBar? = null
 
     /**
      * Activity中由于服务器异常导致加载失败显示的布局。
@@ -57,8 +49,6 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
     private var noContentView: View? = null
 
     private var weakRefActivity: WeakReference<Activity>? = null
-
-    var toolbar: Toolbar? = null
 
     private var progressDialog: ProgressDialog? = null
 
@@ -80,16 +70,6 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
 
     abstract fun getLayoutId(): Int
 
-    override fun onResume() {
-        super.onResume()
-        isActive = true
-    }
-
-    override fun onPause() {
-        super.onPause()
-        isActive = false
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         activity = null
@@ -106,53 +86,28 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
         noContentView = findViewById(R.id.noContentView)
         badNetworkView = findViewById(R.id.badNetworkView)
         loadErrorView = findViewById(R.id.loadErrorView)
+        if (loading == null) {
+            Log.e(TAG, "loading is null")
+        }
+        if (badNetworkView == null) {
+            Log.e(TAG, "badNetworkView is null")
+        }
+        if (loadErrorView == null) {
+            Log.e(TAG, "loadErrorView is null")
+        }
     }
 
 
     /**
      * 将状态栏设置成透明。只适配Android 5.0以上系统的手机。
      */
-    protected fun transparentStatusBar() {
+    private fun transparentStatusBar() {
         if (AndroidVersion.hasLollipop()) {
             val decorView = window.decorView
             decorView.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             window.statusBarColor = Color.TRANSPARENT
         }
-    }
-
-
-    /**
-     * 隐藏软键盘。
-     */
-    fun hideSoftKeyboard() {
-        try {
-            val view = currentFocus
-            if (view != null) {
-                val binder = view.windowToken
-                val manager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                manager.hideSoftInputFromWindow(binder, InputMethodManager.HIDE_NOT_ALWAYS)
-            }
-        } catch (e: Exception) {
-            logWarn(TAG, e.message, e)
-        }
-
-    }
-
-    /**
-     * 显示软键盘。
-     */
-    fun showSoftKeyboard(editText: EditText?) {
-        try {
-            if (editText != null) {
-                editText.requestFocus()
-                val manager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                manager.showSoftInput(editText, 0)
-            }
-        } catch (e: Exception) {
-            logWarn(TAG, e.message, e)
-        }
-
     }
 
     /**
@@ -201,21 +156,21 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
     /**
      * 将load error view进行隐藏。
      */
-    protected fun hideLoadErrorView() {
+    private fun hideLoadErrorView() {
         loadErrorView?.visibility = View.GONE
     }
 
     /**
      * 将no content view进行隐藏。
      */
-    protected fun hideNoContentView() {
+    private fun hideNoContentView() {
         noContentView?.visibility = View.GONE
     }
 
     /**
      * 将bad network view进行隐藏。
      */
-    protected fun hideBadNetworkView() {
+    private fun hideBadNetworkView() {
         badNetworkView?.visibility = View.GONE
     }
 

@@ -11,8 +11,6 @@ import com.zj.core.util.Preference;
 /**
  * 全局的API接口。
  *
- * @author guolin
- * @since 17/2/15
  */
 public class Play {
 

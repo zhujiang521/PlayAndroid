@@ -4,22 +4,43 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.zj.core.R
 
 /**
  * 应用程序中所有Fragment的基类。
- *
- * @author guolin
- * @since 17/3/20
  */
 abstract class BaseFragment : Fragment(), RequestLifecycle {
 
-    private val viewModel by lazy { ViewModelProvider(this).get(BaseFragmentViewModel::class.java) }
+    /**
+     * Fragment中由于服务器异常导致加载失败显示的布局。
+     */
+    private var loadErrorView: RelativeLayout? = null
 
+    /**
+     * Fragment中由于网络异常导致加载失败显示的布局。
+     */
+    private var badNetworkView: RelativeLayout? = null
+
+    /**
+     * Fragment中当界面上没有任何内容时展示的布局。
+     */
+    private var noContentView: RelativeLayout? = null
+
+    /**
+     * Fragment中inflate出来的布局。
+     */
+    private var rootView: View? = null
+
+    /**
+     * Fragment中显示加载等待的控件。
+     */
+    private var loading: ProgressBar? = null
+    
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,10 +62,10 @@ abstract class BaseFragment : Fragment(), RequestLifecycle {
      */
     protected fun showLoadErrorView(tip: String = "加载数据失败") {
         loadFinished()
-        if (viewModel.loadErrorView != null) {
-            viewModel.loadErrorView?.visibility = View.VISIBLE
+        if (loadErrorView != null) {
+            loadErrorView?.visibility = View.VISIBLE
             val loadErrorText =
-                viewModel.loadErrorView?.findViewById<TextView>(R.id.loadErrorText)
+                loadErrorView?.findViewById<TextView>(R.id.loadErrorText)
             loadErrorText?.text = tip
             return
         }
@@ -68,9 +89,9 @@ abstract class BaseFragment : Fragment(), RequestLifecycle {
      */
     protected fun showBadNetworkView(listener: View.OnClickListener) {
         loadFinished()
-        if (viewModel.badNetworkView != null) {
-            viewModel.badNetworkView?.visibility = View.VISIBLE
-            viewModel.badNetworkView?.setOnClickListener(listener)
+        if (badNetworkView != null) {
+            badNetworkView?.visibility = View.VISIBLE
+            badNetworkView?.setOnClickListener(listener)
             return
         }
     }
@@ -83,9 +104,9 @@ abstract class BaseFragment : Fragment(), RequestLifecycle {
      */
     protected fun showNoContentView(tip: String) {
         loadFinished()
-        if (viewModel.noContentView != null) {
-            viewModel.noContentView?.visibility = View.VISIBLE
-            val noContentText = viewModel.noContentView?.findViewById<TextView>(R.id.noContentText)
+        if (noContentView != null) {
+            noContentView?.visibility = View.VISIBLE
+            val noContentText = noContentView?.findViewById<TextView>(R.id.noContentText)
             noContentText?.text = tip
             return
         }
@@ -94,22 +115,22 @@ abstract class BaseFragment : Fragment(), RequestLifecycle {
     /**
      * 将load error view进行隐藏。
      */
-    protected fun hideLoadErrorView() {
-        viewModel.loadErrorView?.visibility = View.GONE
+    private fun hideLoadErrorView() {
+        loadErrorView?.visibility = View.GONE
     }
 
     /**
      * 将no content view进行隐藏。
      */
-    protected fun hideNoContentView() {
-        viewModel.noContentView?.visibility = View.GONE
+    private fun hideNoContentView() {
+        noContentView?.visibility = View.GONE
     }
 
     /**
      * 将bad network view进行隐藏。
      */
-    protected fun hideBadNetworkView() {
-        viewModel.badNetworkView?.visibility = View.GONE
+    private fun hideBadNetworkView() {
+        badNetworkView?.visibility = View.GONE
     }
 
     /**
@@ -119,18 +140,18 @@ abstract class BaseFragment : Fragment(), RequestLifecycle {
      * @return  Fragment中inflate出来的View实例原封不动返回。
      */
     private fun onCreateView(view: View): View {
-        viewModel.rootView = view
-        viewModel.loading = view.findViewById(R.id.loading)
-        viewModel.noContentView = view.findViewById(R.id.noContentView)
-        viewModel.badNetworkView = view.findViewById(R.id.badNetworkView)
-        viewModel.loadErrorView = view.findViewById(R.id.loadErrorView)
-        if (viewModel.loading == null) {
+        rootView = view
+        loading = view.findViewById(R.id.loading)
+        noContentView = view.findViewById(R.id.noContentView)
+        badNetworkView = view.findViewById(R.id.badNetworkView)
+        loadErrorView = view.findViewById(R.id.loadErrorView)
+        if (loading == null) {
             throw NullPointerException("loading is null")
         }
-        if (viewModel.badNetworkView == null) {
+        if (badNetworkView == null) {
             throw NullPointerException("badNetworkView is null")
         }
-        if (viewModel.loadErrorView == null) {
+        if (loadErrorView == null) {
             throw NullPointerException("loadErrorView is null")
         }
         return view
@@ -141,7 +162,7 @@ abstract class BaseFragment : Fragment(), RequestLifecycle {
      */
     @CallSuper
     override fun startLoading() {
-        viewModel.loading?.visibility = View.VISIBLE
+        loading?.visibility = View.VISIBLE
         hideBadNetworkView()
         hideNoContentView()
         hideLoadErrorView()
@@ -152,7 +173,7 @@ abstract class BaseFragment : Fragment(), RequestLifecycle {
      */
     @CallSuper
     override fun loadFinished() {
-        viewModel.loading?.visibility = View.GONE
+        loading?.visibility = View.GONE
         hideBadNetworkView()
         hideNoContentView()
         hideLoadErrorView()
@@ -163,9 +184,10 @@ abstract class BaseFragment : Fragment(), RequestLifecycle {
      */
     @CallSuper
     override fun loadFailed(msg: String?) {
-        viewModel.loading?.visibility = View.GONE
+        loading?.visibility = View.GONE
         hideBadNetworkView()
         hideNoContentView()
         hideLoadErrorView()
     }
+
 }

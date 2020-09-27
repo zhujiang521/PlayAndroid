@@ -76,14 +76,7 @@ object ServiceCreator {
     /**
      * get ServiceApi
      */
-     fun <T> create(service: Class<T>): T = create().create(service)
-
-//    private val retrofit = Retrofit.Builder()
-//        .baseUrl(BASE_URL)
-//        .addConverterFactory(GsonConverterFactory.create())
-//        .build()
-
-//    fun <T> create(serviceClass: Class<T>): T = retrofit.create(serviceClass)
+    fun <T> create(service: Class<T>): T = create().create(service)
 
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     private fun saveCookie(url: String?, domain: String?, cookies: String) {

@@ -1,15 +1,13 @@
 package com.zj.core.view
 
 import android.app.Activity
-import com.zj.core.util.logDebug
+import android.util.Log
 import java.lang.ref.WeakReference
 import java.util.*
 
 /**
  * 应用中所有Activity的管理器，可用于一键杀死所有Activity。
  *
- * @author guolin
- * @since 18/2/8
  */
 object ActivityCollector {
 
@@ -27,7 +25,7 @@ object ActivityCollector {
 
     fun remove(weakRefActivity: WeakReference<Activity>?) {
         val result = activityList.remove(weakRefActivity)
-        logDebug(TAG, "remove activity reference $result")
+        Log.d(TAG, "remove activity reference $result")
     }
 
     fun finishAll() {

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.view.KeyEvent
 import android.view.View
 import android.view.animation.*
-import android.widget.Toast
 import com.zj.core.util.showToast
 import com.zj.core.view.BaseActivity
 import com.zj.play.view.main.MainActivity

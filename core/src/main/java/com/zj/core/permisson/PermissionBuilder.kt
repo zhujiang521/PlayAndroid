@@ -8,8 +8,6 @@ import androidx.fragment.app.FragmentActivity
 
 /**
  * More APIs for developers to control PermissionX functions.
- * @author guolin
- * @since 2019/11/17
  */
 class PermissionBuilder internal constructor(private val activity: FragmentActivity, internal val allPermissions: List<String>) {
 
