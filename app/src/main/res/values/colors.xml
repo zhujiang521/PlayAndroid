@@ -11,34 +11,14 @@
 
     <!-- 灰白 -->
     <color name="grayWhite">#e9e5e5</color>
-    <color name="grayWhite2">#b4b1b1</color>
     <!--黑色-->
     <color name="Black">#000000</color>
-    <color name="Jacinth">#CE641D</color>
-    <!--绿色-->
-    <color name="colorGreen">#009271</color>
     <!--筛选框-->
     <color name="black_33">#333333</color>
 
     <color name="black">#000</color>
 
     <color name="view_bg">#dde6e4e4</color>
-    <color name="app_color">#0b8179</color>
-    <color name="app_gray_bg">#ecf2f0f0</color>
-    <color name="calader_grendout">#f16b1d</color>
-    <color name="calader_grendin">#f9a03b</color>
-
-    <color name="black_color">#f2f2f2</color>
-
-    <color name="colorBlue">#093aff</color>
-
-    <color name="color_orange">#E0FF6100</color>
-
-    <color name="edetor_color">#f4f2f2</color>
-
-    <color name="light_green">#ff32af85</color>
-
-    <color name="purple">#B64DF5</color>
 
     <color name="yellow">#FEC86D</color>
 
