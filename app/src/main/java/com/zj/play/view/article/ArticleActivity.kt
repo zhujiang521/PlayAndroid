@@ -129,7 +129,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
                     return
                 }
 
-                if (!Play.isLogin()) {
+                if (!Play.isLogin) {
                     showToast("当前未登录")
                     return
                 }

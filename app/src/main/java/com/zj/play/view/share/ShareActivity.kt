@@ -44,7 +44,7 @@ class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
                 setData(it)
             })
         }
-        if (Play.isLogin()) {
+        if (Play.isLogin) {
             shareTitleBar.setRightText("新增")
             shareTitleBar.setRightTextOnClickListener {
                 AddShareActivity.actionStart(this)

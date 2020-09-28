@@ -52,7 +52,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             if (it.isSuccess) {
                 val projectTree = it.getOrNull()
                 if (projectTree != null) {
-                    Play.setLogin(true)
+                    Play.isLogin = true
                     Play.setUserInfo(projectTree.nickname, projectTree.username)
                     ActivityCollector.finishAll()
                     MainActivity.actionStart(this)
@@ -74,7 +74,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             if (it.isSuccess) {
                 val projectTree = it.getOrNull()
                 if (projectTree != null) {
-                    Play.setLogin(true)
+                    Play.isLogin = true
                     Play.setUserInfo(projectTree.nickname, projectTree.username)
                     ActivityCollector.finishAll()
                     MainActivity.actionStart(this)

@@ -75,7 +75,7 @@ class ArticleAdapter(
             articleTvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
         }
         articleTvCollect.setSafeListener {
-            if (Play.isLogin()) {
+            if (Play.isLogin) {
                 setCollect(t.id, t.collect, articleTvCollect)
                 t.collect = !t.collect
                 //articleCollectCallback?.collectArticle(t.id,t.collect)

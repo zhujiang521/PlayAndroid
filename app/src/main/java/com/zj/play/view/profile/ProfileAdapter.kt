@@ -41,14 +41,14 @@ class ProfileAdapter(context: Context, layoutId: Int, profileItemList: ArrayList
     private fun toJump(title: String) {
         when (title) {
             "我的积分" -> {
-                if (Play.isLogin()) {
+                if (Play.isLogin) {
                     UserRankActivity.actionStart(mContext)
                 } else {
                     LoginActivity.actionStart(mContext)
                 }
             }
             "我的收藏" -> {
-                if (Play.isLogin()) {
+                if (Play.isLogin) {
                     CollectListActivity.actionStart(mContext)
                 } else {
                     LoginActivity.actionStart(mContext)

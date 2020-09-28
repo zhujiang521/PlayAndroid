@@ -5,9 +5,6 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.core.Play
 import com.zj.core.Play.logout
-import com.zj.core.islogin.NeedLogin
-import com.zj.core.islogin.NeedLogin.SHOW_DIALOG
-import com.zj.core.util.showToast
 import com.zj.core.view.BaseFragment
 import com.zj.play.R
 import com.zj.play.network.AccountRepository
@@ -38,10 +35,10 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
         profileRv.layoutManager = LinearLayoutManager(context)
         profileAdapter = ProfileAdapter(context!!, R.layout.adapter_profile, profileItemList)
         profileRv.adapter = profileAdapter
-        if (Play.isLogin()) {
+        if (Play.isLogin) {
             profileIvHead.setImageResource(R.drawable.ic_head)
-            profileTvName.text = Play.getNickName()
-            profileTvRank.text = Play.getUsername()
+            profileTvName.text = Play.nickName
+            profileTvRank.text = Play.username
             profileBtnLogout.visibility = View.VISIBLE
         } else {
             clearInfo()
@@ -88,9 +85,8 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
             }.show()
     }
 
-    @NeedLogin(tipType = SHOW_DIALOG, LoginActivity = LoginActivity::class)
     private fun personalInformation() {
-        if (!Play.isLogin()) {
+        if (!Play.isLogin) {
             LoginActivity.actionStart(context!!)
         } else {
             ShareActivity.actionStart(context!!,true)
