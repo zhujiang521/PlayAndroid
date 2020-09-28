@@ -33,8 +33,6 @@ class App : Application() {
     }
 
     private fun initData() {
-        // Glide错误解决
-        //ViewTarget.setTagId(R.id.tag_glide)
         GlobalScope.launch(Dispatchers.IO) {
             initQbSdk()
         }

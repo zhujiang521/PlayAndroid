@@ -52,19 +52,7 @@ class ArticleAdapter(
             Glide.with(mContext).load(t.envelopePic).into(articleIvImg)
         } else {
             articleIvImg.visibility = View.GONE
-            //Glide.with(mContext).clear(articleIvImg)
-            //articleIvImg.setImageDrawable(null)
-            //articleIvImg.setTag(R.id.tag_glide, position)
         }
-
-//        val tag = articleIvImg.getTag(R.id.tag_glide)
-//        if (tag != null && tag as Int != position) {
-//            //如果tag不是Null,并且同时tag不等于当前的position。
-//            //说明当前的viewHolder是复用来的
-//            //Cancel any pending loads Glide may have for the view
-//            //and free any resources that may have been loaded for the view.
-//            Glide.with(mContext).clear(articleIvImg)
-//        }
         articleTvTop.visibility = if (t.type > 0) View.VISIBLE else View.GONE
         articleTvNew.visibility = if (t.fresh) View.VISIBLE else View.GONE
 
@@ -78,7 +66,6 @@ class ArticleAdapter(
             if (Play.isLogin) {
                 setCollect(t.id, t.collect, articleTvCollect)
                 t.collect = !t.collect
-                //articleCollectCallback?.collectArticle(t.id,t.collect)
             } else {
                 LoginActivity.actionStart(mContext)
             }

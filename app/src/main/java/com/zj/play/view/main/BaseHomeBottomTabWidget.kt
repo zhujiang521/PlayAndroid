@@ -15,7 +15,7 @@ abstract class BaseHomeBottomTabWidget @JvmOverloads constructor(
     context: Context?,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
-    layoutId:Int
+    layoutId: Int
 ) : LinearLayout(context, attrs, defStyleAttr), View.OnClickListener {
 
     private var mFragmentManager: FragmentManager? = null
