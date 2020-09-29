@@ -21,8 +21,17 @@ interface BrowseHistoryDao {
     @Query("SELECT * FROM browse_history where id = :id")
     suspend fun getArticle(id: Int): Article?
 
-    @Query("SELECT * FROM browse_history order by uid desc limit :page,20")
-    suspend fun getArticleList(page: Int): List<Article>
+    @Query("SELECT * FROM browse_history where local_type = :type order by uid desc limit :page,20")
+    suspend fun getHistoryArticleList(page: Int, type: Int): List<Article>
+
+    @Query("SELECT * FROM browse_history where local_type = :type")
+    suspend fun getArticleList(type: Int): List<Article>
+
+    @Query("SELECT * FROM browse_history where local_type = :type")
+    suspend fun getTopArticleList(type: Int): List<Article>
+
+    @Query("SELECT * FROM browse_history where local_type = :type and chapter_id = :chapterId")
+    suspend fun getArticleListForChapterId(type: Int, chapterId: Int): List<Article>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertList(articleList: List<Article>)
@@ -41,4 +50,7 @@ interface BrowseHistoryDao {
 
     @Query("DELETE FROM browse_history")
     suspend fun deleteAll()
+
+    @Query("DELETE FROM browse_history where local_type = :type")
+    suspend fun deleteAll(type: Int)
 }

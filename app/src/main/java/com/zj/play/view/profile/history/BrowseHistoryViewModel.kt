@@ -30,11 +30,3 @@ class BrowseHistoryViewModel(application: Application) : AndroidViewModel(applic
     }
 
 }
-
-//class BrowseHistoryViewModelFactory(private val context: Activity) : ViewModelProvider.Factory{
-//
-//    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-//        return BrowseHistoryViewModel(context.application) as T
-//    }
-//
-//}

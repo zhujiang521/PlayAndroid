@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "61d59498cbf946dbf34ce70113811fd8",
+    "identityHash": "c5ed3c77f9ef255a8ddacf2d2cf55d7f",
     "entities": [
       {
         "tableName": "project_classify",
@@ -68,7 +68,7 @@
       },
       {
         "tableName": "browse_history",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `apk_link` TEXT NOT NULL, `audit` INTEGER NOT NULL, `author` TEXT NOT NULL, `can_edit` INTEGER NOT NULL, `chapter_id` INTEGER NOT NULL, `chapter_name` TEXT NOT NULL, `collect` INTEGER NOT NULL, `course_id` INTEGER NOT NULL, `desc` TEXT NOT NULL, `desc_md` TEXT NOT NULL, `envelope_pic` TEXT NOT NULL, `fresh` INTEGER NOT NULL, `id` INTEGER NOT NULL, `link` TEXT NOT NULL, `nice_date` TEXT NOT NULL, `nice_share_date` TEXT NOT NULL, `origin` TEXT NOT NULL, `prefix` TEXT NOT NULL, `project_link` TEXT NOT NULL, `publish_time` INTEGER NOT NULL, `self_visible` INTEGER NOT NULL, `share_date` INTEGER NOT NULL, `share_user` TEXT NOT NULL, `super_chapter_id` INTEGER NOT NULL, `super_chapter_name` TEXT NOT NULL, `title` TEXT NOT NULL, `type` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `visible` INTEGER NOT NULL, `zan` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `apk_link` TEXT NOT NULL, `audit` INTEGER NOT NULL, `author` TEXT NOT NULL, `can_edit` INTEGER NOT NULL, `chapter_id` INTEGER NOT NULL, `chapter_name` TEXT NOT NULL, `collect` INTEGER NOT NULL, `course_id` INTEGER NOT NULL, `desc` TEXT NOT NULL, `desc_md` TEXT NOT NULL, `envelope_pic` TEXT NOT NULL, `fresh` INTEGER NOT NULL, `id` INTEGER NOT NULL, `link` TEXT NOT NULL, `nice_date` TEXT NOT NULL, `nice_share_date` TEXT NOT NULL, `origin` TEXT NOT NULL, `prefix` TEXT NOT NULL, `project_link` TEXT NOT NULL, `publish_time` INTEGER NOT NULL, `self_visible` INTEGER NOT NULL, `share_date` INTEGER NOT NULL, `share_user` TEXT NOT NULL, `super_chapter_id` INTEGER NOT NULL, `super_chapter_name` TEXT NOT NULL, `title` TEXT NOT NULL, `type` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `visible` INTEGER NOT NULL, `zan` INTEGER NOT NULL, `local_type` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "uid",
@@ -255,6 +255,12 @@
             "columnName": "zan",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "localType",
+            "columnName": "local_type",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -394,7 +400,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '61d59498cbf946dbf34ce70113811fd8')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c5ed3c77f9ef255a8ddacf2d2cf55d7f')"
     ]
   }
 }

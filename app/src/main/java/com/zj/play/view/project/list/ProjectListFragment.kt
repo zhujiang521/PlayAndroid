@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zj.core.util.showToast
 import com.zj.core.view.BaseFragment
 import com.zj.play.R
 import com.zj.play.view.article.ArticleAdapter
@@ -79,7 +80,11 @@ class ProjectListFragment : ArticleCollectBaseFragment() {
                     showLoadErrorView()
                 }
             } else {
-                showBadNetworkView { getArticleList() }
+                if (viewModel.articleList.size > 0) {
+                    showToast("网络请求出错")
+                } else {
+                    showBadNetworkView { getArticleList() }
+                }
             }
         })
         getArticleList()

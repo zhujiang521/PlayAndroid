@@ -45,5 +45,21 @@ data class Article(
     @ColumnInfo(name = "type") val type: Int,
     @ColumnInfo(name = "user_id") val userId: Int,
     @ColumnInfo(name = "visible") val visible: Int,
-    @ColumnInfo(name = "zan") val zan: Int
+    @ColumnInfo(name = "zan") val zan: Int,
+    @ColumnInfo(name = "local_type") var localType: Int
 )
+
+// 历史记录 localType
+const val HISTORY = 10
+
+// 首页置顶 localType
+const val HOME_TOP = 20
+
+// 首页 localType
+const val HOME = 30
+
+// 项目 localType
+const val PROJECT = 40
+
+// 公众号 localType
+const val OFFICIAL = 50

@@ -17,6 +17,7 @@ import com.zj.play.R
 import com.zj.play.network.CollectRepository
 import com.zj.play.room.PlayDatabase
 import com.zj.play.room.entity.Article
+import com.zj.play.room.entity.HISTORY
 import com.zj.play.view.account.LoginActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -82,6 +83,7 @@ class ArticleAdapter(
             val browseHistoryDao = PlayDatabase.getDatabase(mContext).browseHistoryDao()
             GlobalScope.launch(Dispatchers.IO) {
                 if (browseHistoryDao.getArticle(t.id) == null) {
+                    t.localType = HISTORY
                     browseHistoryDao.insert(t)
                 }
             }

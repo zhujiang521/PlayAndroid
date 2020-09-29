@@ -1,11 +1,14 @@
 package com.zj.play.view.official
 
 import android.app.Application
-import android.content.Context
-import com.zj.play.App
+import com.blankj.utilcode.util.SPUtils
+import com.zj.core.util.Preference
 import com.zj.play.network.PlayAndroidNetwork
 import com.zj.play.network.fire
 import com.zj.play.room.PlayDatabase
+import com.zj.play.room.entity.OFFICIAL
+import com.zj.play.view.home.DOWN_OFFICIAL_ARTICLE_TIME
+import com.zj.play.view.home.FOUR_HOUR
 
 /**
  * 版权：联想 版权所有
@@ -18,11 +21,12 @@ import com.zj.play.room.PlayDatabase
 class OfficialRepository(application: Application) {
 
     private val projectClassifyDao = PlayDatabase.getDatabase(application).projectClassifyDao()
+    private val articleListDao = PlayDatabase.getDatabase(application).browseHistoryDao()
 
     /**
      * 获取公众号标题列表
      */
-    fun getProjectTree() = fire {
+    fun getWxArticleTree() = fire {
         val projectClassifyLists = projectClassifyDao.getAllOfficial()
         if (projectClassifyLists.isNotEmpty()) {
             Result.success(projectClassifyLists)
@@ -45,13 +49,42 @@ class OfficialRepository(application: Application) {
      * @param cid 公众号id
      */
     fun getWxArticle(page: Int, cid: Int) = fire {
-        val projectTree = PlayAndroidNetwork.getWxArticle(page, cid)
-        if (projectTree.errorCode == 0) {
-            val bannerList = projectTree.data
-            Result.success(bannerList.datas)
+        if (page == 1) {
+            val articleListForChapterId = articleListDao.getArticleListForChapterId(OFFICIAL, cid)
+            val spUtils = SPUtils.getInstance()
+            val downArticleTime by Preference(
+                DOWN_OFFICIAL_ARTICLE_TIME,
+                System.currentTimeMillis()
+            )
+            if (articleListForChapterId.isNotEmpty() && downArticleTime > 0 && downArticleTime - System.currentTimeMillis() < FOUR_HOUR) {
+                Result.success(articleListForChapterId)
+            } else {
+                val projectTree = PlayAndroidNetwork.getWxArticle(page, cid)
+                if (projectTree.errorCode == 0) {
+                    if (articleListForChapterId.isNotEmpty() && articleListForChapterId[0].link == projectTree.data.datas[0].link) {
+                        Result.success(articleListForChapterId)
+                    } else {
+                        projectTree.data.datas.forEach {
+                            it.localType = OFFICIAL
+                        }
+                        spUtils.put(DOWN_OFFICIAL_ARTICLE_TIME, System.currentTimeMillis())
+                        articleListDao.deleteAll(OFFICIAL)
+                        articleListDao.insertList(projectTree.data.datas)
+                        Result.success(projectTree.data.datas)
+                    }
+                } else {
+                    Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
+                }
+            }
         } else {
-            Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
+            val projectTree = PlayAndroidNetwork.getWxArticle(page, cid)
+            if (projectTree.errorCode == 0) {
+                Result.success(projectTree.data.datas)
+            } else {
+                Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
+            }
         }
+
     }
 
 

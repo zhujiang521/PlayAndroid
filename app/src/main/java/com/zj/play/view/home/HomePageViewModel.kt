@@ -26,7 +26,7 @@ class HomePageViewModel(application: Application) : AndroidViewModel(application
     val articleList = ArrayList<Article>()
 
     val articleLiveData = Transformations.switchMap(pageLiveData) { page ->
-        HomeRepository.getArticleList(page)
+        HomeRepository.getArticleList(application, page)
     }
 
     val bannerLiveData = HomeRepository.getBanner(application)

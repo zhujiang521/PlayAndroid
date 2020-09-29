@@ -12,6 +12,8 @@ import com.zj.play.room.PlayDatabase
 import com.zj.play.room.dao.BannerBeanDao
 import com.zj.play.room.entity.Article
 import com.zj.play.room.entity.BannerBean
+import com.zj.play.room.entity.HOME
+import com.zj.play.room.entity.HOME_TOP
 import kotlinx.coroutines.*
 
 /**
@@ -23,9 +25,6 @@ import kotlinx.coroutines.*
  *
  */
 object HomeRepository {
-
-    private const val ONE_DAY = 1000 * 60 * 60 * 24
-    private const val DOWN_IMAGE_TIME = "DownImageTime"
 
     /**
      * 获取banner
@@ -76,28 +75,67 @@ object HomeRepository {
      * 首页获取文章列表
      * @param page 页码
      */
-    fun getArticleList(page: Int) = fire {
+    fun getArticleList(application: Application, page: Int) = fire {
         coroutineScope {
-            val articleListDeferred = async { PlayAndroidNetwork.getArticleList(page - 1) }
-            val articleList = articleListDeferred.await()
+            val res = arrayListOf<Article>()
             if (page == 1) {
-                val topArticleListDeferred = async { PlayAndroidNetwork.getTopArticleList() }
-                val topArticleList = topArticleListDeferred.await()
-                if (topArticleList.errorCode == 0 && articleList.errorCode == 0) {
-                    val res = arrayListOf<Article>()
-                    res.addAll(topArticleList.data)
-                    res.addAll(articleList.data.datas)
+                val spUtils = SPUtils.getInstance()
+                val downArticleTime by Preference(DOWN_ARTICLE_TIME, System.currentTimeMillis())
+                val articleListDao = PlayDatabase.getDatabase(application).browseHistoryDao()
+                val articleListHome = articleListDao.getArticleList(HOME)
+                val articleListTop = articleListDao.getTopArticleList(HOME_TOP)
+                val downTopArticleTime by Preference(DOWN_TOP_ARTICLE_TIME, System.currentTimeMillis())
+                if (articleListTop.isNotEmpty() && page == 1 && downTopArticleTime > 0 && downTopArticleTime - System.currentTimeMillis() < FOUR_HOUR) {
+                    res.addAll(articleListTop)
+                } else {
+                    val topArticleListDeferred =
+                        async { PlayAndroidNetwork.getTopArticleList() }
+                    val topArticleList = topArticleListDeferred.await()
+                    if (topArticleList.errorCode == 0) {
+                        if (articleListTop.isNotEmpty() && articleListTop[0].link == topArticleList.data[0].link) {
+                            res.addAll(articleListTop)
+                        } else {
+                            res.addAll(topArticleList.data)
+                            topArticleList.data.forEach {
+                                it.localType = HOME_TOP
+                            }
+                            spUtils.put(DOWN_TOP_ARTICLE_TIME, System.currentTimeMillis())
+                            articleListDao.deleteAll(HOME_TOP)
+                            articleListDao.insertList(topArticleList.data)
+                        }
+                    }
+                }
+                if (articleListHome.isNotEmpty() && downArticleTime > 0 && downArticleTime - System.currentTimeMillis() < FOUR_HOUR) {
+                    res.addAll(articleListHome)
                     Result.success(res)
                 } else {
-                    Result.failure(
-                        RuntimeException(
-                            "response status is ${topArticleList.errorCode}" + "  msg is ${topArticleList.errorMsg}"
+                    val articleListDeferred = async { PlayAndroidNetwork.getArticleList(page - 1) }
+                    val articleList = articleListDeferred.await()
+                    if (articleList.errorCode == 0) {
+                        if (articleListHome.isNotEmpty() && articleListHome[0].link == articleList.data.datas[0].link) {
+                            res.addAll(articleListHome)
+                        } else {
+                            res.addAll(articleList.data.datas)
+                            articleList.data.datas.forEach {
+                                it.localType = HOME
+                            }
+                            spUtils.put(DOWN_ARTICLE_TIME, System.currentTimeMillis())
+                            articleListDao.deleteAll(HOME)
+                            articleListDao.insertList(articleList.data.datas)
+                        }
+                        Result.success(res)
+                    } else {
+                        Result.failure(
+                            RuntimeException(
+                                "response status is ${articleList.errorCode}" + "  msg is ${articleList.errorMsg}"
+                            )
                         )
-                    )
+                    }
                 }
             } else {
+                val articleListDeferred = async { PlayAndroidNetwork.getArticleList(page - 1) }
+                val articleList = articleListDeferred.await()
                 if (articleList.errorCode == 0) {
-                    val res = arrayListOf<Article>()
                     res.addAll(articleList.data.datas)
                     Result.success(res)
                 } else {
@@ -112,3 +150,11 @@ object HomeRepository {
     }
 
 }
+
+const val ONE_DAY = 1000 * 60 * 60 * 24
+const val FOUR_HOUR = 1000 * 60 * 60 * 4
+const val DOWN_IMAGE_TIME = "DownImageTime"
+const val DOWN_TOP_ARTICLE_TIME = "DownTopArticleTime"
+const val DOWN_ARTICLE_TIME = "DownArticleTime"
+const val DOWN_PROJECT_ARTICLE_TIME = "DownProjectArticleTime"
+const val DOWN_OFFICIAL_ARTICLE_TIME = "DownOfficialArticleTime"

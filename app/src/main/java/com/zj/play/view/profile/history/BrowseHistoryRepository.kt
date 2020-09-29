@@ -1,9 +1,9 @@
 package com.zj.play.view.profile.history
 
 import android.content.Context
-import android.util.Log
 import com.zj.play.network.fire
 import com.zj.play.room.PlayDatabase
+import com.zj.play.room.entity.HISTORY
 
 /**
  * 版权：联想 版权所有
@@ -19,10 +19,10 @@ class BrowseHistoryRepository(context: Context) {
     private val browseHistoryDao = PlayDatabase.getDatabase(context).browseHistoryDao()
 
     /**
-     * 获取公众号标题列表
+     * 获取历史记录列表
      */
     fun getBrowseHistory(page: Int) = fire {
-        val projectClassifyLists = browseHistoryDao.getArticleList((page - 1) * 20)
+        val projectClassifyLists = browseHistoryDao.getHistoryArticleList((page - 1) * 20,HISTORY)
         if (projectClassifyLists.isNotEmpty()) {
             Result.success(projectClassifyLists)
         } else {

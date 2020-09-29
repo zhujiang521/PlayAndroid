@@ -28,9 +28,9 @@ class SearchRepository(context: Context) {
         } else {
             val projectTree = PlayAndroidNetwork.getHotKey()
             if (projectTree.errorCode == 0) {
-                val bannerList = projectTree.data
-                hotKeyDao.insertList(bannerList)
-                Result.success(bannerList)
+                val hotKeyLists = projectTree.data
+                hotKeyDao.insertList(hotKeyLists)
+                Result.success(hotKeyLists)
             } else {
                 Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
             }

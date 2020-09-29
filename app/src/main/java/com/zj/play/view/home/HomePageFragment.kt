@@ -3,6 +3,7 @@ package com.zj.play.view.home
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.youth.banner.indicator.CircleIndicator
+import com.zj.core.util.showToast
 import com.zj.play.R
 import com.zj.play.view.article.ArticleAdapter
 import com.zj.play.view.home.search.SearchActivity
@@ -14,7 +15,6 @@ import kotlin.system.measureTimeMillis
 class HomePageFragment : ArticleCollectBaseFragment() {
 
     private val viewModel by lazy { ViewModelProvider(this).get(HomePageViewModel::class.java) }
-
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_home_page
@@ -85,7 +85,11 @@ class HomePageFragment : ArticleCollectBaseFragment() {
                     showLoadErrorView()
                 }
             } else {
-                showBadNetworkView { initData() }
+                if (viewModel.articleList.size > 0) {
+                    showToast("网络请求出错")
+                } else {
+                    showBadNetworkView { initData() }
+                }
             }
         })
         getArticleList()
