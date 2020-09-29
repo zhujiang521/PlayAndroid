@@ -5,7 +5,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.core.util.showToast
-import com.zj.core.view.BaseFragment
 import com.zj.play.R
 import com.zj.play.view.article.ArticleAdapter
 import com.zj.play.view.home.ArticleCollectBaseFragment
@@ -29,6 +28,10 @@ class ProjectListFragment : ArticleCollectBaseFragment() {
         }
     }
 
+    override fun refreshData() {
+        getArticleList(true)
+    }
+
     override fun getLayoutId(): Int {
         return R.layout.fragment_project_list
     }
@@ -46,23 +49,23 @@ class ProjectListFragment : ArticleCollectBaseFragment() {
             setOnRefreshListener { reLayout ->
                 reLayout.finishRefresh(measureTimeMillis {
                     page = 1
-                    getArticleList()
+                    getArticleList(true)
                 }.toInt())
             }
             setOnLoadMoreListener { reLayout ->
                 val time = measureTimeMillis {
                     page++
-                    getArticleList()
+                    getArticleList(true)
                 }.toInt()
                 reLayout.finishLoadMore(if (time > 1000) time else 1000)
             }
         }
     }
 
-    private fun getArticleList() {
+    private fun getArticleList(isRefresh:Boolean) {
         if (viewModel.articleList.size <= 0)
             startLoading()
-        viewModel.getArticleList(page, projectCid!!)
+        viewModel.getArticleList(page, projectCid!!,isRefresh)
     }
 
     override fun initData() {
@@ -83,11 +86,11 @@ class ProjectListFragment : ArticleCollectBaseFragment() {
                 if (viewModel.articleList.size > 0) {
                     showToast("网络请求出错")
                 } else {
-                    showBadNetworkView { getArticleList() }
+                    showBadNetworkView { getArticleList(true) }
                 }
             }
         })
-        getArticleList()
+        getArticleList(false)
     }
 
     companion object {

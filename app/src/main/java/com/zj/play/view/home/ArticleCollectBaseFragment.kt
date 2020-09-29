@@ -12,15 +12,17 @@ import com.zj.play.view.article.ArticleBroadCast
  * 描述：PlayAndroid
  *
  */
-abstract class ArticleCollectBaseFragment : BaseFragment(){
+abstract class ArticleCollectBaseFragment : BaseFragment() {
 
     private var articleReceiver: BroadcastReceiver? = null
 
     override fun onResume() {
         super.onResume()
         articleReceiver =
-            ArticleBroadCast.setArticleChangesReceiver(activity!!) { initData() }
+            ArticleBroadCast.setArticleChangesReceiver(activity!!) { refreshData() }
     }
+
+    abstract fun refreshData()
 
     override fun onPause() {
         super.onPause()

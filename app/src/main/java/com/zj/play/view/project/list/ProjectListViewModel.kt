@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
 import com.zj.play.room.entity.Article
 import com.zj.play.view.project.ProjectRepository
 
@@ -23,13 +22,13 @@ class ProjectListViewModel(application: Application) : AndroidViewModel(applicat
     private val pageLiveData = MutableLiveData<QueryArticle>()
 
     val articleLiveData = Transformations.switchMap(pageLiveData) { query ->
-        ProjectRepository(application).getProject(query.page, query.cid)
+        ProjectRepository(application).getProject(query)
     }
 
-    fun getArticleList(page: Int, cid: Int) {
-        pageLiveData.value = QueryArticle(page, cid)
+    fun getArticleList(page: Int, cid: Int, isRefresh: Boolean) {
+        pageLiveData.value = QueryArticle(page, cid, isRefresh)
     }
 
 }
 
-data class QueryArticle(var page: Int, var cid: Int)
+data class QueryArticle(var page: Int, var cid: Int, var isRefresh: Boolean)

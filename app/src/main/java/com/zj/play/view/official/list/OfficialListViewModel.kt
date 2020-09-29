@@ -25,11 +25,11 @@ class OfficialListViewModel(application: Application) : AndroidViewModel(applica
     private val pageLiveData = MutableLiveData<QueryArticle>()
 
     val articleLiveData = Transformations.switchMap(pageLiveData) { query ->
-        OfficialRepository(getApplication()).getWxArticle(query.page, query.cid)
+        OfficialRepository(getApplication()).getWxArticle(query)
     }
 
-    fun getArticleList(page: Int, cid: Int) {
-        pageLiveData.value = QueryArticle(page, cid)
+    fun getArticleList(page: Int, cid: Int, isRefresh: Boolean) {
+        pageLiveData.value = QueryArticle(page, cid, isRefresh)
     }
 
 }

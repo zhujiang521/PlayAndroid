@@ -9,6 +9,7 @@ import com.zj.core.view.BaseFragment
 import com.zj.play.R
 import com.zj.play.network.AccountRepository
 import com.zj.play.view.account.LoginActivity
+import com.zj.play.view.article.ArticleBroadCast
 import com.zj.play.view.rank.list.RankActivity
 import com.zj.play.view.share.ShareActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -50,6 +51,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
         profileIvHead.setImageResource(R.drawable.img_nomal_head)
         profileTvName.text = "未登录"
         profileTvRank.text = "请点击进行登录"
+        ArticleBroadCast.sendArticleChangesReceiver(context!!)
     }
 
     override fun initData() {

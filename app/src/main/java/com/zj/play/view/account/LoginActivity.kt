@@ -10,6 +10,7 @@ import com.zj.core.view.ActivityCollector
 import com.zj.core.view.BaseActivity
 import com.zj.play.R
 import com.zj.play.network.AccountRepository
+import com.zj.play.view.article.ArticleBroadCast
 import com.zj.play.view.main.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -57,6 +58,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     ActivityCollector.finishAll()
                     MainActivity.actionStart(this)
                     showToast("注册成功")
+                    ArticleBroadCast.sendArticleChangesReceiver(this)
                 } else {
                     showToast("用户名已被注册！")
                 }
@@ -79,6 +81,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     ActivityCollector.finishAll()
                     MainActivity.actionStart(this)
                     showToast("登录成功")
+                    ArticleBroadCast.sendArticleChangesReceiver(this)
                 } else {
                     showToast("账号密码不匹配！")
                 }

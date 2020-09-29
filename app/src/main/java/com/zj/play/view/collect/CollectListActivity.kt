@@ -31,7 +31,6 @@ class CollectListActivity : ArticleCollectBaseActivity() {
                     if (page == 1 && viewModel.collectList.size > 0) {
                         viewModel.collectList.clear()
                     }
-                    Log.e("ZHUJIANG","${articleList.datas.size}   initDatas: ")
                     viewModel.collectList.addAll(articleList.datas)
                     articleAdapter.notifyDataSetChanged()
                 } else {

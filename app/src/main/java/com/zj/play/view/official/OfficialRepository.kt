@@ -1,14 +1,17 @@
 package com.zj.play.view.official
 
 import android.app.Application
+import android.util.Log
 import com.blankj.utilcode.util.SPUtils
 import com.zj.core.util.Preference
 import com.zj.play.network.PlayAndroidNetwork
 import com.zj.play.network.fire
 import com.zj.play.room.PlayDatabase
 import com.zj.play.room.entity.OFFICIAL
+import com.zj.play.room.entity.PROJECT
 import com.zj.play.view.home.DOWN_OFFICIAL_ARTICLE_TIME
 import com.zj.play.view.home.FOUR_HOUR
+import com.zj.play.view.project.list.QueryArticle
 
 /**
  * 版权：联想 版权所有
@@ -48,27 +51,30 @@ class OfficialRepository(application: Application) {
      * @param page 页码
      * @param cid 公众号id
      */
-    fun getWxArticle(page: Int, cid: Int) = fire {
-        if (page == 1) {
-            val articleListForChapterId = articleListDao.getArticleListForChapterId(OFFICIAL, cid)
+    fun getWxArticle(query: QueryArticle) = fire {
+        if (query.page == 1) {
+            val articleListForChapterId =
+                articleListDao.getArticleListForChapterId(OFFICIAL, query.cid)
             val spUtils = SPUtils.getInstance()
             val downArticleTime by Preference(
                 DOWN_OFFICIAL_ARTICLE_TIME,
                 System.currentTimeMillis()
             )
-            if (articleListForChapterId.isNotEmpty() && downArticleTime > 0 && downArticleTime - System.currentTimeMillis() < FOUR_HOUR) {
+            if (articleListForChapterId.isNotEmpty() && downArticleTime > 0 && downArticleTime - System.currentTimeMillis() < FOUR_HOUR && !query.isRefresh) {
                 Result.success(articleListForChapterId)
             } else {
-                val projectTree = PlayAndroidNetwork.getWxArticle(page, cid)
+                val projectTree = PlayAndroidNetwork.getWxArticle(query.page, query.cid)
                 if (projectTree.errorCode == 0) {
-                    if (articleListForChapterId.isNotEmpty() && articleListForChapterId[0].link == projectTree.data.datas[0].link) {
+                    if (articleListForChapterId.isNotEmpty() && articleListForChapterId[0].link == projectTree.data.datas[0].link && !query.isRefresh) {
                         Result.success(articleListForChapterId)
                     } else {
                         projectTree.data.datas.forEach {
                             it.localType = OFFICIAL
                         }
                         spUtils.put(DOWN_OFFICIAL_ARTICLE_TIME, System.currentTimeMillis())
-                        articleListDao.deleteAll(OFFICIAL)
+                        if (query.isRefresh) {
+                            articleListDao.deleteAll(PROJECT, query.cid)
+                        }
                         articleListDao.insertList(projectTree.data.datas)
                         Result.success(projectTree.data.datas)
                     }
@@ -77,7 +83,7 @@ class OfficialRepository(application: Application) {
                 }
             }
         } else {
-            val projectTree = PlayAndroidNetwork.getWxArticle(page, cid)
+            val projectTree = PlayAndroidNetwork.getWxArticle(query.page, query.cid)
             if (projectTree.errorCode == 0) {
                 Result.success(projectTree.data.datas)
             } else {

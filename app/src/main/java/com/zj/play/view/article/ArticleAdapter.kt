@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import com.blankj.utilcode.util.NetworkUtils
 import com.bumptech.glide.Glide
 import com.zhy.adapter.recyclerview.CommonAdapter
 import com.zhy.adapter.recyclerview.base.ViewHolder
@@ -65,8 +66,12 @@ class ArticleAdapter(
         }
         articleTvCollect.setSafeListener {
             if (Play.isLogin) {
-                setCollect(t.id, t.collect, articleTvCollect)
-                t.collect = !t.collect
+                if (NetworkUtils.isConnected()) {
+                    t.collect = !t.collect
+                    setCollect(t, articleTvCollect)
+                } else {
+                    showToast("当前网络不可用")
+                }
             } else {
                 LoginActivity.actionStart(mContext)
             }
@@ -90,24 +95,27 @@ class ArticleAdapter(
         }
     }
 
-    private fun setCollect(id: Int, collect: Boolean, articleTvCollect: ImageView) {
+    private fun setCollect(t: Article, articleTvCollect: ImageView) {
+        val articleDao = PlayDatabase.getDatabase(mContext).browseHistoryDao()
         GlobalScope.launch {
-            if (collect) {
-                val cancelCollects = CollectRepository.cancelCollects(id)
+            if (!t.collect) {
+                val cancelCollects = CollectRepository.cancelCollects(t.id)
                 if (cancelCollects.errorCode == 0) {
                     withContext(Dispatchers.Main) {
                         articleTvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
                         showToast("取消收藏成功")
+                        articleDao.update(t)
                     }
                 } else {
                     showToast("取消收藏失败")
                 }
             } else {
-                val toCollects = CollectRepository.toCollects(id)
+                val toCollects = CollectRepository.toCollects(t.id)
                 if (toCollects.errorCode == 0) {
                     withContext(Dispatchers.Main) {
                         articleTvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
                         showToast("收藏成功")
+                        articleDao.update(t)
                     }
                 } else {
                     showToast("收藏失败")

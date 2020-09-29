@@ -75,24 +75,29 @@ object HomeRepository {
      * 首页获取文章列表
      * @param page 页码
      */
-    fun getArticleList(application: Application, page: Int) = fire {
+    fun getArticleList(application: Application, query: QueryHomeArticle) = fire {
         coroutineScope {
             val res = arrayListOf<Article>()
-            if (page == 1) {
+            if (query.page == 1) {
                 val spUtils = SPUtils.getInstance()
                 val downArticleTime by Preference(DOWN_ARTICLE_TIME, System.currentTimeMillis())
                 val articleListDao = PlayDatabase.getDatabase(application).browseHistoryDao()
                 val articleListHome = articleListDao.getArticleList(HOME)
                 val articleListTop = articleListDao.getTopArticleList(HOME_TOP)
-                val downTopArticleTime by Preference(DOWN_TOP_ARTICLE_TIME, System.currentTimeMillis())
-                if (articleListTop.isNotEmpty() && page == 1 && downTopArticleTime > 0 && downTopArticleTime - System.currentTimeMillis() < FOUR_HOUR) {
+                val downTopArticleTime by Preference(
+                    DOWN_TOP_ARTICLE_TIME,
+                    System.currentTimeMillis()
+                )
+                if (articleListTop.isNotEmpty() && query.page == 1 && downTopArticleTime > 0 &&
+                    downTopArticleTime - System.currentTimeMillis() < FOUR_HOUR && !query.isRefresh
+                ) {
                     res.addAll(articleListTop)
                 } else {
                     val topArticleListDeferred =
                         async { PlayAndroidNetwork.getTopArticleList() }
                     val topArticleList = topArticleListDeferred.await()
                     if (topArticleList.errorCode == 0) {
-                        if (articleListTop.isNotEmpty() && articleListTop[0].link == topArticleList.data[0].link) {
+                        if (articleListTop.isNotEmpty() && articleListTop[0].link == topArticleList.data[0].link && !query.isRefresh) {
                             res.addAll(articleListTop)
                         } else {
                             res.addAll(topArticleList.data)
@@ -105,14 +110,17 @@ object HomeRepository {
                         }
                     }
                 }
-                if (articleListHome.isNotEmpty() && downArticleTime > 0 && downArticleTime - System.currentTimeMillis() < FOUR_HOUR) {
+                if (articleListHome.isNotEmpty() && downArticleTime > 0 && downArticleTime - System.currentTimeMillis() < FOUR_HOUR
+                    && !query.isRefresh
+                ) {
                     res.addAll(articleListHome)
                     Result.success(res)
                 } else {
-                    val articleListDeferred = async { PlayAndroidNetwork.getArticleList(page - 1) }
+                    val articleListDeferred =
+                        async { PlayAndroidNetwork.getArticleList(query.page - 1) }
                     val articleList = articleListDeferred.await()
                     if (articleList.errorCode == 0) {
-                        if (articleListHome.isNotEmpty() && articleListHome[0].link == articleList.data.datas[0].link) {
+                        if (articleListHome.isNotEmpty() && articleListHome[0].link == articleList.data.datas[0].link && !query.isRefresh) {
                             res.addAll(articleListHome)
                         } else {
                             res.addAll(articleList.data.datas)
@@ -133,7 +141,8 @@ object HomeRepository {
                     }
                 }
             } else {
-                val articleListDeferred = async { PlayAndroidNetwork.getArticleList(page - 1) }
+                val articleListDeferred =
+                    async { PlayAndroidNetwork.getArticleList(query.page - 1) }
                 val articleList = articleListDeferred.await()
                 if (articleList.errorCode == 0) {
                     res.addAll(articleList.data.datas)

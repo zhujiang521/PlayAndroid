@@ -53,4 +53,8 @@ interface BrowseHistoryDao {
 
     @Query("DELETE FROM browse_history where local_type = :type")
     suspend fun deleteAll(type: Int)
+
+    @Query("DELETE FROM browse_history where local_type = :type and  chapter_id = :chapterId")
+    suspend fun deleteAll(type: Int, chapterId: Int)
+
 }

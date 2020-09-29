@@ -17,7 +17,7 @@ import com.zj.play.room.entity.BannerBean
  */
 class HomePageViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val pageLiveData = MutableLiveData<Int>()
+    private val pageLiveData = MutableLiveData<QueryHomeArticle>()
 
     val bannerList = ArrayList<BannerBean>()
 
@@ -25,15 +25,17 @@ class HomePageViewModel(application: Application) : AndroidViewModel(application
 
     val articleList = ArrayList<Article>()
 
-    val articleLiveData = Transformations.switchMap(pageLiveData) { page ->
-        HomeRepository.getArticleList(application, page)
+    val articleLiveData = Transformations.switchMap(pageLiveData) { query ->
+        HomeRepository.getArticleList(application, query)
     }
 
     val bannerLiveData = HomeRepository.getBanner(application)
 
 
-    fun getArticleList(page: Int) {
-        pageLiveData.value = page
+    fun getArticleList(page: Int, isRefresh: Boolean) {
+        pageLiveData.value = QueryHomeArticle(page, isRefresh)
     }
 
 }
+
+data class QueryHomeArticle(var page: Int, var isRefresh: Boolean)

@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
 /**
@@ -20,10 +19,10 @@ object ArticleBroadCast {
 
     const val COLLECT_RECEIVER = "com.zj.play.COLLECT"
 
-    fun sendArticleChangesReceiver(c: Context) {
+    fun sendArticleChangesReceiver(context: Context) {
         val intent = Intent(COLLECT_RECEIVER)
-        intent.setPackage(c.packageName)
-        c.sendBroadcast(intent)
+        intent.setPackage(context.packageName)
+        context.sendBroadcast(intent)
     }
 
     fun setArticleChangesReceiver(c: Activity, block: () -> Unit): BroadcastReceiver? {

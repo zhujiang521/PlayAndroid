@@ -1,6 +1,7 @@
 package com.zj.play.view.project
 
 import android.content.Context
+import android.util.Log
 import com.blankj.utilcode.util.SPUtils
 import com.zj.core.util.Preference
 import com.zj.play.network.PlayAndroidNetwork
@@ -9,6 +10,7 @@ import com.zj.play.room.PlayDatabase
 import com.zj.play.room.entity.PROJECT
 import com.zj.play.view.home.DOWN_PROJECT_ARTICLE_TIME
 import com.zj.play.view.home.FOUR_HOUR
+import com.zj.play.view.project.list.QueryArticle
 
 /**
  * 版权：联想 版权所有
@@ -47,24 +49,27 @@ class ProjectRepository(context: Context) {
      * @param page 页码
      * @param cid 项目id
      */
-    fun getProject(page: Int, cid: Int) = fire {
-        if (page == 1) {
-            val articleListForChapterId = articleListDao.getArticleListForChapterId(PROJECT, cid)
+    fun getProject(query: QueryArticle) = fire {
+        if (query.page == 1) {
+            val articleListForChapterId =
+                articleListDao.getArticleListForChapterId(PROJECT, query.cid)
             val spUtils = SPUtils.getInstance()
             val downArticleTime by Preference(DOWN_PROJECT_ARTICLE_TIME, System.currentTimeMillis())
-            if (articleListForChapterId.isNotEmpty() && downArticleTime > 0 && downArticleTime - System.currentTimeMillis() < FOUR_HOUR) {
+            if (articleListForChapterId.isNotEmpty() && downArticleTime > 0 && downArticleTime - System.currentTimeMillis() < FOUR_HOUR && !query.isRefresh) {
                 Result.success(articleListForChapterId)
             } else {
-                val projectTree = PlayAndroidNetwork.getProject(page, cid)
+                val projectTree = PlayAndroidNetwork.getProject(query.page, query.cid)
                 if (projectTree.errorCode == 0) {
-                    if (articleListForChapterId.isNotEmpty() && articleListForChapterId[0].link == projectTree.data.datas[0].link) {
+                    if (articleListForChapterId.isNotEmpty() && articleListForChapterId[0].link == projectTree.data.datas[0].link && !query.isRefresh) {
                         Result.success(articleListForChapterId)
                     } else {
                         projectTree.data.datas.forEach {
                             it.localType = PROJECT
                         }
                         spUtils.put(DOWN_PROJECT_ARTICLE_TIME, System.currentTimeMillis())
-                        articleListDao.deleteAll(PROJECT)
+                        if (query.isRefresh){
+                            articleListDao.deleteAll(PROJECT,query.cid)
+                        }
                         articleListDao.insertList(projectTree.data.datas)
                         Result.success(projectTree.data.datas)
                     }
@@ -73,7 +78,7 @@ class ProjectRepository(context: Context) {
                 }
             }
         } else {
-            val projectTree = PlayAndroidNetwork.getProject(page, cid)
+            val projectTree = PlayAndroidNetwork.getProject(query.page, query.cid)
             if (projectTree.errorCode == 0) {
                 Result.success(projectTree.data.datas)
             } else {

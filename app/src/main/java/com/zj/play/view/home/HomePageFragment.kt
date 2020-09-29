@@ -25,6 +25,10 @@ class HomePageFragment : ArticleCollectBaseFragment() {
         homeBanner.start()
     }
 
+    override fun refreshData() {
+        getArticleList(true)
+    }
+
     private lateinit var bannerAdapter: ImageAdapter
     private lateinit var bannerAdapter2: ImageAdapter
     private lateinit var articleAdapter: ArticleAdapter
@@ -55,13 +59,13 @@ class HomePageFragment : ArticleCollectBaseFragment() {
             setOnRefreshListener { reLayout ->
                 reLayout.finishRefresh(measureTimeMillis {
                     page = 1
-                    getArticleList()
+                    getArticleList(true)
                 }.toInt())
             }
             setOnLoadMoreListener { reLayout ->
                 val time = measureTimeMillis {
                     page++
-                    getArticleList()
+                    getArticleList(true)
                 }.toInt()
                 reLayout.finishLoadMore(if (time > 1000) time else 1000)
             }
@@ -92,7 +96,7 @@ class HomePageFragment : ArticleCollectBaseFragment() {
                 }
             }
         })
-        getArticleList()
+        getArticleList(false)
     }
 
     private fun initBanner() {
@@ -125,8 +129,8 @@ class HomePageFragment : ArticleCollectBaseFragment() {
         })
     }
 
-    private fun getArticleList() {
-        viewModel.getArticleList(page)
+    private fun getArticleList(isRefresh: Boolean) {
+        viewModel.getArticleList(page,isRefresh)
     }
 
     override fun onPause() {
