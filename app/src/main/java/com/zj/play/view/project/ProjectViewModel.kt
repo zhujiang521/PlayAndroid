@@ -2,6 +2,9 @@ package com.zj.play.view.project
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import com.zj.play.view.project.list.QueryArticle
 
 /**
  * 版权：渤海新能 版权所有
@@ -15,7 +18,14 @@ class ProjectViewModel(application: Application) : AndroidViewModel(application)
 
     var position = 0
 
-    val projectTreeLiveData =
-        ProjectRepository(application).getProjectTree()
+    private val refreshLiveData = MutableLiveData<Boolean>()
+
+    val projectTreeLiveData = Transformations.switchMap(refreshLiveData) { isRefresh ->
+        ProjectRepository(application).getProjectTree(isRefresh)
+    }
+
+    fun getArticleList(isRefresh: Boolean) {
+        refreshLiveData.value = isRefresh
+    }
 
 }

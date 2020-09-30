@@ -77,6 +77,10 @@ class ArticleAdapter(
             }
         }
         articleLlItem.setOnClickListener {
+            if (!NetworkUtils.isConnected()) {
+                showToast("当前网络不可用")
+                return@setOnClickListener
+            }
             ArticleActivity.actionStart(
                 mContext,
                 t.title,

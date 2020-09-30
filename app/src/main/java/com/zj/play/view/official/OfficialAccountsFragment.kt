@@ -2,7 +2,6 @@ package com.zj.play.view.official
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.tabs.TabLayout
 import com.zj.core.view.FragmentAdapter
 import com.zj.play.R
 import com.zj.play.view.official.list.OfficialListFragment
@@ -51,15 +50,15 @@ class OfficialAccountsFragment : BaseTabFragment() {
                 showBadNetworkView { initData() }
             }
         })
+        getOfficialTree()
     }
 
-    override fun onPageSelected(position: Int) {
+    private fun getOfficialTree() {
+        viewModel.getArticleList(false)
+    }
+
+    override fun onTabPageSelected(position: Int) {
         viewModel.position = position
-    }
-
-    override fun onTabSelected(tab: TabLayout.Tab?) {
-        if (tab != null && tab.position > 0)
-            viewModel.position = tab.position
     }
 
     companion object {

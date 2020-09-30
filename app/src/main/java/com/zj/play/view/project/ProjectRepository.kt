@@ -28,9 +28,10 @@ class ProjectRepository(context: Context) {
     /**
      * 获取项目标题列表
      */
-    fun getProjectTree() = fire {
+    fun getProjectTree(isRefresh: Boolean) = fire {
+        Log.e("ZHUJIANG", "getProjectTree: ")
         val projectClassifyLists = projectClassifyDao.getAllProject()
-        if (projectClassifyLists.isNotEmpty()) {
+        if (projectClassifyLists.isNotEmpty() && !isRefresh) {
             Result.success(projectClassifyLists)
         } else {
             val projectTree = PlayAndroidNetwork.getProjectTree()
@@ -67,8 +68,8 @@ class ProjectRepository(context: Context) {
                             it.localType = PROJECT
                         }
                         spUtils.put(DOWN_PROJECT_ARTICLE_TIME, System.currentTimeMillis())
-                        if (query.isRefresh){
-                            articleListDao.deleteAll(PROJECT,query.cid)
+                        if (query.isRefresh) {
+                            articleListDao.deleteAll(PROJECT, query.cid)
                         }
                         articleListDao.insertList(projectTree.data.datas)
                         Result.success(projectTree.data.datas)

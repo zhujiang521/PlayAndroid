@@ -29,9 +29,9 @@ class OfficialRepository(application: Application) {
     /**
      * 获取公众号标题列表
      */
-    fun getWxArticleTree() = fire {
+    fun getWxArticleTree(isRefresh: Boolean) = fire {
         val projectClassifyLists = projectClassifyDao.getAllOfficial()
-        if (projectClassifyLists.isNotEmpty()) {
+        if (projectClassifyLists.isNotEmpty() && !isRefresh) {
             Result.success(projectClassifyLists)
         } else {
             val projectTree = PlayAndroidNetwork.getWxArticleTree()

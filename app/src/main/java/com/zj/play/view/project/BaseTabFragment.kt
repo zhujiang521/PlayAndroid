@@ -1,6 +1,5 @@
 package com.zj.play.view.project
 
-import androidx.lifecycle.ViewModel
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.zj.core.view.BaseFragment
@@ -27,4 +26,16 @@ abstract class BaseTabFragment : BaseFragment(), ViewPager.OnPageChangeListener,
 
     override fun onTabReselected(tab: TabLayout.Tab?) {
     }
+
+    override fun onPageSelected(position: Int) {
+        onTabPageSelected(position)
+    }
+
+    override fun onTabSelected(tab: TabLayout.Tab?) {
+        if (tab != null && tab.position > 0)
+            onTabPageSelected(tab.position)
+    }
+
+    abstract fun onTabPageSelected(position: Int)
+
 }

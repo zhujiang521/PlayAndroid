@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import com.blankj.utilcode.util.NetworkUtils
 import com.bumptech.glide.Glide
 import com.zhy.adapter.recyclerview.CommonAdapter
 import com.zhy.adapter.recyclerview.base.ViewHolder
@@ -51,7 +52,19 @@ class CollectAdapter(context: Context, layoutId: Int, articleList: ArrayList<Col
             cancelCollect(t.originId, position)
         }
         articleLlItem.setOnClickListener {
-            ArticleActivity.actionStart(mContext, t.title, t.link, t.id, 1, t.originId, userId = t.userId)
+            if (!NetworkUtils.isConnected()) {
+                showToast("当前网络不可用")
+                return@setOnClickListener
+            }
+            ArticleActivity.actionStart(
+                mContext,
+                t.title,
+                t.link,
+                t.id,
+                1,
+                t.originId,
+                userId = t.userId
+            )
         }
     }
 

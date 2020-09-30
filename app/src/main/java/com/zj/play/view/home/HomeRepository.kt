@@ -1,7 +1,6 @@
 package com.zj.play.view.home
 
 import android.app.Application
-import android.util.Log
 import com.blankj.utilcode.util.SPUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
@@ -29,12 +28,12 @@ object HomeRepository {
     /**
      * 获取banner
      */
-    fun getBanner(application: Application) = fire {
+    fun getBanner(application: Application, isRefresh: Boolean) = fire {
         val spUtils = SPUtils.getInstance()
         val downImageTime by Preference(DOWN_IMAGE_TIME, System.currentTimeMillis())
         val bannerBeanDao = PlayDatabase.getDatabase(application).bannerBeanDao()
         val bannerBeanList = bannerBeanDao.getBannerBeanList()
-        if (bannerBeanList.isNotEmpty() && downImageTime > 0 && downImageTime - System.currentTimeMillis() < ONE_DAY) {
+        if (bannerBeanList.isNotEmpty() && downImageTime > 0 && downImageTime - System.currentTimeMillis() < ONE_DAY && !isRefresh) {
             Result.success(bannerBeanList)
         } else {
             val bannerResponse = PlayAndroidNetwork.getBanner()

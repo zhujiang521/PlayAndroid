@@ -19,6 +19,8 @@ class HomePageViewModel(application: Application) : AndroidViewModel(application
 
     private val pageLiveData = MutableLiveData<QueryHomeArticle>()
 
+    private val refreshLiveData = MutableLiveData<Boolean>()
+
     val bannerList = ArrayList<BannerBean>()
 
     val bannerList2 = ArrayList<BannerBean>()
@@ -29,8 +31,13 @@ class HomePageViewModel(application: Application) : AndroidViewModel(application
         HomeRepository.getArticleList(application, query)
     }
 
-    val bannerLiveData = HomeRepository.getBanner(application)
+    val bannerLiveData = Transformations.switchMap(refreshLiveData) { isRefresh ->
+        HomeRepository.getBanner(application,isRefresh)
+    }
 
+    fun getBanner(isRefresh: Boolean) {
+        refreshLiveData.value = isRefresh
+    }
 
     fun getArticleList(page: Int, isRefresh: Boolean) {
         pageLiveData.value = QueryHomeArticle(page, isRefresh)

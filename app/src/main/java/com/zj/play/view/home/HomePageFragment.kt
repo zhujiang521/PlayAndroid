@@ -127,10 +127,15 @@ class HomePageFragment : ArticleCollectBaseFragment() {
                 showBadNetworkView { initData() }
             }
         })
+        getBanner()
+    }
+
+    private fun getBanner() {
+        viewModel.getBanner(false)
     }
 
     private fun getArticleList(isRefresh: Boolean) {
-        viewModel.getArticleList(page,isRefresh)
+        viewModel.getArticleList(page, isRefresh)
     }
 
     override fun onPause() {
