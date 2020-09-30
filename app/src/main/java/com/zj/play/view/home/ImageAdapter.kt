@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.NetworkUtils
 import com.bumptech.glide.Glide
 import com.youth.banner.adapter.BannerAdapter
+import com.zj.core.util.showToast
 import com.zj.play.room.entity.BannerBean
 import com.zj.play.view.article.ArticleActivity
 
@@ -51,6 +53,10 @@ open class ImageAdapter(private val mContext: Context, mData: List<BannerBean>) 
         Glide.with(mContext).load(if (data?.filePath == null) data?.imagePath else data.filePath)
             .into(holder!!.imageView)
         holder.imageView.setOnClickListener {
+            if (!NetworkUtils.isConnected()) {
+                showToast("当前网络不可用")
+                return@setOnClickListener
+            }
             ArticleActivity.actionStart(mContext, data!!.title, data.url)
         }
     }
