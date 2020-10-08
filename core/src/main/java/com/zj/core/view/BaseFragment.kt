@@ -14,7 +14,7 @@ import com.zj.core.R
 /**
  * 应用程序中所有Fragment的基类。
  */
-abstract class BaseFragment : Fragment(), RequestLifecycle {
+abstract class BaseFragment : Fragment(), RequestLifecycle, BaseInit {
 
     /**
      * Fragment中由于服务器异常导致加载失败显示的布局。
@@ -40,18 +40,15 @@ abstract class BaseFragment : Fragment(), RequestLifecycle {
      * Fragment中显示加载等待的控件。
      */
     private var loading: ProgressBar? = null
-    
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(getLayoutId(), container, false)
         onCreateView(view)
-        // Inflate  the layout for this fragment
         return view
     }
-
-    abstract fun getLayoutId(): Int
 
 
     /**
@@ -76,10 +73,6 @@ abstract class BaseFragment : Fragment(), RequestLifecycle {
         initView()
         initData()
     }
-
-    abstract fun initView()
-
-    abstract fun initData()
 
     /**
      * 当Fragment中的内容因为网络原因无法显示的时候，通过此方法显示提示界面给用户。

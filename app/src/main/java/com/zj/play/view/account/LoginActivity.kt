@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
 import android.view.View
+import com.blankj.utilcode.util.NetworkUtils
 import com.zj.core.Play
 import com.zj.core.util.showToast
 import com.zj.core.view.ActivityCollector
@@ -98,6 +99,10 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         }
         if (TextUtils.isEmpty(mPassWord) || mPassWord.length < 6) {
             loginPassNumberEdit.error = "请输入正确的密码格式"
+            return false
+        }
+        if (!NetworkUtils.isConnected()) {
+            showToast("当前网络不可用")
             return false
         }
         return true

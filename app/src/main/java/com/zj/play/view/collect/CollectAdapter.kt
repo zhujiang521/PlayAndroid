@@ -1,6 +1,7 @@
 package com.zj.play.view.collect
 
 import android.content.Context
+import android.os.Build
 import android.text.Html
 import android.text.TextUtils
 import android.view.View
@@ -35,7 +36,12 @@ class CollectAdapter(context: Context, layoutId: Int, articleList: ArrayList<Col
         val articleTvTitle = holder.getView<TextView>(R.id.articleTvTitle)
         val articleTvChapterName = holder.getView<TextView>(R.id.articleTvChapterName)
         val articleTvCollect = holder.getView<ImageView>(R.id.articleIvCollect)
-        articleTvTitle.text = Html.fromHtml(t.title)
+        articleTvTitle.text =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Html.fromHtml(t.title, Html.FROM_HTML_MODE_LEGACY)
+            } else {
+                t.title
+            }
         articleTvChapterName.text = t.chapterName
         articleTvAuthor.text = if (TextUtils.isEmpty(t.author)) t.chapterName else t.author
         articleTvTime.text = t.niceDate

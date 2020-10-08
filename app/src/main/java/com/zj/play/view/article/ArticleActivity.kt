@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PixelFormat
+import android.os.Build
 import android.text.Html
 import android.util.Log
 import android.view.KeyEvent
@@ -52,7 +53,12 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
         isCollection = intent.getIntExtra(IS_COLLECTION, -1)
         originId = intent.getIntExtra(ORIGIN_ID, -1)
         userId = intent.getIntExtra(USER_ID, -1)
-        articleTxtTitle.text = Html.fromHtml(pageName)
+        articleTxtTitle.text =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Html.fromHtml(pageName, Html.FROM_HTML_MODE_LEGACY)
+            } else {
+                pageName
+            }
         articleWebView.loadUrl(pageUrl)
     }
 

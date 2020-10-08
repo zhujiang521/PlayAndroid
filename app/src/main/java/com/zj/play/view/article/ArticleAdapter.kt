@@ -1,6 +1,7 @@
 package com.zj.play.view.article
 
 import android.content.Context
+import android.os.Build
 import android.text.Html
 import android.text.TextUtils
 import android.view.View
@@ -45,7 +46,12 @@ class ArticleAdapter(
         val articleTvChapterName = holder.getView<TextView>(R.id.articleTvChapterName)
         val articleTvCollect = holder.getView<ImageView>(R.id.articleIvCollect)
         if (!TextUtils.isEmpty(t.title))
-            articleTvTitle.text = Html.fromHtml(t.title)
+            articleTvTitle.text =
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Html.fromHtml(t.title, Html.FROM_HTML_MODE_LEGACY)
+                } else {
+                    t.title
+                }
         articleTvChapterName.text = t.superChapterName
         articleTvAuthor.text = if (TextUtils.isEmpty(t.author)) t.shareUser else t.author
         articleTvTime.text = t.niceShareDate

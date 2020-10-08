@@ -2,11 +2,9 @@ package com.zj.core.view
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.ProgressDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -21,12 +19,7 @@ import java.lang.ref.WeakReference
  *
  */
 @SuppressLint("Registered")
-abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
-
-    /**
-     * 当前Activity的实例。
-     */
-    protected var activity: Activity? = null
+abstract class BaseActivity : AppCompatActivity(), RequestLifecycle, BaseInit {
 
     /**
      * Activity中显示加载等待的控件。
@@ -50,29 +43,18 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
 
     private var weakRefActivity: WeakReference<Activity>? = null
 
-    private var progressDialog: ProgressDialog? = null
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         transparentStatusBar()
         setContentView(getLayoutId())
         ActivityCollector.add(WeakReference(this))
-        activity = this
         weakRefActivity = WeakReference(this)
         initView()
         initData()
     }
 
-    abstract fun initData()
-
-    abstract fun initView()
-
-    abstract fun getLayoutId(): Int
-
     override fun onDestroy() {
         super.onDestroy()
-        activity = null
         ActivityCollector.remove(weakRefActivity)
     }
 
@@ -172,37 +154,6 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
      */
     private fun hideBadNetworkView() {
         badNetworkView?.visibility = View.GONE
-    }
-
-    fun showProgressDialog(title: String?, message: String) {
-        if (progressDialog == null) {
-            progressDialog = ProgressDialog(this).apply {
-                if (title != null) {
-                    setTitle(title)
-                }
-                setMessage(message)
-                setCancelable(false)
-            }
-        }
-        progressDialog?.show()
-    }
-
-    fun closeProgressDialog() {
-        progressDialog?.let {
-            if (it.isShowing) {
-                it.dismiss()
-            }
-        }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     @CallSuper

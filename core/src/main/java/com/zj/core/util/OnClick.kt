@@ -21,17 +21,3 @@ inline fun View.setSafeListener(crossinline action: () -> Unit) {
         action.invoke()
     }
 }
-
-
-var _viewClickFlag = false
-var _clickRunnable = Runnable { _viewClickFlag = false }
-fun View.click(action: (view: View) -> Unit) {
-    setOnClickListener {
-        if (!_viewClickFlag) {
-            _viewClickFlag = true
-            action(it)
-        }
-        removeCallbacks(_clickRunnable)
-        postDelayed(_clickRunnable, 1000)
-    }
-}
