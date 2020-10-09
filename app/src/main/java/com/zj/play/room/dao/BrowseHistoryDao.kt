@@ -18,8 +18,8 @@ interface BrowseHistoryDao {
     @Query("SELECT * FROM browse_history")
     suspend fun getAllArticle(): List<Article>
 
-    @Query("SELECT * FROM browse_history where id = :id")
-    suspend fun getArticle(id: Int): Article?
+    @Query("SELECT * FROM browse_history where id = :id and local_type = :type")
+    suspend fun getArticle(id: Int,type: Int): Article?
 
     @Query("SELECT * FROM browse_history where local_type = :type order by uid desc limit :page,20")
     suspend fun getHistoryArticleList(page: Int, type: Int): List<Article>

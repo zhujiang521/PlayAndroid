@@ -25,12 +25,12 @@ class TitleBar @JvmOverloads constructor(
     private lateinit var mImgRight: ImageView
     private lateinit var mTxtRight: TextView
     private var titleName: String? = null
-    private var backImageVisiable: Boolean? = null
+    private var backImageVisible: Boolean? = null
 
     init {
         val attr = context.obtainStyledAttributes(attrs, R.styleable.TitleBar)
         titleName = attr.getString(R.styleable.TitleBar_titleName)
-        backImageVisiable = attr.getBoolean(R.styleable.TitleBar_backImageVisiable, true)
+        backImageVisible = attr.getBoolean(R.styleable.TitleBar_backImageVisiable, true)
     }
 
     /**
@@ -52,8 +52,8 @@ class TitleBar @JvmOverloads constructor(
         if (titleName != null) {
             mTitleTv.text = titleName
         }
-        if (backImageVisiable != null) {
-            setBackImageVisiable(backImageVisiable!!)
+        if (backImageVisible != null) {
+            setBackImageVisiable(backImageVisible!!)
         }
     }
 

@@ -97,7 +97,7 @@ class ArticleAdapter(
             )
             val browseHistoryDao = PlayDatabase.getDatabase(mContext).browseHistoryDao()
             GlobalScope.launch(Dispatchers.IO) {
-                if (browseHistoryDao.getArticle(t.id) == null) {
+                if (browseHistoryDao.getArticle(t.id, HISTORY) == null) {
                     t.localType = HISTORY
                     browseHistoryDao.insert(t)
                 }
