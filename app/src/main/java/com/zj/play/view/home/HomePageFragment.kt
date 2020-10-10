@@ -23,6 +23,7 @@ class HomePageFragment : ArticleCollectBaseFragment() {
     override fun onResume() {
         super.onResume()
         homeBanner.start()
+        homeBanner2.start()
     }
 
     override fun refreshData() {
@@ -141,6 +142,7 @@ class HomePageFragment : ArticleCollectBaseFragment() {
     override fun onPause() {
         super.onPause()
         homeBanner.stop()
+        homeBanner2.stop()
     }
 
     companion object {
