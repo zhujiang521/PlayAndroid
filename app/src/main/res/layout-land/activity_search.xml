@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.home.search.SearchActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_70"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dp_20">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:ignore="UselessParent">
+
+            <ImageView
+                android:id="@+id/searchImgBack"
+                android:layout_width="@dimen/dp_35"
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/dp_15"
+                android:paddingBottom="@dimen/dp_15"
+                android:src="@drawable/img_back" />
+
+            <EditText
+                android:id="@+id/searchTxtKeyword"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_30"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="@dimen/dp_5"
+                android:background="@drawable/edit_gray_radus"
+                android:hint="请输入关键字"
+                android:paddingStart="@dimen/dp_5"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:textColorHint="@color/gray"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dp_13" />
+
+            <TextView
+                android:id="@+id/searchTxtRight"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingStart="@dimen/dp_7"
+                android:paddingTop="@dimen/dp_14"
+                android:paddingEnd="@dimen/dp_7"
+                android:paddingBottom="@dimen/dp_14"
+                android:text="搜索"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dp_14"
+                tools:ignore="RtlSymmetry" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <com.zj.core.view.FlowLayout
+        android:id="@+id/searchFlowLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_15" />
+
+</LinearLayout>

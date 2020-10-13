@@ -3,11 +3,13 @@ package com.zj.play.view.home.search
 import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
+import com.blankj.utilcode.util.KeyboardUtils
 import com.zj.core.util.showToast
 import com.zj.core.view.BaseActivity
 import com.zj.play.R
@@ -28,6 +30,11 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
     private lateinit var hotKeyDao: HotKeyDao
     private val viewModel by lazy { ViewModelProvider(this).get(SearchViewModel::class.java) }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getHotKey(true)
+        KeyboardUtils.showSoftInput(searchTxtKeyword)
+    }
 
     override fun initData() {
         hotKeyDao = PlayDatabase.getDatabase(this).hotKeyDao()
@@ -36,7 +43,8 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
                 loadFinished()
                 val hoeKey = it.getOrNull()
                 if (hoeKey != null) {
-                    if (viewModel.hotKey.size <= 0) {
+                    if (hoeKey.isNotEmpty()) {
+                        viewModel.hotKey.clear()
                         viewModel.hotKey.addAll(hoeKey)
                     }
                     addFlowView()
@@ -47,6 +55,11 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
                 showBadNetworkView { initData() }
             }
         })
+    }
+
+    override fun onPause() {
+        super.onPause()
+        KeyboardUtils.hideSoftInput(searchTxtKeyword)
     }
 
     private fun addFlowView() {
@@ -102,7 +115,6 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
                 GlobalScope.launch {
                     hotKeyDao.insert(HotKey(id = -1, name = keyword))
                 }
-                viewModel.hotKeyLiveData
                 ArticleListActivity.actionStart(this, keyword)
             }
         }

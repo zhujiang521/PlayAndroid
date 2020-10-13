@@ -2,6 +2,8 @@ package com.zj.play.view.home.search
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.zj.play.room.entity.HotKey
 
 /**
@@ -14,9 +16,16 @@ import com.zj.play.room.entity.HotKey
  */
 class SearchViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val refreshLiveData = MutableLiveData<Boolean>()
+
     val hotKey = ArrayList<HotKey>()
 
-    val hotKeyLiveData =
+    val hotKeyLiveData = Transformations.switchMap(refreshLiveData) {
         SearchRepository(application).getHotKey()
+    }
+
+    fun getHotKey(isRefresh: Boolean) {
+        refreshLiveData.value = isRefresh
+    }
 
 }

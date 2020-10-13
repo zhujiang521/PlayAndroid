@@ -87,7 +87,7 @@ object HomeRepository {
                     DOWN_TOP_ARTICLE_TIME,
                     System.currentTimeMillis()
                 )
-                if (articleListTop.isNotEmpty() && query.page == 1 && downTopArticleTime > 0 &&
+                if (articleListTop.isNotEmpty() && downTopArticleTime > 0 &&
                     downTopArticleTime - System.currentTimeMillis() < FOUR_HOUR && !query.isRefresh
                 ) {
                     res.addAll(articleListTop)
