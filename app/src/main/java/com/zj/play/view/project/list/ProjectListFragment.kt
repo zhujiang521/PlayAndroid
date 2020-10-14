@@ -1,15 +1,19 @@
 package com.zj.play.view.project.list
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.zj.core.util.showToast
 import com.zj.play.R
 import com.zj.play.view.article.ArticleAdapter
 import com.zj.play.view.home.ArticleCollectBaseFragment
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_project_list.*
 import kotlin.system.measureTimeMillis
+
 
 private const val PROJECT_CID = "PROJECT_CID"
 
@@ -37,7 +41,16 @@ class ProjectListFragment : ArticleCollectBaseFragment() {
     }
 
     override fun initView() {
-        proListRecycleView.layoutManager = LinearLayoutManager(context)
+        when (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            true -> {
+                proListRecycleView.layoutManager = LinearLayoutManager(context)
+            }
+            false -> {
+                val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                proListRecycleView.layoutManager = layoutManager
+            }
+        }
+
         articleAdapter = ArticleAdapter(
             context!!,
             R.layout.adapter_article,
@@ -62,10 +75,10 @@ class ProjectListFragment : ArticleCollectBaseFragment() {
         }
     }
 
-    private fun getArticleList(isRefresh:Boolean) {
+    private fun getArticleList(isRefresh: Boolean) {
         if (viewModel.articleList.size <= 0)
             startLoading()
-        viewModel.getArticleList(page, projectCid!!,isRefresh)
+        viewModel.getArticleList(page, projectCid!!, isRefresh)
     }
 
     override fun initData() {

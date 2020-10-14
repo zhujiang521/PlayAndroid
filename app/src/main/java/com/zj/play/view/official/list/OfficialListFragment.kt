@@ -1,8 +1,10 @@
 package com.zj.play.view.official.list
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.zj.core.util.showToast
 import com.zj.play.R
 import com.zj.play.view.article.ArticleAdapter
@@ -36,7 +38,15 @@ class OfficialListFragment : ArticleCollectBaseFragment() {
     }
 
     override fun initView() {
-        offListRecycleView.layoutManager = LinearLayoutManager(context)
+        when (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            true -> {
+                offListRecycleView.layoutManager = LinearLayoutManager(context)
+            }
+            false -> {
+                val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                offListRecycleView.layoutManager = layoutManager
+            }
+        }
         articleAdapter = ArticleAdapter(
             context!!,
             R.layout.adapter_article,

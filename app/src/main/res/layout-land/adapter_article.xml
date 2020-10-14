@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/articleLlItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/dp_5"
+    android:layout_marginTop="@dimen/dp_5"
+    android:background="@drawable/img_cardview_bg"
+    android:backgroundTint="@color/grayWhites"
+    android:padding="@dimen/dp_10">
+
+    <TextView
+        android:id="@+id/articleTvAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="作者"
+        android:textSize="@dimen/dp_13" />
+
+    <TextView
+        android:id="@+id/articleTvNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_5"
+        android:layout_toEndOf="@id/articleTvAuthor"
+        android:text="最新"
+        android:textSize="@dimen/dp_13" />
+
+    <TextView
+        android:id="@+id/articleTvTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_5"
+        android:layout_toEndOf="@id/articleTvNew"
+        android:text="置顶"
+        android:textSize="@dimen/dp_13" />
+
+    <TextView
+        android:id="@+id/articleTvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="@dimen/dp_5"
+        android:text="发布时间"
+        android:textSize="@dimen/dp_13" />
+
+
+    <LinearLayout
+        android:id="@+id/articleLlTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/articleTvAuthor"
+        android:layout_marginTop="@dimen/dp_4"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/articleTvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="文章标题很长很长"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/dp_15"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/articleIvImg"
+            android:layout_width="@dimen/dp_70"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/articleTvChapterName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/articleLlTitle"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_4"
+        android:gravity="center"
+        android:text="分类"
+        android:textColor="@color/red_btn_bg_color"
+        android:textSize="@dimen/dp_13" />
+
+    <ImageView
+        android:id="@+id/articleIvCollect"
+        android:layout_width="@dimen/dp_20"
+        android:layout_height="@dimen/dp_20"
+        android:layout_below="@id/articleLlTitle"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="@dimen/dp_5"
+        android:layout_marginTop="@dimen/dp_8"
+        android:src="@color/red_btn_bg_color" />
+
+</RelativeLayout>
+
