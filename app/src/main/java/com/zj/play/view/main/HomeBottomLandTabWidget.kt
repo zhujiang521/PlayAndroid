@@ -4,13 +4,9 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.util.AttributeSet
 import android.view.View
-import android.widget.LinearLayout
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.cpacm.FloatingMusicMenu
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.zj.play.R
-import com.zj.play.view.main.FragmentFactory.Companion.getCurrentFragment
 
 
 class HomeBottomLandTabWidget @JvmOverloads constructor(

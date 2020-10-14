@@ -66,6 +66,7 @@
             android:id="@+id/articleIvImg"
             android:layout_width="@dimen/dp_70"
             android:layout_height="wrap_content"
+            android:maxHeight="@dimen/dp_70"
             android:visibility="gone" />
 
     </LinearLayout>
