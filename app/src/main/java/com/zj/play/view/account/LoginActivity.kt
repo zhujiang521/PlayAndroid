@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
 import android.view.View
+import androidx.lifecycle.observe
 import com.blankj.utilcode.util.NetworkUtils
 import com.zj.core.Play
 import com.zj.core.util.showToast
@@ -14,6 +15,7 @@ import com.zj.play.network.AccountRepository
 import com.zj.play.view.article.ArticleBroadCast
 import com.zj.play.view.main.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
+
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
 
@@ -49,7 +51,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             return
         }
         toProgressVisible(true)
-        AccountRepository.getRegister(mUserName, mPassWord, mPassWord).observe(this, {
+        AccountRepository.getRegister(mUserName, mPassWord, mPassWord).observe(this) {
             toProgressVisible(false)
             if (it.isSuccess) {
                 val projectTree = it.getOrNull()
@@ -64,7 +66,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     showToast("用户名已被注册！")
                 }
             }
-        })
+        }
     }
 
     private fun toLogin() {
@@ -72,7 +74,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             return
         }
         toProgressVisible(true)
-        AccountRepository.getLogin(mUserName, mPassWord).observe(this, {
+        AccountRepository.getLogin(mUserName, mPassWord).observe(this) {
             toProgressVisible(false)
             if (it.isSuccess) {
                 val projectTree = it.getOrNull()
@@ -87,7 +89,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     showToast("账号密码不匹配！")
                 }
             }
-        })
+        }
     }
 
     private fun judge(): Boolean {
