@@ -11,6 +11,7 @@ import com.zj.core.util.showToast
 import com.zj.core.view.ActivityCollector
 import com.zj.core.view.BaseActivity
 import com.zj.play.R
+import com.zj.play.model.Login
 import com.zj.play.network.AccountRepository
 import com.zj.play.view.article.ArticleBroadCast
 import com.zj.play.view.main.MainActivity
@@ -36,6 +37,10 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
+        if (!judge()) {
+            return
+        }
+        toProgressVisible(true)
         when (v.id) {
             R.id.loginButton -> {
                 toLogin()
@@ -46,48 +51,31 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    private fun toRegister() {
-        if (!judge()) {
-            return
-        }
-        toProgressVisible(true)
-        AccountRepository.getRegister(mUserName, mPassWord, mPassWord).observe(this) {
-            toProgressVisible(false)
-            if (it.isSuccess) {
-                val projectTree = it.getOrNull()
-                if (projectTree != null) {
-                    Play.isLogin = true
-                    Play.setUserInfo(projectTree.nickname, projectTree.username)
-                    ActivityCollector.finishAll()
-                    MainActivity.actionStart(this)
-                    showToast("注册成功")
-                    ArticleBroadCast.sendArticleChangesReceiver(this)
-                } else {
-                    showToast("用户名已被注册！")
-                }
-            }
+    private fun toLogin() {
+        AccountRepository.getLogin(mUserName, mPassWord).observe(this) {
+            login(true, it)
         }
     }
 
-    private fun toLogin() {
-        if (!judge()) {
-            return
+    private fun toRegister() {
+        AccountRepository.getRegister(mUserName, mPassWord, mPassWord).observe(this) {
+            login(false, it)
         }
-        toProgressVisible(true)
-        AccountRepository.getLogin(mUserName, mPassWord).observe(this) {
-            toProgressVisible(false)
-            if (it.isSuccess) {
-                val projectTree = it.getOrNull()
-                if (projectTree != null) {
-                    Play.isLogin = true
-                    Play.setUserInfo(projectTree.nickname, projectTree.username)
-                    ActivityCollector.finishAll()
-                    MainActivity.actionStart(this)
-                    showToast("登录成功")
-                    ArticleBroadCast.sendArticleChangesReceiver(this)
-                } else {
-                    showToast("账号密码不匹配！")
-                }
+    }
+
+    private fun login(isLogin: Boolean, it: Result<Login>) {
+        toProgressVisible(false)
+        if (it.isSuccess) {
+            val projectTree = it.getOrNull()
+            if (projectTree != null) {
+                Play.isLogin = true
+                Play.setUserInfo(projectTree.nickname, projectTree.username)
+                ActivityCollector.finishAll()
+                MainActivity.actionStart(this)
+                showToast(if (isLogin) "登录成功" else "注册成功")
+                ArticleBroadCast.sendArticleChangesReceiver(this)
+            } else {
+                showToast(if (isLogin) "账号密码不匹配！" else "用户名已被注册！")
             }
         }
     }

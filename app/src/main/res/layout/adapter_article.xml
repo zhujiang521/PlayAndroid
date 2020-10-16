@@ -5,8 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/dp_5"
     android:layout_marginTop="@dimen/dp_5"
-    android:background="@drawable/img_cardview_bg"
-    android:backgroundTint="@color/grayWhites"
+    android:background="@drawable/article_list_bg"
     android:padding="@dimen/dp_10">
 
     <TextView
