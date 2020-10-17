@@ -29,7 +29,6 @@ class ProjectRepository(context: Context) {
      * 获取项目标题列表
      */
     fun getProjectTree(isRefresh: Boolean) = fire {
-        Log.e("ZHUJIANG", "getProjectTree: ")
         val projectClassifyLists = projectClassifyDao.getAllProject()
         if (projectClassifyLists.isNotEmpty() && !isRefresh) {
             Result.success(projectClassifyLists)

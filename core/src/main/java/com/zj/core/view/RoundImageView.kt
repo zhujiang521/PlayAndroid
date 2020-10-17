@@ -32,26 +32,8 @@ class RoundImageView @JvmOverloads constructor(
 
     private val touchEffect = true
     private val bgPressed = floatArrayOf(
-        1f,
-        0f,
-        0f,
-        0f,
-        -50f,
-        0f,
-        1f,
-        0f,
-        0f,
-        -50f,
-        0f,
-        0f,
-        1f,
-        0f,
-        -50f,
-        0f,
-        0f,
-        0f,
-        1f,
-        0f
+        1f, 0f, 0f, 0f, -50f, 0f, 1f, 0f, 0f, -50f,
+        0f, 0f, 1f, 0f, -50f, 0f, 0f, 0f, 1f, 0f
     )
     private val bgNotPressed =
         floatArrayOf(1f, 0f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 0f, 1f, 0f)
@@ -105,7 +87,6 @@ class RoundImageView @JvmOverloads constructor(
 
     /**
      * 根据是否按下去来刷新bg和src
-     * created by minghao.zl at 2014-09-18
      * @param pressed
      */
     private fun updateView(pressed: Boolean) {
@@ -117,7 +98,6 @@ class RoundImageView @JvmOverloads constructor(
             /**
              * 通过设置滤镜来改变图片亮度@minghao
              */
-            this.isDrawingCacheEnabled = true
             this.colorFilter = ColorMatrixColorFilter(bgPressed)
             this.background.colorFilter = ColorMatrixColorFilter(bgPressed)
         } else { //未点击
