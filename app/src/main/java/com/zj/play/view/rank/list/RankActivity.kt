@@ -44,11 +44,7 @@ class RankActivity : BaseActivity() {
     override fun initView() {
         rankTitleBar.setTitle("排行榜")
         rankListRecycleView.layoutManager = LinearLayoutManager(this)
-        rankAdapter = RankAdapter(
-            this,
-            R.layout.adapter_rank,
-            viewModel.rankList
-        )
+        rankAdapter = RankAdapter(this, viewModel.rankList)
         rankAdapter.setHasStableIds(true)
         rankListRecycleView.adapter = rankAdapter
         rankListSmartRefreshLayout.apply {

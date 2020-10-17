@@ -36,4 +36,6 @@
     <color name="exit_login_pressed_solid">#A51818</color>
     <color name="exit_login_pressed_stroke">#A51818</color>
 
+    <color name="article_pressed">#151515</color>
+
 </resources>
