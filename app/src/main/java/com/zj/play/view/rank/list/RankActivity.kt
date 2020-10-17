@@ -2,7 +2,9 @@ package com.zj.play.view.rank.list
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.core.view.BaseActivity
 import com.zj.play.R
@@ -43,7 +45,14 @@ class RankActivity : BaseActivity() {
 
     override fun initView() {
         rankTitleBar.setTitle("排行榜")
-        rankListRecycleView.layoutManager = LinearLayoutManager(this)
+        when (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            true -> {
+                rankListRecycleView.layoutManager = LinearLayoutManager(this)
+            }
+            false -> {
+                rankListRecycleView.layoutManager = GridLayoutManager(this,2)
+            }
+        }
         rankAdapter = RankAdapter(this, viewModel.rankList)
         rankAdapter.setHasStableIds(true)
         rankListRecycleView.adapter = rankAdapter

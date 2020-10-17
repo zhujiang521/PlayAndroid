@@ -2,7 +2,9 @@ package com.zj.play.view.rank.user
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.core.view.BaseActivity
 import com.zj.play.R
@@ -42,7 +44,14 @@ class UserRankActivity : BaseActivity() {
     }
 
     override fun initView() {
-        userRankListRecycleView.layoutManager = LinearLayoutManager(this)
+        when (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            true -> {
+                userRankListRecycleView.layoutManager = LinearLayoutManager(this)
+            }
+            false -> {
+                userRankListRecycleView.layoutManager = GridLayoutManager(this,2)
+            }
+        }
         rankAdapter = UserRankAdapter(this, R.layout.adapter_rank, viewModel.rankList)
         rankAdapter.setHasStableIds(true)
         userRankListRecycleView.adapter = rankAdapter
