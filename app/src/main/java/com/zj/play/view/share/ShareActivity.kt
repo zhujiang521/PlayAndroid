@@ -34,7 +34,7 @@ class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
     override fun initData() {
         isMine = intent.getBooleanExtra(IS_MINE, true)
         userId = intent.getIntExtra(USER_ID, 0)
-        if (isMine) shareTitleBar.setTitle("作者的分享")
+        if (!isMine) shareTitleBar.setTitle("作者的分享")
         if (isMine) {
             viewModel.articleLiveData.observe(this, {
                 setData(it)
@@ -78,7 +78,6 @@ class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
     private fun setUserInfo(coinInfo: CoinInfo) {
         shareHeadLl.visibility = View.VISIBLE
         shareTvName.text = coinInfo.username
-        shareTitleBar.setTitle("${coinInfo.username}的分享")
         shareTvRank.text = "等级 ${coinInfo.level}  排名 ${coinInfo.rank}  积分 ${coinInfo.coinCount}"
     }
 
