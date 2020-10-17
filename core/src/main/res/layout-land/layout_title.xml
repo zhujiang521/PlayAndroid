@@ -29,7 +29,6 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:paddingHorizontal="@dimen/dp_8"
-            android:backgroundTint="@color/white"
             android:visibility="gone" />
 
         <TextView
@@ -49,7 +48,7 @@
             android:layout_centerVertical="true"
             android:gravity="center"
             android:padding="@dimen/dp_8"
-            android:textColor="@color/color_FFFFFF"
+            android:textColor="@color/text_click_color"
             android:textSize="@dimen/sp_14"
             android:visibility="gone"
             tools:ignore="RtlSymmetry" />

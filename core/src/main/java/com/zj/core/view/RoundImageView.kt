@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 
+
 /**
  * 版权：渤海新能 版权所有
  *
@@ -24,10 +25,36 @@ class RoundImageView @JvmOverloads constructor(
 ) {
     //圆角大小，默认为10
     private val mBorderRadius = 20
-    private val mPaint: Paint
+    private val mPaint: Paint = Paint()
 
     // 3x3 矩阵，主要用于缩小放大
-    private val mMatrix: Matrix
+    private val mMatrix: Matrix = Matrix()
+
+    private val touchEffect = true
+    private val bgPressed = floatArrayOf(
+        1f,
+        0f,
+        0f,
+        0f,
+        -50f,
+        0f,
+        1f,
+        0f,
+        0f,
+        -50f,
+        0f,
+        0f,
+        1f,
+        0f,
+        -50f,
+        0f,
+        0f,
+        0f,
+        1f,
+        0f
+    )
+    private val bgNotPressed =
+        floatArrayOf(1f, 0f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 0f, 1f, 0f)
 
     //渲染图像，使用图像为绘制图形着色
     private var mBitmapShader: BitmapShader? = null
@@ -70,9 +97,37 @@ class RoundImageView @JvmOverloads constructor(
         return bitmap
     }
 
+
+    override fun setPressed(pressed: Boolean) {
+        updateView(pressed)
+        super.setPressed(pressed)
+    }
+
+    /**
+     * 根据是否按下去来刷新bg和src
+     * created by minghao.zl at 2014-09-18
+     * @param pressed
+     */
+    private fun updateView(pressed: Boolean) {
+        //如果没有点击效果
+        if (!touchEffect) {
+            return
+        } //end if
+        if (pressed) { //点击
+            /**
+             * 通过设置滤镜来改变图片亮度@minghao
+             */
+            this.isDrawingCacheEnabled = true
+            this.colorFilter = ColorMatrixColorFilter(bgPressed)
+            this.background.colorFilter = ColorMatrixColorFilter(bgPressed)
+        } else { //未点击
+            this.colorFilter = ColorMatrixColorFilter(bgNotPressed)
+            this.background.colorFilter = ColorMatrixColorFilter(bgNotPressed)
+        }
+    }
+
+
     init {
-        mMatrix = Matrix()
-        mPaint = Paint()
         mPaint.isAntiAlias = true
     }
 }

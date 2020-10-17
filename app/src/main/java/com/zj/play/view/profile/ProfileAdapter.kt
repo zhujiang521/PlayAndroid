@@ -24,7 +24,11 @@ import com.zj.play.view.rank.user.UserRankActivity
  * 描述：PlayAndroid
  *
  */
-class ProfileAdapter(context: Context, layoutId: Int, profileItemList: ArrayList<ProfileItem>) :
+class ProfileAdapter(
+    context: Context,
+    profileItemList: ArrayList<ProfileItem>,
+    layoutId: Int = R.layout.adapter_profile
+) :
     CommonAdapter<ProfileItem>(context, layoutId, profileItemList) {
 
     override fun convert(holder: ViewHolder, t: ProfileItem, position: Int) {
@@ -67,7 +71,7 @@ class ProfileAdapter(context: Context, layoutId: Int, profileItemList: ArrayList
             "掘金" -> {
                 ArticleActivity.actionStart(
                     mContext,
-                    "我的博客",
+                    "掘金",
                     "https://juejin.im/user/5c07e51de51d451de84324d5"
                 )
             }

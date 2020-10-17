@@ -3,10 +3,9 @@
     android:id="@+id/profileAdLlItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:backgroundTint="@color/grayWhites"
+    android:background="@drawable/profile_list_bg"
     android:orientation="horizontal"
-    android:paddingHorizontal="@dimen/dp_5"
-    android:paddingVertical="@dimen/dp_10">
+    android:padding="@dimen/dp_10">
 
     <ImageView
         android:id="@+id/profileAdIv"

@@ -22,4 +22,19 @@
 
     <color name="yellow">#FEC86D</color>
 
+    <color name="colorBackground">#FDFDFD</color>
+
+    <color name="floatBackground">#FAFAFA</color>
+
+    <color name="login_normal_solid">#ffffffff</color>
+    <color name="login_normal_stroke">#ffe0e0e0</color>
+    <color name="login_pressed_solid">#ededed</color>
+    <color name="login_pressed_stroke">#ededed</color>
+
+    <color name="exit_login_normal_solid">#FA2525</color>
+    <color name="exit_login_normal_stroke">#FA2525</color>
+    <color name="exit_login_pressed_solid">#D61616</color>
+    <color name="exit_login_pressed_stroke">#D61616</color>
+
+
 </resources>

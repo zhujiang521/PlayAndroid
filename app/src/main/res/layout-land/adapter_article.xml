@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="作者"
+        android:textColor="@color/text_color"
         android:textSize="@dimen/dp_13" />
 
     <TextView
@@ -22,6 +23,7 @@
         android:layout_marginHorizontal="@dimen/dp_5"
         android:layout_toEndOf="@id/articleTvAuthor"
         android:text="最新"
+        android:textColor="@color/text_color"
         android:textSize="@dimen/dp_13" />
 
     <TextView
@@ -31,6 +33,7 @@
         android:layout_marginHorizontal="@dimen/dp_5"
         android:layout_toEndOf="@id/articleTvNew"
         android:text="置顶"
+        android:textColor="@color/text_color"
         android:textSize="@dimen/dp_13" />
 
     <TextView
@@ -40,6 +43,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginHorizontal="@dimen/dp_5"
         android:text="发布时间"
+        android:textColor="@color/text_color"
         android:textSize="@dimen/dp_13" />
 
 

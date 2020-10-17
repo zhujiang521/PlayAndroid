@@ -24,7 +24,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
     private var profileItemList = ArrayList<ProfileItem>()
 
     override fun initView() {
-        profileTitleBar.setRightImage(R.drawable.ic_equalizer_black_24dp)
+        profileTitleBar.setRightImage(R.drawable.btn_right_right_bg)
         profileTitleBar.setBackImageVisiable(false)
         profileTitleBar.setRightImgOnClickListener {
             RankActivity.actionStart(context!!)
@@ -34,10 +34,10 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
         profileTvRank.setOnClickListener(this)
         profileBtnLogout.setOnClickListener(this)
         profileRv.layoutManager = LinearLayoutManager(context)
-        profileAdapter = ProfileAdapter(context!!, R.layout.adapter_profile, profileItemList)
+        profileAdapter = ProfileAdapter(context!!, profileItemList)
         profileRv.adapter = profileAdapter
         if (Play.isLogin) {
-            profileIvHead.setImageResource(R.drawable.ic_head)
+            profileIvHead.setBackgroundResource(R.drawable.ic_head)
             profileTvName.text = Play.nickName
             profileTvRank.text = Play.username
             profileBtnLogout.visibility = View.VISIBLE
@@ -48,7 +48,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
 
     private fun clearInfo() {
         profileBtnLogout.visibility = View.GONE
-        profileIvHead.setImageResource(R.drawable.img_nomal_head)
+        profileIvHead.setBackgroundResource(R.drawable.img_nomal_head)
         profileTvName.text = "未登录"
         profileTvRank.text = "请点击进行登录"
         ArticleBroadCast.sendArticleChangesReceiver(context!!)
@@ -91,7 +91,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
         if (!Play.isLogin) {
             LoginActivity.actionStart(context!!)
         } else {
-            ShareActivity.actionStart(context!!,true)
+            ShareActivity.actionStart(context!!, true)
         }
     }
 

@@ -17,9 +17,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:fmm_backgroundTint="@color/rb_gray"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_16"
+        app:fmm_backgroundTint="@color/floatBackground"
         app:fmm_button_interval="2dp"
         app:fmm_cover="@drawable/ic_nav_news_actived"
         app:fmm_floating_direction="left"
@@ -30,10 +30,10 @@
             android:id="@+id/fabHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:layout_marginBottom="@dimen/dp_16"
             android:src="@drawable/selector_one"
-            app:backgroundTint="@color/rb_gray"
+            app:backgroundTint="@color/floatBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -41,10 +41,10 @@
             android:id="@+id/fabRepo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:layout_marginBottom="@dimen/dp_16"
             android:src="@drawable/selector_two"
-            app:backgroundTint="@color/rb_gray"
+            app:backgroundTint="@color/floatBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -52,10 +52,10 @@
             android:id="@+id/fabProject"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:layout_marginBottom="@dimen/dp_16"
             android:src="@drawable/selector_three"
-            app:backgroundTint="@color/rb_gray"
+            app:backgroundTint="@color/floatBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -63,10 +63,10 @@
             android:id="@+id/fabProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:layout_marginBottom="@dimen/dp_16"
             android:src="@drawable/selector_four"
-            app:backgroundTint="@color/rb_gray"
+            app:backgroundTint="@color/floatBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
