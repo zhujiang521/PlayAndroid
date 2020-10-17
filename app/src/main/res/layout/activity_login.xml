@@ -60,6 +60,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dp_35"
                     android:hint="请输入账号"
+                    android:lines="1"
+                    android:singleLine="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/dp_15" />
 
@@ -69,6 +71,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dp_35"
                     android:hint="请输入密码"
+                    android:lines="1"
+                    android:singleLine="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/dp_15" />
 
