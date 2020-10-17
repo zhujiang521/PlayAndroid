@@ -3,9 +3,6 @@
     <stroke
         android:width="@dimen/dp_0_5"
         android:color="@color/refresh" />
-
     <solid android:color="@color/white" />
-
     <corners android:radius="@dimen/dp_5" />
-    <!--圆角矩形白色背景-->
 </shape>
