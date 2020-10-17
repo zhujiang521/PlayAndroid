@@ -23,7 +23,11 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class CollectAdapter(context: Context, layoutId: Int, articleList: ArrayList<CollectX>) :
+class CollectAdapter(
+    context: Context,
+    articleList: ArrayList<CollectX>,
+    layoutId: Int = R.layout.adapter_article
+) :
     CommonAdapter<CollectX>(context, layoutId, articleList) {
 
     override fun convert(holder: ViewHolder, t: CollectX, position: Int) {

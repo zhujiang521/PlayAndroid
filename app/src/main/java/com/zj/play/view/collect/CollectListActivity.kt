@@ -47,7 +47,6 @@ class CollectListActivity : ArticleCollectBaseActivity() {
         collectRecycleView.layoutManager = LinearLayoutManager(this)
         articleAdapter = CollectAdapter(
             this,
-            R.layout.adapter_article,
             viewModel.collectList
         )
         articleAdapter.setHasStableIds(true)

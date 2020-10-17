@@ -51,7 +51,6 @@ class HomePageFragment : ArticleCollectBaseFragment() {
         homeRecycleView.layoutManager = LinearLayoutManager(context)
         articleAdapter = ArticleAdapter(
             context!!,
-            R.layout.adapter_article,
             viewModel.articleList
         )
         articleAdapter.setHasStableIds(true)

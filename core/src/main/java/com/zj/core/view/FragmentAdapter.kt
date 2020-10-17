@@ -15,7 +15,7 @@ import java.util.*
  * 描述：pwqgc
  */
 class FragmentAdapter(private val mFragmentManager: FragmentManager?) : FragmentPagerAdapter(
-    mFragmentManager!!
+    mFragmentManager!!, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
 ) {
     private val mFragment: MutableList<Fragment> = ArrayList()
     private var isUpdateFlag = false

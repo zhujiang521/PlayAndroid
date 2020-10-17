@@ -29,9 +29,9 @@ import kotlinx.coroutines.withContext
 
 class ArticleAdapter(
     context: Context,
-    layoutId: Int,
     articleList: ArrayList<Article>,
-    private val isShowCollect: Boolean = true
+    private val isShowCollect: Boolean = true,
+    layoutId: Int = R.layout.adapter_article,
 ) :
     CommonAdapter<Article>(context, layoutId, articleList) {
 

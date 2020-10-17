@@ -54,7 +54,6 @@ class ArticleListActivity : ArticleCollectBaseActivity() {
         artListRecycleView.layoutManager = LinearLayoutManager(this)
         articleAdapter = ArticleAdapter(
             this,
-            R.layout.adapter_article,
             viewModel.articleList
         )
         articleAdapter.setHasStableIds(true)

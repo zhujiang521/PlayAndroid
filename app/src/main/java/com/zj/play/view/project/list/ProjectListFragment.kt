@@ -2,18 +2,17 @@ package com.zj.play.view.project.list
 
 import android.content.res.Configuration
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.zj.core.util.showToast
+import com.zj.core.view.StaggeredDividerItemDecoration
 import com.zj.play.R
 import com.zj.play.view.article.ArticleAdapter
 import com.zj.play.view.home.ArticleCollectBaseFragment
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_project_list.*
 import kotlin.system.measureTimeMillis
-
 
 private const val PROJECT_CID = "PROJECT_CID"
 
@@ -46,16 +45,25 @@ class ProjectListFragment : ArticleCollectBaseFragment() {
                 proListRecycleView.layoutManager = LinearLayoutManager(context)
             }
             false -> {
-                val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                val spanCount = 2
+                val layoutManager =
+                    StaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.VERTICAL)
                 proListRecycleView.layoutManager = layoutManager
+                layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE;
+                proListRecycleView.itemAnimator = null
+                proListRecycleView.addItemDecoration(StaggeredDividerItemDecoration(requireContext()))
+                proListRecycleView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                        val first = IntArray(spanCount)
+                        layoutManager.findFirstCompletelyVisibleItemPositions(first)
+                        if (newState == RecyclerView.SCROLL_STATE_IDLE && (first[0] == 1 || first[1] == 1)) {
+                            layoutManager.invalidateSpanAssignments()
+                        }
+                    }
+                })
             }
         }
-
-        articleAdapter = ArticleAdapter(
-            context!!,
-            R.layout.adapter_article,
-            viewModel.articleList
-        )
+        articleAdapter = ArticleAdapter(context!!, viewModel.articleList)
         articleAdapter.setHasStableIds(true)
         proListRecycleView.adapter = articleAdapter
         proListSmartRefreshLayout.apply {
@@ -82,7 +90,7 @@ class ProjectListFragment : ArticleCollectBaseFragment() {
     }
 
     override fun initData() {
-        viewModel.articleLiveData.observe(this, Observer {
+        viewModel.articleLiveData.observe(this) {
             if (it.isSuccess) {
                 val articleList = it.getOrNull()
                 if (articleList != null) {
@@ -102,7 +110,7 @@ class ProjectListFragment : ArticleCollectBaseFragment() {
                     showBadNetworkView { getArticleList(true) }
                 }
             }
-        })
+        }
         getArticleList(false)
     }
 

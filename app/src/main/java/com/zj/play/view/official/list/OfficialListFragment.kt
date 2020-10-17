@@ -4,8 +4,10 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.zj.core.util.showToast
+import com.zj.core.view.StaggeredDividerItemDecoration
 import com.zj.play.R
 import com.zj.play.view.article.ArticleAdapter
 import com.zj.play.view.home.ArticleCollectBaseFragment
@@ -43,13 +45,28 @@ class OfficialListFragment : ArticleCollectBaseFragment() {
                 offListRecycleView.layoutManager = LinearLayoutManager(context)
             }
             false -> {
-                val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                val spanCount = 2
+                val layoutManager = StaggeredGridLayoutManager(
+                    spanCount,
+                    StaggeredGridLayoutManager.VERTICAL
+                )
                 offListRecycleView.layoutManager = layoutManager
+                layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE;
+                offListRecycleView.itemAnimator = null
+                offListRecycleView.addItemDecoration(StaggeredDividerItemDecoration(requireContext()))
+                offListRecycleView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                        val first = IntArray(spanCount)
+                        layoutManager.findFirstCompletelyVisibleItemPositions(first)
+                        if (newState == RecyclerView.SCROLL_STATE_IDLE && (first[0] == 1 || first[1] == 1)) {
+                            layoutManager.invalidateSpanAssignments()
+                        }
+                    }
+                })
             }
         }
         articleAdapter = ArticleAdapter(
             context!!,
-            R.layout.adapter_article,
             viewModel.articleList
         )
         articleAdapter.setHasStableIds(true)
