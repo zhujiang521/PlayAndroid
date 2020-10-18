@@ -24,7 +24,6 @@ class BrowseHistoryRepository(context: Context) {
      */
     fun getBrowseHistory(page: Int) = fire {
         val projectClassifyLists = browseHistoryDao.getHistoryArticleList((page - 1) * 20,HISTORY)
-        Log.e("ZHUJIANG", "getBrowseHistory: $projectClassifyLists" )
         if (projectClassifyLists.isNotEmpty()) {
             Result.success(projectClassifyLists)
         } else {

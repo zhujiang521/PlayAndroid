@@ -36,7 +36,7 @@ interface BrowseHistoryDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertList(articleList: List<Article>)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(article: Article)
 
     @Update
