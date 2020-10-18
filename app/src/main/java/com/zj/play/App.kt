@@ -7,6 +7,7 @@ import android.util.Log
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
+import com.tencent.bugly.crashreport.CrashReport
 import com.tencent.smtt.sdk.QbSdk
 import com.zj.core.Play
 import kotlinx.coroutines.Dispatchers
@@ -35,7 +36,26 @@ class App : Application() {
     private fun initData() {
         GlobalScope.launch(Dispatchers.IO) {
             initQbSdk()
+            initBugLy()
         }
+    }
+
+    private fun initBugLy() {
+        // Bugly bug上报
+        CrashReport.initCrashReport(applicationContext, "0f4f8e06b4", false);
+    }
+
+    private fun initQbSdk() {
+        // x5内核初始化接口
+        QbSdk.initX5Environment(applicationContext, object : QbSdk.PreInitCallback {
+            override fun onViewInitFinished(arg0: Boolean) { //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
+                Log.e("APP", " onViewInitFinished is $arg0")
+            }
+
+            override fun onCoreInitFinished() {
+                Log.e("APP", " onCoreInitFinished")
+            }
+        })
     }
 
     /**
@@ -51,20 +71,6 @@ class App : Application() {
             exitProcess(0)
         }
     }
-
-    private fun initQbSdk() {
-        //x5内核初始化接口
-        QbSdk.initX5Environment(applicationContext, object : QbSdk.PreInitCallback {
-            override fun onViewInitFinished(arg0: Boolean) { //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
-                Log.e("APP", " onViewInitFinished is $arg0")
-            }
-
-            override fun onCoreInitFinished() {
-                Log.e("APP", " onCoreInitFinished")
-            }
-        })
-    }
-
 
     companion object {
         @SuppressLint("StaticFieldLeak")

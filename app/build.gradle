@@ -75,6 +75,8 @@ dependencies {
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$room_version"
     implementation 'com.cpacm:floatingmusicmenu:1.0.0'
+    // 异常上报
+    implementation 'com.tencent.bugly:crashreport:3.2.422'
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
