@@ -23,7 +23,7 @@ data class Article(
     @ColumnInfo(name = "chapter_name") val chapterName: String,
     @ColumnInfo(name = "collect") var collect: Boolean,
     @ColumnInfo(name = "course_id") val courseId: Int,
-    @ColumnInfo(name = "desc") val desc: String,
+    @ColumnInfo(name = "desc") var desc: String,
     @ColumnInfo(name = "desc_md") val descMd: String,
     @ColumnInfo(name = "envelope_pic") val envelopePic: String,
     @ColumnInfo(name = "fresh") val fresh: Boolean,

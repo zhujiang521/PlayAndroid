@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import android.text.Html
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -99,6 +100,7 @@ class ArticleAdapter(
             GlobalScope.launch(Dispatchers.IO) {
                 if (browseHistoryDao.getArticle(t.id, HISTORY) == null) {
                     t.localType = HISTORY
+                    t.desc = ""
                     browseHistoryDao.insert(t)
                 }
             }

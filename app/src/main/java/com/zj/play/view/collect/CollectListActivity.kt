@@ -26,15 +26,15 @@ class CollectListActivity : ArticleCollectBaseActivity() {
 
     override fun initData() {
         collectTitleBar.setTitle("我的收藏")
-        viewModel.collectLiveData.observe(this, {
+        viewModel.dataLiveData.observe(this, {
             if (it.isSuccess) {
                 val articleList = it.getOrNull()
                 if (articleList != null) {
                     loadFinished()
-                    if (page == 1 && viewModel.collectList.size > 0) {
-                        viewModel.collectList.clear()
+                    if (page == 1 && viewModel.dataList.size > 0) {
+                        viewModel.dataList.clear()
                     }
-                    viewModel.collectList.addAll(articleList.datas)
+                    viewModel.dataList.addAll(articleList.datas)
                     articleAdapter.notifyDataSetChanged()
                 } else {
                     showLoadErrorView()
@@ -72,7 +72,7 @@ class CollectListActivity : ArticleCollectBaseActivity() {
         }
         articleAdapter = CollectAdapter(
             this,
-            viewModel.collectList
+            viewModel.dataList
         )
         articleAdapter.setHasStableIds(true)
         collectRecycleView.adapter = articleAdapter
@@ -94,8 +94,8 @@ class CollectListActivity : ArticleCollectBaseActivity() {
     }
 
     private fun getArticleList() {
-        if (viewModel.collectList.size <= 0) startLoading()
-        viewModel.getArticleList(page)
+        if (viewModel.dataList.size <= 0) startLoading()
+        viewModel.getDataList(page)
     }
 
     companion object {

@@ -1,9 +1,12 @@
 package com.zj.play.view.rank.list
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.zj.core.view.BaseViewModel
 import com.zj.play.model.Rank
+import com.zj.play.model.RankData
 import com.zj.play.network.RankRepository
 
 /**
@@ -14,18 +17,10 @@ import com.zj.play.network.RankRepository
  * 描述：PlayAndroid
  *
  */
-class RankViewModel : ViewModel() {
+class RankViewModel : BaseViewModel<RankData,Rank,Int>() {
 
-    val rankList = ArrayList<Rank>()
-
-    private val pageLiveData = MutableLiveData<Int>()
-
-    val rankLiveData = Transformations.switchMap(pageLiveData) { page ->
-        RankRepository.getRankList(page)
-    }
-
-    fun getRankList(page: Int) {
-        pageLiveData.value = page
+    override fun getData(page: Int): LiveData<Result<RankData>> {
+        return RankRepository.getRankList(page)
     }
 
 }

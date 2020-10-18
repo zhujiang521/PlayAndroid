@@ -23,15 +23,15 @@ class RankActivity : BaseActivity() {
     private var page = 1
 
     override fun initData() {
-        viewModel.rankLiveData.observe(this, {
+        viewModel.dataLiveData.observe(this, {
             if (it.isSuccess) {
                 val articleList = it.getOrNull()
                 if (articleList != null) {
                     loadFinished()
-                    if (page == 1 && viewModel.rankList.size > 0) {
-                        viewModel.rankList.clear()
+                    if (page == 1 && viewModel.dataList.size > 0) {
+                        viewModel.dataList.clear()
                     }
-                    viewModel.rankList.addAll(articleList.datas)
+                    viewModel.dataList.addAll(articleList.datas)
                     rankAdapter.notifyDataSetChanged()
                 } else {
                     showLoadErrorView()
@@ -53,7 +53,7 @@ class RankActivity : BaseActivity() {
                 rankListRecycleView.layoutManager = GridLayoutManager(this,2)
             }
         }
-        rankAdapter = RankAdapter(this, viewModel.rankList)
+        rankAdapter = RankAdapter(this, viewModel.dataList)
         rankAdapter.setHasStableIds(true)
         rankListRecycleView.adapter = rankAdapter
         rankListSmartRefreshLayout.apply {
@@ -74,8 +74,8 @@ class RankActivity : BaseActivity() {
     }
 
     private fun getRankList() {
-        if (viewModel.rankList.size <= 0) startLoading()
-        viewModel.getRankList(page)
+        if (viewModel.dataList.size <= 0) startLoading()
+        viewModel.getDataList(page)
     }
 
     companion object {

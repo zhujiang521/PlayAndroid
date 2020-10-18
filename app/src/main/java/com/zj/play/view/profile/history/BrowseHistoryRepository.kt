@@ -1,6 +1,7 @@
 package com.zj.play.view.profile.history
 
 import android.content.Context
+import android.util.Log
 import com.zj.play.network.fire
 import com.zj.play.room.PlayDatabase
 import com.zj.play.room.entity.HISTORY
@@ -23,6 +24,7 @@ class BrowseHistoryRepository(context: Context) {
      */
     fun getBrowseHistory(page: Int) = fire {
         val projectClassifyLists = browseHistoryDao.getHistoryArticleList((page - 1) * 20,HISTORY)
+        Log.e("ZHUJIANG", "getBrowseHistory: $projectClassifyLists" )
         if (projectClassifyLists.isNotEmpty()) {
             Result.success(projectClassifyLists)
         } else {

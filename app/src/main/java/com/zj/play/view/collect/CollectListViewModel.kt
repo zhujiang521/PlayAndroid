@@ -1,8 +1,11 @@
 package com.zj.play.view.collect
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.zj.core.view.BaseViewModel
+import com.zj.play.model.Collect
 import com.zj.play.model.CollectX
 import com.zj.play.network.CollectRepository
 
@@ -14,19 +17,10 @@ import com.zj.play.network.CollectRepository
  * 描述：PlayAndroid
  *
  */
-class CollectListViewModel : ViewModel() {
+class CollectListViewModel : BaseViewModel<Collect,CollectX,Int>() {
 
-    val collectList = ArrayList<CollectX>()
-
-    private val pageLiveData = MutableLiveData<Int>()
-
-    val collectLiveData = Transformations.switchMap(pageLiveData) { page ->
-        CollectRepository.getCollectList(page - 1)
+    override fun getData(page: Int): LiveData<Result<Collect>> {
+        return CollectRepository.getCollectList(page - 1)
     }
-
-    fun getArticleList(page: Int) {
-        pageLiveData.value = page
-    }
-
 
 }
