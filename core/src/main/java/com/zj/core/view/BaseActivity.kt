@@ -2,17 +2,21 @@ package com.zj.core.view
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
+import com.blankj.utilcode.util.ConvertUtils
 import com.zj.core.R
 import com.zj.core.util.AndroidVersion
 import java.lang.ref.WeakReference
+
 
 /**
  * 应用程序中所有Activity的基类。
@@ -64,10 +68,22 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle, BaseInit {
     }
 
     protected open fun setupViews() {
-        loading = findViewById(R.id.loading)
-        noContentView = findViewById(R.id.noContentView)
-        badNetworkView = findViewById(R.id.badNetworkView)
-        loadErrorView = findViewById(R.id.loadErrorView)
+        val view = View.inflate(this, R.layout.layout_lce, null)
+        val params = FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.MATCH_PARENT
+        )
+        params.setMargins(
+            0,
+            ConvertUtils.dp2px(if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) 70f else 55f),
+            0,
+            0
+        )
+        addContentView(view, params)
+        loading = view.findViewById(R.id.loading)
+        noContentView = view.findViewById(R.id.noContentView)
+        badNetworkView = view.findViewById(R.id.badNetworkView)
+        loadErrorView = view.findViewById(R.id.loadErrorView)
         if (loading == null) {
             Log.e(TAG, "loading is null")
         }
@@ -77,6 +93,7 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle, BaseInit {
         if (loadErrorView == null) {
             Log.e(TAG, "loadErrorView is null")
         }
+        loadFinished()
     }
 
 

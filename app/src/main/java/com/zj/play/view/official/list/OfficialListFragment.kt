@@ -35,6 +35,10 @@ class OfficialListFragment : ArticleCollectBaseFragment() {
         getArticleList(true)
     }
 
+    override fun isHaveHeadMargin(): Boolean {
+        return false
+    }
+
     override fun getLayoutId(): Int {
         return R.layout.fragment_official_list
     }

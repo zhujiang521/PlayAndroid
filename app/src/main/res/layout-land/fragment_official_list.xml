@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/offListSmartRefreshLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.project.list.ProjectListFragment">
+    android:layout_height="match_parent">
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/offListSmartRefreshLayout"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/offListRecycleView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/dp_10" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/offListRecycleView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="@dimen/dp_10" />
-
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
-    <include layout="@layout/layout_lce" />
-
-</FrameLayout>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

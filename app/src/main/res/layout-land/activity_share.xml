@@ -12,81 +12,68 @@
         app:backImageVisiable="true"
         app:titleName="我的分享" />
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <include layout="@layout/layout_lce" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/shareHeadLl"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="invisible">
 
-            <LinearLayout
-                android:id="@+id/shareHeadLl"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+
+            <com.zj.core.view.RoundImageView
+                android:id="@+id/shareIvHead"
+                android:layout_width="@dimen/dp_70"
+                android:layout_height="@dimen/dp_70"
                 android:layout_gravity="center"
-                android:gravity="center"
-                android:background="@color/colorAccent"
-                android:orientation="vertical"
-                android:visibility="invisible">
+                android:layout_marginTop="@dimen/dp_20"
+                android:src="@drawable/ic_head" />
 
+            <TextView
+                android:id="@+id/shareTvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="Zhujiang"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dp_17" />
 
-                <com.zj.core.view.RoundImageView
-                    android:id="@+id/shareIvHead"
-                    android:layout_width="@dimen/dp_70"
-                    android:layout_height="@dimen/dp_70"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/dp_20"
-                    android:src="@drawable/ic_head" />
-
-                <TextView
-                    android:id="@+id/shareTvName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:text="Zhujiang"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/dp_17" />
-
-                <TextView
-                    android:id="@+id/shareTvRank"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:layout_marginBottom="@dimen/dp_20"
-                    android:text="等级 9  排名 984  积分 1020"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/dp_15" />
-
-            </LinearLayout>
-
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.5">
-
-                <com.scwang.smartrefresh.layout.SmartRefreshLayout
-                    android:id="@+id/shareSmartRefreshLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/shareRecycleView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-
-                </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
-            </FrameLayout>
+            <TextView
+                android:id="@+id/shareTvRank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:text="等级 9  排名 984  积分 1020"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dp_15" />
 
         </LinearLayout>
 
-    </FrameLayout>
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/shareSmartRefreshLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/shareRecycleView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

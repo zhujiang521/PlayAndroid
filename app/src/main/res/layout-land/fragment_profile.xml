@@ -98,8 +98,4 @@
 
     </LinearLayout>
 
-    <include
-        layout="@layout/layout_lce"
-        android:visibility="gone" />
-
 </LinearLayout>

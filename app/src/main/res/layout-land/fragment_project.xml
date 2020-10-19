@@ -1,44 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.project.ProjectFragment">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/colorPrimary" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_10"
-            android:background="@color/colorPrimary" />
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/projectTabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_45"
-            android:background="@color/colorPrimary"
-            app:tabGravity="fill"
-            app:tabIndicatorColor="@color/white"
-            app:tabIndicatorFullWidth="false"
-            app:tabIndicatorHeight="@dimen/dp_5"
-            app:tabMaxWidth="0dp"
-            app:tabMode="scrollable"
-            app:tabSelectedTextColor="@color/color_FFFFFF"
-            app:tabTextAppearance="@style/TabLayoutTextStyle"
-            app:tabTextColor="@color/color_FFFFFF" />
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/projectTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:background="@color/colorPrimary"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorFullWidth="false"
+        app:tabIndicatorHeight="@dimen/dp_5"
+        app:tabMaxWidth="0dp"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@color/color_FFFFFF"
+        app:tabTextAppearance="@style/TabLayoutTextStyle"
+        app:tabTextColor="@color/color_FFFFFF" />
 
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/projectViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/projectViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-    </LinearLayout>
-
-    <include layout="@layout/layout_lce" />
-
-</FrameLayout>
+</LinearLayout>

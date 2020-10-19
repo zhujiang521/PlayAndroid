@@ -2,6 +2,7 @@ package com.zj.play.view.project.list
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,6 +34,10 @@ class ProjectListFragment : ArticleCollectBaseFragment() {
 
     override fun refreshData() {
         getArticleList(true)
+    }
+
+    override fun isHaveHeadMargin(): Boolean {
+        return false
     }
 
     override fun getLayoutId(): Int {
@@ -107,7 +112,9 @@ class ProjectListFragment : ArticleCollectBaseFragment() {
                 if (viewModel.articleList.size > 0) {
                     showToast("网络请求出错")
                 } else {
-                    showBadNetworkView { getArticleList(true) }
+                    showBadNetworkView {
+                        Log.e("ZHUJIANG", "initData: ", )
+                        getArticleList(true) }
                 }
             }
         }

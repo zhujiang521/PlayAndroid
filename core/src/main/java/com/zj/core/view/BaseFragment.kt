@@ -1,14 +1,15 @@
 package com.zj.core.view
 
+import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
+import com.blankj.utilcode.util.ConvertUtils
 import com.zj.core.R
 
 /**
@@ -31,23 +32,41 @@ abstract class BaseFragment : Fragment(), RequestLifecycle, BaseInit {
      */
     private var noContentView: RelativeLayout? = null
 
-    /**
-     * Fragment中inflate出来的布局。
-     */
-    private var rootView: View? = null
 
     /**
      * Fragment中显示加载等待的控件。
      */
     private var loading: ProgressBar? = null
 
+    protected open fun isHaveHeadMargin(): Boolean {
+        return true
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(getLayoutId(), container, false)
-        onCreateView(view)
-        return view
+        val frameLayout = FrameLayout(context!!)
+        val lce = View.inflate(context, R.layout.layout_lce, null)
+        val params = FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.MATCH_PARENT
+        )
+        val isPort = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+        params.setMargins(
+            0,
+            if (isHaveHeadMargin()) {
+                ConvertUtils.dp2px(if (isPort) 70f else 55f)
+            } else 0,
+            0,
+            0
+        )
+        lce.layoutParams = params
+        val content = inflater.inflate(getLayoutId(), container, false)
+        frameLayout.addView(content)
+        frameLayout.addView(lce)
+        onCreateView(lce)
+        return frameLayout
     }
 
 
@@ -133,7 +152,6 @@ abstract class BaseFragment : Fragment(), RequestLifecycle, BaseInit {
      * @return  Fragment中inflate出来的View实例原封不动返回。
      */
     private fun onCreateView(view: View): View {
-        rootView = view
         loading = view.findViewById(R.id.loading)
         noContentView = view.findViewById(R.id.noContentView)
         badNetworkView = view.findViewById(R.id.badNetworkView)

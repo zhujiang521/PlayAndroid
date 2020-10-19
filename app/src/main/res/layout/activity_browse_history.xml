@@ -13,24 +13,16 @@
         app:backImageVisiable="true"
         app:titleName="浏览历史" />
 
-    <FrameLayout
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/historySmartRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/historySmartRefreshLayout"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/historyRecycleView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/historyRecycleView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
-        <include layout="@layout/layout_lce" />
-
-    </FrameLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </LinearLayout>
