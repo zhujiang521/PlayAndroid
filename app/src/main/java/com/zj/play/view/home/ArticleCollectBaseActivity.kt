@@ -24,7 +24,7 @@ abstract class ArticleCollectBaseActivity : BaseActivity() {
 
     override fun onPause() {
         super.onPause()
-        ArticleBroadCast.clearTimeChangesReceiver(this, articleReceiver)
+        ArticleBroadCast.clearArticleChangesReceiver(this, articleReceiver)
     }
 
 

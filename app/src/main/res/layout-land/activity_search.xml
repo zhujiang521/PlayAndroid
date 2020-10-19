@@ -30,15 +30,15 @@
                 android:id="@+id/searchTxtKeyword"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dp_30"
-                android:layout_weight="1"
                 android:layout_marginHorizontal="@dimen/dp_5"
+                android:layout_weight="1"
                 android:background="@drawable/edit_gray_radus"
                 android:hint="请输入关键字"
+                android:maxLines="1"
                 android:paddingStart="@dimen/dp_5"
                 android:singleLine="true"
-                android:maxLines="1"
-                android:textColorHint="@color/gray"
                 android:textColor="@color/white"
+                android:textColorHint="@color/gray"
                 android:textSize="@dimen/dp_13" />
 
             <TextView

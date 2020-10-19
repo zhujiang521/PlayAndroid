@@ -14,9 +14,9 @@
 
     <EditText
         android:id="@+id/addShareEtTitle"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dp_300"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dp_30"
+        android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_30"
         android:layout_marginBottom="@dimen/dp_10"
         android:hint="请输入文章标题"
@@ -26,18 +26,17 @@
 
     <EditText
         android:id="@+id/addShareEtLink"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dp_300"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dp_30"
+        android:layout_gravity="center"
         android:gravity="start"
         android:hint="请输入文章链接" />
 
     <Button
         android:id="@+id/addShareBtnAdd"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dp_280"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginHorizontal="@dimen/dp_35"
         android:layout_marginTop="@dimen/dp_20"
         android:background="@drawable/article_list_bg"
         android:text="提交"

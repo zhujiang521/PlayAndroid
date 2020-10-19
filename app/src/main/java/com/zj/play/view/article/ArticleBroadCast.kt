@@ -34,7 +34,7 @@ object ArticleBroadCast {
         return r
     }
 
-    fun clearTimeChangesReceiver(c: Activity, r: BroadcastReceiver?) {
+    fun clearArticleChangesReceiver(c: Activity, r: BroadcastReceiver?) {
         if (r != null)
             LocalBroadcastManager.getInstance(c).unregisterReceiver(r)
     }

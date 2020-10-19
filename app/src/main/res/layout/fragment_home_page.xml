@@ -14,34 +14,27 @@
         app:backImageVisiable="false"
         app:titleName="首页" />
 
-    <LinearLayout
+    <com.youth.banner.Banner
+        android:id="@+id/homeBanner"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="@dimen/dp_180" />
 
-        <com.youth.banner.Banner
-            android:id="@+id/homeBanner"
+    <com.youth.banner.Banner
+        android:id="@+id/homeBanner2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/homeSmartRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/homeRecycleView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_180" />
+            android:layout_height="match_parent" />
 
-        <com.youth.banner.Banner
-            android:id="@+id/homeBanner2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
-
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/homeSmartRefreshLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/homeRecycleView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
-    </LinearLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </LinearLayout>

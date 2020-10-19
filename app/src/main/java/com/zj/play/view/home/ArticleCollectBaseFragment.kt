@@ -26,7 +26,7 @@ abstract class ArticleCollectBaseFragment : BaseFragment() {
 
     override fun onPause() {
         super.onPause()
-        ArticleBroadCast.clearTimeChangesReceiver(activity!!, articleReceiver)
+        ArticleBroadCast.clearArticleChangesReceiver(activity!!, articleReceiver)
     }
 
 }
