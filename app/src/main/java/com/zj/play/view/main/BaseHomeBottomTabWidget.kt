@@ -75,7 +75,8 @@ abstract class BaseHomeBottomTabWidget @JvmOverloads constructor(
         val targetFg: Fragment = mFragments!![position]
         val lastFg: Fragment = mFragments!![mLastFgIndex]
         mLastFgIndex = position
-        if (lastFg.isAdded)
+        val fragments = mFragmentManager?.fragments
+        if (lastFg.isAdded && fragments != null && fragments.contains(lastFg))
             fragmentTransaction.hide(lastFg)
         if (!targetFg.isAdded) {
             mFragmentManager!!.beginTransaction().remove(targetFg)
