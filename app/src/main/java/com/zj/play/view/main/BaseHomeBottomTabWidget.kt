@@ -19,8 +19,8 @@ abstract class BaseHomeBottomTabWidget @JvmOverloads constructor(
 
     private var mFragmentManager: FragmentManager? = null
     private var mFragments: ArrayList<Fragment>? = null
-    private var mLastFgIndex = 0
     private lateinit var mViewModel: MainViewModel
+    private var currentFragment: Fragment? = null
 
     /**
      * 外部调用初始化，传入必要的参数
@@ -69,21 +69,17 @@ abstract class BaseHomeBottomTabWidget @JvmOverloads constructor(
      */
     protected open fun fragmentManger(position: Int) {
         mViewModel.setPage(position)
-        val fragmentTransaction =
-            mFragmentManager!!.beginTransaction()
         val targetFg: Fragment = mFragments!![position]
-        val lastFg: Fragment = mFragments!![mLastFgIndex]
-        mLastFgIndex = position
-        val fragments = mFragmentManager?.fragments
-        if (lastFg.isAdded && fragments != null && fragments.contains(lastFg))
-            fragmentTransaction.hide(lastFg)
-        if (!targetFg.isAdded) {
-            mFragmentManager!!.beginTransaction().remove(targetFg)
-                .commitAllowingStateLoss()
-            fragmentTransaction.add(R.id.flHomeFragment, targetFg)
+        val transaction = mFragmentManager!!.beginTransaction()
+        if (currentFragment != null) {
+            transaction.hide(currentFragment!!)
         }
-        fragmentTransaction.show(targetFg)
-        fragmentTransaction.commitAllowingStateLoss()
+        if (!targetFg.isAdded) {
+            transaction.add(R.id.flHomeFragment, targetFg).commit();
+        } else {
+            transaction.show(targetFg).commit();
+        }
+        currentFragment = targetFg;
     }
 
     init {
