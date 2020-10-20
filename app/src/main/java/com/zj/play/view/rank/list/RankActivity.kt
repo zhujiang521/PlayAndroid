@@ -6,23 +6,17 @@ import android.content.res.Configuration
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zj.core.view.BaseActivity
-import com.zj.play.R
-import kotlinx.android.synthetic.main.activity_rank.*
-import kotlin.system.measureTimeMillis
+import com.zj.play.view.base.BaseListActivity
+import kotlinx.android.synthetic.main.activity_base_list.*
 
-class RankActivity : BaseActivity() {
+class RankActivity : BaseListActivity() {
 
     private val viewModel by lazy { ViewModelProvider(this).get(RankViewModel::class.java) }
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_rank
-    }
-
     private lateinit var rankAdapter: RankAdapter
-    private var page = 1
 
     override fun initData() {
+        super.initData()
         viewModel.dataLiveData.observe(this, {
             if (it.isSuccess) {
                 val articleList = it.getOrNull()
@@ -37,43 +31,24 @@ class RankActivity : BaseActivity() {
                     showLoadErrorView()
                 }
             } else {
-                showBadNetworkView { getRankList() }
+                showBadNetworkView { getDataList() }
             }
         })
-        getRankList()
     }
 
     override fun initView() {
-        rankTitleBar.setTitle("排行榜")
-        when (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            true -> {
-                rankListRecycleView.layoutManager = LinearLayoutManager(this)
-            }
-            false -> {
-                rankListRecycleView.layoutManager = GridLayoutManager(this,2)
-            }
-        }
+        super.initView()
+        baseListTitleBar.setTitle("排行榜")
         rankAdapter = RankAdapter(this, viewModel.dataList)
         rankAdapter.setHasStableIds(true)
-        rankListRecycleView.adapter = rankAdapter
-        rankListSmartRefreshLayout.apply {
-            setOnRefreshListener { reLayout ->
-                reLayout.finishRefresh(measureTimeMillis {
-                    page = 1
-                    getRankList()
-                }.toInt())
-            }
-            setOnLoadMoreListener { reLayout ->
-                val time = measureTimeMillis {
-                    page++
-                    getRankList()
-                }.toInt()
-                reLayout.finishLoadMore(if (time > 1000) time else 1000)
-            }
-        }
+        baseListRecycleView.adapter = rankAdapter
     }
 
-    private fun getRankList() {
+    override fun isStaggeredGrid(): Boolean {
+        return false
+    }
+
+    override fun getDataList() {
         if (viewModel.dataList.size <= 0) startLoading()
         viewModel.getDataList(page)
     }
