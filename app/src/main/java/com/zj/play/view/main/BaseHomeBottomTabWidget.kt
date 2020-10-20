@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.zj.play.R
@@ -19,7 +18,7 @@ abstract class BaseHomeBottomTabWidget @JvmOverloads constructor(
 ) : LinearLayout(context, attrs, defStyleAttr), View.OnClickListener {
 
     private var mFragmentManager: FragmentManager? = null
-    private var mFragments: java.util.ArrayList<Fragment>? = null
+    private var mFragments: ArrayList<Fragment>? = null
     private var mLastFgIndex = 0
     private lateinit var mViewModel: MainViewModel
 
