@@ -16,6 +16,9 @@ import com.zj.play.network.AccountRepository
 import com.zj.play.view.article.ArticleBroadCast
 import com.zj.play.view.main.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
@@ -73,7 +76,11 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 ActivityCollector.finishAll()
                 MainActivity.actionStart(this)
                 showToast(if (isLogin) "登录成功" else "注册成功")
-                ArticleBroadCast.sendArticleChangesReceiver(this)
+                val context = this
+                GlobalScope.launch {
+                    delay(2000)
+                    ArticleBroadCast.sendArticleChangesReceiver(context)
+                }
             } else {
                 showToast(if (isLogin) "账号密码不匹配！" else "用户名已被注册！")
             }

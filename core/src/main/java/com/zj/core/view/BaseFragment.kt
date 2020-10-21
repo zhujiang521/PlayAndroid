@@ -93,6 +93,12 @@ abstract class BaseFragment : Fragment(), RequestLifecycle, BaseInit {
         initData()
     }
 
+    /**
+     * 设置 LiveData 的状态，根据不同状态显示不同页面
+     *
+     * @param dataLiveData LiveData
+     * @param onDataStatus 数据回调进行使用
+     */
     fun <T> setDataStatus(dataLiveData: LiveData<Result<T>>, onDataStatus: (T) -> Unit) {
         dataLiveData.observe(this) {
             if (it.isSuccess) {
