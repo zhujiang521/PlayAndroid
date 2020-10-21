@@ -7,8 +7,6 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.zj.play.R
-import com.zj.play.view.main.FragmentFactory.Companion.getCurrentFragment
-
 
 abstract class BaseHomeBottomTabWidget @JvmOverloads constructor(
     context: Context?,
@@ -32,10 +30,12 @@ abstract class BaseHomeBottomTabWidget @JvmOverloads constructor(
         mViewModel = viewModel
         if (mFragments == null) {
             mFragments = arrayListOf()
-            mFragments?.add(getCurrentFragment(0)!!)
-            mFragments?.add(getCurrentFragment(1)!!)
-            mFragments?.add(getCurrentFragment(2)!!)
-            mFragments?.add(getCurrentFragment(3)!!)
+            mFragments?.let {
+                it.add(FragmentFactory.getCurrentFragment(0)!!)
+                it.add(FragmentFactory.getCurrentFragment(1)!!)
+                it.add(FragmentFactory.getCurrentFragment(2)!!)
+                it.add(FragmentFactory.getCurrentFragment(3)!!)
+            }
         }
         fragmentManger(viewModel.getPage() ?: 0)
     }

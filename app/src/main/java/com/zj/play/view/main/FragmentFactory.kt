@@ -14,58 +14,20 @@ import com.zj.play.view.project.ProjectFragment
  * 描述：pwqgc
  *
  */
-class FragmentFactory {
+object FragmentFactory {
 
-    companion object {
-        private var mHomeFragment: HomePageFragment? = null
-        private var mProjectFragment: ProjectFragment? = null
-        private var mObjectListFragment: OfficialAccountsFragment? = null
-        private var mProfileFragment: ProfileFragment? = null
+    private val mHomeFragment: HomePageFragment by lazy { HomePageFragment.newInstance() }
+    private val mProjectFragment: ProjectFragment by lazy { ProjectFragment.newInstance() }
+    private val mObjectListFragment: OfficialAccountsFragment by lazy { OfficialAccountsFragment.newInstance() }
+    private val mProfileFragment: ProfileFragment by lazy { ProfileFragment.newInstance() }
 
-        private fun getHomeFragment(): HomePageFragment {
-            if (mHomeFragment == null) {
-                mHomeFragment = HomePageFragment.newInstance()
-            }
-            return mHomeFragment as HomePageFragment
-        }
-
-
-        private fun getProjectFragment(): ProjectFragment {
-            if (mProjectFragment == null) {
-                mProjectFragment = ProjectFragment.newInstance()
-            }
-            return mProjectFragment as ProjectFragment
-        }
-
-        private fun getObjectListFragment(): OfficialAccountsFragment {
-            if (mObjectListFragment == null) {
-                mObjectListFragment = OfficialAccountsFragment.newInstance()
-            }
-            return mObjectListFragment as OfficialAccountsFragment
-        }
-
-        private fun getProfileFragment(): ProfileFragment {
-            if (mProfileFragment == null) {
-                mProfileFragment = ProfileFragment.newInstance()
-            }
-            return mProfileFragment as ProfileFragment
-        }
-
-
-        fun getCurrentFragment(index: Int): Fragment? {
-            return when (index) {
-                0 ->
-                    getHomeFragment()
-                1 ->
-                    getProjectFragment()
-                2 ->
-                    getObjectListFragment()
-                3 ->
-                    getProfileFragment()
-                else -> null
-            }
-
-
+    fun getCurrentFragment(index: Int): Fragment? {
+        return when (index) {
+            0 -> mHomeFragment
+            1 -> mProjectFragment
+            2 -> mObjectListFragment
+            3 -> mProfileFragment
+            else -> null
         }
     }
 

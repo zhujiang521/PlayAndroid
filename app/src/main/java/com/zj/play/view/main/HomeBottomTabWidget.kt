@@ -3,12 +3,8 @@ package com.zj.play.view.main
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.zj.play.R
-import com.zj.play.view.main.FragmentFactory.Companion.getCurrentFragment
 
 
 class HomeBottomTabWidget @JvmOverloads constructor(
