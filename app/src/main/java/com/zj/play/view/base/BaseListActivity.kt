@@ -1,6 +1,7 @@
 package com.zj.play.view.base
 
 import android.content.res.Configuration
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +9,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.zj.core.view.BaseActivity
 import com.zj.core.view.StaggeredDividerItemDecoration
 import com.zj.play.R
+import com.zj.play.model.RankData
+import com.zj.play.view.home.ArticleCollectBaseActivity
 import kotlinx.android.synthetic.main.activity_base_list.*
 import kotlin.system.measureTimeMillis
 
@@ -19,7 +22,7 @@ import kotlin.system.measureTimeMillis
  * 描述：PlayAndroid
  *
  */
-abstract class BaseListActivity : BaseActivity() {
+abstract class BaseListActivity : ArticleCollectBaseActivity() {
 
     override fun getLayoutId(): Int {
         return R.layout.activity_base_list
@@ -81,7 +84,5 @@ abstract class BaseListActivity : BaseActivity() {
     }
 
     abstract fun isStaggeredGrid(): Boolean
-
-    abstract fun getDataList()
 
 }

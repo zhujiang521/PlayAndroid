@@ -2,15 +2,10 @@ package com.zj.play.view.profile.history
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.zj.core.util.showToast
-import com.zj.play.view.base.BaseListActivity
-import com.zj.core.view.StaggeredDividerItemDecoration
 import com.zj.play.view.article.ArticleAdapter
+import com.zj.play.view.base.BaseListActivity
 import kotlinx.android.synthetic.main.activity_base_list.*
 
 class BrowseHistoryActivity : BaseListActivity() {

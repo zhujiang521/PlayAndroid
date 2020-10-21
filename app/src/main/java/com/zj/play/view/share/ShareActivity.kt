@@ -37,11 +37,11 @@ class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
         if (!isMine) shareTitleBar.setTitle("作者的分享")
         if (isMine) {
             viewModel.articleLiveData.observe(this, {
-                setData(it)
+                setArticleData(it)
             })
         } else {
             viewModel.articleAndCidLiveData.observe(this, {
-                setData(it)
+                setArticleData(it)
             })
         }
         if (Play.isLogin) {
@@ -53,7 +53,7 @@ class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
         getArticleList()
     }
 
-    private fun setData(it: Result<ShareModel>) {
+    private fun setArticleData(it: Result<ShareModel>) {
         if (it.isSuccess) {
             val articleList = it.getOrNull()
             if (articleList != null) {

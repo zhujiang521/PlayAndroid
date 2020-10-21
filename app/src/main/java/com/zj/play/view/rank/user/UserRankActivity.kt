@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.play.view.base.BaseListActivity
 import com.zj.play.R
+import com.zj.play.model.RankList
 import kotlinx.android.synthetic.main.activity_base_list.*
 
 class UserRankActivity : BaseListActivity() {
@@ -18,23 +19,7 @@ class UserRankActivity : BaseListActivity() {
 
     override fun initData() {
         super.initData()
-        viewModel.dataLiveData.observe(this, {
-            if (it.isSuccess) {
-                val articleList = it.getOrNull()
-                if (articleList != null) {
-                    loadFinished()
-                    if (page == 1 && viewModel.dataList.size > 0) {
-                        viewModel.dataList.clear()
-                    }
-                    viewModel.dataList.addAll(articleList.datas)
-                    rankAdapter.notifyDataSetChanged()
-                } else {
-                    showLoadErrorView()
-                }
-            } else {
-                showBadNetworkView { getDataList() }
-            }
-        })
+        setDataStatus(viewModel.dataLiveData)
     }
 
     override fun initView() {
@@ -52,6 +37,15 @@ class UserRankActivity : BaseListActivity() {
     override fun getDataList() {
         if (viewModel.dataList.size <= 0) startLoading()
         viewModel.getDataList(page)
+    }
+
+    override fun <T> setData(articleList: T) {
+        if (page == 1 && viewModel.dataList.size > 0) {
+            viewModel.dataList.clear()
+        }
+        articleList as RankList
+        viewModel.dataList.addAll(articleList.datas)
+        rankAdapter.notifyDataSetChanged()
     }
 
     companion object {

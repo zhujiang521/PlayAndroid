@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.youth.banner.indicator.CircleIndicator
 import com.zj.core.util.showToast
 import com.zj.play.R
+import com.zj.play.room.entity.Article
 import com.zj.play.view.article.ArticleAdapter
 import com.zj.play.view.home.search.SearchActivity
 import com.zj.play.view.main.MainActivity
@@ -75,28 +76,17 @@ class HomePageFragment : ArticleCollectBaseFragment() {
     override fun initData() {
         startLoading()
         initBanner()
-        viewModel.articleLiveData.observe(this, {
-            if (it.isSuccess) {
-                val articleList = it.getOrNull()
-                if (articleList != null) {
-                    loadFinished()
-                    if (page == 1 && viewModel.articleList.size > 0) {
-                        viewModel.articleList.clear()
-                    }
-                    viewModel.articleList.addAll(articleList)
-                    articleAdapter.notifyDataSetChanged()
-                } else {
-                    showLoadErrorView()
-                }
-            } else {
-                if (viewModel.articleList.size > 0) {
-                    showToast("网络请求出错")
-                } else {
-                    showBadNetworkView { initData() }
-                }
-            }
-        })
+        setDataStatus(viewModel.articleLiveData)
         getArticleList(false)
+    }
+
+    override fun <T> setData(data: T) {
+        data as ArrayList<Article>
+        if (page == 1 && viewModel.articleList.size > 0) {
+            viewModel.articleList.clear()
+        }
+        viewModel.articleList.addAll(data)
+        articleAdapter.notifyDataSetChanged()
     }
 
     private fun initBanner() {

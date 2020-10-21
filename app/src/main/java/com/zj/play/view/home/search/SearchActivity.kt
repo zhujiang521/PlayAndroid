@@ -3,7 +3,6 @@ package com.zj.play.view.home.search
 import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -38,23 +37,16 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
 
     override fun initData() {
         hotKeyDao = PlayDatabase.getDatabase(this).hotKeyDao()
-        viewModel.hotKeyLiveData.observe(this, {
-            if (it.isSuccess) {
-                loadFinished()
-                val hoeKey = it.getOrNull()
-                if (hoeKey != null) {
-                    if (hoeKey.isNotEmpty()) {
-                        viewModel.hotKey.clear()
-                        viewModel.hotKey.addAll(hoeKey)
-                    }
-                    addFlowView()
-                } else {
-                    showLoadErrorView()
-                }
-            } else {
-                showBadNetworkView { initData() }
-            }
-        })
+        setDataStatus(viewModel.hotKeyLiveData)
+    }
+
+    override fun <T> setData(data: T) {
+        data as List<HotKey>
+        if (data.isNotEmpty()) {
+            viewModel.hotKey.clear()
+            viewModel.hotKey.addAll(data)
+        }
+        addFlowView()
     }
 
     override fun onPause() {

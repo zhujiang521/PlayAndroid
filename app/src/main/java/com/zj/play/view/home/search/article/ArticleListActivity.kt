@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zj.play.model.ArticleList
 import com.zj.play.view.base.BaseListActivity
 import com.zj.play.view.article.ArticleAdapter
 import kotlinx.android.synthetic.main.activity_base_list.*
@@ -21,26 +22,7 @@ class ArticleListActivity : BaseListActivity() {
         super.initData()
         keyword = intent.getStringExtra(KEYWORD) ?: ""
         baseListTitleBar.setTitle(keyword)
-        viewModel.articleLiveData.observe(this, {
-            if (it.isSuccess) {
-                val articleList = it.getOrNull()
-                if (articleList != null) {
-                    loadFinished()
-                    if (page == 1 && viewModel.articleList.size > 0) {
-                        viewModel.articleList.clear()
-                    }
-                    viewModel.articleList.addAll(articleList.datas)
-                    if (viewModel.articleList.size == 0) {
-                        showNoContentView("没有关于 $keyword 的数据，请更换关键字搜索")
-                    }
-                    articleAdapter.notifyDataSetChanged()
-                } else {
-                    showLoadErrorView()
-                }
-            } else {
-                showBadNetworkView { getDataList() }
-            }
-        })
+        setDataStatus(viewModel.articleLiveData)
     }
 
     override fun initView() {
@@ -60,6 +42,18 @@ class ArticleListActivity : BaseListActivity() {
     override fun getDataList() {
         if (viewModel.articleList.size <= 0) startLoading()
         viewModel.getArticleList(page, keyword)
+    }
+
+    override fun <T> setData(articleList: T) {
+        if (page == 1 && viewModel.articleList.size > 0) {
+            viewModel.articleList.clear()
+        }
+        articleList as ArticleList
+        viewModel.articleList.addAll(articleList.datas)
+        if (viewModel.articleList.size == 0) {
+            showNoContentView("没有关于 $keyword 的数据，请更换关键字搜索")
+        }
+        articleAdapter.notifyDataSetChanged()
     }
 
     companion object {

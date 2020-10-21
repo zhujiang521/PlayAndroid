@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import com.blankj.utilcode.util.ConvertUtils
 import com.zj.core.R
 
@@ -91,6 +92,26 @@ abstract class BaseFragment : Fragment(), RequestLifecycle, BaseInit {
         super.onActivityCreated(savedInstanceState)
         initView()
         initData()
+    }
+
+    fun <T> setDataStatus(dataLiveData: LiveData<Result<T>>){
+        dataLiveData.observe(this){
+            if (it.isSuccess) {
+                val articleList = it.getOrNull()
+                if (articleList != null) {
+                    loadFinished()
+                    setData(articleList)
+                } else {
+                    showLoadErrorView()
+                }
+            } else {
+                showBadNetworkView { initData() }
+            }
+        }
+    }
+
+    protected open fun <T> setData(data: T){
+
     }
 
     /**

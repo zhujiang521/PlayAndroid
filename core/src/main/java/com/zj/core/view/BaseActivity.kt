@@ -12,6 +12,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
 import com.blankj.utilcode.util.ConvertUtils
 import com.zj.core.R
 import com.zj.core.util.AndroidVersion
@@ -115,7 +116,7 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle, BaseInit {
      * @param tip
      * 界面中的提示信息
      */
-    protected fun showLoadErrorView(tip: String = "加载数据失败") {
+    fun showLoadErrorView(tip: String = "加载数据失败") {
         loadFinished()
         if (loadErrorView != null) {
             val loadErrorText = loadErrorView?.findViewById<TextView>(R.id.loadErrorText)
@@ -131,7 +132,7 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle, BaseInit {
      * @param listener
      * 重新加载点击事件回调
      */
-    protected fun showBadNetworkView(listener: View.OnClickListener) {
+    fun showBadNetworkView(listener: View.OnClickListener) {
         loadFinished()
         if (badNetworkView != null) {
             badNetworkView?.visibility = View.VISIBLE
@@ -139,6 +140,26 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle, BaseInit {
             return
         }
     }
+
+    open fun getDataList(){}
+
+    fun <T> setDataStatus(dataLiveData: LiveData<Result<T>>){
+        dataLiveData.observe(this){
+            if (it.isSuccess) {
+                val articleList = it.getOrNull()
+                if (articleList != null) {
+                    loadFinished()
+                    setData(articleList)
+                } else {
+                    showLoadErrorView()
+                }
+            } else {
+                showBadNetworkView { getDataList() }
+            }
+        }
+    }
+
+    open fun <T> setData(data: T){}
 
     /**
      * 当Activity中没有任何内容的时候，通过此方法显示提示界面给用户。

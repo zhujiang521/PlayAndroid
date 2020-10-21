@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/offListSmartRefreshLayout"
+    android:id="@+id/baseFragmentListSmartRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/offListRecycleView"
+        android:id="@+id/baseFragmentListRecycleView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="@dimen/dp_10" />
+        android:layout_height="match_parent" />
 
 </com.scwang.smartrefresh.layout.SmartRefreshLayout>

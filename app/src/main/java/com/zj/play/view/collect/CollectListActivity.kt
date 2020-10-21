@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.zj.play.view.base.BaseListActivity
 import com.zj.core.view.StaggeredDividerItemDecoration
+import com.zj.play.model.Collect
+import com.zj.play.model.RankData
 import kotlinx.android.synthetic.main.activity_base_list.*
 
 class CollectListActivity : BaseListActivity() {
@@ -20,23 +22,7 @@ class CollectListActivity : BaseListActivity() {
     override fun initData() {
         super.initData()
         baseListTitleBar.setTitle("我的收藏")
-        viewModel.dataLiveData.observe(this, {
-            if (it.isSuccess) {
-                val articleList = it.getOrNull()
-                if (articleList != null) {
-                    loadFinished()
-                    if (page == 1 && viewModel.dataList.size > 0) {
-                        viewModel.dataList.clear()
-                    }
-                    viewModel.dataList.addAll(articleList.datas)
-                    articleAdapter.notifyDataSetChanged()
-                } else {
-                    showLoadErrorView()
-                }
-            } else {
-                showBadNetworkView { getDataList() }
-            }
-        })
+        setDataStatus(viewModel.dataLiveData)
     }
 
     override fun initView() {
@@ -56,6 +42,15 @@ class CollectListActivity : BaseListActivity() {
     override fun getDataList() {
         if (viewModel.dataList.size <= 0) startLoading()
         viewModel.getDataList(page)
+    }
+
+    override fun <T> setData(articleList: T) {
+        if (page == 1 && viewModel.dataList.size > 0) {
+            viewModel.dataList.clear()
+        }
+        articleList as Collect
+        viewModel.dataList.addAll(articleList.datas)
+        articleAdapter.notifyDataSetChanged()
     }
 
     companion object {
