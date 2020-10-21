@@ -29,22 +29,19 @@ class OfficialAccountsFragment : BaseTabFragment() {
 
     override fun initData() {
         startLoading()
-        setDataStatus(viewModel.officialTreeLiveData)
-        getOfficialTree()
-    }
-
-    override fun <T> setData(data: T) {
-        data as List<ProjectClassify>
-        val nameList = mutableListOf<String>()
-        val viewList = mutableListOf<Fragment>()
-        data.forEach { project ->
-            nameList.add(project.name)
-            viewList.add(OfficialListFragment.newInstance(project.id))
+        setDataStatus(viewModel.officialTreeLiveData) {
+            val nameList = mutableListOf<String>()
+            val viewList = mutableListOf<Fragment>()
+            it.forEach { project ->
+                nameList.add(project.name)
+                viewList.add(OfficialListFragment.newInstance(project.id))
+            }
+            adapter.reset(nameList.toTypedArray())
+            adapter.reset(viewList)
+            adapter.notifyDataSetChanged()
+            officialViewPager.currentItem = viewModel.position
         }
-        adapter.reset(nameList.toTypedArray())
-        adapter.reset(viewList)
-        adapter.notifyDataSetChanged()
-        officialViewPager.currentItem = viewModel.position
+        getOfficialTree()
     }
 
     private fun getOfficialTree() {

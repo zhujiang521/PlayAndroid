@@ -36,13 +36,13 @@ class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
         userId = intent.getIntExtra(USER_ID, 0)
         if (!isMine) shareTitleBar.setTitle("作者的分享")
         if (isMine) {
-            viewModel.articleLiveData.observe(this, {
+            setDataStatus(viewModel.articleLiveData) {
                 setArticleData(it)
-            })
+            }
         } else {
-            viewModel.articleAndCidLiveData.observe(this, {
+            setDataStatus(viewModel.articleAndCidLiveData) {
                 setArticleData(it)
-            })
+            }
         }
         if (Play.isLogin) {
             shareTitleBar.setRightText("新增")
@@ -53,26 +53,16 @@ class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
         getArticleList()
     }
 
-    private fun setArticleData(it: Result<ShareModel>) {
-        if (it.isSuccess) {
-            val articleList = it.getOrNull()
-            if (articleList != null) {
-                loadFinished()
-                if (page == 1 && viewModel.articleList.size > 0) {
-                    viewModel.articleList.clear()
-                }
-                setUserInfo(articleList.coinInfo)
-                viewModel.articleList.addAll(articleList.shareArticles.datas)
-                if (viewModel.articleList.size == 0) {
-                    showNoContentView("没有数据")
-                }
-                articleAdapter.notifyDataSetChanged()
-            } else {
-                showLoadErrorView()
-            }
-        } else {
-            showBadNetworkView { getArticleList() }
+    private fun setArticleData(shareModel: ShareModel) {
+        if (page == 1 && viewModel.articleList.size > 0) {
+            viewModel.articleList.clear()
         }
+        setUserInfo(shareModel.coinInfo)
+        viewModel.articleList.addAll(shareModel.shareArticles.datas)
+        if (viewModel.articleList.size == 0) {
+            showNoContentView("没有数据")
+        }
+        articleAdapter.notifyDataSetChanged()
     }
 
     private fun setUserInfo(coinInfo: CoinInfo) {

@@ -3,9 +3,7 @@ package com.zj.play.view.home
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.youth.banner.indicator.CircleIndicator
-import com.zj.core.util.showToast
 import com.zj.play.R
-import com.zj.play.room.entity.Article
 import com.zj.play.view.article.ArticleAdapter
 import com.zj.play.view.home.search.SearchActivity
 import com.zj.play.view.main.MainActivity
@@ -76,47 +74,37 @@ class HomePageFragment : ArticleCollectBaseFragment() {
     override fun initData() {
         startLoading()
         initBanner()
-        setDataStatus(viewModel.articleLiveData)
+        setDataStatus(viewModel.articleLiveData){
+            if (page == 1 && viewModel.articleList.size > 0) {
+                viewModel.articleList.clear()
+            }
+            viewModel.articleList.addAll(it)
+            articleAdapter.notifyDataSetChanged()
+        }
         getArticleList(false)
     }
 
-    override fun <T> setData(data: T) {
-        data as ArrayList<Article>
-        if (page == 1 && viewModel.articleList.size > 0) {
-            viewModel.articleList.clear()
-        }
-        viewModel.articleList.addAll(data)
-        articleAdapter.notifyDataSetChanged()
-    }
-
     private fun initBanner() {
-        viewModel.bannerLiveData.observe(this, {
-            if (it.isSuccess) {
-                val bannerList = it.getOrNull()
-                if (bannerList != null) {
-                    val main = activity as MainActivity
-                    if (viewModel.bannerList.size > 0)
-                        viewModel.bannerList.clear()
-                    if (viewModel.bannerList2.size > 0)
-                        viewModel.bannerList2.clear()
-                    if (main.isPort) {
-                        viewModel.bannerList.addAll(bannerList)
-                    } else {
-                        for (index in bannerList.indices) {
-                            if (index / 2 == 0) {
-                                viewModel.bannerList.add(bannerList[index])
-                            } else {
-                                viewModel.bannerList2.add(bannerList[index])
-                            }
-                        }
-                    }
-                    bannerAdapter.notifyDataSetChanged()
-                    bannerAdapter2.notifyDataSetChanged()
-                }
+        setDataStatus(viewModel.bannerLiveData){
+            val main = activity as MainActivity
+            if (viewModel.bannerList.size > 0)
+                viewModel.bannerList.clear()
+            if (viewModel.bannerList2.size > 0)
+                viewModel.bannerList2.clear()
+            if (main.isPort) {
+                viewModel.bannerList.addAll(it)
             } else {
-                showBadNetworkView { initData() }
+                for (index in it.indices) {
+                    if (index / 2 == 0) {
+                        viewModel.bannerList.add(it[index])
+                    } else {
+                        viewModel.bannerList2.add(it[index])
+                    }
+                }
             }
-        })
+            bannerAdapter.notifyDataSetChanged()
+            bannerAdapter2.notifyDataSetChanged()
+        }
         getBanner()
     }
 

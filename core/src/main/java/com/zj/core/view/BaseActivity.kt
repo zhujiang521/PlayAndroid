@@ -132,7 +132,7 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle, BaseInit {
      * @param listener
      * 重新加载点击事件回调
      */
-    fun showBadNetworkView(listener: View.OnClickListener) {
+    private fun showBadNetworkView(listener: View.OnClickListener) {
         loadFinished()
         if (badNetworkView != null) {
             badNetworkView?.visibility = View.VISIBLE
@@ -141,25 +141,21 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle, BaseInit {
         }
     }
 
-    open fun getDataList(){}
-
-    fun <T> setDataStatus(dataLiveData: LiveData<Result<T>>){
-        dataLiveData.observe(this){
+    fun <T> setDataStatus(dataLiveData: LiveData<Result<T>>, onDataStatus: (T) -> Unit) {
+        dataLiveData.observe(this) {
             if (it.isSuccess) {
-                val articleList = it.getOrNull()
-                if (articleList != null) {
+                val dataList = it.getOrNull()
+                if (dataList != null) {
                     loadFinished()
-                    setData(articleList)
+                    onDataStatus(dataList)
                 } else {
                     showLoadErrorView()
                 }
             } else {
-                showBadNetworkView { getDataList() }
+                showBadNetworkView { initData() }
             }
         }
     }
-
-    open fun <T> setData(data: T){}
 
     /**
      * 当Activity中没有任何内容的时候，通过此方法显示提示界面给用户。

@@ -37,16 +37,13 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
 
     override fun initData() {
         hotKeyDao = PlayDatabase.getDatabase(this).hotKeyDao()
-        setDataStatus(viewModel.hotKeyLiveData)
-    }
-
-    override fun <T> setData(data: T) {
-        data as List<HotKey>
-        if (data.isNotEmpty()) {
-            viewModel.hotKey.clear()
-            viewModel.hotKey.addAll(data)
+        setDataStatus(viewModel.hotKeyLiveData) {
+            if (it.isNotEmpty()) {
+                viewModel.hotKey.clear()
+                viewModel.hotKey.addAll(it)
+            }
+            addFlowView()
         }
-        addFlowView()
     }
 
     override fun onPause() {

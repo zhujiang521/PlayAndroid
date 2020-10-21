@@ -18,7 +18,13 @@ class RankActivity : BaseListActivity() {
 
     override fun initData() {
         super.initData()
-        setDataStatus(viewModel.dataLiveData)
+        setDataStatus(viewModel.dataLiveData) {
+            if (page == 1 && viewModel.dataList.size > 0) {
+                viewModel.dataList.clear()
+            }
+            viewModel.dataList.addAll(it.datas)
+            rankAdapter.notifyDataSetChanged()
+        }
     }
 
     override fun initView() {
@@ -36,15 +42,6 @@ class RankActivity : BaseListActivity() {
     override fun getDataList() {
         if (viewModel.dataList.size <= 0) startLoading()
         viewModel.getDataList(page)
-    }
-
-    override fun <T> setData(articleList: T) {
-        if (page == 1 && viewModel.dataList.size > 0) {
-            viewModel.dataList.clear()
-        }
-        articleList as RankData
-        viewModel.dataList.addAll(articleList.datas)
-        rankAdapter.notifyDataSetChanged()
     }
 
     companion object {

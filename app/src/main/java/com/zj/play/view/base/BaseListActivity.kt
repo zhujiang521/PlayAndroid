@@ -34,6 +34,8 @@ abstract class BaseListActivity : ArticleCollectBaseActivity() {
         getDataList()
     }
 
+    abstract fun getDataList()
+
     override fun initView() {
         when (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
             true -> {

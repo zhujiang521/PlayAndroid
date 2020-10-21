@@ -43,17 +43,14 @@ class OfficialListFragment : BaseListFragment() {
     }
 
     override fun initData() {
-        setDataStatus(viewModel.articleLiveData)
-        getArticleList(false)
-    }
-
-    override fun <T> setData(data: T) {
-        data as List<Article>
-        if (page == 1 && viewModel.articleList.size > 0) {
-            viewModel.articleList.clear()
+        setDataStatus(viewModel.articleLiveData) {
+            if (page == 1 && viewModel.articleList.size > 0) {
+                viewModel.articleList.clear()
+            }
+            viewModel.articleList.addAll(it)
+            articleAdapter.notifyDataSetChanged()
         }
-        viewModel.articleList.addAll(data)
-        articleAdapter.notifyDataSetChanged()
+        getArticleList(false)
     }
 
     companion object {

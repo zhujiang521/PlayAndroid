@@ -28,22 +28,19 @@ class ProjectFragment : BaseTabFragment() {
 
     override fun initData() {
         startLoading()
-        setDataStatus(viewModel.projectTreeLiveData)
-        getProjectTree()
-    }
-
-    override fun <T> setData(data: T){
-        data as List<ProjectClassify>
-        val nameList = mutableListOf<String>()
-        val viewList = mutableListOf<Fragment>()
-        data.forEach { project ->
-            nameList.add(project.name)
-            viewList.add(ProjectListFragment.newInstance(project.id))
+        setDataStatus(viewModel.projectTreeLiveData) {
+            val nameList = mutableListOf<String>()
+            val viewList = mutableListOf<Fragment>()
+            it.forEach { project ->
+                nameList.add(project.name)
+                viewList.add(ProjectListFragment.newInstance(project.id))
+            }
+            adapter.reset(nameList.toTypedArray())
+            adapter.reset(viewList)
+            adapter.notifyDataSetChanged()
+            projectViewPager.currentItem = viewModel.position
         }
-        adapter.reset(nameList.toTypedArray())
-        adapter.reset(viewList)
-        adapter.notifyDataSetChanged()
-        projectViewPager.currentItem = viewModel.position
+        getProjectTree()
     }
 
     private fun getProjectTree() {

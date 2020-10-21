@@ -22,7 +22,16 @@ class ArticleListActivity : BaseListActivity() {
         super.initData()
         keyword = intent.getStringExtra(KEYWORD) ?: ""
         baseListTitleBar.setTitle(keyword)
-        setDataStatus(viewModel.articleLiveData)
+        setDataStatus(viewModel.articleLiveData) {
+            if (page == 1 && viewModel.articleList.size > 0) {
+                viewModel.articleList.clear()
+            }
+            viewModel.articleList.addAll(it.datas)
+            if (viewModel.articleList.size == 0) {
+                showNoContentView("没有关于 $keyword 的数据，请更换关键字搜索")
+            }
+            articleAdapter.notifyDataSetChanged()
+        }
     }
 
     override fun initView() {
@@ -42,18 +51,6 @@ class ArticleListActivity : BaseListActivity() {
     override fun getDataList() {
         if (viewModel.articleList.size <= 0) startLoading()
         viewModel.getArticleList(page, keyword)
-    }
-
-    override fun <T> setData(articleList: T) {
-        if (page == 1 && viewModel.articleList.size > 0) {
-            viewModel.articleList.clear()
-        }
-        articleList as ArticleList
-        viewModel.articleList.addAll(articleList.datas)
-        if (viewModel.articleList.size == 0) {
-            showNoContentView("没有关于 $keyword 的数据，请更换关键字搜索")
-        }
-        articleAdapter.notifyDataSetChanged()
     }
 
     companion object {

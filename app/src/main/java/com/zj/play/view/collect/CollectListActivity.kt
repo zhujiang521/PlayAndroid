@@ -22,7 +22,13 @@ class CollectListActivity : BaseListActivity() {
     override fun initData() {
         super.initData()
         baseListTitleBar.setTitle("我的收藏")
-        setDataStatus(viewModel.dataLiveData)
+        setDataStatus(viewModel.dataLiveData) {
+            if (page == 1 && viewModel.dataList.size > 0) {
+                viewModel.dataList.clear()
+            }
+            viewModel.dataList.addAll(it.datas)
+            articleAdapter.notifyDataSetChanged()
+        }
     }
 
     override fun initView() {
@@ -42,15 +48,6 @@ class CollectListActivity : BaseListActivity() {
     override fun getDataList() {
         if (viewModel.dataList.size <= 0) startLoading()
         viewModel.getDataList(page)
-    }
-
-    override fun <T> setData(articleList: T) {
-        if (page == 1 && viewModel.dataList.size > 0) {
-            viewModel.dataList.clear()
-        }
-        articleList as Collect
-        viewModel.dataList.addAll(articleList.datas)
-        articleAdapter.notifyDataSetChanged()
     }
 
     companion object {
