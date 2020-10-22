@@ -7,7 +7,6 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.KeyEvent
 import androidx.lifecycle.ViewModelProvider
-import com.blankj.utilcode.util.ToastUtils
 import com.zj.core.util.showToast
 import com.zj.core.view.BaseActivity
 import com.zj.play.R

@@ -7,6 +7,7 @@ import android.view.View
 import androidx.lifecycle.observe
 import com.blankj.utilcode.util.NetworkUtils
 import com.zj.core.Play
+import com.zj.core.util.LiveDataBus
 import com.zj.core.util.showToast
 import com.zj.core.view.ActivityCollector
 import com.zj.core.view.BaseActivity
@@ -14,6 +15,7 @@ import com.zj.play.R
 import com.zj.play.model.Login
 import com.zj.play.network.AccountRepository
 import com.zj.play.view.article.ArticleBroadCast
+import com.zj.play.view.home.LOGIN_REFRESH
 import com.zj.play.view.main.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.GlobalScope
@@ -76,11 +78,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 ActivityCollector.finishAll()
                 MainActivity.actionStart(this)
                 showToast(if (isLogin) "登录成功" else "注册成功")
-                val context = this
-                GlobalScope.launch {
-                    delay(2000)
-                    ArticleBroadCast.sendArticleChangesReceiver(context)
-                }
+                LiveDataBus.get().getChannel(LOGIN_REFRESH).setValue(true);
             } else {
                 showToast(if (isLogin) "账号密码不匹配！" else "用户名已被注册！")
             }

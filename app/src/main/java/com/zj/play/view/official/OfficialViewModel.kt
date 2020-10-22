@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.zj.play.view.project.ProjectRepository
 
 /**
  * 版权：渤海新能 版权所有

@@ -3,10 +3,8 @@ package com.zj.play.view.home.search.article
 import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.zj.play.model.ArticleList
-import com.zj.play.view.base.BaseListActivity
 import com.zj.play.view.article.ArticleAdapter
+import com.zj.play.view.base.BaseListActivity
 import kotlinx.android.synthetic.main.activity_base_list.*
 
 private const val KEYWORD = "KEYWORD"

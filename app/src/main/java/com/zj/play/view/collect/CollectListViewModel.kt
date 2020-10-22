@@ -1,9 +1,6 @@
 package com.zj.play.view.collect
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
 import com.zj.core.view.BaseViewModel
 import com.zj.play.model.Collect
 import com.zj.play.model.CollectX

@@ -1,6 +1,8 @@
 package com.zj.play.view.home
 
 import android.content.BroadcastReceiver
+import android.util.Log
+import com.zj.core.util.LiveDataBus
 import com.zj.core.view.BaseActivity
 import com.zj.play.view.article.ArticleBroadCast
 
@@ -9,7 +11,7 @@ import com.zj.play.view.article.ArticleBroadCast
  *
  * @author zhujiang
  * 创建日期：2020/9/15
- * 描述：PlayAndroid
+ * 描述：文章收藏 BaseActivity，注册文章收藏状态改变的广播
  *
  */
 abstract class ArticleCollectBaseActivity : BaseActivity() {
@@ -20,6 +22,10 @@ abstract class ArticleCollectBaseActivity : BaseActivity() {
         super.onResume()
         articleReceiver =
             ArticleBroadCast.setArticleChangesReceiver(this) { initData() }
+        LiveDataBus.get().getChannel(LOGIN_REFRESH, Boolean::class.java).observe(this, {
+            Log.e("ZHUJIANG", "Activity onResume: $it" )
+            if (it) initData()
+        })
     }
 
     override fun onPause() {

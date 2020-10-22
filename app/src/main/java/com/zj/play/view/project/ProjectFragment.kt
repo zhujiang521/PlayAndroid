@@ -4,7 +4,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.zj.core.view.FragmentAdapter
 import com.zj.play.R
-import com.zj.play.room.entity.ProjectClassify
 import com.zj.play.view.project.list.ProjectListFragment
 import kotlinx.android.synthetic.main.fragment_project.*
 

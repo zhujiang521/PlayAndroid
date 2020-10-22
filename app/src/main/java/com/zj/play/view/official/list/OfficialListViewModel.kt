@@ -1,12 +1,10 @@
 package com.zj.play.view.official.list
 
 import android.app.Application
-import android.content.Context
-import androidx.activity.ComponentActivity
-import androidx.lifecycle.*
-import com.zj.play.App
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.zj.play.room.entity.Article
-import com.zj.play.view.home.search.article.ArticleListActivity
 import com.zj.play.view.official.OfficialRepository
 import com.zj.play.view.project.list.QueryArticle
 

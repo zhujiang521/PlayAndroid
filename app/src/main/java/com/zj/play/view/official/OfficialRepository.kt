@@ -1,7 +1,6 @@
 package com.zj.play.view.official
 
 import android.app.Application
-import android.util.Log
 import com.blankj.utilcode.util.SPUtils
 import com.zj.core.util.Preference
 import com.zj.play.network.PlayAndroidNetwork

@@ -2,13 +2,9 @@ package com.zj.play.view.rank.user
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.zj.play.view.base.BaseListActivity
 import com.zj.play.R
-import com.zj.play.model.RankList
+import com.zj.play.view.base.BaseListActivity
 import kotlinx.android.synthetic.main.activity_base_list.*
 
 class UserRankActivity : BaseListActivity() {

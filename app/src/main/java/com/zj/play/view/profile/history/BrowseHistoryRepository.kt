@@ -1,7 +1,6 @@
 package com.zj.play.view.profile.history
 
 import android.content.Context
-import android.util.Log
 import com.zj.play.network.fire
 import com.zj.play.room.PlayDatabase
 import com.zj.play.room.entity.HISTORY

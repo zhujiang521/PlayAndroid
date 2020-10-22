@@ -2,15 +2,8 @@ package com.zj.play.view.collect
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.zj.play.view.base.BaseListActivity
-import com.zj.core.view.StaggeredDividerItemDecoration
-import com.zj.play.model.Collect
-import com.zj.play.model.RankData
 import kotlinx.android.synthetic.main.activity_base_list.*
 
 class CollectListActivity : BaseListActivity() {

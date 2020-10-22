@@ -2,7 +2,6 @@ package com.zj.play.view.official.list
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import com.zj.play.room.entity.Article
 import com.zj.play.view.article.ArticleAdapter
 import com.zj.play.view.base.BaseListFragment
 

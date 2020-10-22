@@ -7,7 +7,6 @@ import android.widget.TextView
 import com.zhy.adapter.recyclerview.CommonAdapter
 import com.zhy.adapter.recyclerview.base.ViewHolder
 import com.zj.core.Play
-import com.zj.core.util.showToast
 import com.zj.play.R
 import com.zj.play.view.account.LoginActivity
 import com.zj.play.view.article.ArticleActivity
