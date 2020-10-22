@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.zj.play.view.article.ArticleAdapter
 import com.zj.play.view.base.BaseListFragment
+import com.zj.play.view.project.list.QueryArticle
 
 const val PROJECT_CID = "PROJECT_CID"
 
@@ -31,22 +32,22 @@ class OfficialListFragment : BaseListFragment() {
     override fun initView() {
         articleAdapter = ArticleAdapter(
             context!!,
-            viewModel.articleList
+            viewModel.dataList
         )
         super.initView()
     }
 
     private fun getArticleList(isRefresh: Boolean) {
-        if (viewModel.articleList.size <= 0) startLoading()
-        viewModel.getArticleList(page, projectCid!!, isRefresh)
+        if (viewModel.dataList.size <= 0) startLoading()
+        viewModel.getDataList(QueryArticle(page, projectCid!!, isRefresh))
     }
 
     override fun initData() {
-        setDataStatus(viewModel.articleLiveData) {
-            if (page == 1 && viewModel.articleList.size > 0) {
-                viewModel.articleList.clear()
+        setDataStatus(viewModel.dataLiveData) {
+            if (page == 1 && viewModel.dataList.size > 0) {
+                viewModel.dataList.clear()
             }
-            viewModel.articleList.addAll(it)
+            viewModel.dataList.addAll(it)
             articleAdapter.notifyDataSetChanged()
         }
         getArticleList(false)

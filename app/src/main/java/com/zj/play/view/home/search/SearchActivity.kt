@@ -31,16 +31,16 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getHotKey(true)
+        viewModel.getDataList(true)
         KeyboardUtils.showSoftInput(searchTxtKeyword)
     }
 
     override fun initData() {
         hotKeyDao = PlayDatabase.getDatabase(this).hotKeyDao()
-        setDataStatus(viewModel.hotKeyLiveData) {
+        setDataStatus(viewModel.dataLiveData) {
             if (it.isNotEmpty()) {
-                viewModel.hotKey.clear()
-                viewModel.hotKey.addAll(it)
+                viewModel.dataList.clear()
+                viewModel.dataList.addAll(it)
             }
             addFlowView()
         }
@@ -61,12 +61,12 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
         if (searchFlowLayout != null) {
             searchFlowLayout.removeAllViews()
         }
-        for (i in 0 until viewModel.hotKey.size) {
+        for (i in 0 until viewModel.dataList.size) {
             val item = View.inflate(this, R.layout.layout_search_item, null)
             val tv = item.findViewById<TextView>(R.id.searchTvName)
             val delete = item.findViewById<LinearLayout>(R.id.searchLlDelete)
-            val name = viewModel.hotKey[i].name
-            if (viewModel.hotKey[i].order > 0) {
+            val name = viewModel.dataList[i].name
+            if (viewModel.dataList[i].order > 0) {
                 delete.visibility = View.GONE
             }
             tv.text = name
@@ -75,7 +75,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
             }
             delete.setOnClickListener {
                 GlobalScope.launch {
-                    hotKeyDao.delete(viewModel.hotKey[i])
+                    hotKeyDao.delete(viewModel.dataList[i])
                 }
                 searchFlowLayout.removeView(item)
             }

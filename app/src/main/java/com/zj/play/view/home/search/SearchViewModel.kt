@@ -1,9 +1,8 @@
 package com.zj.play.view.home.search
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.LiveData
+import com.zj.core.view.BaseAndroidViewModel
 import com.zj.play.room.entity.HotKey
 
 /**
@@ -14,18 +13,10 @@ import com.zj.play.room.entity.HotKey
  * 描述：PlayAndroid
  *
  */
-class SearchViewModel(application: Application) : AndroidViewModel(application) {
+class SearchViewModel(application: Application) : BaseAndroidViewModel<List<HotKey>,HotKey,Boolean>(application) {
 
-    private val refreshLiveData = MutableLiveData<Boolean>()
-
-    val hotKey = ArrayList<HotKey>()
-
-    val hotKeyLiveData = Transformations.switchMap(refreshLiveData) {
-        SearchRepository(application).getHotKey()
-    }
-
-    fun getHotKey(isRefresh: Boolean) {
-        refreshLiveData.value = isRefresh
+    override fun getData(page: Boolean): LiveData<Result<List<HotKey>>> {
+        return SearchRepository(getApplication()).getHotKey()
     }
 
 }

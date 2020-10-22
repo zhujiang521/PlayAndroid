@@ -1,9 +1,8 @@
 package com.zj.play.view.project.list
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.LiveData
+import com.zj.core.view.BaseAndroidViewModel
 import com.zj.play.room.entity.Article
 import com.zj.play.view.project.ProjectRepository
 
@@ -15,18 +14,10 @@ import com.zj.play.view.project.ProjectRepository
  * 描述：PlayAndroid
  *
  */
-class ProjectListViewModel(application: Application) : AndroidViewModel(application) {
+class ProjectListViewModel(application: Application) : BaseAndroidViewModel<List<Article>,Article,QueryArticle>(application) {
 
-    val articleList = ArrayList<Article>()
-
-    private val pageLiveData = MutableLiveData<QueryArticle>()
-
-    val articleLiveData = Transformations.switchMap(pageLiveData) { query ->
-        ProjectRepository(application).getProject(query)
-    }
-
-    fun getArticleList(page: Int, cid: Int, isRefresh: Boolean) {
-        pageLiveData.value = QueryArticle(page, cid, isRefresh)
+    override fun getData(page: QueryArticle): LiveData<Result<List<Article>>> {
+        return ProjectRepository(getApplication()).getProject(page)
     }
 
 }

@@ -1,9 +1,9 @@
 package com.zj.play.view.project
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.LiveData
+import com.zj.core.view.BaseAndroidViewModel
+import com.zj.play.room.entity.ProjectClassify
 
 /**
  * 版权：渤海新能 版权所有
@@ -13,18 +13,13 @@ import androidx.lifecycle.Transformations
  * 描述：PlayAndroid
  *
  */
-class ProjectViewModel(application: Application) : AndroidViewModel(application) {
+class ProjectViewModel(application: Application) :
+    BaseAndroidViewModel<List<ProjectClassify>, Unit, Boolean>(application) {
 
     var position = 0
 
-    private val refreshLiveData = MutableLiveData<Boolean>()
-
-    val projectTreeLiveData = Transformations.switchMap(refreshLiveData) { isRefresh ->
-        ProjectRepository(application).getProjectTree(isRefresh)
-    }
-
-    fun getArticleList(isRefresh: Boolean) {
-        refreshLiveData.value = isRefresh
+    override fun getData(page: Boolean): LiveData<Result<List<ProjectClassify>>> {
+        return ProjectRepository(getApplication()).getProjectTree(page)
     }
 
 }

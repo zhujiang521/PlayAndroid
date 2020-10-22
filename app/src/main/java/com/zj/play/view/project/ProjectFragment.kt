@@ -27,7 +27,7 @@ class ProjectFragment : BaseTabFragment() {
 
     override fun initData() {
         startLoading()
-        setDataStatus(viewModel.projectTreeLiveData) {
+        setDataStatus(viewModel.dataLiveData) {
             val nameList = mutableListOf<String>()
             val viewList = mutableListOf<Fragment>()
             it.forEach { project ->
@@ -43,7 +43,7 @@ class ProjectFragment : BaseTabFragment() {
     }
 
     private fun getProjectTree() {
-        viewModel.getArticleList(false)
+        viewModel.getDataList(false)
     }
 
     override fun onTabPageSelected(position: Int) {

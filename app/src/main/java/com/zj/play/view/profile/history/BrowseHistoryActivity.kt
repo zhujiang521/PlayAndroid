@@ -17,7 +17,7 @@ class BrowseHistoryActivity : BaseListActivity() {
         super.initView()
         articleAdapter = ArticleAdapter(
             this,
-            viewModel.articleList,
+            viewModel.dataList,
             false
         )
         articleAdapter.setHasStableIds(true)
@@ -30,29 +30,29 @@ class BrowseHistoryActivity : BaseListActivity() {
     }
 
     override fun getDataList() {
-        if (viewModel.articleList.size <= 0) {
+        if (viewModel.dataList.size <= 0) {
             startLoading()
         }
-        viewModel.getArticleList(page)
+        viewModel.getDataList(page)
     }
 
     override fun initData() {
         super.initData()
-        viewModel.articleLiveData.observe(this, {
+        viewModel.dataLiveData.observe(this, {
             if (it.isSuccess) {
                 val articleList = it.getOrNull()
                 if (articleList != null) {
                     loadFinished()
-                    if (page == 1 && viewModel.articleList.size > 0) {
-                        viewModel.articleList.clear()
+                    if (page == 1 && viewModel.dataList.size > 0) {
+                        viewModel.dataList.clear()
                     }
-                    viewModel.articleList.addAll(articleList)
+                    viewModel.dataList.addAll(articleList)
                     articleAdapter.notifyDataSetChanged()
                 } else {
                     showLoadErrorView()
                 }
             } else {
-                if (viewModel.articleList.size <= 0) {
+                if (viewModel.dataList.size <= 0) {
                     showNoContentView("当前无历史浏览记录")
                 } else {
                     showToast("没有更多数据")

@@ -28,7 +28,7 @@ class OfficialAccountsFragment : BaseTabFragment() {
 
     override fun initData() {
         startLoading()
-        setDataStatus(viewModel.officialTreeLiveData) {
+        setDataStatus(viewModel.dataLiveData) {
             val nameList = mutableListOf<String>()
             val viewList = mutableListOf<Fragment>()
             it.forEach { project ->
@@ -44,7 +44,7 @@ class OfficialAccountsFragment : BaseTabFragment() {
     }
 
     private fun getOfficialTree() {
-        viewModel.getArticleList(false)
+        viewModel.getDataList(false)
     }
 
     override fun onTabPageSelected(position: Int) {

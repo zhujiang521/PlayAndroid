@@ -34,22 +34,22 @@ class ProjectListFragment : BaseListFragment() {
     }
 
     override fun initView() {
-        articleAdapter = ArticleAdapter(context!!, viewModel.articleList)
+        articleAdapter = ArticleAdapter(context!!, viewModel.dataList)
         super.initView()
     }
 
     private fun getArticleList(isRefresh: Boolean) {
-        if (viewModel.articleList.size <= 0)
+        if (viewModel.dataList.size <= 0)
             startLoading()
-        viewModel.getArticleList(page, projectCid!!, isRefresh)
+        viewModel.getDataList(QueryArticle(page, projectCid!!, isRefresh))
     }
 
     override fun initData() {
-        setDataStatus(viewModel.articleLiveData) {
-            if (page == 1 && viewModel.articleList.size > 0) {
-                viewModel.articleList.clear()
+        setDataStatus(viewModel.dataLiveData) {
+            if (page == 1 && viewModel.dataList.size > 0) {
+                viewModel.dataList.clear()
             }
-            viewModel.articleList.addAll(it)
+            viewModel.dataList.addAll(it)
             articleAdapter.notifyDataSetChanged()
         }
         getArticleList(false)
