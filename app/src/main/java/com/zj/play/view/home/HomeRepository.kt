@@ -1,9 +1,15 @@
 package com.zj.play.view.home
 
 import android.app.Application
+import android.util.Log
 import com.blankj.utilcode.util.SPUtils
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
+import com.bumptech.glide.RequestBuilder
+import com.bumptech.glide.RequestManager
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.zj.core.util.Preference
 import com.zj.play.network.PlayAndroidNetwork
 import com.zj.play.network.fire
@@ -14,6 +20,8 @@ import com.zj.play.room.entity.BannerBean
 import com.zj.play.room.entity.HOME
 import com.zj.play.room.entity.HOME_TOP
 import kotlinx.coroutines.*
+import java.io.File
+
 
 /**
  * 版权：联想 版权所有
@@ -59,14 +67,37 @@ object HomeRepository {
         bannerList: List<BannerBean>
     ) {
         bannerList.forEach {
-            GlobalScope.launch(Dispatchers.IO) {
-                val file = Glide.with(application)
-                    .load(it.imagePath)
-                    .downloadOnly(SIZE_ORIGINAL, SIZE_ORIGINAL)
-                    .get()
-                it.filePath = file.absolutePath
-                bannerBeanDao.insert(it)
-            }
+            val mRequestManager: RequestManager = Glide.with(application)
+            val mRequestBuilder: RequestBuilder<File> = mRequestManager.downloadOnly()
+            mRequestBuilder.load(it.imagePath)
+            mRequestBuilder.listener(object : RequestListener<File> {
+                override fun onLoadFailed(
+                    e: GlideException?, model: Any?, target: Target<File>?, isFirstResource: Boolean
+                ): Boolean {
+                    Log.e("ZHUJIANG", "insertBannerList onLoadFailed: ${e?.message}")
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: File?,
+                    model: Any?,
+                    target: Target<File>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    try {
+                        it.filePath = resource!!.absolutePath
+                        GlobalScope.launch(Dispatchers.IO) {
+                            bannerBeanDao.insert(it)
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        Log.e("ZHUJIANG", "insertBannerList onResourceReady: ${e.message}")
+                    }
+                    return false
+                }
+            })
+            mRequestBuilder.preload()
         }
     }
 

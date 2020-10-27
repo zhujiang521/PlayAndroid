@@ -2,15 +2,12 @@ package com.zj.core.util
 
 import androidx.lifecycle.MutableLiveData
 
-
-
-
 /**
  * 版权：联想 版权所有
  *
  * @author zhujiang
  * 创建日期：2020/10/22
- * 描述：LiveDataBus 事件总线
+ * 描述：LiveDataBus 事件总线 用于接受需要更新数据的黏性事件
  *
  */
 class LiveDataBus private constructor() {
