@@ -74,7 +74,9 @@ class HomePageFragment : ArticleCollectBaseFragment() {
     override fun initData() {
         startLoading()
         initBanner()
-        setDataStatus(viewModel.articleLiveData){
+        setDataStatus(viewModel.articleLiveData, {
+            if (viewModel.articleList.size > 0) loadFinished()
+        }) {
             if (page == 1 && viewModel.articleList.size > 0) {
                 viewModel.articleList.clear()
             }
@@ -85,7 +87,9 @@ class HomePageFragment : ArticleCollectBaseFragment() {
     }
 
     private fun initBanner() {
-        setDataStatus(viewModel.bannerLiveData){
+        setDataStatus(viewModel.bannerLiveData,{
+            if (viewModel.bannerList.size > 0) loadFinished()
+        }) {
             val main = activity as MainActivity
             if (viewModel.bannerList.size > 0)
                 viewModel.bannerList.clear()

@@ -99,7 +99,11 @@ abstract class BaseFragment : Fragment(), RequestLifecycle, BaseInit {
      * @param dataLiveData LiveData
      * @param onDataStatus 数据回调进行使用
      */
-    fun <T> setDataStatus(dataLiveData: LiveData<Result<T>>, onDataStatus: (T) -> Unit) {
+    fun <T> setDataStatus(
+        dataLiveData: LiveData<Result<T>>,
+        onBadNetwork: () -> Unit = {},
+        onDataStatus: (T) -> Unit
+    ) {
         dataLiveData.observe(this) {
             if (it.isSuccess) {
                 val dataList = it.getOrNull()
@@ -111,6 +115,7 @@ abstract class BaseFragment : Fragment(), RequestLifecycle, BaseInit {
                 }
             } else {
                 showBadNetworkView { initData() }
+                onBadNetwork.invoke()
             }
         }
     }
