@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="activity_permission_setting">在設置中允許以下權限</string>
+	<string name="activity_permission">需要下列權限</string>
+	<string name="activity_permission_cancel">取消</string>
+	<string name="activity_permission_sure">確定</string>
+	<string name="bad_network_view_tip">您的網絡不給力，點擊屏幕可重新加載</string>
+	<string name="load_failed_click_to_reload">加載失敗，點擊可重新加載</string>
+	<string name="failed_load_data">加載數據失敗</string>
+</resources>
