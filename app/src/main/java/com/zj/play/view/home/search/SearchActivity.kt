@@ -97,7 +97,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
             R.id.searchTxtRight -> {
                 val keyword = searchTxtKeyword.text.toString()
                 if (TextUtils.isEmpty(keyword)) {
-                    showToast("搜索关键字不能为空")
+                    showToast(getString(R.string.keyword_not_null))
                     return
                 }
 

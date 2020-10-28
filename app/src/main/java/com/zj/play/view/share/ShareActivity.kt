@@ -34,7 +34,7 @@ class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
     override fun initData() {
         isMine = intent.getBooleanExtra(IS_MINE, true)
         userId = intent.getIntExtra(USER_ID, 0)
-        if (!isMine) shareTitleBar.setTitle("作者的分享")
+        if (!isMine) shareTitleBar.setTitle(getString(R.string.author_share))
         if (isMine) {
             setDataStatus(viewModel.articleLiveData) {
                 setArticleData(it)
@@ -45,7 +45,7 @@ class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
             }
         }
         if (Play.isLogin) {
-            shareTitleBar.setRightText("新增")
+            shareTitleBar.setRightText(getString(R.string.add))
             shareTitleBar.setRightTextOnClickListener {
                 AddShareActivity.actionStart(this)
             }
@@ -60,7 +60,7 @@ class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
         setUserInfo(shareModel.coinInfo)
         viewModel.articleList.addAll(shareModel.shareArticles.datas)
         if (viewModel.articleList.size == 0) {
-            showNoContentView("没有数据")
+            showNoContentView(getString(R.string.no_data))
         }
         articleAdapter.notifyDataSetChanged()
     }
@@ -68,7 +68,8 @@ class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
     private fun setUserInfo(coinInfo: CoinInfo) {
         shareHeadLl.visibility = View.VISIBLE
         shareTvName.text = coinInfo.username
-        shareTvRank.text = "等级 ${coinInfo.level}  排名 ${coinInfo.rank}  积分 ${coinInfo.coinCount}"
+        shareTvRank.text =
+            getString(R.string.man_info, coinInfo.level, coinInfo.rank, coinInfo.coinCount)
     }
 
     override fun initView() {

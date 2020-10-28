@@ -16,6 +16,7 @@ import androidx.lifecycle.LiveData
 import com.blankj.utilcode.util.ConvertUtils
 import com.zj.core.R
 import com.zj.core.util.AndroidVersion
+import com.zj.core.util.showToast
 import java.lang.ref.WeakReference
 
 
@@ -116,7 +117,7 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle, BaseInit {
      * @param tip
      * 界面中的提示信息
      */
-    fun showLoadErrorView(tip: String = "加载数据失败") {
+    fun showLoadErrorView(tip: String = getString(R.string.failed_load_data)) {
         loadFinished()
         if (loadErrorView != null) {
             val loadErrorText = loadErrorView?.findViewById<TextView>(R.id.loadErrorText)
@@ -158,6 +159,7 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle, BaseInit {
                     showLoadErrorView()
                 }
             } else {
+                showToast(getString(R.string.bad_network_view_tip))
                 showBadNetworkView { initData() }
             }
         }

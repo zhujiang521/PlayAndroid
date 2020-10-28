@@ -29,7 +29,7 @@ class UserRankActivity : BaseListActivity() {
         rankAdapter = UserRankAdapter(this, R.layout.adapter_rank, viewModel.dataList)
         rankAdapter.setHasStableIds(true)
         baseListRecycleView.adapter = rankAdapter
-        baseListTitleBar.setTitle("我的积分")
+        baseListTitleBar.setTitle(getString(R.string.mine_points))
     }
 
     override fun isStaggeredGrid(): Boolean {

@@ -10,7 +10,7 @@
     <com.zj.core.util.TitleBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleName="新建分享" />
+        app:titleName="@string/add_share" />
 
     <EditText
         android:id="@+id/addShareEtTitle"
@@ -19,10 +19,11 @@
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_30"
         android:layout_marginBottom="@dimen/dp_10"
-        android:hint="请输入文章标题"
+        android:hint="@string/enter_article_title"
         android:lines="1"
         android:maxLines="1"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:textSize="@dimen/dp_14" />
 
     <EditText
         android:id="@+id/addShareEtLink"
@@ -30,7 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="start"
-        android:hint="请输入文章链接" />
+        android:hint="@string/enter_article_link"
+        android:textSize="@dimen/dp_14" />
 
     <Button
         android:id="@+id/addShareBtnAdd"
@@ -39,7 +41,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_20"
         android:background="@drawable/article_list_bg"
-        android:text="提交"
+        android:text="@string/submit"
         android:textColor="@color/text_color" />
 
 </LinearLayout>

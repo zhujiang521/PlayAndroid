@@ -98,10 +98,10 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
         val bottomDialogLlReload = dialogView.findViewById<LinearLayout>(R.id.bottomDialogLlReload)
         if (isCollection == 1) {
             bottomDialogIvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
-            bottomDialogTvCollect.text = "取消收藏"
+            bottomDialogTvCollect.text = getString(R.string.cancel_collection)
         } else {
             bottomDialogIvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
-            bottomDialogTvCollect.text = "收藏"
+            bottomDialogTvCollect.text = getString(R.string.collection)
         }
         bottomDialogLlCollect.setOnClickListener(this)
         bottomDialogLlCopy.setOnClickListener(this)
@@ -131,12 +131,12 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
             R.id.bottomDialogLlCollect -> {
                 bottomSheetDialog?.dismiss()
                 if (isCollection == -1 || pageId == -1) {
-                    showToast("当前页面不可收藏")
+                    showToast(getString(R.string.page_is_not_collection))
                     return
                 }
 
                 if (!Play.isLogin) {
-                    showToast("当前未登录")
+                    showToast(getString(R.string.not_currently_logged_in))
                     return
                 }
 
@@ -144,17 +144,17 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
                 if (isCollection != 1) {
                     isCollection = 1;
                     bottomDialogIvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
-                    bottomDialogTvCollect.text = "取消收藏"
+                    bottomDialogTvCollect.text = getString(R.string.cancel_collection)
                 } else {
                     isCollection = 0;
                     bottomDialogIvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
-                    bottomDialogTvCollect.text = "收藏"
+                    bottomDialogTvCollect.text = getString(R.string.collection)
                 }
             }
             R.id.bottomDialogLlCopy -> {
                 bottomSheetDialog?.dismiss()
                 ArticleUtils.copyToClipboard(this, pageUrl)
-                showToast("复制成功，可直接进行粘贴")
+                showToast(getString(R.string.copy_succeeded))
             }
             R.id.bottomDialogLlBrowser -> {
                 bottomSheetDialog?.dismiss()

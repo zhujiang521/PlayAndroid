@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.NetworkUtils
 import com.bumptech.glide.Glide
 import com.youth.banner.adapter.BannerAdapter
 import com.zj.core.util.showToast
+import com.zj.play.R
 import com.zj.play.room.entity.BannerBean
 import com.zj.play.view.article.ArticleActivity
 
@@ -53,7 +54,7 @@ open class ImageAdapter(private val mContext: Context, mData: List<BannerBean>) 
             .into(holder!!.imageView)
         holder.imageView.setOnClickListener {
             if (!NetworkUtils.isConnected()) {
-                showToast("当前网络不可用")
+                showToast(mContext.getString(R.string.no_network))
                 return@setOnClickListener
             }
             ArticleActivity.actionStart(mContext, data!!.title, data.url)

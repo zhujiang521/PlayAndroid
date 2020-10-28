@@ -11,7 +11,7 @@
         android:id="@+id/profileTitleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleName="我的" />
+        app:titleName="@string/mine" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -88,7 +88,7 @@
                     android:layout_gravity="center"
                     android:layout_marginVertical="@dimen/dp_20"
                     android:background="@drawable/btn_exit_login_bg"
-                    android:text="退出登录"
+                    android:text="@string/log_out"
                     android:textColor="@color/white"
                     android:textSize="@dimen/dp_13" />
 

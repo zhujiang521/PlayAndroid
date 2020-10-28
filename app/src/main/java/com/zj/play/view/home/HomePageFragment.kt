@@ -35,7 +35,7 @@ class HomePageFragment : ArticleCollectBaseFragment() {
     private var page = 1
 
     override fun initView() {
-        homeTitleBar.setRightText("搜索")
+        homeTitleBar.setRightText(getString(R.string.search))
         homeTitleBar.setRightTextOnClickListener {
             SearchActivity.actionStart(context!!)
         }

@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="@dimen/dp_35"
-                    android:hint="请输入账号"
+                    android:hint="@string/enter_name"
                     android:lines="1"
                     android:singleLine="true"
                     android:textColor="@color/white"
@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="@dimen/dp_35"
-                    android:hint="请输入密码"
+                    android:hint="@string/enter_password"
                     android:lines="1"
                     android:singleLine="true"
                     android:textColor="@color/white"
@@ -87,7 +87,7 @@
                     android:layout_marginTop="@dimen/dp_20"
                     android:layout_marginRight="@dimen/dp_35"
                     android:background="@drawable/btn_login_bg"
-                    android:text="登录"
+                    android:text="@string/login"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/dp_16" />
 
@@ -101,7 +101,7 @@
                     android:layout_marginRight="@dimen/dp_35"
                     android:layout_marginBottom="@dimen/dp_20"
                     android:background="@drawable/btn_login_bg"
-                    android:text="注册账号"
+                    android:text="@string/register_account"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/dp_15" />
 

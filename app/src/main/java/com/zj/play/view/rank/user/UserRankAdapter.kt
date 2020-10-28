@@ -16,9 +16,9 @@ class UserRankAdapter(context: Context, layoutId: Int, rankList: ArrayList<Ranks
         val rankAdTvCoinCount = holder.getView<TextView>(R.id.rankAdTvCoinCount)
         val rankAdTvLevel = holder.getView<TextView>(R.id.rankAdTvLevel)
         rankAdTvUsername.text = t.userName
-        rankAdTvRank.text = "增减原因：${t.reason}"
-        rankAdTvCoinCount.text = "积分${t.coinCount}"
-        rankAdTvLevel.text = "${t.desc}"
+        rankAdTvRank.text = mContext.getString(R.string.add_reason, t.reason)
+        rankAdTvCoinCount.text = mContext.getString(R.string.rank, t.coinCount)
+        rankAdTvLevel.text = t.desc
     }
 
     override fun getItemId(position: Int): Long {

@@ -77,10 +77,14 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 Play.setUserInfo(projectTree.nickname, projectTree.username)
                 ActivityCollector.finishAll()
                 MainActivity.actionStart(this)
-                showToast(if (isLogin) "登录成功" else "注册成功")
+                showToast(if (isLogin) getString(R.string.login_success) else getString(R.string.register_success))
                 LiveDataBus.get().getChannel(LOGIN_REFRESH).setValue(true);
             } else {
-                showToast(if (isLogin) "账号密码不匹配！" else "用户名已被注册！")
+                showToast(
+                    if (isLogin) getString(R.string.account_password_mismatch) else getString(
+                        R.string.user_name_already_registered
+                    )
+                )
             }
         }
     }
@@ -89,15 +93,15 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         mUserName = loginUserNumberEdit.text.toString()
         mPassWord = loginPassNumberEdit.text.toString()
         if (TextUtils.isEmpty(mUserName) || mUserName.length < 6) {
-            loginUserNumberEdit.error = "请输入正确的用户名格式"
+            loginUserNumberEdit.error = getString(R.string.enter_name_format)
             return false
         }
         if (TextUtils.isEmpty(mPassWord) || mPassWord.length < 6) {
-            loginPassNumberEdit.error = "请输入正确的密码格式"
+            loginPassNumberEdit.error = getString(R.string.enter_password_format)
             return false
         }
         if (!NetworkUtils.isConnected()) {
-            showToast("当前网络不可用")
+            showToast(getString(R.string.no_network))
             return false
         }
         return true

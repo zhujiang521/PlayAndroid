@@ -20,7 +20,6 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/dp_5"
         android:layout_weight="1"
-        android:text="标题"
         android:textColor="@color/text_color_dark"
         android:textSize="@dimen/dp_15" />
 

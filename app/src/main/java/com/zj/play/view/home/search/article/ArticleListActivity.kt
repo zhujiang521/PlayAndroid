@@ -2,7 +2,9 @@ package com.zj.play.view.home.search.article
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
+import com.zj.play.R
 import com.zj.play.view.article.ArticleAdapter
 import com.zj.play.view.base.BaseListActivity
 import kotlinx.android.synthetic.main.activity_base_list.*
@@ -17,8 +19,8 @@ class ArticleListActivity : BaseListActivity() {
     private lateinit var articleAdapter: ArticleAdapter
 
     override fun initData() {
-        super.initData()
         keyword = intent.getStringExtra(KEYWORD) ?: ""
+        super.initData()
         baseListTitleBar.setTitle(keyword)
         setDataStatus(viewModel.dataLiveData) {
             if (page == 1 && viewModel.dataList.size > 0) {
@@ -26,7 +28,7 @@ class ArticleListActivity : BaseListActivity() {
             }
             viewModel.dataList.addAll(it.datas)
             if (viewModel.dataList.size == 0) {
-                showNoContentView("没有关于 $keyword 的数据，请更换关键字搜索")
+                showNoContentView(getString(R.string.keyword_null, keyword))
             }
             articleAdapter.notifyDataSetChanged()
         }

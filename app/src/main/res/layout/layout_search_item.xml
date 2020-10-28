@@ -15,8 +15,7 @@
         android:paddingVertical="@dimen/dp_5"
         android:singleLine="true"
         android:textColor="@color/white"
-        android:textSize="@dimen/dp_13"
-        tools:text="测试" />
+        android:textSize="@dimen/dp_13" />
 
     <LinearLayout
         android:id="@+id/searchLlDelete"

@@ -54,7 +54,7 @@ class MainActivity : BaseActivity() {
 
     private fun exit() {
         if (System.currentTimeMillis() - exitTime > 2000) {
-            showToast("再按一次退出程序")
+            showToast(getString(R.string.exit_program))
             exitTime = System.currentTimeMillis()
         } else {
             exitProcess(0)

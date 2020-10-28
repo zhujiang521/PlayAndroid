@@ -77,7 +77,7 @@ class ArticleAdapter(
                     t.collect = !t.collect
                     setCollect(t, articleTvCollect)
                 } else {
-                    showToast("当前网络不可用")
+                    showToast(mContext.getString(R.string.no_network))
                 }
             } else {
                 LoginActivity.actionStart(mContext)
@@ -85,7 +85,7 @@ class ArticleAdapter(
         }
         articleLlItem.setOnClickListener {
             if (!NetworkUtils.isConnected()) {
-                showToast("当前网络不可用")
+                showToast(mContext.getString(R.string.no_network))
                 return@setOnClickListener
             }
             ArticleActivity.actionStart(
@@ -115,22 +115,22 @@ class ArticleAdapter(
                 if (cancelCollects.errorCode == 0) {
                     withContext(Dispatchers.Main) {
                         articleTvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
-                        showToast("取消收藏成功")
+                        showToast(mContext.getString(R.string.collection_cancelled_successfully))
                         articleDao.update(t)
                     }
                 } else {
-                    showToast("取消收藏失败")
+                    showToast(mContext.getString(R.string.failed_to_cancel_collection))
                 }
             } else {
                 val toCollects = CollectRepository.toCollects(t.id)
                 if (toCollects.errorCode == 0) {
                     withContext(Dispatchers.Main) {
                         articleTvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
-                        showToast("收藏成功")
+                        showToast(mContext.getString(R.string.collection_successful))
                         articleDao.update(t)
                     }
                 } else {
-                    showToast("收藏失败")
+                    showToast(mContext.getString(R.string.collection_failed))
                 }
 
             }

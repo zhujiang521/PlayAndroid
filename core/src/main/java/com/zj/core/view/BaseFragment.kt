@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import com.blankj.utilcode.util.ConvertUtils
 import com.zj.core.R
+import com.zj.core.util.showToast
 
 /**
  * 应用程序中所有Fragment的基类。
@@ -76,7 +77,7 @@ abstract class BaseFragment : Fragment(), RequestLifecycle, BaseInit {
      * @param tip
      * 界面中的提示信息
      */
-    private fun showLoadErrorView(tip: String = "加载数据失败") {
+    private fun showLoadErrorView(tip: String = getString(R.string.failed_load_data)) {
         loadFinished()
         if (loadErrorView != null) {
             loadErrorView?.visibility = View.VISIBLE
@@ -114,6 +115,7 @@ abstract class BaseFragment : Fragment(), RequestLifecycle, BaseInit {
                     showLoadErrorView()
                 }
             } else {
+                showToast(getString(R.string.bad_network_view_tip))
                 showBadNetworkView { initData() }
                 onBadNetwork.invoke()
             }

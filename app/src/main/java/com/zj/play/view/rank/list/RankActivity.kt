@@ -3,6 +3,7 @@ package com.zj.play.view.rank.list
 import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
+import com.zj.play.R
 import com.zj.play.view.base.BaseListActivity
 import kotlinx.android.synthetic.main.activity_base_list.*
 
@@ -25,7 +26,7 @@ class RankActivity : BaseListActivity() {
 
     override fun initView() {
         super.initView()
-        baseListTitleBar.setTitle("排行榜")
+        baseListTitleBar.setTitle(getString(R.string.ranking_list))
         rankAdapter = RankAdapter(this, viewModel.dataList)
         rankAdapter.setHasStableIds(true)
         baseListRecycleView.adapter = rankAdapter

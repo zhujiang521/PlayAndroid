@@ -49,20 +49,45 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
     private fun clearInfo() {
         profileBtnLogout.visibility = View.GONE
         profileIvHead.setBackgroundResource(R.drawable.img_nomal_head)
-        profileTvName.text = "未登录"
-        profileTvRank.text = "请点击进行登录"
+        profileTvName.text = getString(R.string.no_login)
+        profileTvRank.text = getString(R.string.click_login)
         ArticleBroadCast.sendArticleChangesReceiver(context!!)
     }
 
     override fun initData() {
         if (profileItemList.size == 0) {
-            profileItemList.add(ProfileItem("我的积分", R.drawable.ic_message_black_24dp))
-            profileItemList.add(ProfileItem("我的收藏", R.drawable.ic_collections_black_24dp))
-            profileItemList.add(ProfileItem("我的博客", R.drawable.ic_account_blog_black_24dp))
-            profileItemList.add(ProfileItem("浏览历史", R.drawable.ic_baseline_history_24))
-            profileItemList.add(ProfileItem("掘金", R.drawable.ic_bug_report_black_24dp))
+            profileItemList.add(
+                ProfileItem(
+                    getString(R.string.mine_points),
+                    R.drawable.ic_message_black_24dp
+                )
+            )
+            profileItemList.add(
+                ProfileItem(
+                    getString(R.string.my_collection),
+                    R.drawable.ic_collections_black_24dp
+                )
+            )
+            profileItemList.add(
+                ProfileItem(
+                    getString(R.string.mine_blog),
+                    R.drawable.ic_account_blog_black_24dp
+                )
+            )
+            profileItemList.add(
+                ProfileItem(
+                    getString(R.string.browsing_history),
+                    R.drawable.ic_baseline_history_24
+                )
+            )
+            profileItemList.add(
+                ProfileItem(
+                    getString(R.string.mine_nuggets),
+                    R.drawable.ic_bug_report_black_24dp
+                )
+            )
             profileItemList.add(ProfileItem("Github", R.drawable.ic_github_black_24dp))
-            profileItemList.add(ProfileItem("关于我", R.drawable.ic_account_circle_black_24dp))
+            profileItemList.add(ProfileItem(getString(R.string.about_me), R.drawable.ic_account_circle_black_24dp))
             profileAdapter.notifyDataSetChanged()
         }
     }
@@ -75,7 +100,8 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun setLogout() {
-        AlertDialog.Builder(context).setTitle("退出登录").setMessage("确定要退出登录吗？")
+        AlertDialog.Builder(context).setTitle(getString(R.string.log_out))
+            .setMessage(getString(R.string.sure_log_out))
             .setNegativeButton(
                 "取消"
             ) { dialog, _ -> dialog?.dismiss() }

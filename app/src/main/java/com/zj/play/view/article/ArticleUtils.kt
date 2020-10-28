@@ -7,6 +7,7 @@ import android.content.Intent
 import android.net.Uri
 import com.zj.core.Play
 import com.zj.core.util.showToast
+import com.zj.play.R
 import com.zj.play.network.CollectRepository
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -28,18 +29,18 @@ object ArticleUtils {
                 val cancelCollects =
                     CollectRepository.cancelCollects(if (originId != -1) originId else id)
                 if (cancelCollects.errorCode == 0) {
-                    showToast("取消收藏成功")
+                    showToast(context.getString(R.string.collection_cancelled_successfully))
                     ArticleBroadCast.sendArticleChangesReceiver(context)
                 } else {
-                    showToast("取消收藏失败")
+                    showToast(context.getString(R.string.failed_to_cancel_collection))
                 }
             } else {
                 val toCollects = CollectRepository.toCollects(id)
                 if (toCollects.errorCode == 0) {
-                    showToast("收藏成功")
+                    showToast(context.getString(R.string.collection_successful))
                     ArticleBroadCast.sendArticleChangesReceiver(context)
                 } else {
-                    showToast("收藏失败")
+                    showToast(context.getString(R.string.collection_failed))
                 }
 
             }

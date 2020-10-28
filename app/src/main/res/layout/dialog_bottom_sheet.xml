@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dp_3"
-                android:text="收藏"
+                android:text="@string/collection"
                 android:textColor="@color/text_color_dark"
                 android:textSize="@dimen/dp_12" />
 
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dp_3"
-                android:text="复制链接"
+                android:text="@string/copy_link"
                 android:textColor="@color/text_color_dark"
                 android:textSize="@dimen/dp_12" />
 
@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dp_3"
-                android:text="浏览器打开"
+                android:text="@string/browser_open"
                 android:textColor="@color/text_color_dark"
                 android:textSize="@dimen/dp_12" />
 
@@ -124,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dp_3"
-                android:text="三方分享"
+                android:text="@string/tripartite_sharing"
                 android:textColor="@color/text_color_dark"
                 android:textSize="@dimen/dp_12" />
 
@@ -162,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dp_3"
-                android:text="作者动态"
+                android:text="@string/author_trends"
                 android:textColor="@color/text_color_dark"
                 android:textSize="@dimen/dp_12" />
 
@@ -191,7 +191,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dp_3"
-                android:text="刷新"
+                android:text="@string/refresh"
                 android:textColor="@color/text_color_dark"
                 android:textSize="@dimen/dp_12" />
 

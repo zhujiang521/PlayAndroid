@@ -32,7 +32,7 @@
             android:drawableTop="@drawable/selector_one"
             android:drawablePadding="@dimen/dp_3"
             android:gravity="center"
-            android:text="首页"
+            android:text="@string/home_page"
             android:textColor="@color/color_bottom_tv"
             android:textSize="@dimen/sp_11" />
 
@@ -46,7 +46,7 @@
             android:drawableTop="@drawable/selector_two"
             android:drawablePadding="@dimen/dp_3"
             android:gravity="center"
-            android:text="项目"
+            android:text="@string/project"
             android:textColor="@color/color_bottom_tv"
             android:textSize="@dimen/sp_11" />
 
@@ -59,7 +59,7 @@
             android:drawableTop="@drawable/selector_three"
             android:drawablePadding="@dimen/dp_3"
             android:gravity="center"
-            android:text="公众号"
+            android:text="@string/official_account"
             android:textColor="@color/color_bottom_tv"
             android:textSize="@dimen/sp_11" />
 
@@ -72,7 +72,7 @@
             android:drawableTop="@drawable/selector_four"
             android:drawablePadding="@dimen/dp_3"
             android:gravity="center"
-            android:text="我的"
+            android:text="@string/mine"
             android:textColor="@color/color_bottom_tv"
             android:textSize="@dimen/sp_11" />
 

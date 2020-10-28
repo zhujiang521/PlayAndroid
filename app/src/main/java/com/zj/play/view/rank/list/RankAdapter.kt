@@ -23,9 +23,9 @@ class RankAdapter(
         val rankAdTvCoinCount = holder.getView<TextView>(R.id.rankAdTvCoinCount)
         val rankAdTvLevel = holder.getView<TextView>(R.id.rankAdTvLevel)
         rankAdTvUsername.text = t.username
-        rankAdTvRank.text = "第${t.rank}名"
-        rankAdTvCoinCount.text = "${t.coinCount}积分"
-        rankAdTvLevel.text = "${t.level}级"
+        rankAdTvRank.text = mContext.getString(R.string.ranking, t.rank)
+        rankAdTvCoinCount.text = mContext.getString(R.string.coin, t.coinCount)
+        rankAdTvLevel.text = mContext.getString(R.string.lever, t.level)
         rankAdRlItem.setOnClickListener {
             ShareActivity.actionStart(mContext, false, t.userId)
         }

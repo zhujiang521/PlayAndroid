@@ -63,7 +63,7 @@ class CollectAdapter(
         }
         articleLlItem.setOnClickListener {
             if (!NetworkUtils.isConnected()) {
-                showToast("当前网络不可用")
+                showToast(mContext.getString(R.string.no_network))
                 return@setOnClickListener
             }
             ArticleActivity.actionStart(
@@ -83,10 +83,10 @@ class CollectAdapter(
             val cancelCollects = CollectRepository.cancelCollects(id)
             withContext(Dispatchers.Main) {
                 if (cancelCollects.errorCode == 0) {
-                    showToast("取消收藏成功")
+                    showToast(mContext.getString(R.string.collection_cancelled_successfully))
                     notifyItemRemoved(position)
                 } else {
-                    showToast("取消收藏失败")
+                    showToast(mContext.getString(R.string.failed_to_cancel_collection))
                 }
             }
         }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import com.zj.core.util.showToast
+import com.zj.play.R
 import com.zj.play.view.article.ArticleAdapter
 import com.zj.play.view.base.BaseListActivity
 import kotlinx.android.synthetic.main.activity_base_list.*
@@ -22,7 +23,7 @@ class BrowseHistoryActivity : BaseListActivity() {
         )
         articleAdapter.setHasStableIds(true)
         baseListRecycleView.adapter = articleAdapter
-        baseListTitleBar.setTitle("浏览历史")
+        baseListTitleBar.setTitle(getString(R.string.browsing_history))
     }
 
     override fun isStaggeredGrid(): Boolean {
@@ -53,9 +54,9 @@ class BrowseHistoryActivity : BaseListActivity() {
                 }
             } else {
                 if (viewModel.dataList.size <= 0) {
-                    showNoContentView("当前无历史浏览记录")
+                    showNoContentView(getString(R.string.no_browsing_history))
                 } else {
-                    showToast("没有更多数据")
+                    showToast(getString(R.string.no_more_data))
                     loadFinished()
                 }
             }

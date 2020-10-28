@@ -43,45 +43,45 @@ class ProfileAdapter(
 
     private fun toJump(title: String) {
         when (title) {
-            "我的积分" -> {
+            mContext.getString(R.string.mine_points) -> {
                 if (Play.isLogin) {
                     UserRankActivity.actionStart(mContext)
                 } else {
                     LoginActivity.actionStart(mContext)
                 }
             }
-            "我的收藏" -> {
+            mContext.getString(R.string.my_collection) -> {
                 if (Play.isLogin) {
                     CollectListActivity.actionStart(mContext)
                 } else {
                     LoginActivity.actionStart(mContext)
                 }
             }
-            "我的博客" -> {
+            mContext.getString(R.string.mine_blog) -> {
                 ArticleActivity.actionStart(
                     mContext,
-                    "我的博客",
+                    mContext.getString(R.string.mine_blog),
                     "https://zhujiang.blog.csdn.net/"
                 )
             }
-            "浏览历史" -> {
+            mContext.getString(R.string.browsing_history) -> {
                 BrowseHistoryActivity.actionStart(mContext)
             }
-            "掘金" -> {
+            mContext.getString(R.string.mine_nuggets) -> {
                 ArticleActivity.actionStart(
                     mContext,
-                    "掘金",
+                    mContext.getString(R.string.mine_nuggets),
                     "https://juejin.im/user/5c07e51de51d451de84324d5"
                 )
             }
-            "Github" -> {
+            mContext.getString(R.string.github) -> {
                 ArticleActivity.actionStart(
                     mContext,
-                    "我的Github",
+                    mContext.getString(R.string.mine_github),
                     "https://github.com/zhujiang521"
                 )
             }
-            "关于我" -> {
+            mContext.getString(R.string.about_me) -> {
                 UserActivity.actionStart(mContext)
             }
         }

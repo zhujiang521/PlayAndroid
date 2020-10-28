@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:backImageVisiable="true"
-        app:titleName="我的分享" />
+        app:titleName="@string/my_share" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,7 +50,6 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginBottom="@dimen/dp_20"
-                android:text="等级 9  排名 984  积分 1020"
                 android:textColor="@color/white"
                 android:textSize="@dimen/dp_15" />
 

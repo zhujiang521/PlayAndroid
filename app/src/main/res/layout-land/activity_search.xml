@@ -50,7 +50,7 @@
                 android:paddingTop="@dimen/dp_14"
                 android:paddingEnd="@dimen/dp_7"
                 android:paddingBottom="@dimen/dp_14"
-                android:text="搜索"
+                android:text="@string/search"
                 android:textColor="@color/text_click_color"
                 android:textSize="@dimen/dp_14"
                 tools:ignore="RtlSymmetry" />

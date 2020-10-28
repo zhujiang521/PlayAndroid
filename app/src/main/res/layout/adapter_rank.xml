@@ -20,8 +20,7 @@
         android:id="@+id/rankAdTvRank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:text="第31名"
+        android:layout_alignParentEnd="true"
         android:textColor="@color/text_color_dark"
         android:textSize="@dimen/dp_14" />
 
@@ -31,7 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/rankAdTvUsername"
         android:layout_marginTop="@dimen/dp_5"
-        android:text="6738积分"
         android:textColor="@color/text_color_dark"
         android:textSize="@dimen/dp_14" />
 
@@ -40,9 +38,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/rankAdTvRank"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/dp_5"
-        android:text="68级"
         android:textColor="@color/text_color_dark"
         android:textSize="@dimen/dp_14" />
 

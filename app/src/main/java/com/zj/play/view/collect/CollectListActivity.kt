@@ -3,6 +3,7 @@ package com.zj.play.view.collect
 import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
+import com.zj.play.R
 import com.zj.play.view.base.BaseListActivity
 import kotlinx.android.synthetic.main.activity_base_list.*
 
@@ -14,7 +15,7 @@ class CollectListActivity : BaseListActivity() {
 
     override fun initData() {
         super.initData()
-        baseListTitleBar.setTitle("我的收藏")
+        baseListTitleBar.setTitle(getString(R.string.my_collection))
         setDataStatus(viewModel.dataLiveData) {
             if (page == 1 && viewModel.dataList.size > 0) {
                 viewModel.dataList.clear()
