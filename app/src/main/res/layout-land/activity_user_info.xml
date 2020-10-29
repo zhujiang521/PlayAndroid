@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dp_15"
-                android:text="只要开始，永远不晚。只要努力，就有可能。"
+                android:text="@string/motto"
                 android:textColor="@color/white"
                 android:textSize="@dimen/dp_14" />
 
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dp_30"
-                android:text="下面是我的公众号，想关注就赶快扫码吧！！！"
+                android:text="@string/we_chat_official_account"
                 android:textColor="@color/yellow"
                 android:textSize="@dimen/dp_15" />
 

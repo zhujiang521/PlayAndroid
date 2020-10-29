@@ -31,6 +31,7 @@
 	<string name="click_login">请点击进行登录</string>
 	<string name="search">搜索</string>
 	<string name="keyword_not_null">搜索关键字不能为空</string>
+	<string name="please_enter_keywords">请输入关键字</string>
 	<string name="keyword_null">没有关于  %s  的数据，请更换关键字搜索</string>
 	<string name="home_page">首页</string>
 	<string name="project">项目</string>
@@ -63,4 +64,6 @@
 	<string name="ranking">第%s名</string>
 	<string name="coin">%d积分</string>
 	<string name="lever">%d级</string>
+	<string name="motto">只要开始，永远不晚。只要努力，就有可能</string>
+	<string name="we_chat_official_account">下面是我的微信公众号，想关注就赶快扫码吧！！！</string>
 </resources>

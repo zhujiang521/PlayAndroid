@@ -33,13 +33,14 @@
                 android:layout_marginHorizontal="@dimen/dp_5"
                 android:layout_weight="1"
                 android:background="@drawable/edit_gray_radus"
-                android:hint="请输入关键字"
+                android:hint="@string/please_enter_keywords"
                 android:maxLines="1"
                 android:paddingStart="@dimen/dp_5"
                 android:singleLine="true"
                 android:textColor="@color/white"
                 android:textColorHint="@color/gray"
-                android:textSize="@dimen/dp_13" />
+                android:textSize="@dimen/dp_13"
+                tools:ignore="RtlSymmetry" />
 
             <TextView
                 android:id="@+id/searchTxtRight"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/articleLlItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,9 +13,9 @@
         android:id="@+id/articleTvAuthor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="作者"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/dp_13" />
+        android:textSize="@dimen/dp_13"
+        tools:text="作者" />
 
     <TextView
         android:id="@+id/articleTvNew"
@@ -22,9 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dp_5"
         android:layout_toEndOf="@id/articleTvAuthor"
-        android:text="最新"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/dp_13" />
+        android:textSize="@dimen/dp_13"
+        tools:text="最新" />
 
     <TextView
         android:id="@+id/articleTvTop"
@@ -32,9 +33,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dp_5"
         android:layout_toEndOf="@id/articleTvNew"
-        android:text="置顶"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/dp_13" />
+        android:textSize="@dimen/dp_13"
+        tools:text="置顶" />
 
     <TextView
         android:id="@+id/articleTvTime"
@@ -42,9 +43,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_marginHorizontal="@dimen/dp_5"
-        android:text="发布时间"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/dp_13" />
+        android:textSize="@dimen/dp_13"
+        tools:text="发布时间" />
 
 
     <LinearLayout
@@ -60,10 +61,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="文章标题很长很长"
             android:textColor="@color/text_color_black"
             android:textSize="@dimen/dp_15"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="文章标题很长很长" />
 
         <ImageView
             android:id="@+id/articleIvImg"
@@ -83,9 +84,9 @@
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_4"
         android:gravity="center"
-        android:text="分类"
         android:textColor="@color/red_btn_bg_color"
-        android:textSize="@dimen/dp_13" />
+        android:textSize="@dimen/dp_13"
+        tools:text="分类" />
 
     <ImageView
         android:id="@+id/articleIvCollect"

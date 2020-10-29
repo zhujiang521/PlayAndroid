@@ -63,4 +63,7 @@
 	<string name="ranking">第%s名</string>
 	<string name="coin">%d積分</string>
 	<string name="lever">%d級</string>
+	<string name="please_enter_keywords">請輸入關鍵字</string>
+	<string name="motto">只要開始，永遠不晚。只要努力，就有可能</string>
+	<string name="we_chat_official_account">下面是我的微信公眾號，想關註就趕快掃碼吧！！！</string>
 </resources>

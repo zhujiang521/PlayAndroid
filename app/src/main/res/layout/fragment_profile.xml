@@ -42,9 +42,9 @@
                     android:layout_marginStart="@dimen/dp_20"
                     android:layout_marginTop="@dimen/dp_58"
                     android:layout_toEndOf="@id/profileIvHead"
-                    android:text="Zhujiang"
                     android:textColor="@color/text_click_color"
-                    android:textSize="@dimen/dp_17" />
+                    android:textSize="@dimen/dp_17"
+                    tools:text="Zhujiang" />
 
                 <TextView
                     android:id="@+id/profileTvRank"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -29,12 +30,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:drawableTop="@drawable/selector_one"
             android:drawablePadding="@dimen/dp_3"
             android:gravity="center"
             android:text="@string/home_page"
             android:textColor="@color/color_bottom_tv"
-            android:textSize="@dimen/sp_11" />
+            android:textSize="@dimen/sp_11"
+            app:drawableTopCompat="@drawable/selector_one" />
 
 
         <TextView
@@ -43,12 +44,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:drawableTop="@drawable/selector_two"
             android:drawablePadding="@dimen/dp_3"
             android:gravity="center"
             android:text="@string/project"
             android:textColor="@color/color_bottom_tv"
-            android:textSize="@dimen/sp_11" />
+            android:textSize="@dimen/sp_11"
+            app:drawableTopCompat="@drawable/selector_two" />
 
         <TextView
             android:id="@+id/llHomeATObject"
@@ -56,12 +57,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:drawableTop="@drawable/selector_three"
             android:drawablePadding="@dimen/dp_3"
             android:gravity="center"
             android:text="@string/official_account"
             android:textColor="@color/color_bottom_tv"
-            android:textSize="@dimen/sp_11" />
+            android:textSize="@dimen/sp_11"
+            app:drawableTopCompat="@drawable/selector_three" />
 
         <TextView
             android:id="@+id/llHomeATMy"
@@ -69,12 +70,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:drawableTop="@drawable/selector_four"
             android:drawablePadding="@dimen/dp_3"
             android:gravity="center"
             android:text="@string/mine"
             android:textColor="@color/color_bottom_tv"
-            android:textSize="@dimen/sp_11" />
+            android:textSize="@dimen/sp_11"
+            app:drawableTopCompat="@drawable/selector_four" />
 
     </LinearLayout>
 

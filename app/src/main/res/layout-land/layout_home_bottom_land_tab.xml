@@ -35,7 +35,8 @@
             android:src="@drawable/selector_one"
             app:backgroundTint="@color/floatBackground"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="@string/home_page" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabRepo"
@@ -46,7 +47,8 @@
             android:src="@drawable/selector_two"
             app:backgroundTint="@color/floatBackground"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="@string/project" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabProject"
@@ -57,7 +59,8 @@
             android:src="@drawable/selector_three"
             app:backgroundTint="@color/floatBackground"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="@string/official_account" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabProfile"
@@ -68,7 +71,8 @@
             android:src="@drawable/selector_four"
             app:backgroundTint="@color/floatBackground"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="@string/mine" />
 
     </com.cpacm.FloatingMusicMenu>
 

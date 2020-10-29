@@ -32,7 +32,7 @@
                 android:layout_height="@dimen/dp_30"
                 android:layout_weight="1"
                 android:background="@drawable/edit_gray_radus"
-                android:hint="请输入关键字"
+                android:hint="@string/please_enter_keywords"
                 android:paddingStart="@dimen/dp_5"
                 android:singleLine="true"
                 android:maxLines="1"
