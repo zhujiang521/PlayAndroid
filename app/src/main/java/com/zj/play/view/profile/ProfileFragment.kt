@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.core.Play
 import com.zj.core.Play.logout
+import com.zj.core.util.Preference
 import com.zj.core.view.BaseFragment
 import com.zj.play.R
 import com.zj.play.network.AccountRepository
@@ -107,6 +108,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
             ) { dialog, _ -> dialog?.dismiss() }
             .setPositiveButton("确定") { dialog, _ ->
                 dialog?.dismiss()
+                Preference.clear()
                 clearInfo()
                 logout()
                 AccountRepository.getLogout()
