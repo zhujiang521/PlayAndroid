@@ -51,9 +51,6 @@ fun <T> fires(block: suspend () -> BaseModel<T>) =
 
 fun <T> fire(block: suspend () -> Result<T>) =
     liveData {
-//        val result = kotlin.runCatching {
-//            block()
-//        }
         val result = try {
             block()
         } catch (e: Exception) {

@@ -35,21 +35,21 @@ class AddShareActivity : BaseActivity(), View.OnClickListener {
     private fun addShare() {
         val title = addShareEtTitle.text.toString().trim()
         if (TextUtils.isEmpty(title) || title == "") {
-            addShareEtTitle.error = "标题不能为空"
+            addShareEtTitle.error = getString(R.string.title_cannot_empty)
             return
         }
         val link = addShareEtLink.text.toString().trim()
         if (TextUtils.isEmpty(link) || link == "") {
-            addShareEtLink.error = "链接不能为空"
+            addShareEtLink.error = getString(R.string.link_cannot_empty)
             return
         }
         if (!RegexUtils.isURL(link)) {
-            addShareEtLink.error = "链接格式输入错误"
+            addShareEtLink.error = getString(R.string.link_format_error)
             return
         }
         ShareRepository.shareArticle(title, link).observe(this, {
             if (it.isSuccess) {
-                showToast("分享成功")
+                showToast(getString(R.string.share_success))
                 finish()
             }
         })

@@ -64,6 +64,13 @@
     <string name="coin">%d積分</string>
     <string name="lever">%d級</string>
     <string name="please_enter_keywords">請輸入關鍵字</string>
-    <string name="motto">只要開始，永遠不晚。只要努力，就有可能</string>
     <string name="we_chat_official_account">下面是我的微信公眾號，想關註就趕快掃碼吧！！！</string>
+    <string name="motto">只要開始，永遠不晚。只要努力，就有可能</string>
+    <string name="cancel">取消</string>
+    <string name="sure">確定</string>
+    <string name="title_cannot_empty">標題不能為空</string>
+    <string name="link_cannot_empty">鏈接不能為空</string>
+    <string name="link_format_error">鏈接格式輸入錯誤</string>
+    <string name="share_success">分享成功</string>
+    <string name="no_app">沒有安裝支持打開此網頁的應用!</string>
 </resources>

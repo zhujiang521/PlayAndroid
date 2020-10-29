@@ -115,7 +115,7 @@ fun encodeCookie(cookies: List<String>): String {
         .map { cookie ->
             cookie.split(";".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         }
-        .forEach {
+        .forEach { it ->
             it.filterNot { set.contains(it) }.forEach { set.add(it) }
         }
 

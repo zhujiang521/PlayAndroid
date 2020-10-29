@@ -87,8 +87,18 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
                     R.drawable.ic_bug_report_black_24dp
                 )
             )
-            profileItemList.add(ProfileItem("Github", R.drawable.ic_github_black_24dp))
-            profileItemList.add(ProfileItem(getString(R.string.about_me), R.drawable.ic_account_circle_black_24dp))
+            profileItemList.add(
+                ProfileItem(
+                    getString(R.string.github),
+                    R.drawable.ic_github_black_24dp
+                )
+            )
+            profileItemList.add(
+                ProfileItem(
+                    getString(R.string.about_me),
+                    R.drawable.ic_account_circle_black_24dp
+                )
+            )
             profileAdapter.notifyDataSetChanged()
         }
     }
@@ -104,9 +114,9 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
         AlertDialog.Builder(context).setTitle(getString(R.string.log_out))
             .setMessage(getString(R.string.sure_log_out))
             .setNegativeButton(
-                "取消"
+                getString(R.string.cancel)
             ) { dialog, _ -> dialog?.dismiss() }
-            .setPositiveButton("确定") { dialog, _ ->
+            .setPositiveButton(getString(R.string.sure)) { dialog, _ ->
                 dialog?.dismiss()
                 Preference.clear()
                 clearInfo()

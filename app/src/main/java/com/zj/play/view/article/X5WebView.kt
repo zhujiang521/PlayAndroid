@@ -152,7 +152,7 @@ class X5WebView : WebView {
                     intent.data = Uri.parse(url)
                     view.context.startActivity(intent)
                 } catch (e: ActivityNotFoundException) {
-                    showToast("手机还没有安装支持打开此网页的应用！")
+                    showToast(context.getString(R.string.no_app))
                 }
                 true
             }

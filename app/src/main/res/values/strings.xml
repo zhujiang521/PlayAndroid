@@ -60,10 +60,18 @@
     <string name="add_reason">Reason %s</string>
     <string name="rank">%d points</string>
     <string name="ranking_list">Leaderboard</string>
-    <string name="ranking">The first% s name</string>
+    <string name="ranking">The first %s name</string>
     <string name="coin">%d points</string>
     <string name="lever">%d level</string>
     <string name="please_enter_keywords">Please enter keywords</string>
     <string name="we_chat_official_account">Here is my WeChat official account. I want to pay attention to it.</string>
     <string name="motto">As long as you start, it\'s never too late. As long as you work hard, it\'s possible</string>
+    <string name="cancel">Cancel</string>
+    <string name="sure">Sure</string>
+
+    <string name="title_cannot_empty">Title cannot be empty</string>
+    <string name="link_cannot_empty">Link cannot be empty</string>
+    <string name="link_format_error">Link format input error</string>
+    <string name="share_success">Share success</string>
+    <string name="no_app">There are no apps installed that support opening this page!</string>
 </resources>

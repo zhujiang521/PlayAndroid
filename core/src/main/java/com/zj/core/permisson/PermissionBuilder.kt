@@ -99,7 +99,7 @@ class PermissionBuilder internal constructor(private val activity: FragmentActiv
      * If you need to show request permission rationale, chain this method in your request syntax.
      * [onExplainRequestReason] will be called before permission request.
      */
-    fun explainReasonBeforeRequest(): PermissionBuilder {
+    private fun explainReasonBeforeRequest(): PermissionBuilder {
         explainReasonBeforeRequest = true
         return this
     }
