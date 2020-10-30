@@ -2,10 +2,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_55"
+    android:layout_height="55dp"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    android:paddingTop="@dimen/dp_18">
+    android:paddingTop="18dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,21 +14,21 @@
 
         <ImageView
             android:id="@+id/imgBack"
-            android:layout_width="@dimen/dp_40"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:paddingTop="@dimen/dp_8"
-            android:paddingBottom="@dimen/dp_8"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:backgroundTint="@color/white"
             android:src="@drawable/img_back" />
 
         <ImageView
             android:id="@+id/imgRight"
-            android:layout_width="@dimen/dp_40"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:paddingHorizontal="@dimen/dp_8"
+            android:paddingHorizontal="8dp"
             android:visibility="gone" />
 
         <TextView
@@ -38,7 +38,7 @@
             android:layout_centerInParent="true"
             android:text="玩安卓"
             android:textColor="@color/color_FFFFFF"
-            android:textSize="@dimen/dp_16" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/txtRight"
@@ -47,9 +47,9 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:padding="@dimen/dp_8"
+            android:padding="8dp"
             android:textColor="@color/text_click_color"
-            android:textSize="@dimen/sp_14"
+            android:textSize="14sp"
             android:visibility="gone"
             tools:ignore="RtlSymmetry" />
 

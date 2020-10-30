@@ -12,8 +12,8 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="@dimen/dp_74"
-            android:layout_height="@dimen/dp_88"
+            android:layout_width="74dp"
+            android:layout_height="88dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/bad_network_image" />
 
@@ -22,10 +22,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dp_20"
-            android:layout_marginBottom="@dimen/dp_20"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:textColor="@color/secondary_text"
-            android:textSize="@dimen/sp_13"
+            android:textSize="13sp"
             tools:text="@string/failed_load_data" />
 
     </LinearLayout>

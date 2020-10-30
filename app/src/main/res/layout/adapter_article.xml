@@ -4,37 +4,37 @@
     android:id="@+id/articleLlItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/dp_5"
-    android:layout_marginTop="@dimen/dp_5"
+    android:layout_marginHorizontal="5dp"
+    android:layout_marginTop="5dp"
     android:background="@drawable/article_list_bg"
-    android:padding="@dimen/dp_10">
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/articleTvAuthor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/dp_13"
+        android:textSize="13sp"
         tools:text="作者" />
 
     <TextView
         android:id="@+id/articleTvNew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dp_5"
+        android:layout_marginHorizontal="5dp"
         android:layout_toEndOf="@id/articleTvAuthor"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/dp_13"
+        android:textSize="13sp"
         tools:text="最新" />
 
     <TextView
         android:id="@+id/articleTvTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dp_5"
+        android:layout_marginHorizontal="5dp"
         android:layout_toEndOf="@id/articleTvNew"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/dp_13"
+        android:textSize="13sp"
         tools:text="置顶" />
 
     <TextView
@@ -42,9 +42,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_marginHorizontal="@dimen/dp_5"
+        android:layout_marginHorizontal="5dp"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/dp_13"
+        android:textSize="13sp"
         tools:text="发布时间" />
 
 
@@ -53,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/articleTvAuthor"
-        android:layout_marginTop="@dimen/dp_4"
+        android:layout_marginTop="4dp"
         android:orientation="horizontal">
 
         <TextView
@@ -62,14 +62,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="@color/text_color_black"
-            android:textSize="@dimen/dp_15"
+            android:textSize="15sp"
             android:textStyle="bold"
             tools:text="文章标题很长很长" />
 
         <ImageView
             android:id="@+id/articleIvImg"
-            android:layout_width="@dimen/dp_70"
-            android:layout_height="@dimen/dp_70"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:visibility="gone" />
 
     </LinearLayout>
@@ -82,20 +82,20 @@
         android:layout_below="@id/articleLlTitle"
         android:layout_centerVertical="true"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_4"
+        android:layout_marginTop="4dp"
         android:gravity="center"
         android:textColor="@color/red_btn_bg_color"
-        android:textSize="@dimen/dp_13"
+        android:textSize="13sp"
         tools:text="分类" />
 
     <ImageView
         android:id="@+id/articleIvCollect"
-        android:layout_width="@dimen/dp_20"
-        android:layout_height="@dimen/dp_20"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_below="@id/articleLlTitle"
         android:layout_alignParentEnd="true"
-        android:layout_marginHorizontal="@dimen/dp_5"
-        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginTop="8dp"
         android:src="@color/red_btn_bg_color" />
 
 </RelativeLayout>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -16,12 +17,12 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_0_1"
+        android:layout_height="0.1dp"
         android:background="@color/text_color" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_55"
+        android:layout_height="55dp"
         android:orientation="horizontal">
 
         <TextView
@@ -30,12 +31,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:drawablePadding="@dimen/dp_3"
+            android:drawablePadding="3dp"
             android:gravity="center"
             android:text="@string/home_page"
             android:textColor="@color/color_bottom_tv"
-            android:textSize="@dimen/sp_11"
-            app:drawableTopCompat="@drawable/selector_one" />
+            android:textSize="11sp"
+            app:drawableTopCompat="@drawable/selector_one"
+            tools:ignore="SmallSp" />
 
 
         <TextView
@@ -44,12 +46,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:drawablePadding="@dimen/dp_3"
+            android:drawablePadding="3dp"
             android:gravity="center"
             android:text="@string/project"
             android:textColor="@color/color_bottom_tv"
-            android:textSize="@dimen/sp_11"
-            app:drawableTopCompat="@drawable/selector_two" />
+            android:textSize="11sp"
+            app:drawableTopCompat="@drawable/selector_two"
+            tools:ignore="SmallSp" />
 
         <TextView
             android:id="@+id/llHomeATObject"
@@ -57,12 +60,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:drawablePadding="@dimen/dp_3"
+            android:drawablePadding="3dp"
             android:gravity="center"
             android:text="@string/official_account"
             android:textColor="@color/color_bottom_tv"
-            android:textSize="@dimen/sp_11"
-            app:drawableTopCompat="@drawable/selector_three" />
+            android:textSize="11sp"
+            app:drawableTopCompat="@drawable/selector_three"
+            tools:ignore="SmallSp" />
 
         <TextView
             android:id="@+id/llHomeATMy"
@@ -70,12 +74,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:drawablePadding="@dimen/dp_3"
+            android:drawablePadding="3dp"
             android:gravity="center"
             android:text="@string/mine"
             android:textColor="@color/color_bottom_tv"
-            android:textSize="@dimen/sp_11"
-            app:drawableTopCompat="@drawable/selector_four" />
+            android:textSize="11sp"
+            app:drawableTopCompat="@drawable/selector_four"
+            tools:ignore="SmallSp" />
 
     </LinearLayout>
 

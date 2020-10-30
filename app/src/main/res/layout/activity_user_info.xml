@@ -16,45 +16,45 @@
         app:titleName="@string/about_me" />
 
     <com.zj.core.view.RoundImageView
-        android:layout_width="@dimen/dp_70"
-        android:layout_height="@dimen/dp_70"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginTop="20dp"
         android:src="@drawable/ic_head" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginTop="15dp"
         android:text="ZhuJiang"
         android:textColor="@color/white"
-        android:textSize="@dimen/dp_15" />
+        android:textSize="15sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_margin="10dp"
         android:text="@string/motto"
         android:textColor="@color/white"
-        android:textSize="@dimen/dp_14" />
+        android:textSize="14sp" />
 
 
     <TextView
-        android:layout_width="@dimen/dp_200"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginTop="30dp"
         android:text="@string/we_chat_official_account"
         android:textColor="@color/yellow"
-        android:textSize="@dimen/dp_15" />
+        android:textSize="15sp" />
 
     <com.zj.core.view.RoundImageView
-        android:layout_width="@dimen/dp_200"
-        android:layout_height="@dimen/dp_200"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginTop="20dp"
         android:src="@drawable/we_chart_mark" />
 
 </LinearLayout>

@@ -7,7 +7,7 @@
     android:layout_gravity="center_horizontal"
     android:background="@color/grayWhite"
     android:orientation="vertical"
-    android:paddingVertical="@dimen/dp_20">
+    android:paddingVertical="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,10 +25,10 @@
 
             <ImageView
                 android:id="@+id/bottomDialogIvCollect"
-                android:layout_width="@dimen/dp_48"
-                android:layout_height="@dimen/dp_48"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:background="@drawable/bottom_item"
-                android:padding="@dimen/dp_11"
+                android:padding="11dp"
                 android:src="@drawable/ic_favorite_black_24dp" />
 
             <TextView
@@ -36,10 +36,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dp_3"
+                android:layout_marginTop="3dp"
                 android:text="@string/collection"
                 android:textColor="@color/text_color_dark"
-                android:textSize="@dimen/dp_12" />
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -54,10 +54,10 @@
 
             <ImageView
                 android:id="@+id/bottomDialogIvCopy"
-                android:layout_width="@dimen/dp_48"
-                android:layout_height="@dimen/dp_48"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:background="@drawable/bottom_item"
-                android:padding="@dimen/dp_12"
+                android:padding="12dp"
                 android:src="@drawable/ic_collections_black_24dp" />
 
             <TextView
@@ -65,10 +65,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dp_3"
+                android:layout_marginTop="3dp"
                 android:text="@string/copy_link"
                 android:textColor="@color/text_color_dark"
-                android:textSize="@dimen/dp_12" />
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -83,10 +83,10 @@
 
             <ImageView
                 android:id="@+id/bottomDialogIvBrowser"
-                android:layout_width="@dimen/dp_48"
-                android:layout_height="@dimen/dp_48"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:background="@drawable/bottom_item"
-                android:padding="@dimen/dp_12"
+                android:padding="12dp"
                 android:src="@drawable/ic_account_blog_black_24dp" />
 
             <TextView
@@ -94,10 +94,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dp_3"
+                android:layout_marginTop="3dp"
                 android:text="@string/browser_open"
                 android:textColor="@color/text_color_dark"
-                android:textSize="@dimen/dp_12" />
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -112,10 +112,10 @@
 
             <ImageView
                 android:id="@+id/bottomDialogIvShare"
-                android:layout_width="@dimen/dp_48"
-                android:layout_height="@dimen/dp_48"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:background="@drawable/bottom_item"
-                android:padding="@dimen/dp_12"
+                android:padding="12dp"
                 android:src="@drawable/ic_bug_report_black_24dp" />
 
             <TextView
@@ -123,10 +123,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dp_3"
+                android:layout_marginTop="3dp"
                 android:text="@string/tripartite_sharing"
                 android:textColor="@color/text_color_dark"
-                android:textSize="@dimen/dp_12" />
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -135,7 +135,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_12"
+        android:layout_marginTop="12dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -149,10 +149,10 @@
 
             <ImageView
                 android:id="@+id/bottomDialogIvDynamic"
-                android:layout_width="@dimen/dp_48"
-                android:layout_height="@dimen/dp_48"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:background="@drawable/bottom_item"
-                android:padding="@dimen/dp_9"
+                android:padding="9dp"
                 android:src="@drawable/ic_github_black_24dp"
                 app:tint="@color/colorAccent" />
 
@@ -161,10 +161,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dp_3"
+                android:layout_marginTop="3dp"
                 android:text="@string/author_trends"
                 android:textColor="@color/text_color_dark"
-                android:textSize="@dimen/dp_12" />
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -179,10 +179,10 @@
 
             <ImageView
                 android:id="@+id/bottomDialogIvReload"
-                android:layout_width="@dimen/dp_48"
-                android:layout_height="@dimen/dp_48"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:background="@drawable/bottom_item"
-                android:padding="@dimen/dp_9"
+                android:padding="9dp"
                 android:src="@drawable/ic_github_black_24dp" />
 
             <TextView
@@ -190,10 +190,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dp_3"
+                android:layout_marginTop="3dp"
                 android:text="@string/refresh"
                 android:textColor="@color/text_color_dark"
-                android:textSize="@dimen/dp_12" />
+                android:textSize="12sp" />
 
         </LinearLayout>
 

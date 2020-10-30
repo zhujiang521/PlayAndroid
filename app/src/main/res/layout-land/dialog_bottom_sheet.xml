@@ -7,8 +7,8 @@
     android:layout_gravity="center_horizontal"
     android:background="@color/grayWhite"
     android:orientation="horizontal"
-    android:paddingTop="@dimen/dp_10"
-    android:paddingBottom="@dimen/dp_10">
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
 
     <View
         android:layout_width="0dp"
@@ -26,10 +26,10 @@
 
         <ImageView
             android:id="@+id/bottomDialogIvCollect"
-            android:layout_width="@dimen/dp_38"
-            android:layout_height="@dimen/dp_38"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:background="@drawable/bottom_item"
-            android:padding="@dimen/dp_9"
+            android:padding="9dp"
             android:src="@drawable/ic_favorite_black_24dp" />
 
         <TextView
@@ -37,10 +37,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/dp_3"
+            android:layout_marginTop="3dp"
             android:text="@string/collection"
             android:textColor="@color/text_color_dark"
-            android:textSize="@dimen/dp_12" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 
@@ -55,10 +55,10 @@
 
         <ImageView
             android:id="@+id/bottomDialogIvCopy"
-            android:layout_width="@dimen/dp_38"
-            android:layout_height="@dimen/dp_38"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:background="@drawable/bottom_item"
-            android:padding="@dimen/dp_10"
+            android:padding="10dp"
             android:src="@drawable/ic_collections_black_24dp" />
 
         <TextView
@@ -66,10 +66,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/dp_3"
+            android:layout_marginTop="3dp"
             android:text="@string/copy_link"
             android:textColor="@color/text_color_dark"
-            android:textSize="@dimen/dp_12" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 
@@ -84,10 +84,10 @@
 
         <ImageView
             android:id="@+id/bottomDialogIvBrowser"
-            android:layout_width="@dimen/dp_38"
-            android:layout_height="@dimen/dp_38"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:background="@drawable/bottom_item"
-            android:padding="@dimen/dp_10"
+            android:padding="10dp"
             android:src="@drawable/ic_account_blog_black_24dp" />
 
         <TextView
@@ -95,10 +95,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/dp_3"
+            android:layout_marginTop="3dp"
             android:text="@string/browser_open"
             android:textColor="@color/text_color_dark"
-            android:textSize="@dimen/dp_12" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 
@@ -113,10 +113,10 @@
 
         <ImageView
             android:id="@+id/bottomDialogIvShare"
-            android:layout_width="@dimen/dp_38"
-            android:layout_height="@dimen/dp_38"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:background="@drawable/bottom_item"
-            android:padding="@dimen/dp_10"
+            android:padding="10dp"
             android:src="@drawable/ic_bug_report_black_24dp" />
 
         <TextView
@@ -124,10 +124,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/dp_3"
+            android:layout_marginTop="3dp"
             android:text="@string/tripartite_sharing"
             android:textColor="@color/text_color_dark"
-            android:textSize="@dimen/dp_12" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 
@@ -142,10 +142,10 @@
 
         <ImageView
             android:id="@+id/bottomDialogIvDynamic"
-            android:layout_width="@dimen/dp_38"
-            android:layout_height="@dimen/dp_38"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:background="@drawable/bottom_item"
-            android:padding="@dimen/dp_9"
+            android:padding="9dp"
             android:src="@drawable/ic_github_black_24dp"
             app:tint="@color/colorAccent" />
 
@@ -154,10 +154,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/dp_3"
+            android:layout_marginTop="3dp"
             android:text="@string/author_trends"
             android:textColor="@color/text_color_dark"
-            android:textSize="@dimen/dp_12" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 
@@ -172,10 +172,10 @@
 
         <ImageView
             android:id="@+id/bottomDialogIvReload"
-            android:layout_width="@dimen/dp_38"
-            android:layout_height="@dimen/dp_38"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:background="@drawable/bottom_item"
-            android:padding="@dimen/dp_9"
+            android:padding="9dp"
             android:src="@drawable/ic_github_black_24dp" />
 
         <TextView
@@ -183,10 +183,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/dp_3"
+            android:layout_marginTop="3dp"
             android:text="@string/refresh"
             android:textColor="@color/text_color_dark"
-            android:textSize="@dimen/dp_12" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 

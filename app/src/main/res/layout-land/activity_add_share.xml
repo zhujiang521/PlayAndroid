@@ -14,32 +14,32 @@
 
     <EditText
         android:id="@+id/addShareEtTitle"
-        android:layout_width="@dimen/dp_300"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_30"
-        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
         android:hint="@string/enter_article_title"
         android:lines="1"
         android:maxLines="1"
         android:singleLine="true"
-        android:textSize="@dimen/dp_14" />
+        android:textSize="14sp" />
 
     <EditText
         android:id="@+id/addShareEtLink"
-        android:layout_width="@dimen/dp_300"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="start"
         android:hint="@string/enter_article_link"
-        android:textSize="@dimen/dp_14" />
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/addShareBtnAdd"
-        android:layout_width="@dimen/dp_280"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginTop="20dp"
         android:background="@drawable/article_list_bg"
         android:text="@string/submit"
         android:textColor="@color/text_color" />

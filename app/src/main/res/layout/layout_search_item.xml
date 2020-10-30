@@ -11,16 +11,16 @@
         android:layout_height="wrap_content"
         android:background="@drawable/btn_search_bg"
         android:maxEms="10"
-        android:paddingHorizontal="@dimen/dp_14"
-        android:paddingVertical="@dimen/dp_5"
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="5dp"
         android:singleLine="true"
         android:textColor="@color/white"
-        android:textSize="@dimen/dp_13" />
+        android:textSize="13sp" />
 
     <LinearLayout
         android:id="@+id/searchLlDelete"
-        android:layout_width="@dimen/dp_20"
-        android:layout_height="@dimen/dp_20"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_gravity="right"
         android:gravity="right"
         android:orientation="vertical"

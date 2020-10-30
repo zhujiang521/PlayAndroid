@@ -63,6 +63,8 @@ dependencies {
     //api 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
     api 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    // 屏幕适配
+    api 'me.jessyan:autosize:1.2.1'
 
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

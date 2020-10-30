@@ -7,18 +7,18 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_10"
+        android:layout_height="10dp"
         android:background="@color/colorPrimary" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/projectTabLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_45"
+        android:layout_height="45dp"
         android:background="@color/colorPrimary"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/white"
         app:tabIndicatorFullWidth="false"
-        app:tabIndicatorHeight="@dimen/dp_5"
+        app:tabIndicatorHeight="5dp"
         app:tabMaxWidth="0dp"
         app:tabMode="scrollable"
         app:tabSelectedTextColor="@color/color_FFFFFF"

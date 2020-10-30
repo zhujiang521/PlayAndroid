@@ -2,10 +2,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_70"
+    android:layout_height="70dp"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    android:paddingTop="@dimen/dp_20">
+    android:paddingTop="20dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,22 +14,22 @@
 
         <ImageView
             android:id="@+id/imgBack"
-            android:layout_width="@dimen/dp_40"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:backgroundTint="@color/white"
-            android:paddingTop="@dimen/dp_14"
-            android:paddingBottom="@dimen/dp_14"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
             android:src="@drawable/img_back" />
 
         <ImageView
             android:id="@+id/imgRight"
-            android:layout_width="@dimen/dp_40"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:paddingTop="@dimen/dp_14"
-            android:paddingBottom="@dimen/dp_14"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
             android:visibility="gone" />
 
         <TextView
@@ -39,7 +39,7 @@
             android:layout_centerInParent="true"
             android:text="玩安卓"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp_18" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/txtRight"
@@ -48,12 +48,12 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:paddingStart="@dimen/dp_7"
-            android:paddingTop="@dimen/dp_14"
-            android:paddingEnd="@dimen/dp_7"
-            android:paddingBottom="@dimen/dp_14"
+            android:paddingStart="7dp"
+            android:paddingTop="14dp"
+            android:paddingEnd="7dp"
+            android:paddingBottom="14dp"
             android:textColor="@color/text_click_color"
-            android:textSize="@dimen/sp_16"
+            android:textSize="16sp"
             android:visibility="gone"
             tools:ignore="RtlSymmetry" />
 

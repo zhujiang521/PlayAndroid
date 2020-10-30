@@ -12,8 +12,8 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="@dimen/dp_80"
-            android:layout_height="@dimen/dp_80"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/no_content_image" />
 
@@ -22,10 +22,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dp_20"
-            android:layout_marginBottom="@dimen/dp_20"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:textColor="@color/secondary_text"
-            android:textSize="@dimen/sp_13"
+            android:textSize="13sp"
             tools:text="没有更多内容了" />
 
     </LinearLayout>

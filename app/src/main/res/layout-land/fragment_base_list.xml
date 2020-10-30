@@ -8,6 +8,6 @@
         android:id="@+id/baseFragmentListRecycleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="@dimen/dp_10" />
+        android:layout_marginHorizontal="10dp" />
 
 </com.scwang.smartrefresh.layout.SmartRefreshLayout>

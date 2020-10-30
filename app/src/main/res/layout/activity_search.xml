@@ -8,10 +8,10 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_70"
+        android:layout_height="70dp"
         android:background="@color/colorPrimary"
         android:orientation="vertical"
-        android:paddingTop="@dimen/dp_20">
+        android:paddingTop="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,38 +20,39 @@
 
             <ImageView
                 android:id="@+id/searchImgBack"
-                android:layout_width="@dimen/dp_40"
+                android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:paddingTop="@dimen/dp_14"
-                android:paddingBottom="@dimen/dp_14"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
                 android:src="@drawable/img_back" />
 
             <EditText
                 android:id="@+id/searchTxtKeyword"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_30"
+                android:layout_height="30dp"
                 android:layout_weight="1"
                 android:background="@drawable/edit_gray_radus"
                 android:hint="@string/please_enter_keywords"
-                android:paddingStart="@dimen/dp_5"
+                android:paddingStart="5dp"
                 android:singleLine="true"
                 android:maxLines="1"
                 android:textColorHint="@color/gray"
                 android:textColor="@color/white"
-                android:textSize="@dimen/dp_16" />
+                android:textSize="16sp"
+                tools:ignore="RtlSymmetry" />
 
             <TextView
                 android:id="@+id/searchTxtRight"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:paddingStart="@dimen/dp_7"
-                android:paddingTop="@dimen/dp_14"
-                android:paddingEnd="@dimen/dp_7"
-                android:paddingBottom="@dimen/dp_14"
+                android:paddingStart="7dp"
+                android:paddingTop="14dp"
+                android:paddingEnd="7dp"
+                android:paddingBottom="14dp"
                 android:text="@string/search"
                 android:textColor="@color/text_click_color"
-                android:textSize="@dimen/dp_16"
+                android:textSize="16sp"
                 tools:ignore="RtlSymmetry" />
 
         </LinearLayout>
@@ -62,6 +63,6 @@
         android:id="@+id/searchFlowLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_15" />
+        android:layout_margin="15dp" />
 
 </LinearLayout>
