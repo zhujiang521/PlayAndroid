@@ -9,7 +9,10 @@ import androidx.fragment.app.FragmentActivity
 /**
  * More APIs for developers to control PermissionX functions.
  */
-class PermissionBuilder internal constructor(private val activity: FragmentActivity, internal val allPermissions: List<String>) {
+class PermissionBuilder internal constructor(
+    private val activity: FragmentActivity,
+    internal val allPermissions: List<String>
+) {
 
     /**
      * The callback for onExplainRequestReason() method. Maybe null.
@@ -172,7 +175,13 @@ class PermissionBuilder internal constructor(private val activity: FragmentActiv
      * @param negativeText
      *          Negative text on the negative button. Maybe null if this dialog should not be canceled.
      */
-    internal fun showHandlePermissionDialog(showReasonOrGoSettings: Boolean, permissions: List<String>, message: String, positiveText: String, negativeText: String? = null) {
+    internal fun showHandlePermissionDialog(
+        showReasonOrGoSettings: Boolean,
+        permissions: List<String>,
+        message: String,
+        positiveText: String,
+        negativeText: String? = null
+    ) {
         showDialogCalled = true
         val filteredPermissions = permissions.filter {
             !grantedPermissions.contains(it) && allPermissions.contains(it)
@@ -209,7 +218,13 @@ class PermissionBuilder internal constructor(private val activity: FragmentActiv
      *          Callback with 3 params. allGranted, grantedList, deniedList.
      */
     private fun requestNow(permissions: List<String>, callback: RequestCallback) {
-        getInvisibleFragment().requestNow(this, explainReasonCallback, forwardToSettingsCallback, callback, *permissions.toTypedArray())
+        getInvisibleFragment().requestNow(
+            this,
+            explainReasonCallback,
+            forwardToSettingsCallback,
+            callback,
+            *permissions.toTypedArray()
+        )
     }
 
     /**

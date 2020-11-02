@@ -31,8 +31,8 @@ object PermissionXUtils {
                         deniedList,
                         "${activity.resources.getString(R.string.activity_permission)}\n${
                             getDeniedList(
-                            deniedList
-                        )
+                                deniedList
+                            )
                         }",
                         activity.resources.getString(R.string.activity_permission_sure),
                         activity.resources.getString(R.string.activity_permission_cancel)
@@ -43,8 +43,8 @@ object PermissionXUtils {
                         deniedList,
                         "${activity.resources.getString(R.string.activity_permission_setting)}\n${
                             getDeniedList(
-                            deniedList
-                        )
+                                deniedList
+                            )
                         }",
                         activity.resources.getString(R.string.activity_permission_sure),
                         activity.resources.getString(R.string.activity_permission_cancel)

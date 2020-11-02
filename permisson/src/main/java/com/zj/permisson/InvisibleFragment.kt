@@ -66,7 +66,13 @@ class InvisibleFragment : Fragment() {
      * @param permissions
      *          Permissions that you want to request.
      */
-    fun requestNow(builder: PermissionBuilder, cb1: ExplainReasonCallback?, cb2: ForwardToSettingsCallback?, cb3: RequestCallback, vararg permissions: String) {
+    fun requestNow(
+        builder: PermissionBuilder,
+        cb1: ExplainReasonCallback?,
+        cb2: ForwardToSettingsCallback?,
+        cb3: RequestCallback,
+        vararg permissions: String
+    ) {
         permissionBuilder = builder
         explainReasonCallback = cb1
         forwardToSettingsCallback = cb2
@@ -81,11 +87,18 @@ class InvisibleFragment : Fragment() {
      * The priority is [ExplainReasonCallback] -> [ForwardToSettingsCallback] -> [RequestCallback].
      * Always try to call the higher priority callback. If that's not possible, goes to the lower ones.
      */
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         if (requestCode == PERMISSION_CODE) {
-            val grantedList = ArrayList<String>() // holds granted permissions in the request permissions
-            val showReasonList = ArrayList<String>() // holds denied permissions in the request permissions.
-            val forwardList = ArrayList<String>() // hold permanently denied permissions in the request permissions.
+            val grantedList =
+                ArrayList<String>() // holds granted permissions in the request permissions
+            val showReasonList =
+                ArrayList<String>() // holds denied permissions in the request permissions.
+            val forwardList =
+                ArrayList<String>() // hold permanently denied permissions in the request permissions.
             for ((index, result) in grantResults.withIndex()) { // iterator all grant results
                 if (result == PackageManager.PERMISSION_GRANTED) {
                     grantedList.add(permissions[index])
@@ -111,17 +124,26 @@ class InvisibleFragment : Fragment() {
             // So every time request, must request the already granted permissions again and refresh the granted permission set.
             permissionBuilder.grantedPermissions.clear()
             permissionBuilder.grantedPermissions.addAll(grantedList)
-            val allGranted = permissionBuilder.grantedPermissions.size == permissionBuilder.allPermissions.size
+            val allGranted =
+                permissionBuilder.grantedPermissions.size == permissionBuilder.allPermissions.size
             if (allGranted) { // If all permissions are granted, call RequestCallback directly.
                 permissionBuilder.requestCallback(true, permissionBuilder.allPermissions, listOf())
             } else {
                 // If explainReasonCallback is not null and there're denied permissions. Try the ExplainReasonCallback.
                 if (explainReasonCallback != null && showReasonList.isNotEmpty()) {
-                    explainReasonCallback?.let { permissionBuilder.explainReasonScope.it(showReasonList) }
+                    explainReasonCallback?.let {
+                        permissionBuilder.explainReasonScope.it(
+                            showReasonList
+                        )
+                    }
                 }
                 // If forwardToSettingsCallback is not null and there're permanently denied permissions. Try the ForwardToSettingsCallback.
                 else if (forwardToSettingsCallback != null && forwardList.isNotEmpty()) {
-                    forwardToSettingsCallback?.let { permissionBuilder.forwardToSettingsScope.it(forwardList) }
+                    forwardToSettingsCallback?.let {
+                        permissionBuilder.forwardToSettingsScope.it(
+                            forwardList
+                        )
+                    }
                 }
                 // If showRequestReasonDialog or showForwardToSettingsDialog is not called. Try the RequestCallback.
                 // There's case that ExplainReasonCallback or ForwardToSettingsCallback is called, but developer didn't call
@@ -131,7 +153,11 @@ class InvisibleFragment : Fragment() {
                     val deniedList = ArrayList<String>()
                     deniedList.addAll(permissionBuilder.deniedPermissions)
                     deniedList.addAll(permissionBuilder.permanentDeniedPermissions)
-                    permissionBuilder.requestCallback(false, permissionBuilder.grantedPermissions.toList(), deniedList)
+                    permissionBuilder.requestCallback(
+                        false,
+                        permissionBuilder.grantedPermissions.toList(),
+                        deniedList
+                    )
                 }
             }
         }
