@@ -103,7 +103,7 @@ object HomeRepository {
 
     /**
      * 首页获取文章列表
-     * @param page 页码
+     * @param query 查询条件
      */
     fun getArticleList(application: Application, query: QueryHomeArticle) = fire {
         coroutineScope {

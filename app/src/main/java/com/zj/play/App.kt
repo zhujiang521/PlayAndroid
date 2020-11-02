@@ -12,6 +12,7 @@ import com.tencent.smtt.sdk.QbSdk
 import com.zj.core.Play
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.system.exitProcess
@@ -25,6 +26,7 @@ class App : Application() {
 
     //所有活动集合
     private var activityLinkedList = LinkedList<Activity>()
+    private var job: Job? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -34,7 +36,7 @@ class App : Application() {
     }
 
     private fun initData() {
-        GlobalScope.launch(Dispatchers.IO) {
+        job = GlobalScope.launch(Dispatchers.IO) {
             initQbSdk()
             initBugLy()
         }
@@ -66,6 +68,7 @@ class App : Application() {
             for (i in activityLinkedList.indices) {
                 activityLinkedList[i].finish()
             }
+            job?.cancel()
         } catch (e: Exception) {
             e.printStackTrace()
             exitProcess(0)

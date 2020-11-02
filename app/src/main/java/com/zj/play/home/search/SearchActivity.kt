@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.KeyboardUtils
 import com.zj.core.util.showToast
 import com.zj.core.view.base.BaseActivity
@@ -72,7 +73,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
                 ArticleListActivity.actionStart(this, name)
             }
             delete.setOnClickListener {
-                GlobalScope.launch {
+                lifecycleScope.launch {
                     hotKeyDao.delete(viewModel.dataList[i])
                 }
                 searchFlowLayout.removeView(item)
@@ -99,7 +100,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
                     return
                 }
 
-                GlobalScope.launch {
+                lifecycleScope.launch {
                     hotKeyDao.insert(HotKey(id = -1, name = keyword))
                 }
                 ArticleListActivity.actionStart(this, keyword)
