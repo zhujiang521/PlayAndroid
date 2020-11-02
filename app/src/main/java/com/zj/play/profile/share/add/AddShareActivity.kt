@@ -6,7 +6,7 @@ import android.text.TextUtils
 import android.view.View
 import com.blankj.utilcode.util.RegexUtils
 import com.zj.core.util.showToast
-import com.zj.core.view.BaseActivity
+import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
 import com.zj.network.repository.ShareRepository
 import kotlinx.android.synthetic.main.activity_add_share.*

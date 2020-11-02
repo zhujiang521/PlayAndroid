@@ -2,7 +2,7 @@ package com.zj.play.project
 
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
-import com.zj.core.view.BaseFragment
+import com.zj.core.view.base.BaseFragment
 
 /**
  * 版权：联想 版权所有

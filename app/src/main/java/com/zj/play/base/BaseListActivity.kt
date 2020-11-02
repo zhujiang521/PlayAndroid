@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.zj.core.view.StaggeredDividerItemDecoration
+import com.zj.core.view.custom.StaggeredDividerItemDecoration
 import com.zj.play.R
 import com.zj.play.home.ArticleCollectBaseActivity
 import kotlinx.android.synthetic.main.activity_base_list.*

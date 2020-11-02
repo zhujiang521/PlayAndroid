@@ -2,7 +2,7 @@ package com.zj.play.project
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.zj.core.view.BaseAndroidViewModel
+import com.zj.core.view.base.BaseAndroidViewModel
 import com.zj.model.room.entity.ProjectClassify
 import com.zj.network.repository.ProjectRepository
 

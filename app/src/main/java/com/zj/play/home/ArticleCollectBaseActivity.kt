@@ -3,7 +3,7 @@ package com.zj.play.home
 import android.content.BroadcastReceiver
 import android.util.Log
 import com.zj.core.util.LiveDataBus
-import com.zj.core.view.BaseActivity
+import com.zj.core.view.base.BaseActivity
 import com.zj.play.article.ArticleBroadCast
 
 /**

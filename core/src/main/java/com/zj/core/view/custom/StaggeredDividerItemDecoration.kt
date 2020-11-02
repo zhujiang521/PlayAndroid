@@ -1,4 +1,4 @@
-package com.zj.core.view
+package com.zj.core.view.custom
 
 import android.content.Context
 import android.graphics.Rect

@@ -1,4 +1,4 @@
-package com.zj.core.view
+package com.zj.core.view.base
 
 /**
  * 在Activity或Fragment中初始化需要的函数。

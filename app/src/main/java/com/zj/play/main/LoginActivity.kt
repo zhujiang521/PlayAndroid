@@ -9,8 +9,8 @@ import com.blankj.utilcode.util.NetworkUtils
 import com.zj.core.Play
 import com.zj.core.util.LiveDataBus
 import com.zj.core.util.showToast
-import com.zj.core.view.ActivityCollector
-import com.zj.core.view.BaseActivity
+import com.zj.core.view.base.ActivityCollector
+import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
 import com.zj.model.model.Login
 import com.zj.network.repository.AccountRepository

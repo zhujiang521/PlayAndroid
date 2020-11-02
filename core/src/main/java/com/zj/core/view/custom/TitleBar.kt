@@ -1,4 +1,4 @@
-package com.zj.core.util
+package com.zj.core.view.custom
 
 import android.app.Activity
 import android.content.Context

@@ -1,4 +1,4 @@
-package com.zj.core.view
+package com.zj.core.view.base
 
 import android.app.Application
 import androidx.lifecycle.*

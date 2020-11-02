@@ -1,4 +1,4 @@
-package com.zj.core.view
+package com.zj.core.view.base
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="activity_permission_setting">Allow the following permissions in Settings</string>
+    <string name="activity_permission">You need the following permissions</string>
+    <string name="activity_permission_cancel">cancel</string>
+    <string name="activity_permission_sure">determine</string>
+</resources>

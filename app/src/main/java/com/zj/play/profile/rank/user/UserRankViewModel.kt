@@ -1,7 +1,7 @@
 package com.zj.play.profile.rank.user
 
 import androidx.lifecycle.LiveData
-import com.zj.core.view.BaseViewModel
+import com.zj.core.view.base.BaseViewModel
 import com.zj.model.model.RankList
 import com.zj.model.model.Ranks
 import com.zj.network.repository.RankRepository

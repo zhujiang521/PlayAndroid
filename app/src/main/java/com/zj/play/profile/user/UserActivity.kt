@@ -2,7 +2,7 @@ package com.zj.play.profile.user
 
 import android.content.Context
 import android.content.Intent
-import com.zj.core.view.BaseActivity
+import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
 
 class UserActivity : BaseActivity() {

@@ -1,4 +1,4 @@
-package com.zj.core.view
+package com.zj.core.view.base
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -17,6 +17,7 @@ import com.blankj.utilcode.util.ConvertUtils
 import com.zj.core.R
 import com.zj.core.util.AndroidVersion
 import com.zj.core.util.showToast
+import com.zj.core.view.custom.RequestLifecycle
 import java.lang.ref.WeakReference
 
 

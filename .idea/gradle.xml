@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/model" />
             <option value="$PROJECT_DIR$/network" />
+            <option value="$PROJECT_DIR$/permisson" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

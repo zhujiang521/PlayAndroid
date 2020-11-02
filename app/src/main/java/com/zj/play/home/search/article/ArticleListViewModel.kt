@@ -2,7 +2,7 @@ package com.zj.play.home.search.article
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.zj.core.view.BaseAndroidViewModel
+import com.zj.core.view.base.BaseAndroidViewModel
 import com.zj.model.model.ArticleList
 import com.zj.model.room.entity.Article
 import com.zj.network.repository.SearchRepository
@@ -15,7 +15,7 @@ import com.zj.network.repository.SearchRepository
  * 描述：PlayAndroid
  *
  */
-class ArticleListViewModel(application: Application) : BaseAndroidViewModel<ArticleList,Article,QueryKeyArticle>(application) {
+class ArticleListViewModel(application: Application) : BaseAndroidViewModel<ArticleList, Article, QueryKeyArticle>(application) {
 
     override fun getData(page: QueryKeyArticle): LiveData<Result<ArticleList>> {
         return SearchRepository(getApplication()).getQueryArticleList(page.page, page.k)

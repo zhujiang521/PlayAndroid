@@ -1,6 +1,4 @@
-package com.zj.core.permisson
-
-import com.zj.core.permisson.PermissionBuilder
+package com.zj.permisson
 
 /**
  * Provide specific scopes for [ExplainReasonCallback] to give it specific functions to call.

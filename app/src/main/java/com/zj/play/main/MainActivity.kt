@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.view.KeyEvent
 import androidx.lifecycle.ViewModelProvider
 import com.zj.core.util.showToast
-import com.zj.core.view.BaseActivity
+import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.system.exitProcess

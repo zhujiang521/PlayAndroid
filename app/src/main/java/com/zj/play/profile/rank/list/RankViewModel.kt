@@ -1,7 +1,7 @@
 package com.zj.play.profile.rank.list
 
 import androidx.lifecycle.LiveData
-import com.zj.core.view.BaseViewModel
+import com.zj.core.view.base.BaseViewModel
 import com.zj.model.model.Rank
 import com.zj.model.model.RankData
 import com.zj.network.repository.RankRepository
@@ -14,7 +14,7 @@ import com.zj.network.repository.RankRepository
  * 描述：PlayAndroid
  *
  */
-class RankViewModel : BaseViewModel<RankData,Rank,Int>() {
+class RankViewModel : BaseViewModel<RankData, Rank, Int>() {
 
     override fun getData(page: Int): LiveData<Result<RankData>> {
         return RankRepository.getRankList(page)

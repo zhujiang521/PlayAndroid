@@ -15,7 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.zj.core.Play
 import com.zj.core.util.showToast
-import com.zj.core.view.BaseActivity
+import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
 import com.zj.play.profile.share.ShareActivity
 import kotlinx.android.synthetic.main.activity_article.*

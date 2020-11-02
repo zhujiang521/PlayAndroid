@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".profile.share.add.AddShareActivity">
 
-    <com.zj.core.util.TitleBar
+    <com.zj.core.view.custom.TitleBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleName="@string/add_share" />

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.zj.core.util.TitleBar
+    <com.zj.core.view.custom.TitleBar
         android:id="@+id/shareTitleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
             android:visibility="invisible">
 
 
-            <com.zj.core.view.RoundImageView
+            <com.zj.core.view.custom.RoundImageView
                 android:id="@+id/shareIvHead"
                 android:layout_width="@dimen/dp_70"
                 android:layout_height="@dimen/dp_70"

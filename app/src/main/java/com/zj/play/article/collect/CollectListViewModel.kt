@@ -1,7 +1,7 @@
 package com.zj.play.article.collect
 
 import androidx.lifecycle.LiveData
-import com.zj.core.view.BaseViewModel
+import com.zj.core.view.base.BaseViewModel
 import com.zj.model.model.Collect
 import com.zj.model.model.CollectX
 import com.zj.network.repository.CollectRepository
@@ -14,7 +14,7 @@ import com.zj.network.repository.CollectRepository
  * 描述：PlayAndroid
  *
  */
-class CollectListViewModel : BaseViewModel<Collect,CollectX,Int>() {
+class CollectListViewModel : BaseViewModel<Collect, CollectX, Int>() {
 
     override fun getData(page: Int): LiveData<Result<Collect>> {
         return CollectRepository.getCollectList(page - 1)

@@ -8,14 +8,14 @@
     android:orientation="vertical"
     tools:context=".profile.user.UserActivity">
 
-    <com.zj.core.util.TitleBar
+    <com.zj.core.view.custom.TitleBar
         android:id="@+id/userTitleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:backImageVisiable="true"
         app:titleName="@string/about_me" />
 
-    <com.zj.core.view.RoundImageView
+    <com.zj.core.view.custom.RoundImageView
         android:layout_width="@dimen/dp_70"
         android:layout_height="@dimen/dp_70"
         android:layout_gravity="center"
@@ -50,7 +50,7 @@
         android:textColor="@color/yellow"
         android:textSize="@dimen/dp_15" />
 
-    <com.zj.core.view.RoundImageView
+    <com.zj.core.view.custom.RoundImageView
         android:layout_width="@dimen/dp_200"
         android:layout_height="@dimen/dp_200"
         android:layout_gravity="center"

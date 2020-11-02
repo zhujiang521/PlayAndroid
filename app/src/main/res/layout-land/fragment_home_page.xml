@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".home.HomePageFragment">
 
-    <com.zj.core.util.TitleBar
+    <com.zj.core.view.custom.TitleBar
         android:id="@+id/homeTitleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

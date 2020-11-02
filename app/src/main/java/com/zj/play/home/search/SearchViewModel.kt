@@ -2,7 +2,7 @@ package com.zj.play.home.search
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.zj.core.view.BaseAndroidViewModel
+import com.zj.core.view.base.BaseAndroidViewModel
 import com.zj.model.room.entity.HotKey
 import com.zj.network.repository.SearchRepository
 
@@ -14,7 +14,7 @@ import com.zj.network.repository.SearchRepository
  * 描述：PlayAndroid
  *
  */
-class SearchViewModel(application: Application) : BaseAndroidViewModel<List<HotKey>,HotKey,Boolean>(application) {
+class SearchViewModel(application: Application) : BaseAndroidViewModel<List<HotKey>, HotKey, Boolean>(application) {
 
     override fun getData(page: Boolean): LiveData<Result<List<HotKey>>> {
         return SearchRepository(getApplication()).getHotKey()

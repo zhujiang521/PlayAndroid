@@ -4,7 +4,7 @@ import android.content.res.Configuration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.zj.core.view.StaggeredDividerItemDecoration
+import com.zj.core.view.custom.StaggeredDividerItemDecoration
 import com.zj.play.R
 import com.zj.play.article.ArticleAdapter
 import com.zj.play.home.ArticleCollectBaseFragment

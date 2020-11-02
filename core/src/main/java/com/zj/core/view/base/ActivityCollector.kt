@@ -1,4 +1,4 @@
-package com.zj.core.view
+package com.zj.core.view.base
 
 import android.app.Activity
 import android.util.Log

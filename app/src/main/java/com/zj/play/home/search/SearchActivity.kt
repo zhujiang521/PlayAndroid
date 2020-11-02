@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.KeyboardUtils
 import com.zj.core.util.showToast
-import com.zj.core.view.BaseActivity
+import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.dao.HotKeyDao

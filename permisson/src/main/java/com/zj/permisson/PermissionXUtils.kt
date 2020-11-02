@@ -1,10 +1,8 @@
-package com.zj.core.permisson
+package com.zj.permisson
 
 import android.os.Build
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
-import com.blankj.utilcode.util.ToastUtils
-import com.zj.core.R
 import com.zj.core.util.showLongToast
 import java.lang.StringBuilder
 
@@ -31,9 +29,11 @@ object PermissionXUtils {
                 .onExplainRequestReason { deniedList ->
                     showRequestReasonDialog(
                         deniedList,
-                        "${activity.resources.getString(R.string.activity_permission)}\n${getDeniedList(
+                        "${activity.resources.getString(R.string.activity_permission)}\n${
+                            getDeniedList(
                             deniedList
-                        )}",
+                        )
+                        }",
                         activity.resources.getString(R.string.activity_permission_sure),
                         activity.resources.getString(R.string.activity_permission_cancel)
                     )
@@ -41,9 +41,11 @@ object PermissionXUtils {
                 .onForwardToSettings { deniedList ->
                     showForwardToSettingsDialog(
                         deniedList,
-                        "${activity.resources.getString(R.string.activity_permission_setting)}\n${getDeniedList(
+                        "${activity.resources.getString(R.string.activity_permission_setting)}\n${
+                            getDeniedList(
                             deniedList
-                        )}",
+                        )
+                        }",
                         activity.resources.getString(R.string.activity_permission_sure),
                         activity.resources.getString(R.string.activity_permission_cancel)
                     )

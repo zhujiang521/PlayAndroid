@@ -1,4 +1,4 @@
-package com.zj.core.view
+package com.zj.core.view.base
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -12,6 +12,7 @@ import androidx.lifecycle.LiveData
 import com.blankj.utilcode.util.ConvertUtils
 import com.zj.core.R
 import com.zj.core.util.showToast
+import com.zj.core.view.custom.RequestLifecycle
 
 /**
  * 应用程序中所有Fragment的基类。

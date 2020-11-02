@@ -1,4 +1,4 @@
-package com.zj.core.view
+package com.zj.core.view.custom
 
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
