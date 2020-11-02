@@ -6,7 +6,7 @@ import android.view.View
 import android.view.animation.*
 import com.zj.core.util.showToast
 import com.zj.core.view.BaseActivity
-import com.zj.play.view.main.MainActivity
+import com.zj.play.main.MainActivity
 import kotlinx.android.synthetic.main.activity_welcome.*
 
 

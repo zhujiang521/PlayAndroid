@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.article.ArticleActivity">
+    tools:context=".article.ArticleActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -54,7 +54,7 @@
 
     </FrameLayout>
 
-    <com.zj.play.view.article.X5WebView
+    <com.zj.play.article.X5WebView
         android:id="@+id/articleWebView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

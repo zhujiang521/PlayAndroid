@@ -24,36 +24,36 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme"
         tools:targetApi="m">
-        <activity android:name=".view.share.add.AddShareActivity" />
-        <activity android:name=".view.share.ShareActivity" />
-        <activity android:name=".view.profile.history.BrowseHistoryActivity" />
+        <activity android:name="com.zj.play.profile.share.add.AddShareActivity" />
+        <activity android:name="com.zj.play.profile.share.ShareActivity" />
+        <activity android:name="com.zj.play.profile.history.BrowseHistoryActivity" />
         <activity
-            android:name=".view.profile.user.UserActivity"
+            android:name="com.zj.play.profile.user.UserActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
         <activity
-            android:name=".view.collect.CollectListActivity"
+            android:name="com.zj.play.article.collect.CollectListActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
         <activity
-            android:name=".view.rank.user.UserRankActivity"
+            android:name="com.zj.play.profile.rank.user.UserRankActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
         <activity
-            android:name=".view.account.LoginActivity"
+            android:name="com.zj.play.main.LoginActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
         <activity
-            android:name=".view.rank.list.RankActivity"
+            android:name="com.zj.play.profile.rank.list.RankActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
         <activity
-            android:name=".view.article.ArticleActivity"
+            android:name="com.zj.play.article.ArticleActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".view.home.search.article.ArticleListActivity"
+            android:name="com.zj.play.home.search.article.ArticleListActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
         <activity
-            android:name=".view.home.search.SearchActivity"
+            android:name="com.zj.play.home.search.SearchActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
         <activity
-            android:name=".view.main.MainActivity"
+            android:name="com.zj.play.main.MainActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
         <activity
             android:name=".WelcomeActivity"

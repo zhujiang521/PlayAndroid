@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    tools:context=".view.profile.user.UserActivity">
+    tools:context=".profile.user.UserActivity">
 
     <com.zj.core.util.TitleBar
         android:id="@+id/userTitleBar"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.share.add.AddShareActivity">
+    tools:context=".profile.share.add.AddShareActivity">
 
     <com.zj.core.util.TitleBar
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
     <Button
         android:id="@+id/addShareBtnAdd"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dp_35"
         android:layout_gravity="center"
         android:layout_marginHorizontal="@dimen/dp_35"
         android:layout_marginTop="@dimen/dp_20"

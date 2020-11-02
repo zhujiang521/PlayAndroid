@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.home.search.SearchActivity">
+    tools:context=".home.search.SearchActivity">
 
     <FrameLayout
         android:layout_width="match_parent"

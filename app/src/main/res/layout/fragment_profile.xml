@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.profile.ProfileFragment">
+    tools:context=".profile.ProfileFragment">
 
     <com.zj.core.util.TitleBar
         android:id="@+id/profileTitleBar"

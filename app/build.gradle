@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 apply from: 'and_res_guard.gradle'//压缩apk
 
 android {
@@ -66,14 +65,8 @@ dependencies {
     implementation 'com.youth.banner:banner:2.1.0'
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation project(path: ':model')
 
-    def room_version = "2.2.5"
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    // For Kotlin use kapt instead of annotationProcessor
-
-    // optional - Kotlin Extensions and Coroutines support for Room
-    implementation "androidx.room:room-ktx:$room_version"
     implementation 'com.cpacm:floatingmusicmenu:1.0.0'
     // 异常上报
     implementation 'com.tencent.bugly:crashreport:3.2.422'
@@ -81,5 +74,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation project(path: ':core')
+    implementation project(path: ':network')
     implementation files('libs/tbs_sdk_thirdapp_v4.3.0.1072_43646_sharewithdownloadwithfile_withoutGame_obfs_20190429_175122.jar')
 }
