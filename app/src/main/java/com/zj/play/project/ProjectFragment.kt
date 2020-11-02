@@ -11,9 +11,7 @@ class ProjectFragment : BaseTabFragment() {
 
     private val viewModel by lazy { ViewModelProvider(this).get(ProjectViewModel::class.java) }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_project
-    }
+    override fun getLayoutId(): Int = R.layout.fragment_project
 
     private lateinit var adapter: FragmentAdapter
 

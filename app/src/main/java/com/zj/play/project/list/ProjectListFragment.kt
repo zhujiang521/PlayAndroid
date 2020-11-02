@@ -30,9 +30,7 @@ class ProjectListFragment : BaseListFragment() {
         return false
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_base_list
-    }
+    override fun getLayoutId(): Int = R.layout.fragment_base_list
 
     override fun initView() {
         articleAdapter = ArticleAdapter(context!!, viewModel.dataList)

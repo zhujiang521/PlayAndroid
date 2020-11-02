@@ -17,9 +17,7 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : BaseFragment(), View.OnClickListener {
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_profile
-    }
+    override fun getLayoutId(): Int = R.layout.fragment_profile
 
     private lateinit var profileAdapter: ProfileAdapter
     private var profileItemList = ArrayList<ProfileItem>()

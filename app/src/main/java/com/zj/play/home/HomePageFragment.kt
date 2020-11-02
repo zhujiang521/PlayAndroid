@@ -15,9 +15,7 @@ class HomePageFragment : ArticleCollectBaseFragment() {
 
     private val viewModel by lazy { ViewModelProvider(this).get(HomePageViewModel::class.java) }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_home_page
-    }
+    override fun getLayoutId(): Int = R.layout.fragment_home_page
 
     override fun onResume() {
         super.onResume()
@@ -87,7 +85,7 @@ class HomePageFragment : ArticleCollectBaseFragment() {
     }
 
     private fun initBanner() {
-        setDataStatus(viewModel.bannerLiveData,{
+        setDataStatus(viewModel.bannerLiveData, {
             if (viewModel.bannerList.size > 0) loadFinished()
         }) {
             val main = activity as MainActivity

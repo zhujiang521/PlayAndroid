@@ -27,9 +27,7 @@ class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
     private lateinit var articleAdapter: ArticleAdapter
     private var page = 1
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_share
-    }
+    override fun getLayoutId(): Int = R.layout.activity_share
 
     override fun initData() {
         isMine = intent.getBooleanExtra(IS_MINE, true)

@@ -21,9 +21,7 @@ import kotlin.system.measureTimeMillis
  */
 abstract class BaseListActivity : ArticleCollectBaseActivity() {
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_base_list
-    }
+    override fun getLayoutId(): Int = R.layout.activity_base_list
 
     protected var page = 1
 

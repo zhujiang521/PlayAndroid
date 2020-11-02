@@ -16,8 +16,6 @@ class AddShareActivity : BaseActivity(), View.OnClickListener {
 
     override fun getLayoutId(): Int = R.layout.activity_add_share
 
-    override fun initData() {}
-
     override fun initView() {
         addShareBtnAdd.setOnClickListener(this)
     }

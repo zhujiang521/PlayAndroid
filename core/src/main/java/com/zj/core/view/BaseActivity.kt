@@ -59,6 +59,8 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle, BaseInit {
         initData()
     }
 
+    override fun initData() {}
+
     override fun onDestroy() {
         super.onDestroy()
         ActivityCollector.remove(weakRefActivity)

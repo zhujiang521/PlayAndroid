@@ -22,9 +22,7 @@ import kotlinx.coroutines.launch
 
 class SearchActivity : BaseActivity(), View.OnClickListener {
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_search
-    }
+    override fun getLayoutId(): Int = R.layout.activity_search
 
     private lateinit var hotKeyDao: HotKeyDao
     private val viewModel by lazy { ViewModelProvider(this).get(SearchViewModel::class.java) }

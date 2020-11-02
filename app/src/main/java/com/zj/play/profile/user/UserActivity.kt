@@ -7,11 +7,7 @@ import com.zj.play.R
 
 class UserActivity : BaseActivity() {
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_user_info
-    }
-
-    override fun initData() {}
+    override fun getLayoutId(): Int = R.layout.activity_user_info
 
     override fun initView() {}
 

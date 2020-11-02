@@ -31,11 +31,7 @@ class MainActivity : BaseActivity() {
         //super.onSaveInstanceState(outState)  // 解决fragment重影
     }
 
-    override fun initData() {}
-
-    override fun getLayoutId(): Int {
-        return R.layout.activity_main
-    }
+    override fun getLayoutId(): Int = R.layout.activity_main
 
     override fun onBackPressed() {
         super.onBackPressed()

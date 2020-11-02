@@ -30,9 +30,7 @@ const val IS_COLLECTION = "IS_COLLECTION"
 
 class ArticleActivity : BaseActivity(), View.OnClickListener {
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_article
-    }
+    override fun getLayoutId(): Int = R.layout.activity_article
 
     private var pageName = ""
     private var pageUrl = ""

@@ -15,11 +15,7 @@ class WelcomeActivity : BaseActivity(),
     private var exitTime: Long = 0
     private var animationTime: Long = 500
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_welcome
-    }
-
-    override fun initData() {}
+    override fun getLayoutId(): Int = R.layout.activity_welcome
 
     private fun initAnimation() {
         val rotateAnimation = RotateAnimation(

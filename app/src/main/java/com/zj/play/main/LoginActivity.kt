@@ -23,17 +23,11 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     private var mUserName = ""
     private var mPassWord = ""
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_login
-    }
-
-    override fun initData() {
-        loginButton.setOnClickListener(this)
-        loginBtnRegister.setOnClickListener(this)
-    }
+    override fun getLayoutId(): Int = R.layout.activity_login
 
     override fun initView() {
-
+        loginButton.setOnClickListener(this)
+        loginBtnRegister.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
