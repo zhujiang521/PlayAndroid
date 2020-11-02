@@ -92,6 +92,10 @@
 # okhttp
 -dontwarn okio.**
 
+# Gson
+-keep class com.zj.model.model**{*;} # 自定义数据模型的bean目录
+-keep class com.zj.model.room.entity**{*;} # 自定义数据模型的bean目录
+
 #retrofit2  混淆
 -dontwarn javax.annotation.**
 -dontwarn javax.inject.**
