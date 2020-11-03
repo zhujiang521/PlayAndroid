@@ -1,4 +1,4 @@
-package com.zj.permisson
+package com.zj.permission
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

@@ -7,10 +7,10 @@ plugins {
 android {
     signingConfigs {
         play {
-            storeFile file('/Users/zhujiang/AndroidSoft/wanAndroid/wanAndroid.jks')
-            storePassword '123456'
-            keyAlias 'wanAndroid'
-            keyPassword '123456'
+            storeFile file(sign.file)
+            storePassword sign.storePassword
+            keyAlias sign.keyAlias
+            keyPassword sign.keyPassword
         }
     }
     compileSdkVersion cfgs.compileSdkVersion
@@ -22,8 +22,8 @@ android {
         versionCode cfgs.versionCode
         versionName cfgs.versionName
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles 'consumer-rules.pro'
+        testInstrumentationRunner cfgs.testInstrumentationRunner
+        consumerProguardFiles cfgs.consumerProguardFiles
         signingConfig signingConfigs.play
     }
 
@@ -44,10 +44,9 @@ android {
 
 dependencies {
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation des.kotlinVersion
+    implementation des.coreKtx
+    implementation des.appcompat
     implementation project(path: ':core')
 
     def room_version = "2.2.5"
@@ -58,7 +57,7 @@ dependencies {
     // optional - Kotlin Extensions and Coroutines support for Room
     api "androidx.room:room-ktx:$room_version"
 
-    testImplementation 'junit:junit:4.13.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    testImplementation des.junit
+    androidTestImplementation des.extJunit
+    androidTestImplementation des.espressoCore
 }

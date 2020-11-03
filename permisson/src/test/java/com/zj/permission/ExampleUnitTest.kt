@@ -1,4 +1,4 @@
-package com.zj.permisson
+package com.zj.permission
 
 import org.junit.Test
 

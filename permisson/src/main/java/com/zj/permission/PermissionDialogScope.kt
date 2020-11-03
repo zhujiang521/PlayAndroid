@@ -1,4 +1,4 @@
-package com.zj.permisson
+package com.zj.permission
 
 /**
  * Provide specific scopes for [ExplainReasonCallback] to give it specific functions to call.

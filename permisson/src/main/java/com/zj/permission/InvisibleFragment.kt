@@ -1,4 +1,4 @@
-package com.zj.permisson
+package com.zj.permission
 
 import android.content.Intent
 import android.content.pm.PackageManager

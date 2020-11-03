@@ -1,10 +1,29 @@
 ext {
     cfgs = [
-            compileSdkVersion: 30,
-            buildToolsVersion: "30.0.2",
-            minSdkVersion    : 23,
-            targetSdkVersion : 30,
-            versionCode      : 1,
-            versionName      : "2.4.0",
+            compileSdkVersion        : 30,
+            buildToolsVersion        : "30.0.2",
+            minSdkVersion            : 23,
+            targetSdkVersion         : 30,
+            versionCode              : 15,
+            versionName              : "2.4.0",
+            testInstrumentationRunner: "androidx.test.runner.AndroidJUnitRunner",
+            consumerProguardFiles    : 'consumer-rules.pro',
     ]
+
+    des = [
+            kotlinVersion: "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
+            coreKtx      : 'androidx.core:core-ktx:1.3.2',
+            appcompat    : 'androidx.appcompat:appcompat:1.2.0',
+            junit        : 'junit:junit:4.13.1',
+            extJunit     : 'androidx.test.ext:junit:1.1.2',
+            espressoCore : 'androidx.test.espresso:espresso-core:3.3.0',
+    ]
+
+    sign = [
+            file         : '/Users/zhujiang/AndroidSoft/wanAndroid/wanAndroid.jks',
+            storePassword: '123456',
+            keyAlias     : 'wanAndroid',
+            keyPassword  : '123456'
+    ]
+
 }
