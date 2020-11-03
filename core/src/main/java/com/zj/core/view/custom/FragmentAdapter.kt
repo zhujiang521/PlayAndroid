@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import java.util.*
 
 /**
- * 版权：渤海新能 版权所有
+ * 版权：Zhujiang 个人版权
  *
  * @author zhujiang
  * 版本：1.5

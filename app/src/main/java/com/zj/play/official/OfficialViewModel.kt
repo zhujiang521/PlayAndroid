@@ -6,7 +6,7 @@ import com.zj.core.view.base.BaseAndroidViewModel
 import com.zj.model.room.entity.ProjectClassify
 
 /**
- * 版权：渤海新能 版权所有
+ * 版权：Zhujiang 个人版权
  * @author zhujiang
  * 版本：1.5
  * 创建日期：2020/5/17

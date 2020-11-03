@@ -4,7 +4,7 @@ import androidx.room.*
 import com.zj.model.room.entity.ProjectClassify
 
 /**
- * 版权：联想 版权所有
+ * 版权：Zhujiang 个人版权
  *
  * @author zhujiang
  * 创建日期：2020/9/10

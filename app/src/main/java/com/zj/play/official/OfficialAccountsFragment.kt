@@ -12,9 +12,7 @@ class OfficialAccountsFragment : BaseTabFragment() {
 
     private val viewModel by lazy { ViewModelProvider(this).get(OfficialViewModel::class.java) }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_official_accounts
-    }
+    override fun getLayoutId(): Int = R.layout.fragment_official_accounts
 
     private lateinit var adapter: FragmentAdapter
 

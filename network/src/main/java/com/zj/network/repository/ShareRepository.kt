@@ -3,7 +3,7 @@ package com.zj.network.repository
 import com.zj.network.base.PlayAndroidNetwork
 
 /**
- * 版权：联想 版权所有
+ * 版权：Zhujiang 个人版权
  *
  * @author zhujiang
  * 创建日期：2020/9/23
