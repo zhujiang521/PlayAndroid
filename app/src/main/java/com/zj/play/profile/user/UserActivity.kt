@@ -1,12 +1,9 @@
 package com.zj.play.profile.user
 
-import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
-import com.zj.play.main.startNewActivity
 
 class UserActivity : BaseActivity() {
 
@@ -17,7 +14,7 @@ class UserActivity : BaseActivity() {
     companion object {
         fun actionStart(context: Context) {
             val intent = Intent(context, UserActivity::class.java)
-            context.startNewActivity(intent)
+            context.startActivity(intent)
         }
     }
 

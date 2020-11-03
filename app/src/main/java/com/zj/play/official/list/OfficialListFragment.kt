@@ -1,7 +1,6 @@
 package com.zj.play.official.list
 
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.zj.model.pojo.QueryArticle
 import com.zj.play.article.ArticleAdapter

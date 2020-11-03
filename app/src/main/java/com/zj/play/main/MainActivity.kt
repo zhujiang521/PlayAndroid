@@ -1,8 +1,6 @@
 package com.zj.play.main
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -66,8 +64,4 @@ class MainActivity : BaseActivity() {
         }
     }
 
-}
-
-fun Context.startNewActivity(intent: Intent){
-    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this as Activity).toBundle())
 }

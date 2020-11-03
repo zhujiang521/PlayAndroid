@@ -5,12 +5,8 @@ import android.app.Activity
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
-import android.transition.TransitionInflater
-import android.transition.TransitionManager
 import android.util.Log
 import android.view.View
-import android.view.Window
-import android.view.animation.TranslateAnimation
 import android.widget.FrameLayout
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -57,13 +53,6 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle, BaseInit {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         transparentStatusBar()
-        window.requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
-        val explode = TransitionInflater.from(this).inflateTransition(android.R.transition.explode)
-        explode.duration = 400
-        window.exitTransition = explode
-        window.enterTransition = explode
-        window.reenterTransition = explode
-
         setContentView(getLayoutId())
         ActivityCollector.add(WeakReference(this))
         weakRefActivity = WeakReference(this)

@@ -17,7 +17,6 @@ import com.zj.core.Play
 import com.zj.core.util.showToast
 import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
-import com.zj.play.main.startNewActivity
 import com.zj.play.profile.share.ShareActivity
 import kotlinx.android.synthetic.main.activity_article.*
 
@@ -119,7 +118,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
                     articleWebView.goBack()
                     return
                 } else {
-                    onBackPressed()
+                    finish()
                 }
             }
             R.id.articleImgRight -> {
@@ -195,7 +194,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
                 putExtra(ORIGIN_ID, originId)
                 putExtra(USER_ID, userId)
             }
-            context.startNewActivity(intent)
+            context.startActivity(intent)
         }
     }
 

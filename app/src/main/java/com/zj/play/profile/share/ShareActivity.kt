@@ -11,7 +11,6 @@ import com.zj.model.model.CoinInfo
 import com.zj.model.model.ShareModel
 import com.zj.play.article.ArticleAdapter
 import com.zj.play.home.ArticleCollectBaseActivity
-import com.zj.play.main.startNewActivity
 import com.zj.play.profile.rank.user.UserRankActivity
 import com.zj.play.profile.share.add.AddShareActivity
 import kotlinx.android.synthetic.main.activity_share.*
@@ -119,7 +118,7 @@ class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
             val intent = Intent(context, ShareActivity::class.java)
             intent.putExtra(IS_MINE, isMine)
             intent.putExtra(USER_ID, userId)
-            context.startNewActivity(intent)
+            context.startActivity(intent)
         }
     }
 

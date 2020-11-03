@@ -7,7 +7,6 @@ import com.zj.core.util.showToast
 import com.zj.play.R
 import com.zj.play.article.ArticleAdapter
 import com.zj.play.base.BaseListActivity
-import com.zj.play.main.startNewActivity
 import kotlinx.android.synthetic.main.activity_base_list.*
 
 class BrowseHistoryActivity : BaseListActivity() {
@@ -67,7 +66,7 @@ class BrowseHistoryActivity : BaseListActivity() {
     companion object {
         fun actionStart(context: Context) {
             val intent = Intent(context, BrowseHistoryActivity::class.java)
-            context.startNewActivity(intent)
+            context.startActivity(intent)
         }
     }
 
