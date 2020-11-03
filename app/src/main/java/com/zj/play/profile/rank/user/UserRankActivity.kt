@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import com.zj.play.R
 import com.zj.play.base.BaseListActivity
+import com.zj.play.main.startNewActivity
 import kotlinx.android.synthetic.main.activity_base_list.*
 
 class UserRankActivity : BaseListActivity() {
@@ -44,7 +45,7 @@ class UserRankActivity : BaseListActivity() {
     companion object {
         fun actionStart(context: Context) {
             val intent = Intent(context, UserRankActivity::class.java)
-            context.startActivity(intent)
+            context.startNewActivity(intent)
         }
     }
 

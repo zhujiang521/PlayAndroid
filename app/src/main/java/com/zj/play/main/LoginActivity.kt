@@ -104,7 +104,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     companion object {
         fun actionStart(context: Context) {
             val intent = Intent(context, LoginActivity::class.java)
-            context.startActivity(intent)
+            context.startNewActivity(intent)
         }
     }
 

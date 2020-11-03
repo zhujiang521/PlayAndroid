@@ -17,6 +17,7 @@ import com.zj.model.room.PlayDatabase
 import com.zj.model.room.dao.HotKeyDao
 import com.zj.model.room.entity.HotKey
 import com.zj.play.home.search.article.ArticleListActivity
+import com.zj.play.main.startNewActivity
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -91,7 +92,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.searchImgBack -> {
-                finish()
+                onBackPressed()
             }
             R.id.searchTxtRight -> {
                 val keyword = searchTxtKeyword.text.toString()
@@ -111,7 +112,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
     companion object {
         fun actionStart(context: Context) {
             val intent = Intent(context, SearchActivity::class.java)
-            context.startActivity(intent)
+            context.startNewActivity(intent)
         }
     }
 

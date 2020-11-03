@@ -140,7 +140,7 @@ class TitleBar @JvmOverloads constructor(
             if (KeyboardUtils.isSoftInputVisible(mContext as Activity)) KeyboardUtils.hideSoftInput(
                 this
             )
-            mContext.finish()
+            mContext.onBackPressed()
         }
     }
 

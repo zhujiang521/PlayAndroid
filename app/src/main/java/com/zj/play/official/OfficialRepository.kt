@@ -1,6 +1,7 @@
 package com.zj.play.official
 
 import android.app.Application
+import android.util.Log
 import com.blankj.utilcode.util.SPUtils
 import com.zj.core.util.Preference
 import com.zj.model.pojo.QueryArticle
@@ -72,7 +73,7 @@ class OfficialRepository(application: Application) {
                         }
                         spUtils.put(DOWN_OFFICIAL_ARTICLE_TIME, System.currentTimeMillis())
                         if (query.isRefresh) {
-                            articleListDao.deleteAll(PROJECT, query.cid)
+                            articleListDao.deleteAll(OFFICIAL, query.cid)
                         }
                         articleListDao.insertList(projectTree.data.datas)
                         Result.success(projectTree.data.datas)

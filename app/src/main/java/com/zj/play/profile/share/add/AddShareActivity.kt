@@ -9,6 +9,7 @@ import com.zj.core.util.showToast
 import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
 import com.zj.network.repository.ShareRepository
+import com.zj.play.main.startNewActivity
 import kotlinx.android.synthetic.main.activity_add_share.*
 
 class AddShareActivity : BaseActivity(), View.OnClickListener {
@@ -46,7 +47,7 @@ class AddShareActivity : BaseActivity(), View.OnClickListener {
         ShareRepository.shareArticle(title, link).observe(this, {
             if (it.isSuccess) {
                 showToast(getString(R.string.share_success))
-                finish()
+                onBackPressed()
             }
         })
     }
@@ -54,7 +55,7 @@ class AddShareActivity : BaseActivity(), View.OnClickListener {
     companion object {
         fun actionStart(context: Context) {
             val intent = Intent(context, AddShareActivity::class.java)
-            context.startActivity(intent)
+            context.startNewActivity(intent)
         }
     }
 

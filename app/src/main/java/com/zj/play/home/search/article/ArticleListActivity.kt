@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.zj.play.R
 import com.zj.play.article.ArticleAdapter
 import com.zj.play.base.BaseListActivity
+import com.zj.play.main.startNewActivity
 import kotlinx.android.synthetic.main.activity_base_list.*
 
 private const val KEYWORD = "KEYWORD"
@@ -57,7 +58,7 @@ class ArticleListActivity : BaseListActivity() {
             val intent = Intent(context, ArticleListActivity::class.java).apply {
                 putExtra(KEYWORD, keyword)
             }
-            context.startActivity(intent)
+            context.startNewActivity(intent)
         }
     }
 
