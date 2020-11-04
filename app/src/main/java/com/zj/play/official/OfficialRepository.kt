@@ -72,7 +72,7 @@ class OfficialRepository(application: Application) {
                         }
                         spUtils.put(DOWN_OFFICIAL_ARTICLE_TIME, System.currentTimeMillis())
                         if (query.isRefresh) {
-                            articleListDao.deleteAll(PROJECT, query.cid)
+                            articleListDao.deleteAll(OFFICIAL, query.cid)
                         }
                         articleListDao.insertList(projectTree.data.datas)
                         Result.success(projectTree.data.datas)
