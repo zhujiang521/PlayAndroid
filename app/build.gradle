@@ -63,10 +63,12 @@ dependencies {
     implementation des.kotlinVersion
     implementation des.coreKtx
     implementation des.appcompat
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.youth.banner:banner:2.1.0'
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
     implementation project(path: ':model')
+
+    implementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
 
     implementation 'com.cpacm:floatingmusicmenu:1.0.0'
     // 异常上报

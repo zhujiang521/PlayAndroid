@@ -171,9 +171,20 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        articleWebView.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        articleWebView.onPause()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         bottomSheetDialog?.cancel()
+        articleWebView.destroy()
     }
 
     companion object {
