@@ -5,10 +5,10 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.lifecycle.LifecycleCoroutineScope
 import com.zj.core.util.showToast
-import com.zj.play.R
 import com.zj.network.repository.CollectRepository
-import kotlinx.coroutines.GlobalScope
+import com.zj.play.R
 import kotlinx.coroutines.launch
 
 
@@ -22,8 +22,14 @@ import kotlinx.coroutines.launch
  */
 object ArticleUtils {
 
-    fun collect(collect: Boolean, id: Int, originId: Int, context: Context) {
-        GlobalScope.launch {
+    fun collect(
+        collect: Boolean,
+        id: Int,
+        originId: Int,
+        context: Context,
+        lifecycleScope: LifecycleCoroutineScope
+    ) {
+        lifecycleScope.launch {
             if (collect) {
                 val cancelCollects =
                     CollectRepository.cancelCollects(if (originId != -1) originId else id)

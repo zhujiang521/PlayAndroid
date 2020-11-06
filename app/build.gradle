@@ -68,7 +68,8 @@ dependencies {
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
     implementation project(path: ':model')
 
-    implementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    // 内存泄漏检测
+    //implementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
 
     implementation 'com.cpacm:floatingmusicmenu:1.0.0'
     // 异常上报

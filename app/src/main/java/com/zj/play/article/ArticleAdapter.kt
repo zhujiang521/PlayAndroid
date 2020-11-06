@@ -21,10 +21,7 @@ import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.HISTORY
 import com.zj.play.main.LoginActivity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 
 class ArticleAdapter(
@@ -34,6 +31,8 @@ class ArticleAdapter(
     layoutId: Int = R.layout.adapter_article,
 ) :
     CommonAdapter<Article>(context, layoutId, articleList) {
+
+    private val uiScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     override fun convert(holder: ViewHolder, t: Article, position: Int) {
         val articleLlItem = holder.getView<RelativeLayout>(R.id.articleLlItem)
@@ -96,7 +95,7 @@ class ArticleAdapter(
                 userId = t.userId
             )
             val browseHistoryDao = PlayDatabase.getDatabase(mContext).browseHistoryDao()
-            GlobalScope.launch(Dispatchers.IO) {
+            uiScope.launch {
                 if (browseHistoryDao.getArticle(t.id, HISTORY) == null) {
                     t.localType = HISTORY
                     t.desc = ""
@@ -108,7 +107,7 @@ class ArticleAdapter(
 
     private fun setCollect(t: Article, articleTvCollect: ImageView) {
         val articleDao = PlayDatabase.getDatabase(mContext).browseHistoryDao()
-        GlobalScope.launch {
+        uiScope.launch {
             if (!t.collect) {
                 val cancelCollects = CollectRepository.cancelCollects(t.id)
                 if (cancelCollects.errorCode == 0) {

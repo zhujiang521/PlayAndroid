@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.zj.core.Play
@@ -136,7 +137,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
                     return
                 }
 
-                ArticleUtils.collect(isCollection == 1, pageId, originId, this)
+                ArticleUtils.collect(isCollection == 1, pageId, originId, this,lifecycleScope)
                 if (isCollection != 1) {
                     isCollection = 1;
                     bottomDialogIvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)

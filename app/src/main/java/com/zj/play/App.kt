@@ -7,15 +7,10 @@ import android.util.Log
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
-import com.squareup.leakcanary.LeakCanary
-import com.squareup.leakcanary.RefWatcher
 import com.tencent.bugly.crashreport.CrashReport
 import com.tencent.smtt.sdk.QbSdk
 import com.zj.core.Play
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.util.*
 import kotlin.system.exitProcess
 
@@ -29,8 +24,6 @@ class App : Application() {
 
     //所有活动集合
     private var activityLinkedList = LinkedList<Activity>()
-    private var job: Job? = null
-    private var mRefWatcher: RefWatcher? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -40,23 +33,15 @@ class App : Application() {
     }
 
     private fun initData() {
-        job = GlobalScope.launch(Dispatchers.IO) {
+        CoroutineScope(Dispatchers.IO + SupervisorJob()).launch {
             initQbSdk()
             initBugLy()
-            initLeakCanary()
         }
-    }
-
-    private fun initLeakCanary() {
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return;
-        }
-        mRefWatcher = LeakCanary.install(this);
     }
 
     private fun initBugLy() {
         // Bugly bug上报
-        CrashReport.initCrashReport(applicationContext, "0f4f8e06b4", false);
+        CrashReport.initCrashReport(applicationContext, "0f4f8e06b4", false)
     }
 
     private fun initQbSdk() {
@@ -80,7 +65,6 @@ class App : Application() {
             for (i in activityLinkedList.indices) {
                 activityLinkedList[i].finish()
             }
-            job?.cancel()
         } catch (e: Exception) {
             e.printStackTrace()
             exitProcess(0)

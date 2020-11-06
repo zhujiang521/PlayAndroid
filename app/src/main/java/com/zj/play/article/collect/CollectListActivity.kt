@@ -3,6 +3,7 @@ package com.zj.play.article.collect
 import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.zj.play.R
 import com.zj.play.base.BaseListActivity
 import kotlinx.android.synthetic.main.activity_base_list.*
@@ -29,7 +30,8 @@ class CollectListActivity : BaseListActivity() {
         super.initView()
         articleAdapter = CollectAdapter(
             this,
-            viewModel.dataList
+            viewModel.dataList,
+            lifecycleScope
         )
         articleAdapter.setHasStableIds(true)
         baseListRecycleView.adapter = articleAdapter

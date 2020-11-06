@@ -66,6 +66,7 @@ object HomeRepository {
         bannerBeanDao: BannerBeanDao,
         bannerList: List<BannerBean>
     ) {
+        val uiScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
         bannerList.forEach {
             val mRequestManager: RequestManager = Glide.with(application)
             val mRequestBuilder: RequestBuilder<File> = mRequestManager.downloadOnly()
@@ -87,7 +88,7 @@ object HomeRepository {
                 ): Boolean {
                     try {
                         it.filePath = resource!!.absolutePath
-                        GlobalScope.launch(Dispatchers.IO) {
+                        uiScope.launch {
                             bannerBeanDao.insert(it)
                         }
                     } catch (e: Exception) {

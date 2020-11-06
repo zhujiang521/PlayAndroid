@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.lifecycle.LifecycleCoroutineScope
 import com.blankj.utilcode.util.NetworkUtils
 import com.bumptech.glide.Glide
 import com.zhy.adapter.recyclerview.CommonAdapter
@@ -18,14 +19,12 @@ import com.zj.play.R
 import com.zj.model.model.CollectX
 import com.zj.network.repository.CollectRepository
 import com.zj.play.article.ArticleActivity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class CollectAdapter(
     context: Context,
     articleList: ArrayList<CollectX>,
+    private val lifecycleScope: LifecycleCoroutineScope,
     layoutId: Int = R.layout.adapter_article
 ) :
     CommonAdapter<CollectX>(context, layoutId, articleList) {
@@ -79,7 +78,7 @@ class CollectAdapter(
     }
 
     private fun cancelCollect(id: Int, position: Int) {
-        GlobalScope.launch {
+        lifecycleScope.launch {
             val cancelCollects = CollectRepository.cancelCollects(id)
             withContext(Dispatchers.Main) {
                 if (cancelCollects.errorCode == 0) {
