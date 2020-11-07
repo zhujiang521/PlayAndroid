@@ -22,36 +22,6 @@ import kotlinx.coroutines.launch
  */
 object ArticleUtils {
 
-    fun collect(
-        collect: Boolean,
-        id: Int,
-        originId: Int,
-        context: Context,
-        lifecycleScope: LifecycleCoroutineScope
-    ) {
-        lifecycleScope.launch {
-            if (collect) {
-                val cancelCollects =
-                    CollectRepository.cancelCollects(if (originId != -1) originId else id)
-                if (cancelCollects.errorCode == 0) {
-                    showToast(context.getString(R.string.collection_cancelled_successfully))
-                    ArticleBroadCast.sendArticleChangesReceiver(context)
-                } else {
-                    showToast(context.getString(R.string.failed_to_cancel_collection))
-                }
-            } else {
-                val toCollects = CollectRepository.toCollects(id)
-                if (toCollects.errorCode == 0) {
-                    showToast(context.getString(R.string.collection_successful))
-                    ArticleBroadCast.sendArticleChangesReceiver(context)
-                } else {
-                    showToast(context.getString(R.string.collection_failed))
-                }
-
-            }
-        }
-    }
-
     fun copyToClipboard(context: Context, text: String?) {
         val systemService: ClipboardManager =
             context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

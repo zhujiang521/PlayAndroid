@@ -11,10 +11,9 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.zj.core.Play
 import com.zj.core.util.showToast
 import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
@@ -32,6 +31,8 @@ const val IS_COLLECTION = "IS_COLLECTION"
 class ArticleActivity : BaseActivity(), View.OnClickListener {
 
     override fun getLayoutId(): Int = R.layout.activity_article
+
+    private val viewModel by lazy { ViewModelProvider(this).get(ArticleViewModel::class.java) }
 
     private var pageName = ""
     private var pageUrl = ""
@@ -127,25 +128,16 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.bottomDialogLlCollect -> {
                 bottomSheetDialog?.dismiss()
-                if (isCollection == -1 || pageId == -1) {
-                    showToast(getString(R.string.page_is_not_collection))
-                    return
-                }
-
-                if (!Play.isLogin) {
-                    showToast(getString(R.string.not_currently_logged_in))
-                    return
-                }
-
-                ArticleUtils.collect(isCollection == 1, pageId, originId, this,lifecycleScope)
-                if (isCollection != 1) {
-                    isCollection = 1;
-                    bottomDialogIvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
-                    bottomDialogTvCollect.text = getString(R.string.cancel_collection)
-                } else {
-                    isCollection = 0;
-                    bottomDialogIvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
-                    bottomDialogTvCollect.text = getString(R.string.collection)
+                viewModel.setCollect(isCollection, pageId, originId, this) {
+                    if (it) {
+                        isCollection = 1
+                        bottomDialogIvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
+                        bottomDialogTvCollect.text = getString(R.string.cancel_collection)
+                    } else {
+                        isCollection = 0
+                        bottomDialogIvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
+                        bottomDialogTvCollect.text = getString(R.string.collection)
+                    }
                 }
             }
             R.id.bottomDialogLlCopy -> {
