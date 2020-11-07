@@ -74,4 +74,13 @@
 	<string name="link_format_error">链接格式输入错误</string>
 	<string name="share_success">分享成功</string>
 	<string name="no_app">没有安装支持打开此网页的应用!</string>
+
+	<string name="static_disabled_message_search">搜索你想要的技术文章</string>
+	<string name="static_shortcut_long_label_search">搜索技术文章</string>
+	<string name="static_shortcut_short_label_search">搜索文章</string>
+
+	<string name="static_disabled_message_add_share">新增你想分享的文章</string>
+	<string name="static_shortcut_long_label_add_share">新增文章分享</string>
+	<string name="static_shortcut_short_label_add_share">新增分享</string>
+
 </resources>

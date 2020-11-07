@@ -74,4 +74,13 @@
     <string name="link_format_error">Link format input error</string>
     <string name="share_success">Share success</string>
     <string name="no_app">There are no apps installed that support opening this page!</string>
+
+    <string name="static_disabled_message_search">Search for technical articles you want!</string>
+    <string name="static_shortcut_long_label_search">Search for technical articles</string>
+    <string name="static_shortcut_short_label_search">Search for articles</string>
+
+    <string name="static_disabled_message_add_share">Add articles you want to share!</string>
+    <string name="static_shortcut_long_label_add_share">New article sharing</string>
+    <string name="static_shortcut_short_label_add_share">New share</string>
+
 </resources>
