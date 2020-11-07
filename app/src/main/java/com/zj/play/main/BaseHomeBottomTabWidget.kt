@@ -2,7 +2,6 @@ package com.zj.play.main
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
@@ -31,7 +30,6 @@ abstract class BaseHomeBottomTabWidget @JvmOverloads constructor(
      * @param fm
      */
     fun init(fm: FragmentManager?, viewModel: MainViewModel) {
-        Log.e("ZHUJIANG", "init: $fm")
         mFragmentManager = fm
         mViewModel = viewModel
         if (mFragments == null) {
@@ -80,7 +78,6 @@ abstract class BaseHomeBottomTabWidget @JvmOverloads constructor(
         if (currentFragment != null) {
             transaction.hide(currentFragment!!)
         }
-        Log.e("ZHUJIANG", "fragmentManger: $targetFg")
         if (!targetFg.isAdded) {
             transaction.add(R.id.flHomeFragment, targetFg).commit()
         } else {
