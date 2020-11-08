@@ -31,6 +31,7 @@ class TitleBar @JvmOverloads constructor(
         val attr = context.obtainStyledAttributes(attrs, R.styleable.TitleBar)
         titleName = attr.getString(R.styleable.TitleBar_titleName)
         backImageVisible = attr.getBoolean(R.styleable.TitleBar_backImageVisiable, true)
+        attr.recycle()
     }
 
     /**

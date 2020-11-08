@@ -57,24 +57,29 @@
                 <EditText
                     android:id="@+id/loginUserNumberEdit"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dp_35"
                     android:layout_marginHorizontal="@dimen/dp_35"
+                    android:background="@drawable/bg_edittext"
                     android:hint="@string/enter_name"
                     android:lines="1"
+                    android:paddingHorizontal="@dimen/dp_5"
                     android:singleLine="true"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_color"
                     android:textColorHint="@color/plain"
                     android:textSize="@dimen/dp_14" />
 
                 <EditText
                     android:id="@+id/loginPassNumberEdit"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dp_35"
                     android:layout_marginHorizontal="@dimen/dp_35"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@drawable/bg_edittext"
                     android:hint="@string/enter_password"
                     android:lines="1"
+                    android:paddingHorizontal="@dimen/dp_5"
                     android:singleLine="true"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_color"
                     android:textColorHint="@color/plain"
                     android:textSize="@dimen/dp_14" />
 
