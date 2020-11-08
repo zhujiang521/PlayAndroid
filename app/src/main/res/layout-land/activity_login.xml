@@ -64,6 +64,7 @@
                     android:lines="1"
                     android:singleLine="true"
                     android:textColor="@color/white"
+                    android:textColorHint="@color/plain"
                     android:textSize="@dimen/dp_14" />
 
                 <EditText
@@ -76,6 +77,7 @@
                     android:lines="1"
                     android:singleLine="true"
                     android:textColor="@color/white"
+                    android:textColorHint="@color/plain"
                     android:textSize="@dimen/dp_14" />
 
                 <Button

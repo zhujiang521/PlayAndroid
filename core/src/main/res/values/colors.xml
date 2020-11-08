@@ -5,6 +5,8 @@
     <color name="colorAccent">#41DF67</color>
     <!-- 白色 -->
     <color name="white">#ffffff</color>
+    <!-- 浅白色 -->
+    <color name="plain">#E6E6E6</color>
     <!-- 字体颜色 -->
     <color name="text_color_dark">#464646</color>
     <color name="text_color">#666666</color>

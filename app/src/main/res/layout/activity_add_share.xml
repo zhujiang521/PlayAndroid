@@ -23,6 +23,8 @@
         android:lines="1"
         android:maxLines="1"
         android:singleLine="true"
+        android:textColor="@color/text_color_black"
+        android:textColorHint="@color/text_color"
         android:textSize="@dimen/dp_14" />
 
     <EditText
@@ -32,6 +34,11 @@
         android:layout_marginHorizontal="@dimen/dp_30"
         android:gravity="start"
         android:hint="@string/enter_article_link"
+        android:lines="1"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/text_color_black"
+        android:textColorHint="@color/text_color"
         android:textSize="@dimen/dp_14" />
 
     <Button

@@ -36,7 +36,7 @@
                 android:paddingStart="@dimen/dp_5"
                 android:singleLine="true"
                 android:maxLines="1"
-                android:textColorHint="@color/gray"
+                android:textColorHint="@color/plain"
                 android:textColor="@color/white"
                 android:textSize="@dimen/dp_16" />
 
