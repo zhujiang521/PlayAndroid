@@ -6,8 +6,6 @@ import android.text.Html
 import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
 import com.blankj.utilcode.util.NetworkUtils
 import com.bumptech.glide.Glide
 import com.zhy.adapter.recyclerview.CommonAdapter
@@ -15,12 +13,13 @@ import com.zhy.adapter.recyclerview.base.ViewHolder
 import com.zj.core.Play
 import com.zj.core.util.setSafeListener
 import com.zj.core.util.showToast
-import com.zj.play.R
-import com.zj.network.repository.CollectRepository
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.HISTORY
+import com.zj.network.repository.CollectRepository
+import com.zj.play.R
 import com.zj.play.main.LoginActivity
+import kotlinx.android.synthetic.main.adapter_article.view.*
 import kotlinx.coroutines.*
 
 
@@ -35,45 +34,37 @@ class ArticleAdapter(
     private val uiScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     override fun convert(holder: ViewHolder, t: Article, position: Int) {
-        val articleLlItem = holder.getView<RelativeLayout>(R.id.articleLlItem)
-        val articleIvImg = holder.getView<ImageView>(R.id.articleIvImg)
-        val articleTvAuthor = holder.getView<TextView>(R.id.articleTvAuthor)
-        val articleTvNew = holder.getView<TextView>(R.id.articleTvNew)
-        val articleTvTop = holder.getView<TextView>(R.id.articleTvTop)
-        val articleTvTime = holder.getView<TextView>(R.id.articleTvTime)
-        val articleTvTitle = holder.getView<TextView>(R.id.articleTvTitle)
-        val articleTvChapterName = holder.getView<TextView>(R.id.articleTvChapterName)
-        val articleTvCollect = holder.getView<ImageView>(R.id.articleIvCollect)
         if (!TextUtils.isEmpty(t.title))
-            articleTvTitle.text =
+            holder.itemView.articleTvTitle.text =
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     Html.fromHtml(t.title, Html.FROM_HTML_MODE_LEGACY)
                 } else {
                     t.title
                 }
-        articleTvChapterName.text = t.superChapterName
-        articleTvAuthor.text = if (TextUtils.isEmpty(t.author)) t.shareUser else t.author
-        articleTvTime.text = t.niceShareDate
+        holder.itemView.articleTvChapterName.text = t.superChapterName
+        holder.itemView.articleTvAuthor.text =
+            if (TextUtils.isEmpty(t.author)) t.shareUser else t.author
+        holder.itemView.articleTvTime.text = t.niceShareDate
         if (!TextUtils.isEmpty(t.envelopePic)) {
-            articleIvImg.visibility = View.VISIBLE
-            Glide.with(mContext).load(t.envelopePic).into(articleIvImg)
+            holder.itemView.articleIvImg.visibility = View.VISIBLE
+            Glide.with(mContext).load(t.envelopePic).into(holder.itemView.articleIvImg)
         } else {
-            articleIvImg.visibility = View.GONE
+            holder.itemView.articleIvImg.visibility = View.GONE
         }
-        articleTvTop.visibility = if (t.type > 0) View.VISIBLE else View.GONE
-        articleTvNew.visibility = if (t.fresh) View.VISIBLE else View.GONE
+        holder.itemView.articleTvTop.visibility = if (t.type > 0) View.VISIBLE else View.GONE
+        holder.itemView.articleTvNew.visibility = if (t.fresh) View.VISIBLE else View.GONE
 
-        articleTvCollect.visibility = if (isShowCollect) View.VISIBLE else View.GONE
+        holder.itemView.articleIvCollect.visibility = if (isShowCollect) View.VISIBLE else View.GONE
         if (t.collect) {
-            articleTvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
+            holder.itemView.articleIvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
         } else {
-            articleTvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
+            holder.itemView.articleIvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
         }
-        articleTvCollect.setSafeListener {
+        holder.itemView.articleIvCollect.setSafeListener {
             if (Play.isLogin) {
                 if (NetworkUtils.isConnected()) {
                     t.collect = !t.collect
-                    setCollect(t, articleTvCollect)
+                    setCollect(t, holder.itemView.articleIvCollect)
                 } else {
                     showToast(mContext.getString(R.string.no_network))
                 }
@@ -81,7 +72,7 @@ class ArticleAdapter(
                 LoginActivity.actionStart(mContext)
             }
         }
-        articleLlItem.setOnClickListener {
+        holder.itemView.articleLlItem.setOnClickListener {
             if (!NetworkUtils.isConnected()) {
                 showToast(mContext.getString(R.string.no_network))
                 return@setOnClickListener
@@ -134,6 +125,7 @@ class ArticleAdapter(
             }
         }
     }
+
 
     override fun getItemId(position: Int): Long {
         return position.toLong()

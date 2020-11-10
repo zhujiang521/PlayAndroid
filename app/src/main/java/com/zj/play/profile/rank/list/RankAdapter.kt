@@ -8,6 +8,7 @@ import com.zhy.adapter.recyclerview.base.ViewHolder
 import com.zj.play.R
 import com.zj.model.model.Rank
 import com.zj.play.profile.share.ShareActivity
+import kotlinx.android.synthetic.main.adapter_rank.view.*
 import java.util.*
 
 class RankAdapter(
@@ -17,16 +18,11 @@ class RankAdapter(
 ) :
     CommonAdapter<Rank>(context, layoutId, rankList) {
     override fun convert(holder: ViewHolder, t: Rank, position: Int) {
-        val rankAdRlItem = holder.getView<RelativeLayout>(R.id.rankAdRlItem)
-        val rankAdTvUsername = holder.getView<TextView>(R.id.rankAdTvUsername)
-        val rankAdTvRank = holder.getView<TextView>(R.id.rankAdTvRank)
-        val rankAdTvCoinCount = holder.getView<TextView>(R.id.rankAdTvCoinCount)
-        val rankAdTvLevel = holder.getView<TextView>(R.id.rankAdTvLevel)
-        rankAdTvUsername.text = t.username
-        rankAdTvRank.text = mContext.getString(R.string.ranking, t.rank)
-        rankAdTvCoinCount.text = mContext.getString(R.string.coin, t.coinCount)
-        rankAdTvLevel.text = mContext.getString(R.string.lever, t.level)
-        rankAdRlItem.setOnClickListener {
+        holder.itemView.rankAdTvUsername.text = t.username
+        holder.itemView.rankAdTvRank.text = mContext.getString(R.string.ranking, t.rank)
+        holder.itemView.rankAdTvCoinCount.text = mContext.getString(R.string.coin, t.coinCount)
+        holder.itemView.rankAdTvLevel.text = mContext.getString(R.string.lever, t.level)
+        holder.itemView.rankAdRlItem.setOnClickListener {
             ShareActivity.actionStart(mContext, false, t.userId)
         }
     }
