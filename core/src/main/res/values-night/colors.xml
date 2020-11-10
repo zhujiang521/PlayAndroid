@@ -12,7 +12,7 @@
     <color name="text_color">#939393</color>
     <color name="text_green_dark">#FF006E73</color>
     <color name="text_green">#25C84C</color>
-    <color name="text_color_black">#636363</color>
+    <color name="text_color_black">#B5B5B5</color>
     <!-- 下拉刷新颜色 -->
     <color name="refresh">#232323</color>
     <!--取消按钮-->

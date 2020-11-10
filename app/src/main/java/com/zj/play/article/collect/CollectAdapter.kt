@@ -8,10 +8,10 @@ import android.view.View
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.blankj.utilcode.util.NetworkUtils
 import com.bumptech.glide.Glide
-import com.zhy.adapter.recyclerview.CommonAdapter
 import com.zhy.adapter.recyclerview.base.ViewHolder
 import com.zj.core.util.setSafeListener
 import com.zj.core.util.showToast
+import com.zj.core.view.custom.BaseCommonAdapter
 import com.zj.model.model.CollectX
 import com.zj.network.repository.CollectRepository
 import com.zj.play.R
@@ -27,7 +27,7 @@ class CollectAdapter(
     private val lifecycleScope: LifecycleCoroutineScope,
     layoutId: Int = R.layout.adapter_article
 ) :
-    CommonAdapter<CollectX>(context, layoutId, articleList) {
+    BaseCommonAdapter<CollectX>(context, layoutId, articleList) {
 
     override fun convert(holder: ViewHolder, t: CollectX, position: Int) {
         holder.itemView.articleTvTitle.text =
@@ -81,10 +81,6 @@ class CollectAdapter(
                 }
             }
         }
-    }
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
     }
 
 }

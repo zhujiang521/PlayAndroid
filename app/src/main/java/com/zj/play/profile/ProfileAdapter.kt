@@ -1,19 +1,16 @@
 package com.zj.play.profile
 
 import android.content.Context
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import com.zhy.adapter.recyclerview.CommonAdapter
 import com.zhy.adapter.recyclerview.base.ViewHolder
 import com.zj.core.Play
+import com.zj.core.view.custom.BaseCommonAdapter
 import com.zj.play.R
-import com.zj.play.main.LoginActivity
 import com.zj.play.article.ArticleActivity
 import com.zj.play.article.collect.CollectListActivity
+import com.zj.play.main.LoginActivity
 import com.zj.play.profile.history.BrowseHistoryActivity
-import com.zj.play.profile.user.UserActivity
 import com.zj.play.profile.rank.user.UserRankActivity
+import com.zj.play.profile.user.UserActivity
 import kotlinx.android.synthetic.main.adapter_profile.view.*
 
 /**
@@ -29,7 +26,7 @@ class ProfileAdapter(
     profileItemList: ArrayList<ProfileItem>,
     layoutId: Int = R.layout.adapter_profile
 ) :
-    CommonAdapter<ProfileItem>(context, layoutId, profileItemList) {
+    BaseCommonAdapter<ProfileItem>(context, layoutId, profileItemList) {
 
     override fun convert(holder: ViewHolder, t: ProfileItem, position: Int) {
         holder.itemView.profileAdTvTitle.text = t.title

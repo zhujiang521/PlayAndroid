@@ -8,11 +8,11 @@ import android.view.View
 import android.widget.ImageView
 import com.blankj.utilcode.util.NetworkUtils
 import com.bumptech.glide.Glide
-import com.zhy.adapter.recyclerview.CommonAdapter
 import com.zhy.adapter.recyclerview.base.ViewHolder
 import com.zj.core.Play
 import com.zj.core.util.setSafeListener
 import com.zj.core.util.showToast
+import com.zj.core.view.custom.BaseCommonAdapter
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.HISTORY
@@ -29,7 +29,7 @@ class ArticleAdapter(
     private val isShowCollect: Boolean = true,
     layoutId: Int = R.layout.adapter_article,
 ) :
-    CommonAdapter<Article>(context, layoutId, articleList) {
+    BaseCommonAdapter<Article>(context, layoutId, articleList) {
 
     private val uiScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
@@ -124,11 +124,6 @@ class ArticleAdapter(
 
             }
         }
-    }
-
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
     }
 
 }
