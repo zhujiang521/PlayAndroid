@@ -1,0 +1,36 @@
+package com.zj.core.view.base
+
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.extensions.LayoutContainer
+
+abstract class BaseListAdapter<T : Any>(
+    protected val mContext: Context,
+    private val layoutId: Int,
+    private val dataList: List<T>
+) : RecyclerView.Adapter<BaseListAdapter.ViewHolder<T>>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<T> {
+        val view = LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder<T>, position: Int) {
+        convert(holder.itemView, dataList[position], position)
+    }
+
+    abstract fun convert(view: View, data: T, position: Int)
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemCount() = dataList.size
+
+    class ViewHolder<T>(override val containerView: View) : RecyclerView.ViewHolder(containerView),
+        LayoutContainer
+
+}

@@ -1,9 +1,9 @@
 package com.zj.play.profile
 
 import android.content.Context
-import com.zhy.adapter.recyclerview.base.ViewHolder
+import android.view.View
 import com.zj.core.Play
-import com.zj.core.view.custom.BaseCommonAdapter
+import com.zj.core.view.base.BaseListAdapter
 import com.zj.play.R
 import com.zj.play.article.ArticleActivity
 import com.zj.play.article.collect.CollectListActivity
@@ -25,14 +25,13 @@ class ProfileAdapter(
     context: Context,
     profileItemList: ArrayList<ProfileItem>,
     layoutId: Int = R.layout.adapter_profile
-) :
-    BaseCommonAdapter<ProfileItem>(context, layoutId, profileItemList) {
+) : BaseListAdapter<ProfileItem>(context, layoutId, profileItemList) {
 
-    override fun convert(holder: ViewHolder, t: ProfileItem, position: Int) {
-        holder.itemView.profileAdTvTitle.text = t.title
-        holder.itemView.profileAdIv.setImageResource(t.imgId)
-        holder.itemView.profileAdLlItem.setOnClickListener {
-            toJump(t.title)
+    override fun convert(view: View, data: ProfileItem, position: Int) {
+        view.profileAdTvTitle.text = data.title
+        view.profileAdIv.setImageResource(data.imgId)
+        view.profileAdLlItem.setOnClickListener {
+            toJump(data.title)
         }
     }
 
