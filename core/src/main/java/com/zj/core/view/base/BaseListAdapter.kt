@@ -11,14 +11,14 @@ abstract class BaseListAdapter<T : Any>(
     protected val mContext: Context,
     private val layoutId: Int,
     private val dataList: List<T>
-) : RecyclerView.Adapter<BaseListAdapter.ViewHolder<T>>() {
+) : RecyclerView.Adapter<BaseListAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<T> {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder<T>, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         convert(holder.itemView, dataList[position], position)
     }
 
@@ -30,7 +30,7 @@ abstract class BaseListAdapter<T : Any>(
 
     override fun getItemCount() = dataList.size
 
-    class ViewHolder<T>(override val containerView: View) : RecyclerView.ViewHolder(containerView),
+    class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
         LayoutContainer
 
 }

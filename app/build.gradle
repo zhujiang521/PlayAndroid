@@ -75,10 +75,10 @@ dependencies {
     implementation 'com.cpacm:floatingmusicmenu:1.0.0'
     // 异常上报
     implementation 'com.tencent.bugly:crashreport:3.2.422'
+    implementation files('libs/tbs_sdk_thirdapp_v4.3.0.67_43967_sharewithdownloadwithfile_withoutGame_obfs_20200923_120452.jar')
     testImplementation des.junit
     androidTestImplementation des.extJunit
     androidTestImplementation des.espressoCore
     implementation project(path: ':core')
     implementation project(path: ':network')
-    implementation files('libs/tbs_sdk_thirdapp_v4.3.0.1072_43646_sharewithdownloadwithfile_withoutGame_obfs_20190429_175122.jar')
 }
