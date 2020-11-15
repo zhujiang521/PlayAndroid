@@ -26,10 +26,6 @@ android {
 
         testInstrumentationRunner cfgs.testInstrumentationRunner
         resConfigs "zh-rCN", "zh-rHK", "zh-rMO", "zh-rTW" // 去除无用语言
-        ndk {
-            abiFilters 'armeabi'
-            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64', 'armeabi-v7a'
-        }
         signingConfig signingConfigs.play
         javaCompileOptions {
             annotationProcessorOptions {
