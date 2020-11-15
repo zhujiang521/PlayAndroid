@@ -3,6 +3,7 @@
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#000000</color>
+    <color name="colorLoading">#298E41</color>
     <!-- 白色 -->
     <color name="white">#CACACA</color>
     <!-- 浅白色 -->
@@ -14,7 +15,7 @@
     <color name="text_green">#25C84C</color>
     <color name="text_color_black">#B5B5B5</color>
     <!-- 下拉刷新颜色 -->
-    <color name="refresh">#232323</color>
+    <color name="refresh">#000000</color>
     <!--取消按钮-->
     <color name="red_btn_bg_color">#DD6B55</color>
 
@@ -28,6 +29,6 @@
     <color name="gray_green">#ff32af85</color>
 
     <color name="secondary_text">#757575</color>
-    <color name="wall">#232323</color>
+    <color name="wall">#000000</color>
 
 </resources>

@@ -3,6 +3,7 @@
     <color name="colorPrimary">#25C84C</color>
     <color name="colorPrimaryDark">#25C84C</color>
     <color name="colorAccent">#41DF67</color>
+    <color name="colorLoading">#41DF67</color>
     <!-- 白色 -->
     <color name="white">#ffffff</color>
     <!-- 浅白色 -->

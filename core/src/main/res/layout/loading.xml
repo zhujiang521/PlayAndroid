@@ -5,4 +5,6 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_margin="@dimen/dp_64"
-    android:indeterminate="true" />
+    android:indeterminate="true"
+    android:indeterminateTint="@color/colorLoading"
+    android:indeterminateTintMode="src_atop" />
