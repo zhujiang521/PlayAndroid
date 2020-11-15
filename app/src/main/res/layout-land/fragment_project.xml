@@ -21,9 +21,9 @@
         app:tabIndicatorHeight="@dimen/dp_5"
         app:tabMaxWidth="0dp"
         app:tabMode="scrollable"
-        app:tabSelectedTextColor="@color/color_FFFFFF"
+        app:tabSelectedTextColor="@color/white"
         app:tabTextAppearance="@style/TabLayoutTextStyle"
-        app:tabTextColor="@color/color_FFFFFF" />
+        app:tabTextColor="@color/white" />
 
 
     <androidx.viewpager.widget.ViewPager

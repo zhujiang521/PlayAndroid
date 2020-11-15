@@ -64,6 +64,7 @@ dependencies {
     implementation des.coreKtx
     implementation des.appcompat
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
     implementation 'com.youth.banner:banner:2.1.0'
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
     implementation project(path: ':model')

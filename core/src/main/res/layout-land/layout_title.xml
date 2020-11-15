@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="玩安卓"
-            android:textColor="@color/color_FFFFFF"
+            android:textColor="@color/white"
             android:textSize="@dimen/dp_16" />
 
         <TextView

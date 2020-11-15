@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#303030</color>
-    <color name="colorPrimaryDark">#303030</color>
-    <color name="colorAccent">#423F3F</color>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#000000</color>
     <!-- 白色 -->
-    <color name="white">#E3E3E3</color>
+    <color name="white">#CACACA</color>
     <!-- 浅白色 -->
     <color name="plain">#CACACA</color>
     <!-- 字体颜色 -->
@@ -28,7 +28,6 @@
     <color name="gray_green">#ff32af85</color>
 
     <color name="secondary_text">#757575</color>
-    <color name="color_FFFFFF">#E3E3E3</color>
     <color name="wall">#232323</color>
 
 </resources>
