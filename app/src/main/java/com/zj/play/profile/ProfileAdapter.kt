@@ -11,7 +11,7 @@ import com.zj.play.main.LoginActivity
 import com.zj.play.profile.history.BrowseHistoryActivity
 import com.zj.play.profile.rank.user.UserRankActivity
 import com.zj.play.profile.user.UserActivity
-import kotlinx.android.synthetic.main.adapter_profile.view.*
+import kotlinx.android.synthetic.main.adapter_profile.*
 
 /**
  * 版权：Zhujiang 个人版权
@@ -27,11 +27,13 @@ class ProfileAdapter(
     layoutId: Int = R.layout.adapter_profile
 ) : BaseListAdapter<ProfileItem>(context, layoutId, profileItemList) {
 
-    override fun convert(view: View, data: ProfileItem, position: Int) {
-        view.profileAdTvTitle.text = data.title
-        view.profileAdIv.setImageResource(data.imgId)
-        view.profileAdLlItem.setOnClickListener {
-            toJump(data.title)
+    override fun convert(holder: ViewHolder, data: ProfileItem, position: Int) {
+        with(holder) {
+            profileAdTvTitle.text = data.title
+            profileAdIv.setImageResource(data.imgId)
+            profileAdLlItem.setOnClickListener {
+                toJump(data.title)
+            }
         }
     }
 

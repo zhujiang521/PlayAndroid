@@ -19,10 +19,10 @@ abstract class BaseListAdapter<T : Any>(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        convert(holder.itemView, dataList[position], position)
+        convert(holder, dataList[position], position)
     }
 
-    abstract fun convert(view: View, data: T, position: Int)
+    abstract fun convert(holder: ViewHolder, data: T, position: Int)
 
     override fun getItemId(position: Int): Long {
         return position.toLong()

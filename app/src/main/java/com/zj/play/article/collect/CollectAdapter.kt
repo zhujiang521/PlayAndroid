@@ -8,6 +8,7 @@ import android.view.View
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.blankj.utilcode.util.NetworkUtils
 import com.bumptech.glide.Glide
+import com.zj.core.util.getHtmlText
 import com.zj.core.util.setSafeListener
 import com.zj.core.util.showToast
 import com.zj.core.view.base.BaseListAdapter
@@ -15,7 +16,7 @@ import com.zj.model.model.CollectX
 import com.zj.network.repository.CollectRepository
 import com.zj.play.R
 import com.zj.play.article.ArticleActivity
-import kotlinx.android.synthetic.main.adapter_article.view.*
+import kotlinx.android.synthetic.main.adapter_article.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -28,43 +29,32 @@ class CollectAdapter(
 ) :
     BaseListAdapter<CollectX>(context, layoutId, articleList) {
 
-    override fun convert(view: View, data: CollectX, position: Int) {
-        view.articleTvTitle.text =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                Html.fromHtml(data.title, Html.FROM_HTML_MODE_LEGACY)
+    override fun convert(holder: ViewHolder, data: CollectX, position: Int) {
+        with(holder) {
+            articleTvTitle.text = getHtmlText(data.title)
+            articleTvChapterName.text = data.chapterName
+            articleTvAuthor.text =
+                if (TextUtils.isEmpty(data.author)) data.chapterName else data.author
+            articleTvTime.text = data.niceDate
+            if (!TextUtils.isEmpty(data.envelopePic)) {
+                articleIvImg.visibility = View.VISIBLE
+                Glide.with(mContext).load(data.envelopePic).into(articleIvImg)
             } else {
-                data.title
+                articleIvImg.visibility = View.GONE
             }
-        view.articleTvChapterName.text = data.chapterName
-        view.articleTvAuthor.text =
-            if (TextUtils.isEmpty(data.author)) data.chapterName else data.author
-        view.articleTvTime.text = data.niceDate
-        if (!TextUtils.isEmpty(data.envelopePic)) {
-            view.articleIvImg.visibility = View.VISIBLE
-            Glide.with(mContext).load(data.envelopePic).into(view.articleIvImg)
-        } else {
-            view.articleIvImg.visibility = View.GONE
-        }
-        view.articleTvTop.visibility = View.GONE
-        view.articleTvNew.visibility = View.GONE
-        view.articleIvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
-        view.articleIvCollect.setSafeListener {
-            cancelCollect(data.originId, position)
-        }
-        view.articleLlItem.setOnClickListener {
-            if (!NetworkUtils.isConnected()) {
-                showToast(mContext.getString(R.string.no_network))
-                return@setOnClickListener
+            articleTvTop.visibility = View.GONE
+            articleTvNew.visibility = View.GONE
+            articleIvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
+            articleIvCollect.setSafeListener {
+                cancelCollect(data.originId, position)
             }
-            ArticleActivity.actionStart(
-                mContext,
-                data.title,
-                data.link,
-                data.id,
-                1,
-                data.originId,
-                userId = data.userId
-            )
+            articleLlItem.setOnClickListener {
+                if (!NetworkUtils.isConnected()) {
+                    showToast(mContext.getString(R.string.no_network))
+                    return@setOnClickListener
+                }
+                ArticleActivity.actionStart(mContext, data)
+            }
         }
     }
 

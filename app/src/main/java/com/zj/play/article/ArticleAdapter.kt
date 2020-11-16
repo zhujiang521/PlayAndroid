@@ -4,11 +4,13 @@ import android.content.Context
 import android.os.Build
 import android.text.Html
 import android.text.TextUtils
-import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.ImageView
 import com.blankj.utilcode.util.NetworkUtils
 import com.bumptech.glide.Glide
 import com.zj.core.Play
+import com.zj.core.util.getHtmlText
 import com.zj.core.util.setSafeListener
 import com.zj.core.util.showToast
 import com.zj.core.view.base.BaseListAdapter
@@ -18,7 +20,7 @@ import com.zj.model.room.entity.HISTORY
 import com.zj.network.repository.CollectRepository
 import com.zj.play.R
 import com.zj.play.main.LoginActivity
-import kotlinx.android.synthetic.main.adapter_article.view.*
+import kotlinx.android.synthetic.main.adapter_article.*
 import kotlinx.coroutines.*
 
 
@@ -31,64 +33,54 @@ class ArticleAdapter(
 
     private val uiScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
-    override fun convert(view: View, data: Article, position: Int) {
-        if (!TextUtils.isEmpty(data.title))
-            view.articleTvTitle.text =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    Html.fromHtml(data.title, Html.FROM_HTML_MODE_LEGACY)
-                } else {
-                    data.title
-                }
-        view.articleTvChapterName.text = data.superChapterName
-        view.articleTvAuthor.text =
-            if (TextUtils.isEmpty(data.author)) data.shareUser else data.author
-        view.articleTvTime.text = data.niceShareDate
-        if (!TextUtils.isEmpty(data.envelopePic)) {
-            view.articleIvImg.visibility = View.VISIBLE
-            Glide.with(mContext).load(data.envelopePic).into(view.articleIvImg)
-        } else {
-            view.articleIvImg.visibility = View.GONE
-        }
-        view.articleTvTop.visibility = if (data.type > 0) View.VISIBLE else View.GONE
-        view.articleTvNew.visibility = if (data.fresh) View.VISIBLE else View.GONE
-
-        view.articleIvCollect.visibility = if (isShowCollect) View.VISIBLE else View.GONE
-        if (data.collect) {
-            view.articleIvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
-        } else {
-            view.articleIvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
-        }
-        view.articleIvCollect.setSafeListener {
-            if (Play.isLogin) {
-                if (NetworkUtils.isConnected()) {
-                    data.collect = !data.collect
-                    setCollect(data, view.articleIvCollect)
-                } else {
-                    showToast(mContext.getString(R.string.no_network))
-                }
+    override fun convert(holder: ViewHolder, data: Article, position: Int) {
+        with(holder) {
+            if (!TextUtils.isEmpty(data.title))
+                articleTvTitle.text = getHtmlText(data.title)
+            articleTvChapterName.text = data.superChapterName
+            articleTvAuthor.text =
+                if (TextUtils.isEmpty(data.author)) data.shareUser else data.author
+            articleTvTime.text = data.niceShareDate
+            if (!TextUtils.isEmpty(data.envelopePic)) {
+                articleIvImg.visibility = VISIBLE
+                Glide.with(mContext).load(data.envelopePic).into(articleIvImg)
             } else {
-                LoginActivity.actionStart(mContext)
+                articleIvImg.visibility = GONE
             }
-        }
-        view.articleLlItem.setOnClickListener {
-            if (!NetworkUtils.isConnected()) {
-                showToast(mContext.getString(R.string.no_network))
-                return@setOnClickListener
+            articleTvTop.visibility = if (data.type > 0) VISIBLE else GONE
+            articleTvNew.visibility = if (data.fresh) VISIBLE else GONE
+
+            articleIvCollect.visibility = if (isShowCollect) VISIBLE else GONE
+            if (data.collect) {
+                articleIvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
+            } else {
+                articleIvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
             }
-            ArticleActivity.actionStart(
-                mContext,
-                data.title,
-                data.link,
-                data.id,
-                if (data.collect) 1 else 0,
-                userId = data.userId
-            )
-            val browseHistoryDao = PlayDatabase.getDatabase(mContext).browseHistoryDao()
-            uiScope.launch {
-                if (browseHistoryDao.getArticle(data.id, HISTORY) == null) {
-                    data.localType = HISTORY
-                    data.desc = ""
-                    browseHistoryDao.insert(data)
+            articleIvCollect.setSafeListener {
+                if (Play.isLogin) {
+                    if (NetworkUtils.isConnected()) {
+                        data.collect = !data.collect
+                        setCollect(data, articleIvCollect)
+                    } else {
+                        showToast(mContext.getString(R.string.no_network))
+                    }
+                } else {
+                    LoginActivity.actionStart(mContext)
+                }
+            }
+            articleLlItem.setOnClickListener {
+                if (!NetworkUtils.isConnected()) {
+                    showToast(mContext.getString(R.string.no_network))
+                    return@setOnClickListener
+                }
+                ArticleActivity.actionStart(mContext, data)
+                val browseHistoryDao = PlayDatabase.getDatabase(mContext).browseHistoryDao()
+                uiScope.launch {
+                    if (browseHistoryDao.getArticle(data.id, HISTORY) == null) {
+                        data.localType = HISTORY
+                        data.desc = ""
+                        browseHistoryDao.insert(data)
+                    }
                 }
             }
         }

@@ -5,16 +5,19 @@ import android.view.View
 import com.zj.core.view.base.BaseListAdapter
 import com.zj.model.model.Ranks
 import com.zj.play.R
+import kotlinx.android.synthetic.main.adapter_rank.*
 import kotlinx.android.synthetic.main.adapter_rank.view.*
 
 class UserRankAdapter(context: Context, layoutId: Int, rankList: ArrayList<Ranks>) :
     BaseListAdapter<Ranks>(context, layoutId, rankList) {
 
-    override fun convert(view: View, data: Ranks, position: Int) {
-        view.rankAdTvUsername.text = data.userName
-        view.rankAdTvRank.text = mContext.getString(R.string.add_reason, data.reason)
-        view.rankAdTvCoinCount.text = mContext.getString(R.string.rank, data.coinCount)
-        view.rankAdTvLevel.text = data.desc
+    override fun convert(holder: ViewHolder, data: Ranks, position: Int) {
+        with(holder) {
+            rankAdTvUsername.text = data.userName
+            rankAdTvRank.text = mContext.getString(R.string.add_reason, data.reason)
+            rankAdTvCoinCount.text = mContext.getString(R.string.rank, data.coinCount)
+            rankAdTvLevel.text = data.desc
+        }
     }
 
 }

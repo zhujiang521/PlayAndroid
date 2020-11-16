@@ -14,8 +14,11 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.zj.core.util.getHtmlText
 import com.zj.core.util.showToast
 import com.zj.core.view.base.BaseActivity
+import com.zj.model.model.CollectX
+import com.zj.model.room.entity.Article
 import com.zj.play.R
 import com.zj.play.profile.share.ShareActivity
 import kotlinx.android.synthetic.main.activity_article.*
@@ -51,12 +54,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
         isCollection = intent.getIntExtra(IS_COLLECTION, -1)
         originId = intent.getIntExtra(ORIGIN_ID, -1)
         userId = intent.getIntExtra(USER_ID, -1)
-        articleTxtTitle.text =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                Html.fromHtml(pageName, Html.FROM_HTML_MODE_LEGACY)
-            } else {
-                pageName
-            }
+        articleTxtTitle.text = getHtmlText(pageName)
         articleWebView.loadUrl(pageUrl)
     }
 
@@ -78,10 +76,8 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
         bottomSheetDialog = BottomSheetDialog(this)
         val behavior: BottomSheetBehavior<*> = bottomSheetDialog!!.behavior
         behavior.state = BottomSheetBehavior.STATE_EXPANDED
-        val dialogView: View = bottomSheetDialog?.layoutInflater!!.inflate(
-            R.layout.dialog_bottom_sheet,
-            null
-        )
+        val dialogView: View = View.inflate(this, R.layout.dialog_bottom_sheet, null)
+        bottomSheetDialog!!.setContentView(dialogView)
         val bottomDialogLlCollect =
             dialogView.findViewById<LinearLayout>(R.id.bottomDialogLlCollect)
         bottomDialogIvCollect = dialogView.findViewById(R.id.bottomDialogIvCollect)
@@ -183,20 +179,41 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
     companion object {
         fun actionStart(
             context: Context,
+            collectX: CollectX
+        ) {
+            val intent = Intent(context, ArticleActivity::class.java).apply {
+                putExtra(PAGE_NAME, collectX.title)
+                putExtra(PAGE_URL, collectX.link)
+                putExtra(PAGE_ID, collectX.id)
+                putExtra(IS_COLLECTION, 1)
+                putExtra(ORIGIN_ID, collectX.originId)
+                putExtra(USER_ID, collectX.userId)
+            }
+            context.startActivity(intent)
+        }
+
+        fun actionStart(
+            context: Context,
+            article: Article
+        ) {
+            val intent = Intent(context, ArticleActivity::class.java).apply {
+                putExtra(PAGE_NAME, article.title)
+                putExtra(PAGE_URL, article.link)
+                putExtra(PAGE_ID, article.id)
+                putExtra(IS_COLLECTION, article.collect)
+                putExtra(USER_ID, article.userId)
+            }
+            context.startActivity(intent)
+        }
+
+        fun actionStart(
+            context: Context,
             pageName: String,
-            pageUrl: String,
-            pageId: Int = -1,
-            isCollection: Int = -1,
-            originId: Int = -1,
-            userId: Int = -1
+            pageUrl: String
         ) {
             val intent = Intent(context, ArticleActivity::class.java).apply {
                 putExtra(PAGE_NAME, pageName)
                 putExtra(PAGE_URL, pageUrl)
-                putExtra(PAGE_ID, pageId)
-                putExtra(IS_COLLECTION, isCollection)
-                putExtra(ORIGIN_ID, originId)
-                putExtra(USER_ID, userId)
             }
             context.startActivity(intent)
         }
