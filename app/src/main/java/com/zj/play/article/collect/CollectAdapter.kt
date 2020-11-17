@@ -1,8 +1,6 @@
 package com.zj.play.article.collect
 
 import android.content.Context
-import android.os.Build
-import android.text.Html
 import android.text.TextUtils
 import android.view.View
 import androidx.lifecycle.LifecycleCoroutineScope

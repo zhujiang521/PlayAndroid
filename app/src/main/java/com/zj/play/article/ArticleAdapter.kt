@@ -1,8 +1,6 @@
 package com.zj.play.article
 
 import android.content.Context
-import android.os.Build
-import android.text.Html
 import android.text.TextUtils
 import android.view.View.GONE
 import android.view.View.VISIBLE

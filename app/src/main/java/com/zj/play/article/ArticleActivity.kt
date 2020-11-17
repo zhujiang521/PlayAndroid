@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PixelFormat
-import android.os.Build
-import android.text.Html
 import android.view.KeyEvent
 import android.view.View
 import android.widget.ImageView

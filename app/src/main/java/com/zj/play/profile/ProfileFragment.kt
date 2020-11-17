@@ -21,7 +21,17 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
     override fun getLayoutId(): Int = R.layout.fragment_profile
 
     private lateinit var profileAdapter: ProfileAdapter
+    private lateinit var nameArray: Array<String>
     private var profileItemList = ArrayList<ProfileItem>()
+    private val imageArray = arrayOf(
+        R.drawable.ic_message_black_24dp,
+        R.drawable.ic_collections_black_24dp,
+        R.drawable.ic_account_blog_black_24dp,
+        R.drawable.ic_baseline_history_24,
+        R.drawable.ic_bug_report_black_24dp,
+        R.drawable.ic_github_black_24dp,
+        R.drawable.ic_account_circle_black_24dp
+    )
 
     override fun initView() {
         profileTitleBar.setRightImage(R.drawable.btn_right_right_bg)
@@ -56,48 +66,20 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
 
     override fun initData() {
         if (profileItemList.size == 0) {
-            profileItemList.add(
-                ProfileItem(
-                    getString(R.string.mine_points),
-                    R.drawable.ic_message_black_24dp
-                )
+            nameArray = arrayOf(
+                getString(R.string.mine_points),
+                getString(R.string.my_collection),
+                getString(R.string.mine_blog),
+                getString(R.string.browsing_history),
+                getString(R.string.mine_nuggets),
+                getString(R.string.github),
+                getString(R.string.about_me)
             )
-            profileItemList.add(
-                ProfileItem(
-                    getString(R.string.my_collection),
-                    R.drawable.ic_collections_black_24dp
+            for (index in nameArray.indices) {
+                profileItemList.add(
+                    ProfileItem(nameArray[index], imageArray[index])
                 )
-            )
-            profileItemList.add(
-                ProfileItem(
-                    getString(R.string.mine_blog),
-                    R.drawable.ic_account_blog_black_24dp
-                )
-            )
-            profileItemList.add(
-                ProfileItem(
-                    getString(R.string.browsing_history),
-                    R.drawable.ic_baseline_history_24
-                )
-            )
-            profileItemList.add(
-                ProfileItem(
-                    getString(R.string.mine_nuggets),
-                    R.drawable.ic_bug_report_black_24dp
-                )
-            )
-            profileItemList.add(
-                ProfileItem(
-                    getString(R.string.github),
-                    R.drawable.ic_github_black_24dp
-                )
-            )
-            profileItemList.add(
-                ProfileItem(
-                    getString(R.string.about_me),
-                    R.drawable.ic_account_circle_black_24dp
-                )
-            )
+            }
             profileAdapter.notifyDataSetChanged()
         }
     }
