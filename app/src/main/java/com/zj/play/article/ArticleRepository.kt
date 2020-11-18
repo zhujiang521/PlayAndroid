@@ -26,13 +26,13 @@ object ArticleRepository {
         collectListener: (Boolean) -> Unit
     ) {
 
-        if (isCollection == -1 || pageId == -1) {
-            showToast(context.getString(R.string.page_is_not_collection))
+        if (!Play.isLogin) {
+            showToast(context.getString(R.string.not_currently_logged_in))
             return
         }
 
-        if (!Play.isLogin) {
-            showToast(context.getString(R.string.not_currently_logged_in))
+        if (isCollection == -1 || pageId == -1) {
+            showToast(context.getString(R.string.page_is_not_collection))
             return
         }
 

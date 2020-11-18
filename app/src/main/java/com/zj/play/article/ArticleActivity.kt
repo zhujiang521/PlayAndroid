@@ -198,7 +198,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
                 putExtra(PAGE_NAME, article.title)
                 putExtra(PAGE_URL, article.link)
                 putExtra(PAGE_ID, article.id)
-                putExtra(IS_COLLECTION, article.collect)
+                putExtra(IS_COLLECTION, if (article.collect) 1 else 0)
                 putExtra(USER_ID, article.userId)
             }
             context.startActivity(intent)
