@@ -7,10 +7,10 @@
     <!-- 白色 -->
     <color name="white">#CACACA</color>
     <!-- 浅白色 -->
-    <color name="plain">#CACACA</color>
+    <color name="plain">#9F9F9F</color>
     <!-- 字体颜色 -->
     <color name="text_color_dark">#858585</color>
-    <color name="text_color">#939393</color>
+    <color name="text_color">#F1F1F1</color>
     <color name="text_green_dark">#FF006E73</color>
     <color name="text_green">#25C84C</color>
     <color name="text_color_black">#B5B5B5</color>
@@ -30,5 +30,9 @@
 
     <color name="secondary_text">#757575</color>
     <color name="wall">#000000</color>
+
+    <color name="edit_text_bg">#393939</color>
+    <color name="edit_text_focused">#7E7C7C</color>
+    <color name="edit_text_normal">#424242</color>
 
 </resources>

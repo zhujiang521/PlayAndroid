@@ -7,10 +7,10 @@
     <!-- 白色 -->
     <color name="white">#ffffff</color>
     <!-- 浅白色 -->
-    <color name="plain">#E6E6E6</color>
+    <color name="plain">#CDCDCD</color>
     <!-- 字体颜色 -->
     <color name="text_color_dark">#464646</color>
-    <color name="text_color">#666666</color>
+    <color name="text_color">#5A5A5A</color>
     <color name="text_green_dark">#FF006E73</color>
     <color name="text_green">#25C84C</color>
     <color name="text_color_black">#202020</color>
@@ -30,5 +30,11 @@
 
     <color name="secondary_text">#757575</color>
     <color name="wall">#fff5f5f5</color>
+
+    <color name="edit_text_bg">#FFFFFF</color>
+    <color name="edit_text_focused">#CDCDCD</color>
+    <color name="edit_text_normal">#E4E4E4</color>
+
+
 
 </resources>

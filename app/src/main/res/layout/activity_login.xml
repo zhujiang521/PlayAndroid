@@ -50,7 +50,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginTop="@dimen/dp_25"
                 android:baselineAligned="false"
                 android:orientation="vertical">
 
@@ -88,7 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_40"
                     android:layout_marginLeft="@dimen/dp_35"
-                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_25"
                     android:layout_marginRight="@dimen/dp_35"
                     android:background="@drawable/btn_login_bg"
                     android:text="@string/login"
