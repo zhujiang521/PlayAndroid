@@ -38,4 +38,6 @@
 
     <color name="article_pressed">#151515</color>
 
+    <color name="shortcut_icon">#BFBFBF</color>
+
 </resources>

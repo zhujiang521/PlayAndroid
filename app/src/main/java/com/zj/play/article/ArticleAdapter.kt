@@ -63,7 +63,7 @@ class ArticleAdapter(
                         showToast(mContext.getString(R.string.no_network))
                     }
                 } else {
-                    LoginActivity.actionStart(mContext)
+                    showToast(mContext.getString(R.string.not_currently_logged_in))
                 }
             }
             articleLlItem.setOnClickListener {
