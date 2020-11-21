@@ -3,6 +3,7 @@ package com.zj.play.main
 import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.observe
 import com.blankj.utilcode.util.NetworkUtils
@@ -22,27 +23,42 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
     private var mUserName = ""
     private var mPassWord = ""
+    private var mIsLogin = true
 
     override fun getLayoutId(): Int = R.layout.activity_login
 
     override fun initView() {
         loginButton.setOnClickListener(this)
         loginBtnRegister.setOnClickListener(this)
+        loginTvRegister.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
-        if (!judge()) {
-            return
-        }
-        toProgressVisible(true)
         when (v.id) {
+            R.id.loginTvRegister -> {
+                updateState()
+            }
             R.id.loginButton -> {
-                toLogin()
+                loginOrRegister(true)
             }
             R.id.loginBtnRegister -> {
-                toRegister()
+                loginOrRegister(false)
             }
         }
+    }
+
+    private fun loginOrRegister(isToLogin: Boolean) {
+        if (!judge()) return
+        toProgressVisible(true)
+        if (isToLogin) toLogin() else toRegister()
+    }
+
+    private fun updateState() {
+        loginTvRegister.text =
+            if (mIsLogin) getString(R.string.return_login) else getString(R.string.register_account)
+        loginButton.visibility = if (mIsLogin) View.GONE else View.VISIBLE
+        loginBtnRegister.visibility = if (mIsLogin) View.VISIBLE else View.GONE
+        mIsLogin = !mIsLogin
     }
 
     private fun toLogin() {

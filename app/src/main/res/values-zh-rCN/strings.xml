@@ -22,6 +22,7 @@
 	<string name="enter_name_format">请输入正确的用户名格式</string>
 	<string name="enter_password_format">请输入正确的密码格式</string>
 	<string name="log_out">退出登录</string>
+	<string name="return_login">返回登录</string>
 	<string name="sure_log_out">确定要退出登录吗？</string>
 	<string name="enter_name">请输入账号</string>
 	<string name="enter_password">请输入密码</string>

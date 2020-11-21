@@ -22,6 +22,7 @@
     <string name="enter_name_format">Please enter the correct user name format</string>
     <string name="enter_password_format">Please enter the correct password format</string>
     <string name="log_out">Sign out</string>
+    <string name="return_login">Return to login</string>
     <string name="sure_log_out">Sure you want to log off?</string>
     <string name="enter_name">Please input Username</string>
     <string name="enter_password">Please enter your password</string>

@@ -47,70 +47,74 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/dp_24" />
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/loginUserNumberEdit"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dp_35"
+                android:layout_marginHorizontal="@dimen/dp_35"
                 android:layout_marginTop="@dimen/dp_25"
-                android:baselineAligned="false"
-                android:orientation="vertical">
+                android:background="@drawable/bg_edittext"
+                android:hint="@string/enter_name"
+                android:lines="1"
+                android:paddingHorizontal="@dimen/dp_5"
+                android:singleLine="true"
+                android:textColor="@color/text_color"
+                android:textColorHint="@color/plain"
+                android:textSize="@dimen/dp_14" />
 
-                <EditText
-                    android:id="@+id/loginUserNumberEdit"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_35"
-                    android:layout_marginHorizontal="@dimen/dp_35"
-                    android:background="@drawable/bg_edittext"
-                    android:hint="@string/enter_name"
-                    android:lines="1"
-                    android:paddingHorizontal="@dimen/dp_5"
-                    android:singleLine="true"
-                    android:textColor="@color/text_color"
-                    android:textColorHint="@color/plain"
-                    android:textSize="@dimen/dp_14" />
+            <EditText
+                android:id="@+id/loginPassNumberEdit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_35"
+                android:layout_marginHorizontal="@dimen/dp_35"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@drawable/bg_edittext"
+                android:hint="@string/enter_password"
+                android:lines="1"
+                android:paddingHorizontal="@dimen/dp_5"
+                android:singleLine="true"
+                android:textColor="@color/text_color"
+                android:textColorHint="@color/plain"
+                android:textSize="@dimen/dp_14" />
 
-                <EditText
-                    android:id="@+id/loginPassNumberEdit"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_35"
-                    android:layout_marginHorizontal="@dimen/dp_35"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:background="@drawable/bg_edittext"
-                    android:hint="@string/enter_password"
-                    android:lines="1"
-                    android:paddingHorizontal="@dimen/dp_5"
-                    android:singleLine="true"
-                    android:textColor="@color/text_color"
-                    android:textColorHint="@color/plain"
-                    android:textSize="@dimen/dp_14" />
+            <TextView
+                android:id="@+id/loginTvRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginHorizontal="@dimen/dp_35"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="@string/register_account"
+                android:textColor="@color/text_click_color"
+                android:textSize="@dimen/dp_14" />
 
-                <Button
-                    android:id="@+id/loginButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_40"
-                    android:layout_marginLeft="@dimen/dp_35"
-                    android:layout_marginTop="@dimen/dp_25"
-                    android:layout_marginRight="@dimen/dp_35"
-                    android:background="@drawable/btn_login_bg"
-                    android:text="@string/login"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/dp_14" />
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginLeft="@dimen/dp_35"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_35"
+                android:background="@drawable/btn_login_bg"
+                android:text="@string/login"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/dp_14" />
 
-                <Button
-                    android:id="@+id/loginBtnRegister"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_40"
-                    android:layout_marginLeft="@dimen/dp_35"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_35"
-                    android:layout_marginBottom="@dimen/dp_20"
-                    android:background="@drawable/btn_login_bg"
-                    android:text="@string/register_account"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/dp_14" />
-
-            </LinearLayout>
+            <Button
+                android:id="@+id/loginBtnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginLeft="@dimen/dp_35"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_35"
+                android:background="@drawable/btn_login_bg"
+                android:text="@string/register_account"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/dp_14"
+                android:visibility="gone" />
 
         </LinearLayout>
+
     </FrameLayout>
 
 </LinearLayout>
