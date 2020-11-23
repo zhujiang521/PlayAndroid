@@ -3,8 +3,10 @@ package com.zj.play.main
 import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.view.animation.LinearInterpolator
 import androidx.lifecycle.observe
 import com.blankj.utilcode.util.NetworkUtils
 import com.zj.core.Play
@@ -12,9 +14,9 @@ import com.zj.core.util.LiveDataBus
 import com.zj.core.util.showToast
 import com.zj.core.view.base.ActivityCollector
 import com.zj.core.view.base.BaseActivity
-import com.zj.play.R
 import com.zj.model.model.Login
 import com.zj.network.repository.AccountRepository
+import com.zj.play.R
 import com.zj.play.home.LOGIN_REFRESH
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -29,7 +31,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
     override fun initView() {
         loginButton.setOnClickListener(this)
-        loginBtnRegister.setOnClickListener(this)
         loginTvRegister.setOnClickListener(this)
     }
 
@@ -39,25 +40,27 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 updateState()
             }
             R.id.loginButton -> {
-                loginOrRegister(true)
-            }
-            R.id.loginBtnRegister -> {
-                loginOrRegister(false)
+                loginOrRegister()
             }
         }
     }
 
-    private fun loginOrRegister(isToLogin: Boolean) {
+    private fun loginOrRegister() {
         if (!judge()) return
         toProgressVisible(true)
-        if (isToLogin) toLogin() else toRegister()
+        if (mIsLogin) toLogin() else toRegister()
     }
 
     private fun updateState() {
         loginTvRegister.text =
             if (mIsLogin) getString(R.string.return_login) else getString(R.string.register_account)
-        loginButton.visibility = if (mIsLogin) View.GONE else View.VISIBLE
-        loginBtnRegister.visibility = if (mIsLogin) View.VISIBLE else View.GONE
+        loginButton.text =
+            if (mIsLogin) getString(R.string.register_account) else getString(R.string.login)
+
+        val operatingAnim: Animation = AnimationUtils.loadAnimation(this, R.anim.rotate_anim)
+        val lin = LinearInterpolator()
+        operatingAnim.interpolator = lin
+        loginInputElements.animation = operatingAnim
         mIsLogin = !mIsLogin
     }
 
