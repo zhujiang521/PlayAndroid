@@ -1,12 +1,12 @@
 package com.zj.play.main
 
+import android.animation.Animator
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.view.animation.LinearInterpolator
+import android.view.animation.OvershootInterpolator
 import androidx.lifecycle.observe
 import com.blankj.utilcode.util.NetworkUtils
 import com.zj.core.Play
@@ -37,7 +37,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.loginTvRegister -> {
-                updateState()
+                flipAnimatorXViewShow(loginInputElements)
             }
             R.id.loginButton -> {
                 loginOrRegister()
@@ -56,12 +56,24 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             if (mIsLogin) getString(R.string.return_login) else getString(R.string.register_account)
         loginButton.text =
             if (mIsLogin) getString(R.string.register_account) else getString(R.string.login)
-
-        val operatingAnim: Animation = AnimationUtils.loadAnimation(this, R.anim.rotate_anim)
-        val lin = LinearInterpolator()
-        operatingAnim.interpolator = lin
-        loginInputElements.animation = operatingAnim
         mIsLogin = !mIsLogin
+    }
+
+    private fun flipAnimatorXViewShow(view: View) {
+        val animator1 = ObjectAnimator.ofFloat(view, "rotationY", 0f, if (mIsLogin) 90f else -90f)
+        val animator2 = ObjectAnimator.ofFloat(view, "rotationY", if (mIsLogin) -90f else 90f, 0f)
+        animator2.interpolator = OvershootInterpolator(2.0f)
+        animator1.setDuration(700).start()
+        animator1.addListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator?) {}
+            override fun onAnimationEnd(animation: Animator?) {
+                animator2.setDuration(700).start()
+                updateState()
+            }
+
+            override fun onAnimationCancel(animation: Animator?) {}
+            override fun onAnimationRepeat(animation: Animator?) {}
+        })
     }
 
     private fun toLogin() {
@@ -115,9 +127,9 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         return true
     }
 
-    private fun toProgressVisible(b: Boolean) {
-        loginProgressBar.visibility = if (b) View.VISIBLE else View.INVISIBLE
-        loginInputElements.visibility = if (!b) View.VISIBLE else View.INVISIBLE
+    private fun toProgressVisible(visible: Boolean) {
+        loginProgressBar.visibility = if (visible) View.VISIBLE else View.INVISIBLE
+        loginInputElements.visibility = if (!visible) View.VISIBLE else View.INVISIBLE
     }
 
     companion object {
