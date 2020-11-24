@@ -5,13 +5,13 @@ ext {
             minSdkVersion            : 23,
             targetSdkVersion         : 30,
             versionCode              : 17,
-            versionName              : "2.5.1",
+            versionName              : "2.5.2",
             testInstrumentationRunner: "androidx.test.runner.AndroidJUnitRunner",
             consumerProguardFiles    : 'consumer-rules.pro',
     ]
 
     des = [
-            kotlinVersion: "org.jetbrains.kotlin:kotlin-stdlib:1.4.10",
+            kotlinVersion: "org.jetbrains.kotlin:kotlin-stdlib:1.4.20",
             coreKtx      : 'androidx.core:core-ktx:1.3.2',
             appcompat    : 'androidx.appcompat:appcompat:1.2.0',
             junit        : 'junit:junit:4.13.1',
