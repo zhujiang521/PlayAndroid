@@ -14,8 +14,8 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/dp_200"
+            android:layout_height="@dimen/dp_100"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/bad_network_image" />
 
