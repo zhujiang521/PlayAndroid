@@ -27,36 +27,37 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme"
         tools:targetApi="m">
-        <activity android:name="com.zj.play.profile.share.add.AddShareActivity" />
-        <activity android:name="com.zj.play.profile.share.ShareActivity" />
-        <activity android:name="com.zj.play.profile.history.BrowseHistoryActivity" />
+        <activity android:name=".home.almanac.AlmanacActivity" />
+        <activity android:name=".profile.share.add.AddShareActivity" />
+        <activity android:name=".profile.share.ShareActivity" />
+        <activity android:name=".profile.history.BrowseHistoryActivity" />
         <activity
-            android:name="com.zj.play.profile.user.UserActivity"
+            android:name=".profile.user.UserActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
         <activity
-            android:name="com.zj.play.article.collect.CollectListActivity"
+            android:name=".article.collect.CollectListActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
         <activity
-            android:name="com.zj.play.profile.rank.user.UserRankActivity"
+            android:name=".profile.rank.user.UserRankActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
         <activity
-            android:name="com.zj.play.main.LoginActivity"
+            android:name=".main.LoginActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
         <activity
-            android:name="com.zj.play.profile.rank.list.RankActivity"
+            android:name=".profile.rank.list.RankActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
         <activity
-            android:name="com.zj.play.article.ArticleActivity"
+            android:name=".article.ArticleActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.zj.play.home.search.article.ArticleListActivity"
+            android:name=".home.search.article.ArticleListActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
         <activity
-            android:name="com.zj.play.home.search.SearchActivity"
+            android:name=".home.search.SearchActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
         <activity
-            android:name="com.zj.play.main.MainActivity"
+            android:name=".main.MainActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
         <activity
             android:name=".WelcomeActivity"
@@ -67,6 +68,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />

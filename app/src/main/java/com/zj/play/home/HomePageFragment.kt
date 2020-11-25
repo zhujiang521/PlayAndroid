@@ -1,10 +1,14 @@
 package com.zj.play.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.youth.banner.indicator.CircleIndicator
+import com.zj.core.almanac.ProgrammerCalendar
+import com.zj.core.almanac.isZhLanguage
 import com.zj.play.R
 import com.zj.play.article.ArticleAdapter
+import com.zj.play.home.almanac.AlmanacActivity
 import com.zj.play.home.search.SearchActivity
 import com.zj.play.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_home_page.*
@@ -34,6 +38,11 @@ class HomePageFragment : ArticleCollectBaseFragment() {
 
     override fun initView() {
         homeTitleBar.setRightText(getString(R.string.search))
+        if (isZhLanguage()) {
+            homeTitleBar.setTitleOnClickListener {
+                AlmanacActivity.actionStart(context!!)
+            }
+        }
         homeTitleBar.setRightTextOnClickListener {
             SearchActivity.actionStart(context!!)
         }

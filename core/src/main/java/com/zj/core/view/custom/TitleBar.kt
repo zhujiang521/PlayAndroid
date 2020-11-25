@@ -153,6 +153,10 @@ class TitleBar @JvmOverloads constructor(
         mImgRight.setOnClickListener(onClickListener)
     }
 
+    fun setTitleOnClickListener(onClickListener: OnClickListener) {
+        mTitleTv.setOnClickListener(onClickListener)
+    }
+
     init {
         initView()
     }
