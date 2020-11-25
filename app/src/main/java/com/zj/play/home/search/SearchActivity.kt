@@ -29,11 +29,12 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getDataList(true)
+        initData()
         KeyboardUtils.showSoftInput(searchTxtKeyword)
     }
 
     override fun initData() {
+        viewModel.getDataList(true)
         hotKeyDao = PlayDatabase.getDatabase(this).hotKeyDao()
         setDataStatus(viewModel.dataLiveData) {
             if (it.isNotEmpty()) {
@@ -42,6 +43,10 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
             }
             addFlowView()
         }
+    }
+
+    override fun isSearchPage(): Boolean {
+        return true
     }
 
     override fun onPause() {

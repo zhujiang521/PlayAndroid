@@ -80,7 +80,7 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle, BaseInit {
         )
         params.setMargins(
             0,
-            ConvertUtils.dp2px(if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) 70f else 55f),
+            ConvertUtils.dp2px(if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT || isSearchPage()) 70f else 55f),
             0,
             0
         )
@@ -101,6 +101,9 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle, BaseInit {
         loadFinished()
     }
 
+    protected open fun isSearchPage(): Boolean {
+        return false
+    }
 
     /**
      * 将状态栏设置成透明。只适配Android 5.0以上系统的手机。
