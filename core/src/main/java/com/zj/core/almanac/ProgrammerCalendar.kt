@@ -128,7 +128,7 @@ class ProgrammerCalendar {
             should +=
                 "    " + eventArr[i]["name"] + if ((eventArr[i]["good"]
                         ?: error("")).isNotBlank()
-                ) ":" + eventArr[i]["good"] else ""
+                ) "：" + eventArr[i]["good"] else ""
             should += "\n"
         }
         var notSuitable = ""
@@ -137,10 +137,13 @@ class ProgrammerCalendar {
                 "    " + eventArr[numGood + i]["name"] + if ((eventArr[numGood + i]["bad"] ?: error(
                         ""
                     )).isNotBlank()
-                ) ":" + eventArr[numGood + i]["bad"] else ""
+                ) "：" + eventArr[numGood + i]["bad"] else ""
             notSuitable += "\n"
         }
-        return arrayOf(should, notSuitable)
+        return arrayOf(
+            should.substring(0, should.length - 2),
+            notSuitable.substring(0, notSuitable.length - 2)
+        )
     }
 
     /**

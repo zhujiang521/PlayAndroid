@@ -66,9 +66,9 @@ enum class ActivitiesEnum(name: String, good: String, bad: String, weekend: Bool
     ),
     ACTIVITIES_16("浏览成人网站", "重拾对生活的信心", "你会心神不宁", true),
     ACTIVITIES_17(
-        "心情",
-        "哈哈哈",
-        "呵呵",
+        "吃鸡",
+        "大吉大利，今晚吃鸡",
+        "落地成盒",
         false
     ),
     ACTIVITIES_18(
@@ -112,7 +112,7 @@ enum class ActivitiesEnum(name: String, good: String, bad: String, weekend: Bool
         "满屏兄贵亮瞎你的眼",
         true
     ),
-    ACTIVITIES_29("玩王者", "今天破纪录的几率很高", "除非你想玩到把手机砸了", true);
+    ACTIVITIES_29("打王者", "今天破纪录的几率很高", "除非你想玩到把手机砸了", true);
 
     var names: String = ""
     var good: String? = null
