@@ -19,8 +19,16 @@ class AlmanacActivity : BaseActivity() {
 
     override fun getLayoutId(): Int = R.layout.activity_almanac
 
+
+    override fun initView() {}
+
+    override fun onResume() {
+        super.onResume()
+        bindView()
+    }
+
     @SuppressLint("SetTextI18n")
-    override fun initView() {
+    private fun bindView() {
         val hl = ProgrammerCalendar()
         val pickTodayLuck = hl.pickTodayLuck()
         almanacTvDate.text = hl.todayString
