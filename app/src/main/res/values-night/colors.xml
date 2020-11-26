@@ -40,4 +40,10 @@
 
     <color name="shortcut_icon">#BFBFBF</color>
 
+    <color name="almanac_fragment_content_dividline_color">#FF57575F</color>
+    <color name="lunar_fragment_content_gb">#FF1E1E21</color>
+    <color name="almanac_fragment_content_textcolor1">#FFE0E0F0</color>
+    <color name="almanac_fragment_content_textcolor2">#6c6c73</color>
+    <color name="almanac_fragment_content_textcolor3">#FD7B72</color>
+
 </resources>

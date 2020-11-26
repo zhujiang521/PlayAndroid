@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -12,14 +13,197 @@
         app:backImageVisiable="true"
         app:titleName="黄历" />
 
-    <TextView
-        android:id="@+id/almanacText"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/text_color_black"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_margin="@dimen/dp_20"
-        android:textSize="@dimen/dp_15" />
+        android:layout_margin="@dimen/dp_15"
+        android:background="@drawable/almanac_date_bg_outline"
+        android:padding="@dimen/dp_4">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/almanac_date_bg_inline"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_0_5">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/lunar_fragment_content_gb">
+
+                <TextView
+                    android:id="@+id/almanacTvDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_6"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_8"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/dp_14"
+                    tools:text="XXXXXXXXXXX" />
+
+                <TextView
+                    android:id="@+id/almanacTvWeekDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_6"
+                    android:layout_marginBottom="@dimen/dp_8"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/dp_14"
+                    tools:text="XXXXXXXXXXX" />
+
+            </FrameLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0_5"
+                android:background="@color/almanac_fragment_content_dividline_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_168"
+                android:layout_weight="10"
+                android:background="@color/lunar_fragment_content_gb"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/almanacIvNumberOne"
+                    android:layout_width="@dimen/dp_68"
+                    android:layout_height="@dimen/dp_100"
+                    android:src="@drawable/almanac_number_2" />
+
+                <ImageView
+                    android:id="@+id/almanacIvNumberTwo"
+                    android:layout_width="@dimen/dp_68"
+                    android:layout_height="@dimen/dp_110"
+                    android:src="@drawable/almanac_number_8" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/lunar_fragment_content_gb"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_0_5"
+                    android:background="@color/almanac_fragment_content_dividline_color" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/lunar_fragment_content_gb"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/dp_16"
+                    android:paddingTop="@dimen/dp_20"
+                    android:paddingRight="@dimen/dp_16"
+                    android:paddingBottom="@dimen/dp_20">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_36"
+                            android:layout_height="@dimen/dp_36"
+                            android:gravity="center"
+                            android:src="@drawable/almanac_yi" />
+
+                        <TextView
+                            android:id="@+id/almanacTvYi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/almanac_fragment_content_textcolor3"
+                            android:textSize="@dimen/dp_12"
+                            tools:text="八" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_20"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_36"
+                            android:layout_height="@dimen/dp_36"
+                            android:gravity="center"
+                            android:src="@drawable/almanac_ji" />
+
+                        <TextView
+                            android:id="@+id/almanacTvJi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/almanac_fragment_content_textcolor1"
+                            android:textSize="@dimen/dp_12"
+                            tools:text="八" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0_5"
+                android:background="@color/almanac_fragment_content_dividline_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_100"
+                android:background="@color/lunar_fragment_content_gb"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/dp_16">
+
+                <TextView
+                    android:id="@+id/almanacTvSeat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/dp_6"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/almanac_fragment_content_textcolor1"
+                    android:textSize="@dimen/dp_12"
+                    tools:text="【座位朝向】" />
+
+                <TextView
+                    android:id="@+id/almanacTvDrink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginBottom="@dimen/dp_16"
+                    android:drawablePadding="@dimen/dp_6"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/almanac_fragment_content_textcolor1"
+                    android:textSize="@dimen/dp_12"
+                    tools:text="【今日宜饮】" />
+
+                <TextView
+                    android:id="@+id/almanacTvGoddess"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/dp_8"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/almanac_fragment_content_textcolor1"
+                    android:textSize="@dimen/dp_12"
+                    tools:text="【女神亲近指数】" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 </LinearLayout>

@@ -65,8 +65,21 @@ class ProgrammerCalendar {
         get() {
             val calendar = Calendar.getInstance()
             calendar.time = Date()
-            return "${calendar[Calendar.YEAR]}年${(calendar[Calendar.MONTH] + 1)}月${calendar[Calendar.DAY_OF_MONTH]} " +
-                    "星期${weeks[calendar[Calendar.DAY_OF_WEEK] - 1]}"
+            return "${calendar[Calendar.YEAR]}年${(calendar[Calendar.MONTH] + 1)}月${calendar[Calendar.DAY_OF_MONTH]}日 "
+        }
+
+    val todayInt: Int
+        get() {
+            val calendar = Calendar.getInstance()
+            calendar.time = Date()
+            return calendar[Calendar.DAY_OF_MONTH]
+        }
+
+    val weekString: String
+        get() {
+            val calendar = Calendar.getInstance()
+            calendar.time = Date()
+            return "星期${weeks[calendar[Calendar.DAY_OF_WEEK] - 1]}"
         }
 
     fun star(num: Int): String {
@@ -105,10 +118,10 @@ class ProgrammerCalendar {
         return ArrayList(listOf(*ActivitiesEnum.values()))
     }
 
-    fun pickTodayLuck() :Array<String>{
+    fun pickTodayLuck(): Array<String> {
         val activities = filter()
-        val numGood = random(iday, 98) % 3 + 2
-        val numBad = random(iday, 87) % 3 + 2
+        val numGood = random(iday, 98) % 3 + 1
+        val numBad = random(iday, 87) % 3 + 1
         val eventArr = pickRandomActivity(activities, numGood + numBad)
         var should = ""
         for (i in 0 until numGood) {
@@ -120,7 +133,7 @@ class ProgrammerCalendar {
         }
         var notSuitable = ""
         for (i in 0 until numBad) {
-            notSuitable+=
+            notSuitable +=
                 "    " + eventArr[numGood + i]["name"] + if ((eventArr[numGood + i]["bad"] ?: error(
                         ""
                     )).isNotBlank()
