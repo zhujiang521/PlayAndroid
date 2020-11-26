@@ -5,7 +5,7 @@ ext {
             minSdkVersion            : 23,
             targetSdkVersion         : 30,
             versionCode              : 17,
-            versionName              : "2.5.2",
+            versionName              : "2.5.3",
             testInstrumentationRunner: "androidx.test.runner.AndroidJUnitRunner",
             consumerProguardFiles    : 'consumer-rules.pro',
     ]
