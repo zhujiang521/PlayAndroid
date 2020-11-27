@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<paths>
+    <external-path
+        name="files_root"
+        path="Android/data/com.zui.calendar/" />
+    <external-path
+        name="external_storage_root"
+        path="." />
+    <root-path
+        name="root_path"
+        path="." />
+</paths>

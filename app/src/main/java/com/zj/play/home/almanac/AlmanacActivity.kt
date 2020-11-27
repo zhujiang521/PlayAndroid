@@ -3,7 +3,11 @@ package com.zj.play.home.almanac
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
+import android.util.Log
+import com.zj.core.almanac.IntentShareUtils
 import com.zj.core.almanac.ProgrammerCalendar
+import com.zj.core.almanac.ScreenShotsUtils
 import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
 import kotlinx.android.synthetic.main.activity_almanac.*
@@ -20,7 +24,13 @@ class AlmanacActivity : BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_almanac
 
 
-    override fun initView() {}
+    override fun initView() {
+        almanacTitleBar.setRightImage(R.drawable.almanac_share_button)
+        almanacTitleBar.setRightImgOnClickListener {
+            val tempUri: Uri? = ScreenShotsUtils.takeScreenShot(this, almanacRootView)
+            IntentShareUtils.shareFile(this, tempUri, "黄历")
+        }
+    }
 
     override fun onResume() {
         super.onResume()

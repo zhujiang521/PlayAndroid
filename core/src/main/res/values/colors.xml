@@ -35,6 +35,6 @@
     <color name="edit_text_focused">#CDCDCD</color>
     <color name="edit_text_normal">#E4E4E4</color>
 
-
+    <color name="content_bg">#fafafa</color>
 
 </resources>
