@@ -29,7 +29,6 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        initData()
         KeyboardUtils.showSoftInput(searchTxtKeyword)
     }
 
@@ -37,7 +36,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
         viewModel.getDataList(true)
         hotKeyDao = PlayDatabase.getDatabase(this).hotKeyDao()
         setDataStatus(viewModel.dataLiveData) {
-            if (it.isNotEmpty()) {
+            if (it.isNotEmpty() && viewModel.dataList.isEmpty()) {
                 viewModel.dataList.clear()
                 viewModel.dataList.addAll(it)
             }

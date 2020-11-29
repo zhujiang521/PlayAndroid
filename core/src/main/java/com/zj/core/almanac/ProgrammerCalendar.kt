@@ -141,8 +141,8 @@ class ProgrammerCalendar {
             notSuitable += "\n"
         }
         return arrayOf(
-            should.substring(0, should.length - 2),
-            notSuitable.substring(0, notSuitable.length - 2)
+            should.substring(0, should.length - 1),
+            notSuitable.substring(0, notSuitable.length - 1)
         )
     }
 

@@ -17,10 +17,8 @@ import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.HISTORY
 import com.zj.network.repository.CollectRepository
 import com.zj.play.R
-import com.zj.play.main.LoginActivity
 import kotlinx.android.synthetic.main.adapter_article.*
 import kotlinx.coroutines.*
-
 
 class ArticleAdapter(
     context: Context,

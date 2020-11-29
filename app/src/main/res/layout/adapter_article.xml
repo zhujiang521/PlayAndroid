@@ -23,9 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dp_5"
         android:layout_toEndOf="@id/articleTvAuthor"
+        android:text="@string/newest"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/dp_13"
-        tools:text="最新" />
+        android:textSize="@dimen/dp_13" />
 
     <TextView
         android:id="@+id/articleTvTop"
@@ -33,9 +33,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dp_5"
         android:layout_toEndOf="@id/articleTvNew"
+        android:text="@string/topping"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/dp_13"
-        tools:text="置顶" />
+        android:textSize="@dimen/dp_13" />
 
     <TextView
         android:id="@+id/articleTvTime"

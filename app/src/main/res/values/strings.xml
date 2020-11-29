@@ -69,6 +69,8 @@
     <string name="motto">As long as you start, it\'s never too late. As long as you work hard, it\'s possible</string>
     <string name="cancel">Cancel</string>
     <string name="sure">Sure</string>
+    <string name="topping">Topping</string>
+    <string name="newest">Newest</string>
 
     <string name="title_cannot_empty">Title cannot be empty</string>
     <string name="link_cannot_empty">Link cannot be empty</string>

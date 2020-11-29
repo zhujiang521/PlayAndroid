@@ -69,6 +69,8 @@
 	<string name="motto">只要开始，永远不晚。只要努力，就有可能</string>
 	<string name="cancel">取消</string>
 	<string name="sure">确定</string>
+	<string name="topping">置顶</string>
+	<string name="newest">最新</string>
 
 	<string name="title_cannot_empty">标题不能为空</string>
 	<string name="link_cannot_empty">链接不能为空</string>
