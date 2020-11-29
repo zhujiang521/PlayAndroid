@@ -24,7 +24,7 @@
         android:layout_marginHorizontal="@dimen/dp_5"
         android:layout_toEndOf="@id/articleTvAuthor"
         android:text="@string/newest"
-        android:textColor="@color/text_color"
+        android:textColor="@color/red_btn_bg_color"
         android:textSize="@dimen/dp_13" />
 
     <TextView
@@ -34,7 +34,7 @@
         android:layout_marginHorizontal="@dimen/dp_5"
         android:layout_toEndOf="@id/articleTvNew"
         android:text="@string/topping"
-        android:textColor="@color/text_color"
+        android:textColor="@color/red_btn_bg_color"
         android:textSize="@dimen/dp_13" />
 
     <TextView

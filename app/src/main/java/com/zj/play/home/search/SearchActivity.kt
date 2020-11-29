@@ -3,7 +3,6 @@ package com.zj.play.home.search
 import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +31,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener, TextView.OnEditorAc
 
     override fun onResume() {
         super.onResume()
+        addFlowView()
         KeyboardUtils.showSoftInput(searchTxtKeyword)
     }
 
@@ -102,22 +102,21 @@ class SearchActivity : BaseActivity(), View.OnClickListener, TextView.OnEditorAc
             }
             R.id.searchTxtRight -> {
                 toSearch()
-                Log.e("ZHUJIANG", "toSearch: searchTxtRight")
             }
         }
     }
 
     private fun toSearch() {
-        Log.e("ZHUJIANG", "toSearch: ")
         val keyword = searchTxtKeyword.text.toString()
         if (TextUtils.isEmpty(keyword)) {
             showToast(getString(R.string.keyword_not_null))
             return
         }
-
+        val hotKey = HotKey(id = -1, name = keyword)
         lifecycleScope.launch {
-            hotKeyDao.insert(HotKey(id = -1, name = keyword))
+            hotKeyDao.insert(hotKey)
         }
+        viewModel.dataList.add(0,hotKey)
         ArticleListActivity.actionStart(this, keyword)
     }
 
@@ -142,8 +141,6 @@ class SearchActivity : BaseActivity(), View.OnClickListener, TextView.OnEditorAc
                 else -> true
             }
         } else false
-
-
     }
 
 }
