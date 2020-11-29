@@ -4,21 +4,13 @@ import android.app.Activity
 import android.content.ContentValues
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Rect
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
-import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import com.blankj.utilcode.util.ConvertUtils
-import com.blankj.utilcode.util.ViewUtils
-import com.zj.core.R
-import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.IOException
+import com.zj.core.util.AndroidVersion
 import java.util.*
 
 /**
@@ -53,66 +45,37 @@ object ScreenShotsUtils {
         return bitmapDes
     }
 
-    private fun shoot(view: View?, filePath: File): Boolean {
-        var res = false
-        if (view == null) {
-            return res
-        }
-        if (!filePath.parentFile.exists()) {
-            filePath.parentFile.mkdirs()
-        }
-        var fos: FileOutputStream? = null
-        var bitmap: Bitmap? = null
-        try {
-            fos = FileOutputStream(filePath)
-            bitmap = getBitmapByView(view as FrameLayout)
-            if (bitmap != null) {
-                val frame = Rect()
-                (view.context as Activity).window.decorView.getWindowVisibleDisplayFrame(frame)
-                Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height)
-                    .compress(Bitmap.CompressFormat.PNG, 100, fos)
-                view.destroyDrawingCache()
-                view.setDrawingCacheEnabled(false)
-                res = true
-            }
-        } catch (e: FileNotFoundException) {
-            e.printStackTrace()
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.flush()
-                    fos.close()
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }
-            bitmap?.recycle()
-        }
-        return res
-    }
-
-    fun takeScreenShot(activity: Activity, view: View): Uri? {
-        val filePath: String = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).absolutePath
+    fun takeScreenShot(activity: Activity, view: View?): Uri? {
         val fileName: String = UUID.randomUUID().toString() + ".png"
-        if (TextUtils.isEmpty(filePath) || TextUtils.isEmpty(fileName)) {
+        if (view == null) {
             return null
         }
-        if (shoot(view, File("$filePath/$fileName"))) {
-            val values = ContentValues()
-            values.put(MediaStore.Images.Media.DISPLAY_NAME, fileName)
-            values.put(MediaStore.Images.Media.DESCRIPTION, "almanac")
-            values.put(MediaStore.Images.Media.MIME_TYPE, "image/png")
-            values.put(MediaStore.Images.Media.TITLE, fileName)
-            values.put(
-                MediaStore.Images.Media.RELATIVE_PATH,
-                "${Environment.DIRECTORY_PICTURES}/${fileName}"
-            )
-            val audioCollection = MediaStore.Images.Media.getContentUri(
-                MediaStore.VOLUME_EXTERNAL_PRIMARY
-            )
-            activity.contentResolver.insert(audioCollection, values)
-        }
-        return FileStorageUtils.getFileUri(activity, File("$filePath/$fileName"))
+        return addBitmapToAlbum(activity, getBitmapByView(view as FrameLayout), fileName)
     }
+
+    private fun addBitmapToAlbum(activity: Activity, bitmap: Bitmap?, displayName: String): Uri? {
+        val values = ContentValues()
+        values.put(MediaStore.MediaColumns.DISPLAY_NAME, displayName)
+        values.put(MediaStore.MediaColumns.MIME_TYPE, "image/*")
+        if (AndroidVersion.hasQ()) {
+            values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
+        } else {
+            values.put(
+                MediaStore.MediaColumns.DATA,
+                "${Environment.getExternalStorageDirectory().path}/${Environment.DIRECTORY_DCIM}/$displayName"
+            )
+        }
+        val uri =
+            activity.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+        if (uri != null) {
+            val outputStream = activity.contentResolver.openOutputStream(uri)
+            if (outputStream != null) {
+                bitmap?.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+                outputStream.close()
+            }
+        }
+        return uri
+    }
+
 
 }

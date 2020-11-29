@@ -11,6 +11,7 @@
         android:id="@+id/profileTitleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:backImageVisible="false"
         app:titleName="@string/mine" />
 
     <LinearLayout

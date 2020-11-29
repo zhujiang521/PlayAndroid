@@ -3,7 +3,7 @@
 
     <declare-styleable name="TitleBar">
         <attr name="titleName" format="string" />
-        <attr name="backImageVisiable" format="boolean" />
+        <attr name="backImageVisible" format="boolean" />
     </declare-styleable>
 
 </resources>

@@ -54,7 +54,7 @@ class X5WebView : WebView {
 //      setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);//滚动条在WebView外侧显示
         progressBar = ProgressBar(context, null, android.R.attr.progressBarStyleHorizontal)
         progressBar!!.max = 100
-        progressBar!!.progressDrawable = this.resources.getDrawable(R.drawable.color_progressbar)
+        progressBar!!.progressDrawable = this.resources.getDrawable(R.drawable.color_progressbar,null)
         addView(progressBar, LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 6))
         //        imageView = new ImageView(getContext());
 //        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);

@@ -30,7 +30,7 @@ class TitleBar @JvmOverloads constructor(
     init {
         val attr = context.obtainStyledAttributes(attrs, R.styleable.TitleBar)
         titleName = attr.getString(R.styleable.TitleBar_titleName)
-        backImageVisible = attr.getBoolean(R.styleable.TitleBar_backImageVisiable, true)
+        backImageVisible = attr.getBoolean(R.styleable.TitleBar_backImageVisible, true)
         attr.recycle()
     }
 
@@ -54,7 +54,7 @@ class TitleBar @JvmOverloads constructor(
             mTitleTv.text = titleName
         }
         if (backImageVisible != null) {
-            setBackImageVisiable(backImageVisible!!)
+            setBackImageVisible(backImageVisible!!)
         }
     }
 
@@ -81,10 +81,10 @@ class TitleBar @JvmOverloads constructor(
     /**
      * 设置返回按钮图片是否显示
      *
-     * @param imageVisiable 是否显示
+     * @param imageVisible 是否显示
      */
-    fun setBackImageVisiable(imageVisiable: Boolean) {
-        if (imageVisiable) {
+    fun setBackImageVisible(imageVisible: Boolean) {
+        if (imageVisible) {
             mImgBack.visibility = View.VISIBLE
         } else {
             mImgBack.visibility = View.GONE

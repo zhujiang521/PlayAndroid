@@ -11,7 +11,7 @@
         android:id="@+id/homeTitleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:backImageVisiable="false"
+        app:backImageVisible="false"
         app:titleName="@string/home_page" />
 
 

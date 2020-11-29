@@ -2,7 +2,6 @@ package com.zj.play.profile
 
 import android.app.AlertDialog
 import android.view.View
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.core.Play
 import com.zj.core.Play.logout
@@ -35,7 +34,6 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
 
     override fun initView() {
         profileTitleBar.setRightImage(R.drawable.btn_right_right_bg)
-        profileTitleBar.setBackImageVisiable(false)
         profileTitleBar.setRightImgOnClickListener {
             RankActivity.actionStart(context!!)
         }

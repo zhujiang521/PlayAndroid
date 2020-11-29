@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import com.zj.core.almanac.IntentShareUtils
 import com.zj.core.almanac.ProgrammerCalendar
 import com.zj.core.almanac.ScreenShotsUtils
@@ -14,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_almanac.*
 
 class AlmanacActivity : BaseActivity() {
 
-    private val DAY_IMAGES = intArrayOf(
+    private val dayImages = intArrayOf(
         R.drawable.almanac_number_0, R.drawable.almanac_number_1, R.drawable.almanac_number_2,
         R.drawable.almanac_number_3, R.drawable.almanac_number_4, R.drawable.almanac_number_5,
         R.drawable.almanac_number_6, R.drawable.almanac_number_7, R.drawable.almanac_number_8,
@@ -51,8 +50,8 @@ class AlmanacActivity : BaseActivity() {
         almanacTvGoddess.text = "【女神亲近指数】" + hl.star(hl.random(hl.iday, 6) % 5 + 1)
         almanacTvYi.text = pickTodayLuck[0]
         almanacTvJi.text = pickTodayLuck[1]
-        almanacIvNumberOne.setImageResource(DAY_IMAGES[hl.todayInt / 10])
-        almanacIvNumberTwo.setImageResource(DAY_IMAGES[hl.todayInt % 10])
+        almanacIvNumberOne.setImageResource(dayImages[hl.todayInt / 10])
+        almanacIvNumberTwo.setImageResource(dayImages[hl.todayInt % 10])
     }
 
     companion object {

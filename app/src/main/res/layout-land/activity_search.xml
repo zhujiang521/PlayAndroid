@@ -34,6 +34,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/edit_gray_radus"
                 android:hint="@string/please_enter_keywords"
+                android:imeOptions="actionSearch"
                 android:maxLines="1"
                 android:paddingStart="@dimen/dp_5"
                 android:singleLine="true"

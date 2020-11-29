@@ -3,8 +3,11 @@ package com.zj.play.home.search
 import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
+import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
@@ -20,7 +23,7 @@ import com.zj.play.home.search.article.ArticleListActivity
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.coroutines.launch
 
-class SearchActivity : BaseActivity(), View.OnClickListener {
+class SearchActivity : BaseActivity(), View.OnClickListener, TextView.OnEditorActionListener {
 
     override fun getLayoutId(): Int = R.layout.activity_search
 
@@ -89,6 +92,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
     override fun initView() {
         searchImgBack.setOnClickListener(this)
         searchTxtRight.setOnClickListener(this)
+        searchTxtKeyword.setOnEditorActionListener(this)
     }
 
     override fun onClick(v: View) {
@@ -97,18 +101,24 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
                 finish()
             }
             R.id.searchTxtRight -> {
-                val keyword = searchTxtKeyword.text.toString()
-                if (TextUtils.isEmpty(keyword)) {
-                    showToast(getString(R.string.keyword_not_null))
-                    return
-                }
-
-                lifecycleScope.launch {
-                    hotKeyDao.insert(HotKey(id = -1, name = keyword))
-                }
-                ArticleListActivity.actionStart(this, keyword)
+                toSearch()
+                Log.e("ZHUJIANG", "toSearch: searchTxtRight")
             }
         }
+    }
+
+    private fun toSearch() {
+        Log.e("ZHUJIANG", "toSearch: ")
+        val keyword = searchTxtKeyword.text.toString()
+        if (TextUtils.isEmpty(keyword)) {
+            showToast(getString(R.string.keyword_not_null))
+            return
+        }
+
+        lifecycleScope.launch {
+            hotKeyDao.insert(HotKey(id = -1, name = keyword))
+        }
+        ArticleListActivity.actionStart(this, keyword)
     }
 
     companion object {
@@ -116,6 +126,24 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
             val intent = Intent(context, SearchActivity::class.java)
             context.startActivity(intent)
         }
+    }
+
+    override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+        //以下方法防止两次发送请求
+        return if (actionId == EditorInfo.IME_ACTION_SEND ||
+            event != null && event.keyCode == KeyEvent.KEYCODE_ENTER
+        ) {
+            when (event!!.action) {
+                KeyEvent.ACTION_UP -> {
+                    //发送请求
+                    toSearch()
+                    true
+                }
+                else -> true
+            }
+        } else false
+
+
     }
 
 }

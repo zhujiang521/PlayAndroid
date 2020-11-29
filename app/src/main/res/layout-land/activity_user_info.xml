@@ -12,7 +12,6 @@
         android:id="@+id/userTitleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:backImageVisiable="true"
         app:titleName="@string/about_me" />
 
     <LinearLayout

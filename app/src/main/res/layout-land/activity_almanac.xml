@@ -10,7 +10,6 @@
         android:id="@+id/almanacTitleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:backImageVisiable="true"
         app:titleName="黄历" />
 
     <FrameLayout

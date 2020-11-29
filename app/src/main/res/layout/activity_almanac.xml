@@ -10,7 +10,7 @@
         android:id="@+id/almanacTitleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:backImageVisiable="true"
+        app:backImageVisible="true"
         app:titleName="黄历" />
 
     <FrameLayout
@@ -73,7 +73,7 @@
                 <ImageView
                     android:id="@+id/almanacIvNumberOne"
                     android:layout_width="@dimen/dp_68"
-                    android:layout_height="@dimen/dp_100"
+                    android:layout_height="@dimen/dp_110"
                     android:src="@drawable/almanac_number_2" />
 
                 <ImageView
