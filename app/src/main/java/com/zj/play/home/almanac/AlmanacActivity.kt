@@ -4,12 +4,15 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
+import androidx.lifecycle.ViewModelProvider
 import com.zj.core.almanac.IntentShareUtils
 import com.zj.core.almanac.ProgrammerCalendar
 import com.zj.core.almanac.ScreenShotsUtils
 import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
 import kotlinx.android.synthetic.main.activity_almanac.*
+import java.util.*
 
 class AlmanacActivity : BaseActivity() {
 
@@ -20,13 +23,24 @@ class AlmanacActivity : BaseActivity() {
         R.drawable.almanac_number_9
     )
 
-    override fun getLayoutId(): Int = R.layout.activity_almanac
+    private val viewModel by lazy { ViewModelProvider(this).get(AlmanacViewModel::class.java) }
 
+    override fun getLayoutId(): Int = R.layout.activity_almanac
 
     override fun initView() {
         almanacTitleBar.setRightImage(R.drawable.almanac_share_button)
         almanacTitleBar.setRightImgOnClickListener {
-            val tempUri: Uri? = ScreenShotsUtils.takeScreenShot(this, almanacRootView)
+            viewModel.getAlmanacUri(Calendar.getInstance())
+        }
+        viewModel.almanacUriLiveData.observe(this) {
+            val tempUri: Uri?
+            if (it.isSuccess) {
+                tempUri = it.getOrNull()
+            } else {
+                tempUri = ScreenShotsUtils.takeScreenShot(this, almanacRootView)
+                viewModel.addAlmanac(Calendar.getInstance(), tempUri.toString())
+            }
+            Log.e(TAG, "initView: $tempUri")
             IntentShareUtils.shareFile(this, tempUri, "黄历")
         }
     }
@@ -55,6 +69,9 @@ class AlmanacActivity : BaseActivity() {
     }
 
     companion object {
+
+        const val TAG = "AlmanacActivity"
+
         fun actionStart(context: Context) {
             val intent = Intent(context, AlmanacActivity::class.java)
             context.startActivity(intent)

@@ -6,14 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.zj.model.room.dao.BannerBeanDao
-import com.zj.model.room.dao.BrowseHistoryDao
-import com.zj.model.room.dao.HotKeyDao
-import com.zj.model.room.dao.ProjectClassifyDao
-import com.zj.model.room.entity.Article
-import com.zj.model.room.entity.BannerBean
-import com.zj.model.room.entity.HotKey
-import com.zj.model.room.entity.ProjectClassify
+import com.zj.model.room.dao.*
+import com.zj.model.room.entity.*
 
 
 /**
@@ -25,7 +19,7 @@ import com.zj.model.room.entity.ProjectClassify
  *
  */
 @Database(
-    entities = [ProjectClassify::class, Article::class, HotKey::class, BannerBean::class],
+    entities = [ProjectClassify::class, Article::class, HotKey::class, BannerBean::class,Almanac::class],
     version = 2
 )
 abstract class PlayDatabase : RoomDatabase() {
@@ -37,6 +31,8 @@ abstract class PlayDatabase : RoomDatabase() {
     abstract fun hotKeyDao(): HotKeyDao
 
     abstract fun bannerBeanDao(): BannerBeanDao
+
+    abstract fun almanacDao(): AlmanacDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the
