@@ -1,6 +1,7 @@
 package com.zj.play.home.almanac
 
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -9,6 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.zj.core.almanac.IntentShareUtils
 import com.zj.core.almanac.ProgrammerCalendar
 import com.zj.core.almanac.ScreenShotsUtils
+import com.zj.core.util.ProgressDialogUtil
+import com.zj.core.util.showToast
 import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
 import kotlinx.android.synthetic.main.activity_almanac.*
@@ -22,6 +25,7 @@ class AlmanacActivity : BaseActivity() {
         R.drawable.almanac_number_6, R.drawable.almanac_number_7, R.drawable.almanac_number_8,
         R.drawable.almanac_number_9
     )
+    private var progressDialogUtil: ProgressDialogUtil? = null
 
     private val viewModel by lazy { ViewModelProvider(this).get(AlmanacViewModel::class.java) }
 
@@ -30,19 +34,31 @@ class AlmanacActivity : BaseActivity() {
     override fun initView() {
         almanacTitleBar.setRightImage(R.drawable.almanac_share_button)
         almanacTitleBar.setRightImgOnClickListener {
-            viewModel.getAlmanacUri(Calendar.getInstance())
+            viewModel.shareAlmanac(this, almanacRootView, Calendar.getInstance())
         }
-        viewModel.almanacUriLiveData.observe(this) {
-            val tempUri: Uri?
-            if (it.isSuccess) {
-                tempUri = it.getOrNull()
-            } else {
-                tempUri = ScreenShotsUtils.takeScreenShot(this, almanacRootView)
-                viewModel.addAlmanac(Calendar.getInstance(), tempUri.toString())
+        viewModel.state.observe(this) {
+            when (it) {
+                Sharing -> {
+                    showProgressDialog()
+                }
+                is ShareSuccess -> {
+                    hideProgressDialog()
+                    IntentShareUtils.shareFile(this, it.uri, "黄历")
+                }
+                ShareError -> {
+                    showToast("分享失败")
+                }
             }
-            Log.e(TAG, "initView: $tempUri")
-            IntentShareUtils.shareFile(this, tempUri, "黄历")
         }
+    }
+
+    private fun hideProgressDialog() {
+        progressDialogUtil?.progressDialogDismiss()
+    }
+
+    private fun showProgressDialog() {
+        progressDialogUtil = ProgressDialogUtil.getInstance(this)
+        progressDialogUtil?.progressDialogShow("正在保存图片。。。")
     }
 
     override fun onResume() {
@@ -66,6 +82,11 @@ class AlmanacActivity : BaseActivity() {
         almanacTvJi.text = pickTodayLuck[1]
         almanacIvNumberOne.setImageResource(dayImages[hl.todayInt / 10])
         almanacIvNumberTwo.setImageResource(dayImages[hl.todayInt % 10])
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        hideProgressDialog()
     }
 
     companion object {

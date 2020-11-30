@@ -2,6 +2,7 @@ package com.zj.play.home.almanac
 
 import android.app.Application
 import android.net.Uri
+import android.util.Log
 import com.zj.core.util.CalendarUtils
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.Almanac
@@ -23,16 +24,14 @@ class AlmanacRepository(application: Application) {
 
     private val almanacDao = PlayDatabase.getDatabase(application).almanacDao()
 
-    fun getAlmanacUri(calendar: Calendar) = fire {
-        coroutineScope {
-            val julianDayFromCalendar =
-                CalendarUtils.getJulianDayFromCalendar(calendar)
-            val almanac = almanacDao.getAlmanac(julianDayFromCalendar)
-            if (almanac?.imgUri != null) {
-                Result.success(Uri.parse(almanac.imgUri))
-            } else {
-                Result.failure(RuntimeException("response status is "))
-            }
+    suspend fun getAlmanacUri(calendar: Calendar): Uri? {
+        val julianDayFromCalendar =
+            CalendarUtils.getJulianDayFromCalendar(calendar)
+        val almanac = almanacDao.getAlmanac(julianDayFromCalendar)
+        return if (almanac?.imgUri != null) {
+            Uri.parse(almanac.imgUri)
+        } else {
+            null
         }
     }
 

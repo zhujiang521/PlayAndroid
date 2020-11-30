@@ -1,10 +1,12 @@
 package com.zj.play.home.almanac
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.viewModelScope
+import android.net.Uri
+import android.util.Log
+import android.view.View
+import androidx.lifecycle.*
+import com.zj.core.almanac.ScreenShotsUtils
+import kotlinx.android.synthetic.main.activity_almanac.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
@@ -19,20 +21,36 @@ import java.util.*
  */
 class AlmanacViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val calendarLiveData = MutableLiveData<Calendar>()
+    val state: LiveData<ShareState>
+        get() = _state
 
-    val almanacUriLiveData = Transformations.switchMap(calendarLiveData) { calendar ->
-        AlmanacRepository(application).getAlmanacUri(calendar)
+    private val _state = MutableLiveData<ShareState>()
+
+    private suspend fun addAlmanac(instance: Calendar, toString: String) {
+        AlmanacRepository(getApplication()).addAlmanac(instance, toString)
     }
 
-    fun getAlmanacUri(calendar: Calendar) {
-        calendarLiveData.value = calendar
-    }
-
-    fun addAlmanac(instance: Calendar, toString: String) {
+    fun shareAlmanac(activity: AlmanacActivity, view: View, calendar: Calendar) {
+        _state.postValue(Sharing)
         viewModelScope.launch(Dispatchers.IO) {
-            AlmanacRepository(getApplication()).addAlmanac(instance,toString)
+            val almanacUri = AlmanacRepository(getApplication()).getAlmanacUri(calendar)
+            if (almanacUri != null) {
+                _state.postValue(ShareSuccess(almanacUri))
+            } else {
+                val tempUri = ScreenShotsUtils.takeScreenShot(activity, view)
+                if (tempUri != null) {
+                    addAlmanac(calendar, tempUri.toString())
+                    _state.postValue(ShareSuccess(tempUri))
+                } else {
+                    _state.postValue(ShareError)
+                }
+            }
         }
     }
 
 }
+
+sealed class ShareState
+object Sharing : ShareState()
+data class ShareSuccess(val uri: Uri) : ShareState()
+object ShareError : ShareState()
