@@ -45,16 +45,11 @@ class HomePageFragment : ArticleCollectBaseFragment() {
         bannerAdapter = ImageAdapter(context!!, viewModel.bannerList)
         bannerAdapter2 = ImageAdapter(context!!, viewModel.bannerList2)
         homeBanner.adapter = bannerAdapter
-        homeBanner.setIndicator(CircleIndicator(context))
-            .start()
+        homeBanner.setIndicator(CircleIndicator(context)).start()
         homeBanner2.adapter = bannerAdapter2
-        homeBanner2.setIndicator(CircleIndicator(context))
-            .start()
+        homeBanner2.setIndicator(CircleIndicator(context)).start()
         homeToTopRecyclerView.setRecyclerViewLayoutManager(true)
-        articleAdapter = ArticleAdapter(
-            context!!,
-            viewModel.articleList
-        )
+        articleAdapter = ArticleAdapter(context!!, viewModel.articleList)
         homeToTopRecyclerView.onRefreshListener({
             page = 1
             getArticleList(true)

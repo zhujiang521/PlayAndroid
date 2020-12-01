@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/floating" />
             <option value="$PROJECT_DIR$/model" />
             <option value="$PROJECT_DIR$/network" />
             <option value="$PROJECT_DIR$/permisson" />

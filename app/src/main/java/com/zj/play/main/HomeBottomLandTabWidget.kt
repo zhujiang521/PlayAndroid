@@ -4,8 +4,8 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.util.AttributeSet
 import android.view.View
-import com.cpacm.FloatingMusicMenu
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.zj.floating.FloatingMenu
 import com.zj.play.R
 
 
@@ -17,7 +17,7 @@ class HomeBottomLandTabWidget @JvmOverloads constructor(
     View.OnClickListener {
 
     private var floatingButtons: ArrayList<FloatingActionButton>? = null
-    private var fabMenu: FloatingMusicMenu? = null
+    private var fabMenu: FloatingMenu? = null
 
     /**
      * 初始化 设置点击事件。
@@ -75,7 +75,7 @@ class HomeBottomLandTabWidget @JvmOverloads constructor(
      */
     override fun fragmentManger(position: Int) {
         super.fragmentManger(position)
-        fabMenu?.setMusicCover(
+        fabMenu?.setCover(
             BitmapFactory.decodeResource(
                 context.resources,
                 when (position) {

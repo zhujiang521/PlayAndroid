@@ -30,10 +30,7 @@ class OfficialListFragment : BaseListFragment() {
     }
 
     override fun initView() {
-        articleAdapter = ArticleAdapter(
-            context!!,
-            viewModel.dataList
-        )
+        articleAdapter = ArticleAdapter(context!!, viewModel.dataList)
         super.initView()
     }
 

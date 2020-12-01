@@ -26,6 +26,7 @@ class ToTopRecyclerView @JvmOverloads constructor(
     private lateinit var mToTopSmartRefreshLayout: SmartRefreshLayout
     private lateinit var mToTopRecycleView: RecyclerView
     private lateinit var mToTopIvClick: ImageView
+    private val mLoadTime = 1000
 
     /**
      * 初始化布局
@@ -67,7 +68,7 @@ class ToTopRecyclerView @JvmOverloads constructor(
                 val time = measureTimeMillis {
                     onLoadMoreListener.invoke()
                 }.toInt()
-                reLayout.finishLoadMore(if (time > 1000) time else 1000)
+                reLayout.finishLoadMore(if (time > mLoadTime) time else mLoadTime)
             }
         }
     }

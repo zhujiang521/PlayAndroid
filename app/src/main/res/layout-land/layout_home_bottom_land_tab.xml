@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.cpacm.FloatingMusicMenu
+    <com.zj.floating.FloatingMenu
         android:id="@+id/fabMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,11 +32,11 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_16"
             android:layout_marginBottom="@dimen/dp_16"
+            android:contentDescription="@string/home_page"
             android:src="@drawable/selector_one"
             app:backgroundTint="@color/floatBackground"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:contentDescription="@string/home_page" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabRepo"
@@ -44,11 +44,11 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_16"
             android:layout_marginBottom="@dimen/dp_16"
+            android:contentDescription="@string/project"
             android:src="@drawable/selector_two"
             app:backgroundTint="@color/floatBackground"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:contentDescription="@string/project" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabProject"
@@ -56,11 +56,11 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_16"
             android:layout_marginBottom="@dimen/dp_16"
+            android:contentDescription="@string/official_account"
             android:src="@drawable/selector_three"
             app:backgroundTint="@color/floatBackground"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:contentDescription="@string/official_account" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabProfile"
@@ -68,12 +68,12 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_16"
             android:layout_marginBottom="@dimen/dp_16"
+            android:contentDescription="@string/mine"
             android:src="@drawable/selector_four"
             app:backgroundTint="@color/floatBackground"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:contentDescription="@string/mine" />
+            app:layout_constraintStart_toStartOf="parent" />
 
-    </com.cpacm.FloatingMusicMenu>
+    </com.zj.floating.FloatingMenu>
 
 </FrameLayout>
