@@ -1,15 +1,11 @@
 package com.zj.play.home.almanac
 
 import android.annotation.SuppressLint
-import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.zj.core.almanac.IntentShareUtils
 import com.zj.core.almanac.ProgrammerCalendar
-import com.zj.core.almanac.ScreenShotsUtils
 import com.zj.core.util.ProgressDialogUtil
 import com.zj.core.util.showToast
 import com.zj.core.view.base.BaseActivity
@@ -90,9 +86,6 @@ class AlmanacActivity : BaseActivity() {
     }
 
     companion object {
-
-        const val TAG = "AlmanacActivity"
-
         fun actionStart(context: Context) {
             val intent = Intent(context, AlmanacActivity::class.java)
             context.startActivity(intent)

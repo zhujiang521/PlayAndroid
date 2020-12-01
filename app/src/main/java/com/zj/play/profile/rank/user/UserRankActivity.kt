@@ -27,8 +27,7 @@ class UserRankActivity : BaseListActivity() {
     override fun initView() {
         super.initView()
         rankAdapter = UserRankAdapter(this, R.layout.adapter_rank, viewModel.dataList)
-        rankAdapter.setHasStableIds(true)
-        baseListRecycleView.adapter = rankAdapter
+        baseListToTop.setAdapter(rankAdapter)
         baseListTitleBar.setTitle(getString(R.string.mine_points))
     }
 

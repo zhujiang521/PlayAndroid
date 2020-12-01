@@ -66,7 +66,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
     implementation 'com.youth.banner:banner:2.1.0'
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
+
     implementation project(path: ':model')
 
     // 内存泄漏检测
@@ -74,7 +74,7 @@ dependencies {
 
     implementation 'com.cpacm:floatingmusicmenu:1.0.0'
     // 异常上报
-    implementation 'com.tencent.bugly:crashreport:3.2.422'
+    implementation 'com.tencent.bugly:crashreport:3.3.1'
     implementation files('libs/tbs_sdk_thirdapp_v4.3.0.67_43967_sharewithdownloadwithfile_withoutGame_obfs_20200923_120452.jar')
     testImplementation des.junit
     androidTestImplementation des.extJunit

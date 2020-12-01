@@ -2,11 +2,12 @@ package com.zj.play.home.almanac
 
 import android.app.Application
 import android.net.Uri
-import android.util.Log
 import android.view.View
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.zj.core.almanac.ScreenShotsUtils
-import kotlinx.android.synthetic.main.activity_almanac.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
@@ -21,19 +22,20 @@ import java.util.*
  */
 class AlmanacViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val _state = MutableLiveData<ShareState>()
+    private var almanacRepository: AlmanacRepository = AlmanacRepository(application)
+
     val state: LiveData<ShareState>
         get() = _state
 
-    private val _state = MutableLiveData<ShareState>()
-
     private suspend fun addAlmanac(instance: Calendar, toString: String) {
-        AlmanacRepository(getApplication()).addAlmanac(instance, toString)
+        almanacRepository.addAlmanac(instance, toString)
     }
 
     fun shareAlmanac(activity: AlmanacActivity, view: View, calendar: Calendar) {
         _state.postValue(Sharing)
         viewModelScope.launch(Dispatchers.IO) {
-            val almanacUri = AlmanacRepository(getApplication()).getAlmanacUri(calendar)
+            val almanacUri = almanacRepository.getAlmanacUri(calendar)
             if (almanacUri != null) {
                 _state.postValue(ShareSuccess(almanacUri))
             } else {

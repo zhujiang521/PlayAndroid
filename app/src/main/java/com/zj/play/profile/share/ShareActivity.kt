@@ -4,17 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.core.Play
-import com.zj.play.R
 import com.zj.model.model.CoinInfo
 import com.zj.model.model.ShareModel
+import com.zj.play.R
 import com.zj.play.article.ArticleAdapter
 import com.zj.play.home.ArticleCollectBaseActivity
 import com.zj.play.profile.rank.user.UserRankActivity
 import com.zj.play.profile.share.add.AddShareActivity
 import kotlinx.android.synthetic.main.activity_share.*
-import kotlin.system.measureTimeMillis
 
 const val IS_MINE = "IS_MINE"
 const val USER_ID = "USER_ID"
@@ -72,28 +70,19 @@ class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
 
     override fun initView() {
         shareTvRank.setOnClickListener(this)
-        shareRecycleView.layoutManager = LinearLayoutManager(this)
+        shareToTopRecyclerView.setRecyclerViewLayoutManager(true)
         articleAdapter = ArticleAdapter(
             this,
             viewModel.articleList
         )
-        articleAdapter.setHasStableIds(true)
-        shareRecycleView.adapter = articleAdapter
-        shareSmartRefreshLayout.apply {
-            setOnRefreshListener { reLayout ->
-                reLayout.finishRefresh(measureTimeMillis {
-                    page = 1
-                    getArticleList()
-                }.toInt())
-            }
-            setOnLoadMoreListener { reLayout ->
-                val time = measureTimeMillis {
-                    page++
-                    getArticleList()
-                }.toInt()
-                reLayout.finishLoadMore(if (time > 1000) time else 1000)
-            }
-        }
+        shareToTopRecyclerView.setAdapter(articleAdapter)
+        shareToTopRecyclerView.onRefreshListener({
+            page = 1
+            getArticleList()
+        }, {
+            page++
+            getArticleList()
+        })
     }
 
     private fun getArticleList() {

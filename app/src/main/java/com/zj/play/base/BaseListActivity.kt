@@ -1,15 +1,9 @@
 package com.zj.play.base
 
 import android.content.res.Configuration
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.zj.core.view.custom.StaggeredDividerItemDecoration
 import com.zj.play.R
 import com.zj.play.home.ArticleCollectBaseActivity
 import kotlinx.android.synthetic.main.activity_base_list.*
-import kotlin.system.measureTimeMillis
 
 /**
  * 版权：Zhujiang 个人版权
@@ -32,52 +26,14 @@ abstract class BaseListActivity : ArticleCollectBaseActivity() {
     abstract fun getDataList()
 
     override fun initView() {
-        when (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            true -> {
-                baseListRecycleView.layoutManager = LinearLayoutManager(this)
-            }
-            false -> {
-                val spanCount = 2
-                if (isStaggeredGrid()) {
-                    val layoutManager =
-                        StaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.VERTICAL)
-                    baseListRecycleView.layoutManager = layoutManager
-                    layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE;
-                    baseListRecycleView.itemAnimator = null
-                    baseListRecycleView.addItemDecoration(StaggeredDividerItemDecoration(this))
-                    baseListRecycleView.addOnScrollListener(object :
-                        RecyclerView.OnScrollListener() {
-                        override fun onScrollStateChanged(
-                            recyclerView: RecyclerView,
-                            newState: Int
-                        ) {
-                            val first = IntArray(spanCount)
-                            layoutManager.findFirstCompletelyVisibleItemPositions(first)
-                            if (newState == RecyclerView.SCROLL_STATE_IDLE && (first[0] == 1 || first[1] == 1)) {
-                                layoutManager.invalidateSpanAssignments()
-                            }
-                        }
-                    })
-                } else {
-                    baseListRecycleView.layoutManager = GridLayoutManager(this, spanCount)
-                }
-            }
-        }
-        baseListSmartRefreshLayout.apply {
-            setOnRefreshListener { reLayout ->
-                reLayout.finishRefresh(measureTimeMillis {
-                    page = 1
-                    getDataList()
-                }.toInt())
-            }
-            setOnLoadMoreListener { reLayout ->
-                val time = measureTimeMillis {
-                    page++
-                    getDataList()
-                }.toInt()
-                reLayout.finishLoadMore(if (time > 1000) time else 1000)
-            }
-        }
+        baseListToTop.setRecyclerViewLayoutManager(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
+        baseListToTop.onRefreshListener({
+            page = 1
+            getDataList()
+        }, {
+            page++
+            getDataList()
+        })
     }
 
     abstract fun isStaggeredGrid(): Boolean

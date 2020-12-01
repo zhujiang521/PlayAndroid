@@ -21,8 +21,7 @@ class BrowseHistoryActivity : BaseListActivity() {
             viewModel.dataList,
             false
         )
-        articleAdapter.setHasStableIds(true)
-        baseListRecycleView.adapter = articleAdapter
+        baseListToTop.setAdapter(articleAdapter)
         baseListTitleBar.setTitle(getString(R.string.browsing_history))
     }
 

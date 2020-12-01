@@ -39,8 +39,7 @@ class ArticleListActivity : BaseListActivity() {
             this,
             viewModel.dataList
         )
-        articleAdapter.setHasStableIds(true)
-        baseListRecycleView.adapter = articleAdapter
+        baseListToTop.setAdapter(articleAdapter)
     }
 
     override fun isStaggeredGrid(): Boolean {

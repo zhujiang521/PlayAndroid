@@ -28,8 +28,7 @@ class RankActivity : BaseListActivity() {
         super.initView()
         baseListTitleBar.setTitle(getString(R.string.ranking_list))
         rankAdapter = RankAdapter(this, viewModel.dataList)
-        rankAdapter.setHasStableIds(true)
-        baseListRecycleView.adapter = rankAdapter
+        baseListToTop.setAdapter(rankAdapter)
     }
 
     override fun isStaggeredGrid(): Boolean {

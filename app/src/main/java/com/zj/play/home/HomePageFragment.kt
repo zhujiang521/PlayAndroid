@@ -1,7 +1,6 @@
 package com.zj.play.home
 
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.youth.banner.indicator.CircleIndicator
 import com.zj.core.almanac.isZhLanguage
 import com.zj.play.R
@@ -10,7 +9,6 @@ import com.zj.play.home.almanac.AlmanacActivity
 import com.zj.play.home.search.SearchActivity
 import com.zj.play.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_home_page.*
-import kotlin.system.measureTimeMillis
 
 
 class HomePageFragment : ArticleCollectBaseFragment() {
@@ -52,28 +50,19 @@ class HomePageFragment : ArticleCollectBaseFragment() {
         homeBanner2.adapter = bannerAdapter2
         homeBanner2.setIndicator(CircleIndicator(context))
             .start()
-        homeRecycleView.layoutManager = LinearLayoutManager(context)
+        homeToTopRecyclerView.setRecyclerViewLayoutManager(true)
         articleAdapter = ArticleAdapter(
             context!!,
             viewModel.articleList
         )
-        articleAdapter.setHasStableIds(true)
-        homeRecycleView.adapter = articleAdapter
-        homeSmartRefreshLayout.apply {
-            setOnRefreshListener { reLayout ->
-                reLayout.finishRefresh(measureTimeMillis {
-                    page = 1
-                    getArticleList(true)
-                }.toInt())
-            }
-            setOnLoadMoreListener { reLayout ->
-                val time = measureTimeMillis {
-                    page++
-                    getArticleList(true)
-                }.toInt()
-                reLayout.finishLoadMore(if (time > 1000) time else 1000)
-            }
-        }
+        homeToTopRecyclerView.onRefreshListener({
+            page = 1
+            getArticleList(true)
+        }, {
+            page++
+            getArticleList(true)
+        })
+        homeToTopRecyclerView.setAdapter(articleAdapter)
     }
 
     override fun initData() {

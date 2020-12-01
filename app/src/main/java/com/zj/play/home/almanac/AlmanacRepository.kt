@@ -2,14 +2,9 @@ package com.zj.play.home.almanac
 
 import android.app.Application
 import android.net.Uri
-import android.util.Log
 import com.zj.core.util.CalendarUtils
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.Almanac
-import com.zj.network.repository.fire
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.withContext
 import java.util.*
 
 /**

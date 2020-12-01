@@ -54,17 +54,10 @@
 
         </LinearLayout>
 
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/shareSmartRefreshLayout"
+        <com.zj.core.view.custom.ToTopRecyclerView
+            android:id="@+id/shareToTopRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/shareRecycleView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

@@ -25,16 +25,9 @@
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/homeSmartRefreshLayout"
+    <com.zj.core.view.custom.ToTopRecyclerView
+        android:id="@+id/homeToTopRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/homeRecycleView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
