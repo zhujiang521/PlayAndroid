@@ -1,7 +1,6 @@
 package com.zj.play.profile
 
 import android.content.Context
-import android.view.View
 import com.zj.core.Play
 import com.zj.core.view.base.BaseListAdapter
 import com.zj.play.R

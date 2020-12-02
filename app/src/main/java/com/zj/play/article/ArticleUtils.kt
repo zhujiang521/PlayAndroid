@@ -5,11 +5,6 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.lifecycle.LifecycleCoroutineScope
-import com.zj.core.util.showToast
-import com.zj.network.repository.CollectRepository
-import com.zj.play.R
-import kotlinx.coroutines.launch
 
 
 /**

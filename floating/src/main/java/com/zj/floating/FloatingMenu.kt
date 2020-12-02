@@ -406,7 +406,7 @@ class FloatingMenu @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(
         }
     }
 
-    fun collapse() {
+    private fun collapse() {
         collapse(false)
     }
 
@@ -432,7 +432,7 @@ class FloatingMenu @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(
         }
     }
 
-    fun expand() {
+    private fun expand() {
         if (!isExpanded) {
             isExpanded = true
             mCollapseAnimation.cancel()

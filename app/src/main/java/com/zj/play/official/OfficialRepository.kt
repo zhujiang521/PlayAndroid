@@ -4,13 +4,12 @@ import android.app.Application
 import com.blankj.utilcode.util.SPUtils
 import com.zj.core.util.Preference
 import com.zj.model.pojo.QueryArticle
-import com.zj.network.base.PlayAndroidNetwork
-import com.zj.network.repository.fire
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.OFFICIAL
-import com.zj.model.room.entity.PROJECT
+import com.zj.network.base.PlayAndroidNetwork
 import com.zj.network.repository.DOWN_OFFICIAL_ARTICLE_TIME
 import com.zj.network.repository.FOUR_HOUR
+import com.zj.network.repository.fire
 
 /**
  * 版权：Zhujiang 个人版权
