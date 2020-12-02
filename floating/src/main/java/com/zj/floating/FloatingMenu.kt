@@ -37,7 +37,7 @@ class FloatingMenu @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(
     attrs: AttributeSet?,
     defStyleAttr: Int,
     defStyleRes: Int
-) : ViewGroup(context, attrs, defStyleAttr, defStyleRes) , CoordinatorLayout.AttachedBehavior {
+) : ViewGroup(context, attrs, defStyleAttr, defStyleRes), CoordinatorLayout.AttachedBehavior {
     private var floatingMusicButton: FloatingButton? = null
     private var showAnimation: AnimatorSet? = null
     private var hideAnimation: AnimatorSet? = null
@@ -101,10 +101,12 @@ class FloatingMenu @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(
 
     private fun createRootButton(context: Context) {
         floatingMusicButton = FloatingButton(context)
-        floatingMusicButton!!.setOnClickListener { toggle() }
-        floatingMusicButton!!.config(backgroundTint)
-        if (cover != null) {
-            floatingMusicButton!!.setCoverDrawable(cover)
+        floatingMusicButton?.apply {
+            setOnClickListener { toggle() }
+            config(backgroundTint)
+            if (cover != null) {
+                setCoverDrawable(cover)
+            }
         }
     }
 
@@ -166,9 +168,9 @@ class FloatingMenu @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
         when (floatingDirection) {
             FLOATING_DIRECTION_UP -> onUpDirectionLayout(l, t, r, b)
-            FLOATING_DIRECTION_DOWN -> onDownDirectionLayout(l, t, r, b)
+            FLOATING_DIRECTION_DOWN -> onDownDirectionLayout(l, r)
             FLOATING_DIRECTION_LEFT -> onLeftDirectionLayout(l, t, r, b)
-            FLOATING_DIRECTION_RIGHT -> onRightDirectionLayout(l, t, r, b)
+            FLOATING_DIRECTION_RIGHT -> onRightDirectionLayout(t, b)
         }
     }
 
@@ -192,11 +194,13 @@ class FloatingMenu @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(
                 child.translationY = if (isExpanded) expandedTranslation else collapsedTranslation
                 child.alpha = if (isExpanded) 1f else 0f
                 val params = child.layoutParams as MenuLayoutParams
-                params.collapseDirAnim.setFloatValues(expandedTranslation, collapsedTranslation)
-                params.expandDirAnim.setFloatValues(collapsedTranslation, expandedTranslation)
-                params.collapseDirAnim.setProperty(TRANSLATION_Y)
-                params.expandDirAnim.setProperty(TRANSLATION_Y)
-                params.setAnimationsTarget(child)
+                params.apply {
+                    collapseDirAnim.setFloatValues(expandedTranslation, collapsedTranslation)
+                    expandDirAnim.setFloatValues(collapsedTranslation, expandedTranslation)
+                    collapseDirAnim.setProperty(TRANSLATION_Y)
+                    expandDirAnim.setProperty(TRANSLATION_Y)
+                    setAnimationsTarget(child)
+                }
             }
             offsetY -= (height + buttonInterval).toInt()
         }
@@ -205,7 +209,7 @@ class FloatingMenu @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(
     /**
      * 摆放朝下展开方向的子控件位置
      */
-    private fun onDownDirectionLayout(l: Int, t: Int, r: Int, b: Int) {
+    private fun onDownDirectionLayout(l: Int, r: Int) {
         val centerX = (r - l) / 2
         var offsetY = SHADOW_OFFSET
         val rootView = getChildAt(childCount - 1)
@@ -227,11 +231,13 @@ class FloatingMenu @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(
             child.translationY = if (isExpanded) expandedTranslation else collapsedTranslation
             child.alpha = if (isExpanded) 1f else 0f
             val params = child.layoutParams as MenuLayoutParams
-            params.collapseDirAnim.setFloatValues(expandedTranslation, collapsedTranslation)
-            params.expandDirAnim.setFloatValues(collapsedTranslation, expandedTranslation)
-            params.collapseDirAnim.setProperty(TRANSLATION_Y)
-            params.expandDirAnim.setProperty(TRANSLATION_Y)
-            params.setAnimationsTarget(child)
+            params.apply {
+                collapseDirAnim.setFloatValues(expandedTranslation, collapsedTranslation)
+                expandDirAnim.setFloatValues(collapsedTranslation, expandedTranslation)
+                collapseDirAnim.setProperty(TRANSLATION_Y)
+                expandDirAnim.setProperty(TRANSLATION_Y)
+                setAnimationsTarget(child)
+            }
             offsetY += (height + buttonInterval).toInt()
         }
     }
@@ -256,11 +262,13 @@ class FloatingMenu @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(
                 child.translationX = if (isExpanded) expandedTranslation else collapsedTranslation
                 child.alpha = if (isExpanded) 1f else 0f
                 val params = child.layoutParams as MenuLayoutParams
-                params.collapseDirAnim.setFloatValues(expandedTranslation, collapsedTranslation)
-                params.expandDirAnim.setFloatValues(collapsedTranslation, expandedTranslation)
-                params.collapseDirAnim.setProperty(TRANSLATION_X)
-                params.expandDirAnim.setProperty(TRANSLATION_X)
-                params.setAnimationsTarget(child)
+                params.apply {
+                    collapseDirAnim.setFloatValues(expandedTranslation, collapsedTranslation)
+                    expandDirAnim.setFloatValues(collapsedTranslation, expandedTranslation)
+                    collapseDirAnim.setProperty(TRANSLATION_X)
+                    expandDirAnim.setProperty(TRANSLATION_X)
+                    setAnimationsTarget(child)
+                }
             }
             offsetX -= (width + buttonInterval).toInt()
         }
@@ -269,7 +277,7 @@ class FloatingMenu @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(
     /**
      * 摆放朝右展开方向的子控件位置
      */
-    private fun onRightDirectionLayout(l: Int, t: Int, r: Int, b: Int) {
+    private fun onRightDirectionLayout(t: Int, b: Int) {
         val centerY = (b - t) / 2
         var offsetX = SHADOW_OFFSET
         val rootView = getChildAt(childCount - 1)
@@ -291,11 +299,13 @@ class FloatingMenu @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(
             child.translationX = if (isExpanded) expandedTranslation else collapsedTranslation
             child.alpha = if (isExpanded) 1f else 0f
             val params = child.layoutParams as MenuLayoutParams
-            params.collapseDirAnim.setFloatValues(expandedTranslation, collapsedTranslation)
-            params.expandDirAnim.setFloatValues(collapsedTranslation, expandedTranslation)
-            params.collapseDirAnim.setProperty(TRANSLATION_X)
-            params.expandDirAnim.setProperty(TRANSLATION_X)
-            params.setAnimationsTarget(child)
+            params.apply {
+                collapseDirAnim.setFloatValues(expandedTranslation, collapsedTranslation)
+                expandDirAnim.setFloatValues(collapsedTranslation, expandedTranslation)
+                collapseDirAnim.setProperty(TRANSLATION_X)
+                expandDirAnim.setProperty(TRANSLATION_X)
+                setAnimationsTarget(child)
+            }
             offsetX += (width + buttonInterval).toInt()
         }
     }
@@ -446,7 +456,7 @@ class FloatingMenu @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(
         }
     }
 
-    fun dp2px(dp: Float): Float {
+    private fun dp2px(dp: Float): Float {
         return TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP, dp,
             resources.displayMetrics
@@ -468,7 +478,9 @@ class FloatingMenu @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(
             dxConsumed: Int,
             dyConsumed: Int,
             dxUnconsumed: Int,
-            dyUnconsumed: Int
+            dyUnconsumed: Int,
+            type: Int,
+            consumed: IntArray
         ) {
             super.onNestedScroll(
                 coordinatorLayout,
@@ -477,7 +489,9 @@ class FloatingMenu @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(
                 dxConsumed,
                 dyConsumed,
                 dxUnconsumed,
-                dyUnconsumed
+                dyUnconsumed,
+                type,
+                consumed
             )
             if (dyConsumed > 30 && child.visibility == VISIBLE) {
                 child.hide()

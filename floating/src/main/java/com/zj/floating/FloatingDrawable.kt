@@ -16,7 +16,6 @@ class FloatingDrawable : Drawable {
     private var mPaint: Paint? = null
     private val drawable: Drawable
     private var mWidth = 0
-    private var mRotation = 0f
 
     constructor(drawable: Drawable) {
         this.drawable = drawable
@@ -28,17 +27,9 @@ class FloatingDrawable : Drawable {
         circleBitmapFromDrawable(drawable)
     }
 
-    var rotation: Float
-        get() = mRotation
-        set(rotation) {
-            mRotation = rotation
-            invalidateSelf()
-        }
-
     override fun draw(canvas: Canvas) {
         // 画背景图
         canvas.save()
-        canvas.rotate(mRotation, bounds.centerX().toFloat(), bounds.centerY().toFloat())
         canvas.drawCircle(
             (mWidth shr 1).toFloat(),
             (mWidth shr 1).toFloat(),
