@@ -37,4 +37,6 @@
 
     <color name="content_bg">#FF000000</color>
 
+    <color name="to_top_pressed">#235A30</color>
+
 </resources>

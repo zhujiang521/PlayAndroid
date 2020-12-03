@@ -1,8 +1,8 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true">
-        <inset android:drawable="@drawable/to_top_bg_pressed" />
+        <inset android:drawable="@drawable/img_to_top_pressed" />
     </item>
     <item>
-        <inset android:drawable="@drawable/to_top_bg_nomal" />
+        <inset android:drawable="@drawable/img_to_top_nomal" />
     </item>
 </selector>
