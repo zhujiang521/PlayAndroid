@@ -32,9 +32,11 @@ class ProjectFragment : BaseTabFragment() {
                 nameList.add(project.name)
                 viewList.add(ProjectListFragment.newInstance(project.id))
             }
-            adapter.reset(nameList.toTypedArray())
-            adapter.reset(viewList)
-            adapter.notifyDataSetChanged()
+            adapter.apply {
+                reset(nameList.toTypedArray())
+                reset(viewList)
+                notifyDataSetChanged()
+            }
             projectViewPager.currentItem = viewModel.position
         }
         getProjectTree()

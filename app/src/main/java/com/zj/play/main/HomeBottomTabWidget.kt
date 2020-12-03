@@ -22,12 +22,14 @@ class HomeBottomTabWidget @JvmOverloads constructor(
      * @param view /
      */
     override fun initView(view: View) { //默认第一个碎片
-        textViews = arrayListOf(
-            view.findViewById(R.id.llHomeATHome),
-            view.findViewById(R.id.llHomeATCalendar),
-            view.findViewById(R.id.llHomeATObject),
-            view.findViewById(R.id.llHomeATMy)
-        )
+        view.apply {
+            textViews = arrayListOf(
+                findViewById(R.id.llHomeATHome),
+                findViewById(R.id.llHomeATCalendar),
+                findViewById(R.id.llHomeATObject),
+                findViewById(R.id.llHomeATMy)
+            )
+        }
         for (textView in textViews!!) {
             textView.setOnClickListener(this)
         }

@@ -15,10 +15,11 @@ import android.net.Uri
 object IntentShareUtils {
 
     fun shareFile(activity: Activity, uri: Uri?, title: String) {
-        val intent = Intent(Intent.ACTION_SEND)
-        intent.type = "image/*"
-        intent.putExtra(Intent.EXTRA_STREAM, uri)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = "image/*"
+            putExtra(Intent.EXTRA_STREAM, uri)
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        }
         if (intent.resolveActivity(activity.packageManager) != null) {
             activity.startActivity(Intent.createChooser(intent, title))
         }

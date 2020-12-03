@@ -30,9 +30,10 @@ object ArticleUtils {
     }
 
     fun shareUrl(context: Context, url: String, name: String) {
-        val textIntent = Intent(Intent.ACTION_SEND)
-        textIntent.type = "text/plain"
-        textIntent.putExtra(Intent.EXTRA_TEXT, url)
+        val textIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, url)
+        }
         context.startActivity(Intent.createChooser(textIntent, name))
     }
 

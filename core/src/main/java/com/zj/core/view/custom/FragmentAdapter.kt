@@ -32,15 +32,16 @@ class FragmentAdapter(private val mFragmentManager: FragmentManager?) : Fragment
             if (f !== getItem(position)) {
                 //如果是新建的fragment，f 就和getItem(position)是同一个fragment，否则进入下面
                 val ft = mFragmentManager?.beginTransaction()
-                ft?.let {
+                ft?.apply {
                     //移除旧的fragment
-                    ft.remove(f)
+                    remove(f)
                     //换成新的fragment
                     f = getItem(position)
                     //添加新fragment时必须用前面获得的tag
-                    ft.add(container.id, f, fragmentTag)
-                    ft.attach(f)
-                    ft.commitAllowingStateLoss()
+                    add(container.id, f, fragmentTag)
+                    attach(f)
+                    setReorderingAllowed(true)
+                    commitAllowingStateLoss()
                 }
             }
             return f

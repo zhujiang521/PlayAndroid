@@ -25,13 +25,15 @@ class HomeBottomLandTabWidget @JvmOverloads constructor(
      * @param view /
      */
     override fun initView(view: View) { //默认第一个碎片
-        floatingButtons = arrayListOf(
-            view.findViewById(R.id.fabHome),
-            view.findViewById(R.id.fabRepo),
-            view.findViewById(R.id.fabProject),
-            view.findViewById(R.id.fabProfile)
-        )
-        fabMenu = view.findViewById(R.id.fabMenu)
+        view.apply {
+            floatingButtons = arrayListOf(
+                findViewById(R.id.fabHome),
+                findViewById(R.id.fabRepo),
+                findViewById(R.id.fabProject),
+                findViewById(R.id.fabProfile)
+            )
+            fabMenu = findViewById(R.id.fabMenu)
+        }
         for (floatingButton in floatingButtons!!) {
             floatingButton.setOnClickListener(this)
         }

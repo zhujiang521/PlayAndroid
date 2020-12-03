@@ -34,11 +34,11 @@ abstract class BaseHomeBottomTabWidget @JvmOverloads constructor(
         mViewModel = viewModel
         if (mFragments == null) {
             mFragments = arrayListOf()
-            mFragments?.let {
-                it.add(getCurrentFragment(0)!!)
-                it.add(getCurrentFragment(1)!!)
-                it.add(getCurrentFragment(2)!!)
-                it.add(getCurrentFragment(3)!!)
+            mFragments?.apply {
+                add(getCurrentFragment(0)!!)
+                add(getCurrentFragment(1)!!)
+                add(getCurrentFragment(2)!!)
+                add(getCurrentFragment(3)!!)
             }
         }
         fragmentManger(viewModel.getPage() ?: 0)
@@ -75,13 +75,16 @@ abstract class BaseHomeBottomTabWidget @JvmOverloads constructor(
         mViewModel.setPage(position)
         val targetFg: Fragment = mFragments!![position]
         val transaction = mFragmentManager!!.beginTransaction()
-        if (currentFragment != null) {
-            transaction.hide(currentFragment!!)
-        }
-        if (!targetFg.isAdded) {
-            transaction.add(R.id.flHomeFragment, targetFg).commit()
-        } else {
-            transaction.show(targetFg).commit()
+        transaction.apply {
+            if (currentFragment != null) {
+                hide(currentFragment!!)
+            }
+            setReorderingAllowed(true)
+            if (!targetFg.isAdded) {
+                add(R.id.flHomeFragment, targetFg).commit()
+            } else {
+                show(targetFg).commit()
+            }
         }
         currentFragment = targetFg
     }

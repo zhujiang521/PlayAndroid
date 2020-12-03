@@ -104,9 +104,10 @@ class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
 
     companion object {
         fun actionStart(context: Context, isMine: Boolean, userId: Int = 0) {
-            val intent = Intent(context, ShareActivity::class.java)
-            intent.putExtra(IS_MINE, isMine)
-            intent.putExtra(USER_ID, userId)
+            val intent = Intent(context, ShareActivity::class.java).apply {
+                putExtra(IS_MINE, isMine)
+                putExtra(USER_ID, userId)
+            }
             context.startActivity(intent)
         }
     }
