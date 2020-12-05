@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.preferencesKey
 import androidx.datastore.preferences.createDataStore
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.runBlocking
 import java.io.IOException
 
 /**
@@ -23,9 +24,11 @@ class DataStoreUtils private constructor(ctx: Context) {
     private val preferenceName = "PlayAndroidDataStore"
     private var context: Context = ctx
     private var dataStore: DataStore<Preferences>
+    private var preferences: Preferences
 
     init {
         dataStore = context.createDataStore(preferenceName)
+        preferences = runBlocking { dataStore.data.first() }
     }
 
     fun readBooleanFlow(key: String): Flow<Boolean> =
@@ -43,9 +46,8 @@ class DataStoreUtils private constructor(ctx: Context) {
                 it[preferencesKey(key)] ?: false
             }
 
-    suspend fun readBooleanData(key: String): Boolean {
-        val readBoolean = readBooleanFlow(key)
-        return readBoolean.first()
+    fun readBooleanData(key: String): Boolean {
+        return preferences[preferencesKey(key)] ?: false
     }
 
     fun readIntFlow(key: String): Flow<Int> =
@@ -61,9 +63,8 @@ class DataStoreUtils private constructor(ctx: Context) {
                 it[preferencesKey(key)] ?: 0
             }
 
-    suspend fun readIntData(key: String): Int {
-        val readInt = readIntFlow(key)
-        return readInt.first()
+    fun readIntData(key: String): Int {
+        return preferences[preferencesKey(key)] ?: 0
     }
 
     fun readStringFlow(key: String): Flow<String> =
@@ -79,9 +80,8 @@ class DataStoreUtils private constructor(ctx: Context) {
                 it[preferencesKey(key)] ?: ""
             }
 
-    suspend fun readStringData(key: String): String {
-        val readString = readStringFlow(key)
-        return readString.first()
+    fun readStringData(key: String): String {
+        return preferences[preferencesKey(key)] ?: ""
     }
 
     fun readFloatFlow(key: String): Flow<Float> =
@@ -97,9 +97,8 @@ class DataStoreUtils private constructor(ctx: Context) {
                 it[preferencesKey(key)] ?: 0f
             }
 
-    suspend fun readFloatData(key: String): Float {
-        val readFloat = readFloatFlow(key)
-        return readFloat.first()
+    fun readFloatData(key: String): Float {
+        return preferences[preferencesKey(key)] ?: 0f
     }
 
     fun readLongFlow(key: String): Flow<Long> =
@@ -115,9 +114,8 @@ class DataStoreUtils private constructor(ctx: Context) {
                 it[preferencesKey(key)] ?: 0L
             }
 
-    suspend fun readLongData(key: String): Long {
-        val readLong = readLongFlow(key)
-        return readLong.first()
+    fun readLongData(key: String): Long {
+        return preferences[preferencesKey(key)] ?: 0L
     }
 
     suspend fun saveBooleanData(key: String, value: Boolean) {
