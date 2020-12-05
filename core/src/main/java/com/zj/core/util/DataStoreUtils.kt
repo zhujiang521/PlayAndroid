@@ -124,9 +124,25 @@ class DataStoreUtils private constructor(ctx: Context) {
         }
     }
 
+    fun saveSyncBooleanData(key: String, value: Boolean) {
+        runBlocking {
+            dataStore.edit { mutablePreferences ->
+                mutablePreferences[preferencesKey(key)] = value
+            }
+        }
+    }
+
     suspend fun saveIntData(key: String, value: Int) {
         dataStore.edit { mutablePreferences ->
             mutablePreferences[preferencesKey(key)] = value
+        }
+    }
+
+    fun saveSyncIntData(key: String, value: Int) {
+        runBlocking {
+            dataStore.edit { mutablePreferences ->
+                mutablePreferences[preferencesKey(key)] = value
+            }
         }
     }
 
@@ -136,15 +152,39 @@ class DataStoreUtils private constructor(ctx: Context) {
         }
     }
 
+    fun saveSyncStringData(key: String, value: String) {
+        runBlocking {
+            dataStore.edit { mutablePreferences ->
+                mutablePreferences[preferencesKey(key)] = value
+            }
+        }
+    }
+
     suspend fun saveFloatData(key: String, value: Float) {
         dataStore.edit { mutablePreferences ->
             mutablePreferences[preferencesKey(key)] = value
         }
     }
 
+    fun saveSyncFloatData(key: String, value: Float) {
+        runBlocking {
+            dataStore.edit { mutablePreferences ->
+                mutablePreferences[preferencesKey(key)] = value
+            }
+        }
+    }
+
     suspend fun saveLongData(key: String, value: Long) {
         dataStore.edit { mutablePreferences ->
             mutablePreferences[preferencesKey(key)] = value
+        }
+    }
+
+    fun saveSyncLongData(key: String, value: Long) {
+        runBlocking {
+            dataStore.edit { mutablePreferences ->
+                mutablePreferences[preferencesKey(key)] = value
+            }
         }
     }
 
