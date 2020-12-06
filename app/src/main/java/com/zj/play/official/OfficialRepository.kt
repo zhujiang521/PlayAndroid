@@ -1,8 +1,7 @@
 package com.zj.play.official
 
 import android.app.Application
-import com.blankj.utilcode.util.SPUtils
-import com.zj.core.util.Preference
+import com.zj.core.util.DataStoreUtils
 import com.zj.model.pojo.QueryArticle
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.OFFICIAL
@@ -10,6 +9,7 @@ import com.zj.network.base.PlayAndroidNetwork
 import com.zj.network.repository.DOWN_OFFICIAL_ARTICLE_TIME
 import com.zj.network.repository.FOUR_HOUR
 import com.zj.network.repository.fire
+import kotlinx.coroutines.flow.first
 
 /**
  * 版权：Zhujiang 个人版权
@@ -19,7 +19,7 @@ import com.zj.network.repository.fire
  * 描述：PlayAndroid
  *
  */
-class OfficialRepository(application: Application) {
+class OfficialRepository(private val application: Application) {
 
     private val projectClassifyDao = PlayDatabase.getDatabase(application).projectClassifyDao()
     private val articleListDao = PlayDatabase.getDatabase(application).browseHistoryDao()
@@ -51,13 +51,14 @@ class OfficialRepository(application: Application) {
      */
     fun getWxArticle(query: QueryArticle) = fire {
         if (query.page == 1) {
+            val dataStore = DataStoreUtils.getInstance(application)
             val articleListForChapterId =
                 articleListDao.getArticleListForChapterId(OFFICIAL, query.cid)
-            val spUtils = SPUtils.getInstance()
-            val downArticleTime by Preference(
-                DOWN_OFFICIAL_ARTICLE_TIME,
-                System.currentTimeMillis()
-            )
+            var downArticleTime : Long = System.currentTimeMillis()
+            dataStore.readLongFlow(DOWN_OFFICIAL_ARTICLE_TIME).first {
+                downArticleTime = it
+                true
+            }
             if (articleListForChapterId.isNotEmpty() && downArticleTime > 0 && downArticleTime - System.currentTimeMillis() < FOUR_HOUR && !query.isRefresh) {
                 Result.success(articleListForChapterId)
             } else {
@@ -69,7 +70,7 @@ class OfficialRepository(application: Application) {
                         projectTree.data.datas.forEach {
                             it.localType = OFFICIAL
                         }
-                        spUtils.put(DOWN_OFFICIAL_ARTICLE_TIME, System.currentTimeMillis())
+                        DataStoreUtils.getInstance(application).saveLongData(DOWN_OFFICIAL_ARTICLE_TIME,System.currentTimeMillis())
                         if (query.isRefresh) {
                             articleListDao.deleteAll(OFFICIAL, query.cid)
                         }

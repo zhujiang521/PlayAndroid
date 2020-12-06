@@ -73,6 +73,10 @@ class ProfileAdapter(
 //                dataStore.apply {
 //                    saveSyncBooleanData(booleanKey, true)
 //                    saveSyncIntData(intKey, 34)
+//                    saveSyncStringData(stringKey, "我爱你啊")
+//                    saveSyncFloatData(floatKey, 23f)
+//
+//                    saveSyncLongData(longKey, 45L)
 //                }
 //                GlobalScope.launch {
 //                    dataStore.apply {
@@ -98,16 +102,16 @@ class ProfileAdapter(
 //                val stringData = dataStore.readStringData("StringData")
 //                Log.e("ZHUJIANG", "stringData: $stringData")
 //                Log.e("ZHUJIANG", "哈哈哈222")
-                GlobalScope.launch {
-                    dataStore.readBooleanFlow(booleanKey).first {
-                        Log.e("ZHUJIANG", "toJump111: ${it}" )
-                        true
-                    }
-                    dataStore.readIntFlow(intKey).first {
-                        Log.e("ZHUJIANG", "toJump222: ${it}" )
-                        true
-                    }
-                }
+//                GlobalScope.launch {
+//                    dataStore.readBooleanFlow(booleanKey).first {
+//                        Log.e("ZHUJIANG", "toJump111: ${it}" )
+//                        true
+//                    }
+//                    dataStore.readIntFlow(intKey).first {
+//                        Log.e("ZHUJIANG", "toJump222: ${it}" )
+//                        true
+//                    }
+//                }
 
             }
             mContext.getString(R.string.mine_nuggets) -> {

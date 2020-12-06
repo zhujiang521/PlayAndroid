@@ -2,7 +2,7 @@ package com.zj.core
 
 import android.annotation.SuppressLint
 import android.content.Context
-import com.blankj.utilcode.util.SPUtils
+import com.zj.core.util.DataStoreUtils
 import com.zj.core.util.Preference.Companion.setContext
 
 /**
@@ -13,6 +13,7 @@ object Play {
     private const val USERNAME = "username"
     private const val NICE_NAME = "nickname"
     private const val IS_LOGIN = "isLogin"
+    private lateinit var dataStore : DataStoreUtils
 
     /**
      * 获取全局Context，在代码的任意位置都可以调用，随时都能获取到全局Context对象。
@@ -31,6 +32,7 @@ object Play {
     fun initialize(c: Context?) {
         context = c
         setContext(context!!)
+        dataStore = DataStoreUtils.getInstance(context!!)
     }
 
     /**
@@ -39,31 +41,27 @@ object Play {
      * @return 已登录返回true，未登录返回false。
      */
     var isLogin: Boolean
-        get() = SPUtils.getInstance().getBoolean(IS_LOGIN, false)
+        get() = dataStore.readBooleanData(IS_LOGIN)
         set(b) {
-            SPUtils.getInstance().put(IS_LOGIN, b)
+            dataStore.saveSyncBooleanData(IS_LOGIN, b)
         }
-
-    /**
-     * 返回当前应用的包名。
-     */
-    val packageName: String
-        get() = context!!.packageName
 
     /**
      * 注销用户登录。
      */
     fun logout() {
-        SPUtils.getInstance().clear()
+        dataStore.saveSyncStringData(NICE_NAME, "")
+        dataStore.saveSyncStringData(USERNAME, "")
+        dataStore.saveSyncBooleanData(IS_LOGIN, false)
     }
 
-    fun setUserInfo(nickname: String?, username: String?) {
-        SPUtils.getInstance().put(NICE_NAME, nickname)
-        SPUtils.getInstance().put(USERNAME, username)
+    fun setUserInfo(nickname: String, username: String) {
+        dataStore.saveSyncStringData(NICE_NAME, nickname)
+        dataStore.saveSyncStringData(USERNAME, username)
     }
 
     val nickName: String
-        get() = SPUtils.getInstance().getString(NICE_NAME, "")
+        get() = dataStore.readStringData(NICE_NAME)
     val username: String
-        get() = SPUtils.getInstance().getString(USERNAME, "")
+        get() = dataStore.readStringData(USERNAME)
 }

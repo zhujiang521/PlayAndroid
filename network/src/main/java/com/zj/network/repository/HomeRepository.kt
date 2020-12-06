@@ -2,7 +2,6 @@ package com.zj.network.repository
 
 import android.app.Application
 import android.util.Log
-import com.blankj.utilcode.util.SPUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.RequestManager
@@ -10,16 +9,17 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.zj.core.util.Preference
+import com.zj.core.util.DataStoreUtils
 import com.zj.model.pojo.QueryHomeArticle
-import com.zj.network.base.PlayAndroidNetwork
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.dao.BannerBeanDao
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.BannerBean
 import com.zj.model.room.entity.HOME
 import com.zj.model.room.entity.HOME_TOP
+import com.zj.network.base.PlayAndroidNetwork
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.first
 import java.io.File
 
 
@@ -37,8 +37,12 @@ object HomeRepository {
      * 获取banner
      */
     fun getBanner(application: Application, isRefresh: Boolean) = fire {
-        val spUtils = SPUtils.getInstance()
-        val downImageTime by Preference(DOWN_IMAGE_TIME, System.currentTimeMillis())
+        val dataStore = DataStoreUtils.getInstance(application)
+        var downImageTime = System.currentTimeMillis()
+        dataStore.readLongFlow(DOWN_IMAGE_TIME).first {
+            downImageTime = it
+            true
+        }
         val bannerBeanDao = PlayDatabase.getDatabase(application).bannerBeanDao()
         val bannerBeanList = bannerBeanDao.getBannerBeanList()
         if (bannerBeanList.isNotEmpty() && downImageTime > 0 && downImageTime - System.currentTimeMillis() < ONE_DAY && !isRefresh) {
@@ -47,7 +51,7 @@ object HomeRepository {
             val bannerResponse = PlayAndroidNetwork.getBanner()
             if (bannerResponse.errorCode == 0) {
                 val bannerList = bannerResponse.data
-                spUtils.put(DOWN_IMAGE_TIME, System.currentTimeMillis())
+                dataStore.saveLongData(DOWN_IMAGE_TIME, System.currentTimeMillis())
                 if (bannerBeanList.isNotEmpty() && bannerBeanList[0].url == bannerList[0].url) {
                     Result.success(bannerBeanList)
                 } else {
@@ -110,15 +114,20 @@ object HomeRepository {
         coroutineScope {
             val res = arrayListOf<Article>()
             if (query.page == 1) {
-                val spUtils = SPUtils.getInstance()
-                val downArticleTime by Preference(DOWN_ARTICLE_TIME, System.currentTimeMillis())
+                val dataStore = DataStoreUtils.getInstance(application)
+                var downArticleTime = System.currentTimeMillis()
+                dataStore.readLongFlow(DOWN_ARTICLE_TIME).first {
+                    downArticleTime = it
+                    true
+                }
                 val articleListDao = PlayDatabase.getDatabase(application).browseHistoryDao()
                 val articleListHome = articleListDao.getArticleList(HOME)
                 val articleListTop = articleListDao.getTopArticleList(HOME_TOP)
-                val downTopArticleTime by Preference(
-                    DOWN_TOP_ARTICLE_TIME,
-                    System.currentTimeMillis()
-                )
+                var downTopArticleTime = System.currentTimeMillis()
+                dataStore.readLongFlow(DOWN_TOP_ARTICLE_TIME).first{
+                    downTopArticleTime = it
+                    true
+                }
                 if (articleListTop.isNotEmpty() && downTopArticleTime > 0 &&
                     downTopArticleTime - System.currentTimeMillis() < FOUR_HOUR && !query.isRefresh
                 ) {
@@ -135,7 +144,7 @@ object HomeRepository {
                             topArticleList.data.forEach {
                                 it.localType = HOME_TOP
                             }
-                            spUtils.put(DOWN_TOP_ARTICLE_TIME, System.currentTimeMillis())
+                            dataStore.saveLongData(DOWN_TOP_ARTICLE_TIME, System.currentTimeMillis())
                             articleListDao.deleteAll(HOME_TOP)
                             articleListDao.insertList(topArticleList.data)
                         }
@@ -158,7 +167,7 @@ object HomeRepository {
                             articleList.data.datas.forEach {
                                 it.localType = HOME
                             }
-                            spUtils.put(DOWN_ARTICLE_TIME, System.currentTimeMillis())
+                            dataStore.saveLongData(DOWN_ARTICLE_TIME, System.currentTimeMillis())
                             articleListDao.deleteAll(HOME)
                             articleListDao.insertList(articleList.data.datas)
                         }

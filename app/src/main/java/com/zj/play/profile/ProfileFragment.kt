@@ -97,7 +97,6 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
             ) { dialog, _ -> dialog?.dismiss() }
             .setPositiveButton(getString(R.string.sure)) { dialog, _ ->
                 dialog?.dismiss()
-                Preference.clear()
                 clearInfo()
                 logout()
                 AccountRepository.getLogout()

@@ -1,12 +1,12 @@
 package com.zj.network.repository
 
 import android.content.Context
-import com.blankj.utilcode.util.SPUtils
-import com.zj.core.util.Preference
+import com.zj.core.util.DataStoreUtils
 import com.zj.model.pojo.QueryArticle
-import com.zj.network.base.PlayAndroidNetwork
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.PROJECT
+import com.zj.network.base.PlayAndroidNetwork
+import kotlinx.coroutines.flow.first
 
 /**
  * 版权：Zhujiang 个人版权
@@ -16,7 +16,7 @@ import com.zj.model.room.entity.PROJECT
  * 描述：PlayAndroid
  *
  */
-class ProjectRepository(context: Context) {
+class ProjectRepository(private val context: Context) {
 
     private val projectClassifyDao = PlayDatabase.getDatabase(context).projectClassifyDao()
     private val articleListDao = PlayDatabase.getDatabase(context).browseHistoryDao()
@@ -47,10 +47,14 @@ class ProjectRepository(context: Context) {
      */
     fun getProject(query: QueryArticle) = fire {
         if (query.page == 1) {
+            val dataStore = DataStoreUtils.getInstance(context)
             val articleListForChapterId =
                 articleListDao.getArticleListForChapterId(PROJECT, query.cid)
-            val spUtils = SPUtils.getInstance()
-            val downArticleTime by Preference(DOWN_PROJECT_ARTICLE_TIME, System.currentTimeMillis())
+            var downArticleTime = System.currentTimeMillis()
+            dataStore.readLongFlow(DOWN_PROJECT_ARTICLE_TIME).first {
+                downArticleTime = it
+                true
+            }
             if (articleListForChapterId.isNotEmpty() && downArticleTime > 0 && downArticleTime - System.currentTimeMillis() < FOUR_HOUR && !query.isRefresh) {
                 Result.success(articleListForChapterId)
             } else {
@@ -62,7 +66,10 @@ class ProjectRepository(context: Context) {
                         projectTree.data.datas.forEach {
                             it.localType = PROJECT
                         }
-                        spUtils.put(DOWN_PROJECT_ARTICLE_TIME, System.currentTimeMillis())
+                        dataStore.saveLongData(
+                            DOWN_PROJECT_ARTICLE_TIME,
+                            System.currentTimeMillis()
+                        )
                         if (query.isRefresh) {
                             articleListDao.deleteAll(PROJECT, query.cid)
                         }

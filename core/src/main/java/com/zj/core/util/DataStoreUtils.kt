@@ -7,7 +7,10 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.preferencesKey
 import androidx.datastore.preferences.createDataStore
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
 import java.io.IOException
 
@@ -24,11 +27,9 @@ class DataStoreUtils private constructor(ctx: Context) {
     private val preferenceName = "PlayAndroidDataStore"
     private var context: Context = ctx
     private var dataStore: DataStore<Preferences>
-    private var preferences: Preferences
 
     init {
         dataStore = context.createDataStore(preferenceName)
-        preferences = runBlocking { dataStore.data.first() }
     }
 
     fun readBooleanFlow(key: String): Flow<Boolean> =
@@ -47,7 +48,14 @@ class DataStoreUtils private constructor(ctx: Context) {
             }
 
     fun readBooleanData(key: String): Boolean {
-        return preferences[preferencesKey(key)] ?: false
+        var value = false
+        runBlocking {
+            dataStore.data.first {
+                value = it[preferencesKey(key)] ?: false
+                true
+            }
+        }
+        return value
     }
 
     fun readIntFlow(key: String): Flow<Int> =
@@ -64,7 +72,14 @@ class DataStoreUtils private constructor(ctx: Context) {
             }
 
     fun readIntData(key: String): Int {
-        return preferences[preferencesKey(key)] ?: 0
+        var value = 0
+        runBlocking {
+            dataStore.data.first {
+                value = it[preferencesKey(key)] ?: 0
+                true
+            }
+        }
+        return value
     }
 
     fun readStringFlow(key: String): Flow<String> =
@@ -81,7 +96,14 @@ class DataStoreUtils private constructor(ctx: Context) {
             }
 
     fun readStringData(key: String): String {
-        return preferences[preferencesKey(key)] ?: ""
+        var value = ""
+        runBlocking {
+            dataStore.data.first {
+                value = it[preferencesKey(key)] ?: ""
+                true
+            }
+        }
+        return value
     }
 
     fun readFloatFlow(key: String): Flow<Float> =
@@ -98,7 +120,14 @@ class DataStoreUtils private constructor(ctx: Context) {
             }
 
     fun readFloatData(key: String): Float {
-        return preferences[preferencesKey(key)] ?: 0f
+        var value = 0f
+        runBlocking {
+            dataStore.data.first {
+                value = it[preferencesKey(key)] ?: 0f
+                true
+            }
+        }
+        return value
     }
 
     fun readLongFlow(key: String): Flow<Long> =
@@ -115,7 +144,14 @@ class DataStoreUtils private constructor(ctx: Context) {
             }
 
     fun readLongData(key: String): Long {
-        return preferences[preferencesKey(key)] ?: 0L
+        var value = 0L
+        runBlocking {
+            dataStore.data.first {
+                value = it[preferencesKey(key)] ?: 0L
+                true
+            }
+        }
+        return value
     }
 
     suspend fun saveBooleanData(key: String, value: Boolean) {
