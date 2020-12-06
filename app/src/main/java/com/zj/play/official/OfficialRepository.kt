@@ -54,8 +54,8 @@ class OfficialRepository(private val application: Application) {
             val dataStore = DataStoreUtils.getInstance(application)
             val articleListForChapterId =
                 articleListDao.getArticleListForChapterId(OFFICIAL, query.cid)
-            var downArticleTime : Long = System.currentTimeMillis()
-            dataStore.readLongFlow(DOWN_OFFICIAL_ARTICLE_TIME).first {
+            var downArticleTime = 0L
+            dataStore.readLongFlow(DOWN_OFFICIAL_ARTICLE_TIME, System.currentTimeMillis()).first {
                 downArticleTime = it
                 true
             }
@@ -70,7 +70,8 @@ class OfficialRepository(private val application: Application) {
                         projectTree.data.datas.forEach {
                             it.localType = OFFICIAL
                         }
-                        DataStoreUtils.getInstance(application).saveLongData(DOWN_OFFICIAL_ARTICLE_TIME,System.currentTimeMillis())
+                        DataStoreUtils.getInstance(application)
+                            .saveLongData(DOWN_OFFICIAL_ARTICLE_TIME, System.currentTimeMillis())
                         if (query.isRefresh) {
                             articleListDao.deleteAll(OFFICIAL, query.cid)
                         }

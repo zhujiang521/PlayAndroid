@@ -50,8 +50,8 @@ class ProjectRepository(private val context: Context) {
             val dataStore = DataStoreUtils.getInstance(context)
             val articleListForChapterId =
                 articleListDao.getArticleListForChapterId(PROJECT, query.cid)
-            var downArticleTime = System.currentTimeMillis()
-            dataStore.readLongFlow(DOWN_PROJECT_ARTICLE_TIME).first {
+            var downArticleTime = 0L
+            dataStore.readLongFlow(DOWN_PROJECT_ARTICLE_TIME, System.currentTimeMillis()).first {
                 downArticleTime = it
                 true
             }

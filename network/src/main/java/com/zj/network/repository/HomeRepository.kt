@@ -38,8 +38,8 @@ object HomeRepository {
      */
     fun getBanner(application: Application, isRefresh: Boolean) = fire {
         val dataStore = DataStoreUtils.getInstance(application)
-        var downImageTime = System.currentTimeMillis()
-        dataStore.readLongFlow(DOWN_IMAGE_TIME).first {
+        var downImageTime = 0L
+        dataStore.readLongFlow(DOWN_IMAGE_TIME, System.currentTimeMillis()).first {
             downImageTime = it
             true
         }
@@ -115,16 +115,16 @@ object HomeRepository {
             val res = arrayListOf<Article>()
             if (query.page == 1) {
                 val dataStore = DataStoreUtils.getInstance(application)
-                var downArticleTime = System.currentTimeMillis()
-                dataStore.readLongFlow(DOWN_ARTICLE_TIME).first {
+                var downArticleTime = 0L
+                dataStore.readLongFlow(DOWN_ARTICLE_TIME, System.currentTimeMillis()).first {
                     downArticleTime = it
                     true
                 }
                 val articleListDao = PlayDatabase.getDatabase(application).browseHistoryDao()
                 val articleListHome = articleListDao.getArticleList(HOME)
                 val articleListTop = articleListDao.getTopArticleList(HOME_TOP)
-                var downTopArticleTime = System.currentTimeMillis()
-                dataStore.readLongFlow(DOWN_TOP_ARTICLE_TIME).first{
+                var downTopArticleTime = 0L
+                dataStore.readLongFlow(DOWN_TOP_ARTICLE_TIME, System.currentTimeMillis()).first {
                     downTopArticleTime = it
                     true
                 }
@@ -144,7 +144,10 @@ object HomeRepository {
                             topArticleList.data.forEach {
                                 it.localType = HOME_TOP
                             }
-                            dataStore.saveLongData(DOWN_TOP_ARTICLE_TIME, System.currentTimeMillis())
+                            dataStore.saveLongData(
+                                DOWN_TOP_ARTICLE_TIME,
+                                System.currentTimeMillis()
+                            )
                             articleListDao.deleteAll(HOME_TOP)
                             articleListDao.insertList(topArticleList.data)
                         }

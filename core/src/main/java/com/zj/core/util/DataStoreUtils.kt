@@ -32,7 +32,7 @@ class DataStoreUtils private constructor(ctx: Context) {
         dataStore = context.createDataStore(preferenceName)
     }
 
-    fun readBooleanFlow(key: String): Flow<Boolean> =
+    fun readBooleanFlow(key: String, default: Boolean = false): Flow<Boolean> =
         dataStore.data
             .catch {
                 //当读取数据遇到错误时，如果是 `IOException` 异常，发送一个 emptyPreferences 来重新使用
@@ -44,21 +44,21 @@ class DataStoreUtils private constructor(ctx: Context) {
                     throw it
                 }
             }.map {
-                it[preferencesKey(key)] ?: false
+                it[preferencesKey(key)] ?: default
             }
 
-    fun readBooleanData(key: String): Boolean {
+    fun readBooleanData(key: String, default: Boolean = false): Boolean {
         var value = false
         runBlocking {
             dataStore.data.first {
-                value = it[preferencesKey(key)] ?: false
+                value = it[preferencesKey(key)] ?: default
                 true
             }
         }
         return value
     }
 
-    fun readIntFlow(key: String): Flow<Int> =
+    fun readIntFlow(key: String, default: Int = 0): Flow<Int> =
         dataStore.data
             .catch {
                 if (it is IOException) {
@@ -68,21 +68,21 @@ class DataStoreUtils private constructor(ctx: Context) {
                     throw it
                 }
             }.map {
-                it[preferencesKey(key)] ?: 0
+                it[preferencesKey(key)] ?: default
             }
 
-    fun readIntData(key: String): Int {
+    fun readIntData(key: String, default: Int = 0): Int {
         var value = 0
         runBlocking {
             dataStore.data.first {
-                value = it[preferencesKey(key)] ?: 0
+                value = it[preferencesKey(key)] ?: default
                 true
             }
         }
         return value
     }
 
-    fun readStringFlow(key: String): Flow<String> =
+    fun readStringFlow(key: String, default: String = ""): Flow<String> =
         dataStore.data
             .catch {
                 if (it is IOException) {
@@ -92,21 +92,21 @@ class DataStoreUtils private constructor(ctx: Context) {
                     throw it
                 }
             }.map {
-                it[preferencesKey(key)] ?: ""
+                it[preferencesKey(key)] ?: default
             }
 
-    fun readStringData(key: String): String {
+    fun readStringData(key: String, default: String = ""): String {
         var value = ""
         runBlocking {
             dataStore.data.first {
-                value = it[preferencesKey(key)] ?: ""
+                value = it[preferencesKey(key)] ?: default
                 true
             }
         }
         return value
     }
 
-    fun readFloatFlow(key: String): Flow<Float> =
+    fun readFloatFlow(key: String, default: Float = 0f): Flow<Float> =
         dataStore.data
             .catch {
                 if (it is IOException) {
@@ -116,21 +116,21 @@ class DataStoreUtils private constructor(ctx: Context) {
                     throw it
                 }
             }.map {
-                it[preferencesKey(key)] ?: 0f
+                it[preferencesKey(key)] ?: default
             }
 
-    fun readFloatData(key: String): Float {
+    fun readFloatData(key: String, default: Float = 0f): Float {
         var value = 0f
         runBlocking {
             dataStore.data.first {
-                value = it[preferencesKey(key)] ?: 0f
+                value = it[preferencesKey(key)] ?: default
                 true
             }
         }
         return value
     }
 
-    fun readLongFlow(key: String): Flow<Long> =
+    fun readLongFlow(key: String, default: Long = 0L): Flow<Long> =
         dataStore.data
             .catch {
                 if (it is IOException) {
@@ -140,14 +140,14 @@ class DataStoreUtils private constructor(ctx: Context) {
                     throw it
                 }
             }.map {
-                it[preferencesKey(key)] ?: 0L
+                it[preferencesKey(key)] ?: default
             }
 
-    fun readLongData(key: String): Long {
+    fun readLongData(key: String, default: Long = 0L): Long {
         var value = 0L
         runBlocking {
             dataStore.data.first {
-                value = it[preferencesKey(key)] ?: 0L
+                value = it[preferencesKey(key)] ?: default
                 true
             }
         }
