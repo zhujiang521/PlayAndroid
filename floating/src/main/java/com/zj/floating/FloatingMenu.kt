@@ -23,13 +23,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 /**
  *
- * [.toggle] 切换菜单的展开收缩状态<br></br>
+ * [toggle] 切换菜单的展开收缩状态<br></br>
  *
- * [.setFloatingDirection] 设置展开方向
+ * [setFloatingDirection] 设置展开方向
  *
- * [/][.setCover] 设置封面
+ * [setCover] 设置封面
  *
- * 可以通过调用 [.addButton] 和 [.removeButton] 来动态增减按钮数量。
+ * 可以通过调用 [addButton] 和 [removeButton] 来动态增减按钮数量。
  *
  */
 class FloatingMenu @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(
@@ -469,7 +469,7 @@ class FloatingMenu @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(
      * 上拉隐藏，下拉显示的动作行为，配合 [FloatingMenu] 使用更佳
      *
      */
-    class Behavior() : CoordinatorLayout.Behavior<FloatingMenu>() {
+    class Behavior : CoordinatorLayout.Behavior<FloatingMenu>() {
 
         override fun onNestedScroll(
             coordinatorLayout: CoordinatorLayout,
