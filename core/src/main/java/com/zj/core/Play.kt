@@ -50,9 +50,7 @@ object Play {
      * 注销用户登录。
      */
     fun logout() {
-        dataStore.saveSyncStringData(NICE_NAME, "")
-        dataStore.saveSyncStringData(USERNAME, "")
-        dataStore.saveSyncBooleanData(IS_LOGIN, false)
+        dataStore.clearSync()
     }
 
     fun setUserInfo(nickname: String, username: String) {

@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.zj.core.Play
 import com.zj.core.util.DataStoreUtils
+import com.zj.core.util.DataStores
 import com.zj.core.view.base.BaseListAdapter
 import com.zj.play.R
 import com.zj.play.article.ArticleActivity
@@ -49,6 +50,7 @@ class ProfileAdapter(
 
     private fun toJump(title: String) {
         val dataStore = DataStoreUtils.getInstance(mContext)
+        val dataStores = DataStores.getInstance(mContext)
         when (title) {
             mContext.getString(R.string.mine_points) -> {
                 if (Play.isLogin) {
@@ -89,7 +91,7 @@ class ProfileAdapter(
 //                }
             }
             mContext.getString(R.string.browsing_history) -> {
-                BrowseHistoryActivity.actionStart(mContext)
+//                BrowseHistoryActivity.actionStart(mContext)
 //                Log.e("ZHUJIANG", "哈哈哈")
 //                val booleanData = dataStore.readBooleanData("BooleanData")
 //                Log.e("ZHUJIANG", "booleanData: $booleanData")
@@ -115,13 +117,29 @@ class ProfileAdapter(
 
             }
             mContext.getString(R.string.mine_nuggets) -> {
+                //dataStore.clearSync()
                 ArticleActivity.actionStart(
                     mContext,
                     mContext.getString(R.string.mine_nuggets),
                     "https://juejin.im/user/5c07e51de51d451de84324d5"
                 )
+//                GlobalScope.launch {
+//                    dataStores.apply {
+//                        put(booleanKey, true)
+//                        put(intKey, 34)
+//                        put(stringKey, "我爱你啊")
+//                        put(floatKey, 23f)
+//                        put(longKey, 45L)
+//                    }
+//                }
             }
             mContext.getString(R.string.github) -> {
+//                val a = dataStores.get(booleanKey, false)
+//                val b = dataStores.get(intKey, 0)
+//                val c = dataStores.get(stringKey, "")
+//                val d = dataStores.get(floatKey, 0f)
+//                val e = dataStores.get(longKey, 0L)
+//                Log.e("ZHUJIANG", "toJump: $a   $b    $c    $d     $e" )
                 ArticleActivity.actionStart(
                     mContext,
                     mContext.getString(R.string.mine_github),

@@ -2,10 +2,7 @@ package com.zj.core.util
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.emptyPreferences
-import androidx.datastore.preferences.core.preferencesKey
+import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.createDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -194,6 +191,20 @@ class DataStoreUtils private constructor(ctx: Context) {
     }
 
     fun saveSyncLongData(key: String, value: Long) = runBlocking { saveLongData(key, value) }
+
+    suspend fun clear() {
+        dataStore.edit {
+            it.clear()
+        }
+    }
+
+    fun clearSync() {
+        runBlocking {
+            dataStore.edit {
+                it.clear()
+            }
+        }
+    }
 
     companion object {
         @Volatile
