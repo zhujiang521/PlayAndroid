@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.Log
 import com.zj.core.Play
 import com.zj.core.util.DataStoreUtils
-import com.zj.core.util.DataStores
 import com.zj.core.view.base.BaseListAdapter
 import com.zj.play.R
 import com.zj.play.article.ArticleActivity
@@ -50,7 +49,6 @@ class ProfileAdapter(
 
     private fun toJump(title: String) {
         val dataStore = DataStoreUtils.getInstance(mContext)
-        val dataStores = DataStores.getInstance(mContext)
         when (title) {
             mContext.getString(R.string.mine_points) -> {
                 if (Play.isLogin) {

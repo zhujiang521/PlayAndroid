@@ -29,6 +29,51 @@ class DataStoreUtils private constructor(ctx: Context) {
         dataStore = context.createDataStore(preferenceName)
     }
 
+    fun <U> getSyncData(key: String, default: U): U {
+        val res = when (default) {
+            is Long -> readLongData(key, default)
+            is String -> readStringData(key, default)
+            is Int -> readIntData(key, default)
+            is Boolean -> readBooleanData(key, default)
+            is Float -> readFloatData(key, default)
+            else -> throw IllegalArgumentException("This type can be saved into DataStore")
+        }
+        return res as U
+    }
+
+    fun <U> getData(key: String, default: U): Flow<U> {
+        return when (default) {
+            is Long -> readLongFlow(key, default) as Flow<U>
+            is String -> readStringFlow(key, default) as Flow<U>
+            is Int -> readIntFlow(key, default) as Flow<U>
+            is Boolean -> readBooleanFlow(key, default) as Flow<U>
+            is Float -> readFloatFlow(key, default) as Flow<U>
+            else -> throw IllegalArgumentException("This type can be saved into DataStore")
+        }
+    }
+
+    suspend fun <U> putData(key: String, value: U) {
+        when (value) {
+            is Long -> saveLongData(key, value)
+            is String -> saveStringData(key, value)
+            is Int -> saveIntData(key, value)
+            is Boolean -> saveBooleanData(key, value)
+            is Float -> saveFloatData(key, value)
+            else -> throw IllegalArgumentException("This type can be saved into DataStore")
+        }
+    }
+
+    fun <U> putSyncData(key: String, value: U) {
+        when (value) {
+            is Long -> saveSyncLongData(key, value)
+            is String -> saveSyncStringData(key, value)
+            is Int -> saveSyncIntData(key, value)
+            is Boolean -> saveSyncBooleanData(key, value)
+            is Float -> saveSyncFloatData(key, value)
+            else -> throw IllegalArgumentException("This type can be saved into DataStore")
+        }
+    }
+
     fun readBooleanFlow(key: String, default: Boolean = false): Flow<Boolean> =
         dataStore.data
             .catch {
