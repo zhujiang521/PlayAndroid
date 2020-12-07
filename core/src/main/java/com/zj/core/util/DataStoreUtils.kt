@@ -1,6 +1,7 @@
 package com.zj.core.util
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.createDataStore
@@ -35,13 +36,16 @@ import java.io.IOException
  * 描述：DataStore 工具类
  *
  */
-class DataStoreUtils private constructor(ctx: Context) {
+object DataStoreUtils {
 
-    private val preferenceName = "PlayAndroidDataStore"
-    private var context: Context = ctx
-    private var dataStore: DataStore<Preferences>
+    private lateinit var dataStore: DataStore<Preferences>
+    private const val preferenceName = "PlayAndroidDataStore"
 
-    init {
+    /**
+     * init Context
+     * @param context Context
+     */
+    fun init(context: Context) {
         dataStore = context.createDataStore(preferenceName)
     }
 
@@ -264,22 +268,6 @@ class DataStoreUtils private constructor(ctx: Context) {
             dataStore.edit {
                 it.clear()
             }
-        }
-    }
-
-    companion object {
-        @Volatile
-        private var instance: DataStoreUtils? = null
-
-        fun getInstance(ctx: Context): DataStoreUtils {
-            if (instance == null) {
-                synchronized(DataStoreUtils::class) {
-                    if (instance == null) {
-                        instance = DataStoreUtils(ctx)
-                    }
-                }
-            }
-            return instance!!
         }
     }
 

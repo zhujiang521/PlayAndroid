@@ -48,7 +48,7 @@ class ProfileAdapter(
     private val stringKey = "StringData"
 
     private fun toJump(title: String) {
-        val dataStore = DataStoreUtils.getInstance(mContext)
+        val dataStore = DataStoreUtils
         when (title) {
             mContext.getString(R.string.mine_points) -> {
                 if (Play.isLogin) {
@@ -89,7 +89,7 @@ class ProfileAdapter(
 //                }
             }
             mContext.getString(R.string.browsing_history) -> {
-//                BrowseHistoryActivity.actionStart(mContext)
+                BrowseHistoryActivity.actionStart(mContext)
 //                Log.e("ZHUJIANG", "哈哈哈")
 //                val booleanData = dataStore.readBooleanData("BooleanData")
 //                Log.e("ZHUJIANG", "booleanData: $booleanData")

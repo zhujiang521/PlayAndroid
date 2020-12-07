@@ -47,7 +47,7 @@ class ProjectRepository(private val context: Context) {
      */
     fun getProject(query: QueryArticle) = fire {
         if (query.page == 1) {
-            val dataStore = DataStoreUtils.getInstance(context)
+            val dataStore = DataStoreUtils
             val articleListForChapterId =
                 articleListDao.getArticleListForChapterId(PROJECT, query.cid)
             var downArticleTime = 0L

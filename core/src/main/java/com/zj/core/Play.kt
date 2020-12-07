@@ -3,7 +3,6 @@ package com.zj.core
 import android.annotation.SuppressLint
 import android.content.Context
 import com.zj.core.util.DataStoreUtils
-import com.zj.core.util.Preference.Companion.setContext
 
 /**
  * 全局的API接口。
@@ -13,7 +12,7 @@ object Play {
     private const val USERNAME = "username"
     private const val NICE_NAME = "nickname"
     private const val IS_LOGIN = "isLogin"
-    private lateinit var dataStore : DataStoreUtils
+    private lateinit var dataStore: DataStoreUtils
 
     /**
      * 获取全局Context，在代码的任意位置都可以调用，随时都能获取到全局Context对象。
@@ -31,8 +30,8 @@ object Play {
      */
     fun initialize(c: Context?) {
         context = c
-        setContext(context!!)
-        dataStore = DataStoreUtils.getInstance(context!!)
+        DataStoreUtils.init(context!!)
+        dataStore = DataStoreUtils
     }
 
     /**

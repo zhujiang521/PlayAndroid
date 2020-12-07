@@ -1,6 +1,6 @@
 package com.zj.network.base
 
-import com.zj.core.util.Preference
+import com.zj.core.util.DataStoreUtils
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -54,7 +54,7 @@ object ServiceCreator {
                 val domain = request.url().host()
                 // get domain cookie
                 if (domain.isNotEmpty()) {
-                    val spDomain: String by Preference(domain, "")
+                    val spDomain: String = DataStoreUtils.readStringData(domain,"")
                     val cookie: String = if (spDomain.isNotEmpty()) spDomain else ""
                     if (cookie.isNotEmpty()) {
                         builder.addHeader(COOKIE_NAME, cookie)
@@ -81,13 +81,9 @@ object ServiceCreator {
     @Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     private fun saveCookie(url: String?, domain: String?, cookies: String) {
         url ?: return
-        var spUrl: String by Preference(url, cookies)
-        @Suppress("UNUSED_VALUE")
-        spUrl = cookies
+        DataStoreUtils.putSyncData(url, cookies)
         domain ?: return
-        var spDomain: String by Preference(domain, cookies)
-        @Suppress("UNUSED_VALUE")
-        spDomain = cookies
+        DataStoreUtils.putSyncData(domain, cookies)
     }
 
 }

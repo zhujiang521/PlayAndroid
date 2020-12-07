@@ -37,7 +37,7 @@ object HomeRepository {
      * 获取banner
      */
     fun getBanner(application: Application, isRefresh: Boolean) = fire {
-        val dataStore = DataStoreUtils.getInstance(application)
+        val dataStore = DataStoreUtils
         var downImageTime = 0L
         dataStore.readLongFlow(DOWN_IMAGE_TIME, System.currentTimeMillis()).first {
             downImageTime = it
@@ -114,7 +114,7 @@ object HomeRepository {
         coroutineScope {
             val res = arrayListOf<Article>()
             if (query.page == 1) {
-                val dataStore = DataStoreUtils.getInstance(application)
+                val dataStore = DataStoreUtils
                 var downArticleTime = 0L
                 dataStore.readLongFlow(DOWN_ARTICLE_TIME, System.currentTimeMillis()).first {
                     downArticleTime = it

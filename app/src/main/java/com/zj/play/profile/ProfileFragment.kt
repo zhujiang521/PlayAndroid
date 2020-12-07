@@ -5,7 +5,6 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.core.Play
 import com.zj.core.Play.logout
-import com.zj.core.util.Preference
 import com.zj.core.view.base.BaseFragment
 import com.zj.play.R
 import com.zj.network.repository.AccountRepository

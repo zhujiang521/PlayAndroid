@@ -51,7 +51,7 @@ class OfficialRepository(private val application: Application) {
      */
     fun getWxArticle(query: QueryArticle) = fire {
         if (query.page == 1) {
-            val dataStore = DataStoreUtils.getInstance(application)
+            val dataStore = DataStoreUtils
             val articleListForChapterId =
                 articleListDao.getArticleListForChapterId(OFFICIAL, query.cid)
             var downArticleTime = 0L
@@ -70,8 +70,7 @@ class OfficialRepository(private val application: Application) {
                         projectTree.data.datas.forEach {
                             it.localType = OFFICIAL
                         }
-                        DataStoreUtils.getInstance(application)
-                            .saveLongData(DOWN_OFFICIAL_ARTICLE_TIME, System.currentTimeMillis())
+                        DataStoreUtils.saveLongData(DOWN_OFFICIAL_ARTICLE_TIME, System.currentTimeMillis())
                         if (query.isRefresh) {
                             articleListDao.deleteAll(OFFICIAL, query.cid)
                         }
