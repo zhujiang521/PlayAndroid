@@ -11,7 +11,7 @@
         android:layout_height="@dimen/dp_70"
         android:background="@color/colorPrimary"
         android:orientation="vertical"
-        android:paddingTop="@dimen/dp_20">
+        android:fitsSystemWindows="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,9 +21,10 @@
             <ImageView
                 android:id="@+id/searchImgBack"
                 android:layout_width="@dimen/dp_40"
-                android:layout_height="match_parent"
-                android:paddingTop="@dimen/dp_14"
-                android:paddingBottom="@dimen/dp_14"
+                android:layout_height="@dimen/dp_40"
+                android:paddingTop="@dimen/dp_9"
+                android:layout_gravity="center"
+                android:paddingBottom="@dimen/dp_9"
                 android:src="@drawable/img_back" />
 
             <EditText
@@ -31,6 +32,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dp_30"
                 android:layout_weight="1"
+                android:layout_gravity="center"
                 android:background="@drawable/edit_gray_radus"
                 android:hint="@string/please_enter_keywords"
                 android:paddingStart="@dimen/dp_5"
@@ -44,12 +46,13 @@
             <TextView
                 android:id="@+id/searchTxtRight"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/dp_40"
                 android:gravity="center"
                 android:paddingStart="@dimen/dp_7"
-                android:paddingTop="@dimen/dp_14"
+                android:paddingTop="@dimen/dp_9"
                 android:paddingEnd="@dimen/dp_7"
-                android:paddingBottom="@dimen/dp_14"
+                android:layout_gravity="center"
+                android:paddingBottom="@dimen/dp_9"
                 android:text="@string/search"
                 android:textColor="@color/text_click_color"
                 android:textSize="@dimen/dp_16"
