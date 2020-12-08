@@ -1,22 +1,16 @@
 # Play Android
 
-## MVVM？瞎搞一波？
+### 体验
 
-### 前言
+如果看到这里想要下载尝试下的话可以直接点击链接进行下载，或者扫描下面的二维码进行下载。
 
-又是好久不见了，真的不是因为我懒，是因为公司目前活确实有点着急，所以每天在忙公司的事情。
+[https://www.pgyer.com/llj2](https://www.pgyer.com/llj2)
 
-在五月下旬的时候写过一篇MVVM的文章：[MVVM？瞎搞一波？](https://juejin.im/post/6844904163969597447)。当时写的时候内心其实很慌，怕写的不好从而误导大家，但写出来之后有几位同行的回答让我对MVVM有了一些更多的理解。
-
-![](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5b39d1d28f68403496eb7715005cdbd2~tplv-k3u1fbpfcp-zoom-1.image)
-
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/49af99ff2f4f40e09a57a5c1c5bee29d~tplv-k3u1fbpfcp-zoom-1.image)
-
-例如MVVM的VM就是 ViewModel，但并不只是 JetPack 中的ViewModel那个库，而是泛指视图和数据的绑定等等，于是乎这两天稍微有点时间就赶快趁着晚上和周末的时间继续完善了下之前的MVVM版本的玩安卓，废话不多说，先来看看实现的样子吧。
+![img](https://www.pgyer.com/app/qrcode/llj2)
 
 ### 玩安卓MVVM版截图
 
-首先来看下之前已经实现的大概样式吧（文末有Github地址）：
+首先来看下之前已经实现的大概样式吧：
 
 #### 初始样式
 
@@ -44,14 +38,6 @@
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | ![](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/69d36313d7f845e4a1704db526d45b35~tplv-k3u1fbpfcp-zoom-1.image) | ![](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0f12e1c05adf4bafae9788e8a6543506~tplv-k3u1fbpfcp-zoom-1.image) |
 
-#### 体验
-
-如果看到这里想要下载尝试下的话可以直接点击链接进行下载，或者扫描下面的二维码进行下载。
-
-[https://www.pgyer.com/llj2](https://www.pgyer.com/llj2)
-
-![img](https://www.pgyer.com/app/qrcode/llj2)
-
 ### 实现过程
 
 项目用到了很多技术，基本上都是现在安卓app的最新标配，比如：MVVM、JetPack（LiveData、Room、ViewModel）、Retrofit、协程、Glide等等。
@@ -62,8 +48,40 @@
 
 又比如新增的浏览历史功能中用到了**Room**，没有**Room**的时候基本都在使用原生或者使用**LitePal**和**GreenDAO**等来实现，虽然**LitePal**和**GreenDAO**也是**ORM**的方式来实现的数据库操作，但是总体来说还是没有**Room**好用，**Room**写好实现的DAO接口文件即可，在你编译的时候会直接生成对应的实现类，真的很香。
 
-类似上面的还有很多，大家可以去Github下载代码来看看，里面代码写的不能说好，但肯定不能说差，如果代码哪块写的不好或者有优化的地方欢迎大家告诉我或者给我提issues。
+类似上面的还有很多，如果代码哪块写的不好或者有优化的地方欢迎大家告诉我或者给我提issues。
 
-好了，大家看看想了解这个app中的哪一块技术，可以写在评论区，下周我再好好写一写关于技术的文章。最后放一下项目的Github地址：[https://github.com/zhujiang521/PlayAndroid](https://github.com/zhujiang521/PlayAndroid)
+### 使用到的库
 
-如果对大家有帮助的话别忘了点Star啊，万分感谢🙏
+[banner](https://github.com/youth5201314/banner)
+
+[bugly](https://bugly.qq.com/v2/workbench/apps)
+
+[SmartRefreshLayout](https://github.com/scwang90/SmartRefreshLayout)
+
+[utilCode](https://github.com/Blankj/AndroidUtilCode/)
+
+[glide](https://github.com/bumptech/glide)
+
+[retrofit](https://square.github.io/retrofit/)
+
+dataStore
+
+coroutines
+
+room
+
+### License
+
+```xml
+Copyright (c) 2020 朱江
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+```
