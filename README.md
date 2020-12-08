@@ -2,11 +2,14 @@
 
 ### 体验
 
-如果看到这里想要下载尝试下的话可以直接点击链接进行下载，或者扫描下面的二维码进行下载。
+如果想要下载尝试下的话可以直接点击链接进行下载，或者扫描下面的二维码进行下载。
 
 [https://www.pgyer.com/llj2](https://www.pgyer.com/llj2)
 
 ![img](https://www.pgyer.com/app/qrcode/llj2)
+
+如果上面的下载次数用完的话可以点击下面链接：
+[https://github.com/zhujiang521/PlayAndroid/raw/master/apk/app-release_7zip_aligned_signed.apk](https://github.com/zhujiang521/PlayAndroid/raw/master/apk/app-release_7zip_aligned_signed.apk)
 
 ### 玩安卓MVVM版截图
 
