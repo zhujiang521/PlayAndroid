@@ -1,36 +1,13 @@
 package com.zj.core.util
 
-import android.text.format.Time
 import java.util.*
 
 object CalendarUtils {
 
-    private const val TAG = "CalendarUtils"
-
-    // 1902.1.1 julianday
-    const val BASE_JULIANDAY = 2415751
+    private const val BASE_JU_LIAN_DAY = 2415751
     private const val MONDAY_BEFORE_JULIAN_BASE = 2415749
 
-    const val MAX_CALENDAR_MONTH_FROM_BASE = 1632
-
-    //public static final int LAST_CALENDAR_DAY = 2465059;//2036.12.31
-    const val LAST_CALENDAR_DAY = 2465424 //2037.12.31
-
-    // weeks between 1/1/1902 and 1/1/2051
-    const val MAX_CALENDAR_WEEK = 7097
-
-    // days between 1/1/1902 and 1/1/2037
-    const val MAX_CALENDAR_DAY = 49309
-
-    //支持最早的年份1902
-    const val MIN_YEAR = 1902
-
-    //支持最大的年份2036 2037年1月1日前
-    //public static final int MAX_YEAR = 2036;
-    //支持最大的年份2050 2038年1月1日前
-    const val MAX_YEAR = 2037
     fun getJulianDayFromCalendar(mCalendar: Calendar): Int {
-        // mCalendar.setTimeZone(TimeZone.getTimeZone("UTC"));
         return getJulianDay(
             mCalendar[Calendar.YEAR], mCalendar[Calendar.MONTH] + 1,
             mCalendar[Calendar.DAY_OF_MONTH]
@@ -68,11 +45,11 @@ object CalendarUtils {
     }
 
     fun getWeeksSinceBaseFromJulianDay(julianDay: Int, firstDayOfWeek: Int): Int {
-        var diff = Time.WEDNESDAY - firstDayOfWeek
+        var diff = GregorianCalendar.WEDNESDAY - firstDayOfWeek
         if (diff < 0) {
             diff += 7
         }
-        val refDay = BASE_JULIANDAY - diff //2415748
+        val refDay = BASE_JU_LIAN_DAY - diff //2415748
         return (julianDay - refDay) / 7 //41976/7
     }
 
@@ -83,7 +60,6 @@ object CalendarUtils {
     fun getNumberOfWeeks(tmp: Calendar, weekStart: Int): Int {
         val days = tmp.getActualMaximum(Calendar.DAY_OF_MONTH)
         var diff = tmp[Calendar.DAY_OF_WEEK] - 1 - weekStart
-        // int diff = tmp.weekDay - weekStart;
         if (diff < 0) {
             diff += 7
         }
@@ -92,7 +68,6 @@ object CalendarUtils {
         if (reminder > 0) {
             weekCount += 1
         }
-        //Xlog.i(TAG, "monthview weekCount: " + weekCount + " tmp.month " + tmp.get(Calendar.MONTH) + 1);
         return weekCount
     }
 

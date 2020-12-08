@@ -39,4 +39,6 @@
 
     <color name="to_top_pressed">#235A30</color>
 
+    <color name="dialog_content_bg">#2E2E2E</color>
+
 </resources>

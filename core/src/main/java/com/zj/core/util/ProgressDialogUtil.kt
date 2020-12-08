@@ -1,9 +1,11 @@
 package com.zj.core.util
 
 import android.app.Activity
-import android.app.ProgressDialog
+import android.app.Dialog
 import android.content.Context
-
+import android.view.View
+import com.zj.core.R
+import kotlinx.android.synthetic.main.dialog_progress.view.*
 import java.lang.ref.WeakReference
 
 /**
@@ -23,9 +25,13 @@ class ProgressDialogUtil {
         if (mContext == null || mContext!!.get() !is Activity) {
             return
         }
-        progressDialog = ProgressDialog(mContext!!.get())
+        progressDialog = Dialog(mContext!!.get()!!)
         progressDialog!!.setTitle(title)
-        progressDialog!!.setMessage(msg)
+        val view = View.inflate(mContext!!.get()!!, R.layout.dialog_progress, null)
+        view.apply {
+            dialogMessage.text = msg
+        }
+        progressDialog!!.setContentView(view)
         progressDialog!!.setCanceledOnTouchOutside(false)
         if (progressDialog != null && !(mContext!!.get() as Activity).isFinishing && !progressDialog!!.isShowing) {
             progressDialog!!.show()
@@ -36,11 +42,6 @@ class ProgressDialogUtil {
     @Synchronized
     fun progressDialogShow(msg: String) {
         progressDialogShow("", msg)
-    }
-
-    @Synchronized
-    fun progressDialogShow() {
-        progressDialogShow("", "正在上传...")
     }
 
     @Synchronized
@@ -56,8 +57,9 @@ class ProgressDialogUtil {
 
     companion object {
         private var mProgressDialogUtil: ProgressDialogUtil? = null
+
         @Volatile
-        private var progressDialog: ProgressDialog? = null
+        private var progressDialog: Dialog? = null
         private var mContext: WeakReference<Context>? = null
 
         @Synchronized

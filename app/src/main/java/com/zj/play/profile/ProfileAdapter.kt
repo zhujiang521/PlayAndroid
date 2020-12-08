@@ -41,14 +41,14 @@ class ProfileAdapter(
         }
     }
 
-    private val booleanKey = "BooleanData"
-    private val floatKey = "FloatData"
-    private val intKey = "IntData"
-    private val longKey = "LongData"
-    private val stringKey = "StringData"
+//    private val booleanKey = "BooleanData"
+//    private val floatKey = "FloatData"
+//    private val intKey = "IntData"
+//    private val longKey = "LongData"
+//    private val stringKey = "StringData"
 
     private fun toJump(title: String) {
-        val dataStore = DataStoreUtils
+        //val dataStore = DataStoreUtils
         when (title) {
             mContext.getString(R.string.mine_points) -> {
                 if (Play.isLogin) {

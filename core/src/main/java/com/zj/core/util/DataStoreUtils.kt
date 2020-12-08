@@ -62,14 +62,15 @@ object DataStoreUtils {
     }
 
     fun <U> getData(key: String, default: U): Flow<U> {
-        return when (default) {
-            is Long -> readLongFlow(key, default) as Flow<U>
-            is String -> readStringFlow(key, default) as Flow<U>
-            is Int -> readIntFlow(key, default) as Flow<U>
-            is Boolean -> readBooleanFlow(key, default) as Flow<U>
-            is Float -> readFloatFlow(key, default) as Flow<U>
+        val data =  when (default) {
+            is Long -> readLongFlow(key, default)
+            is String -> readStringFlow(key, default)
+            is Int -> readIntFlow(key, default)
+            is Boolean -> readBooleanFlow(key, default)
+            is Float -> readFloatFlow(key, default)
             else -> throw IllegalArgumentException("This type can be saved into DataStore")
         }
+        return data as Flow<U>
     }
 
     suspend fun <U> putData(key: String, value: U) {

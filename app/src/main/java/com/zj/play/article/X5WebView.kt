@@ -1,5 +1,6 @@
 package com.zj.play.article
 
+import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -44,6 +45,7 @@ class X5WebView : WebView {
         }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun initUI() {
 
         //getX5WebViewExtension().setScrollBarFadingEnabled(false);
@@ -54,7 +56,8 @@ class X5WebView : WebView {
 //      setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);//滚动条在WebView外侧显示
         progressBar = ProgressBar(context, null, android.R.attr.progressBarStyleHorizontal)
         progressBar!!.max = 100
-        progressBar!!.progressDrawable = this.resources.getDrawable(R.drawable.color_progressbar,null)
+        progressBar!!.progressDrawable =
+            this.resources.getDrawable(R.drawable.color_progressbar, null)
         addView(progressBar, LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 6))
         //        imageView = new ImageView(getContext());
 //        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -66,15 +69,16 @@ class X5WebView : WebView {
     }
 
     //   基本的WebViewSetting
+    @SuppressLint("ClickableViewAccessibility")
     private fun initWebViewSettings() {
-        setBackgroundColor(resources.getColor(android.R.color.white))
+        setBackgroundColor(resources.getColor(android.R.color.white, null))
         webViewClient = client
         webChromeClient = chromeClient
         setDownloadListener(downloadListener)
         isClickable = true
         setOnTouchListener { _: View?, _: MotionEvent? -> false }
         val webSetting = settings
-        webSetting.javaScriptEnabled = true
+        //webSetting.javaScriptEnabled = true
         webSetting.builtInZoomControls = true
         webSetting.javaScriptCanOpenWindowsAutomatically = true
         webSetting.domStorageEnabled = true
@@ -85,9 +89,9 @@ class X5WebView : WebView {
         webSetting.setSupportMultipleWindows(true)
         webSetting.setAppCacheEnabled(true)
         webSetting.setGeolocationEnabled(true)
-        webSetting.setAppCacheMaxSize(Long.MAX_VALUE)
-        webSetting.pluginState = WebSettings.PluginState.ON_DEMAND
-        webSetting.setRenderPriority(WebSettings.RenderPriority.HIGH)
+        //webSetting.setAppCacheMaxSize(Long.MAX_VALUE)
+        //webSetting.pluginState = WebSettings.PluginState.ON_DEMAND
+        //webSetting.setRenderPriority(WebSettings.RenderPriority.HIGH)
         //android 默认是可以打开_bank的，是因为它默认设置了WebSettings.setSupportMultipleWindows(false)
         //在false状态下，_bank也会在当前页面打开……
         //而x5浏览器，默认开启了WebSettings.setSupportMultipleWindows(true)，
@@ -160,7 +164,7 @@ class X5WebView : WebView {
         override fun onLoadResource(webView: WebView, s: String) {
             super.onLoadResource(webView, s)
             val reUrl = webView.url + ""
-            //            Log.i(TAG, "onLoadResource: onLoadResource : " + reUrl);
+            //Log.i(TAG, "onLoadResource: onLoadResource : " + reUrl);
             val urlList: MutableList<String> = ArrayList()
             urlList.add(reUrl)
             val newList: MutableList<String> = ArrayList()
@@ -170,51 +174,6 @@ class X5WebView : WebView {
                 }
             }
         }
-    }
-
-    fun syncCookie(url: String?, cookie: String) {
-        CookieSyncManager.createInstance(context)
-        if (!TextUtils.isEmpty(url)) {
-            val cookieManager = CookieManager.getInstance()
-            cookieManager.setAcceptCookie(true)
-            cookieManager.removeSessionCookie() // 移除
-            cookieManager.removeAllCookie()
-
-            //这里的拼接方式是伪代码
-            val split = cookie.split(";".toRegex()).toTypedArray()
-            for (string in split) {
-                //为url设置cookie
-                // ajax方式下  cookie后面的分号会丢失
-                cookieManager.setCookie(url, string)
-            }
-            val newCookie = cookieManager.getCookie(url)
-            Log.i("TAG", "syncCookie: newCookie == $newCookie")
-            //sdk21之后CookieSyncManager被抛弃了，换成了CookieManager来进行管理。
-            CookieManager.getInstance().flush()
-        }
-    }
-
-    //删除Cookie
-    private fun removeCookie() {
-        CookieSyncManager.createInstance(context)
-        val cookieManager = CookieManager.getInstance()
-        cookieManager.removeSessionCookie()
-        cookieManager.removeAllCookie()
-        CookieManager.getInstance().flush()
-    }
-
-    fun getDoMain(url: String): String {
-        var domain = ""
-        val start = url.indexOf(".")
-        if (start >= 0) {
-            val end = url.indexOf("/", start)
-            domain = if (end < 0) {
-                url.substring(start)
-            } else {
-                url.substring(start, end)
-            }
-        }
-        return domain
     }
 
     private val downloadListener =
