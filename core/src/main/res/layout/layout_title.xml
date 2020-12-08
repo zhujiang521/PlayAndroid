@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_70"
     android:background="@color/colorPrimary"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/dp_20">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,21 +15,21 @@
         <ImageView
             android:id="@+id/imgBack"
             android:layout_width="@dimen/dp_40"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/dp_40"
             android:layout_centerVertical="true"
             android:backgroundTint="@color/white"
-            android:paddingTop="@dimen/dp_14"
-            android:paddingBottom="@dimen/dp_14"
+            android:paddingTop="@dimen/dp_6"
+            android:paddingBottom="@dimen/dp_6"
             android:src="@drawable/img_back" />
 
         <ImageView
             android:id="@+id/imgRight"
             android:layout_width="@dimen/dp_40"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/dp_40"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:paddingTop="@dimen/dp_14"
-            android:paddingBottom="@dimen/dp_14"
+            android:paddingTop="@dimen/dp_6"
+            android:paddingBottom="@dimen/dp_6"
             android:visibility="gone" />
 
         <TextView
@@ -44,14 +44,14 @@
         <TextView
             android:id="@+id/txtRight"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/dp_40"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:gravity="center"
             android:paddingStart="@dimen/dp_7"
-            android:paddingTop="@dimen/dp_14"
+            android:paddingTop="@dimen/dp_6"
             android:paddingEnd="@dimen/dp_7"
-            android:paddingBottom="@dimen/dp_14"
+            android:paddingBottom="@dimen/dp_6"
             android:textColor="@color/text_click_color"
             android:textSize="@dimen/sp_16"
             android:visibility="gone"

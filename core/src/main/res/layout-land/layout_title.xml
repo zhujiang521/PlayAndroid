@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_55"
     android:background="@color/colorPrimary"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/dp_18">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,20 +15,20 @@
         <ImageView
             android:id="@+id/imgBack"
             android:layout_width="@dimen/dp_40"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/dp_40"
             android:layout_centerVertical="true"
-            android:paddingTop="@dimen/dp_8"
-            android:paddingBottom="@dimen/dp_8"
             android:backgroundTint="@color/white"
+            android:paddingTop="@dimen/dp_3"
+            android:paddingBottom="@dimen/dp_3"
             android:src="@drawable/img_back" />
 
         <ImageView
             android:id="@+id/imgRight"
             android:layout_width="@dimen/dp_40"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/dp_40"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:paddingHorizontal="@dimen/dp_8"
+            android:paddingHorizontal="@dimen/dp_3"
             android:visibility="gone" />
 
         <TextView
@@ -43,11 +43,11 @@
         <TextView
             android:id="@+id/txtRight"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/dp_40"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:padding="@dimen/dp_8"
+            android:padding="@dimen/dp_3"
             android:textColor="@color/text_click_color"
             android:textSize="@dimen/sp_14"
             android:visibility="gone"
