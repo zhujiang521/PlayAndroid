@@ -16,12 +16,11 @@ import com.zj.network.base.PlayAndroidNetwork
  */
 object AccountRepository {
 
-    fun getLogin(username: String, password: String) = fires {
+    suspend fun getLogin(username: String, password: String) =
         PlayAndroidNetwork.getLogin(username, password)
-    }
 
-    fun getRegister(username: String, password: String, repassword: String) =
-        fires { PlayAndroidNetwork.getRegister(username, password, repassword) }
+    suspend fun getRegister(username: String, password: String, repassword: String) =
+        PlayAndroidNetwork.getRegister(username, password, repassword)
 
     fun getLogout() = fires { PlayAndroidNetwork.getLogout() }
 

@@ -42,6 +42,7 @@ class AlmanacActivity : BaseActivity() {
                     IntentShareUtils.shareFile(this, it.uri, "黄历")
                 }
                 ShareError -> {
+                    hideProgressDialog()
                     showToast("分享失败")
                 }
             }

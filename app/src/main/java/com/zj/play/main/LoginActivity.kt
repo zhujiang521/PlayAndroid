@@ -7,9 +7,11 @@ import android.content.Intent
 import android.text.TextUtils
 import android.view.View
 import android.view.animation.OvershootInterpolator
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.blankj.utilcode.util.NetworkUtils
 import com.zj.core.Play
+import com.zj.core.almanac.IntentShareUtils
 import com.zj.core.util.LiveDataBus
 import com.zj.core.util.showToast
 import com.zj.core.view.base.ActivityCollector
@@ -18,11 +20,15 @@ import com.zj.model.model.Login
 import com.zj.network.repository.AccountRepository
 import com.zj.play.R
 import com.zj.play.home.LOGIN_REFRESH
+import com.zj.play.home.almanac.ShareError
+import com.zj.play.home.almanac.ShareSuccess
+import com.zj.play.home.almanac.Sharing
 import kotlinx.android.synthetic.main.activity_login.*
 
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
 
+    private val viewModel by lazy { ViewModelProvider(this).get(LoginViewModel::class.java) }
     private var mUserName = ""
     private var mPassWord = ""
     private var mIsLogin = true
@@ -32,6 +38,22 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     override fun initView() {
         loginButton.setOnClickListener(this)
         loginTvRegister.setOnClickListener(this)
+        @Suppress("COMPATIBILITY_WARNING")
+        viewModel.state.observe(this) {
+            when (it) {
+                Logging -> {
+                    toProgressVisible(true)
+                }
+                is LoginSuccess -> {
+                    toProgressVisible(false)
+                    ActivityCollector.finishAll()
+                    MainActivity.actionStart(this)
+                }
+                LoginError -> {
+                    toProgressVisible(false)
+                }
+            }
+        }
     }
 
     override fun onClick(v: View) {
@@ -47,8 +69,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
     private fun loginOrRegister() {
         if (!judge()) return
-        toProgressVisible(true)
-        if (mIsLogin) toLogin() else toRegister()
+        viewModel.toLoginOrRegister(Account(mUserName, mPassWord, mIsLogin))
     }
 
     private fun updateState() {
@@ -74,39 +95,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             override fun onAnimationCancel(animation: Animator?) {}
             override fun onAnimationRepeat(animation: Animator?) {}
         })
-    }
-
-    private fun toLogin() {
-        AccountRepository.getLogin(mUserName, mPassWord).observe(this) {
-            login(true, it)
-        }
-    }
-
-    private fun toRegister() {
-        AccountRepository.getRegister(mUserName, mPassWord, mPassWord).observe(this) {
-            login(false, it)
-        }
-    }
-
-    private fun login(isLogin: Boolean, it: Result<Login>) {
-        toProgressVisible(false)
-        if (it.isSuccess) {
-            val projectTree = it.getOrNull()
-            if (projectTree != null) {
-                Play.isLogin = true
-                Play.setUserInfo(projectTree.nickname, projectTree.username)
-                ActivityCollector.finishAll()
-                MainActivity.actionStart(this)
-                showToast(if (isLogin) getString(R.string.login_success) else getString(R.string.register_success))
-                LiveDataBus.get().getChannel(LOGIN_REFRESH).setValue(true);
-            } else {
-                showToast(
-                    if (isLogin) getString(R.string.account_password_mismatch) else getString(
-                        R.string.user_name_already_registered
-                    )
-                )
-            }
-        }
     }
 
     private fun judge(): Boolean {

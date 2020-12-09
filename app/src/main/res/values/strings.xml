@@ -9,6 +9,8 @@
     <string name="failed_to_cancel_collection">Unsubscribe failure</string>
     <string name="collection_successful">Bookmarked</string>
     <string name="collection_failed">Favorite Failed</string>
+    <string name="bookmarking">Bookmarking</string>
+    <string name="unfavorite">Unfavorite</string>
     <string name="collection">Collect</string>
     <string name="cancel_collection">Unfavorite</string>
     <string name="my_collection">My collection</string>

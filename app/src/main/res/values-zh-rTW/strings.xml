@@ -9,6 +9,8 @@
     <string name="failed_to_cancel_collection">取消收藏失敗</string>
     <string name="collection_successful">收藏成功</string>
     <string name="collection_failed">收藏失敗</string>
+    <string name="bookmarking">正在收藏</string>
+    <string name="unfavorite">正在取消收藏</string>
     <string name="collection">收藏</string>
     <string name="cancel_collection">取消收藏</string>
     <string name="my_collection">我的收藏</string>

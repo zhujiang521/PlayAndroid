@@ -14,7 +14,7 @@ import java.lang.ref.WeakReference
 class ProgressDialogUtil {
 
     @Synchronized
-    fun progressDialogShow(title: String, msg: String) {
+    fun progressDialogShow(msg: String) {
 
         if (progressDialog != null && progressDialog!!.isShowing) {
             if ((mContext!!.get() as Activity).isFinishing) {
@@ -26,7 +26,6 @@ class ProgressDialogUtil {
             return
         }
         progressDialog = Dialog(mContext!!.get()!!)
-        progressDialog!!.setTitle(title)
         val view = View.inflate(mContext!!.get()!!, R.layout.dialog_progress, null)
         view.apply {
             dialogMessage.text = msg
@@ -37,11 +36,6 @@ class ProgressDialogUtil {
             progressDialog!!.show()
         }
 
-    }
-
-    @Synchronized
-    fun progressDialogShow(msg: String) {
-        progressDialogShow("", msg)
     }
 
     @Synchronized

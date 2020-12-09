@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/dp_188"
+    android:layout_width="@dimen/dp_200"
     android:layout_height="@dimen/dp_144"
     android:background="@color/dialog_content_bg"
     android:baselineAligned="false"
@@ -10,17 +10,20 @@
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
-        android:layout_width="@dimen/dp_50"
-        android:layout_height="@dimen/dp_50"
-        android:layout_gravity="center_horizontal" />
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_55"
+        android:layout_gravity="center_horizontal"
+        android:indeterminateDrawable="@drawable/loading_animation"
+        android:indeterminateTintMode="src_atop" />
 
     <TextView
         android:id="@+id/dialogMessage"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/dp_160"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/dp_20"
         android:ellipsize="end"
+        android:gravity="center"
         android:maxLines="1"
         android:textColor="@color/text_color"
         android:textSize="@dimen/dp_16"
