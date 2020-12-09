@@ -19,22 +19,6 @@ object CollectRepository {
      */
     fun getCollectList(page: Int) = fires { PlayAndroidNetwork.getCollectList(page) }
 
-    /**
-     * 收藏文章
-     *
-     * @param id 文章id
-     */
-    fun toCollect(id: Int) = fires { PlayAndroidNetwork.toCollect(id) }
-
-    /**
-     * 取消收藏
-     *
-     * @param id 文章id
-     */
-    fun cancelCollect(id: Int) = fires {
-        PlayAndroidNetwork.cancelCollect(id)
-    }
-
     suspend fun cancelCollects(id: Int) = PlayAndroidNetwork.cancelCollect(id)
     suspend fun toCollects(id: Int) = PlayAndroidNetwork.toCollect(id)
 

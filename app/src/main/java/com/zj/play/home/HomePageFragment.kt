@@ -33,13 +33,13 @@ class HomePageFragment : ArticleCollectBaseFragment() {
     private var page = 1
 
     override fun initView() {
-        homeTitleBar.setRightText(getString(R.string.search))
+        homeTitleBar.setRightImage(R.drawable.home_search_button)
         if (isZhLanguage()) {
             homeTitleBar.setTitleOnClickListener {
                 AlmanacActivity.actionStart(context!!)
             }
         }
-        homeTitleBar.setRightTextOnClickListener {
+        homeTitleBar.setRightImgOnClickListener {
             SearchActivity.actionStart(context!!)
         }
         bannerAdapter = ImageAdapter(context!!, viewModel.bannerList)
