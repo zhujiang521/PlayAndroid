@@ -76,7 +76,7 @@ class HomePageFragment : ArticleCollectBaseFragment() {
     }
 
     private fun initBanner() {
-        setDataStatus(viewModel.bannerLiveData, {
+        setDataStatus(viewModel.getBanner(), {
             if (viewModel.bannerList.size > 0) loadFinished()
         }) {
             val main = activity as MainActivity
@@ -98,11 +98,11 @@ class HomePageFragment : ArticleCollectBaseFragment() {
             bannerAdapter.notifyDataSetChanged()
             bannerAdapter2.notifyDataSetChanged()
         }
-        getBanner()
+
     }
 
     private fun getBanner() {
-        viewModel.getBanner(false)
+        viewModel.getBanner()
     }
 
     private fun getArticleList(isRefresh: Boolean) {

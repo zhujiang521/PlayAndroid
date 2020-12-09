@@ -1,10 +1,10 @@
 package com.zj.network.service
 
-import com.zj.model.model.*
+import com.zj.model.model.ArticleList
+import com.zj.model.model.BaseModel
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.BannerBean
 import com.zj.model.room.entity.HotKey
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -21,18 +21,18 @@ import retrofit2.http.Query
 interface HomePageService {
 
     @GET("banner/json")
-    fun getBanner(): Call<BaseModel<List<BannerBean>>>
+    suspend fun getBanner(): BaseModel<List<BannerBean>>
 
     @GET("article/top/json")
-    fun getTopArticle(): Call<BaseModel<List<Article>>>
+    suspend fun getTopArticle(): BaseModel<List<Article>>
 
     @GET("article/list/{a}/json")
-    fun getArticle(@Path("a") a: Int): Call<BaseModel<ArticleList>>
+    suspend fun getArticle(@Path("a") a: Int): BaseModel<ArticleList>
 
     @GET("hotkey/json")
-    fun getHotKey(): Call<BaseModel<List<HotKey>>>
+    suspend fun getHotKey(): BaseModel<List<HotKey>>
 
     @POST("article/query/{page}/json")
-    fun getQueryArticleList(@Path("page") page: Int, @Query("k") k: String): Call<BaseModel<ArticleList>>
+    suspend fun getQueryArticleList(@Path("page") page: Int, @Query("k") k: String): BaseModel<ArticleList>
 
 }

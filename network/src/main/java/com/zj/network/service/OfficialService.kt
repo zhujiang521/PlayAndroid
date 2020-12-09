@@ -3,7 +3,6 @@ package com.zj.network.service
 import com.zj.model.model.ArticleList
 import com.zj.model.model.BaseModel
 import com.zj.model.room.entity.ProjectClassify
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -18,9 +17,9 @@ import retrofit2.http.Path
 interface OfficialService {
 
     @GET("wxarticle/chapters/json")
-    fun getWxArticleTree(): Call<BaseModel<List<ProjectClassify>>>
+    suspend fun getWxArticleTree(): BaseModel<List<ProjectClassify>>
 
     @GET("wxarticle/list/{cid}/{page}/json")
-    fun getWxArticle(@Path("page") page: Int, @Path("cid") cid: Int): Call<BaseModel<ArticleList>>
+    suspend fun getWxArticle(@Path("page") page: Int, @Path("cid") cid: Int): BaseModel<ArticleList>
 
 }

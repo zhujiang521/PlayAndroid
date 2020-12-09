@@ -54,7 +54,7 @@ object ServiceCreator {
                 val domain = request.url().host()
                 // get domain cookie
                 if (domain.isNotEmpty()) {
-                    val spDomain: String = DataStoreUtils.readStringData(domain,"")
+                    val spDomain: String = DataStoreUtils.readStringData(domain, "")
                     val cookie: String = if (spDomain.isNotEmpty()) spDomain else ""
                     if (cookie.isNotEmpty()) {
                         builder.addHeader(COOKIE_NAME, cookie)
@@ -68,9 +68,7 @@ object ServiceCreator {
             url = BASE_URL,
             client = okHttpClientBuilder.build(),
             gsonFactory = GsonConverterFactory.create()
-            //coroutineCallAdapterFactory = CoroutineCallAdapterFactory()
-        )
-            .retrofit
+        ).retrofit
     }
 
     /**

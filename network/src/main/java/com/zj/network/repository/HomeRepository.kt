@@ -36,7 +36,7 @@ object HomeRepository {
     /**
      * 获取banner
      */
-    fun getBanner(application: Application, isRefresh: Boolean) = fire {
+    fun getBanner(application: Application) = fire {
         val dataStore = DataStoreUtils
         var downImageTime = 0L
         dataStore.readLongFlow(DOWN_IMAGE_TIME, System.currentTimeMillis()).first {
@@ -45,7 +45,7 @@ object HomeRepository {
         }
         val bannerBeanDao = PlayDatabase.getDatabase(application).bannerBeanDao()
         val bannerBeanList = bannerBeanDao.getBannerBeanList()
-        if (bannerBeanList.isNotEmpty() && downImageTime > 0 && downImageTime - System.currentTimeMillis() < ONE_DAY && !isRefresh) {
+        if (bannerBeanList.isNotEmpty() && downImageTime > 0 && downImageTime - System.currentTimeMillis() < ONE_DAY) {
             Result.success(bannerBeanList)
         } else {
             val bannerResponse = PlayAndroidNetwork.getBanner()
