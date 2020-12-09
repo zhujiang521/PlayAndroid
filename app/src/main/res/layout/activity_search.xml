@@ -10,55 +10,42 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_70"
         android:background="@color/colorPrimary"
-        android:orientation="vertical"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/searchImgBack"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_gravity="center_vertical"
+            android:paddingTop="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_8"
+            android:src="@drawable/img_back" />
+
+        <EditText
+            android:id="@+id/searchTxtKeyword"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:ignore="UselessParent">
+            android:layout_height="@dimen/dp_30"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/dp_50"
+            android:background="@drawable/edit_gray_radus"
+            android:hint="@string/please_enter_keywords"
+            android:imeOptions="actionSearch"
+            android:maxLines="1"
+            android:paddingStart="@dimen/dp_5"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textColorHint="@color/plain"
+            android:textSize="@dimen/dp_16" />
 
-            <ImageView
-                android:id="@+id/searchImgBack"
-                android:layout_width="@dimen/dp_40"
-                android:layout_height="@dimen/dp_40"
-                android:paddingTop="@dimen/dp_9"
-                android:layout_gravity="center"
-                android:paddingBottom="@dimen/dp_9"
-                android:src="@drawable/img_back" />
-
-            <EditText
-                android:id="@+id/searchTxtKeyword"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/dp_30"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:background="@drawable/edit_gray_radus"
-                android:hint="@string/please_enter_keywords"
-                android:paddingStart="@dimen/dp_5"
-                android:singleLine="true"
-                android:maxLines="1"
-                android:textColorHint="@color/plain"
-                android:textColor="@color/white"
-                android:imeOptions="actionSearch"
-                android:textSize="@dimen/dp_16" />
-
-            <TextView
-                android:id="@+id/searchTxtRight"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_40"
-                android:gravity="center"
-                android:paddingStart="@dimen/dp_7"
-                android:paddingTop="@dimen/dp_9"
-                android:paddingEnd="@dimen/dp_7"
-                android:layout_gravity="center"
-                android:paddingBottom="@dimen/dp_9"
-                android:text="@string/search"
-                android:textColor="@color/text_click_color"
-                android:textSize="@dimen/dp_16"
-                tools:ignore="RtlSymmetry" />
-
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/searchTxtRight"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_gravity="center_vertical|right"
+            android:gravity="center"
+            android:padding="@dimen/dp_8"
+            android:src="@drawable/home_search_button" />
 
     </FrameLayout>
 

@@ -7,56 +7,42 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="UselessParent">
+    <ImageView
+        android:id="@+id/imgBack"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:layout_gravity="center_vertical"
+        android:backgroundTint="@color/white"
+        android:paddingVertical="@dimen/dp_8"
+        android:src="@drawable/img_back" />
 
-        <ImageView
-            android:id="@+id/imgBack"
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"
-            android:layout_centerVertical="true"
-            android:backgroundTint="@color/white"
-            android:paddingTop="@dimen/dp_6"
-            android:paddingBottom="@dimen/dp_6"
-            android:src="@drawable/img_back" />
+    <ImageView
+        android:id="@+id/imgRight"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:layout_gravity="center_vertical|right"
+        android:paddingVertical="@dimen/dp_8"
+        android:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/imgRight"
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:paddingTop="@dimen/dp_6"
-            android:paddingBottom="@dimen/dp_6"
-            android:visibility="gone" />
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="玩安卓"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_18" />
 
-        <TextView
-            android:id="@+id/txtTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="玩安卓"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_18" />
-
-        <TextView
-            android:id="@+id/txtRight"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_40"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            android:paddingStart="@dimen/dp_7"
-            android:paddingTop="@dimen/dp_6"
-            android:paddingEnd="@dimen/dp_7"
-            android:paddingBottom="@dimen/dp_6"
-            android:textColor="@color/text_click_color"
-            android:textSize="@dimen/sp_16"
-            android:visibility="gone"
-            tools:ignore="RtlSymmetry" />
-
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/txtRight"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_40"
+        android:layout_gravity="center_vertical|right"
+        android:gravity="center"
+        android:padding="@dimen/dp_8"
+        android:textColor="@color/text_click_color"
+        android:textSize="@dimen/sp_16"
+        android:visibility="gone"
+        tools:ignore="RtlSymmetry" />
 
 </FrameLayout>

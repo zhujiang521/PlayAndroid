@@ -2,60 +2,51 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_55"
+    android:layout_height="@dimen/dp_60"
     android:background="@color/colorPrimary"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="UselessParent">
+    <ImageView
+        android:id="@+id/imgBack"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/dp_10"
+        android:backgroundTint="@color/white"
+        android:paddingVertical="@dimen/dp_10"
+        android:src="@drawable/img_back" />
 
-        <ImageView
-            android:id="@+id/imgBack"
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"
-            android:layout_centerVertical="true"
-            android:backgroundTint="@color/white"
-            android:paddingTop="@dimen/dp_3"
-            android:paddingBottom="@dimen/dp_3"
-            android:layout_marginStart="@dimen/dp_10"
-            android:src="@drawable/img_back" />
+    <ImageView
+        android:id="@+id/imgRight"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:layout_gravity="center_vertical|right"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:paddingHorizontal="@dimen/dp_3"
+        android:paddingVertical="@dimen/dp_10"
+        android:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/imgRight"
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/dp_10"
-            android:layout_centerVertical="true"
-            android:paddingHorizontal="@dimen/dp_3"
-            android:visibility="gone" />
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="玩安卓"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dp_16" />
 
-        <TextView
-            android:id="@+id/txtTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="玩安卓"
-            android:textColor="@color/white"
-            android:textSize="@dimen/dp_16" />
-
-        <TextView
-            android:id="@+id/txtRight"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_40"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            android:layout_marginEnd="@dimen/dp_10"
-            android:padding="@dimen/dp_3"
-            android:textColor="@color/text_click_color"
-            android:textSize="@dimen/sp_14"
-            android:visibility="gone"
-            tools:ignore="RtlSymmetry" />
-
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/txtRight"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_40"
+        android:layout_gravity="center_vertical|right"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:gravity="center"
+        android:padding="@dimen/dp_10"
+        android:textColor="@color/text_click_color"
+        android:textSize="@dimen/sp_14"
+        android:visibility="gone"
+        tools:ignore="RtlSymmetry" />
 
 </FrameLayout>
