@@ -2,6 +2,7 @@ package com.zj.network.repository
 
 import android.content.Context
 import com.zj.model.room.PlayDatabase
+import com.zj.network.base.PlayAndroidNetwork
 
 /**
  * 版权：Zhujiang 个人版权
@@ -23,7 +24,7 @@ class SearchRepository(context: Context) {
         if (hotKeyList.isNotEmpty()) {
             Result.success(hotKeyList)
         } else {
-            val projectTree = HomePageNetwork.getHotKey()
+            val projectTree = PlayAndroidNetwork.getHotKey()
             if (projectTree.errorCode == 0) {
                 val hotKeyLists = projectTree.data
                 hotKeyDao.insertList(hotKeyLists)
@@ -38,7 +39,7 @@ class SearchRepository(context: Context) {
      * 获取搜索结果
      */
     fun getQueryArticleList(page: Int, k: String) = fires {
-        HomePageNetwork.getQueryArticleList(page, k)
+        PlayAndroidNetwork.getQueryArticleList(page, k)
     }
 
 }
