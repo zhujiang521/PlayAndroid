@@ -1,6 +1,5 @@
 package com.zj.play.article
 
-import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -45,7 +44,6 @@ class X5WebView : WebView {
         }
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     private fun initUI() {
 
         //getX5WebViewExtension().setScrollBarFadingEnabled(false);
@@ -56,8 +54,7 @@ class X5WebView : WebView {
 //      setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);//滚动条在WebView外侧显示
         progressBar = ProgressBar(context, null, android.R.attr.progressBarStyleHorizontal)
         progressBar!!.max = 100
-        progressBar!!.progressDrawable =
-            this.resources.getDrawable(R.drawable.color_progressbar, null)
+        progressBar!!.progressDrawable = this.resources.getDrawable(R.drawable.color_progressbar)
         addView(progressBar, LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 6))
         //        imageView = new ImageView(getContext());
 //        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -69,16 +66,15 @@ class X5WebView : WebView {
     }
 
     //   基本的WebViewSetting
-    @SuppressLint("ClickableViewAccessibility")
-    private fun initWebViewSettings() {
-        setBackgroundColor(resources.getColor(android.R.color.white, null))
+    fun initWebViewSettings() {
+        setBackgroundColor(resources.getColor(android.R.color.white))
         webViewClient = client
         webChromeClient = chromeClient
         setDownloadListener(downloadListener)
         isClickable = true
-        setOnTouchListener { _: View?, _: MotionEvent? -> false }
+        setOnTouchListener { v: View?, event: MotionEvent? -> false }
         val webSetting = settings
-        //webSetting.javaScriptEnabled = true
+        webSetting.javaScriptEnabled = true
         webSetting.builtInZoomControls = true
         webSetting.javaScriptCanOpenWindowsAutomatically = true
         webSetting.domStorageEnabled = true
@@ -89,9 +85,9 @@ class X5WebView : WebView {
         webSetting.setSupportMultipleWindows(true)
         webSetting.setAppCacheEnabled(true)
         webSetting.setGeolocationEnabled(true)
-        //webSetting.setAppCacheMaxSize(Long.MAX_VALUE)
-        //webSetting.pluginState = WebSettings.PluginState.ON_DEMAND
-        //webSetting.setRenderPriority(WebSettings.RenderPriority.HIGH)
+        webSetting.setAppCacheMaxSize(Long.MAX_VALUE)
+        webSetting.pluginState = WebSettings.PluginState.ON_DEMAND
+        webSetting.setRenderPriority(WebSettings.RenderPriority.HIGH)
         //android 默认是可以打开_bank的，是因为它默认设置了WebSettings.setSupportMultipleWindows(false)
         //在false状态下，_bank也会在当前页面打开……
         //而x5浏览器，默认开启了WebSettings.setSupportMultipleWindows(true)，
@@ -164,7 +160,6 @@ class X5WebView : WebView {
         override fun onLoadResource(webView: WebView, s: String) {
             super.onLoadResource(webView, s)
             val reUrl = webView.url + ""
-            //Log.i(TAG, "onLoadResource: onLoadResource : " + reUrl);
             val urlList: MutableList<String> = ArrayList()
             urlList.add(reUrl)
             val newList: MutableList<String> = ArrayList()
