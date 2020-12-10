@@ -112,12 +112,16 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle, BaseInit {
      */
     private fun transparentStatusBar() {
         if (AndroidVersion.hasLollipop()) {
+            val decorView = window.decorView
+            decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            window.statusBarColor = Color.TRANSPARENT
+        } else if (AndroidVersion.hasR()) {
             val controller = window.decorView.windowInsetsController
             window.statusBarColor = Color.TRANSPARENT
             window.setDecorFitsSystemWindows(false)
             if (controller != null) {
                 // 隐藏状态栏
-                //controller.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
                 controller.systemBarsBehavior =
                     WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
             }
