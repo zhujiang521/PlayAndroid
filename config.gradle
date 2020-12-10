@@ -4,8 +4,8 @@ ext {
             buildToolsVersion        : "30.0.2",
             minSdkVersion            : 23,
             targetSdkVersion         : 30,
-            versionCode              : 17,
-            versionName              : "3.0.1",
+            versionCode              : 19,
+            versionName              : "3.0.2",
             testInstrumentationRunner: "androidx.test.runner.AndroidJUnitRunner",
             consumerProguardFiles    : 'consumer-rules.pro',
     ]
