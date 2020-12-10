@@ -1,4 +1,4 @@
-package com.zj.core.almanac
+package com.zj.core.util
 
 import android.app.Activity
 import android.content.Intent

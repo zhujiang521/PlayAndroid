@@ -9,13 +9,12 @@ import kotlinx.android.synthetic.main.dialog_progress.view.*
 import java.lang.ref.WeakReference
 
 /**
- * Created by wzf on 2017/11/28.
+ * ProgressDialog Utils
  */
 class ProgressDialogUtil {
 
     @Synchronized
     fun progressDialogShow(msg: String) {
-
         if (progressDialog != null && progressDialog!!.isShowing) {
             if ((mContext!!.get() as Activity).isFinishing) {
                 progressDialog!!.dismiss()
@@ -30,23 +29,21 @@ class ProgressDialogUtil {
         view.apply {
             dialogMessage.text = msg
         }
-        progressDialog!!.setContentView(view)
-        progressDialog!!.setCanceledOnTouchOutside(false)
-        if (progressDialog != null && !(mContext!!.get() as Activity).isFinishing && !progressDialog!!.isShowing) {
-            progressDialog!!.show()
+        progressDialog?.apply {
+            setContentView(view)
+            setCanceledOnTouchOutside(false)
+            if (!(mContext!!.get() as Activity).isFinishing && !progressDialog!!.isShowing) {
+                show()
+            }
         }
-
     }
 
     @Synchronized
     fun progressDialogDismiss() {
-
         if (progressDialog != null && progressDialog!!.isShowing) {
             progressDialog!!.dismiss()
         }
         progressDialog = null
-
-
     }
 
     companion object {

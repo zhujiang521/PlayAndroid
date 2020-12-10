@@ -27,12 +27,6 @@ android {
         testInstrumentationRunner cfgs.testInstrumentationRunner
         resConfigs "zh-rCN", "zh-rHK", "zh-rMO", "zh-rTW" // 去除无用语言
         signingConfig signingConfigs.play
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += ["room.schemaLocation":
-                                      "$projectDir/schemas".toString()]
-            }
-        }
     }
 
     buildTypes {

@@ -17,6 +17,7 @@ class LiveDataBus private constructor() {
         val DATA_BUS = LiveDataBus()
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun <T> getChannel(target: String, type: Class<T>?): MutableLiveData<T> {
         if (!bus.containsKey(target)) {
             bus[target] = MutableLiveData()

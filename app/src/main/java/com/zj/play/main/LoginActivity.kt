@@ -10,19 +10,10 @@ import android.view.animation.OvershootInterpolator
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.blankj.utilcode.util.NetworkUtils
-import com.zj.core.Play
-import com.zj.core.almanac.IntentShareUtils
-import com.zj.core.util.LiveDataBus
 import com.zj.core.util.showToast
 import com.zj.core.view.base.ActivityCollector
 import com.zj.core.view.base.BaseActivity
-import com.zj.model.model.Login
-import com.zj.network.repository.AccountRepository
 import com.zj.play.R
-import com.zj.play.home.LOGIN_REFRESH
-import com.zj.play.home.almanac.ShareError
-import com.zj.play.home.almanac.ShareSuccess
-import com.zj.play.home.almanac.Sharing
 import kotlinx.android.synthetic.main.activity_login.*
 
 

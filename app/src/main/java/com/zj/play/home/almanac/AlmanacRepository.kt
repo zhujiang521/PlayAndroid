@@ -2,7 +2,7 @@ package com.zj.play.home.almanac
 
 import android.app.Application
 import android.net.Uri
-import com.zj.core.util.CalendarUtils
+import com.zj.core.almanac.CalendarUtils
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.Almanac
 import java.util.*

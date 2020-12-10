@@ -94,6 +94,6 @@ class FloatingDrawable : Drawable {
 
     companion object {
         private const val COLORDRAWABLE_DIMENSION = 2
-        private val BITMAP_CONFIG = Bitmap.Config.RGB_565
+        private val BITMAP_CONFIG = Bitmap.Config.ARGB_4444
     }
 }

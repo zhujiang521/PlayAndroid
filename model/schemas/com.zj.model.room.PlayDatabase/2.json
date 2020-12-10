@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "c5ed3c77f9ef255a8ddacf2d2cf55d7f",
+    "identityHash": "0a288f31cb52c6292a4e2b56edcaa867",
     "entities": [
       {
         "tableName": "project_classify",
@@ -395,12 +395,44 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "almanac",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `julian_day` INTEGER NOT NULL, `img_uri` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "julianDay",
+            "columnName": "julian_day",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imgUri",
+            "columnName": "img_uri",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c5ed3c77f9ef255a8ddacf2d2cf55d7f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0a288f31cb52c6292a4e2b56edcaa867')"
     ]
   }
 }

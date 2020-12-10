@@ -1,10 +1,35 @@
 package com.zj.core.util
 
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.createDataStore
+import com.zj.core.util.DataStoreUtils.clear
+import com.zj.core.util.DataStoreUtils.clearSync
+import com.zj.core.util.DataStoreUtils.getData
+import com.zj.core.util.DataStoreUtils.getSyncData
+import com.zj.core.util.DataStoreUtils.putData
+import com.zj.core.util.DataStoreUtils.putSyncData
+import com.zj.core.util.DataStoreUtils.readBooleanData
+import com.zj.core.util.DataStoreUtils.readBooleanFlow
+import com.zj.core.util.DataStoreUtils.readFloatData
+import com.zj.core.util.DataStoreUtils.readFloatFlow
+import com.zj.core.util.DataStoreUtils.readIntData
+import com.zj.core.util.DataStoreUtils.readIntFlow
+import com.zj.core.util.DataStoreUtils.readLongData
+import com.zj.core.util.DataStoreUtils.readLongFlow
+import com.zj.core.util.DataStoreUtils.readStringData
+import com.zj.core.util.DataStoreUtils.readStringFlow
+import com.zj.core.util.DataStoreUtils.saveBooleanData
+import com.zj.core.util.DataStoreUtils.saveFloatData
+import com.zj.core.util.DataStoreUtils.saveIntData
+import com.zj.core.util.DataStoreUtils.saveLongData
+import com.zj.core.util.DataStoreUtils.saveStringData
+import com.zj.core.util.DataStoreUtils.saveSyncBooleanData
+import com.zj.core.util.DataStoreUtils.saveSyncFloatData
+import com.zj.core.util.DataStoreUtils.saveSyncIntData
+import com.zj.core.util.DataStoreUtils.saveSyncLongData
+import com.zj.core.util.DataStoreUtils.saveSyncStringData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
@@ -49,6 +74,7 @@ object DataStoreUtils {
         dataStore = context.createDataStore(preferenceName)
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun <U> getSyncData(key: String, default: U): U {
         val res = when (default) {
             is Long -> readLongData(key, default)
@@ -61,6 +87,7 @@ object DataStoreUtils {
         return res as U
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun <U> getData(key: String, default: U): Flow<U> {
         val data =  when (default) {
             is Long -> readLongFlow(key, default)
