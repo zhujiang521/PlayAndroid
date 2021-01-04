@@ -7,19 +7,19 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.widget.FrameLayout
 import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
+import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.zj.core.R
 import com.zj.core.util.AndroidVersion
 import com.zj.core.util.showToast
-import com.zj.core.view.custom.RequestLifecycle
+import com.zj.core.view.base.lce.DefaultLceImpl
+import com.zj.core.view.base.lce.ILce
 import java.lang.ref.WeakReference
 
 
@@ -28,7 +28,7 @@ import java.lang.ref.WeakReference
  *
  */
 @SuppressLint("Registered")
-abstract class BaseActivity : AppCompatActivity(), RequestLifecycle, BaseInit {
+abstract class BaseActivity : AppCompatActivity(), ILce, BaseInit {
 
     /**
      * Activity中显示加载等待的控件。
@@ -50,11 +50,13 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle, BaseInit {
      */
     private var noContentView: View? = null
 
+    private var defaultLce: ILce? = null
+
     private var weakRefActivity: WeakReference<Activity>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        transparentStatusBar()
+        BarUtils.transparentStatusBar(this)
         setContentView(getLayoutId())
         ActivityCollector.add(WeakReference(this))
         weakRefActivity = WeakReference(this)
@@ -63,11 +65,6 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle, BaseInit {
     }
 
     override fun initData() {}
-
-    override fun onDestroy() {
-        super.onDestroy()
-        ActivityCollector.remove(weakRefActivity)
-    }
 
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
@@ -100,63 +97,17 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle, BaseInit {
         if (loadErrorView == null) {
             Log.e(TAG, "loadErrorView is null")
         }
+        defaultLce = DefaultLceImpl(
+            loading,
+            loadErrorView,
+            badNetworkView,
+            noContentView
+        )
         loadFinished()
     }
 
     protected open fun isSearchPage(): Boolean {
         return false
-    }
-
-    /**
-     * 将状态栏设置成透明。只适配Android 5.0以上系统的手机。
-     */
-    private fun transparentStatusBar() {
-        if (AndroidVersion.hasLollipop()) {
-            val decorView = window.decorView
-            decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            window.statusBarColor = Color.TRANSPARENT
-        } else if (AndroidVersion.hasR()) {
-            val controller = window.decorView.windowInsetsController
-            window.statusBarColor = Color.TRANSPARENT
-            window.setDecorFitsSystemWindows(false)
-            if (controller != null) {
-                // 隐藏状态栏
-                controller.systemBarsBehavior =
-                    WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-            }
-        }
-    }
-
-    /**
-     * 当Activity中的加载内容服务器返回失败，通过此方法显示提示界面给用户。
-     *
-     * @param tip
-     * 界面中的提示信息
-     */
-    fun showLoadErrorView(tip: String = getString(R.string.failed_load_data)) {
-        loadFinished()
-        if (loadErrorView != null) {
-            val loadErrorText = loadErrorView?.findViewById<TextView>(R.id.loadErrorText)
-            loadErrorText?.text = tip
-            loadErrorView?.visibility = View.VISIBLE
-            return
-        }
-    }
-
-    /**
-     * 当Activity中的内容因为网络原因无法显示的时候，通过此方法显示提示界面给用户。
-     *
-     * @param listener
-     * 重新加载点击事件回调
-     */
-    private fun showBadNetworkView(listener: View.OnClickListener) {
-        loadFinished()
-        if (badNetworkView != null) {
-            badNetworkView?.visibility = View.VISIBLE
-            badNetworkView?.setOnClickListener(listener)
-            return
-        }
     }
 
     /**
@@ -182,65 +133,35 @@ abstract class BaseActivity : AppCompatActivity(), RequestLifecycle, BaseInit {
         }
     }
 
-    /**
-     * 当Activity中没有任何内容的时候，通过此方法显示提示界面给用户。
-     * @param tip
-     * 界面中的提示信息
-     */
-    protected fun showNoContentView(tip: String) {
-        loadFinished()
-        val noContentText = noContentView?.findViewById<TextView>(R.id.noContentText)
-        noContentText?.text = tip
-        noContentView?.visibility = View.VISIBLE
-    }
-
-    /**
-     * 将load error view进行隐藏。
-     */
-    private fun hideLoadErrorView() {
-        loadErrorView?.visibility = View.GONE
-    }
-
-    /**
-     * 将no content view进行隐藏。
-     */
-    private fun hideNoContentView() {
-        noContentView?.visibility = View.GONE
-    }
-
-    /**
-     * 将bad network view进行隐藏。
-     */
-    private fun hideBadNetworkView() {
-        badNetworkView?.visibility = View.GONE
-    }
-
     @CallSuper
     override fun startLoading() {
-        hideBadNetworkView()
-        hideNoContentView()
-        hideLoadErrorView()
-        loading?.visibility = View.VISIBLE
+        defaultLce?.startLoading()
     }
 
     @CallSuper
     override fun loadFinished() {
-        loading?.visibility = View.GONE
-        hideBadNetworkView()
-        hideNoContentView()
-        hideLoadErrorView()
+        defaultLce?.loadFinished()
     }
 
-    @CallSuper
-    override fun loadFailed(msg: String?) {
-        loading?.visibility = View.GONE
-        hideBadNetworkView()
-        hideNoContentView()
-        hideLoadErrorView()
+    override fun showLoadErrorView(tip: String) {
+        defaultLce?.showLoadErrorView(tip)
+    }
+
+    override fun showBadNetworkView(listener: View.OnClickListener) {
+        defaultLce?.showBadNetworkView(listener)
+    }
+
+    override fun showNoContentView(tip: String) {
+        defaultLce?.showNoContentView(tip)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ActivityCollector.remove(weakRefActivity)
     }
 
     companion object {
-
         private const val TAG = "BaseActivity"
     }
+
 }
