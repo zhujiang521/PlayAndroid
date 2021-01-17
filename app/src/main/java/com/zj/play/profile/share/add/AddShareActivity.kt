@@ -8,12 +8,18 @@ import com.blankj.utilcode.util.RegexUtils
 import com.zj.core.Play
 import com.zj.core.util.showToast
 import com.zj.core.view.base.BaseActivity
-import com.zj.network.repository.ShareRepository
+import com.zj.play.profile.share.ShareRepository
 import com.zj.play.R
-import com.zj.play.main.LoginActivity
+import com.zj.play.main.login.LoginActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_add_share.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class AddShareActivity : BaseActivity(), View.OnClickListener {
+
+    @Inject
+    lateinit var shareRepository: ShareRepository
 
     override fun getLayoutId(): Int = R.layout.activity_add_share
 
@@ -49,7 +55,7 @@ class AddShareActivity : BaseActivity(), View.OnClickListener {
             addShareEtLink.error = getString(R.string.link_format_error)
             return
         }
-        ShareRepository.shareArticle(title, link).observe(this, {
+        shareRepository.shareArticle(title, link).observe(this, {
             if (it.isSuccess) {
                 showToast(getString(R.string.share_success))
                 finish()

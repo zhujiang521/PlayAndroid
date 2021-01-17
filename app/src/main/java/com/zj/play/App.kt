@@ -11,6 +11,7 @@ import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.tencent.bugly.crashreport.CrashReport
 import com.tencent.smtt.sdk.QbSdk
 import com.zj.core.Play
+import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.*
 import java.util.*
 import kotlin.system.exitProcess
@@ -21,6 +22,7 @@ import kotlin.system.exitProcess
  *
  * @author jiang zhu on 2019/10/21
  */
+@HiltAndroidApp
 class App : Application() {
 
     //所有活动集合

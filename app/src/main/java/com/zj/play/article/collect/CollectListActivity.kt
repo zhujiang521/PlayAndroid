@@ -2,15 +2,17 @@ package com.zj.play.article.collect
 
 import android.content.Context
 import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.zj.play.R
 import com.zj.play.base.BaseListActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_base_list.*
 
+@AndroidEntryPoint
 class CollectListActivity : BaseListActivity() {
 
-    private val viewModel by lazy { ViewModelProvider(this).get(CollectListViewModel::class.java) }
+    private val viewModel by viewModels<CollectListViewModel>()
 
     private lateinit var articleAdapter: CollectAdapter
 

@@ -1,6 +1,6 @@
 package com.zj.play.home
 
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.youth.banner.indicator.CircleIndicator
 import com.zj.core.almanac.isZhLanguage
 import com.zj.play.R
@@ -8,12 +8,13 @@ import com.zj.play.article.ArticleAdapter
 import com.zj.play.home.almanac.AlmanacActivity
 import com.zj.play.home.search.SearchActivity
 import com.zj.play.main.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home_page.*
 
-
+@AndroidEntryPoint
 class HomePageFragment : ArticleCollectBaseFragment() {
 
-    private val viewModel by lazy { ViewModelProvider(this).get(HomePageViewModel::class.java) }
+    private val viewModel by viewModels<HomePageViewModel>()
 
     override fun getLayoutId(): Int = R.layout.fragment_home_page
 
@@ -36,20 +37,20 @@ class HomePageFragment : ArticleCollectBaseFragment() {
         homeTitleBar.setRightImage(R.drawable.home_search_button)
         if (isZhLanguage()) {
             homeTitleBar.setTitleOnClickListener {
-                AlmanacActivity.actionStart(context!!)
+                AlmanacActivity.actionStart(requireContext())
             }
         }
         homeTitleBar.setRightImgOnClickListener {
-            SearchActivity.actionStart(context!!)
+            SearchActivity.actionStart(requireContext())
         }
-        bannerAdapter = ImageAdapter(context!!, viewModel.bannerList)
-        bannerAdapter2 = ImageAdapter(context!!, viewModel.bannerList2)
+        bannerAdapter = ImageAdapter(requireContext(), viewModel.bannerList)
+        bannerAdapter2 = ImageAdapter(requireContext(), viewModel.bannerList2)
         homeBanner.adapter = bannerAdapter
         homeBanner.setIndicator(CircleIndicator(context)).start()
         homeBanner2.adapter = bannerAdapter2
         homeBanner2.setIndicator(CircleIndicator(context)).start()
         homeToTopRecyclerView.setRecyclerViewLayoutManager(true)
-        articleAdapter = ArticleAdapter(context!!, viewModel.articleList)
+        articleAdapter = ArticleAdapter(requireContext(), viewModel.articleList)
         homeToTopRecyclerView.onRefreshListener({
             page = 1
             getArticleList(true)
@@ -99,10 +100,6 @@ class HomePageFragment : ArticleCollectBaseFragment() {
             bannerAdapter2.notifyDataSetChanged()
         }
 
-    }
-
-    private fun getBanner() {
-        viewModel.getBanner()
     }
 
     private fun getArticleList(isRefresh: Boolean) {

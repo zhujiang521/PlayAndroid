@@ -11,9 +11,9 @@ import com.zj.core.util.setSafeListener
 import com.zj.core.util.showToast
 import com.zj.core.view.base.BaseListAdapter
 import com.zj.model.model.CollectX
-import com.zj.network.repository.CollectRepository
 import com.zj.play.R
 import com.zj.play.article.ArticleActivity
+import dagger.hilt.android.EntryPointAccessors
 import kotlinx.android.synthetic.main.adapter_article.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -58,7 +58,10 @@ class CollectAdapter(
 
     private fun cancelCollect(id: Int, position: Int) {
         lifecycleScope.launch {
-            val cancelCollects = CollectRepository.cancelCollects(id)
+            val collectRepository =
+                EntryPointAccessors.fromApplication(mContext, CollectRepositoryPoint::class.java)
+                    .collectRepository()
+            val cancelCollects = collectRepository.cancelCollects(id)
             withContext(Dispatchers.Main) {
                 if (cancelCollects.errorCode == 0) {
                     showToast(mContext.getString(R.string.collection_cancelled_successfully))

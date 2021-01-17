@@ -1,11 +1,11 @@
 package com.zj.play.home.almanac
 
-import android.app.Application
 import android.net.Uri
 import android.view.View
-import androidx.lifecycle.AndroidViewModel
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zj.core.almanac.ScreenShotsUtils
 import kotlinx.coroutines.Dispatchers
@@ -20,10 +20,11 @@ import java.util.*
  * 描述：PlayAndroid
  *
  */
-class AlmanacViewModel(application: Application) : AndroidViewModel(application) {
+class AlmanacViewModel @ViewModelInject constructor(
+    private val almanacRepository: AlmanacRepository
+) : ViewModel() {
 
     private val _state = MutableLiveData<ShareState>()
-    private var almanacRepository: AlmanacRepository = AlmanacRepository(application)
 
     val state: LiveData<ShareState>
         get() = _state

@@ -6,16 +6,18 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.KeyEvent
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import com.zj.core.util.showToast
 import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.system.exitProcess
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
-    private val viewModel by lazy { ViewModelProvider(this).get(MainViewModel::class.java) }
+    private val viewModel by viewModels<MainViewModel>()
     var isPort = true
 
     override fun initView() {

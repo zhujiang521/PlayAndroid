@@ -1,12 +1,16 @@
-package com.zj.network.repository
+package com.zj.play.project
 
-import android.content.Context
+import android.app.Application
 import com.zj.core.util.DataStoreUtils
 import com.zj.model.pojo.QueryArticle
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.PROJECT
 import com.zj.network.base.PlayAndroidNetwork
+import com.zj.play.home.DOWN_PROJECT_ARTICLE_TIME
+import com.zj.play.home.FOUR_HOUR
+import com.zj.play.main.login.fire
 import kotlinx.coroutines.flow.first
+import javax.inject.Inject
 
 /**
  * 版权：Zhujiang 个人版权
@@ -16,10 +20,10 @@ import kotlinx.coroutines.flow.first
  * 描述：PlayAndroid
  *
  */
-class ProjectRepository(private val context: Context) {
+class ProjectRepository @Inject constructor(val application: Application) {
 
-    private val projectClassifyDao = PlayDatabase.getDatabase(context).projectClassifyDao()
-    private val articleListDao = PlayDatabase.getDatabase(context).browseHistoryDao()
+    private val projectClassifyDao = PlayDatabase.getDatabase(application).projectClassifyDao()
+    private val articleListDao = PlayDatabase.getDatabase(application).browseHistoryDao()
 
     /**
      * 获取项目标题列表
@@ -42,8 +46,7 @@ class ProjectRepository(private val context: Context) {
 
     /**
      * 获取项目具体文章列表
-     * @param page 页码
-     * @param cid 项目id
+     * @param query 查询类
      */
     fun getProject(query: QueryArticle) = fire {
         if (query.page == 1) {

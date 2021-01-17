@@ -2,17 +2,19 @@ package com.zj.play.home.search.article
 
 import android.content.Context
 import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import com.zj.play.R
 import com.zj.play.article.ArticleAdapter
 import com.zj.play.base.BaseListActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_base_list.*
 
 private const val KEYWORD = "KEYWORD"
 
+@AndroidEntryPoint
 class ArticleListActivity : BaseListActivity() {
 
-    private val viewModel by lazy { ViewModelProvider(this).get(ArticleListViewModel::class.java) }
+    private val viewModel by viewModels<ArticleListViewModel>()
 
     private var keyword = ""
     private lateinit var articleAdapter: ArticleAdapter

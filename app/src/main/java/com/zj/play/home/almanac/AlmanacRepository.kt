@@ -6,6 +6,7 @@ import com.zj.core.almanac.CalendarUtils
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.Almanac
 import java.util.*
+import javax.inject.Inject
 
 /**
  * 版权：Zhujiang 个人版权
@@ -15,7 +16,7 @@ import java.util.*
  * 描述：PlayAndroid
  *
  */
-class AlmanacRepository(application: Application) {
+class AlmanacRepository @Inject constructor(application: Application) {
 
     private val almanacDao = PlayDatabase.getDatabase(application).almanacDao()
 

@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 apply from: 'and_res_guard.gradle'//压缩apk
 
@@ -65,6 +67,12 @@ dependencies {
 
     // 内存泄漏检测
     //implementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+
+    // hilt
+    implementation "com.google.dagger:hilt-android:2.28-alpha"
+    kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
+    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
 
     // 异常上报
     implementation 'com.tencent.bugly:crashreport:3.3.1'

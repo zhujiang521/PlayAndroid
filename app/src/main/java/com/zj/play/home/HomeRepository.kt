@@ -1,4 +1,4 @@
-package com.zj.network.repository
+package com.zj.play.home
 
 import android.app.Application
 import android.util.Log
@@ -18,9 +18,11 @@ import com.zj.model.room.entity.BannerBean
 import com.zj.model.room.entity.HOME
 import com.zj.model.room.entity.HOME_TOP
 import com.zj.network.base.PlayAndroidNetwork
+import com.zj.play.main.login.fire
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.first
 import java.io.File
+import javax.inject.Inject
 
 
 /**
@@ -31,12 +33,13 @@ import java.io.File
  * 描述：PlayAndroid
  *
  */
-object HomeRepository {
+
+class HomeRepository @Inject constructor(val application: Application) {
 
     /**
      * 获取banner
      */
-    fun getBanner(application: Application) = fire {
+    fun getBanner() = fire {
         val dataStore = DataStoreUtils
         var downImageTime = 0L
         dataStore.readLongFlow(DOWN_IMAGE_TIME, System.currentTimeMillis()).first {
@@ -56,7 +59,7 @@ object HomeRepository {
                     Result.success(bannerBeanList)
                 } else {
                     bannerBeanDao.deleteAll()
-                    insertBannerList(application, bannerBeanDao, bannerList)
+                    insertBannerList(bannerBeanDao, bannerList)
                     Result.success(bannerList)
                 }
             } else {
@@ -66,7 +69,6 @@ object HomeRepository {
     }
 
     private suspend fun insertBannerList(
-        application: Application,
         bannerBeanDao: BannerBeanDao,
         bannerList: List<BannerBean>
     ) {
@@ -110,7 +112,7 @@ object HomeRepository {
      * 首页获取文章列表
      * @param query 查询条件
      */
-    fun getArticleList(application: Application, query: QueryHomeArticle) = fire {
+    fun getArticleList(query: QueryHomeArticle) = fire {
         coroutineScope {
             val res = arrayListOf<Article>()
             if (query.page == 1) {

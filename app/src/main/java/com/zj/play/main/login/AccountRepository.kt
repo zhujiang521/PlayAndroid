@@ -1,10 +1,11 @@
-package com.zj.network.repository
+package com.zj.play.main.login
 
 import android.util.Log
 import androidx.lifecycle.liveData
 import com.zj.core.util.showToast
 import com.zj.model.model.BaseModel
 import com.zj.network.base.PlayAndroidNetwork
+import javax.inject.Inject
 
 /**
  * 版权：Zhujiang 个人版权
@@ -14,7 +15,7 @@ import com.zj.network.base.PlayAndroidNetwork
  * 描述：PlayAndroid
  *
  */
-object AccountRepository {
+class AccountRepository @Inject constructor() {
 
     suspend fun getLogin(username: String, password: String) =
         PlayAndroidNetwork.getLogin(username, password)

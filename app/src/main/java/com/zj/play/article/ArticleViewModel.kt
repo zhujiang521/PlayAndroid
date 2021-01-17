@@ -1,6 +1,6 @@
 package com.zj.play.article
 
-import android.content.Context
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
@@ -13,11 +13,17 @@ import kotlinx.coroutines.launch
  * 描述：PlayAndroid
  *
  */
-class ArticleViewModel : ViewModel() {
+class ArticleViewModel @ViewModelInject constructor(private val articleRepository: ArticleRepository) :
+    ViewModel() {
 
-    fun setCollect(isCollection: Int, pageId: Int, originId: Int, context: Context,collectListener: (Boolean) -> Unit) {
+    fun setCollect(
+        isCollection: Int,
+        pageId: Int,
+        originId: Int,
+        collectListener: (Boolean) -> Unit
+    ) {
         viewModelScope.launch {
-            ArticleRepository.setCollect(isCollection, pageId, originId, context,collectListener)
+            articleRepository.setCollect(isCollection, pageId, originId, collectListener)
         }
     }
 

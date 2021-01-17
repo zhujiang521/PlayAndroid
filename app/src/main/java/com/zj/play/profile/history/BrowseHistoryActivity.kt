@@ -2,16 +2,18 @@ package com.zj.play.profile.history
 
 import android.content.Context
 import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import com.zj.core.util.showToast
 import com.zj.play.R
 import com.zj.play.article.ArticleAdapter
 import com.zj.play.base.BaseListActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_base_list.*
 
+@AndroidEntryPoint
 class BrowseHistoryActivity : BaseListActivity() {
 
-    private val viewModel by lazy { ViewModelProvider(this).get(BrowseHistoryViewModel::class.java) }
+    private val viewModel by viewModels<BrowseHistoryViewModel>()
     private lateinit var articleAdapter: ArticleAdapter
 
     override fun initView() {

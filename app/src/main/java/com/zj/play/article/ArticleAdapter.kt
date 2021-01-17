@@ -16,8 +16,10 @@ import com.zj.core.view.base.BaseListAdapter
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.HISTORY
-import com.zj.network.repository.CollectRepository
 import com.zj.play.R
+import com.zj.play.article.collect.CollectRepository
+import com.zj.play.article.collect.CollectRepositoryPoint
+import dagger.hilt.android.EntryPointAccessors
 import kotlinx.android.synthetic.main.adapter_article.*
 import kotlinx.coroutines.*
 
@@ -32,6 +34,10 @@ class ArticleAdapter(
     private var progressDialogUtil: ProgressDialogUtil = ProgressDialogUtil.getInstance(mContext)!!
 
     override fun convert(holder: ViewHolder, data: Article, position: Int) {
+        val collectRepository = EntryPointAccessors.fromApplication(
+            mContext,
+            CollectRepositoryPoint::class.java
+        ).collectRepository()
         with(holder) {
             if (!TextUtils.isEmpty(data.title))
                 articleTvTitle.text = getHtmlText(data.title)
@@ -58,7 +64,7 @@ class ArticleAdapter(
                 if (Play.isLogin) {
                     if (NetworkUtils.isConnected()) {
                         data.collect = !data.collect
-                        setCollect(data, articleIvCollect)
+                        setCollect(collectRepository, data, articleIvCollect)
                     } else {
                         showToast(mContext.getString(R.string.no_network))
                     }
@@ -84,7 +90,11 @@ class ArticleAdapter(
         }
     }
 
-    private fun setCollect(t: Article, articleTvCollect: ImageView) {
+    private fun setCollect(
+        collectRepository: CollectRepository,
+        t: Article,
+        articleTvCollect: ImageView
+    ) {
         progressDialogUtil.progressDialogShow(
             if (t.collect) mContext.getString(R.string.bookmarking) else mContext.getString(
                 R.string.unfavorite
@@ -93,7 +103,7 @@ class ArticleAdapter(
         uiScope.launch {
             val articleDao = PlayDatabase.getDatabase(mContext).browseHistoryDao()
             if (!t.collect) {
-                val cancelCollects = CollectRepository.cancelCollects(t.id)
+                val cancelCollects = collectRepository.cancelCollects(t.id)
                 if (cancelCollects.errorCode == 0) {
                     withContext(Dispatchers.Main) {
                         articleTvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
@@ -106,7 +116,7 @@ class ArticleAdapter(
                     progressDialogUtil.progressDialogDismiss()
                 }
             } else {
-                val toCollects = CollectRepository.toCollects(t.id)
+                val toCollects = collectRepository.toCollects(t.id)
                 if (toCollects.errorCode == 0) {
                     withContext(Dispatchers.Main) {
                         articleTvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)

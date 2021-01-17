@@ -1,10 +1,11 @@
 package com.zj.play.profile.rank.list
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import com.zj.core.view.base.BaseViewModel
 import com.zj.model.model.Rank
 import com.zj.model.model.RankData
-import com.zj.network.repository.RankRepository
+import com.zj.play.profile.rank.RankRepository
 
 /**
  * 版权：Zhujiang 个人版权
@@ -14,10 +15,11 @@ import com.zj.network.repository.RankRepository
  * 描述：PlayAndroid
  *
  */
-class RankViewModel : BaseViewModel<RankData, Rank, Int>() {
+class RankViewModel @ViewModelInject constructor(private val rankRepository: RankRepository) :
+    BaseViewModel<RankData, Rank, Int>() {
 
     override fun getData(page: Int): LiveData<Result<RankData>> {
-        return RankRepository.getRankList(page)
+        return rankRepository.getRankList(page)
     }
 
 }

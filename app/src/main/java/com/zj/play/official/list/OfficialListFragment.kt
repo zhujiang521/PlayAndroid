@@ -1,16 +1,18 @@
 package com.zj.play.official.list
 
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.zj.model.pojo.QueryArticle
 import com.zj.play.article.ArticleAdapter
 import com.zj.play.base.BaseListFragment
+import dagger.hilt.android.AndroidEntryPoint
 
 const val PROJECT_CID = "PROJECT_CID"
 
+@AndroidEntryPoint
 class OfficialListFragment : BaseListFragment() {
 
-    private val viewModel by lazy { ViewModelProvider(this).get(OfficialListViewModel::class.java) }
+    private val viewModel by viewModels<OfficialListViewModel>()
 
     private var projectCid: Int? = null
 
@@ -30,7 +32,7 @@ class OfficialListFragment : BaseListFragment() {
     }
 
     override fun initView() {
-        articleAdapter = ArticleAdapter(context!!, viewModel.dataList)
+        articleAdapter = ArticleAdapter(requireContext(), viewModel.dataList)
         super.initView()
     }
 

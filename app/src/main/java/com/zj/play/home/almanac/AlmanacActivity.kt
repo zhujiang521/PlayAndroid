@@ -3,16 +3,18 @@ package com.zj.play.home.almanac
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import com.zj.core.almanac.ProgrammerCalendar
 import com.zj.core.util.IntentShareUtils
 import com.zj.core.util.ProgressDialogUtil
 import com.zj.core.util.showToast
 import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_almanac.*
 import java.util.*
 
+@AndroidEntryPoint
 class AlmanacActivity : BaseActivity() {
 
     private val dayImages = intArrayOf(
@@ -23,7 +25,7 @@ class AlmanacActivity : BaseActivity() {
     )
     private var progressDialogUtil: ProgressDialogUtil? = null
 
-    private val viewModel by lazy { ViewModelProvider(this).get(AlmanacViewModel::class.java) }
+    private val viewModel by viewModels<AlmanacViewModel>()
 
     override fun getLayoutId(): Int = R.layout.activity_almanac
 

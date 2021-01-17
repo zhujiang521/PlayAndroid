@@ -1,11 +1,11 @@
 package com.zj.play.home.search.article
 
-import android.app.Application
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import com.zj.core.view.base.BaseAndroidViewModel
 import com.zj.model.model.ArticleList
 import com.zj.model.room.entity.Article
-import com.zj.network.repository.SearchRepository
+import com.zj.play.home.search.SearchRepository
 
 /**
  * 版权：Zhujiang 个人版权
@@ -15,10 +15,12 @@ import com.zj.network.repository.SearchRepository
  * 描述：PlayAndroid
  *
  */
-class ArticleListViewModel(application: Application) : BaseAndroidViewModel<ArticleList, Article, QueryKeyArticle>(application) {
+class ArticleListViewModel @ViewModelInject constructor(
+    private val searchRepository: SearchRepository
+) : BaseAndroidViewModel<ArticleList, Article, QueryKeyArticle>() {
 
     override fun getData(page: QueryKeyArticle): LiveData<Result<ArticleList>> {
-        return SearchRepository(getApplication()).getQueryArticleList(page.page, page.k)
+        return searchRepository.getQueryArticleList(page.page, page.k)
     }
 
 }

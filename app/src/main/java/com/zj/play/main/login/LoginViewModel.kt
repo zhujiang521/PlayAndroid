@@ -1,7 +1,7 @@
-package com.zj.play.main
+package com.zj.play.main.login
 
 import android.app.Application
-import android.util.Log
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,10 +9,8 @@ import androidx.lifecycle.viewModelScope
 import com.zj.core.Play
 import com.zj.core.util.LiveDataBus
 import com.zj.core.util.showToast
-import com.zj.core.view.base.ActivityCollector
 import com.zj.model.model.BaseModel
 import com.zj.model.model.Login
-import com.zj.network.repository.AccountRepository
 import com.zj.play.R
 import com.zj.play.home.LOGIN_REFRESH
 import kotlinx.coroutines.Dispatchers
@@ -27,7 +25,10 @@ import kotlinx.coroutines.withContext
  * 描述：PlayAndroid
  *
  */
-class LoginViewModel(application: Application) : AndroidViewModel(application) {
+class LoginViewModel @ViewModelInject constructor(
+    application: Application,
+    private val accountRepository: AccountRepository
+) : AndroidViewModel(application) {
 
     private val _state = MutableLiveData<LoginState>()
     val state: LiveData<LoginState>
@@ -37,9 +38,9 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         _state.postValue(Logging)
         viewModelScope.launch(Dispatchers.IO) {
             val loginModel: BaseModel<Login> = if (account.isLogin) {
-                AccountRepository.getLogin(account.username, account.password)
+                accountRepository.getLogin(account.username, account.password)
             } else {
-                AccountRepository.getRegister(
+                accountRepository.getRegister(
                     account.username,
                     account.password,
                     account.password

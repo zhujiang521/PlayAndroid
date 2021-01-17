@@ -1,9 +1,9 @@
 package com.zj.play.profile.share
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.zj.network.repository.ShareRepository
 import com.zj.model.room.entity.Article
 
 /**
@@ -14,7 +14,8 @@ import com.zj.model.room.entity.Article
  * 描述：PlayAndroid
  *
  */
-class ShareViewModel : ViewModel() {
+class ShareViewModel @ViewModelInject constructor(private val shareRepository: ShareRepository) :
+    ViewModel() {
 
     val articleList = ArrayList<Article>()
 
@@ -23,11 +24,11 @@ class ShareViewModel : ViewModel() {
     private val pageAndCidLiveData = MutableLiveData<ShareArticle>()
 
     val articleLiveData = Transformations.switchMap(pageLiveData) { page ->
-        ShareRepository.getMyShareList(page)
+        shareRepository.getMyShareList(page)
     }
 
     val articleAndCidLiveData = Transformations.switchMap(pageAndCidLiveData) { page ->
-        ShareRepository.getShareList(page.cid, page.page)
+        shareRepository.getShareList(page.cid, page.page)
     }
 
     fun getArticleList(page: Int) {

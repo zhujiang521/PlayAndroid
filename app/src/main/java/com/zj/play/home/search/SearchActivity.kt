@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.KeyboardUtils
 import com.zj.core.util.showToast
@@ -19,15 +19,17 @@ import com.zj.model.room.dao.HotKeyDao
 import com.zj.model.room.entity.HotKey
 import com.zj.play.R
 import com.zj.play.home.search.article.ArticleListActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class SearchActivity : BaseActivity(), View.OnClickListener, TextView.OnEditorActionListener {
 
     override fun getLayoutId(): Int = R.layout.activity_search
 
     private lateinit var hotKeyDao: HotKeyDao
-    private val viewModel by lazy { ViewModelProvider(this).get(SearchViewModel::class.java) }
+    private val viewModel by viewModels<SearchViewModel>()
 
     override fun onResume() {
         super.onResume()

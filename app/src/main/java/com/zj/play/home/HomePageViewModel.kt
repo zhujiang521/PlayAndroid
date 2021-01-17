@@ -1,13 +1,12 @@
 package com.zj.play.home
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
 import com.zj.model.pojo.QueryHomeArticle
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.BannerBean
-import com.zj.network.repository.HomeRepository
 
 /**
  * 版权：Zhujiang 个人版权
@@ -17,7 +16,9 @@ import com.zj.network.repository.HomeRepository
  * 描述：PlayAndroid
  *
  */
-class HomePageViewModel(application: Application) : AndroidViewModel(application) {
+class HomePageViewModel @ViewModelInject constructor(
+    private val homeRepository: HomeRepository
+) : ViewModel() {
 
     private val pageLiveData = MutableLiveData<QueryHomeArticle>()
 
@@ -28,10 +29,10 @@ class HomePageViewModel(application: Application) : AndroidViewModel(application
     val articleList = ArrayList<Article>()
 
     val articleLiveData = Transformations.switchMap(pageLiveData) { query ->
-        HomeRepository.getArticleList(application, query)
+        homeRepository.getArticleList(query)
     }
 
-    fun getBanner() = HomeRepository.getBanner(getApplication())
+    fun getBanner() = homeRepository.getBanner()
 
     fun getArticleList(page: Int, isRefresh: Boolean) {
         pageLiveData.value = QueryHomeArticle(page, isRefresh)

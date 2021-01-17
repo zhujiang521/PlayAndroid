@@ -1,12 +1,14 @@
 package com.zj.play.article
 
-import android.content.Context
+import android.app.Application
 import com.zj.core.Play
 import com.zj.core.util.showToast
-import com.zj.network.repository.CollectRepository
 import com.zj.play.R
+import com.zj.play.article.collect.CollectRepositoryPoint
+import dagger.hilt.android.EntryPointAccessors
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 /**
  * 版权：联想 版权所有
@@ -16,51 +18,52 @@ import kotlinx.coroutines.withContext
  * 描述：PlayAndroid
  *
  */
-object ArticleRepository {
+class ArticleRepository @Inject constructor(val application: Application) {
 
     suspend fun setCollect(
         isCollection: Int,
         pageId: Int,
         originId: Int,
-        context: Context,
         collectListener: (Boolean) -> Unit
     ) {
 
         if (!Play.isLogin) {
-            showToast(context.getString(R.string.not_currently_logged_in))
+            showToast(application.getString(R.string.not_currently_logged_in))
             return
         }
 
         if (isCollection == -1 || pageId == -1) {
-            showToast(context.getString(R.string.page_is_not_collection))
+            showToast(application.getString(R.string.page_is_not_collection))
             return
         }
-
+        val collectRepository = EntryPointAccessors.fromApplication(
+            application,
+            CollectRepositoryPoint::class.java
+        ).collectRepository()
         withContext(Dispatchers.IO) {
             if (isCollection == 1) {
                 val cancelCollects =
-                    CollectRepository.cancelCollects(if (originId != -1) originId else pageId)
+                    collectRepository.cancelCollects(if (originId != -1) originId else pageId)
                 if (cancelCollects.errorCode == 0) {
-                    showToast(context.getString(R.string.collection_cancelled_successfully))
-                    ArticleBroadCast.sendArticleChangesReceiver(context)
+                    showToast(application.getString(R.string.collection_cancelled_successfully))
+                    ArticleBroadCast.sendArticleChangesReceiver(application)
                     collectListener.invoke(false)
                 } else {
-                    showToast(context.getString(R.string.failed_to_cancel_collection))
+                    showToast(application.getString(R.string.failed_to_cancel_collection))
                 }
             } else {
-                val toCollects = CollectRepository.toCollects(pageId)
+                val toCollects = collectRepository.toCollects(pageId)
                 if (toCollects.errorCode == 0) {
-                    showToast(context.getString(R.string.collection_successful))
-                    ArticleBroadCast.sendArticleChangesReceiver(context)
+                    showToast(application.getString(R.string.collection_successful))
+                    ArticleBroadCast.sendArticleChangesReceiver(application)
                     collectListener.invoke(true)
                 } else {
-                    showToast(context.getString(R.string.collection_failed))
+                    showToast(application.getString(R.string.collection_failed))
                 }
 
             }
         }
 
     }
-
 
 }

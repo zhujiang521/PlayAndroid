@@ -75,6 +75,13 @@ dependencies {
     api 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
+
+    def activity_version = "1.1.0"
+    api "androidx.activity:activity-ktx:$activity_version"
+    def fragment_version = "1.2.5"
+    api "androidx.fragment:fragment-ktx:$fragment_version"
+
+
     testImplementation des.junit
     androidTestImplementation des.extJunit
     androidTestImplementation des.espressoCore

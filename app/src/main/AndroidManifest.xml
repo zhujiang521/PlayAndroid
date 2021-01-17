@@ -42,7 +42,7 @@
             android:name=".profile.rank.user.UserRankActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
         <activity
-            android:name=".main.LoginActivity"
+            android:name=".main.login.LoginActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
         <activity
             android:name=".profile.rank.list.RankActivity"

@@ -1,10 +1,10 @@
 package com.zj.play.article.collect
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import com.zj.core.view.base.BaseViewModel
 import com.zj.model.model.Collect
 import com.zj.model.model.CollectX
-import com.zj.network.repository.CollectRepository
 
 /**
  * 版权：Zhujiang 个人版权
@@ -14,10 +14,11 @@ import com.zj.network.repository.CollectRepository
  * 描述：PlayAndroid
  *
  */
-class CollectListViewModel : BaseViewModel<Collect, CollectX, Int>() {
+class CollectListViewModel @ViewModelInject constructor(private val collectRepository: CollectRepository) :
+    BaseViewModel<Collect, CollectX, Int>() {
 
     override fun getData(page: Int): LiveData<Result<Collect>> {
-        return CollectRepository.getCollectList(page - 1)
+        return collectRepository.getCollectList(page - 1)
     }
 
 }

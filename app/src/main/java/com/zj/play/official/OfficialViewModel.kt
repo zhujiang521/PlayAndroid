@@ -1,6 +1,6 @@
 package com.zj.play.official
 
-import android.app.Application
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import com.zj.core.view.base.BaseAndroidViewModel
 import com.zj.model.room.entity.ProjectClassify
@@ -13,12 +13,13 @@ import com.zj.model.room.entity.ProjectClassify
  * 描述：PlayAndroid
  *
  */
-class OfficialViewModel(application: Application) :
-    BaseAndroidViewModel<List<ProjectClassify>, Unit, Boolean>(application) {
+class OfficialViewModel @ViewModelInject constructor(
+    private val officialRepository: OfficialRepository
+) : BaseAndroidViewModel<List<ProjectClassify>, Unit, Boolean>() {
 
     var position = 0
 
     override fun getData(page: Boolean): LiveData<Result<List<ProjectClassify>>> {
-        return OfficialRepository(getApplication()).getWxArticleTree(page)
+        return officialRepository.getWxArticleTree(page)
     }
 }

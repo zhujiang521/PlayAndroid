@@ -1,6 +1,6 @@
 package com.zj.play.profile.history
 
-import android.app.Application
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import com.zj.core.view.base.BaseAndroidViewModel
 import com.zj.model.room.entity.Article
@@ -13,10 +13,12 @@ import com.zj.model.room.entity.Article
  * 描述：PlayAndroid
  *
  */
-class BrowseHistoryViewModel(application: Application) : BaseAndroidViewModel<List<Article>, Article, Int>(application) {
+class BrowseHistoryViewModel @ViewModelInject constructor(
+    private val browseHistoryRepository: BrowseHistoryRepository
+) : BaseAndroidViewModel<List<Article>, Article, Int>() {
 
     override fun getData(page: Int): LiveData<Result<List<Article>>> {
-        return BrowseHistoryRepository(getApplication()).getBrowseHistory(page)
+        return browseHistoryRepository.getBrowseHistory(page)
     }
 
 }

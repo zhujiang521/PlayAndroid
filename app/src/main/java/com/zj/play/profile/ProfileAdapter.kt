@@ -1,21 +1,16 @@
 package com.zj.play.profile
 
 import android.content.Context
-import android.util.Log
 import com.zj.core.Play
-import com.zj.core.util.DataStoreUtils
 import com.zj.core.view.base.BaseListAdapter
 import com.zj.play.R
 import com.zj.play.article.ArticleActivity
 import com.zj.play.article.collect.CollectListActivity
-import com.zj.play.main.LoginActivity
+import com.zj.play.main.login.LoginActivity
 import com.zj.play.profile.history.BrowseHistoryActivity
 import com.zj.play.profile.rank.user.UserRankActivity
 import com.zj.play.profile.user.UserActivity
 import kotlinx.android.synthetic.main.adapter_profile.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 
 /**
  * 版权：Zhujiang 个人版权

@@ -9,7 +9,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.zj.core.util.getHtmlText
@@ -19,6 +19,7 @@ import com.zj.model.model.CollectX
 import com.zj.model.room.entity.Article
 import com.zj.play.R
 import com.zj.play.profile.share.ShareActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_article.*
 
 
@@ -29,11 +30,12 @@ const val ORIGIN_ID = "ORIGIN_ID"
 const val USER_ID = "USER_ID"
 const val IS_COLLECTION = "IS_COLLECTION"
 
+@AndroidEntryPoint
 class ArticleActivity : BaseActivity(), View.OnClickListener {
 
     override fun getLayoutId(): Int = R.layout.activity_article
 
-    private val viewModel by lazy { ViewModelProvider(this).get(ArticleViewModel::class.java) }
+    private val viewModel by viewModels<ArticleViewModel>()
 
     private var pageName = ""
     private var pageUrl = ""
@@ -122,7 +124,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.bottomDialogLlCollect -> {
                 bottomSheetDialog?.dismiss()
-                viewModel.setCollect(isCollection, pageId, originId, this) {
+                viewModel.setCollect(isCollection, pageId, originId) {
                     if (it) {
                         isCollection = 1
                         bottomDialogIvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)

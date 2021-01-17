@@ -1,11 +1,11 @@
 package com.zj.play.project.list
 
-import android.app.Application
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import com.zj.core.view.base.BaseAndroidViewModel
 import com.zj.model.pojo.QueryArticle
 import com.zj.model.room.entity.Article
-import com.zj.network.repository.ProjectRepository
+import com.zj.play.project.ProjectRepository
 
 /**
  * 版权：Zhujiang 个人版权
@@ -15,10 +15,12 @@ import com.zj.network.repository.ProjectRepository
  * 描述：PlayAndroid
  *
  */
-class ProjectListViewModel(application: Application) : BaseAndroidViewModel<List<Article>, Article, QueryArticle>(application) {
+class ProjectListViewModel @ViewModelInject constructor(
+    private val projectRepository: ProjectRepository
+) : BaseAndroidViewModel<List<Article>, Article, QueryArticle>() {
 
     override fun getData(page: QueryArticle): LiveData<Result<List<Article>>> {
-        return ProjectRepository(getApplication()).getProject(page)
+        return projectRepository.getProject(page)
     }
 
 }

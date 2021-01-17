@@ -1,17 +1,19 @@
 package com.zj.play.project.list
 
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.zj.model.pojo.QueryArticle
 import com.zj.play.R
 import com.zj.play.article.ArticleAdapter
 import com.zj.play.base.BaseListFragment
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val PROJECT_CID = "PROJECT_CID"
 
+@AndroidEntryPoint
 class ProjectListFragment : BaseListFragment() {
 
-    private val viewModel by lazy { ViewModelProvider(this).get(ProjectListViewModel::class.java) }
+    private val viewModel by viewModels<ProjectListViewModel>()
 
     private var projectCid: Int? = null
 
@@ -33,7 +35,7 @@ class ProjectListFragment : BaseListFragment() {
     override fun getLayoutId(): Int = R.layout.fragment_base_list
 
     override fun initView() {
-        articleAdapter = ArticleAdapter(context!!, viewModel.dataList)
+        articleAdapter = ArticleAdapter(requireContext(), viewModel.dataList)
         super.initView()
     }
 

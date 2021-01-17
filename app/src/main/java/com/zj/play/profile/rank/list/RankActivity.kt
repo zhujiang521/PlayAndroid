@@ -2,14 +2,16 @@ package com.zj.play.profile.rank.list
 
 import android.content.Context
 import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import com.zj.play.R
 import com.zj.play.base.BaseListActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_base_list.*
 
+@AndroidEntryPoint
 class RankActivity : BaseListActivity() {
 
-    private val viewModel by lazy { ViewModelProvider(this).get(RankViewModel::class.java) }
+    private val viewModel by viewModels<RankViewModel>()
 
     private lateinit var rankAdapter: RankAdapter
 

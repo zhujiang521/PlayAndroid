@@ -3,7 +3,7 @@ package com.zj.play.profile.share
 import android.content.Context
 import android.content.Intent
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import com.zj.core.Play
 import com.zj.model.model.CoinInfo
 import com.zj.model.model.ShareModel
@@ -12,14 +12,16 @@ import com.zj.play.article.ArticleAdapter
 import com.zj.play.home.ArticleCollectBaseActivity
 import com.zj.play.profile.rank.user.UserRankActivity
 import com.zj.play.profile.share.add.AddShareActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_share.*
 
 const val IS_MINE = "IS_MINE"
 const val USER_ID = "USER_ID"
 
+@AndroidEntryPoint
 class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
 
-    private val viewModel by lazy { ViewModelProvider(this).get(ShareViewModel::class.java) }
+    private val viewModel by viewModels<ShareViewModel>()
     private var isMine: Boolean = true
     private var userId: Int = 0
     private lateinit var articleAdapter: ArticleAdapter

@@ -1,15 +1,17 @@
 package com.zj.play.project
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.zj.core.view.custom.FragmentAdapter
 import com.zj.play.R
 import com.zj.play.project.list.ProjectListFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_project.*
 
+@AndroidEntryPoint
 class ProjectFragment : BaseTabFragment() {
 
-    private val viewModel by lazy { ViewModelProvider(this).get(ProjectViewModel::class.java) }
+    private val viewModel by viewModels<ProjectViewModel>()
 
     override fun getLayoutId(): Int = R.layout.fragment_project
 

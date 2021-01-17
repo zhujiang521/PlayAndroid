@@ -7,16 +7,21 @@ import com.zj.core.Play
 import com.zj.core.Play.logout
 import com.zj.core.view.base.BaseFragment
 import com.zj.play.R
-import com.zj.network.repository.AccountRepository
-import com.zj.play.main.LoginActivity
+import com.zj.play.main.login.LoginActivity
 import com.zj.play.article.ArticleBroadCast
+import com.zj.play.main.login.AccountRepository
 import com.zj.play.profile.rank.list.RankActivity
 import com.zj.play.profile.share.ShareActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_profile.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ProfileFragment : BaseFragment(), View.OnClickListener {
 
     override fun getLayoutId(): Int = R.layout.fragment_profile
+    @Inject
+    lateinit var accountRepository: AccountRepository
 
     private lateinit var profileAdapter: ProfileAdapter
     private lateinit var nameArray: Array<String>
@@ -34,14 +39,14 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
     override fun initView() {
         profileTitleBar.setRightImage(R.drawable.btn_right_right_bg)
         profileTitleBar.setRightImgOnClickListener {
-            RankActivity.actionStart(context!!)
+            RankActivity.actionStart(requireContext())
         }
         profileIvHead.setOnClickListener(this)
         profileTvName.setOnClickListener(this)
         profileTvRank.setOnClickListener(this)
         profileBtnLogout.setOnClickListener(this)
         profileRv.layoutManager = LinearLayoutManager(context)
-        profileAdapter = ProfileAdapter(context!!, profileItemList)
+        profileAdapter = ProfileAdapter(requireContext(), profileItemList)
         profileRv.adapter = profileAdapter
         if (Play.isLogin) {
             profileIvHead.setBackgroundResource(R.drawable.ic_head)
@@ -58,7 +63,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
         profileIvHead.setBackgroundResource(R.drawable.img_nomal_head)
         profileTvName.text = getString(R.string.no_login)
         profileTvRank.text = getString(R.string.click_login)
-        ArticleBroadCast.sendArticleChangesReceiver(context!!)
+        ArticleBroadCast.sendArticleChangesReceiver(requireContext())
     }
 
     override fun initData() {
@@ -98,15 +103,15 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
                 dialog?.dismiss()
                 clearInfo()
                 logout()
-                AccountRepository.getLogout()
+                accountRepository.getLogout()
             }.show()
     }
 
     private fun personalInformation() {
         if (!Play.isLogin) {
-            LoginActivity.actionStart(context!!)
+            LoginActivity.actionStart(requireContext())
         } else {
-            ShareActivity.actionStart(context!!, true)
+            ShareActivity.actionStart(requireContext(), true)
         }
     }
 

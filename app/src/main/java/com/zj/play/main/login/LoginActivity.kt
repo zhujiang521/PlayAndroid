@@ -1,4 +1,4 @@
-package com.zj.play.main
+package com.zj.play.main.login
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
@@ -7,19 +7,21 @@ import android.content.Intent
 import android.text.TextUtils
 import android.view.View
 import android.view.animation.OvershootInterpolator
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import androidx.lifecycle.observe
 import com.blankj.utilcode.util.NetworkUtils
 import com.zj.core.util.showToast
 import com.zj.core.view.base.ActivityCollector
 import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
+import com.zj.play.main.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_login.*
 
-
+@AndroidEntryPoint
 class LoginActivity : BaseActivity(), View.OnClickListener {
 
-    private val viewModel by lazy { ViewModelProvider(this).get(LoginViewModel::class.java) }
+    private val viewModel by viewModels<LoginViewModel>()
     private var mUserName = ""
     private var mPassWord = ""
     private var mIsLogin = true

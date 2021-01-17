@@ -1,8 +1,11 @@
-package com.zj.network.repository
+package com.zj.play.home.search
 
-import android.content.Context
+import android.app.Application
 import com.zj.model.room.PlayDatabase
 import com.zj.network.base.PlayAndroidNetwork
+import com.zj.play.main.login.fire
+import com.zj.play.main.login.fires
+import javax.inject.Inject
 
 /**
  * 版权：Zhujiang 个人版权
@@ -12,9 +15,9 @@ import com.zj.network.base.PlayAndroidNetwork
  * 描述：PlayAndroid
  *
  */
-class SearchRepository(context: Context) {
+class SearchRepository @Inject constructor(application: Application) {
 
-    private val hotKeyDao = PlayDatabase.getDatabase(context).hotKeyDao()
+    private val hotKeyDao = PlayDatabase.getDatabase(application).hotKeyDao()
 
     /**
      * 获取搜索热词

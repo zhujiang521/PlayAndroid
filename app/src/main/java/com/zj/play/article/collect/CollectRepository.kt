@@ -1,6 +1,11 @@
-package com.zj.network.repository
+package com.zj.play.article.collect
 
 import com.zj.network.base.PlayAndroidNetwork
+import com.zj.play.main.login.fires
+import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import javax.inject.Inject
 
 /**
  * 版权：Zhujiang 个人版权
@@ -10,7 +15,7 @@ import com.zj.network.base.PlayAndroidNetwork
  * 描述：PlayAndroid
  *
  */
-object CollectRepository {
+class CollectRepository @Inject constructor() {
 
     /**
      * 获取收藏列表
@@ -22,4 +27,10 @@ object CollectRepository {
     suspend fun cancelCollects(id: Int) = PlayAndroidNetwork.cancelCollect(id)
     suspend fun toCollects(id: Int) = PlayAndroidNetwork.toCollect(id)
 
+}
+
+@EntryPoint
+@InstallIn(ApplicationComponent::class)
+interface CollectRepositoryPoint {
+    fun collectRepository(): CollectRepository
 }

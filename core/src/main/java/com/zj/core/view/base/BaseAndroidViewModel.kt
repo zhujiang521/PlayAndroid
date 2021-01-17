@@ -1,7 +1,9 @@
 package com.zj.core.view.base
 
-import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
 
 /**
  * 版权：Zhujiang 个人版权
@@ -11,8 +13,7 @@ import androidx.lifecycle.*
  * 描述：PlayAndroid
  *
  */
-abstract class BaseAndroidViewModel<BaseData, Data, Key>(application: Application) :
-    AndroidViewModel(application) {
+abstract class BaseAndroidViewModel<BaseData, Data, Key> : ViewModel() {
 
     val dataList = ArrayList<Data>()
 

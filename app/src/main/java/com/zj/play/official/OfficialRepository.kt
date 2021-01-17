@@ -6,10 +6,11 @@ import com.zj.model.pojo.QueryArticle
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.OFFICIAL
 import com.zj.network.base.PlayAndroidNetwork
-import com.zj.network.repository.DOWN_OFFICIAL_ARTICLE_TIME
-import com.zj.network.repository.FOUR_HOUR
-import com.zj.network.repository.fire
+import com.zj.play.home.DOWN_OFFICIAL_ARTICLE_TIME
+import com.zj.play.home.FOUR_HOUR
+import com.zj.play.main.login.fire
 import kotlinx.coroutines.flow.first
+import javax.inject.Inject
 
 /**
  * 版权：Zhujiang 个人版权
@@ -19,7 +20,7 @@ import kotlinx.coroutines.flow.first
  * 描述：PlayAndroid
  *
  */
-class OfficialRepository(private val application: Application) {
+class OfficialRepository @Inject constructor(application: Application) {
 
     private val projectClassifyDao = PlayDatabase.getDatabase(application).projectClassifyDao()
     private val articleListDao = PlayDatabase.getDatabase(application).browseHistoryDao()
@@ -46,8 +47,7 @@ class OfficialRepository(private val application: Application) {
 
     /**
      * 获取具体公众号文章列表
-     * @param page 页码
-     * @param cid 公众号id
+     * @param query 查询
      */
     fun getWxArticle(query: QueryArticle) = fire {
         if (query.page == 1) {
@@ -91,6 +91,5 @@ class OfficialRepository(private val application: Application) {
         }
 
     }
-
 
 }

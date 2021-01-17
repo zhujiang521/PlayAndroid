@@ -1,6 +1,8 @@
-package com.zj.network.repository
+package com.zj.play.profile.rank
 
 import com.zj.network.base.PlayAndroidNetwork
+import com.zj.play.main.login.fires
+import javax.inject.Inject
 
 /**
  * 版权：Zhujiang 个人版权
@@ -10,7 +12,7 @@ import com.zj.network.base.PlayAndroidNetwork
  * 描述：PlayAndroid
  *
  */
-object RankRepository {
+class RankRepository @Inject constructor(){
 
     /**
      * 获取排行榜列表
