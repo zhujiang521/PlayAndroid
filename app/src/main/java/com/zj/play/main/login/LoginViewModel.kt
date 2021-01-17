@@ -13,6 +13,7 @@ import com.zj.model.model.BaseModel
 import com.zj.model.model.Login
 import com.zj.play.R
 import com.zj.play.home.LOGIN_REFRESH
+import dagger.hilt.android.scopes.ActivityScoped
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -25,6 +26,7 @@ import kotlinx.coroutines.withContext
  * 描述：PlayAndroid
  *
  */
+@ActivityScoped
 class LoginViewModel @ViewModelInject constructor(
     application: Application,
     private val accountRepository: AccountRepository

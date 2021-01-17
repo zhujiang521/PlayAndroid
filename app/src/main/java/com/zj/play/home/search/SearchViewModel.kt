@@ -4,6 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import com.zj.core.view.base.BaseAndroidViewModel
 import com.zj.model.room.entity.HotKey
+import dagger.hilt.android.scopes.ActivityScoped
 
 /**
  * 版权：Zhujiang 个人版权
@@ -13,6 +14,7 @@ import com.zj.model.room.entity.HotKey
  * 描述：PlayAndroid
  *
  */
+@ActivityScoped
 class SearchViewModel @ViewModelInject constructor(
     private val searchRepository: SearchRepository
 ) : BaseAndroidViewModel<List<HotKey>, HotKey, Boolean>() {

@@ -5,6 +5,7 @@ import com.zj.model.room.PlayDatabase
 import com.zj.network.base.PlayAndroidNetwork
 import com.zj.play.main.login.fire
 import com.zj.play.main.login.fires
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 import javax.inject.Inject
 
 /**
@@ -15,6 +16,7 @@ import javax.inject.Inject
  * 描述：PlayAndroid
  *
  */
+@ActivityRetainedScoped
 class SearchRepository @Inject constructor(application: Application) {
 
     private val hotKeyDao = PlayDatabase.getDatabase(application).hotKeyDao()

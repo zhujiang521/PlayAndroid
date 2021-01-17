@@ -6,6 +6,7 @@ import com.zj.core.view.base.BaseAndroidViewModel
 import com.zj.model.model.ArticleList
 import com.zj.model.room.entity.Article
 import com.zj.play.home.search.SearchRepository
+import dagger.hilt.android.scopes.ActivityScoped
 
 /**
  * 版权：Zhujiang 个人版权
@@ -15,6 +16,7 @@ import com.zj.play.home.search.SearchRepository
  * 描述：PlayAndroid
  *
  */
+@ActivityScoped
 class ArticleListViewModel @ViewModelInject constructor(
     private val searchRepository: SearchRepository
 ) : BaseAndroidViewModel<ArticleList, Article, QueryKeyArticle>() {

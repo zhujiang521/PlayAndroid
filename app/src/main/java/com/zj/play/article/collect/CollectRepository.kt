@@ -6,6 +6,7 @@ import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * 版权：Zhujiang 个人版权
@@ -15,6 +16,7 @@ import javax.inject.Inject
  * 描述：PlayAndroid
  *
  */
+@Singleton
 class CollectRepository @Inject constructor() {
 
     /**

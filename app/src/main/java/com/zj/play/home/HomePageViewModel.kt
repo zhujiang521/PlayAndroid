@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.zj.model.pojo.QueryHomeArticle
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.BannerBean
+import dagger.hilt.android.scopes.FragmentScoped
 
 /**
  * 版权：Zhujiang 个人版权
@@ -16,6 +17,7 @@ import com.zj.model.room.entity.BannerBean
  * 描述：PlayAndroid
  *
  */
+@FragmentScoped
 class HomePageViewModel @ViewModelInject constructor(
     private val homeRepository: HomeRepository
 ) : ViewModel() {

@@ -3,6 +3,7 @@ package com.zj.play.article
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.scopes.ActivityScoped
 import kotlinx.coroutines.launch
 
 /**
@@ -13,6 +14,7 @@ import kotlinx.coroutines.launch
  * 描述：PlayAndroid
  *
  */
+@ActivityScoped
 class ArticleViewModel @ViewModelInject constructor(private val articleRepository: ArticleRepository) :
     ViewModel() {
 

@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import com.zj.core.view.base.BaseViewModel
 import com.zj.model.model.Collect
 import com.zj.model.model.CollectX
+import dagger.hilt.android.scopes.ActivityScoped
 
 /**
  * 版权：Zhujiang 个人版权
@@ -14,6 +15,7 @@ import com.zj.model.model.CollectX
  * 描述：PlayAndroid
  *
  */
+@ActivityScoped
 class CollectListViewModel @ViewModelInject constructor(private val collectRepository: CollectRepository) :
     BaseViewModel<Collect, CollectX, Int>() {
 

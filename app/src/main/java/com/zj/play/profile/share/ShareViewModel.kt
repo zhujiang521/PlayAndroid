@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.zj.model.room.entity.Article
+import dagger.hilt.android.scopes.ActivityScoped
 
 /**
  * 版权：Zhujiang 个人版权
@@ -14,6 +15,7 @@ import com.zj.model.room.entity.Article
  * 描述：PlayAndroid
  *
  */
+@ActivityScoped
 class ShareViewModel @ViewModelInject constructor(private val shareRepository: ShareRepository) :
     ViewModel() {
 

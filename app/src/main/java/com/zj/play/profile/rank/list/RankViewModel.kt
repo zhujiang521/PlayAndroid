@@ -6,6 +6,7 @@ import com.zj.core.view.base.BaseViewModel
 import com.zj.model.model.Rank
 import com.zj.model.model.RankData
 import com.zj.play.profile.rank.RankRepository
+import dagger.hilt.android.scopes.ActivityScoped
 
 /**
  * 版权：Zhujiang 个人版权
@@ -15,6 +16,7 @@ import com.zj.play.profile.rank.RankRepository
  * 描述：PlayAndroid
  *
  */
+@ActivityScoped
 class RankViewModel @ViewModelInject constructor(private val rankRepository: RankRepository) :
     BaseViewModel<RankData, Rank, Int>() {
 

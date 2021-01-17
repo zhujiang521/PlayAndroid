@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zj.core.almanac.ScreenShotsUtils
+import dagger.hilt.android.scopes.ActivityScoped
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
@@ -20,6 +21,7 @@ import java.util.*
  * 描述：PlayAndroid
  *
  */
+@ActivityScoped
 class AlmanacViewModel @ViewModelInject constructor(
     private val almanacRepository: AlmanacRepository
 ) : ViewModel() {

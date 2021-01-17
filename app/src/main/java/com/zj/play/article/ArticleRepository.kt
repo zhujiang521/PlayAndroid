@@ -6,6 +6,7 @@ import com.zj.core.util.showToast
 import com.zj.play.R
 import com.zj.play.article.collect.CollectRepositoryPoint
 import dagger.hilt.android.EntryPointAccessors
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -18,6 +19,7 @@ import javax.inject.Inject
  * 描述：PlayAndroid
  *
  */
+@ActivityRetainedScoped
 class ArticleRepository @Inject constructor(val application: Application) {
 
     suspend fun setCollect(

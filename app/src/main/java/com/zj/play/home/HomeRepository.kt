@@ -19,6 +19,7 @@ import com.zj.model.room.entity.HOME
 import com.zj.model.room.entity.HOME_TOP
 import com.zj.network.base.PlayAndroidNetwork
 import com.zj.play.main.login.fire
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.first
 import java.io.File
@@ -33,7 +34,7 @@ import javax.inject.Inject
  * 描述：PlayAndroid
  *
  */
-
+@ActivityRetainedScoped
 class HomeRepository @Inject constructor(val application: Application) {
 
     /**

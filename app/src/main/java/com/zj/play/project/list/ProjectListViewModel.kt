@@ -6,6 +6,7 @@ import com.zj.core.view.base.BaseAndroidViewModel
 import com.zj.model.pojo.QueryArticle
 import com.zj.model.room.entity.Article
 import com.zj.play.project.ProjectRepository
+import dagger.hilt.android.scopes.FragmentScoped
 
 /**
  * 版权：Zhujiang 个人版权
@@ -15,6 +16,7 @@ import com.zj.play.project.ProjectRepository
  * 描述：PlayAndroid
  *
  */
+@FragmentScoped
 class ProjectListViewModel @ViewModelInject constructor(
     private val projectRepository: ProjectRepository
 ) : BaseAndroidViewModel<List<Article>, Article, QueryArticle>() {

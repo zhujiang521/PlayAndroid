@@ -2,6 +2,7 @@ package com.zj.play.profile.share
 
 import com.zj.network.base.PlayAndroidNetwork
 import com.zj.play.main.login.fires
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 import javax.inject.Inject
 
 /**
@@ -12,6 +13,7 @@ import javax.inject.Inject
  * 描述：PlayAndroid
  *
  */
+@ActivityRetainedScoped
 class ShareRepository @Inject constructor() {
 
     fun getMyShareList(page: Int) = fires { PlayAndroidNetwork.getMyShareList(page) }
