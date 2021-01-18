@@ -2,7 +2,7 @@ package com.zj.play.profile.rank
 
 import com.zj.network.base.PlayAndroidNetwork
 import com.zj.play.main.login.fires
-import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 import javax.inject.Inject
 
 /**
@@ -13,7 +13,7 @@ import javax.inject.Inject
  * 描述：PlayAndroid
  *
  */
-@ActivityScoped
+@ActivityRetainedScoped
 class RankRepository @Inject constructor(){
 
     /**
