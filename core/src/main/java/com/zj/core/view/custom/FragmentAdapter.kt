@@ -3,7 +3,7 @@ package com.zj.core.view.custom
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 import java.util.*
 
 /**
@@ -14,14 +14,14 @@ import java.util.*
  * 创建日期：2020-01-18
  * 描述：pwqgc
  */
-class FragmentAdapter(private val mFragmentManager: FragmentManager?) : FragmentPagerAdapter(
+class FragmentAdapter(private val mFragmentManager: FragmentManager?) : FragmentStatePagerAdapter(
     mFragmentManager!!, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
 ) {
     private val mFragment: MutableList<Fragment> = ArrayList()
     private var isUpdateFlag = false
     private var curFragment: Fragment? = null
     private lateinit var mTitles: Array<String>
-    override fun getItemPosition(`object`: Any): Int {
+    override fun getItemPosition(any: Any): Int {
         return POSITION_NONE
     }
 
@@ -54,10 +54,10 @@ class FragmentAdapter(private val mFragmentManager: FragmentManager?) : Fragment
         mFragment.addAll(fragments!!)
     }
 
-    override fun setPrimaryItem(container: ViewGroup, position: Int, `object`: Any) {
-        super.setPrimaryItem(container, position, `object`)
-        if (`object` is Fragment) {
-            curFragment = `object`
+    override fun setPrimaryItem(container: ViewGroup, position: Int, any: Any) {
+        super.setPrimaryItem(container, position, any)
+        if (any is Fragment) {
+            curFragment = any
         }
     }
 
@@ -73,7 +73,7 @@ class FragmentAdapter(private val mFragmentManager: FragmentManager?) : Fragment
         return mFragment.size
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
+    override fun getPageTitle(position: Int): CharSequence {
         return mTitles[position]
     }
 }
