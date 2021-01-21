@@ -4,7 +4,7 @@ import com.zj.network.base.PlayAndroidNetwork
 import com.zj.play.main.login.fires
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -32,7 +32,7 @@ class CollectRepository @Inject constructor() {
 }
 
 @EntryPoint
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 interface CollectRepositoryPoint {
     fun collectRepository(): CollectRepository
 }
