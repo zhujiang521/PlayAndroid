@@ -72,8 +72,8 @@ dependencies {
     // 安卓Utils
     api 'com.blankj:utilcode:1.30.0'
     // 图片网络框架
-    api 'com.github.bumptech.glide:glide:4.11.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    api 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
 
     def activity_version = "1.1.0"

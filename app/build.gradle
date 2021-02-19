@@ -69,8 +69,8 @@ dependencies {
     //implementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
 
     // hilt
-    implementation "com.google.dagger:hilt-android:2.31-alpha"
-    kapt "com.google.dagger:hilt-android-compiler:2.31-alpha"
+    implementation 'com.google.dagger:hilt-android:2.32-alpha'
+    kapt 'com.google.dagger:hilt-android-compiler:2.32-alpha'
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
     kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
 
