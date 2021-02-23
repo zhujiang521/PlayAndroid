@@ -1,29 +1,39 @@
 package com.zj.play.official
 
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.zj.core.view.custom.FragmentAdapter
-import com.zj.play.R
+import com.zj.play.databinding.FragmentOfficialAccountsBinding
 import com.zj.play.official.list.OfficialListFragment
 import com.zj.play.project.BaseTabFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_official_accounts.*
 
 @AndroidEntryPoint
 class OfficialAccountsFragment : BaseTabFragment() {
 
     private val viewModel by viewModels<OfficialViewModel>()
+    private lateinit var binding: FragmentOfficialAccountsBinding
 
-    override fun getLayoutId(): Int = R.layout.fragment_official_accounts
+    override fun getLayoutView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        attachToRoot: Boolean
+    ): View {
+        binding = FragmentOfficialAccountsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     private lateinit var adapter: FragmentAdapter
 
     override fun initView() {
         adapter = FragmentAdapter(activity?.supportFragmentManager)
-        officialViewPager.adapter = adapter
-        officialTabLayout.setupWithViewPager(officialViewPager)
-        officialViewPager.addOnPageChangeListener(this)
-        officialTabLayout.addOnTabSelectedListener(this)
+        binding.officialViewPager.adapter = adapter
+        binding.officialTabLayout.setupWithViewPager(binding.officialViewPager)
+        binding.officialViewPager.addOnPageChangeListener(this)
+        binding.officialTabLayout.addOnTabSelectedListener(this)
     }
 
     override fun initData() {
@@ -40,7 +50,7 @@ class OfficialAccountsFragment : BaseTabFragment() {
                 reset(viewList)
                 notifyDataSetChanged()
             }
-            officialViewPager.currentItem = viewModel.position
+            binding.officialViewPager.currentItem = viewModel.position
         }
         getOfficialTree()
     }

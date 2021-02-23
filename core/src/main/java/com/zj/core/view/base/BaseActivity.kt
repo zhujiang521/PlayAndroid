@@ -3,11 +3,9 @@ package com.zj.core.view.base
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.WindowInsetsController
 import android.widget.FrameLayout
 import android.widget.ProgressBar
 import androidx.annotation.CallSuper
@@ -16,7 +14,6 @@ import androidx.lifecycle.LiveData
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.zj.core.R
-import com.zj.core.util.AndroidVersion
 import com.zj.core.util.showToast
 import com.zj.core.view.base.lce.DefaultLceImpl
 import com.zj.core.view.base.lce.ILce
@@ -28,7 +25,7 @@ import java.lang.ref.WeakReference
  *
  */
 @SuppressLint("Registered")
-abstract class BaseActivity : AppCompatActivity(), ILce, BaseInit {
+abstract class BaseActivity : AppCompatActivity(), ILce, BaseActivityInit {
 
     /**
      * Activity中显示加载等待的控件。
@@ -57,7 +54,7 @@ abstract class BaseActivity : AppCompatActivity(), ILce, BaseInit {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         BarUtils.transparentStatusBar(this)
-        setContentView(getLayoutId())
+        setContentView(getLayoutView())
         ActivityCollector.add(WeakReference(this))
         weakRefActivity = WeakReference(this)
         initView()
@@ -66,8 +63,8 @@ abstract class BaseActivity : AppCompatActivity(), ILce, BaseInit {
 
     override fun initData() {}
 
-    override fun setContentView(layoutResID: Int) {
-        super.setContentView(layoutResID)
+    override fun setContentView(view: View?) {
+        super.setContentView(view)
         setupViews()
     }
 

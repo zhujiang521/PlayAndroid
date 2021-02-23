@@ -20,7 +20,7 @@ import com.zj.core.view.base.lce.ILce
 /**
  * 应用程序中所有Fragment的基类。
  */
-abstract class BaseFragment : Fragment(), ILce, BaseInit {
+abstract class BaseFragment : Fragment(), ILce, BaseFragmentInit {
 
     /**
      * Fragment中由于服务器异常导致加载失败显示的布局。
@@ -53,7 +53,7 @@ abstract class BaseFragment : Fragment(), ILce, BaseInit {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val frameLayout = FrameLayout(context!!)
+        val frameLayout = FrameLayout(requireContext())
         val lce = View.inflate(context, R.layout.layout_lce, null)
         val params = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT,
@@ -69,7 +69,7 @@ abstract class BaseFragment : Fragment(), ILce, BaseInit {
             0
         )
         lce.layoutParams = params
-        val content = inflater.inflate(getLayoutId(), container, false)
+        val content = getLayoutView(inflater, container, false)
         frameLayout.addView(content)
         frameLayout.addView(lce)
         onCreateView(lce)

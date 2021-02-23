@@ -1,9 +1,9 @@
 package com.zj.play.base
 
 import android.content.res.Configuration
-import com.zj.play.R
+import android.view.View
+import com.zj.play.databinding.ActivityBaseListBinding
 import com.zj.play.home.ArticleCollectBaseActivity
-import kotlinx.android.synthetic.main.activity_base_list.*
 
 /**
  * 版权：Zhujiang 个人版权
@@ -15,9 +15,13 @@ import kotlinx.android.synthetic.main.activity_base_list.*
  */
 abstract class BaseListActivity : ArticleCollectBaseActivity() {
 
-    override fun getLayoutId(): Int = R.layout.activity_base_list
-
+    protected lateinit var binding: ActivityBaseListBinding
     protected var page = 1
+
+    override fun getLayoutView(): View {
+        binding = ActivityBaseListBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
     override fun initData() {
         getDataList()
@@ -26,8 +30,8 @@ abstract class BaseListActivity : ArticleCollectBaseActivity() {
     abstract fun getDataList()
 
     override fun initView() {
-        baseListToTop.setRecyclerViewLayoutManager(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
-        baseListToTop.onRefreshListener({
+        binding.baseListToTop.setRecyclerViewLayoutManager(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
+        binding.baseListToTop.onRefreshListener({
             page = 1
             getDataList()
         }, {

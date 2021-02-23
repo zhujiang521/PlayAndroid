@@ -18,10 +18,9 @@ import com.zj.core.view.base.BaseActivity
 import com.zj.model.model.CollectX
 import com.zj.model.room.entity.Article
 import com.zj.play.R
+import com.zj.play.databinding.ActivityArticleBinding
 import com.zj.play.profile.share.ShareActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_article.*
-
 
 const val PAGE_NAME = "PAGE_NAME"
 const val PAGE_URL = "PAGE_URL"
@@ -33,8 +32,8 @@ const val IS_COLLECTION = "IS_COLLECTION"
 @AndroidEntryPoint
 class ArticleActivity : BaseActivity(), View.OnClickListener {
 
-    override fun getLayoutId(): Int = R.layout.activity_article
 
+    private lateinit var binding: ActivityArticleBinding
     private val viewModel by viewModels<ArticleViewModel>()
 
     private var pageName = ""
@@ -47,6 +46,11 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
     private lateinit var bottomDialogTvCollect: TextView
     private var bottomSheetDialog: BottomSheetDialog? = null
 
+    override fun getLayoutView(): View {
+        binding = ActivityArticleBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
     override fun initData() {
         pageName = intent.getStringExtra(PAGE_NAME) ?: ""
         pageUrl = intent.getStringExtra(PAGE_URL) ?: ""
@@ -54,19 +58,19 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
         isCollection = intent.getIntExtra(IS_COLLECTION, -1)
         originId = intent.getIntExtra(ORIGIN_ID, -1)
         userId = intent.getIntExtra(USER_ID, -1)
-        articleTxtTitle.text = getHtmlText(pageName)
-        articleWebView.loadUrl(pageUrl)
+        binding.articleTxtTitle.text = getHtmlText(pageName)
+        binding.articleWebView.loadUrl(pageUrl)
     }
 
     override fun initView() {
         window.setFormat(PixelFormat.TRANSLUCENT)
-        articleImgBack.setOnClickListener(this)
-        articleImgRight.setOnClickListener(this)
+        binding.articleImgBack.setOnClickListener(this)
+        binding.articleImgRight.setOnClickListener(this)
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_BACK && articleWebView.canGoBack()) {
-            articleWebView.goBack() //返回上个页面
+        if (keyCode == KeyEvent.KEYCODE_BACK && binding.articleWebView.canGoBack()) {
+            binding.articleWebView.goBack() //返回上个页面
             return true
         }
         return super.onKeyDown(keyCode, event) //退出H5界面
@@ -111,9 +115,9 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.articleImgBack -> {
-                if (articleWebView.canGoBack()) {
+                if (binding.articleWebView.canGoBack()) {
                     //返回上个页面
-                    articleWebView.goBack()
+                    binding.articleWebView.goBack()
                     return
                 } else {
                     finish()
@@ -155,25 +159,25 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.bottomDialogLlReload -> {
                 bottomSheetDialog?.dismiss()
-                articleWebView.reload()
+                binding.articleWebView.reload()
             }
         }
     }
 
     override fun onResume() {
         super.onResume()
-        articleWebView.onResume()
+        binding.articleWebView.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        articleWebView.onPause()
+        binding.articleWebView.onPause()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         bottomSheetDialog?.cancel()
-        articleWebView.destroy()
+        binding.articleWebView.destroy()
     }
 
     companion object {

@@ -1,7 +1,9 @@
 package com.zj.play.profile
 
 import android.app.AlertDialog
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.core.Play
 import com.zj.core.Play.logout
@@ -9,17 +11,18 @@ import com.zj.core.view.base.BaseFragment
 import com.zj.play.R
 import com.zj.play.main.login.LoginActivity
 import com.zj.play.article.ArticleBroadCast
+import com.zj.play.databinding.FragmentProfileBinding
 import com.zj.play.main.login.AccountRepository
 import com.zj.play.profile.rank.list.RankActivity
 import com.zj.play.profile.share.ShareActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_profile.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment(), View.OnClickListener {
 
-    override fun getLayoutId(): Int = R.layout.fragment_profile
+    private lateinit var binding: FragmentProfileBinding
+
     @Inject
     lateinit var accountRepository: AccountRepository
 
@@ -36,33 +39,42 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
         R.drawable.ic_account_circle_black_24dp
     )
 
+    override fun getLayoutView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        attachToRoot: Boolean
+    ): View {
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun initView() {
-        profileTitleBar.setRightImage(R.drawable.btn_right_right_bg)
-        profileTitleBar.setRightImgOnClickListener {
+        binding.profileTitleBar.setRightImage(R.drawable.btn_right_right_bg)
+        binding.profileTitleBar.setRightImgOnClickListener {
             RankActivity.actionStart(requireContext())
         }
-        profileIvHead.setOnClickListener(this)
-        profileTvName.setOnClickListener(this)
-        profileTvRank.setOnClickListener(this)
-        profileBtnLogout.setOnClickListener(this)
-        profileRv.layoutManager = LinearLayoutManager(context)
+        binding.profileIvHead.setOnClickListener(this)
+        binding.profileTvName.setOnClickListener(this)
+        binding.profileTvRank.setOnClickListener(this)
+        binding.profileBtnLogout.setOnClickListener(this)
+        binding.profileRv.layoutManager = LinearLayoutManager(context)
         profileAdapter = ProfileAdapter(requireContext(), profileItemList)
-        profileRv.adapter = profileAdapter
+        binding.profileRv.adapter = profileAdapter
         if (Play.isLogin) {
-            profileIvHead.setBackgroundResource(R.drawable.ic_head)
-            profileTvName.text = Play.nickName
-            profileTvRank.text = Play.username
-            profileBtnLogout.visibility = View.VISIBLE
+            binding.profileIvHead.setBackgroundResource(R.drawable.ic_head)
+            binding.profileTvName.text = Play.nickName
+            binding.profileTvRank.text = Play.username
+            binding.profileBtnLogout.visibility = View.VISIBLE
         } else {
             clearInfo()
         }
     }
 
     private fun clearInfo() {
-        profileBtnLogout.visibility = View.GONE
-        profileIvHead.setBackgroundResource(R.drawable.img_nomal_head)
-        profileTvName.text = getString(R.string.no_login)
-        profileTvRank.text = getString(R.string.click_login)
+        binding.profileBtnLogout.visibility = View.GONE
+        binding.profileIvHead.setBackgroundResource(R.drawable.img_nomal_head)
+        binding.profileTvName.text = getString(R.string.no_login)
+        binding.profileTvRank.text = getString(R.string.click_login)
         ArticleBroadCast.sendArticleChangesReceiver(requireContext())
     }
 

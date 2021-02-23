@@ -22,7 +22,7 @@ abstract class ArticleCollectBaseFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         articleReceiver =
-            ArticleBroadCast.setArticleChangesReceiver(activity!!) { refreshData() }
+            ArticleBroadCast.setArticleChangesReceiver(requireActivity()) { refreshData() }
         LiveDataBus.get().getChannel(LOGIN_REFRESH, Boolean::class.java).observe(this, {
             Log.e("ZHUJIANG", "Fragment onResume: $it" )
             if (it) refreshData()
@@ -33,7 +33,7 @@ abstract class ArticleCollectBaseFragment : BaseFragment() {
 
     override fun onPause() {
         super.onPause()
-        ArticleBroadCast.clearArticleChangesReceiver(activity!!, articleReceiver)
+        ArticleBroadCast.clearArticleChangesReceiver(requireActivity(), articleReceiver)
     }
 
 }

@@ -54,7 +54,7 @@
 
         </LinearLayout>
 
-        <com.zj.core.view.custom.ToTopRecyclerView
+        <com.zj.play.base.ToTopRecyclerView
             android:id="@+id/shareToTopRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

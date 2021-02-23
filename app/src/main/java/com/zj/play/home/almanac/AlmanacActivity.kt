@@ -3,6 +3,7 @@ package com.zj.play.home.almanac
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.view.View
 import androidx.activity.viewModels
 import com.zj.core.almanac.ProgrammerCalendar
 import com.zj.core.util.IntentShareUtils
@@ -10,8 +11,8 @@ import com.zj.core.util.ProgressDialogUtil
 import com.zj.core.util.showToast
 import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
+import com.zj.play.databinding.ActivityAlmanacBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_almanac.*
 import java.util.*
 
 @AndroidEntryPoint
@@ -24,15 +25,18 @@ class AlmanacActivity : BaseActivity() {
         R.drawable.almanac_number_9
     )
     private var progressDialogUtil: ProgressDialogUtil? = null
-
+    private lateinit var binding: ActivityAlmanacBinding
     private val viewModel by viewModels<AlmanacViewModel>()
 
-    override fun getLayoutId(): Int = R.layout.activity_almanac
+    override fun getLayoutView(): View {
+        binding = ActivityAlmanacBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
     override fun initView() {
-        almanacTitleBar.setRightImage(R.drawable.almanac_share_button)
-        almanacTitleBar.setRightImgOnClickListener {
-            viewModel.shareAlmanac(this, almanacRootView, Calendar.getInstance())
+        binding.almanacTitleBar.setRightImage(R.drawable.almanac_share_button)
+        binding.almanacTitleBar.setRightImgOnClickListener {
+            viewModel.shareAlmanac(this, binding.almanacRootView, Calendar.getInstance())
         }
         viewModel.state.observe(this) {
             when (it) {
@@ -69,18 +73,18 @@ class AlmanacActivity : BaseActivity() {
     private fun bindView() {
         val hl = ProgrammerCalendar()
         val pickTodayLuck = hl.pickTodayLuck()
-        almanacTvDate.text = hl.todayString
-        almanacTvWeekDate.text = hl.weekString
-        almanacTvSeat.text = "【座位朝向】面向" + hl.directions[hl.random(
+        binding.almanacTvDate.text = hl.todayString
+        binding.almanacTvWeekDate.text = hl.weekString
+        binding.almanacTvSeat.text = "【座位朝向】面向" + hl.directions[hl.random(
             hl.iday,
             2
         ) % hl.directions.size] + "写程序，BUG 最少。"
-        almanacTvDrink.text = "【今日宜饮】" + hl.pickRandomDrinks(2)
-        almanacTvGoddess.text = "【女神亲近指数】" + hl.star(hl.random(hl.iday, 6) % 5 + 1)
-        almanacTvYi.text = pickTodayLuck[0]
-        almanacTvJi.text = pickTodayLuck[1]
-        almanacIvNumberOne.setImageResource(dayImages[hl.todayInt / 10])
-        almanacIvNumberTwo.setImageResource(dayImages[hl.todayInt % 10])
+        binding.almanacTvDrink.text = "【今日宜饮】" + hl.pickRandomDrinks(2)
+        binding.almanacTvGoddess.text = "【女神亲近指数】" + hl.star(hl.random(hl.iday, 6) % 5 + 1)
+        binding.almanacTvYi.text = pickTodayLuck[0]
+        binding.almanacTvJi.text = pickTodayLuck[1]
+        binding.almanacIvNumberOne.setImageResource(dayImages[hl.todayInt / 10])
+        binding.almanacIvNumberTwo.setImageResource(dayImages[hl.todayInt % 10])
     }
 
     override fun onDestroy() {

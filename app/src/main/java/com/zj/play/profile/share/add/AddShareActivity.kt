@@ -10,21 +10,26 @@ import com.zj.core.util.showToast
 import com.zj.core.view.base.BaseActivity
 import com.zj.play.profile.share.ShareRepository
 import com.zj.play.R
+import com.zj.play.databinding.ActivityAddShareBinding
 import com.zj.play.main.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_add_share.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddShareActivity : BaseActivity(), View.OnClickListener {
 
+    private lateinit var binding: ActivityAddShareBinding
+
     @Inject
     lateinit var shareRepository: ShareRepository
 
-    override fun getLayoutId(): Int = R.layout.activity_add_share
+    override fun getLayoutView(): View {
+        binding = ActivityAddShareBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
     override fun initView() {
-        addShareBtnAdd.setOnClickListener(this)
+        binding.addShareBtnAdd.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
@@ -41,18 +46,18 @@ class AddShareActivity : BaseActivity(), View.OnClickListener {
             LoginActivity.actionStart(this)
             return
         }
-        val title = addShareEtTitle.text.toString().trim()
+        val title = binding.addShareEtTitle.text.toString().trim()
         if (TextUtils.isEmpty(title) || title == "") {
-            addShareEtTitle.error = getString(R.string.title_cannot_empty)
+            binding.addShareEtTitle.error = getString(R.string.title_cannot_empty)
             return
         }
-        val link = addShareEtLink.text.toString().trim()
+        val link = binding.addShareEtLink.text.toString().trim()
         if (TextUtils.isEmpty(link) || link == "") {
-            addShareEtLink.error = getString(R.string.link_cannot_empty)
+            binding.addShareEtLink.error = getString(R.string.link_cannot_empty)
             return
         }
         if (!RegexUtils.isURL(link)) {
-            addShareEtLink.error = getString(R.string.link_format_error)
+            binding.addShareEtLink.error = getString(R.string.link_format_error)
             return
         }
         shareRepository.shareArticle(title, link).observe(this, {

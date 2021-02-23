@@ -9,11 +9,11 @@ import com.zj.model.model.CoinInfo
 import com.zj.model.model.ShareModel
 import com.zj.play.R
 import com.zj.play.article.ArticleAdapter
+import com.zj.play.databinding.ActivityShareBinding
 import com.zj.play.home.ArticleCollectBaseActivity
 import com.zj.play.profile.rank.user.UserRankActivity
 import com.zj.play.profile.share.add.AddShareActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_share.*
 
 const val IS_MINE = "IS_MINE"
 const val USER_ID = "USER_ID"
@@ -21,18 +21,22 @@ const val USER_ID = "USER_ID"
 @AndroidEntryPoint
 class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
 
+    private lateinit var binding: ActivityShareBinding
     private val viewModel by viewModels<ShareViewModel>()
     private var isMine: Boolean = true
     private var userId: Int = 0
     private lateinit var articleAdapter: ArticleAdapter
     private var page = 1
 
-    override fun getLayoutId(): Int = R.layout.activity_share
+    override fun getLayoutView(): View {
+        binding = ActivityShareBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
     override fun initData() {
         isMine = intent.getBooleanExtra(IS_MINE, true)
         userId = intent.getIntExtra(USER_ID, 0)
-        if (!isMine) shareTitleBar.setTitle(getString(R.string.author_share))
+        if (!isMine) binding.shareTitleBar.setTitle(getString(R.string.author_share))
         if (isMine) {
             setDataStatus(viewModel.articleLiveData) {
                 setArticleData(it)
@@ -43,8 +47,8 @@ class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
             }
         }
         if (Play.isLogin) {
-            shareTitleBar.setRightText(getString(R.string.add))
-            shareTitleBar.setRightTextOnClickListener {
+            binding.shareTitleBar.setRightText(getString(R.string.add))
+            binding.shareTitleBar.setRightTextOnClickListener {
                 AddShareActivity.actionStart(this)
             }
         }
@@ -64,21 +68,21 @@ class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
     }
 
     private fun setUserInfo(coinInfo: CoinInfo) {
-        shareHeadLl.visibility = View.VISIBLE
-        shareTvName.text = coinInfo.username
-        shareTvRank.text =
+        binding.shareHeadLl.visibility = View.VISIBLE
+        binding.shareTvName.text = coinInfo.username
+        binding.shareTvRank.text =
             getString(R.string.man_info, coinInfo.level, coinInfo.rank, coinInfo.coinCount)
     }
 
     override fun initView() {
-        shareTvRank.setOnClickListener(this)
-        shareToTopRecyclerView.setRecyclerViewLayoutManager(true)
+        binding.shareTvRank.setOnClickListener(this)
+        binding.shareToTopRecyclerView.setRecyclerViewLayoutManager(true)
         articleAdapter = ArticleAdapter(
             this,
             viewModel.articleList
         )
-        shareToTopRecyclerView.setAdapter(articleAdapter)
-        shareToTopRecyclerView.onRefreshListener({
+        binding.shareToTopRecyclerView.setAdapter(articleAdapter)
+        binding.shareToTopRecyclerView.onRefreshListener({
             page = 1
             getArticleList()
         }, {

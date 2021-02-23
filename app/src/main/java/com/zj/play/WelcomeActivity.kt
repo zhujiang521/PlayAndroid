@@ -6,16 +6,20 @@ import android.view.View
 import android.view.animation.*
 import com.zj.core.util.showToast
 import com.zj.core.view.base.BaseActivity
+import com.zj.play.databinding.ActivityWelcomeBinding
 import com.zj.play.main.MainActivity
-import kotlinx.android.synthetic.main.activity_welcome.*
-
 
 class WelcomeActivity : BaseActivity(),
     View.OnClickListener {
+
+    private lateinit var binding: ActivityWelcomeBinding
     private var exitTime: Long = 0
     private var animationTime: Long = 500
 
-    override fun getLayoutId(): Int = R.layout.activity_welcome
+    override fun getLayoutView(): View {
+        binding = ActivityWelcomeBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
     private fun initAnimation() {
         val rotateAnimation = RotateAnimation(
@@ -37,7 +41,7 @@ class WelcomeActivity : BaseActivity(),
         alphaAnimation.fillAfter = true
         val animationSet = AnimationSet(true)
         animationSet.addAnimation(alphaAnimation)
-        rlWelcomeBg!!.startAnimation(animationSet)
+        binding.rlWelcomeBg.startAnimation(animationSet)
         animationSet.setAnimationListener(animationListener)
     }
 
@@ -45,7 +49,7 @@ class WelcomeActivity : BaseActivity(),
     @SuppressLint("SetTextI18n")
     override fun initView() {
         initAnimation()
-        rlWelcomeBg.setOnClickListener(this)
+        binding.rlWelcomeBg.setOnClickListener(this)
     }
 
     private val animationListener = object : Animation.AnimationListener {

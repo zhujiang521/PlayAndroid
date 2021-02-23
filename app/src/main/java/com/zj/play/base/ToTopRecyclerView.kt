@@ -1,7 +1,8 @@
-package com.zj.core.view.custom
+package com.zj.play.base
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -9,8 +10,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
-import com.zj.core.R
-import com.zj.core.view.base.BaseListAdapter
+import com.zj.core.view.custom.StaggeredDividerItemDecoration
+import com.zj.play.R
+import com.zj.play.article.ArticleAdapter
+import com.zj.play.article.collect.CollectAdapter
+import com.zj.play.databinding.LayoutToTopBinding
+import com.zj.play.profile.rank.list.RankAdapter
+import com.zj.play.profile.rank.user.UserRankAdapter
 import kotlin.system.measureTimeMillis
 
 /**
@@ -34,28 +40,46 @@ class ToTopRecyclerView @JvmOverloads constructor(
     private fun initView() {
         //加载布局
         View.inflate(mContext, R.layout.layout_to_top, this)
-
-        mToTopSmartRefreshLayout = findViewById(R.id.toTopSmartRefreshLayout)
-        mToTopRecycleView = findViewById(R.id.toTopRecycleView)
-        mToTopIvClick = findViewById(R.id.toTopIvClick)
-        mToTopIvClick.setOnClickListener(this)
-        mToTopRecycleView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (!recyclerView.canScrollVertically(-1)) {
-                    mToTopIvClick.visibility = View.GONE
-                } else if (dy < 0) {
-                    mToTopIvClick.visibility = View.VISIBLE
-                } else if (dy > 0) {
-                    mToTopIvClick.visibility = View.GONE
+        val binding = LayoutToTopBinding.inflate(LayoutInflater.from(context), this, true)
+        binding.apply {
+            mToTopSmartRefreshLayout = toTopSmartRefreshLayout
+            mToTopRecycleView = toTopRecycleView
+            mToTopIvClick = toTopIvClick
+            mToTopIvClick.setOnClickListener(this@ToTopRecyclerView)
+            mToTopRecycleView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    if (!recyclerView.canScrollVertically(-1)) {
+                        mToTopIvClick.visibility = View.GONE
+                    } else if (dy < 0) {
+                        mToTopIvClick.visibility = View.VISIBLE
+                    } else if (dy > 0) {
+                        mToTopIvClick.visibility = View.GONE
+                    }
                 }
-            }
-        })
+            })
+        }
     }
 
-    fun setAdapter(adapter: RecyclerView.Adapter<BaseListAdapter.ViewHolder>) {
+    fun setAdapter(adapter: CollectAdapter) {
         adapter.setHasStableIds(true)
         mToTopRecycleView.adapter = adapter
     }
+
+    fun setAdapter(adapter: ArticleAdapter) {
+        adapter.setHasStableIds(true)
+        mToTopRecycleView.adapter = adapter
+    }
+
+    fun setAdapter(adapter: RankAdapter) {
+        adapter.setHasStableIds(true)
+        mToTopRecycleView.adapter = adapter
+    }
+
+    fun setAdapter(adapter: UserRankAdapter) {
+        adapter.setHasStableIds(true)
+        mToTopRecycleView.adapter = adapter
+    }
+
 
     fun onRefreshListener(onRefreshListener: () -> Unit, onLoadMoreListener: () -> Unit) {
         mToTopSmartRefreshLayout.apply {

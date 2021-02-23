@@ -18,23 +18,27 @@ import com.zj.model.room.PlayDatabase
 import com.zj.model.room.dao.HotKeyDao
 import com.zj.model.room.entity.HotKey
 import com.zj.play.R
+import com.zj.play.databinding.ActivitySearchBinding
 import com.zj.play.home.search.article.ArticleListActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchActivity : BaseActivity(), View.OnClickListener, TextView.OnEditorActionListener {
 
-    override fun getLayoutId(): Int = R.layout.activity_search
-
+    private lateinit var binding: ActivitySearchBinding
     private lateinit var hotKeyDao: HotKeyDao
     private val viewModel by viewModels<SearchViewModel>()
+
+    override fun getLayoutView(): View {
+        binding = ActivitySearchBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
     override fun onResume() {
         super.onResume()
         addFlowView()
-        KeyboardUtils.showSoftInput(searchTxtKeyword)
+        KeyboardUtils.showSoftInput(binding.searchTxtKeyword)
     }
 
     override fun initData() {
@@ -55,7 +59,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener, TextView.OnEditorAc
 
     override fun onPause() {
         super.onPause()
-        KeyboardUtils.hideSoftInput(searchTxtKeyword)
+        KeyboardUtils.hideSoftInput(binding.searchTxtKeyword)
     }
 
     private fun addFlowView() {
@@ -64,10 +68,8 @@ class SearchActivity : BaseActivity(), View.OnClickListener, TextView.OnEditorAc
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        layoutParams.setMargins(10, 5, 10, 15);
-        if (searchFlowLayout != null) {
-            searchFlowLayout.removeAllViews()
-        }
+        layoutParams.setMargins(10, 5, 10, 15)
+        binding.searchFlowLayout.removeAllViews()
         for (i in 0 until viewModel.dataList.size) {
             val item = View.inflate(this, R.layout.layout_search_item, null)
             val tv = item.findViewById<TextView>(R.id.searchTvName)
@@ -84,17 +86,17 @@ class SearchActivity : BaseActivity(), View.OnClickListener, TextView.OnEditorAc
                 lifecycleScope.launch {
                     hotKeyDao.delete(viewModel.dataList[i])
                 }
-                searchFlowLayout.removeView(item)
+                binding.searchFlowLayout.removeView(item)
             }
-            searchFlowLayout.addView(item, layoutParams)
+            binding.searchFlowLayout.addView(item, layoutParams)
         }
     }
 
 
     override fun initView() {
-        searchImgBack.setOnClickListener(this)
-        searchTxtRight.setOnClickListener(this)
-        searchTxtKeyword.setOnEditorActionListener(this)
+        binding.searchImgBack.setOnClickListener(this)
+        binding.searchTxtRight.setOnClickListener(this)
+        binding.searchTxtKeyword.setOnEditorActionListener(this)
     }
 
     override fun onClick(v: View) {
@@ -109,7 +111,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener, TextView.OnEditorAc
     }
 
     private fun toSearch() {
-        val keyword = searchTxtKeyword.text.toString()
+        val keyword = binding.searchTxtKeyword.text.toString()
         if (TextUtils.isEmpty(keyword)) {
             showToast(getString(R.string.keyword_not_null))
             return
@@ -118,7 +120,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener, TextView.OnEditorAc
         lifecycleScope.launch {
             hotKeyDao.insert(hotKey)
         }
-        viewModel.dataList.add(0,hotKey)
+        viewModel.dataList.add(0, hotKey)
         ArticleListActivity.actionStart(this, keyword)
     }
 

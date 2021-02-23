@@ -6,7 +6,6 @@ import androidx.activity.viewModels
 import com.zj.play.R
 import com.zj.play.base.BaseListActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_base_list.*
 
 @AndroidEntryPoint
 class RankActivity : BaseListActivity() {
@@ -28,9 +27,9 @@ class RankActivity : BaseListActivity() {
 
     override fun initView() {
         super.initView()
-        baseListTitleBar.setTitle(getString(R.string.ranking_list))
+        binding.baseListTitleBar.setTitle(getString(R.string.ranking_list))
         rankAdapter = RankAdapter(this, viewModel.dataList)
-        baseListToTop.setAdapter(rankAdapter)
+        binding.baseListToTop.setAdapter(rankAdapter)
     }
 
     override fun isStaggeredGrid(): Boolean {

@@ -1,17 +1,20 @@
 package com.zj.play.main
 
 import android.content.Context
+import android.content.res.Configuration
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import com.zj.play.R
+import com.zj.play.databinding.LayoutHomeBottomTabBinding
 
 
 class HomeBottomTabWidget @JvmOverloads constructor(
     context: Context?,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : BaseHomeBottomTabWidget(context, attrs, defStyleAttr, R.layout.layout_home_bottom_tab),
+) : BaseHomeBottomTabWidget(context, attrs, defStyleAttr),
     View.OnClickListener {
 
     private var textViews: ArrayList<TextView>? = null
@@ -19,19 +22,17 @@ class HomeBottomTabWidget @JvmOverloads constructor(
     /**
      * 初始化 设置点击事件。
      *
-     * @param view /
      */
-    override fun initView(view: View) { //默认第一个碎片
-        view.apply {
-            textViews = arrayListOf(
-                findViewById(R.id.llHomeATHome),
-                findViewById(R.id.llHomeATCalendar),
-                findViewById(R.id.llHomeATObject),
-                findViewById(R.id.llHomeATMy)
-            )
-        }
-        for (textView in textViews!!) {
-            textView.setOnClickListener(this)
+    init { //默认第一个碎片
+        val isPort = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+        if (isPort) {
+            val view = LayoutHomeBottomTabBinding.inflate(LayoutInflater.from(context), this, true)
+            view.apply {
+                textViews = arrayListOf(llHomeATHome, llHomeATCalendar, llHomeATObject, llHomeATMy)
+            }
+            for (textView in textViews!!) {
+                textView.setOnClickListener(this)
+            }
         }
     }
 
@@ -41,7 +42,7 @@ class HomeBottomTabWidget @JvmOverloads constructor(
     override fun destroy() {
         super.destroy()
         if (!textViews.isNullOrEmpty()) {
-            textViews!!.clear()
+            textViews?.clear()
             textViews = null
         }
     }

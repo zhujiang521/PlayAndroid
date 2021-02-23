@@ -15,8 +15,7 @@ import com.zj.play.project.ProjectFragment
 abstract class BaseHomeBottomTabWidget @JvmOverloads constructor(
     context: Context?,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0,
-    layoutId: Int
+    defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr), View.OnClickListener {
 
     private var mFragmentManager: FragmentManager? = null
@@ -43,14 +42,6 @@ abstract class BaseHomeBottomTabWidget @JvmOverloads constructor(
         }
         fragmentManger(viewModel.getPage() ?: 0)
     }
-
-    /**
-     * 初始化 设置点击事件。
-     *
-     * @param view /
-     */
-    @Suppress("LeakingThis")
-    abstract fun initView(view: View)
 
     /**
      * 销毁，避免内存泄漏
@@ -87,10 +78,6 @@ abstract class BaseHomeBottomTabWidget @JvmOverloads constructor(
             }
         }
         currentFragment = targetFg
-    }
-
-    init {
-        initView(View.inflate(context, layoutId, this))
     }
 
     private val mHomeFragment: HomePageFragment by lazy { HomePageFragment.newInstance() }

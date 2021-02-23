@@ -14,23 +14,27 @@ import com.zj.core.util.showToast
 import com.zj.core.view.base.ActivityCollector
 import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
+import com.zj.play.databinding.ActivityLoginBinding
 import com.zj.play.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_login.*
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity(), View.OnClickListener {
 
+    private lateinit var binding:ActivityLoginBinding
     private val viewModel by viewModels<LoginViewModel>()
     private var mUserName = ""
     private var mPassWord = ""
     private var mIsLogin = true
 
-    override fun getLayoutId(): Int = R.layout.activity_login
+    override fun getLayoutView(): View{
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
     override fun initView() {
-        loginButton.setOnClickListener(this)
-        loginTvRegister.setOnClickListener(this)
+        binding.loginButton.setOnClickListener(this)
+        binding.loginTvRegister.setOnClickListener(this)
         @Suppress("COMPATIBILITY_WARNING")
         viewModel.state.observe(this) {
             when (it) {
@@ -52,7 +56,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.loginTvRegister -> {
-                flipAnimatorXViewShow(loginInputElements)
+                flipAnimatorXViewShow(binding.loginInputElements)
             }
             R.id.loginButton -> {
                 loginOrRegister()
@@ -66,9 +70,9 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun updateState() {
-        loginTvRegister.text =
+        binding.loginTvRegister.text =
             if (mIsLogin) getString(R.string.return_login) else getString(R.string.register_account)
-        loginButton.text =
+        binding.loginButton.text =
             if (mIsLogin) getString(R.string.register_account) else getString(R.string.login)
         mIsLogin = !mIsLogin
     }
@@ -91,14 +95,14 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun judge(): Boolean {
-        mUserName = loginUserNumberEdit.text.toString()
-        mPassWord = loginPassNumberEdit.text.toString()
+        mUserName = binding.loginUserNumberEdit.text.toString()
+        mPassWord = binding.loginPassNumberEdit.text.toString()
         if (TextUtils.isEmpty(mUserName) || mUserName.length < 6) {
-            loginUserNumberEdit.error = getString(R.string.enter_name_format)
+            binding.loginUserNumberEdit.error = getString(R.string.enter_name_format)
             return false
         }
         if (TextUtils.isEmpty(mPassWord) || mPassWord.length < 6) {
-            loginPassNumberEdit.error = getString(R.string.enter_password_format)
+            binding.loginPassNumberEdit.error = getString(R.string.enter_password_format)
             return false
         }
         if (!NetworkUtils.isConnected()) {
@@ -109,8 +113,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun toProgressVisible(visible: Boolean) {
-        loginProgressBar.visibility = if (visible) View.VISIBLE else View.INVISIBLE
-        loginInputElements.visibility = if (!visible) View.VISIBLE else View.INVISIBLE
+        binding.loginProgressBar.visibility = if (visible) View.VISIBLE else View.INVISIBLE
+        binding.loginInputElements.visibility = if (!visible) View.VISIBLE else View.INVISIBLE
     }
 
     companion object {

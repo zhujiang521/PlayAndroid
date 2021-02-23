@@ -7,7 +7,6 @@ import androidx.lifecycle.lifecycleScope
 import com.zj.play.R
 import com.zj.play.base.BaseListActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_base_list.*
 
 @AndroidEntryPoint
 class CollectListActivity : BaseListActivity() {
@@ -18,7 +17,7 @@ class CollectListActivity : BaseListActivity() {
 
     override fun initData() {
         super.initData()
-        baseListTitleBar.setTitle(getString(R.string.my_collection))
+        binding.baseListTitleBar.setTitle(getString(R.string.my_collection))
         setDataStatus(viewModel.dataLiveData) {
             if (page == 1 && viewModel.dataList.size > 0) {
                 viewModel.dataList.clear()
@@ -35,7 +34,7 @@ class CollectListActivity : BaseListActivity() {
             viewModel.dataList,
             lifecycleScope
         )
-        baseListToTop.setAdapter(articleAdapter)
+        binding.baseListToTop.setAdapter(articleAdapter)
     }
 
     override fun isStaggeredGrid(): Boolean {

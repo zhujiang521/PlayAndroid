@@ -7,7 +7,6 @@ import com.zj.play.R
 import com.zj.play.article.ArticleAdapter
 import com.zj.play.base.BaseListActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_base_list.*
 
 private const val KEYWORD = "KEYWORD"
 
@@ -22,7 +21,7 @@ class ArticleListActivity : BaseListActivity() {
     override fun initData() {
         keyword = intent.getStringExtra(KEYWORD) ?: ""
         super.initData()
-        baseListTitleBar.setTitle(keyword)
+        binding.baseListTitleBar.setTitle(keyword)
         setDataStatus(viewModel.dataLiveData) {
             if (page == 1 && viewModel.dataList.size > 0) {
                 viewModel.dataList.clear()
@@ -41,7 +40,7 @@ class ArticleListActivity : BaseListActivity() {
             this,
             viewModel.dataList
         )
-        baseListToTop.setAdapter(articleAdapter)
+        binding.baseListToTop.setAdapter(articleAdapter)
     }
 
     override fun isStaggeredGrid(): Boolean {

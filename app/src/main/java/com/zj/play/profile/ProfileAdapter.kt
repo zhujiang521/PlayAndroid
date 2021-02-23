@@ -1,16 +1,21 @@
 package com.zj.play.profile
 
 import android.content.Context
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.zj.core.Play
-import com.zj.core.view.base.BaseListAdapter
 import com.zj.play.R
 import com.zj.play.article.ArticleActivity
 import com.zj.play.article.collect.CollectListActivity
+import com.zj.play.databinding.AdapterProfileBinding
 import com.zj.play.main.login.LoginActivity
 import com.zj.play.profile.history.BrowseHistoryActivity
 import com.zj.play.profile.rank.user.UserRankActivity
 import com.zj.play.profile.user.UserActivity
-import kotlinx.android.synthetic.main.adapter_profile.*
 
 /**
  * 版权：Zhujiang 个人版权
@@ -21,12 +26,23 @@ import kotlinx.android.synthetic.main.adapter_profile.*
  *
  */
 class ProfileAdapter(
-    context: Context,
-    profileItemList: ArrayList<ProfileItem>,
-    layoutId: Int = R.layout.adapter_profile
-) : BaseListAdapter<ProfileItem>(context, layoutId, profileItemList) {
+    private val mContext: Context,
+    private val profileItemList: ArrayList<ProfileItem>,
+) : RecyclerView.Adapter<ProfileAdapter.ViewHolder>() {
 
-    override fun convert(holder: ViewHolder, data: ProfileItem, position: Int) {
+    inner class ViewHolder(binding: AdapterProfileBinding) : RecyclerView.ViewHolder(binding.root) {
+        val profileAdTvTitle: TextView = binding.profileAdTvTitle
+        val profileAdIv: ImageView = binding.profileAdIv
+        val profileAdLlItem: LinearLayout = binding.profileAdLlItem
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileAdapter.ViewHolder {
+        val binding = AdapterProfileBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val data = profileItemList[position]
         with(holder) {
             profileAdTvTitle.text = data.title
             profileAdIv.setImageResource(data.imgId)
@@ -35,12 +51,6 @@ class ProfileAdapter(
             }
         }
     }
-
-//    private val booleanKey = "BooleanData"
-//    private val floatKey = "FloatData"
-//    private val intKey = "IntData"
-//    private val longKey = "LongData"
-//    private val stringKey = "StringData"
 
     private fun toJump(title: String) {
         //val dataStore = DataStoreUtils
@@ -144,6 +154,11 @@ class ProfileAdapter(
             }
         }
     }
+
+    override fun getItemCount(): Int {
+        return profileItemList.size
+    }
+
 }
 
 data class ProfileItem(var title: String, var imgId: Int)

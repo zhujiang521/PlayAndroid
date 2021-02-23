@@ -6,25 +6,27 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.View
 import androidx.activity.viewModels
 import com.zj.core.util.showToast
 import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
+import com.zj.play.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
+    private lateinit var binding: ActivityMainBinding
     private val viewModel by viewModels<MainViewModel>()
     var isPort = true
 
     override fun initView() {
         isPort = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
         when (isPort) {
-            true -> homeView.init(supportFragmentManager, viewModel)
-            false -> homeLandView.init(supportFragmentManager, viewModel)
+            true -> binding.homeView.init(supportFragmentManager, viewModel)
+            false -> binding.homeLandView.init(supportFragmentManager, viewModel)
         }
     }
 
@@ -33,7 +35,10 @@ class MainActivity : BaseActivity() {
         //super.onSaveInstanceState(outState)  // 解决fragment重影
     }
 
-    override fun getLayoutId(): Int = R.layout.activity_main
+    override fun getLayoutView(): View {
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
     override fun onBackPressed() {
         super.onBackPressed()

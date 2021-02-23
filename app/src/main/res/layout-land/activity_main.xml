@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zj.play.main.HomeBottomLandTabWidget xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/homeLandView"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent">
+
+    <com.zj.play.main.HomeBottomLandTabWidget
+        android:id="@+id/homeLandView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.zj.play.main.HomeBottomTabWidget
+        android:id="@+id/homeView"
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
+
+</FrameLayout>

@@ -1,41 +1,43 @@
 package com.zj.play.main
 
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.BitmapFactory
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.zj.floating.FloatingMenu
 import com.zj.play.R
+import com.zj.play.databinding.LayoutHomeBottomLandTabBinding
 
 
 class HomeBottomLandTabWidget @JvmOverloads constructor(
     context: Context?,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : BaseHomeBottomTabWidget(context, attrs, defStyleAttr, R.layout.layout_home_bottom_land_tab),
+) : BaseHomeBottomTabWidget(context, attrs, defStyleAttr),
     View.OnClickListener {
 
     private var floatingButtons: ArrayList<FloatingActionButton>? = null
-    private var fabMenu: FloatingMenu? = null
+    private lateinit var fabMenu: FloatingMenu
 
     /**
      * 初始化 设置点击事件。
      *
-     * @param view /
      */
-    override fun initView(view: View) { //默认第一个碎片
-        view.apply {
-            floatingButtons = arrayListOf(
-                findViewById(R.id.fabHome),
-                findViewById(R.id.fabRepo),
-                findViewById(R.id.fabProject),
-                findViewById(R.id.fabProfile)
-            )
-            fabMenu = findViewById(R.id.fabMenu)
-        }
-        for (floatingButton in floatingButtons!!) {
-            floatingButton.setOnClickListener(this)
+    init { //默认第一个碎片
+        val isPort = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+        if (!isPort) {
+            val view =
+                LayoutHomeBottomLandTabBinding.inflate(LayoutInflater.from(context), this, true)
+            view.apply {
+                floatingButtons = arrayListOf(fabHome, fabRepo, fabProject, fabProfile)
+            }
+            fabMenu = view.fabMenu
+            for (floatingButton in floatingButtons!!) {
+                floatingButton.setOnClickListener(this)
+            }
         }
     }
 
@@ -45,7 +47,7 @@ class HomeBottomLandTabWidget @JvmOverloads constructor(
     override fun destroy() {
         super.destroy()
         if (!floatingButtons.isNullOrEmpty()) {
-            floatingButtons!!.clear()
+            floatingButtons?.clear()
             floatingButtons = null
         }
     }
@@ -77,7 +79,7 @@ class HomeBottomLandTabWidget @JvmOverloads constructor(
      */
     override fun fragmentManger(position: Int) {
         super.fragmentManger(position)
-        fabMenu?.setCover(
+        fabMenu.setCover(
             BitmapFactory.decodeResource(
                 context.resources,
                 when (position) {
@@ -89,8 +91,7 @@ class HomeBottomLandTabWidget @JvmOverloads constructor(
                 }
             )
         )
-        if (fabMenu != null && fabMenu!!.isExpanded)
-            fabMenu!!.toggle()
+        if (fabMenu.isExpanded) fabMenu.toggle()
         for (j in floatingButtons!!.indices) {
             floatingButtons!![j].isSelected = position == j
         }

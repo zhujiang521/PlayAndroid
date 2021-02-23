@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -21,11 +21,10 @@
         android:layout_width="@dimen/dp_40"
         android:layout_height="@dimen/dp_40"
         android:layout_gravity="right|bottom"
-        android:layout_marginRight="@dimen/dp_90"
-        android:layout_marginBottom="@dimen/dp_30"
+        android:layout_margin="@dimen/dp_20"
         android:background="@drawable/to_top_bg"
         android:padding="@dimen/dp_8"
         android:src="@drawable/img_to_top"
         android:visibility="gone" />
 
-</merge>
+</FrameLayout>

@@ -8,7 +8,6 @@ import com.zj.play.R
 import com.zj.play.article.ArticleAdapter
 import com.zj.play.base.BaseListActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_base_list.*
 
 @AndroidEntryPoint
 class BrowseHistoryActivity : BaseListActivity() {
@@ -23,8 +22,8 @@ class BrowseHistoryActivity : BaseListActivity() {
             viewModel.dataList,
             false
         )
-        baseListToTop.setAdapter(articleAdapter)
-        baseListTitleBar.setTitle(getString(R.string.browsing_history))
+        binding.baseListToTop.setAdapter(articleAdapter)
+        binding.baseListTitleBar.setTitle(getString(R.string.browsing_history))
     }
 
     override fun isStaggeredGrid(): Boolean {

@@ -3,7 +3,6 @@ package com.zj.play.project.list
 import android.os.Bundle
 import androidx.fragment.app.viewModels
 import com.zj.model.pojo.QueryArticle
-import com.zj.play.R
 import com.zj.play.article.ArticleAdapter
 import com.zj.play.base.BaseListFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,8 +30,6 @@ class ProjectListFragment : BaseListFragment() {
     override fun isHaveHeadMargin(): Boolean {
         return false
     }
-
-    override fun getLayoutId(): Int = R.layout.fragment_base_list
 
     override fun initView() {
         articleAdapter = ArticleAdapter(requireContext(), viewModel.dataList)

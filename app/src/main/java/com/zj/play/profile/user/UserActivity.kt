@@ -2,12 +2,16 @@ package com.zj.play.profile.user
 
 import android.content.Context
 import android.content.Intent
+import android.view.View
 import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
+import com.zj.play.databinding.ActivityUserInfoBinding
 
 class UserActivity : BaseActivity() {
 
-    override fun getLayoutId(): Int = R.layout.activity_user_info
+    override fun getLayoutView(): View {
+        return ActivityUserInfoBinding.inflate(layoutInflater).root
+    }
 
     override fun initView() {}
 
