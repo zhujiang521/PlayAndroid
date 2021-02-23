@@ -14,15 +14,11 @@ import java.util.*
  * 创建日期：2020/5/19
  * 描述：PlayAndroid
  */
-class FlowLayout : ViewGroup {
-
-    constructor(context: Context?) : this(context, null)
-    constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    )
+class FlowLayout @JvmOverloads constructor(
+    context: Context?,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : ViewGroup(context, attrs, defStyleAttr) {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         //   super.onMeasure(widthMeasureSpec, heightMeasureSpec);
