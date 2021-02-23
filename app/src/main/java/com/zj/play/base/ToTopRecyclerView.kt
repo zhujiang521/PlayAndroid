@@ -60,26 +60,10 @@ class ToTopRecyclerView @JvmOverloads constructor(
         }
     }
 
-    fun setAdapter(adapter: CollectAdapter) {
+    fun setAdapter(adapter: RecyclerView.Adapter<*>) {
         adapter.setHasStableIds(true)
         mToTopRecycleView.adapter = adapter
     }
-
-    fun setAdapter(adapter: ArticleAdapter) {
-        adapter.setHasStableIds(true)
-        mToTopRecycleView.adapter = adapter
-    }
-
-    fun setAdapter(adapter: RankAdapter) {
-        adapter.setHasStableIds(true)
-        mToTopRecycleView.adapter = adapter
-    }
-
-    fun setAdapter(adapter: UserRankAdapter) {
-        adapter.setHasStableIds(true)
-        mToTopRecycleView.adapter = adapter
-    }
-
 
     fun onRefreshListener(onRefreshListener: () -> Unit, onLoadMoreListener: () -> Unit) {
         mToTopSmartRefreshLayout.apply {
