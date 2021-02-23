@@ -18,11 +18,23 @@ import com.zj.core.util.showToast
 import com.zj.play.R
 import java.util.*
 
-class X5WebView(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : WebView(
-    context,
-    attrs,
-    defStyleAttr
-) {
+class X5WebView : WebView {
+
+    constructor(context: Context?) : super(context) {
+        initUI()
+    }
+
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
+        initUI()
+    }
+
+    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
+        initUI()
+    }
 
     private var progressBar: ProgressBar? = null
 
@@ -30,7 +42,7 @@ class X5WebView(context: Context?, attrs: AttributeSet? = null, defStyleAttr: In
         progressBar?.isVisible = showProgress
     }
 
-    init {
+    private fun initUI() {
 //        x5WebViewExtension.setScrollBarFadingEnabled(false);
         isHorizontalScrollBarEnabled = false //水平不显示小方块
         isVerticalScrollBarEnabled = false //垂直不显示小方块
