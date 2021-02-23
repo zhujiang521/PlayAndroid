@@ -20,8 +20,6 @@ class HomePageFragment : ArticleCollectBaseFragment() {
     private val viewModel by viewModels<HomePageViewModel>()
     private var binding: FragmentHomePageBinding? = null
 
-    //override fun getLayoutView(): Int = R.layout.fragment_home_page
-
     override fun getLayoutView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -3,12 +3,15 @@ package com.zj.core.view.custom
 import android.app.Activity
 import android.content.Context
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.view.isVisible
 import com.blankj.utilcode.util.KeyboardUtils
 import com.zj.core.R
+import com.zj.core.databinding.LayoutTitleBinding
 
 /**
  * 自定义头部View
@@ -20,10 +23,11 @@ class TitleBar @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : RelativeLayout(mContext, attrs, defStyleAttr), View.OnClickListener {
-    private lateinit var mTitleTv: TextView
-    private lateinit var mImgBack: ImageView
-    private lateinit var mImgRight: ImageView
-    private lateinit var mTxtRight: TextView
+
+    private var mTitleTv: TextView
+    private var mImgBack: ImageView
+    private var mImgRight: ImageView
+    private var mTxtRight: TextView
     private var titleName: String? = null
     private var backImageVisible: Boolean? = null
 
@@ -37,25 +41,23 @@ class TitleBar @JvmOverloads constructor(
     /**
      * 初始化布局
      */
-    private fun initView() {
+    init {
         //加载布局
         View.inflate(mContext, R.layout.layout_title, this)
-
-        //控制头布局，返回关闭页面
-        mImgBack = findViewById(R.id.imgBack)
-        //控制标题
-        mTitleTv = findViewById(R.id.txtTitle)
-        //右边图片
-        mImgRight = findViewById(R.id.imgRight)
-        //右边文字
-        mTxtRight = findViewById(R.id.txtRight)
+        val binding = LayoutTitleBinding.inflate(LayoutInflater.from(context), this, true)
+        binding.apply {
+            //控制头布局，返回关闭页面
+            mImgBack = imgBack
+            //控制标题
+            mTitleTv = txtTitle
+            //右边图片
+            mImgRight = imgRight
+            //右边文字
+            mTxtRight = txtRight
+        }
         mImgBack.setOnClickListener(this)
-        if (titleName != null) {
-            mTitleTv.text = titleName
-        }
-        if (backImageVisible != null) {
-            setBackImageVisible(backImageVisible!!)
-        }
+        mTitleTv.text = titleName ?: ""
+        setBackImageVisible(backImageVisible ?: true)
     }
 
     /**
@@ -84,11 +86,7 @@ class TitleBar @JvmOverloads constructor(
      * @param imageVisible 是否显示
      */
     fun setBackImageVisible(imageVisible: Boolean) {
-        if (imageVisible) {
-            mImgBack.visibility = View.VISIBLE
-        } else {
-            mImgBack.visibility = View.GONE
-        }
+        mImgBack.isVisible = imageVisible
     }
 
     /**
@@ -157,7 +155,4 @@ class TitleBar @JvmOverloads constructor(
         mTitleTv.setOnClickListener(onClickListener)
     }
 
-    init {
-        initView()
-    }
 }

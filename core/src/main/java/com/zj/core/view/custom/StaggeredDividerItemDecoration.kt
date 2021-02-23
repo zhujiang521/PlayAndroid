@@ -23,7 +23,6 @@ class StaggeredDividerItemDecoration(private val context: Context, private val i
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
-//        int position = parent.getChildAdapterPosition(view);
         val params = view.layoutParams as StaggeredGridLayoutManager.LayoutParams
         // 获取item在span中的下标
         val spanIndex = params.spanIndex

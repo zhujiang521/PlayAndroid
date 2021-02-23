@@ -32,7 +32,6 @@ const val IS_COLLECTION = "IS_COLLECTION"
 @AndroidEntryPoint
 class ArticleActivity : BaseActivity(), View.OnClickListener {
 
-
     private lateinit var binding: ActivityArticleBinding
     private val viewModel by viewModels<ArticleViewModel>()
 

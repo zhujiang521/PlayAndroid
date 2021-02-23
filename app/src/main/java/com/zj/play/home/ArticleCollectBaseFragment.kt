@@ -24,7 +24,7 @@ abstract class ArticleCollectBaseFragment : BaseFragment() {
         articleReceiver =
             ArticleBroadCast.setArticleChangesReceiver(requireActivity()) { refreshData() }
         LiveDataBus.get().getChannel(LOGIN_REFRESH, Boolean::class.java).observe(this, {
-            Log.e("ZHUJIANG", "Fragment onResume: $it" )
+            Log.e(TAG, "Fragment onResume: $it")
             if (it) refreshData()
         })
     }
@@ -34,6 +34,10 @@ abstract class ArticleCollectBaseFragment : BaseFragment() {
     override fun onPause() {
         super.onPause()
         ArticleBroadCast.clearArticleChangesReceiver(requireActivity(), articleReceiver)
+    }
+
+    companion object {
+        private const val TAG = "ArticleCollectBaseFragm"
     }
 
 }

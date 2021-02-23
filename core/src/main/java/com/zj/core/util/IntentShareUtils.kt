@@ -1,5 +1,6 @@
 package com.zj.core.util
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -14,6 +15,7 @@ import android.net.Uri
  */
 object IntentShareUtils {
 
+    @SuppressLint("QueryPermissionsNeeded")
     fun shareFile(activity: Activity, uri: Uri?, title: String) {
         val intent = Intent(Intent.ACTION_SEND).apply {
             type = "image/*"

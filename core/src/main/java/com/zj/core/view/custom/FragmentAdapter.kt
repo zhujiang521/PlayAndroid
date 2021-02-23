@@ -26,27 +26,26 @@ class FragmentAdapter(private val mFragmentManager: FragmentManager?) : Fragment
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        if (isUpdateFlag) {
-            var f = super.instantiateItem(container, position) as Fragment
-            val fragmentTag = f.tag
-            if (f !== getItem(position)) {
-                //如果是新建的fragment，f 就和getItem(position)是同一个fragment，否则进入下面
-                val ft = mFragmentManager?.beginTransaction()
-                ft?.apply {
-                    //移除旧的fragment
-                    remove(f)
-                    //换成新的fragment
-                    f = getItem(position)
-                    //添加新fragment时必须用前面获得的tag
-                    add(container.id, f, fragmentTag)
-                    attach(f)
-                    setReorderingAllowed(true)
-                    commitAllowingStateLoss()
-                }
-            }
-            return f
+        if (!isUpdateFlag) {
+            return super.instantiateItem(container, position)
         }
-        return super.instantiateItem(container, position)
+        var f = super.instantiateItem(container, position) as Fragment
+        val fragmentTag = f.tag
+        if (f === getItem(position)) return f
+        //如果是新建的fragment，f 就和getItem(position)是同一个fragment，否则进入下面
+        val ft = mFragmentManager?.beginTransaction()
+        ft?.apply {
+            //移除旧的fragment
+            remove(f)
+            //换成新的fragment
+            f = getItem(position)
+            //添加新fragment时必须用前面获得的tag
+            add(container.id, f, fragmentTag)
+            attach(f)
+            setReorderingAllowed(true)
+            commitAllowingStateLoss()
+        }
+        return f
     }
 
     fun reset(fragments: List<Fragment>?) {

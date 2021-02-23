@@ -29,6 +29,7 @@ class AccountRepository @Inject constructor() {
 
 }
 
+private const val TAG = "AccountRepository"
 
 fun <T> fires(block: suspend () -> BaseModel<T>) =
     liveData {
@@ -39,14 +40,14 @@ fun <T> fires(block: suspend () -> BaseModel<T>) =
                 Result.success(model)
             } else {
                 Log.e(
-                    "ZHUJIANG哈哈fires",
+                    TAG,
                     "fires: response status is ${baseModel.errorCode}  msg is ${baseModel.errorMsg}"
                 )
                 showToast(baseModel.errorMsg)
                 Result.failure(RuntimeException(baseModel.errorMsg))
             }
         } catch (e: Exception) {
-            Log.e("ZHUJIANG哈哈哈fires", e.toString())
+            Log.e(TAG, e.toString())
             Result.failure(e)
         }
         emit(result)
@@ -57,7 +58,7 @@ fun <T> fire(block: suspend () -> Result<T>) =
         val result = try {
             block()
         } catch (e: Exception) {
-            Log.e("ZHUJIANG哈哈哈fire", e.toString())
+            Log.e(TAG, "fire $e")
             Result.failure(e)
         }
         emit(result)

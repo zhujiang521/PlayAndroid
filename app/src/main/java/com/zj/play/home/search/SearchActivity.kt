@@ -94,9 +94,11 @@ class SearchActivity : BaseActivity(), View.OnClickListener, TextView.OnEditorAc
 
 
     override fun initView() {
-        binding.searchImgBack.setOnClickListener(this)
-        binding.searchTxtRight.setOnClickListener(this)
-        binding.searchTxtKeyword.setOnEditorActionListener(this)
+        binding.apply {
+            searchImgBack.setOnClickListener(this@SearchActivity)
+            searchTxtRight.setOnClickListener(this@SearchActivity)
+            searchTxtKeyword.setOnEditorActionListener(this@SearchActivity)
+        }
     }
 
     override fun onClick(v: View) {

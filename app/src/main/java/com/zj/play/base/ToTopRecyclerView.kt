@@ -29,6 +29,7 @@ class ToTopRecyclerView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : FrameLayout(mContext, attrs, defStyleAttr), View.OnClickListener {
+
     private lateinit var mToTopSmartRefreshLayout: SmartRefreshLayout
     private lateinit var mToTopRecycleView: RecyclerView
     private lateinit var mToTopIvClick: ImageView
@@ -39,7 +40,6 @@ class ToTopRecyclerView @JvmOverloads constructor(
      */
     private fun initView() {
         //加载布局
-        View.inflate(mContext, R.layout.layout_to_top, this)
         val binding = LayoutToTopBinding.inflate(LayoutInflater.from(context), this, true)
         binding.apply {
             mToTopSmartRefreshLayout = toTopSmartRefreshLayout

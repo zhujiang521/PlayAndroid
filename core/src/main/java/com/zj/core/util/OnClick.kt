@@ -11,7 +11,6 @@ import android.view.View
  *
  */
 
-
 inline fun View.setSafeListener(crossinline action: () -> Unit) {
     var lastClick = 0L
     setOnClickListener {

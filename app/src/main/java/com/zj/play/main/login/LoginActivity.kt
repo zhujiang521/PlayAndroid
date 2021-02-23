@@ -8,6 +8,7 @@ import android.text.TextUtils
 import android.view.View
 import android.view.animation.OvershootInterpolator
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.lifecycle.observe
 import com.blankj.utilcode.util.NetworkUtils
 import com.zj.core.util.showToast
@@ -21,13 +22,13 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LoginActivity : BaseActivity(), View.OnClickListener {
 
-    private lateinit var binding:ActivityLoginBinding
+    private lateinit var binding: ActivityLoginBinding
     private val viewModel by viewModels<LoginViewModel>()
     private var mUserName = ""
     private var mPassWord = ""
     private var mIsLogin = true
 
-    override fun getLayoutView(): View{
+    override fun getLayoutView(): View {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -113,8 +114,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun toProgressVisible(visible: Boolean) {
-        binding.loginProgressBar.visibility = if (visible) View.VISIBLE else View.INVISIBLE
-        binding.loginInputElements.visibility = if (!visible) View.VISIBLE else View.INVISIBLE
+        binding.loginProgressBar.isVisible = visible
+        binding.loginInputElements.isVisible = !visible
     }
 
     companion object {

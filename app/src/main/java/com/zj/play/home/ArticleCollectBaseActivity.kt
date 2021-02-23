@@ -23,7 +23,7 @@ abstract class ArticleCollectBaseActivity : BaseActivity() {
         articleReceiver =
             ArticleBroadCast.setArticleChangesReceiver(this) { initData() }
         LiveDataBus.get().getChannel(LOGIN_REFRESH, Boolean::class.java).observe(this, {
-            Log.e("ZHUJIANG", "Activity onResume: $it" )
+            Log.e(TAG, "Activity onResume: $it")
             if (it) initData()
         })
     }
@@ -33,5 +33,8 @@ abstract class ArticleCollectBaseActivity : BaseActivity() {
         ArticleBroadCast.clearArticleChangesReceiver(this, articleReceiver)
     }
 
+    companion object {
+        private const val TAG = "ArticleCollectBaseActiv"
+    }
 
 }
