@@ -21,7 +21,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment(), View.OnClickListener {
 
-    private lateinit var binding: FragmentProfileBinding
+    private var binding: FragmentProfileBinding? = null
 
     @Inject
     lateinit var accountRepository: AccountRepository
@@ -45,36 +45,40 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
         attachToRoot: Boolean
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding!!.root
     }
 
     override fun initView() {
-        binding.profileTitleBar.setRightImage(R.drawable.btn_right_right_bg)
-        binding.profileTitleBar.setRightImgOnClickListener {
-            RankActivity.actionStart(requireContext())
-        }
-        binding.profileIvHead.setOnClickListener(this)
-        binding.profileTvName.setOnClickListener(this)
-        binding.profileTvRank.setOnClickListener(this)
-        binding.profileBtnLogout.setOnClickListener(this)
-        binding.profileRv.layoutManager = LinearLayoutManager(context)
-        profileAdapter = ProfileAdapter(requireContext(), profileItemList)
-        binding.profileRv.adapter = profileAdapter
-        if (Play.isLogin) {
-            binding.profileIvHead.setBackgroundResource(R.drawable.ic_head)
-            binding.profileTvName.text = Play.nickName
-            binding.profileTvRank.text = Play.username
-            binding.profileBtnLogout.visibility = View.VISIBLE
-        } else {
-            clearInfo()
+        binding?.apply {
+            profileTitleBar.setRightImage(R.drawable.btn_right_right_bg)
+            profileTitleBar.setRightImgOnClickListener {
+                RankActivity.actionStart(requireContext())
+            }
+            profileIvHead.setOnClickListener(this@ProfileFragment)
+            profileTvName.setOnClickListener(this@ProfileFragment)
+            profileTvRank.setOnClickListener(this@ProfileFragment)
+            profileBtnLogout.setOnClickListener(this@ProfileFragment)
+            profileRv.layoutManager = LinearLayoutManager(context)
+            profileAdapter = ProfileAdapter(requireContext(), profileItemList)
+            profileRv.adapter = profileAdapter
+            if (Play.isLogin) {
+                profileIvHead.setBackgroundResource(R.drawable.ic_head)
+                profileTvName.text = Play.nickName
+                profileTvRank.text = Play.username
+                profileBtnLogout.visibility = View.VISIBLE
+            } else {
+                clearInfo()
+            }
         }
     }
 
     private fun clearInfo() {
-        binding.profileBtnLogout.visibility = View.GONE
-        binding.profileIvHead.setBackgroundResource(R.drawable.img_nomal_head)
-        binding.profileTvName.text = getString(R.string.no_login)
-        binding.profileTvRank.text = getString(R.string.click_login)
+        binding?.apply {
+            profileBtnLogout.visibility = View.GONE
+            profileIvHead.setBackgroundResource(R.drawable.img_nomal_head)
+            profileTvName.text = getString(R.string.no_login)
+            profileTvRank.text = getString(R.string.click_login)
+        }
         ArticleBroadCast.sendArticleChangesReceiver(requireContext())
     }
 

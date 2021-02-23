@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomePageFragment : ArticleCollectBaseFragment() {
 
     private val viewModel by viewModels<HomePageViewModel>()
-    private lateinit var binding: FragmentHomePageBinding
+    private var binding: FragmentHomePageBinding? = null
 
     //override fun getLayoutView(): Int = R.layout.fragment_home_page
 
@@ -28,13 +28,15 @@ class HomePageFragment : ArticleCollectBaseFragment() {
         attachToRoot: Boolean
     ): View {
         binding = FragmentHomePageBinding.inflate(inflater, container, attachToRoot)
-        return binding.root
+        return binding!!.root
     }
 
     override fun onResume() {
         super.onResume()
-        binding.homeBanner.start()
-        binding.homeBanner2.start()
+        binding?.apply {
+            homeBanner.start()
+            homeBanner2.start()
+        }
     }
 
     override fun refreshData() {
@@ -47,31 +49,33 @@ class HomePageFragment : ArticleCollectBaseFragment() {
     private var page = 1
 
     override fun initView() {
-        binding.homeTitleBar.setRightImage(R.drawable.home_search_button)
-        if (isZhLanguage()) {
-            binding.homeTitleBar.setTitleOnClickListener {
-                AlmanacActivity.actionStart(requireContext())
+        binding?.apply {
+            homeTitleBar.setRightImage(R.drawable.home_search_button)
+            if (isZhLanguage()) {
+                homeTitleBar.setTitleOnClickListener {
+                    AlmanacActivity.actionStart(requireContext())
+                }
             }
+            homeTitleBar.setRightImgOnClickListener {
+                SearchActivity.actionStart(requireContext())
+            }
+            bannerAdapter = ImageAdapter(requireContext(), viewModel.bannerList)
+            bannerAdapter2 = ImageAdapter(requireContext(), viewModel.bannerList2)
+            homeBanner.adapter = bannerAdapter
+            homeBanner.setIndicator(CircleIndicator(context)).start()
+            homeBanner2.adapter = bannerAdapter2
+            homeBanner2.setIndicator(CircleIndicator(context)).start()
+            homeToTopRecyclerView.setRecyclerViewLayoutManager(true)
+            articleAdapter = ArticleAdapter(requireContext(), viewModel.articleList)
+            homeToTopRecyclerView.onRefreshListener({
+                page = 1
+                getArticleList(true)
+            }, {
+                page++
+                getArticleList(true)
+            })
+            homeToTopRecyclerView.setAdapter(articleAdapter)
         }
-        binding.homeTitleBar.setRightImgOnClickListener {
-            SearchActivity.actionStart(requireContext())
-        }
-        bannerAdapter = ImageAdapter(requireContext(), viewModel.bannerList)
-        bannerAdapter2 = ImageAdapter(requireContext(), viewModel.bannerList2)
-        binding.homeBanner.adapter = bannerAdapter
-        binding.homeBanner.setIndicator(CircleIndicator(context)).start()
-        binding.homeBanner2.adapter = bannerAdapter2
-        binding.homeBanner2.setIndicator(CircleIndicator(context)).start()
-        binding.homeToTopRecyclerView.setRecyclerViewLayoutManager(true)
-        articleAdapter = ArticleAdapter(requireContext(), viewModel.articleList)
-        binding.homeToTopRecyclerView.onRefreshListener({
-            page = 1
-            getArticleList(true)
-        }, {
-            page++
-            getArticleList(true)
-        })
-        binding.homeToTopRecyclerView.setAdapter(articleAdapter)
     }
 
     override fun initData() {
@@ -121,8 +125,11 @@ class HomePageFragment : ArticleCollectBaseFragment() {
 
     override fun onPause() {
         super.onPause()
-        binding.homeBanner.stop()
-        binding.homeBanner2.stop()
+        binding?.apply {
+            homeBanner.stop()
+            homeBanner2.stop()
+        }
+
     }
 
     companion object {

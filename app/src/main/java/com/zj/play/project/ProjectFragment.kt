@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.zj.core.view.custom.FragmentAdapter
-import com.zj.play.R
 import com.zj.play.databinding.FragmentProjectBinding
 import com.zj.play.project.list.ProjectListFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,7 +16,7 @@ class ProjectFragment : BaseTabFragment() {
     private val viewModel by viewModels<ProjectViewModel>()
 
     private lateinit var adapter: FragmentAdapter
-    private lateinit var binding: FragmentProjectBinding
+    private var binding: FragmentProjectBinding? = null
 
     override fun getLayoutView(
         inflater: LayoutInflater,
@@ -25,15 +24,17 @@ class ProjectFragment : BaseTabFragment() {
         attachToRoot: Boolean
     ): View {
         binding = FragmentProjectBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding!!.root
     }
 
     override fun initView() {
         adapter = FragmentAdapter(activity?.supportFragmentManager)
-        binding.projectViewPager.adapter = adapter
-        binding.projectTabLayout.setupWithViewPager(binding.projectViewPager)
-        binding.projectViewPager.addOnPageChangeListener(this)
-        binding.projectTabLayout.addOnTabSelectedListener(this)
+        binding?.apply {
+            projectViewPager.adapter = adapter
+            projectTabLayout.setupWithViewPager(projectViewPager)
+            projectViewPager.addOnPageChangeListener(this@ProjectFragment)
+            projectTabLayout.addOnTabSelectedListener(this@ProjectFragment)
+        }
     }
 
     override fun initData() {
@@ -50,7 +51,7 @@ class ProjectFragment : BaseTabFragment() {
                 reset(viewList)
                 notifyDataSetChanged()
             }
-            binding.projectViewPager.currentItem = viewModel.position
+            binding?.projectViewPager?.currentItem = viewModel.position
         }
         getProjectTree()
     }

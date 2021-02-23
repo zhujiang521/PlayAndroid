@@ -17,22 +17,18 @@ class RankAdapter(
     private val rankList: ArrayList<Rank>,
 ) : RecyclerView.Adapter<RankAdapter.ViewHolder>() {
 
-    inner class ViewHolder(binding: AdapterRankBinding) : RecyclerView.ViewHolder(binding.root) {
-        val rankAdTvUsername: TextView = binding.rankAdTvUsername
-        val rankAdTvRank: TextView = binding.rankAdTvRank
-        val rankAdTvCoinCount: TextView = binding.rankAdTvCoinCount
-        val rankAdTvLevel: TextView = binding.rankAdTvLevel
-        val rankAdRlItem: RelativeLayout = binding.rankAdRlItem
-    }
+    inner class ViewHolder(binding: AdapterRankBinding) : RecyclerView.ViewHolder(binding.root)
+
+    private var binding: AdapterRankBinding? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankAdapter.ViewHolder {
-        val binding = AdapterRankBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        binding = AdapterRankBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding!!)
     }
 
     override fun onBindViewHolder(holder: RankAdapter.ViewHolder, position: Int) {
         val data = rankList[position]
-        with(holder) {
+        binding?.apply {
             rankAdTvUsername.text = data.username
             rankAdTvRank.text = mContext.getString(R.string.ranking, data.rank)
             rankAdTvCoinCount.text = mContext.getString(R.string.coin, data.coinCount)

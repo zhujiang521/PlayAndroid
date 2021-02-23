@@ -18,7 +18,7 @@ import com.zj.play.home.ArticleCollectBaseFragment
  */
 abstract class BaseListFragment : ArticleCollectBaseFragment() {
 
-    protected lateinit var binding: FragmentBaseListBinding
+    protected var binding: FragmentBaseListBinding? = null
 
     protected lateinit var articleAdapter: ArticleAdapter
     protected var page = 1
@@ -29,19 +29,21 @@ abstract class BaseListFragment : ArticleCollectBaseFragment() {
         attachToRoot: Boolean
     ): View {
         binding = FragmentBaseListBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding!!.root
     }
 
     override fun initView() {
-        binding.baseFragmentToTop.setRecyclerViewLayoutManager(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
-        binding.baseFragmentToTop.setAdapter(articleAdapter)
-        binding.baseFragmentToTop.onRefreshListener({
-            page = 1
-            refreshData()
-        }, {
-            page++
-            refreshData()
-        })
+        binding?.apply {
+            baseFragmentToTop.setRecyclerViewLayoutManager(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
+            baseFragmentToTop.setAdapter(articleAdapter)
+            baseFragmentToTop.onRefreshListener({
+                page = 1
+                refreshData()
+            }, {
+                page++
+                refreshData()
+            })
+        }
     }
 
 }

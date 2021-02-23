@@ -3,9 +3,6 @@ package com.zj.play.profile
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zj.core.Play
 import com.zj.play.R
@@ -30,20 +27,18 @@ class ProfileAdapter(
     private val profileItemList: ArrayList<ProfileItem>,
 ) : RecyclerView.Adapter<ProfileAdapter.ViewHolder>() {
 
-    inner class ViewHolder(binding: AdapterProfileBinding) : RecyclerView.ViewHolder(binding.root) {
-        val profileAdTvTitle: TextView = binding.profileAdTvTitle
-        val profileAdIv: ImageView = binding.profileAdIv
-        val profileAdLlItem: LinearLayout = binding.profileAdLlItem
-    }
+    inner class ViewHolder(binding: AdapterProfileBinding) : RecyclerView.ViewHolder(binding.root)
+
+    private var binding: AdapterProfileBinding? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileAdapter.ViewHolder {
-        val binding = AdapterProfileBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        binding = AdapterProfileBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding!!)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = profileItemList[position]
-        with(holder) {
+        binding?.apply {
             profileAdTvTitle.text = data.title
             profileAdIv.setImageResource(data.imgId)
             profileAdLlItem.setOnClickListener {

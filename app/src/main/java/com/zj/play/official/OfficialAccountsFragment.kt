@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class OfficialAccountsFragment : BaseTabFragment() {
 
     private val viewModel by viewModels<OfficialViewModel>()
-    private lateinit var binding: FragmentOfficialAccountsBinding
+    private var binding: FragmentOfficialAccountsBinding? = null
 
     override fun getLayoutView(
         inflater: LayoutInflater,
@@ -23,17 +23,19 @@ class OfficialAccountsFragment : BaseTabFragment() {
         attachToRoot: Boolean
     ): View {
         binding = FragmentOfficialAccountsBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding!!.root
     }
 
     private lateinit var adapter: FragmentAdapter
 
     override fun initView() {
         adapter = FragmentAdapter(activity?.supportFragmentManager)
-        binding.officialViewPager.adapter = adapter
-        binding.officialTabLayout.setupWithViewPager(binding.officialViewPager)
-        binding.officialViewPager.addOnPageChangeListener(this)
-        binding.officialTabLayout.addOnTabSelectedListener(this)
+        binding?.apply {
+            officialViewPager.adapter = adapter
+            officialTabLayout.setupWithViewPager(officialViewPager)
+            officialViewPager.addOnPageChangeListener(this@OfficialAccountsFragment)
+            officialTabLayout.addOnTabSelectedListener(this@OfficialAccountsFragment)
+        }
     }
 
     override fun initData() {
@@ -50,7 +52,7 @@ class OfficialAccountsFragment : BaseTabFragment() {
                 reset(viewList)
                 notifyDataSetChanged()
             }
-            binding.officialViewPager.currentItem = viewModel.position
+            binding?.officialViewPager?.currentItem = viewModel.position
         }
         getOfficialTree()
     }

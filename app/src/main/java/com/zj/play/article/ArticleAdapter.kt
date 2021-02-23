@@ -7,8 +7,6 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.NetworkUtils
@@ -37,22 +35,13 @@ class ArticleAdapter(
     private val uiScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private var progressDialogUtil: ProgressDialogUtil = ProgressDialogUtil.getInstance(mContext)!!
 
-    inner class ViewHolder(binding: AdapterArticleBinding) : RecyclerView.ViewHolder(binding.root) {
-        val articleTvTitle: TextView = binding.articleTvTitle
-        val articleTvChapterName: TextView = binding.articleTvChapterName
-        val articleTvAuthor: TextView = binding.articleTvAuthor
-        val articleTvTime: TextView = binding.articleTvTime
-        val articleIvImg: ImageView = binding.articleIvImg
-        val articleTvTop: TextView = binding.articleTvTop
-        val articleTvNew: TextView = binding.articleTvNew
-        val articleIvCollect: ImageView = binding.articleIvCollect
-        val articleLlItem: RelativeLayout = binding.articleLlItem
-    }
+    inner class ViewHolder(binding: AdapterArticleBinding) : RecyclerView.ViewHolder(binding.root)
+
+    private var binding: AdapterArticleBinding? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleAdapter.ViewHolder {
-        val binding =
-            AdapterArticleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        binding = AdapterArticleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding!!)
     }
 
     private fun setCollect(
@@ -103,7 +92,7 @@ class ArticleAdapter(
             mContext,
             CollectRepositoryPoint::class.java
         ).collectRepository()
-        with(holder) {
+        binding?.apply {
             if (!TextUtils.isEmpty(data.title))
                 articleTvTitle.text = getHtmlText(data.title)
             articleTvChapterName.text = data.superChapterName

@@ -5,9 +5,6 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.NetworkUtils
@@ -15,7 +12,6 @@ import com.bumptech.glide.Glide
 import com.zj.core.util.getHtmlText
 import com.zj.core.util.setSafeListener
 import com.zj.core.util.showToast
-import com.zj.core.view.base.BaseListAdapter
 import com.zj.model.model.CollectX
 import com.zj.play.R
 import com.zj.play.article.ArticleActivity
@@ -31,22 +27,14 @@ class CollectAdapter(
     private val lifecycleScope: LifecycleCoroutineScope,
 ) : RecyclerView.Adapter<CollectAdapter.ViewHolder>() {
 
-    inner class ViewHolder(binding: AdapterArticleBinding) : RecyclerView.ViewHolder(binding.root) {
-        val articleTvTitle: TextView = binding.articleTvTitle
-        val articleTvChapterName: TextView = binding.articleTvChapterName
-        val articleTvAuthor: TextView = binding.articleTvAuthor
-        val articleTvTime: TextView = binding.articleTvTime
-        val articleIvImg: ImageView = binding.articleIvImg
-        val articleTvTop: TextView = binding.articleTvTop
-        val articleTvNew: TextView = binding.articleTvNew
-        val articleIvCollect: ImageView = binding.articleIvCollect
-        val articleLlItem: RelativeLayout = binding.articleLlItem
-    }
+    inner class ViewHolder(binding: AdapterArticleBinding) : RecyclerView.ViewHolder(binding.root)
+
+    private var binding: AdapterArticleBinding? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CollectAdapter.ViewHolder {
-        val binding =
+        binding =
             AdapterArticleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        return ViewHolder(binding!!)
     }
 
     private fun cancelCollect(id: Int, position: Int) {
@@ -68,7 +56,7 @@ class CollectAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = articleList[position]
-        with(holder) {
+        binding?.apply {
             articleTvTitle.text = getHtmlText(data.title)
             articleTvChapterName.text = data.chapterName
             articleTvAuthor.text =
