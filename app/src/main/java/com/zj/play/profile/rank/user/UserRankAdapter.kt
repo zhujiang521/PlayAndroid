@@ -4,12 +4,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.zj.core.view.base.BaseRecyclerAdapter
 import com.zj.model.model.Ranks
 import com.zj.play.R
 import com.zj.play.databinding.AdapterRankBinding
 
 class UserRankAdapter(private val context: Context, private val rankList: ArrayList<Ranks>) :
-    RecyclerView.Adapter<UserRankAdapter.ViewHolder>() {
+    BaseRecyclerAdapter<UserRankAdapter.ViewHolder>() {
 
     private var binding: AdapterRankBinding? = null
 

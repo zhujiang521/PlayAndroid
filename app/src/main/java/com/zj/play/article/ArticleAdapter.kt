@@ -16,6 +16,7 @@ import com.zj.core.util.ProgressDialogUtil
 import com.zj.core.util.getHtmlText
 import com.zj.core.util.setSafeListener
 import com.zj.core.util.showToast
+import com.zj.core.view.base.BaseRecyclerAdapter
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.HISTORY
@@ -30,7 +31,7 @@ class ArticleAdapter(
     private val mContext: Context,
     private val articleList: ArrayList<Article>,
     private val isShowCollect: Boolean = true,
-) : RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
+) : BaseRecyclerAdapter<ArticleAdapter.ViewHolder>() {
 
     private val uiScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private var progressDialogUtil: ProgressDialogUtil = ProgressDialogUtil.getInstance(mContext)!!

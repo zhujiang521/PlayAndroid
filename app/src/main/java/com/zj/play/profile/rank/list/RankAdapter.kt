@@ -3,9 +3,8 @@ package com.zj.play.profile.rank.list
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.RelativeLayout
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.zj.core.view.base.BaseRecyclerAdapter
 import com.zj.model.model.Rank
 import com.zj.play.R
 import com.zj.play.databinding.AdapterRankBinding
@@ -15,7 +14,7 @@ import java.util.*
 class RankAdapter(
     private val mContext: Context,
     private val rankList: ArrayList<Rank>,
-) : RecyclerView.Adapter<RankAdapter.ViewHolder>() {
+) : BaseRecyclerAdapter<RankAdapter.ViewHolder>() {
 
     inner class ViewHolder(binding: AdapterRankBinding) : RecyclerView.ViewHolder(binding.root)
 

@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.zj.core.util.getHtmlText
 import com.zj.core.util.setSafeListener
 import com.zj.core.util.showToast
+import com.zj.core.view.base.BaseRecyclerAdapter
 import com.zj.model.model.CollectX
 import com.zj.play.R
 import com.zj.play.article.ArticleActivity
@@ -25,7 +26,7 @@ class CollectAdapter(
     private val mContext: Context,
     private val articleList: ArrayList<CollectX>,
     private val lifecycleScope: LifecycleCoroutineScope,
-) : RecyclerView.Adapter<CollectAdapter.ViewHolder>() {
+) : BaseRecyclerAdapter<CollectAdapter.ViewHolder>() {
 
     inner class ViewHolder(binding: AdapterArticleBinding) : RecyclerView.ViewHolder(binding.root)
 

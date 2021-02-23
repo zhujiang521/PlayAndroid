@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.zj.core.Play
+import com.zj.core.view.base.BaseRecyclerAdapter
 import com.zj.play.R
 import com.zj.play.article.ArticleActivity
 import com.zj.play.article.collect.CollectListActivity
@@ -25,7 +26,7 @@ import com.zj.play.profile.user.UserActivity
 class ProfileAdapter(
     private val mContext: Context,
     private val profileItemList: ArrayList<ProfileItem>,
-) : RecyclerView.Adapter<ProfileAdapter.ViewHolder>() {
+) : BaseRecyclerAdapter<ProfileAdapter.ViewHolder>() {
 
     inner class ViewHolder(binding: AdapterProfileBinding) : RecyclerView.ViewHolder(binding.root)
 
