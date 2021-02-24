@@ -27,17 +27,14 @@ class HomeBottomLandTabWidget @JvmOverloads constructor(
      *
      */
     init { //默认第一个碎片
-        val isPort = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
-        if (!isPort) {
-            val view =
-                LayoutHomeBottomLandTabBinding.inflate(LayoutInflater.from(context), this, true)
-            view.apply {
-                floatingButtons = arrayListOf(fabHome, fabRepo, fabProject, fabProfile)
-            }
-            fabMenu = view.fabMenu
-            for (floatingButton in floatingButtons!!) {
-                floatingButton.setOnClickListener(this)
-            }
+        val view =
+            LayoutHomeBottomLandTabBinding.inflate(LayoutInflater.from(context), this, true)
+        view.apply {
+            floatingButtons = arrayListOf(fabHome, fabRepo, fabProject, fabProfile)
+        }
+        fabMenu = view.fabMenu
+        for (floatingButton in floatingButtons!!) {
+            floatingButton.setOnClickListener(this)
         }
     }
 

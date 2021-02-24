@@ -25,8 +25,8 @@ class MainActivity : BaseActivity() {
     override fun initView() {
         isPort = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
         when (isPort) {
-            true -> binding.homeView.init(supportFragmentManager, viewModel)
-            false -> binding.homeLandView.init(supportFragmentManager, viewModel)
+            true -> binding.homeView?.init(supportFragmentManager, viewModel)
+            false -> binding.homeLandView?.init(supportFragmentManager, viewModel)
         }
     }
 

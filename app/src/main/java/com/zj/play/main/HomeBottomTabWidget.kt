@@ -24,15 +24,12 @@ class HomeBottomTabWidget @JvmOverloads constructor(
      *
      */
     init { //默认第一个碎片
-        val isPort = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
-        if (isPort) {
-            val view = LayoutHomeBottomTabBinding.inflate(LayoutInflater.from(context), this, true)
-            view.apply {
-                textViews = arrayListOf(llHomeATHome, llHomeATCalendar, llHomeATObject, llHomeATMy)
-            }
-            for (textView in textViews!!) {
-                textView.setOnClickListener(this)
-            }
+        val view = LayoutHomeBottomTabBinding.inflate(LayoutInflater.from(context), this, true)
+        view.apply {
+            textViews = arrayListOf(llHomeATHome, llHomeATCalendar, llHomeATObject, llHomeATMy)
+        }
+        for (textView in textViews!!) {
+            textView.setOnClickListener(this)
         }
     }
 
