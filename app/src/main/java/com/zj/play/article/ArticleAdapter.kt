@@ -8,7 +8,6 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.NetworkUtils
 import com.bumptech.glide.Glide
 import com.zj.core.Play
@@ -31,18 +30,18 @@ class ArticleAdapter(
     private val mContext: Context,
     private val articleList: ArrayList<Article>,
     private val isShowCollect: Boolean = true,
-) : BaseRecyclerAdapter<ArticleAdapter.ViewHolder>() {
+) : BaseRecyclerAdapter<AdapterArticleBinding>() {
 
     private val uiScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private var progressDialogUtil: ProgressDialogUtil = ProgressDialogUtil.getInstance(mContext)!!
 
-    inner class ViewHolder(binding: AdapterArticleBinding) : RecyclerView.ViewHolder(binding.root)
-
-    private var binding: AdapterArticleBinding? = null
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleAdapter.ViewHolder {
-        binding = AdapterArticleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding!!)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): BaseRecyclerHolder<AdapterArticleBinding> {
+        val binding =
+            AdapterArticleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return BaseRecyclerHolder(binding)
     }
 
     private fun setCollect(
@@ -87,13 +86,13 @@ class ArticleAdapter(
         }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBaseBindViewHolder(position: Int, binding: AdapterArticleBinding) {
         val data = articleList[position]
         val collectRepository = EntryPointAccessors.fromApplication(
             mContext,
             CollectRepositoryPoint::class.java
         ).collectRepository()
-        binding?.apply {
+        binding.apply {
             if (!TextUtils.isEmpty(data.title))
                 articleTvTitle.text = getHtmlText(data.title)
             articleTvChapterName.text = data.superChapterName

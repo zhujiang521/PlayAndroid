@@ -3,36 +3,31 @@ package com.zj.play.profile.rank.user
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import com.zj.core.view.base.BaseRecyclerAdapter
 import com.zj.model.model.Ranks
 import com.zj.play.R
 import com.zj.play.databinding.AdapterRankBinding
 
 class UserRankAdapter(private val context: Context, private val rankList: ArrayList<Ranks>) :
-    BaseRecyclerAdapter<UserRankAdapter.ViewHolder>() {
+    BaseRecyclerAdapter<AdapterRankBinding>() {
 
-    private var binding: AdapterRankBinding? = null
-
-    inner class ViewHolder(binding: AdapterRankBinding) : RecyclerView.ViewHolder(binding.root)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserRankAdapter.ViewHolder {
-        binding = AdapterRankBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding!!)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseRecyclerHolder<AdapterRankBinding> {
+        val binding = AdapterRankBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return BaseRecyclerHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: UserRankAdapter.ViewHolder, position: Int) {
+    override fun getItemCount(): Int {
+        return rankList.size
+    }
+
+    override fun onBaseBindViewHolder(position: Int, binding: AdapterRankBinding) {
         val data = rankList[position]
-        binding?.apply {
+        binding.apply {
             rankAdTvUsername.text = data.userName
             rankAdTvRank.text = context.getString(R.string.add_reason, data.reason)
             rankAdTvCoinCount.text = context.getString(R.string.rank, data.coinCount)
             rankAdTvLevel.text = data.desc
         }
-    }
-
-    override fun getItemCount(): Int {
-        return rankList.size
     }
 
 }

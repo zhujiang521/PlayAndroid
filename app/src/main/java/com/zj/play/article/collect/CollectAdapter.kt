@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleCoroutineScope
-import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.NetworkUtils
 import com.bumptech.glide.Glide
 import com.zj.core.util.getHtmlText
@@ -26,16 +25,12 @@ class CollectAdapter(
     private val mContext: Context,
     private val articleList: ArrayList<CollectX>,
     private val lifecycleScope: LifecycleCoroutineScope,
-) : BaseRecyclerAdapter<CollectAdapter.ViewHolder>() {
+) : BaseRecyclerAdapter<AdapterArticleBinding>() {
 
-    inner class ViewHolder(binding: AdapterArticleBinding) : RecyclerView.ViewHolder(binding.root)
-
-    private var binding: AdapterArticleBinding? = null
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CollectAdapter.ViewHolder {
-        binding =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseRecyclerHolder<AdapterArticleBinding> {
+        val binding =
             AdapterArticleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding!!)
+        return BaseRecyclerHolder(binding)
     }
 
     private fun cancelCollect(id: Int, position: Int) {
@@ -55,9 +50,9 @@ class CollectAdapter(
         }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBaseBindViewHolder(position: Int, binding: AdapterArticleBinding) {
         val data = articleList[position]
-        binding?.apply {
+        binding.apply {
             articleTvTitle.text = getHtmlText(data.title)
             articleTvChapterName.text = data.chapterName
             articleTvAuthor.text =

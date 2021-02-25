@@ -3,7 +3,6 @@ package com.zj.play.profile
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import com.zj.core.Play
 import com.zj.core.view.base.BaseRecyclerAdapter
 import com.zj.play.R
@@ -26,20 +25,17 @@ import com.zj.play.profile.user.UserActivity
 class ProfileAdapter(
     private val mContext: Context,
     private val profileItemList: ArrayList<ProfileItem>,
-) : BaseRecyclerAdapter<ProfileAdapter.ViewHolder>() {
+) : BaseRecyclerAdapter<AdapterProfileBinding>() {
 
-    inner class ViewHolder(binding: AdapterProfileBinding) : RecyclerView.ViewHolder(binding.root)
-
-    private var binding: AdapterProfileBinding? = null
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileAdapter.ViewHolder {
-        binding = AdapterProfileBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding!!)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseRecyclerHolder<AdapterProfileBinding> {
+        val binding = AdapterProfileBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return BaseRecyclerHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+    override fun onBaseBindViewHolder(position: Int, binding: AdapterProfileBinding) {
         val data = profileItemList[position]
-        binding?.apply {
+        binding.apply {
             profileAdTvTitle.text = data.title
             profileAdIv.setImageResource(data.imgId)
             profileAdLlItem.setOnClickListener {
