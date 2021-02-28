@@ -22,7 +22,7 @@
 
     <color name="yellow">#FEC86D</color>
 
-    <color name="colorBackground">#FDFDFD</color>
+    <color name="colorBackground">#F4F4F4</color>
 
     <color name="floatBackground">#FAFAFA</color>
 
@@ -36,7 +36,8 @@
     <color name="exit_login_pressed_solid">#D61616</color>
     <color name="exit_login_pressed_stroke">#D61616</color>
 
-    <color name="article_pressed">#e9e5e5</color>
+    <color name="article_bg">#FDFDFD</color>
+    <color name="article_pressed">#F1F1F1</color>
 
     <color name="shortcut_icon">#252525</color>
 
@@ -45,5 +46,7 @@
     <color name="almanac_fragment_content_textcolor1">#333333</color>
     <color name="almanac_fragment_content_textcolor2">#999999</color>
     <color name="almanac_fragment_content_textcolor3">#FF675C</color>
+
+    <color name="home_bottom_bg_color">#F2EAEAEA</color>
 
 </resources>

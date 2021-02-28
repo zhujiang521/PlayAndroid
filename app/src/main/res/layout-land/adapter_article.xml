@@ -4,8 +4,8 @@
     android:id="@+id/articleLlItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/dp_5"
-    android:layout_marginTop="@dimen/dp_5"
+    android:layout_marginHorizontal="@dimen/dp_10"
+    android:layout_marginTop="@dimen/dp_10"
     android:background="@drawable/article_list_bg"
     android:padding="@dimen/dp_10">
 

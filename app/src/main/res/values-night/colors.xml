@@ -36,6 +36,7 @@
     <color name="exit_login_pressed_solid">#A51818</color>
     <color name="exit_login_pressed_stroke">#A51818</color>
 
+    <color name="article_bg">#232222</color>
     <color name="article_pressed">#151515</color>
 
     <color name="shortcut_icon">#BFBFBF</color>
@@ -45,5 +46,7 @@
     <color name="almanac_fragment_content_textcolor1">#FFE0E0F0</color>
     <color name="almanac_fragment_content_textcolor2">#6c6c73</color>
     <color name="almanac_fragment_content_textcolor3">#FD7B72</color>
+
+    <color name="home_bottom_bg_color">#D9202020</color>
 
 </resources>
