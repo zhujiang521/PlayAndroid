@@ -18,43 +18,27 @@ package com.zj.play.compose
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.LocalContentColor
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.primarySurface
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.zj.play.R
 import com.zj.play.compose.home.HomePage
 import com.zj.play.compose.home.OfficialAccountPage
 import com.zj.play.compose.home.ProfilePage
 import com.zj.play.compose.home.ProjectPage
-import com.zj.play.compose.theme.BlueTheme
 import dev.chrisbanes.accompanist.insets.navigationBarsHeight
 import dev.chrisbanes.accompanist.insets.navigationBarsPadding
+import java.util.*
 
 @Composable
 fun Home(enterArticle: (String) -> Unit) {
-    BlueTheme {
+    MaterialTheme {
         val (selectedTab, setSelectedTab) = remember { mutableStateOf(CourseTabs.HOME_PAGE) }
         val tabs = CourseTabs.values()
         Scaffold(
@@ -66,7 +50,7 @@ fun Home(enterArticle: (String) -> Unit) {
                     tabs.forEach { tab ->
                         BottomNavigationItem(
                             icon = { Icon(painterResource(tab.icon), contentDescription = null) },
-                            label = { Text(stringResource(tab.title).toUpperCase()) },
+                            label = { Text(stringResource(tab.title).toUpperCase(Locale.ROOT)) },
                             selected = tab == selectedTab,
                             onClick = { setSelectedTab(tab) },
                             alwaysShowLabel = false,

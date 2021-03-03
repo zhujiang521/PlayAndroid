@@ -45,7 +45,7 @@ fun ArticleItem(
     index: Int,
     enterArticle: (String) -> Unit
 ) {
-    Row(modifier = Modifier.padding(bottom = 8.dp)) {
+    Row(modifier = Modifier.padding(top = 8.dp)) {
         val stagger = if (index % 2 == 0) 42.dp else 16.dp
         Spacer(modifier = Modifier.width(stagger))
         ArticleListItem(

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#25C84C</color>
-    <color name="colorPrimaryDark">#25C84C</color>
-    <color name="colorAccent">#41DF67</color>
-    <color name="colorLoading">#41DF67</color>
+    <color name="colorPrimary">#FF0336FF</color>
+    <color name="colorPrimaryDark">#FF0336FF</color>
+    <color name="colorAccent">#FF0336FF</color>
+    <color name="colorLoading">#FF0336FF</color>
     <!-- 白色 -->
     <color name="white">#ffffff</color>
     <!-- 浅白色 -->
