@@ -63,3 +63,30 @@ fun <T> fire(block: suspend () -> Result<T>) =
         }
         emit(result)
     }
+
+fun <T> composeFire(block: suspend () -> T) =
+    liveData {
+        emit(block())
+    }
+
+fun <T> composeFires(block: suspend () -> BaseModel<T>) =
+    liveData {
+        val result = try {
+            val baseModel = block()
+            if (baseModel.errorCode == 0) {
+                val model = baseModel.data
+                model
+            } else {
+                Log.e(
+                    TAG,
+                    "fires: response status is ${baseModel.errorCode}  msg is ${baseModel.errorMsg}"
+                )
+                showToast(baseModel.errorMsg)
+                null
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, e.toString())
+            null
+        }
+        emit(result)
+    }

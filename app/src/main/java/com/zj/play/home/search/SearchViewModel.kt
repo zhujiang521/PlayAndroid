@@ -1,5 +1,6 @@
 package com.zj.play.home.search
 
+import android.app.Application
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import com.zj.core.view.base.BaseAndroidViewModel
@@ -14,12 +15,11 @@ import dagger.hilt.android.scopes.ActivityScoped
  * 描述：PlayAndroid
  *
  */
-@ActivityScoped
-class SearchViewModel @ViewModelInject constructor(
-    private val searchRepository: SearchRepository
-) : BaseAndroidViewModel<List<HotKey>, HotKey, Boolean>() {
+class SearchViewModel (application: Application) : BaseAndroidViewModel<List<HotKey>, HotKey, Boolean>(application) {
 
-    override fun getData(page: Boolean): LiveData<Result<List<HotKey>>> {
+    private val searchRepository = SearchRepository(application)
+
+    override fun getData(page: Boolean): LiveData<List<HotKey>?> {
         return searchRepository.getHotKey()
     }
 

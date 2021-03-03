@@ -1,9 +1,7 @@
 package com.zj.core.view.base
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.*
 
 /**
  * 版权：Zhujiang 个人版权
@@ -13,7 +11,7 @@ import androidx.lifecycle.ViewModel
  * 描述：PlayAndroid
  *
  */
-abstract class BaseAndroidViewModel<BaseData, Data, Key> : ViewModel() {
+abstract class BaseAndroidViewModel<BaseData, Data, Key>(application: Application) : AndroidViewModel(application) {
 
     val dataList = ArrayList<Data>()
 
@@ -23,7 +21,7 @@ abstract class BaseAndroidViewModel<BaseData, Data, Key> : ViewModel() {
         getData(page)
     }
 
-    abstract fun getData(page: Key): LiveData<Result<BaseData>>
+    abstract fun getData(page: Key): LiveData<BaseData?>
 
     fun getDataList(page: Key) {
         pageLiveData.value = page

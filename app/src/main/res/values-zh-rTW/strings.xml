@@ -88,4 +88,6 @@
 	<string name="static_shortcut_long_label_add_share">新增分享文章</string>
 	<string name="static_shortcut_short_label_add_share">新增文章</string>
 
+    <string name="edit_profile">编辑资料</string>
+
 </resources>

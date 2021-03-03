@@ -44,13 +44,13 @@ class SearchActivity : BaseActivity(), View.OnClickListener, TextView.OnEditorAc
     override fun initData() {
         viewModel.getDataList(true)
         hotKeyDao = PlayDatabase.getDatabase(this).hotKeyDao()
-        setDataStatus(viewModel.dataLiveData) {
-            if (it.isNotEmpty() && viewModel.dataList.isEmpty()) {
-                viewModel.dataList.clear()
-                viewModel.dataList.addAll(it)
-            }
-            addFlowView()
-        }
+//        setDataStatus(viewModel.dataLiveData) {
+//            if (it.isNotEmpty() && viewModel.dataList.isEmpty()) {
+//                viewModel.dataList.clear()
+//                viewModel.dataList.addAll(it)
+//            }
+//            addFlowView()
+//        }
     }
 
     override fun isSearchPage(): Boolean {

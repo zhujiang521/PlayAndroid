@@ -3,6 +3,8 @@ package com.zj.play.home.search
 import android.app.Application
 import com.zj.model.room.PlayDatabase
 import com.zj.network.base.PlayAndroidNetwork
+import com.zj.play.main.login.composeFire
+import com.zj.play.main.login.composeFires
 import com.zj.play.main.login.fire
 import com.zj.play.main.login.fires
 import dagger.hilt.android.scopes.ActivityRetainedScoped
@@ -24,18 +26,18 @@ class SearchRepository @Inject constructor(application: Application) {
     /**
      * 获取搜索热词
      */
-    fun getHotKey() = fire {
+    fun getHotKey() = composeFire {
         val hotKeyList = hotKeyDao.getHotKeyList()
         if (hotKeyList.isNotEmpty()) {
-            Result.success(hotKeyList)
+            hotKeyList
         } else {
             val projectTree = PlayAndroidNetwork.getHotKey()
             if (projectTree.errorCode == 0) {
                 val hotKeyLists = projectTree.data
                 hotKeyDao.insertList(hotKeyLists)
-                Result.success(hotKeyLists)
+                hotKeyLists
             } else {
-                Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
+                null
             }
         }
     }
@@ -43,7 +45,7 @@ class SearchRepository @Inject constructor(application: Application) {
     /**
      * 获取搜索结果
      */
-    fun getQueryArticleList(page: Int, k: String) = fires {
+    fun getQueryArticleList(page: Int, k: String) = composeFires{
         PlayAndroidNetwork.getQueryArticleList(page, k)
     }
 

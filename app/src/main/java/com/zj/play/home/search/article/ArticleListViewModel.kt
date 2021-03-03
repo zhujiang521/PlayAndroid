@@ -1,5 +1,6 @@
 package com.zj.play.home.search.article
 
+import android.app.Application
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import com.zj.core.view.base.BaseAndroidViewModel
@@ -16,12 +17,12 @@ import dagger.hilt.android.scopes.ActivityScoped
  * 描述：PlayAndroid
  *
  */
-@ActivityScoped
-class ArticleListViewModel @ViewModelInject constructor(
-    private val searchRepository: SearchRepository
-) : BaseAndroidViewModel<ArticleList, Article, QueryKeyArticle>() {
+class ArticleListViewModel(application: Application) :
+    BaseAndroidViewModel<ArticleList, Article, QueryKeyArticle>(application) {
 
-    override fun getData(page: QueryKeyArticle): LiveData<Result<ArticleList>> {
+    private val searchRepository = SearchRepository(application)
+
+    override fun getData(page: QueryKeyArticle): LiveData<ArticleList?> {
         return searchRepository.getQueryArticleList(page.page, page.k)
     }
 

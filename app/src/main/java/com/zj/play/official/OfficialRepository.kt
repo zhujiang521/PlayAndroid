@@ -8,6 +8,7 @@ import com.zj.model.room.entity.OFFICIAL
 import com.zj.network.base.PlayAndroidNetwork
 import com.zj.play.home.DOWN_OFFICIAL_ARTICLE_TIME
 import com.zj.play.home.FOUR_HOUR
+import com.zj.play.main.login.composeFire
 import com.zj.play.main.login.fire
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.flow.first
@@ -30,18 +31,18 @@ class OfficialRepository @Inject constructor(application: Application) {
     /**
      * 获取公众号标题列表
      */
-    fun getWxArticleTree(isRefresh: Boolean) = fire {
+    fun getWxArticleTree(isRefresh: Boolean) = composeFire {
         val projectClassifyLists = projectClassifyDao.getAllOfficial()
         if (projectClassifyLists.isNotEmpty() && !isRefresh) {
-            Result.success(projectClassifyLists)
+            projectClassifyLists
         } else {
             val projectTree = PlayAndroidNetwork.getWxArticleTree()
             if (projectTree.errorCode == 0) {
                 val projectList = projectTree.data
                 projectClassifyDao.insertList(projectList)
-                Result.success(projectList)
+                projectList
             } else {
-                Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
+                null
             }
         }
 
@@ -51,7 +52,7 @@ class OfficialRepository @Inject constructor(application: Application) {
      * 获取具体公众号文章列表
      * @param query 查询
      */
-    fun getWxArticle(query: QueryArticle) = fire {
+    fun getWxArticle(query: QueryArticle) = composeFire {
         if (query.page == 1) {
             val dataStore = DataStoreUtils
             val articleListForChapterId =
@@ -62,12 +63,12 @@ class OfficialRepository @Inject constructor(application: Application) {
                 true
             }
             if (articleListForChapterId.isNotEmpty() && downArticleTime > 0 && downArticleTime - System.currentTimeMillis() < FOUR_HOUR && !query.isRefresh) {
-                Result.success(articleListForChapterId)
+                articleListForChapterId
             } else {
                 val projectTree = PlayAndroidNetwork.getWxArticle(query.page, query.cid)
                 if (projectTree.errorCode == 0) {
                     if (articleListForChapterId.isNotEmpty() && articleListForChapterId[0].link == projectTree.data.datas[0].link && !query.isRefresh) {
-                        Result.success(articleListForChapterId)
+                        articleListForChapterId
                     } else {
                         projectTree.data.datas.forEach {
                             it.localType = OFFICIAL
@@ -77,18 +78,18 @@ class OfficialRepository @Inject constructor(application: Application) {
                             articleListDao.deleteAll(OFFICIAL, query.cid)
                         }
                         articleListDao.insertList(projectTree.data.datas)
-                        Result.success(projectTree.data.datas)
+                        projectTree.data.datas
                     }
                 } else {
-                    Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
+                   null
                 }
             }
         } else {
             val projectTree = PlayAndroidNetwork.getWxArticle(query.page, query.cid)
             if (projectTree.errorCode == 0) {
-                Result.success(projectTree.data.datas)
+                projectTree.data.datas
             } else {
-                Result.failure(RuntimeException("response status is ${projectTree.errorCode}  msg is ${projectTree.errorMsg}"))
+                null
             }
         }
 

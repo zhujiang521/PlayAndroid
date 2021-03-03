@@ -79,15 +79,15 @@ class HomePageFragment : ArticleCollectBaseFragment() {
     override fun initData() {
         startLoading()
         initBanner()
-        setDataStatus(viewModel.articleLiveData, {
-            if (viewModel.articleList.size > 0) loadFinished()
-        }) {
-            if (page == 1 && viewModel.articleList.size > 0) {
-                viewModel.articleList.clear()
-            }
-            viewModel.articleList.addAll(it)
-            articleAdapter.notifyDataSetChanged()
-        }
+//        setDataStatus(viewModel.articleLiveData, {
+//            if (viewModel.articleList.size > 0) loadFinished()
+//        }) {
+//            if (page == 1 && viewModel.articleList.size > 0) {
+//                viewModel.articleList.clear()
+//            }
+//            viewModel.articleList.addAll(it)
+//            articleAdapter.notifyDataSetChanged()
+//        }
         getArticleList(false)
     }
 

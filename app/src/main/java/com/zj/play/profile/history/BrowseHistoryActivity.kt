@@ -39,28 +39,28 @@ class BrowseHistoryActivity : BaseListActivity() {
 
     override fun initData() {
         super.initData()
-        viewModel.dataLiveData.observe(this, {
-            if (it.isSuccess) {
-                val articleList = it.getOrNull()
-                if (articleList != null) {
-                    loadFinished()
-                    if (page == 1 && viewModel.dataList.size > 0) {
-                        viewModel.dataList.clear()
-                    }
-                    viewModel.dataList.addAll(articleList)
-                    articleAdapter.notifyDataSetChanged()
-                } else {
-                    showLoadErrorView()
-                }
-            } else {
-                if (viewModel.dataList.size <= 0) {
-                    showNoContentView(getString(R.string.no_browsing_history))
-                } else {
-                    showToast(getString(R.string.no_more_data))
-                    loadFinished()
-                }
-            }
-        })
+//        viewModel.dataLiveData.observe(this, {
+//            if (it.isSuccess) {
+//                val articleList = it.getOrNull()
+//                if (articleList != null) {
+//                    loadFinished()
+//                    if (page == 1 && viewModel.dataList.size > 0) {
+//                        viewModel.dataList.clear()
+//                    }
+//                    viewModel.dataList.addAll(articleList)
+//                    articleAdapter.notifyDataSetChanged()
+//                } else {
+//                    showLoadErrorView()
+//                }
+//            } else {
+//                if (viewModel.dataList.size <= 0) {
+//                    showNoContentView(getString(R.string.no_browsing_history))
+//                } else {
+//                    showToast(getString(R.string.no_more_data))
+//                    loadFinished()
+//                }
+//            }
+//        })
     }
 
     companion object {

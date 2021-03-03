@@ -1,10 +1,10 @@
 package com.zj.play.official
 
-import androidx.hilt.lifecycle.ViewModelInject
+import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.zj.core.view.base.BaseAndroidViewModel
 import com.zj.model.room.entity.ProjectClassify
-import dagger.hilt.android.scopes.ActivityScoped
 
 /**
  * 版权：Zhujiang 个人版权
@@ -14,14 +14,18 @@ import dagger.hilt.android.scopes.ActivityScoped
  * 描述：PlayAndroid
  *
  */
-@ActivityScoped
-class OfficialViewModel @ViewModelInject constructor(
-    private val officialRepository: OfficialRepository
-) : BaseAndroidViewModel<List<ProjectClassify>, Unit, Boolean>() {
+class OfficialViewModel (application: Application) : BaseAndroidViewModel<List<ProjectClassify>, Unit, Boolean>(application) {
 
-    var position = 0
+    private val officialRepository=  OfficialRepository(application)
 
-    override fun getData(page: Boolean): LiveData<Result<List<ProjectClassify>>> {
+    private val _position = MutableLiveData(0)
+    val position: LiveData<Int> = _position
+
+    fun onPositionChanged(position: Int) {
+        _position.value = position
+    }
+
+    override fun getData(page: Boolean): LiveData<List<ProjectClassify>?> {
         return officialRepository.getWxArticleTree(page)
     }
 }

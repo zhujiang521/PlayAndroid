@@ -1,12 +1,13 @@
 package com.zj.play.official.list
 
-import androidx.hilt.lifecycle.ViewModelInject
+import android.app.Application
 import androidx.lifecycle.LiveData
 import com.zj.core.view.base.BaseAndroidViewModel
 import com.zj.model.pojo.QueryArticle
 import com.zj.model.room.entity.Article
 import com.zj.play.official.OfficialRepository
-import dagger.hilt.android.scopes.FragmentScoped
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * 版权：Zhujiang 个人版权
@@ -16,12 +17,12 @@ import dagger.hilt.android.scopes.FragmentScoped
  * 描述：PlayAndroid
  *
  */
-@FragmentScoped
-class OfficialListViewModel @ViewModelInject constructor(
-    private val officialRepository: OfficialRepository
-) : BaseAndroidViewModel<List<Article>, Article, QueryArticle>() {
+class OfficialListViewModel(application: Application) :
+    BaseAndroidViewModel<List<Article>, Article, QueryArticle>(application) {
 
-    override fun getData(page: QueryArticle): LiveData<Result<List<Article>>> {
+    private val officialRepository = OfficialRepository(application)
+
+    override fun getData(page: QueryArticle): LiveData<List<Article>?> {
         return officialRepository.getWxArticle(page)
     }
 

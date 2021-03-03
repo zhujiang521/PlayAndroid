@@ -1,10 +1,10 @@
 package com.zj.play.project
 
-import androidx.hilt.lifecycle.ViewModelInject
+import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.zj.core.view.base.BaseAndroidViewModel
 import com.zj.model.room.entity.ProjectClassify
-import dagger.hilt.android.scopes.FragmentScoped
 
 /**
  * 版权：Zhujiang 个人版权
@@ -14,15 +14,19 @@ import dagger.hilt.android.scopes.FragmentScoped
  * 描述：PlayAndroid
  *
  */
-@FragmentScoped
-class ProjectViewModel @ViewModelInject constructor(
-    private val projectRepository: ProjectRepository
-) :
-    BaseAndroidViewModel<List<ProjectClassify>, Unit, Boolean>() {
+class ProjectViewModel(application: Application) :
+    BaseAndroidViewModel<List<ProjectClassify>, Unit, Boolean>(application) {
 
-    var position = 0
+    private val projectRepository = ProjectRepository(application)
 
-    override fun getData(page: Boolean): LiveData<Result<List<ProjectClassify>>> {
+    private val _position = MutableLiveData(0)
+    val position: LiveData<Int> = _position
+
+    fun onPositionChanged(position: Int) {
+        _position.value = position
+    }
+
+    override fun getData(page: Boolean): LiveData<List<ProjectClassify>?> {
         return projectRepository.getProjectTree(page)
     }
 

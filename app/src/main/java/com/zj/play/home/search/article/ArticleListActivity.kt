@@ -22,16 +22,16 @@ class ArticleListActivity : BaseListActivity() {
         keyword = intent.getStringExtra(KEYWORD) ?: ""
         super.initData()
         binding.baseListTitleBar.setTitle(keyword)
-        setDataStatus(viewModel.dataLiveData) {
-            if (page == 1 && viewModel.dataList.size > 0) {
-                viewModel.dataList.clear()
-            }
-            viewModel.dataList.addAll(it.datas)
-            if (viewModel.dataList.size == 0) {
-                showNoContentView(getString(R.string.keyword_null, keyword))
-            }
-            articleAdapter.notifyDataSetChanged()
-        }
+//        setDataStatus(viewModel.dataLiveData) {
+//            if (page == 1 && viewModel.dataList.size > 0) {
+//                viewModel.dataList.clear()
+//            }
+//            viewModel.dataList.addAll(it.datas)
+//            if (viewModel.dataList.size == 0) {
+//                showNoContentView(getString(R.string.keyword_null, keyword))
+//            }
+//            articleAdapter.notifyDataSetChanged()
+//        }
     }
 
     override fun initView() {

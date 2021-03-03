@@ -39,20 +39,20 @@ class ProjectFragment : BaseTabFragment() {
 
     override fun initData() {
         startLoading()
-        setDataStatus(viewModel.dataLiveData) {
-            val nameList = mutableListOf<String>()
-            val viewList = mutableListOf<Fragment>()
-            it.forEach { project ->
-                nameList.add(project.name)
-                viewList.add(ProjectListFragment.newInstance(project.id))
-            }
-            adapter.apply {
-                reset(nameList.toTypedArray())
-                reset(viewList)
-                notifyDataSetChanged()
-            }
-            binding?.projectViewPager?.currentItem = viewModel.position
-        }
+//        setDataStatus(viewModel.dataLiveData) {
+//            val nameList = mutableListOf<String>()
+//            val viewList = mutableListOf<Fragment>()
+//            it.forEach { project ->
+//                nameList.add(project.name)
+//                viewList.add(ProjectListFragment.newInstance(project.id))
+//            }
+//            adapter.apply {
+//                reset(nameList.toTypedArray())
+//                reset(viewList)
+//                notifyDataSetChanged()
+//            }
+//            binding?.projectViewPager?.currentItem = viewModel.position
+//        }
         getProjectTree()
     }
 
@@ -61,7 +61,7 @@ class ProjectFragment : BaseTabFragment() {
     }
 
     override fun onTabPageSelected(position: Int) {
-        viewModel.position = position
+        //viewModel.position = position
     }
 
     companion object {

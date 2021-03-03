@@ -18,8 +18,8 @@ import com.zj.model.room.entity.BannerBean
 import com.zj.model.room.entity.HOME
 import com.zj.model.room.entity.HOME_TOP
 import com.zj.network.base.PlayAndroidNetwork
+import com.zj.play.main.login.composeFire
 import com.zj.play.main.login.fire
-import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.first
 import java.io.File
@@ -34,13 +34,13 @@ import javax.inject.Inject
  * 描述：PlayAndroid
  *
  */
-@ActivityRetainedScoped
-class HomeRepository @Inject constructor(val application: Application) {
+
+class HomeRepository constructor(val application: Application) {
 
     /**
      * 获取banner
      */
-    fun getBanner() = fire {
+    fun getBanner() = composeFire {
         val dataStore = DataStoreUtils
         var downImageTime = 0L
         dataStore.readLongFlow(DOWN_IMAGE_TIME, System.currentTimeMillis()).first {
@@ -113,7 +113,7 @@ class HomeRepository @Inject constructor(val application: Application) {
      * 首页获取文章列表
      * @param query 查询条件
      */
-    fun getArticleList(query: QueryHomeArticle) = fire {
+    fun getArticleList(query: QueryHomeArticle) = composeFire {
         coroutineScope {
             val res = arrayListOf<Article>()
             if (query.page == 1) {
@@ -160,7 +160,7 @@ class HomeRepository @Inject constructor(val application: Application) {
                     && !query.isRefresh
                 ) {
                     res.addAll(articleListHome)
-                    Result.success(res)
+                    res
                 } else {
                     val articleListDeferred =
                         async { PlayAndroidNetwork.getArticleList(query.page - 1) }
@@ -177,13 +177,9 @@ class HomeRepository @Inject constructor(val application: Application) {
                             articleListDao.deleteAll(HOME)
                             articleListDao.insertList(articleList.data.datas)
                         }
-                        Result.success(res)
+                        res
                     } else {
-                        Result.failure(
-                            RuntimeException(
-                                "response status is ${articleList.errorCode}" + "  msg is ${articleList.errorMsg}"
-                            )
-                        )
+                        res
                     }
                 }
             } else {
@@ -192,13 +188,9 @@ class HomeRepository @Inject constructor(val application: Application) {
                 val articleList = articleListDeferred.await()
                 if (articleList.errorCode == 0) {
                     res.addAll(articleList.data.datas)
-                    Result.success(res)
+                    res
                 } else {
-                    Result.failure(
-                        RuntimeException(
-                            "response status is ${articleList.errorCode}" + "  msg is ${articleList.errorMsg}"
-                        )
-                    )
+                    res
                 }
             }
         }

@@ -42,15 +42,15 @@ class OfficialListFragment : BaseListFragment() {
     }
 
     override fun initData() {
-        setDataStatus(viewModel.dataLiveData, {
-            if (viewModel.dataList.size > 0) loadFinished()
-        }) {
-            if (page == 1 && viewModel.dataList.size > 0) {
-                viewModel.dataList.clear()
-            }
-            viewModel.dataList.addAll(it)
-            articleAdapter.notifyDataSetChanged()
-        }
+//        setDataStatus(viewModel.dataLiveData, {
+//            if (viewModel.dataList.size > 0) loadFinished()
+//        }) {
+//            if (page == 1 && viewModel.dataList.size > 0) {
+//                viewModel.dataList.clear()
+//            }
+//            viewModel.dataList.addAll(it)
+//            articleAdapter.notifyDataSetChanged()
+//        }
         getArticleList(false)
     }
 
