@@ -28,6 +28,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
@@ -54,7 +55,10 @@ fun OfficialAccountPage(
     viewModel: OfficialViewModel = viewModel(),
     officialListViewModel: OfficialListViewModel = viewModel()
 ) {
-    viewModel.getDataList(false)
+    val onRefreshPostsState by rememberUpdatedState(0)
+    if (onRefreshPostsState == 0) {
+        viewModel.getDataList(false)
+    }
     val result by viewModel.dataLiveData.observeAsState()
     val position = viewModel.position.observeAsState()
     val articleList by officialListViewModel.dataLiveData.observeAsState()
@@ -63,6 +67,7 @@ fun OfficialAccountPage(
             LoadingContent()
         }
         is PlaySuccess<*> -> {
+            onRefreshPostsState.and(1)
             val data = result as PlaySuccess<List<ProjectClassify>>
             if (position.value == 0) {
                 officialListViewModel.getDataList(
