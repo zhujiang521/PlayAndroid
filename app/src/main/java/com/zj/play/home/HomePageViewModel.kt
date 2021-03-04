@@ -3,15 +3,16 @@ package com.zj.play.home
 import android.app.Application
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.zj.model.pojo.QueryHomeArticle
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.BannerBean
+import com.zj.play.compose.model.PlayState
+import com.zj.play.home.almanac.ShareState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.scopes.FragmentScoped
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -35,6 +36,11 @@ class HomePageViewModel(application: Application) : AndroidViewModel(application
 
     val articleList = ArrayList<Article>()
 
+    private val _state = MutableLiveData<PlayState>()
+
+    val state: LiveData<PlayState>
+        get() = _state
+
     val articleLiveData = Transformations.switchMap(pageLiveData) { query ->
         homeRepository.getArticleList(query)
     }
@@ -42,7 +48,11 @@ class HomePageViewModel(application: Application) : AndroidViewModel(application
     fun getBanner() = homeRepository.getBanner()
 
     fun getArticleList(page: Int, isRefresh: Boolean) {
-        pageLiveData.value = QueryHomeArticle(page, isRefresh)
+        Log.e("ZHUJIANG123", "getArticleList: 111")
+        //pageLiveData.value = QueryHomeArticle(page, isRefresh)
+        viewModelScope.launch(Dispatchers.IO) {
+            homeRepository.getArticleList(_state,QueryHomeArticle(page, isRefresh))
+        }
     }
 
 }

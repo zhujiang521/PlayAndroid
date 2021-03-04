@@ -19,10 +19,10 @@ package com.zj.play.compose
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigate
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.NavType
+import androidx.navigation.compose.*
+import com.zj.play.compose.MainDestinations.ARTICLE_ROUTE_URL
+import com.zj.play.compose.common.article.ArticlePage
 
 /**
  * Destinations used in the ([NewMainActivity]).
@@ -31,6 +31,7 @@ object MainDestinations {
 
     const val HOME_PAGE_ROUTE = "home_page_route"
     const val ARTICLE_ROUTE = "article_route"
+    const val ARTICLE_ROUTE_URL = "article_route_url"
 //    const val PROJECT_ROUTE = "project_route"
 //    const val OFFICIAL_ROUTE = "official_route"
 //    const val MY_INFORMATION_ROUTE = "my_information_route"
@@ -48,8 +49,15 @@ fun NavGraph(startDestination: String = MainDestinations.HOME_PAGE_ROUTE) {
         composable(MainDestinations.HOME_PAGE_ROUTE) {
             Home(enterArticle = actions.enterArticle)
         }
-        composable(MainDestinations.ARTICLE_ROUTE) {
-            //Onboarding(onboardingComplete = actions.onboardingComplete)
+        composable(
+            "${MainDestinations.ARTICLE_ROUTE}/{$ARTICLE_ROUTE_URL}",
+            arguments = listOf(navArgument(ARTICLE_ROUTE_URL) { type = NavType.StringType })
+        ) { backStackEntry ->
+            val arguments = requireNotNull(backStackEntry.arguments)
+            ArticlePage(
+                url = arguments.getString(ARTICLE_ROUTE_URL) ?: "",
+                press = actions.upPress
+            )
         }
     }
 }
@@ -61,8 +69,8 @@ class MainActions(navController: NavHostController) {
     val homePage: () -> Unit = {
         navController.navigate(MainDestinations.HOME_PAGE_ROUTE)
     }
-    val enterArticle: (String) -> Unit = {
-        navController.navigate(MainDestinations.ARTICLE_ROUTE)
+    val enterArticle: (String) -> Unit = { url ->
+        navController.navigate("${MainDestinations.ARTICLE_ROUTE}/$url")
     }
     val upPress: () -> Unit = {
         navController.navigateUp()

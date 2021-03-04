@@ -3,11 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.2712962962962963" />
         <entry key="app/src/main/res/drawable/ic_grain.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/profile_list_bg.xml" value="0.2712962962962963" />
         <entry key="app/src/main/res/drawable/selector_four.xml" value="0.275" />
         <entry key="app/src/main/res/drawable/selector_one.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/selector_two.xml" value="0.275" />
+        <entry key="app/src/main/res/layout/activity_article.xml" value="0.2848731884057971" />
         <entry key="app/src/main/res/layout/fragment_base_list.xml" value="0.16084093211752787" />
         <entry key="app/src/main/res/layout/fragment_project.xml" value="0.16084093211752787" />
         <entry key="app/src/main/res/layout/layout_home_bottom_tab.xml" value="0.16084093211752787" />
@@ -18,6 +20,7 @@
         <entry key="core/src/main/res/drawable/img_back.xml" value="0.1" />
         <entry key="core/src/main/res/drawable/img_back_nomal.xml" value="0.1" />
         <entry key="core/src/main/res/layout/bad_network_view.xml" value="0.2848731884057971" />
+        <entry key="core/src/main/res/layout/loading.xml" value="0.2848731884057971" />
       </map>
     </option>
   </component>

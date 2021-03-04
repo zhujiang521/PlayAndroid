@@ -31,7 +31,11 @@ class X5WebView @JvmOverloads constructor(
     }
 
     init {
-//        x5WebViewExtension.setScrollBarFadingEnabled(false);
+        onCreate()
+    }
+
+    fun onCreate() {
+        //        x5WebViewExtension.setScrollBarFadingEnabled(false);
         isHorizontalScrollBarEnabled = false //水平不显示小方块
         isVerticalScrollBarEnabled = false //垂直不显示小方块
 
@@ -52,6 +56,14 @@ class X5WebView @JvmOverloads constructor(
 //            ViewGroup.LayoutParams.MATCH_PARENT
 //        ))
         initWebViewSettings()
+    }
+
+    fun onStart() {
+
+    }
+
+    fun onStop() {
+
     }
 
     //   基本的WebViewSetting

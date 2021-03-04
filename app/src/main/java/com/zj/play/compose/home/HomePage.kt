@@ -16,6 +16,7 @@
 
 package com.zj.play.compose.home
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,11 +26,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.zj.model.room.entity.Article
 import com.zj.play.R
 import com.zj.play.compose.common.ArticleItem
 import com.zj.play.compose.common.ErrorContent
+import com.zj.play.compose.common.LoadingContent
 import com.zj.play.compose.common.PlayAppBar
+import com.zj.play.compose.model.PlayError
+import com.zj.play.compose.model.PlayLoading
+import com.zj.play.compose.model.PlaySuccess
 import com.zj.play.home.HomePageViewModel
 import dev.chrisbanes.accompanist.insets.statusBarsHeight
 
@@ -40,22 +47,28 @@ fun HomePage(
     viewModel: HomePageViewModel = viewModel()
 ) {
     viewModel.getArticleList(1, true)
-    viewModel.articleLiveData.observeAsState().value
-    val result by viewModel.articleLiveData.observeAsState(emptyList())
+    val result by viewModel.state.observeAsState()
     Column(modifier = Modifier.fillMaxSize()) {
         Spacer(Modifier.statusBarsHeight())
-        PlayAppBar(R.string.home_page, false)
-        LazyColumn(modifier) {
-            if (result.isNotEmpty()) {
-                itemsIndexed(result) { index, article ->
-                    ArticleItem(article, index, enterArticle)
-                }
-            } else {
-                item {
-                    ErrorContent(enterArticle = { viewModel.getArticleList(1, true) })
+        PlayAppBar(stringResource(id = R.string.home_page), false)
+        Log.e("ZHUJIANG123", "HomePage: ${result?.javaClass}")
+        when (result) {
+            PlayLoading -> {
+                LoadingContent()
+            }
+            is PlaySuccess<*> -> {
+                val data = result as PlaySuccess<List<Article>>
+                LazyColumn(modifier) {
+                    itemsIndexed(data.data) { index, article ->
+                        ArticleItem(article, index, enterArticle)
+                    }
                 }
             }
+            is PlayError -> {
+                ErrorContent(enterArticle = { viewModel.getArticleList(1, true) })
+            }
         }
+
     }
 
 }
