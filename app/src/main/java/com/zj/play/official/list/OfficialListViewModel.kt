@@ -2,12 +2,10 @@ package com.zj.play.official.list
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.zj.core.view.base.BaseAndroidViewModel
+import com.zj.play.compose.common.BaseAndroidViewModel
 import com.zj.model.pojo.QueryArticle
 import com.zj.model.room.entity.Article
 import com.zj.play.official.OfficialRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
 /**
  * 版权：Zhujiang 个人版权
@@ -22,8 +20,8 @@ class OfficialListViewModel(application: Application) :
 
     private val officialRepository = OfficialRepository(application)
 
-    override fun getData(page: QueryArticle): LiveData<List<Article>?> {
-        return officialRepository.getWxArticle(page)
+    override suspend fun getData(page: QueryArticle){
+        return officialRepository.getWxArticle(_state,page)
     }
 
 }

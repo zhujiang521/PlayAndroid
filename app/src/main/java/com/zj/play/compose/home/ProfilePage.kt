@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
@@ -181,11 +182,11 @@ fun ProfileFab(extended: Boolean, modifier: Modifier = Modifier) {
         FloatingActionButton(
             onClick = { /* TODO */ },
             modifier = modifier
-                .padding(end = 16.dp,bottom = 60.dp)
+                .padding(end = 16.dp, bottom = 70.dp)
                 .navigationBarsPadding()
                 .height(48.dp)
                 .widthIn(min = 48.dp),
-            backgroundColor = MaterialTheme.colors.primary,
+            backgroundColor = colorResource(id = R.color.yellow),
             contentColor = MaterialTheme.colors.onPrimary
         ) {
             AnimatingFabContent(

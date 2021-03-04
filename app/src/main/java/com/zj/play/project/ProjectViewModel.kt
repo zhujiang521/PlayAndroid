@@ -3,7 +3,7 @@ package com.zj.play.project
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.zj.core.view.base.BaseAndroidViewModel
+import com.zj.play.compose.common.BaseAndroidViewModel
 import com.zj.model.room.entity.ProjectClassify
 
 /**
@@ -26,8 +26,8 @@ class ProjectViewModel(application: Application) :
         _position.value = position
     }
 
-    override fun getData(page: Boolean): LiveData<List<ProjectClassify>?> {
-        return projectRepository.getProjectTree(page)
+    override suspend fun getData(page: Boolean) {
+        projectRepository.getProjectTree(_state,page)
     }
 
 }

@@ -18,12 +18,14 @@ package com.zj.play.compose
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -38,37 +40,36 @@ import java.util.*
 
 @Composable
 fun Home(enterArticle: (String) -> Unit) {
-    MaterialTheme {
-        val (selectedTab, setSelectedTab) = remember { mutableStateOf(CourseTabs.HOME_PAGE) }
-        val tabs = CourseTabs.values()
-        Scaffold(
-            backgroundColor = MaterialTheme.colors.primarySurface,
-            bottomBar = {
-                BottomNavigation(
-                    Modifier.navigationBarsHeight(additional = 56.dp)
-                ) {
-                    tabs.forEach { tab ->
-                        BottomNavigationItem(
-                            icon = { Icon(painterResource(tab.icon), contentDescription = null) },
-                            label = { Text(stringResource(tab.title).toUpperCase(Locale.ROOT)) },
-                            selected = tab == selectedTab,
-                            onClick = { setSelectedTab(tab) },
-                            alwaysShowLabel = false,
-                            selectedContentColor = MaterialTheme.colors.secondary,
-                            unselectedContentColor = LocalContentColor.current,
-                            modifier = Modifier.navigationBarsPadding()
-                        )
-                    }
+    val (selectedTab, setSelectedTab) = remember { mutableStateOf(CourseTabs.HOME_PAGE) }
+    val tabs = CourseTabs.values()
+
+    Scaffold(
+        backgroundColor = colorResource(id = R.color.yellow),
+        bottomBar = {
+            BottomNavigation(
+                Modifier.navigationBarsHeight(additional = 56.dp)
+            ) {
+                tabs.forEach { tab ->
+                    BottomNavigationItem(
+                        modifier = Modifier
+                            .background(MaterialTheme.colors.primary)
+                            .navigationBarsPadding(),
+                        icon = { Icon(painterResource(tab.icon), contentDescription = null) },
+                        label = { Text(stringResource(tab.title).toUpperCase(Locale.ROOT)) },
+                        selected = tab == selectedTab,
+                        onClick = { setSelectedTab(tab) },
+                        alwaysShowLabel = false,
+                    )
                 }
             }
-        ) { innerPadding ->
-            val modifier = Modifier.padding(innerPadding)
-            when (selectedTab) {
-                CourseTabs.HOME_PAGE -> HomePage(enterArticle, modifier)
-                CourseTabs.PROJECT -> ProjectPage(enterArticle, modifier)
-                CourseTabs.OFFICIAL_ACCOUNT -> OfficialAccountPage(enterArticle, modifier)
-                CourseTabs.MINE -> ProfilePage()
-            }
+        }
+    ) { innerPadding ->
+        val modifier = Modifier.padding(innerPadding)
+        when (selectedTab) {
+            CourseTabs.HOME_PAGE -> HomePage(enterArticle, modifier)
+            CourseTabs.PROJECT -> ProjectPage(enterArticle, modifier)
+            CourseTabs.OFFICIAL_ACCOUNT -> OfficialAccountPage(enterArticle, modifier)
+            CourseTabs.MINE -> ProfilePage()
         }
     }
 }

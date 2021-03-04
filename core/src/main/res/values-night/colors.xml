@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#000000</color>
-    <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#000000</color>
-    <color name="colorLoading">#298E41</color>
     <!-- 白色 -->
     <color name="white">#CACACA</color>
     <!-- 浅白色 -->

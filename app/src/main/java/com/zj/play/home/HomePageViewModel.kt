@@ -26,7 +26,7 @@ import javax.inject.Inject
 
 class HomePageViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val homeRepository:HomeRepository = HomeRepository(application)
+    private val homeRepository: HomeRepository = HomeRepository(application)
 
     private val pageLiveData = MutableLiveData<QueryHomeArticle>()
 
@@ -51,8 +51,21 @@ class HomePageViewModel(application: Application) : AndroidViewModel(application
         Log.e("ZHUJIANG123", "getArticleList: 111")
         //pageLiveData.value = QueryHomeArticle(page, isRefresh)
         viewModelScope.launch(Dispatchers.IO) {
-            homeRepository.getArticleList(_state,QueryHomeArticle(page, isRefresh))
+            homeRepository.getArticleList(_state, QueryHomeArticle(page, isRefresh))
         }
     }
 
+    private val _refreshState = MutableLiveData<Int>()
+
+    val refreshState: LiveData<Int>
+        get() = _refreshState
+
+    fun onRefreshChanged(refresh: Int) {
+        _refreshState.postValue(refresh)
+    }
+
 }
+
+const val REFRESH_DEFAULT = 0
+const val REFRESH_START = 1
+const val REFRESH_STOP = 2

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#000000</color>
+    <color name="colorLoading">#298E41</color>
+
     <color name="rb_gray">#838383</color>
 
     <!-- 灰白 -->
@@ -20,7 +25,7 @@
 
     <color name="view_bg">#DD2C2C2C</color>
 
-    <color name="yellow">#FEC86D</color>
+    <color name="yellow">#ff1c1d24</color>
 
     <color name="colorBackground">#000000</color>
 

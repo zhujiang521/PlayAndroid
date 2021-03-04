@@ -1,10 +1,8 @@
 package com.zj.play.compose.common
 
 import android.widget.ProgressBar
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -22,13 +20,19 @@ fun LoadingContent() {
             id = R.id.progress_bar
         }
     }
+    progressBar.indeterminateDrawable =
+        AppCompatResources.getDrawable(LocalContext.current, R.drawable.loading_animation)
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         // Adds view to Compose
-        AndroidView({ progressBar }, modifier = Modifier.size(50.dp)) {}
+        AndroidView(
+            { progressBar }, modifier = Modifier
+                .width(200.dp)
+                .height(110.dp)
+        ) {}
     }
 
 }

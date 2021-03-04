@@ -1,8 +1,14 @@
 package com.zj.play.home.search
 
+import android.accounts.NetworkErrorException
 import android.app.Application
+import androidx.lifecycle.MutableLiveData
 import com.zj.model.room.PlayDatabase
 import com.zj.network.base.PlayAndroidNetwork
+import com.zj.play.compose.model.PlayError
+import com.zj.play.compose.model.PlayLoading
+import com.zj.play.compose.model.PlayState
+import com.zj.play.compose.model.PlaySuccess
 import com.zj.play.main.login.composeFire
 import com.zj.play.main.login.composeFires
 import com.zj.play.main.login.fire
@@ -26,18 +32,19 @@ class SearchRepository @Inject constructor(application: Application) {
     /**
      * 获取搜索热词
      */
-    fun getHotKey() = composeFire {
+    suspend fun getHotKey(state: MutableLiveData<PlayState>) {
+        state.postValue(PlayLoading)
         val hotKeyList = hotKeyDao.getHotKeyList()
         if (hotKeyList.isNotEmpty()) {
-            hotKeyList
+            state.postValue(PlaySuccess(hotKeyList))
         } else {
             val projectTree = PlayAndroidNetwork.getHotKey()
             if (projectTree.errorCode == 0) {
                 val hotKeyLists = projectTree.data
                 hotKeyDao.insertList(hotKeyLists)
-                hotKeyLists
+                state.postValue(PlaySuccess(hotKeyLists))
             } else {
-                null
+                state.postValue(PlayError(NetworkErrorException("")))
             }
         }
     }
@@ -45,7 +52,7 @@ class SearchRepository @Inject constructor(application: Application) {
     /**
      * 获取搜索结果
      */
-    fun getQueryArticleList(page: Int, k: String) = composeFires{
+    fun getQueryArticleList(page: Int, k: String) = composeFires {
         PlayAndroidNetwork.getQueryArticleList(page, k)
     }
 

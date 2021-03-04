@@ -20,17 +20,25 @@
     <style name="AppTheme.NoActionBars" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/yellow</item>
+        <item name="colorPrimaryDark">@color/yellow</item>
+        <item name="colorAccent">@color/yellow</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:colorBackground">@color/colorBackground</item>
-        <item name="android:windowBackground">@drawable/img_welcome</item>
     </style>
 
     <style name="TabLayoutTextStyle">
         <item name="android:textSize">@dimen/sp_14</item>
+    </style>
+
+
+    <style name="StyleProgressBarMini" parent="Widget.AppCompat.ProgressBar">
+
+        <item name="android:indeterminateDrawable">
+            @drawable/loading_animation
+        </item>
+
     </style>
 
 </resources>

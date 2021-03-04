@@ -16,6 +16,7 @@
 
 package com.zj.play.compose.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -28,11 +29,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.zj.model.pojo.QueryArticle
+import com.zj.model.room.entity.Article
+import com.zj.model.room.entity.ProjectClassify
+import com.zj.play.R
 import com.zj.play.compose.common.ArticleItem
 import com.zj.play.compose.common.ErrorContent
+import com.zj.play.compose.common.LoadingContent
+import com.zj.play.compose.model.PlayError
+import com.zj.play.compose.model.PlayLoading
+import com.zj.play.compose.model.PlaySuccess
+import com.zj.play.home.REFRESH_STOP
 import com.zj.play.official.OfficialViewModel
 import com.zj.play.official.list.OfficialListViewModel
 import dev.chrisbanes.accompanist.insets.statusBarsHeight
@@ -48,58 +58,74 @@ fun OfficialAccountPage(
     val result by viewModel.dataLiveData.observeAsState()
     val position = viewModel.position.observeAsState()
     val articleList by officialListViewModel.dataLiveData.observeAsState()
-    if (result == null) {
-        ErrorContent(enterArticle = { /*TODO*/ })
-        return
-    }
-
-    if (position.value == 0) {
-        officialListViewModel.getDataList(
-            QueryArticle(
-                0,
-                result!![0].id,
-                true
-            )
-        )
-    }
-
-    Column {
-        Spacer(modifier = Modifier.statusBarsHeight())
-        ScrollableTabRow(
-            selectedTabIndex = position.value ?: 0,
-            modifier = Modifier.wrapContentWidth(),
-            edgePadding = 3.dp
-        ) {
-            result!!.forEachIndexed { index, projectClassify ->
-                Tab(
-                    text = { Text(projectClassify.name) },
-                    selected = position.value == index,
-                    onClick = {
-                        officialListViewModel.getDataList(
-                            QueryArticle(
-                                0,
-                                projectClassify.id,
-                                true
-                            )
-                        )
-                        viewModel.onPositionChanged(index)
-                    }
+    when (result) {
+        is PlayLoading -> {
+            LoadingContent()
+        }
+        is PlaySuccess<*> -> {
+            val data = result as PlaySuccess<List<ProjectClassify>>
+            if (position.value == 0) {
+                officialListViewModel.getDataList(
+                    QueryArticle(
+                        0,
+                        data.data[0].id,
+                        true
+                    )
                 )
             }
-        }
-
-        LazyColumn(modifier) {
-            if (articleList == null) {
-                item {
-                    ErrorContent(enterArticle = { /*TODO*/ })
+            Column {
+                Column(modifier = Modifier.background(color = colorResource(id = R.color.yellow))) {
+                    Spacer(modifier = Modifier.statusBarsHeight())
+                    ScrollableTabRow(
+                        selectedTabIndex = position.value ?: 0,
+                        modifier = Modifier.wrapContentWidth(),
+                        edgePadding = 3.dp
+                    ) {
+                        data.data.forEachIndexed { index, projectClassify ->
+                            Tab(
+                                text = { Text(projectClassify.name) },
+                                selected = position.value == index,
+                                onClick = {
+                                    officialListViewModel.getDataList(
+                                        QueryArticle(
+                                            0,
+                                            projectClassify.id,
+                                            true
+                                        )
+                                    )
+                                    viewModel.onPositionChanged(index)
+                                }
+                            )
+                        }
+                    }
                 }
-                return@LazyColumn
-            }
-            itemsIndexed(articleList!!) { index, article ->
-                ArticleItem(article, index, enterArticle)
+                when (articleList) {
+                    is PlayLoading -> {
+                        LoadingContent()
+                    }
+                    is PlaySuccess<*> -> {
+                        val articles = articleList as PlaySuccess<List<Article>>
+                        LazyColumn(modifier) {
+                            if (articleList == null) {
+                                item {
+                                    ErrorContent(enterArticle = { /*TODO*/ })
+                                }
+                                return@LazyColumn
+                            }
+                            itemsIndexed(articles.data) { index, article ->
+                                ArticleItem(article, index, enterArticle)
+                            }
+                        }
+                    }
+                    is PlayError -> ErrorContent(enterArticle = { })
+                }
+
             }
         }
-
+        is PlayError -> {
+            ErrorContent(enterArticle = { })
+        }
     }
+
 
 }

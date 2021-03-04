@@ -22,9 +22,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
 
 val yellow200 = Color(0xffffeb46)
-val yellow400 = Color(0xffffc000)
+val yellow = Color(0xFFFEC86D)
 val yellow500 = Color(0xffffde03)
 val yellowDarkPrimary = Color(0xff242316)
+
+val yellowDark200 = Color(0xff1c1d24)
+val yellowDark = Color(0xff1c1d24)
+val yellowDark500 = Color(0xff1c1d24)
+
 
 val blue200 = Color(0xff91a4fc)
 val blue700 = Color(0xff0336ff)

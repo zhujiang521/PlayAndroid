@@ -27,6 +27,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
@@ -43,7 +44,7 @@ import com.zj.play.compose.utils.NetworkImage
 fun ArticleItem(
     article: Article,
     index: Int,
-    enterArticle: (String) -> Unit
+    enterArticle: (urlArgs: String) -> Unit,
 ) {
     Row(modifier = Modifier.padding(top = 8.dp)) {
         val stagger = if (index % 2 == 0) 42.dp else 16.dp

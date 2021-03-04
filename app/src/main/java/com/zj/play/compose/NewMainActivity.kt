@@ -5,6 +5,7 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import com.blankj.utilcode.util.BarUtils
+import com.zj.play.compose.theme.PlayTheme
 import com.zj.play.compose.utils.ProvideImageLoader
 import dev.chrisbanes.accompanist.insets.ProvideWindowInsets
 
@@ -19,7 +20,9 @@ class NewMainActivity : AppCompatActivity() {
         setContent {
             ProvideWindowInsets {
                 ProvideImageLoader {
-                    NavGraph()
+                    PlayTheme {
+                        NavGraph()
+                    }
                 }
             }
         }

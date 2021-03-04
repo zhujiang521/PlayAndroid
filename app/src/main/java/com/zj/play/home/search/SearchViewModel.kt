@@ -1,11 +1,9 @@
 package com.zj.play.home.search
 
 import android.app.Application
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
-import com.zj.core.view.base.BaseAndroidViewModel
+import com.zj.play.compose.common.BaseAndroidViewModel
 import com.zj.model.room.entity.HotKey
-import dagger.hilt.android.scopes.ActivityScoped
 
 /**
  * 版权：Zhujiang 个人版权
@@ -19,8 +17,8 @@ class SearchViewModel (application: Application) : BaseAndroidViewModel<List<Hot
 
     private val searchRepository = SearchRepository(application)
 
-    override fun getData(page: Boolean): LiveData<List<HotKey>?> {
-        return searchRepository.getHotKey()
+    override suspend fun getData(page: Boolean) {
+        searchRepository.getHotKey(_state)
     }
 
 }

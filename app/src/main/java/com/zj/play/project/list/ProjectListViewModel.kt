@@ -2,7 +2,7 @@ package com.zj.play.project.list
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.zj.core.view.base.BaseAndroidViewModel
+import com.zj.play.compose.common.BaseAndroidViewModel
 import com.zj.model.pojo.QueryArticle
 import com.zj.model.room.entity.Article
 import com.zj.play.project.ProjectRepository
@@ -21,8 +21,8 @@ class ProjectListViewModel(
 
     private val projectRepository = ProjectRepository(application)
 
-    override fun getData(page: QueryArticle): LiveData<List<Article>?> {
-        return projectRepository.getProject(page)
+    override suspend fun getData(page: QueryArticle) {
+        projectRepository.getProject(_state,page)
     }
 
 }

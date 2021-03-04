@@ -3,7 +3,7 @@ package com.zj.play.official
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.zj.core.view.base.BaseAndroidViewModel
+import com.zj.play.compose.common.BaseAndroidViewModel
 import com.zj.model.room.entity.ProjectClassify
 
 /**
@@ -14,9 +14,10 @@ import com.zj.model.room.entity.ProjectClassify
  * 描述：PlayAndroid
  *
  */
-class OfficialViewModel (application: Application) : BaseAndroidViewModel<List<ProjectClassify>, Unit, Boolean>(application) {
+class OfficialViewModel(application: Application) :
+    BaseAndroidViewModel<List<ProjectClassify>, Unit, Boolean>(application) {
 
-    private val officialRepository=  OfficialRepository(application)
+    private val officialRepository = OfficialRepository(application)
 
     private val _position = MutableLiveData(0)
     val position: LiveData<Int> = _position
@@ -25,7 +26,7 @@ class OfficialViewModel (application: Application) : BaseAndroidViewModel<List<P
         _position.value = position
     }
 
-    override fun getData(page: Boolean): LiveData<List<ProjectClassify>?> {
-        return officialRepository.getWxArticleTree(page)
+    override suspend fun getData(page: Boolean) {
+        return officialRepository.getWxArticleTree(_state, page)
     }
 }

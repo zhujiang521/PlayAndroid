@@ -36,14 +36,12 @@ fun ArticlePage(
     // Returns a [CoroutineScope] that is scoped to the lifecycle of [ArticleScreen]. When this
     // screen is removed from composition, the scope will be cancelled.
     val coroutineScope = rememberCoroutineScope()
-    MaterialTheme {
-        ArticleScreen(
-            url = url,
-            onBack = onBack,
-            isFavorite = false,
-            onToggleFavorite = {}
-        )
-    }
+    ArticleScreen(
+        url = url,
+        onBack = onBack,
+        isFavorite = false,
+        onToggleFavorite = {}
+    )
 }
 
 /**
@@ -67,36 +65,10 @@ fun ArticleScreen(
         FunctionalityNotAvailablePopup { showDialog = false }
     }
     val x5WebView = rememberX5WebViewWithLifecycle()
-    Scaffold(
-        topBar = {
-            Column {
-                Spacer(modifier = Modifier.statusBarsHeight())
-//                TopAppBar(
-//                    title = {
-//                        Text(
-//                            text = "Published in:文章标题",
-//                            style = MaterialTheme.typography.subtitle2,
-//                            color = LocalContentColor.current
-//                        )
-//                    },
-//                    navigationIcon = {
-//                        IconButton(onClick = {
-//                            if (x5WebView.canGoBack()) {
-//                                //返回上个页面
-//                                x5WebView.goBack()
-//                                return@IconButton
-//                            } else {
-//                                onBack.invoke()
-//                            }
-//                        }) {
-//                            Icon(
-//                                imageVector = Icons.Filled.ArrowBack,
-//                                contentDescription = "back"
-//                            )
-//                        }
-//                    }
-//                )
-                PlayAppBar("dddd", click = {
+    MaterialTheme {
+        Scaffold(
+            topBar = {
+                PlayAppBar("文章详情", click = {
                     if (x5WebView.canGoBack()) {
                         //返回上个页面
                         x5WebView.goBack()
@@ -104,25 +76,30 @@ fun ArticleScreen(
                         onBack.invoke()
                     }
                 })
+            },
+            content = {
+                // Adds view to Compose
+                AndroidView(
+                    { x5WebView },
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(bottom = 56.dp),
+                ) { x5WebView ->
+                    // Reading zoom so that AndroidView recomposes when it changes. The getMapAsync lambda
+                    // is stored for later, Compose doesn't recognize state reads
+                    x5WebView.loadUrl(url)
+                }
+            },
+            bottomBar = {
+                BottomBar(
+                    post = url,
+                    onUnimplementedAction = { showDialog = true },
+                    isFavorite = isFavorite,
+                    onToggleFavorite = onToggleFavorite
+                )
             }
-        },
-        content = {
-            // Adds view to Compose
-            AndroidView({ x5WebView }, modifier = Modifier.fillMaxSize()) { x5WebView ->
-                // Reading zoom so that AndroidView recomposes when it changes. The getMapAsync lambda
-                // is stored for later, Compose doesn't recognize state reads
-                x5WebView.loadUrl(url)
-            }
-        },
-        bottomBar = {
-            BottomBar(
-                post = url,
-                onUnimplementedAction = { showDialog = true },
-                isFavorite = isFavorite,
-                onToggleFavorite = onToggleFavorite
-            )
-        }
-    )
+        )
+    }
 }
 
 /**

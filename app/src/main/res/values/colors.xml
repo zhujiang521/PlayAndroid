@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="colorPrimary">#FEC86D</color>
+    <color name="colorPrimaryDark">#FEC86D</color>
+    <color name="colorAccent">#FEC86D</color>
+    <color name="colorLoading">#FEC86D</color>
+
     <color name="rb_gray">#FAFAFA</color>
 
     <!-- 灰白 -->
@@ -22,7 +27,7 @@
 
     <color name="yellow">#FEC86D</color>
 
-    <color name="colorBackground">#F4F4F4</color>
+    <color name="colorBackground">#FFB9B9</color>
 
     <color name="floatBackground">#FAFAFA</color>
 

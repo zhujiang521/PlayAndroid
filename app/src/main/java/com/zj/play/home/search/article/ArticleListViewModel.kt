@@ -1,13 +1,11 @@
 package com.zj.play.home.search.article
 
 import android.app.Application
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
-import com.zj.core.view.base.BaseAndroidViewModel
+import com.zj.play.compose.common.BaseAndroidViewModel
 import com.zj.model.model.ArticleList
 import com.zj.model.room.entity.Article
 import com.zj.play.home.search.SearchRepository
-import dagger.hilt.android.scopes.ActivityScoped
 
 /**
  * 版权：Zhujiang 个人版权
@@ -22,8 +20,8 @@ class ArticleListViewModel(application: Application) :
 
     private val searchRepository = SearchRepository(application)
 
-    override fun getData(page: QueryKeyArticle): LiveData<ArticleList?> {
-        return searchRepository.getQueryArticleList(page.page, page.k)
+    override suspend fun getData(page: QueryKeyArticle){
+        searchRepository.getQueryArticleList(page.page, page.k)
     }
 
 }
