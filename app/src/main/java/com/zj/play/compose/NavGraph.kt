@@ -55,8 +55,8 @@ fun NavGraph(startDestination: String = MainDestinations.HOME_PAGE_ROUTE) {
         ) { backStackEntry ->
             val arguments = requireNotNull(backStackEntry.arguments)
             ArticlePage(
-                url = arguments.getString(ARTICLE_ROUTE_URL) ?: "",
-                press = actions.upPress
+                url = arguments.getString(ARTICLE_ROUTE_URL) ?: "www.baidu.com",
+                onBack = actions.upPress
             )
         }
     }

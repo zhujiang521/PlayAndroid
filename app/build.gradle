@@ -99,6 +99,11 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$compose_version"
     implementation "androidx.compose.foundation:foundation:$compose_version"
     implementation "androidx.compose.foundation:foundation-layout:$compose_version"
+    implementation "androidx.compose.material:material-icons-extended:$compose_version"
+
+
+    androidTestImplementation "androidx.compose.ui:ui-test:$compose_version"
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
 
     // navigation
     implementation "androidx.navigation:navigation-compose:1.0.0-alpha08"

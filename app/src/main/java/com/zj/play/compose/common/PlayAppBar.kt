@@ -1,66 +1,54 @@
 package com.zj.play.compose.common
 
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import dev.chrisbanes.accompanist.insets.statusBarsPadding
 
 @Composable
 fun PlayAppBar(title: String, showBack: Boolean = true, click: (() -> Unit)? = null) {
-//    Row(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .height(50.dp),
-//        horizontalArrangement = Arrangement.Center,
-//        verticalAlignment = Alignment.CenterVertically
-//    ) {
-//        if (showBack) {
-//            Image(
-//                modifier = Modifier
-//                    .size(30.dp)
-//                    .padding(10.dp)
-//                    .clickable { click?.invoke() },
-//                painter = painterResource(id = R.drawable.img_back_nomal),
-//                contentDescription = ""
-//            )
-//        }
-//        Text(
-//            text = title,
-//            style = MaterialTheme.typography.subtitle1,
-//            modifier = Modifier.clickable {
-//                click!!
-//            }
-//        )
-//    }
-
-    TopAppBar(
-        backgroundColor = Color.Transparent,
-        elevation = 0.dp,
-        contentColor = Color.White, // always white as image has dark scrim
+    Row(
         modifier = Modifier
-            .height(50.dp)
             .fillMaxWidth()
+            .height(50.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         if (showBack) {
-            IconButton(onClick = click!!) {
+            IconButton(
+                modifier = Modifier
+                    .weight(1f)
+                    .wrapContentWidth(Alignment.Start), onClick = click!!
+            ) {
                 Icon(
                     imageVector = Icons.Rounded.ArrowBack,
                     contentDescription = "back"
                 )
             }
+        } else {
+            Spacer(
+                modifier = Modifier
+                    .weight(1f)
+                    .wrapContentWidth(Alignment.End),
+            )
         }
         Text(
+            modifier = Modifier
+                .weight(1f)
+                .wrapContentWidth(Alignment.CenterHorizontally),
             text = title,
             style = MaterialTheme.typography.subtitle1,
         )
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(
+            modifier = Modifier
+                .weight(1f)
+                .wrapContentWidth(Alignment.End),
+        )
     }
-
 }
