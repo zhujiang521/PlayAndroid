@@ -74,7 +74,7 @@ fun Home(enterArticle: (String) -> Unit, toLogin: () -> Unit) {
             CourseTabs.HOME_PAGE -> HomePage(enterArticle, modifier)
             CourseTabs.PROJECT -> ProjectPage(enterArticle, modifier)
             CourseTabs.OFFICIAL_ACCOUNT -> OfficialAccountPage(enterArticle, modifier)
-            CourseTabs.MINE -> ProfilePage(toLogin)
+            CourseTabs.MINE -> ProfilePage(toLogin, enterArticle)
         }
     }
 }

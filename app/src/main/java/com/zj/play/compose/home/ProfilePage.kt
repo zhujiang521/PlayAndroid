@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.zj.core.Play
+import com.zj.core.util.showToast
 import com.zj.play.R
 import com.zj.play.compose.common.AnimatingFabContent
 import com.zj.play.compose.utils.baselineHeight
@@ -46,7 +47,7 @@ import com.zj.play.main.login.LogoutDefault
 import dev.chrisbanes.accompanist.insets.navigationBarsPadding
 
 @Composable
-fun ProfilePage(toLogin: () -> Unit) {
+fun ProfilePage(toLogin: () -> Unit, enterArticle: (String) -> Unit) {
 
     val scrollState = rememberScrollState()
     Column(modifier = Modifier.fillMaxSize()) {
@@ -62,7 +63,7 @@ fun ProfilePage(toLogin: () -> Unit) {
                         scrollState,
                         this@BoxWithConstraints.maxHeight
                     )
-                    UserInfoFields(toLogin, this@BoxWithConstraints.maxHeight)
+                    UserInfoFields(enterArticle, toLogin, this@BoxWithConstraints.maxHeight)
                 }
             }
             ProfileFab(
@@ -74,7 +75,11 @@ fun ProfilePage(toLogin: () -> Unit) {
 }
 
 @Composable
-private fun UserInfoFields(toLogin: () -> Unit, containerHeight: Dp) {
+private fun UserInfoFields(
+    enterArticle: (String) -> Unit,
+    toLogin: () -> Unit,
+    containerHeight: Dp
+) {
     val viewModel: LoginViewModel = viewModel()
     val logoutState by viewModel.logoutState.observeAsState(LogoutDefault)
     Column {
@@ -89,22 +94,26 @@ private fun UserInfoFields(toLogin: () -> Unit, containerHeight: Dp) {
             }
         }
 
-
-        ProfileProperty(stringResource(R.string.mine_points), stringResource(R.string.mine_points))
-
         ProfileProperty(
-            stringResource(R.string.my_collection),
-            stringResource(R.string.my_collection)
+            stringResource(R.string.mine_blog),
+            stringResource(R.string.mine_blog),
+            "https://zhujiang.blog.csdn.net/",
+            enterArticle
         )
 
-        ProfileProperty(stringResource(R.string.mine_blog), stringResource(R.string.mine_blog))
-
         ProfileProperty(
-            stringResource(R.string.browsing_history),
-            stringResource(R.string.browsing_history)
+            stringResource(R.string.mine_nuggets),
+            stringResource(R.string.mine_nuggets),
+            "https://juejin.im/user/5c07e51de51d451de84324d5",
+            enterArticle
         )
 
-        ProfileProperty(stringResource(R.string.github), stringResource(R.string.github))
+        ProfileProperty(
+            stringResource(R.string.mine_github),
+            stringResource(R.string.mine_github),
+            "https://github.com/zhujiang521",
+            enterArticle
+        )
 
         if (Play.isLogin) {
             Button(
@@ -178,16 +187,21 @@ private fun ProfileHeader(
         modifier = Modifier
             .heightIn(max = containerHeight / 2)
             .fillMaxWidth()
-            .padding(top = offsetDp),
-        painter = painterResource(R.drawable.ic_head),
+            .padding(top = offsetDp / 2),
+        painter = painterResource(R.drawable.img_head),
         contentScale = ContentScale.Crop,
         contentDescription = null
     )
 }
 
 @Composable
-fun ProfileProperty(label: String, value: String, isLink: Boolean = false) {
-    Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp)) {
+fun ProfileProperty(label: String, value: String, link: String, enterArticle: (String) -> Unit) {
+    Column(modifier = Modifier
+        .clickable {
+            enterArticle(link)
+        }
+        .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
+    ) {
         Divider()
         CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
             Text(
@@ -196,11 +210,7 @@ fun ProfileProperty(label: String, value: String, isLink: Boolean = false) {
                 style = MaterialTheme.typography.caption
             )
         }
-        val style = if (isLink) {
-            MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.primary)
-        } else {
-            MaterialTheme.typography.body1
-        }
+        val style = MaterialTheme.typography.body1
         Text(
             text = value,
             modifier = Modifier.baselineHeight(24.dp),
@@ -213,7 +223,7 @@ fun ProfileProperty(label: String, value: String, isLink: Boolean = false) {
 fun ProfileFab(extended: Boolean, modifier: Modifier = Modifier) {
     key(extended) { // Prevent multiple invocations to execute during composition
         FloatingActionButton(
-            onClick = { /* TODO */ },
+            onClick = { showToast(if (extended) "哈哈哈😄，被你发现小彩蛋了，真棒👍！！！" else "太过分了，这样都要点我😡！！！") },
             modifier = modifier
                 .padding(end = 16.dp, bottom = 70.dp)
                 .navigationBarsPadding()
