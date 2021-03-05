@@ -18,7 +18,6 @@ import com.zj.play.profile.share.ShareActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-@AndroidEntryPoint
 class ProfileFragment : BaseFragment(), View.OnClickListener {
 
     private var binding: FragmentProfileBinding? = null
@@ -119,7 +118,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
                 dialog?.dismiss()
                 clearInfo()
                 logout()
-                accountRepository.getLogout()
+               // accountRepository.getLogout()
             }.show()
     }
 

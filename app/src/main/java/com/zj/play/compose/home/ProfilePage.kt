@@ -16,17 +16,16 @@
 
 package com.zj.play.compose.home
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Create
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -36,17 +35,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.zj.core.Play
 import com.zj.play.R
 import com.zj.play.compose.common.AnimatingFabContent
 import com.zj.play.compose.utils.baselineHeight
+import com.zj.play.main.login.LogoutFinish
+import com.zj.play.main.login.LoginViewModel
+import com.zj.play.main.login.LogoutDefault
 import dev.chrisbanes.accompanist.insets.navigationBarsPadding
 
 @Composable
-fun ProfilePage() {
+fun ProfilePage(toLogin: () -> Unit) {
 
     val scrollState = rememberScrollState()
-
     Column(modifier = Modifier.fillMaxSize()) {
         BoxWithConstraints(modifier = Modifier.weight(1f)) {
             Surface {
@@ -55,11 +57,12 @@ fun ProfilePage() {
                         .fillMaxSize()
                         .verticalScroll(scrollState),
                 ) {
+
                     ProfileHeader(
                         scrollState,
                         this@BoxWithConstraints.maxHeight
                     )
-                    UserInfoFields(this@BoxWithConstraints.maxHeight)
+                    UserInfoFields(toLogin, this@BoxWithConstraints.maxHeight)
                 }
             }
             ProfileFab(
@@ -71,11 +74,21 @@ fun ProfilePage() {
 }
 
 @Composable
-private fun UserInfoFields(containerHeight: Dp) {
+private fun UserInfoFields(toLogin: () -> Unit, containerHeight: Dp) {
+    val viewModel: LoginViewModel = viewModel()
+    val logoutState by viewModel.logoutState.observeAsState(LogoutDefault)
     Column {
         Spacer(modifier = Modifier.height(8.dp))
 
-        NameAndPosition()
+        when (logoutState) {
+            LogoutDefault -> {
+                NameAndPosition(true, toLogin)
+            }
+            LogoutFinish -> {
+                NameAndPosition(false, toLogin)
+            }
+        }
+
 
         ProfileProperty(stringResource(R.string.mine_points), stringResource(R.string.mine_points))
 
@@ -93,6 +106,18 @@ private fun UserInfoFields(containerHeight: Dp) {
 
         ProfileProperty(stringResource(R.string.github), stringResource(R.string.github))
 
+        if (Play.isLogin) {
+            Button(
+                onClick = { viewModel.logout() },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(24.dp),
+            ) {
+                Text(text = stringResource(R.string.log_out))
+            }
+        }
+
+
         // Add a spacer that always shows part (320.dp) of the fields list regardless of the device,
         // in order to always leave some content at the top.
         Spacer(Modifier.height((containerHeight - 320.dp).coerceAtLeast(0.dp)))
@@ -100,12 +125,20 @@ private fun UserInfoFields(containerHeight: Dp) {
 }
 
 @Composable
-private fun NameAndPosition() {
-    Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+private fun NameAndPosition(refresh: Boolean, toLogin: () -> Unit) {
+    Column(modifier = if (Play.isLogin) {
+        Modifier.padding(horizontal = 16.dp)
+    } else {
+        Modifier
+            .padding(horizontal = 16.dp)
+            .clickable { toLogin() }
+    }) {
         Name(
+            refresh,
             modifier = Modifier.baselineHeight(32.dp)
         )
         Position(
+            refresh,
             modifier = Modifier
                 .padding(bottom = 20.dp)
                 .baselineHeight(24.dp)
@@ -114,19 +147,19 @@ private fun NameAndPosition() {
 }
 
 @Composable
-private fun Name(modifier: Modifier = Modifier) {
+private fun Name(refresh: Boolean, modifier: Modifier = Modifier) {
     Text(
-        text = if (Play.isLogin) Play.nickName else stringResource(R.string.no_login),
+        text = if (Play.isLogin && refresh) Play.nickName else stringResource(R.string.no_login),
         modifier = modifier,
         style = MaterialTheme.typography.h5
     )
 }
 
 @Composable
-private fun Position(modifier: Modifier = Modifier) {
+private fun Position(refresh: Boolean, modifier: Modifier = Modifier) {
     CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
         Text(
-            text = if (Play.isLogin) Play.username else stringResource(R.string.click_login),
+            text = if (Play.isLogin && refresh) Play.username else stringResource(R.string.click_login),
             modifier = modifier,
             style = MaterialTheme.typography.body1
         )

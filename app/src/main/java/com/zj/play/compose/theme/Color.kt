@@ -24,6 +24,9 @@ import androidx.compose.ui.graphics.compositeOver
 val blue = Color(0xFF2772F3)
 val blueDark = Color(0xFF0B182E)
 
+val Purple300 = Color(0xFFCD52FC)
+val Purple700 = Color(0xFF8100EF)
+
 /**
  * Return the fully opaque color that results from compositing [onSurface] atop [surface] with the
  * given [alpha]. Useful for situations where semi-transparent colors are undesirable.
@@ -32,3 +35,8 @@ val blueDark = Color(0xFF0B182E)
 fun Colors.compositedOnSurface(alpha: Float): Color {
     return onSurface.copy(alpha = alpha).compositeOver(surface)
 }
+
+
+val Colors.snackbarAction: Color
+    @Composable
+    get() = if (isLight) Purple300 else Purple700

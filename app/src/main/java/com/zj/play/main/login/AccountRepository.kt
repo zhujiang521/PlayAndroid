@@ -16,8 +16,8 @@ import javax.inject.Inject
  * 描述：PlayAndroid
  *
  */
-@ActivityRetainedScoped
-class AccountRepository @Inject constructor() {
+
+class AccountRepository {
 
     suspend fun getLogin(username: String, password: String) =
         PlayAndroidNetwork.getLogin(username, password)
@@ -25,7 +25,7 @@ class AccountRepository @Inject constructor() {
     suspend fun getRegister(username: String, password: String, repassword: String) =
         PlayAndroidNetwork.getRegister(username, password, repassword)
 
-    fun getLogout() = fires { PlayAndroidNetwork.getLogout() }
+    suspend fun getLogout() = PlayAndroidNetwork.getLogout()
 
 }
 

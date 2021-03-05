@@ -1,7 +1,6 @@
 package com.zj.play.main.login
 
 import android.app.Application
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +12,6 @@ import com.zj.model.model.BaseModel
 import com.zj.model.model.Login
 import com.zj.play.R
 import com.zj.play.home.LOGIN_REFRESH
-import dagger.hilt.android.scopes.ActivityScoped
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -26,11 +24,9 @@ import kotlinx.coroutines.withContext
  * 描述：PlayAndroid
  *
  */
-@ActivityScoped
-class LoginViewModel @ViewModelInject constructor(
-    application: Application,
-    private val accountRepository: AccountRepository
-) : AndroidViewModel(application) {
+class LoginViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val accountRepository: AccountRepository = AccountRepository()
 
     private val _state = MutableLiveData<LoginState>()
     val state: LiveData<LoginState>
@@ -69,7 +65,25 @@ class LoginViewModel @ViewModelInject constructor(
         }
     }
 
+    private val _logoutState = MutableLiveData<LogoutState>()
+    val logoutState: LiveData<LogoutState>
+        get() = _logoutState
+
+    fun logout(){
+        viewModelScope.launch {
+            accountRepository.getLogout()
+            Play.logout()
+            _logoutState.postValue(LogoutFinish)
+        }
+
+    }
+
 }
+
+
+sealed class LogoutState
+object LogoutFinish : LogoutState()
+object LogoutDefault : LogoutState()
 
 data class Account(val username: String, val password: String, val isLogin: Boolean)
 sealed class LoginState

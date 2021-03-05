@@ -23,6 +23,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import com.zj.play.compose.MainDestinations.ARTICLE_ROUTE_URL
 import com.zj.play.compose.common.article.ArticlePage
+import com.zj.play.compose.home.LoginPage
+import com.zj.play.compose.home.SignInEvent
 
 /**
  * Destinations used in the ([NewMainActivity]).
@@ -32,7 +34,7 @@ object MainDestinations {
     const val HOME_PAGE_ROUTE = "home_page_route"
     const val ARTICLE_ROUTE = "article_route"
     const val ARTICLE_ROUTE_URL = "article_route_url"
-//    const val PROJECT_ROUTE = "project_route"
+    const val LOGIN_ROUTE = "login_route"
 //    const val OFFICIAL_ROUTE = "official_route"
 //    const val MY_INFORMATION_ROUTE = "my_information_route"
 }
@@ -47,7 +49,13 @@ fun NavGraph(startDestination: String = MainDestinations.HOME_PAGE_ROUTE) {
         startDestination = startDestination
     ) {
         composable(MainDestinations.HOME_PAGE_ROUTE) {
-            Home(enterArticle = actions.enterArticle)
+            Home(
+                enterArticle = actions.enterArticle,
+                toLogin = actions.toLogin
+            )
+        }
+        composable(MainDestinations.LOGIN_ROUTE) {
+            LoginPage(actions)
         }
         composable(
             "${MainDestinations.ARTICLE_ROUTE}/{$ARTICLE_ROUTE_URL}",
@@ -71,6 +79,9 @@ class MainActions(navController: NavHostController) {
     }
     val enterArticle: (String) -> Unit = { url ->
         navController.navigate("${MainDestinations.ARTICLE_ROUTE}/$url")
+    }
+    val toLogin: () -> Unit = {
+        navController.navigate(MainDestinations.LOGIN_ROUTE)
     }
     val upPress: () -> Unit = {
         navController.navigateUp()

@@ -24,8 +24,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -43,10 +41,9 @@ import dev.chrisbanes.accompanist.insets.navigationBarsPadding
 import java.util.*
 
 @Composable
-fun Home(enterArticle: (String) -> Unit) {
+fun Home(enterArticle: (String) -> Unit, toLogin: () -> Unit) {
     val viewModel: HomeViewModel = viewModel()
     val position by viewModel.position.observeAsState()
-    //val (selectedTab, setSelectedTab) = remember { mutableStateOf(CourseTabs.HOME_PAGE) }
     val tabs = CourseTabs.values()
 
     Scaffold(
@@ -65,7 +62,7 @@ fun Home(enterArticle: (String) -> Unit) {
                         selected = tab == position,
                         onClick = { //setSelectedTab(tab)
                             viewModel.onPositionChanged(tab)
-                                  },
+                        },
                         alwaysShowLabel = false,
                     )
                 }
@@ -77,7 +74,7 @@ fun Home(enterArticle: (String) -> Unit) {
             CourseTabs.HOME_PAGE -> HomePage(enterArticle, modifier)
             CourseTabs.PROJECT -> ProjectPage(enterArticle, modifier)
             CourseTabs.OFFICIAL_ACCOUNT -> OfficialAccountPage(enterArticle, modifier)
-            CourseTabs.MINE -> ProfilePage()
+            CourseTabs.MINE -> ProfilePage(toLogin)
         }
     }
 }

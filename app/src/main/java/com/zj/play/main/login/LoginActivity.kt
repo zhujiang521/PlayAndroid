@@ -19,7 +19,7 @@ import com.zj.play.databinding.ActivityLoginBinding
 import com.zj.play.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
+//@AndroidEntryPoint
 class LoginActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityLoginBinding
