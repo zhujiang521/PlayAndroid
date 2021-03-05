@@ -33,7 +33,7 @@ import com.zj.model.pojo.QueryArticle
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.ProjectClassify
 import com.zj.play.R
-import com.zj.play.compose.common.ArticleItem
+import com.zj.play.compose.common.article.ArticleItem
 import com.zj.play.compose.common.ErrorContent
 import com.zj.play.compose.common.LoadingContent
 import com.zj.play.compose.model.PlayError

@@ -1,4 +1,4 @@
-package com.zj.play.compose.common
+package com.zj.play.compose.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.*

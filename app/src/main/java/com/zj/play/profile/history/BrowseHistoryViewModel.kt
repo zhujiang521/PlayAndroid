@@ -1,8 +1,7 @@
 package com.zj.play.profile.history
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import com.zj.play.compose.common.BaseAndroidViewModel
+import com.zj.play.compose.viewmodel.BaseAndroidViewModel
 import com.zj.model.room.entity.Article
 
 /**

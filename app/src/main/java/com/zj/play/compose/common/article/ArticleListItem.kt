@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zj.play.compose.common
+package com.zj.play.compose.common.article
 
 import android.text.TextUtils
 import androidx.compose.foundation.Image
@@ -27,7 +27,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
@@ -37,7 +36,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.zj.model.room.entity.Article
 import com.zj.play.R
-import com.zj.play.compose.utils.NetworkImage
+import com.zj.play.compose.common.NetworkImage
 
 
 @Composable
