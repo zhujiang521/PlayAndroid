@@ -26,10 +26,8 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -48,13 +46,13 @@ fun HomePage(
     modifier: Modifier = Modifier,
     viewModel: HomePageViewModel = viewModel()
 ) {
-    val onRefreshPostsState by rememberUpdatedState(0)
+    var loadState by remember { mutableStateOf(false) }
 
     val result by viewModel.state.observeAsState(PlayLoading)
 
     val refresh by viewModel.refreshState.observeAsState(REFRESH_DEFAULT)
 
-    if (onRefreshPostsState == 0 && refresh == REFRESH_DEFAULT) {
+    if (!loadState && refresh == REFRESH_DEFAULT) {
         viewModel.getArticleList(1, true)
     }
 
@@ -82,7 +80,7 @@ fun HomePage(
                         LoadingContent()
                     }
                     is PlaySuccess<*> -> {
-                        onRefreshPostsState.and(1)
+                        loadState = true
                         viewModel.onRefreshChanged(REFRESH_STOP)
                         val data = result as PlaySuccess<List<Article>>
                         LazyColumn(modifier) {
@@ -95,6 +93,7 @@ fun HomePage(
                         }
                     }
                     is PlayError -> {
+                        loadState = true
                         viewModel.onRefreshChanged(REFRESH_STOP)
                         ErrorContent(enterArticle = { viewModel.getArticleList(1, true) })
                     }

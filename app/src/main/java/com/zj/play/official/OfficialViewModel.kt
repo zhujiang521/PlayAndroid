@@ -1,6 +1,7 @@
 package com.zj.play.official
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.zj.play.compose.common.BaseAndroidViewModel
@@ -27,6 +28,7 @@ class OfficialViewModel(application: Application) :
     }
 
     override suspend fun getData(page: Boolean) {
+        Log.e("ZHUJIANG123", "getData: 111" )
         return officialRepository.getWxArticleTree(_state, page)
     }
 }

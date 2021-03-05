@@ -1,6 +1,7 @@
 package com.zj.play.official.list
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.zj.play.compose.common.BaseAndroidViewModel
 import com.zj.model.pojo.QueryArticle
@@ -21,6 +22,7 @@ class OfficialListViewModel(application: Application) :
     private val officialRepository = OfficialRepository(application)
 
     override suspend fun getData(page: QueryArticle){
+        Log.e("ZHUJIANG123", "getData: 22222")
         return officialRepository.getWxArticle(_state,page)
     }
 
