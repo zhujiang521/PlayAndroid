@@ -22,6 +22,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -29,18 +31,22 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.zj.play.R
 import com.zj.play.compose.home.HomePage
 import com.zj.play.compose.home.OfficialAccountPage
 import com.zj.play.compose.home.ProfilePage
 import com.zj.play.compose.home.ProjectPage
+import com.zj.play.compose.viewmodel.HomeViewModel
 import dev.chrisbanes.accompanist.insets.navigationBarsHeight
 import dev.chrisbanes.accompanist.insets.navigationBarsPadding
 import java.util.*
 
 @Composable
 fun Home(enterArticle: (String) -> Unit) {
-    val (selectedTab, setSelectedTab) = remember { mutableStateOf(CourseTabs.HOME_PAGE) }
+    val viewModel: HomeViewModel = viewModel()
+    val position by viewModel.position.observeAsState()
+    //val (selectedTab, setSelectedTab) = remember { mutableStateOf(CourseTabs.HOME_PAGE) }
     val tabs = CourseTabs.values()
 
     Scaffold(
@@ -56,8 +62,10 @@ fun Home(enterArticle: (String) -> Unit) {
                             .navigationBarsPadding(),
                         icon = { Icon(painterResource(tab.icon), contentDescription = null) },
                         label = { Text(stringResource(tab.title).toUpperCase(Locale.ROOT)) },
-                        selected = tab == selectedTab,
-                        onClick = { setSelectedTab(tab) },
+                        selected = tab == position,
+                        onClick = { //setSelectedTab(tab)
+                            viewModel.onPositionChanged(tab)
+                                  },
                         alwaysShowLabel = false,
                     )
                 }
@@ -65,7 +73,7 @@ fun Home(enterArticle: (String) -> Unit) {
         }
     ) { innerPadding ->
         val modifier = Modifier.padding(innerPadding)
-        when (selectedTab) {
+        when (position) {
             CourseTabs.HOME_PAGE -> HomePage(enterArticle, modifier)
             CourseTabs.PROJECT -> ProjectPage(enterArticle, modifier)
             CourseTabs.OFFICIAL_ACCOUNT -> OfficialAccountPage(enterArticle, modifier)
@@ -74,7 +82,7 @@ fun Home(enterArticle: (String) -> Unit) {
     }
 }
 
-private enum class CourseTabs(
+enum class CourseTabs(
     @StringRes val title: Int,
     @DrawableRes val icon: Int
 ) {

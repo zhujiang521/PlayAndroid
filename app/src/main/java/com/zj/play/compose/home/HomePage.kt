@@ -58,50 +58,29 @@ fun HomePage(
 
     Column(modifier = Modifier.fillMaxSize()) {
         PlayAppBar(stringResource(id = R.string.home_page), false)
-        SwipeToRefreshLayout(
-            refreshingState = refresh == REFRESH_START,
-            onRefresh = {
-                viewModel.onRefreshChanged(REFRESH_START)
-                viewModel.getArticleList(1, true)
-                Log.e("ZHUJIANG123", "HomePage: ")
-            },
-            refreshIndicator = {
-                Surface(elevation = 10.dp, shape = CircleShape) {
-                    CircularProgressIndicator(
-                        modifier = Modifier
-                            .size(36.dp)
-                            .padding(4.dp)
-                    )
-                }
-            },
-            content = {
-                when (result) {
-                    is PlayLoading -> {
-                        LoadingContent()
-                    }
-                    is PlaySuccess<*> -> {
-                        loadState = true
-                        viewModel.onRefreshChanged(REFRESH_STOP)
-                        val data = result as PlaySuccess<List<Article>>
-                        LazyColumn(modifier) {
-                            itemsIndexed(data.data) { index, article ->
-                                ArticleItem(
-                                    article,
-                                    index,
-                                    enterArticle = { urlArgs -> enterArticle(urlArgs) })
-                            }
-                        }
-                    }
-                    is PlayError -> {
-                        loadState = true
-                        viewModel.onRefreshChanged(REFRESH_STOP)
-                        ErrorContent(enterArticle = { viewModel.getArticleList(1, true) })
+        when (result) {
+            is PlayLoading -> {
+                LoadingContent()
+            }
+            is PlaySuccess<*> -> {
+                loadState = true
+                viewModel.onRefreshChanged(REFRESH_STOP)
+                val data = result as PlaySuccess<List<Article>>
+                LazyColumn(modifier) {
+                    itemsIndexed(data.data) { index, article ->
+                        ArticleItem(
+                            article,
+                            index,
+                            enterArticle = { urlArgs -> enterArticle(urlArgs) })
                     }
                 }
-            },
-        )
-
-
+            }
+            is PlayError -> {
+                loadState = true
+                viewModel.onRefreshChanged(REFRESH_STOP)
+                ErrorContent(enterArticle = { viewModel.getArticleList(1, true) })
+            }
+        }
     }
 
 }

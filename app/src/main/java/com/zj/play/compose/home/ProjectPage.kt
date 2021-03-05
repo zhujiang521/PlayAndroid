@@ -57,13 +57,13 @@ fun ProjectPage(
         viewModel.getDataList(false)
     }
     val result by viewModel.dataLiveData.observeAsState()
-    val position = viewModel.position.observeAsState()
+    val position by viewModel.position.observeAsState()
     val articleList by projectViewModel.dataLiveData.observeAsState()
     Column {
         Column(modifier = Modifier.background(color = colorResource(id = R.color.yellow))) {
             Spacer(modifier = Modifier.statusBarsHeight())
             ScrollableTabRow(
-                selectedTabIndex = position.value ?: 0,
+                selectedTabIndex = position ?: 0,
                 modifier = Modifier.wrapContentWidth(),
                 edgePadding = 3.dp
             ) {
@@ -72,14 +72,16 @@ fun ProjectPage(
                         ErrorContent(enterArticle = { })
                         loadState = true
                     }
-                    PlayLoading -> LoadingContent()
+                    PlayLoading -> {
+                        //LoadingContent()
+                    }
                     is PlaySuccess<*> -> {
                         loadState = true
                         val data = result as PlaySuccess<List<ProjectClassify>>
                         data.data.forEachIndexed { index, projectClassify ->
                             Tab(
                                 text = { Text(projectClassify.name) },
-                                selected = position.value == index,
+                                selected = position == index,
                                 onClick = {
                                     projectViewModel.getDataList(
                                         QueryArticle(
@@ -93,7 +95,7 @@ fun ProjectPage(
                             )
                         }
 
-                        if (position.value == 0 && !loadPageState) {
+                        if (position == 0 && !loadPageState) {
                             projectViewModel.getDataList(
                                 QueryArticle(
                                     0,

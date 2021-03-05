@@ -16,14 +16,14 @@
 
 package com.zj.play.compose.common
 
+import android.util.Log
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.FractionalThreshold
-import androidx.compose.material.SwipeableState
-import androidx.compose.material.rememberSwipeableState
-import androidx.compose.material.swipeable
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -36,6 +36,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
+import com.zj.play.home.REFRESH_START
 import kotlin.math.roundToInt
 
 private val RefreshDistance = 80.dp
@@ -137,3 +138,28 @@ private val <T> SwipeableState<T>.PreUpPostDownNestedScrollConnection: NestedScr
 
         private fun Offset.toFloat(): Float = this.y
     }
+
+
+//@Composable
+//fun Swipe(){
+//    SwipeToRefreshLayout(
+//        refreshingState = refresh == REFRESH_START,
+//        onRefresh = {
+//            viewModel.onRefreshChanged(REFRESH_START)
+//            viewModel.getArticleList(1, true)
+//            Log.e("ZHUJIANG123", "HomePage: ")
+//        },
+//        refreshIndicator = {
+//            Surface(elevation = 10.dp, shape = CircleShape) {
+//                CircularProgressIndicator(
+//                    modifier = Modifier
+//                        .size(36.dp)
+//                        .padding(4.dp)
+//                )
+//            }
+//        },
+//        content = {
+//
+//        },
+//    )
+//}
