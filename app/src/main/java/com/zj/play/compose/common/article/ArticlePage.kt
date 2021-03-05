@@ -5,8 +5,7 @@ import android.content.Intent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -15,6 +14,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import com.zj.core.util.showToast
 import com.zj.play.R
 import com.zj.play.compose.common.BookmarkButton
 import com.zj.play.compose.common.PlayAppBar
@@ -36,11 +36,14 @@ fun ArticlePage(
     // Returns a [CoroutineScope] that is scoped to the lifecycle of [ArticleScreen]. When this
     // screen is removed from composition, the scope will be cancelled.
     val coroutineScope = rememberCoroutineScope()
+    var isFavorite = false
     ArticleScreen(
         url = url,
         onBack = onBack,
-        isFavorite = false,
-        onToggleFavorite = {}
+        isFavorite = isFavorite,
+        onToggleFavorite = {
+            isFavorite = !isFavorite
+        }
     )
 }
 
@@ -117,6 +120,11 @@ private fun BottomBar(
     isFavorite: Boolean,
     onToggleFavorite: () -> Unit
 ) {
+
+
+    var favoriteIcon by remember { mutableStateOf(Icons.Filled.FavoriteBorder) }
+    var loadState by remember { mutableStateOf(false) }
+
     Surface(elevation = 2.dp) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -124,15 +132,26 @@ private fun BottomBar(
                 .height(56.dp)
                 .fillMaxWidth()
         ) {
-            IconButton(onClick = onUnimplementedAction) {
+            IconButton(onClick = {
+                favoriteIcon = if (favoriteIcon == Icons.Filled.Favorite) {
+                    showToast("取消收藏")
+                    Icons.Filled.FavoriteBorder
+                } else {
+                    showToast("添加收藏")
+                    Icons.Filled.Favorite
+                }
+            }) {
                 Icon(
-                    imageVector = Icons.Filled.FavoriteBorder,
+                    imageVector = favoriteIcon,
                     contentDescription = "收藏"
                 )
             }
             BookmarkButton(
-                isBookmarked = isFavorite,
-                onClick = onToggleFavorite
+                isBookmarked = loadState,
+                onClick = {
+                    showToast(if (loadState) "取消书签" else "添加书签")
+                    loadState = !loadState
+                }
             )
             val context = LocalContext.current
             IconButton(onClick = { sharePost(post, context) }) {
