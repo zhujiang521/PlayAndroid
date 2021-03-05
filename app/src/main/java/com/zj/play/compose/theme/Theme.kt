@@ -26,15 +26,15 @@ fun PlayTheme(
 }
 
 private val PlayThemeLight = lightColors(
-    primary = yellow,
+    primary = blue,
     onPrimary = Color.White,
-    primaryVariant = yellow,
-    secondary = yellow500
+    primaryVariant = blue,
+    secondary = blue
 )
 
 private val PlayThemeDark = darkColors(
-    primary = yellow200,
+    primary = blueDark,
     onPrimary = Color.White,
-    secondary = yellow500,
-    surface = blueDarkPrimary
+    secondary = blueDark,
+    surface = blueDark
 )

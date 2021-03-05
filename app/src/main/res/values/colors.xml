@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#FEC86D</color>
-    <color name="colorPrimaryDark">#FEC86D</color>
-    <color name="colorAccent">#FEC86D</color>
-    <color name="colorLoading">#FEC86D</color>
+    <color name="colorPrimary">#FF2772F3</color>
+    <color name="colorPrimaryDark">#FF2772F3</color>
+    <color name="colorAccent">#FF2772F3</color>
+    <color name="colorLoading">#FF2772F3</color>
 
     <color name="rb_gray">#FAFAFA</color>
 
@@ -25,7 +25,7 @@
 
     <color name="view_bg">#dde6e4e4</color>
 
-    <color name="yellow">#FEC86D</color>
+    <color name="yellow">#FF2772F3</color>
 
     <color name="colorBackground">#FFB9B9</color>
 

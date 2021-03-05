@@ -20,12 +20,12 @@
     <style name="AppTheme.NoActionBars" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorPrimary">@color/yellow</item>
-        <item name="colorPrimaryDark">@color/yellow</item>
-        <item name="colorAccent">@color/yellow</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="android:colorBackground">@color/colorPrimary</item>
     </style>
 
     <style name="TabLayoutTextStyle">
