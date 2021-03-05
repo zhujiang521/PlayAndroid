@@ -56,28 +56,29 @@ fun ProjectPage(
     if (!loadState) {
         viewModel.getDataList(false)
     }
-    val result by viewModel.dataLiveData.observeAsState()
+    val result by viewModel.dataLiveData.observeAsState(PlayLoading)
     val position by viewModel.position.observeAsState()
-    val articleList by projectViewModel.dataLiveData.observeAsState()
+    val articleList by projectViewModel.dataLiveData.observeAsState(PlayLoading)
     Column {
         Column(modifier = Modifier.background(color = colorResource(id = R.color.yellow))) {
             Spacer(modifier = Modifier.statusBarsHeight())
-            ScrollableTabRow(
-                selectedTabIndex = position ?: 0,
-                modifier = Modifier.wrapContentWidth(),
-                edgePadding = 3.dp
-            ) {
-                when (result) {
-                    is PlayError, null -> {
-                        ErrorContent(enterArticle = { })
-                        loadState = true
-                    }
-                    PlayLoading -> {
-                        //LoadingContent()
-                    }
-                    is PlaySuccess<*> -> {
-                        loadState = true
-                        val data = result as PlaySuccess<List<ProjectClassify>>
+
+            when (result) {
+                is PlayError -> {
+                    ErrorContent(enterArticle = { })
+                    loadState = true
+                }
+                PlayLoading -> {
+                    LoadingContent()
+                }
+                is PlaySuccess<*> -> {
+                    loadState = true
+                    val data = result as PlaySuccess<List<ProjectClassify>>
+                    ScrollableTabRow(
+                        selectedTabIndex = position ?: 0,
+                        modifier = Modifier.wrapContentWidth(),
+                        edgePadding = 3.dp
+                    ) {
                         data.data.forEachIndexed { index, projectClassify ->
                             Tab(
                                 text = { Text(projectClassify.name) },

@@ -66,22 +66,23 @@ fun OfficialAccountPage(
     Column {
         Column(modifier = Modifier.background(color = colorResource(id = R.color.yellow))) {
             Spacer(modifier = Modifier.statusBarsHeight())
-            ScrollableTabRow(
-                selectedTabIndex = position ?: 0,
-                modifier = Modifier.wrapContentWidth(),
-                edgePadding = 3.dp
-            ) {
-                when (result) {
-                    is PlayError, null -> {
-                        ErrorContent(enterArticle = { })
-                        loadState = true
-                    }
-                    PlayLoading -> {
-                        //LoadingContent()
-                    }
-                    is PlaySuccess<*> -> {
-                        loadState = true
-                        val data = result as PlaySuccess<List<ProjectClassify>>
+
+            when (result) {
+                is PlayError, null -> {
+                    ErrorContent(enterArticle = { })
+                    loadState = true
+                }
+                PlayLoading -> {
+                    LoadingContent()
+                }
+                is PlaySuccess<*> -> {
+                    loadState = true
+                    val data = result as PlaySuccess<List<ProjectClassify>>
+                    ScrollableTabRow(
+                        selectedTabIndex = position ?: 0,
+                        modifier = Modifier.wrapContentWidth(),
+                        edgePadding = 3.dp
+                    ) {
                         data.data.forEachIndexed { index, projectClassify ->
                             Tab(
                                 text = { Text(projectClassify.name) },
