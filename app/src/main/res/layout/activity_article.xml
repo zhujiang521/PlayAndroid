@@ -48,7 +48,7 @@
 
     </FrameLayout>
 
-    <com.zj.play.article.X5WebView
+    <com.zj.play.compose.common.X5WebView
         android:id="@+id/articleWebView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

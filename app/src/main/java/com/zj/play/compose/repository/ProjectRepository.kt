@@ -1,4 +1,4 @@
-package com.zj.play.official
+package com.zj.play.compose.repository
 
 import android.accounts.NetworkErrorException
 import android.app.Application
@@ -6,19 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import com.zj.core.util.DataStoreUtils
 import com.zj.model.pojo.QueryArticle
 import com.zj.model.room.PlayDatabase
-import com.zj.model.room.entity.OFFICIAL
+import com.zj.model.room.entity.PROJECT
 import com.zj.network.base.PlayAndroidNetwork
 import com.zj.play.compose.model.PlayError
 import com.zj.play.compose.model.PlayLoading
 import com.zj.play.compose.model.PlayState
 import com.zj.play.compose.model.PlaySuccess
-import com.zj.play.home.DOWN_OFFICIAL_ARTICLE_TIME
+import com.zj.play.home.DOWN_PROJECT_ARTICLE_TIME
 import com.zj.play.home.FOUR_HOUR
-import com.zj.play.main.login.composeFire
-import com.zj.play.main.login.fire
-import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.flow.first
-import javax.inject.Inject
 
 /**
  * 版权：Zhujiang 个人版权
@@ -28,22 +24,22 @@ import javax.inject.Inject
  * 描述：PlayAndroid
  *
  */
-@ActivityRetainedScoped
-class OfficialRepository @Inject constructor(application: Application) {
+
+class ProjectRepository constructor(val application: Application) {
 
     private val projectClassifyDao = PlayDatabase.getDatabase(application).projectClassifyDao()
     private val articleListDao = PlayDatabase.getDatabase(application).browseHistoryDao()
 
     /**
-     * 获取公众号标题列表
+     * 获取项目标题列表
      */
-    suspend fun getWxArticleTree(state: MutableLiveData<PlayState>, isRefresh: Boolean) {
+    suspend fun getProjectTree(state: MutableLiveData<PlayState>, isRefresh: Boolean) {
         state.postValue(PlayLoading)
-        val projectClassifyLists = projectClassifyDao.getAllOfficial()
+        val projectClassifyLists = projectClassifyDao.getAllProject()
         if (projectClassifyLists.isNotEmpty() && !isRefresh) {
             state.postValue(PlaySuccess(projectClassifyLists))
         } else {
-            val projectTree = PlayAndroidNetwork.getWxArticleTree()
+            val projectTree = PlayAndroidNetwork.getProjectTree()
             if (projectTree.errorCode == 0) {
                 val projectList = projectTree.data
                 projectClassifyDao.insertList(projectList)
@@ -52,41 +48,40 @@ class OfficialRepository @Inject constructor(application: Application) {
                 state.postValue(PlayError(NetworkErrorException("")))
             }
         }
-
     }
 
     /**
-     * 获取具体公众号文章列表
-     * @param query 查询
+     * 获取项目具体文章列表
+     * @param query 查询类
      */
-    suspend fun getWxArticle(state: MutableLiveData<PlayState>, query: QueryArticle) {
+    suspend fun getProject(state: MutableLiveData<PlayState>, query: QueryArticle) {
         state.postValue(PlayLoading)
         if (query.page == 1) {
             val dataStore = DataStoreUtils
             val articleListForChapterId =
-                articleListDao.getArticleListForChapterId(OFFICIAL, query.cid)
+                articleListDao.getArticleListForChapterId(PROJECT, query.cid)
             var downArticleTime = 0L
-            dataStore.readLongFlow(DOWN_OFFICIAL_ARTICLE_TIME, System.currentTimeMillis()).first {
+            dataStore.readLongFlow(DOWN_PROJECT_ARTICLE_TIME, System.currentTimeMillis()).first {
                 downArticleTime = it
                 true
             }
             if (articleListForChapterId.isNotEmpty() && downArticleTime > 0 && downArticleTime - System.currentTimeMillis() < FOUR_HOUR && !query.isRefresh) {
-                articleListForChapterId
+                state.postValue(PlaySuccess(articleListForChapterId))
             } else {
-                val projectTree = PlayAndroidNetwork.getWxArticle(query.page, query.cid)
+                val projectTree = PlayAndroidNetwork.getProject(query.page, query.cid)
                 if (projectTree.errorCode == 0) {
                     if (articleListForChapterId.isNotEmpty() && articleListForChapterId[0].link == projectTree.data.datas[0].link && !query.isRefresh) {
-                        articleListForChapterId
+                        state.postValue(PlaySuccess(articleListForChapterId))
                     } else {
                         projectTree.data.datas.forEach {
-                            it.localType = OFFICIAL
+                            it.localType = PROJECT
                         }
-                        DataStoreUtils.saveLongData(
-                            DOWN_OFFICIAL_ARTICLE_TIME,
+                        dataStore.saveLongData(
+                            DOWN_PROJECT_ARTICLE_TIME,
                             System.currentTimeMillis()
                         )
                         if (query.isRefresh) {
-                            articleListDao.deleteAll(OFFICIAL, query.cid)
+                            articleListDao.deleteAll(PROJECT, query.cid)
                         }
                         articleListDao.insertList(projectTree.data.datas)
                         state.postValue(PlaySuccess(projectTree.data.datas))
@@ -96,14 +91,14 @@ class OfficialRepository @Inject constructor(application: Application) {
                 }
             }
         } else {
-            val projectTree = PlayAndroidNetwork.getWxArticle(query.page, query.cid)
+            val projectTree = PlayAndroidNetwork.getProject(query.page, query.cid)
             if (projectTree.errorCode == 0) {
+
                 state.postValue(PlaySuccess(projectTree.data.datas))
             } else {
                 state.postValue(PlayError(NetworkErrorException("")))
             }
         }
-
     }
 
 }

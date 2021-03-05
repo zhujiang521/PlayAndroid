@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.zj.core.view.custom.FragmentAdapter
+import com.zj.play.compose.viewmodel.ProjectViewModel
 import com.zj.play.databinding.FragmentProjectBinding
 import com.zj.play.project.list.ProjectListFragment
 import dagger.hilt.android.AndroidEntryPoint

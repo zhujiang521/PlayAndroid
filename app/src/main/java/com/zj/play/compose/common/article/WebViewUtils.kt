@@ -16,8 +16,6 @@
 
 package com.zj.play.compose.common.article
 
-import android.os.Bundle
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
@@ -26,7 +24,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import com.zj.play.R
-import com.zj.play.article.X5WebView
+import com.zj.play.compose.common.X5WebView
 
 /**
  * Remembers a MapView and gives it the lifecycle of the current LifecycleOwner

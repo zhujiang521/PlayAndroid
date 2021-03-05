@@ -5,6 +5,7 @@ import androidx.fragment.app.viewModels
 import com.zj.model.pojo.QueryArticle
 import com.zj.play.article.ArticleAdapter
 import com.zj.play.base.BaseListFragment
+import com.zj.play.compose.viewmodel.OfficialListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 const val PROJECT_CID = "PROJECT_CID"

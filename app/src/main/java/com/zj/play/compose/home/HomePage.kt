@@ -16,29 +16,27 @@
 
 package com.zj.play.compose.home
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.zj.model.room.entity.Article
 import com.zj.play.R
-import com.zj.play.compose.common.*
+import com.zj.play.compose.common.ArticleItem
+import com.zj.play.compose.common.ErrorContent
+import com.zj.play.compose.common.LoadingContent
+import com.zj.play.compose.common.PlayAppBar
 import com.zj.play.compose.model.PlayError
 import com.zj.play.compose.model.PlayLoading
 import com.zj.play.compose.model.PlaySuccess
-import com.zj.play.home.*
+import com.zj.play.compose.viewmodel.HomePageViewModel
+import com.zj.play.compose.viewmodel.REFRESH_DEFAULT
+import com.zj.play.compose.viewmodel.REFRESH_STOP
 
 @Composable
 fun HomePage(

@@ -41,9 +41,8 @@ import com.zj.play.compose.common.LoadingContent
 import com.zj.play.compose.model.PlayError
 import com.zj.play.compose.model.PlayLoading
 import com.zj.play.compose.model.PlaySuccess
-import com.zj.play.home.REFRESH_STOP
-import com.zj.play.official.OfficialViewModel
-import com.zj.play.official.list.OfficialListViewModel
+import com.zj.play.compose.viewmodel.OfficialViewModel
+import com.zj.play.compose.viewmodel.OfficialListViewModel
 import dev.chrisbanes.accompanist.insets.statusBarsHeight
 
 @Composable

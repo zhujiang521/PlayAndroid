@@ -39,8 +39,8 @@ import com.zj.play.compose.common.LoadingContent
 import com.zj.play.compose.model.PlayError
 import com.zj.play.compose.model.PlayLoading
 import com.zj.play.compose.model.PlaySuccess
-import com.zj.play.project.ProjectViewModel
-import com.zj.play.project.list.ProjectListViewModel
+import com.zj.play.compose.viewmodel.ProjectViewModel
+import com.zj.play.compose.viewmodel.ProjectListViewModel
 import dev.chrisbanes.accompanist.insets.statusBarsHeight
 
 @Composable

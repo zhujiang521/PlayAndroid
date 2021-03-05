@@ -1,11 +1,10 @@
-package com.zj.play.project.list
+package com.zj.play.compose.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.LiveData
 import com.zj.play.compose.common.BaseAndroidViewModel
 import com.zj.model.pojo.QueryArticle
 import com.zj.model.room.entity.Article
-import com.zj.play.project.ProjectRepository
+import com.zj.play.compose.repository.ProjectRepository
 
 /**
  * 版权：Zhujiang 个人版权

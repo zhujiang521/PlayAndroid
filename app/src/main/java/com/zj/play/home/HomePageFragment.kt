@@ -8,6 +8,7 @@ import com.youth.banner.indicator.CircleIndicator
 import com.zj.core.almanac.isZhLanguage
 import com.zj.play.R
 import com.zj.play.article.ArticleAdapter
+import com.zj.play.compose.viewmodel.HomePageViewModel
 import com.zj.play.databinding.FragmentHomePageBinding
 import com.zj.play.home.almanac.AlmanacActivity
 import com.zj.play.home.search.SearchActivity

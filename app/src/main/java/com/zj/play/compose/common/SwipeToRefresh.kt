@@ -16,13 +16,9 @@
 
 package com.zj.play.compose.common
 
-import android.util.Log
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -36,7 +32,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
-import com.zj.play.home.REFRESH_START
 import kotlin.math.roundToInt
 
 private val RefreshDistance = 80.dp

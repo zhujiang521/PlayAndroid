@@ -1,4 +1,4 @@
-package com.zj.play.article
+package com.zj.play.compose.common
 
 import android.content.ActivityNotFoundException
 import android.content.Context
