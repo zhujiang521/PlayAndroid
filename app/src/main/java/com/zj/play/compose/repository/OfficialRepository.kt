@@ -8,15 +8,13 @@ import com.zj.model.pojo.QueryArticle
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.OFFICIAL
 import com.zj.network.base.PlayAndroidNetwork
-import com.zj.play.compose.model.PlayError
-import com.zj.play.compose.model.PlayLoading
-import com.zj.play.compose.model.PlayState
-import com.zj.play.compose.model.PlaySuccess
+import com.zj.play.compose.common.PlayError
+import com.zj.play.compose.common.PlayLoading
+import com.zj.play.compose.common.PlayState
+import com.zj.play.compose.common.PlaySuccess
 import com.zj.play.home.DOWN_OFFICIAL_ARTICLE_TIME
 import com.zj.play.home.FOUR_HOUR
-import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.flow.first
-import javax.inject.Inject
 
 /**
  * 版权：Zhujiang 个人版权

@@ -20,10 +20,10 @@ import com.zj.model.room.entity.BannerBean
 import com.zj.model.room.entity.HOME
 import com.zj.model.room.entity.HOME_TOP
 import com.zj.network.base.PlayAndroidNetwork
-import com.zj.play.compose.model.PlayError
-import com.zj.play.compose.model.PlayLoading
-import com.zj.play.compose.model.PlayState
-import com.zj.play.compose.model.PlaySuccess
+import com.zj.play.compose.common.PlayError
+import com.zj.play.compose.common.PlayLoading
+import com.zj.play.compose.common.PlayState
+import com.zj.play.compose.common.PlaySuccess
 import com.zj.play.main.login.composeFire
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.first

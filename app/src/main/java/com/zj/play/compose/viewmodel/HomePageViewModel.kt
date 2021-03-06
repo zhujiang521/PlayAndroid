@@ -7,7 +7,7 @@ import com.zj.model.pojo.QueryHomeArticle
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.BannerBean
 import com.zj.model.room.entity.ProjectClassify
-import com.zj.play.compose.model.PlayState
+import com.zj.play.compose.common.PlayState
 import com.zj.play.home.HomeRepository
 import com.zj.play.compose.repository.ProjectRepository
 import kotlinx.coroutines.Dispatchers

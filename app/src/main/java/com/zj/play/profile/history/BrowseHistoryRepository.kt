@@ -5,12 +5,11 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.HISTORY
-import com.zj.play.compose.model.PlayError
-import com.zj.play.compose.model.PlayLoading
-import com.zj.play.compose.model.PlayState
-import com.zj.play.compose.model.PlaySuccess
+import com.zj.play.compose.common.PlayError
+import com.zj.play.compose.common.PlayLoading
+import com.zj.play.compose.common.PlayState
+import com.zj.play.compose.common.PlaySuccess
 import com.zj.play.main.login.composeFire
-import com.zj.play.main.login.fire
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import javax.inject.Inject
 
@@ -30,7 +29,7 @@ class BrowseHistoryRepository @Inject constructor(val application: Application) 
     /**
      * 获取历史记录列表
      */
-    fun getBrowseHistory(state:MutableLiveData<PlayState>,page: Int) = composeFire {
+    fun getBrowseHistory(state:MutableLiveData<PlayState>, page: Int) = composeFire {
         state.postValue(PlayLoading)
         val projectClassifyLists = browseHistoryDao.getHistoryArticleList((page - 1) * 20,HISTORY)
         if (projectClassifyLists.isNotEmpty()) {
