@@ -39,6 +39,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.zj.core.Play
 import com.zj.core.util.showToast
 import com.zj.play.R
+import com.zj.play.compose.MainActions
 import com.zj.play.compose.common.AnimatingFabContent
 import com.zj.play.compose.common.baselineHeight
 import com.zj.play.main.login.LogoutFinish
@@ -47,7 +48,7 @@ import com.zj.play.main.login.LogoutDefault
 import dev.chrisbanes.accompanist.insets.navigationBarsPadding
 
 @Composable
-fun ProfilePage(toLogin: () -> Unit, enterArticle: (String) -> Unit) {
+fun ProfilePage(onNavigationEvent: MainActions) {
 
     val scrollState = rememberScrollState()
     Column(modifier = Modifier.fillMaxSize()) {
@@ -63,7 +64,7 @@ fun ProfilePage(toLogin: () -> Unit, enterArticle: (String) -> Unit) {
                         scrollState,
                         this@BoxWithConstraints.maxHeight
                     )
-                    UserInfoFields(enterArticle, toLogin, this@BoxWithConstraints.maxHeight)
+                    UserInfoFields(onNavigationEvent.enterArticle, onNavigationEvent.toLogin, this@BoxWithConstraints.maxHeight)
                 }
             }
             ProfileFab(

@@ -41,7 +41,7 @@ import dev.chrisbanes.accompanist.insets.navigationBarsPadding
 import java.util.*
 
 @Composable
-fun Home(enterArticle: (String) -> Unit, toLogin: () -> Unit) {
+fun Home(onNavigationEvent: MainActions) {
     val viewModel: HomeViewModel = viewModel()
     val position by viewModel.position.observeAsState()
     val tabs = CourseTabs.values()
@@ -71,10 +71,10 @@ fun Home(enterArticle: (String) -> Unit, toLogin: () -> Unit) {
     ) { innerPadding ->
         val modifier = Modifier.padding(innerPadding)
         when (position) {
-            CourseTabs.HOME_PAGE -> HomePage(enterArticle, modifier)
-            CourseTabs.PROJECT -> ProjectPage(enterArticle, modifier)
-            CourseTabs.OFFICIAL_ACCOUNT -> OfficialAccountPage(enterArticle, modifier)
-            CourseTabs.MINE -> ProfilePage(toLogin, enterArticle)
+            CourseTabs.HOME_PAGE -> HomePage(onNavigationEvent.enterArticle, modifier)
+            CourseTabs.PROJECT -> ProjectPage(onNavigationEvent.enterArticle, modifier)
+            CourseTabs.OFFICIAL_ACCOUNT -> OfficialAccountPage(onNavigationEvent.enterArticle, modifier)
+            CourseTabs.MINE -> ProfilePage(onNavigationEvent)
         }
     }
 }

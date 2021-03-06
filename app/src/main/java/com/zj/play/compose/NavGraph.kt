@@ -49,10 +49,7 @@ fun NavGraph(startDestination: String = MainDestinations.HOME_PAGE_ROUTE) {
         startDestination = startDestination
     ) {
         composable(MainDestinations.HOME_PAGE_ROUTE) {
-            Home(
-                enterArticle = actions.enterArticle,
-                toLogin = actions.toLogin
-            )
+            Home(actions)
         }
         composable(MainDestinations.LOGIN_ROUTE) {
             LoginPage(actions)
