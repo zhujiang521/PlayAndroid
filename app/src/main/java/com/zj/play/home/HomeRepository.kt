@@ -44,7 +44,8 @@ class HomeRepository constructor(val application: Application) {
     /**
      * 获取banner
      */
-    fun getBanner() = composeFire {
+    suspend fun getBanner(state: MutableLiveData<PlayState>) {
+        state.postValue(PlayLoading)
         val dataStore = DataStoreUtils
         var downImageTime = 0L
         dataStore.readLongFlow(DOWN_IMAGE_TIME, System.currentTimeMillis()).first {
@@ -54,21 +55,21 @@ class HomeRepository constructor(val application: Application) {
         val bannerBeanDao = PlayDatabase.getDatabase(application).bannerBeanDao()
         val bannerBeanList = bannerBeanDao.getBannerBeanList()
         if (bannerBeanList.isNotEmpty() && downImageTime > 0 && downImageTime - System.currentTimeMillis() < ONE_DAY) {
-            Result.success(bannerBeanList)
+            state.postValue(PlaySuccess(bannerBeanList))
         } else {
             val bannerResponse = PlayAndroidNetwork.getBanner()
             if (bannerResponse.errorCode == 0) {
                 val bannerList = bannerResponse.data
-                dataStore.saveLongData(DOWN_IMAGE_TIME, System.currentTimeMillis())
                 if (bannerBeanList.isNotEmpty() && bannerBeanList[0].url == bannerList[0].url) {
-                    Result.success(bannerBeanList)
+                    state.postValue(PlaySuccess(bannerBeanList))
                 } else {
                     bannerBeanDao.deleteAll()
                     insertBannerList(bannerBeanDao, bannerList)
-                    Result.success(bannerList)
+                    state.postValue(PlaySuccess(bannerList))
                 }
+                dataStore.saveLongData(DOWN_IMAGE_TIME, System.currentTimeMillis())
             } else {
-                Result.failure(RuntimeException("response status is ${bannerResponse.errorCode}  msg is ${bannerResponse.errorMsg}"))
+                state.postValue(PlayError(RuntimeException("response status is ${bannerResponse.errorCode}  msg is ${bannerResponse.errorMsg}")))
             }
         }
     }
@@ -98,9 +99,12 @@ class HomeRepository constructor(val application: Application) {
                     isFirstResource: Boolean
                 ): Boolean {
                     try {
-                        it.filePath = resource!!.absolutePath
-                        uiScope.launch {
-                            bannerBeanDao.insert(it)
+                        val banner = bannerBeanDao.loadBanner(it.id)
+                        if (banner == null) {
+                            it.filePath = resource!!.absolutePath
+                            uiScope.launch {
+                                bannerBeanDao.insert(it)
+                            }
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()

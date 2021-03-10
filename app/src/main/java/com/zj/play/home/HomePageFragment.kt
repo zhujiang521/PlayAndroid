@@ -93,28 +93,28 @@ class HomePageFragment : ArticleCollectBaseFragment() {
     }
 
     private fun initBanner() {
-        setDataStatus(viewModel.getBanner(), {
-            if (viewModel.bannerList.size > 0) loadFinished()
-        }) {
-            val main = activity as MainActivity
-            if (viewModel.bannerList.size > 0)
-                viewModel.bannerList.clear()
-            if (viewModel.bannerList2.size > 0)
-                viewModel.bannerList2.clear()
-            if (main.isPort) {
-                viewModel.bannerList.addAll(it)
-            } else {
-                for (index in it.indices) {
-                    if (index / 2 == 0) {
-                        viewModel.bannerList.add(it[index])
-                    } else {
-                        viewModel.bannerList2.add(it[index])
-                    }
-                }
-            }
-            bannerAdapter.notifyDataSetChanged()
-            bannerAdapter2.notifyDataSetChanged()
-        }
+//        setDataStatus(viewModel.getBanner(), {
+//            if (viewModel.bannerList.size > 0) loadFinished()
+//        }) {
+//            val main = activity as MainActivity
+//            if (viewModel.bannerList.size > 0)
+//                viewModel.bannerList.clear()
+//            if (viewModel.bannerList2.size > 0)
+//                viewModel.bannerList2.clear()
+//            if (main.isPort) {
+//                viewModel.bannerList.addAll(it)
+//            } else {
+//                for (index in it.indices) {
+//                    if (index / 2 == 0) {
+//                        viewModel.bannerList.add(it[index])
+//                    } else {
+//                        viewModel.bannerList2.add(it[index])
+//                    }
+//                }
+//            }
+//            bannerAdapter.notifyDataSetChanged()
+//            bannerAdapter2.notifyDataSetChanged()
+//        }
 
     }
 

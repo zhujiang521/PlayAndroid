@@ -35,6 +35,7 @@ import com.zj.play.compose.home.HomePage
 import com.zj.play.compose.home.OfficialAccountPage
 import com.zj.play.compose.home.ProfilePage
 import com.zj.play.compose.home.ProjectPage
+import com.zj.play.compose.viewmodel.HomePageViewModel
 import com.zj.play.compose.viewmodel.HomeViewModel
 import dev.chrisbanes.accompanist.insets.navigationBarsHeight
 import dev.chrisbanes.accompanist.insets.navigationBarsPadding
@@ -71,7 +72,7 @@ fun Home(onNavigationEvent: MainActions,themeViewModel: ThemeViewModel) {
     ) { innerPadding ->
         val modifier = Modifier.padding(innerPadding)
         when (position) {
-            CourseTabs.HOME_PAGE -> HomePage(onNavigationEvent.enterArticle, modifier)
+            CourseTabs.HOME_PAGE -> HomePage(onNavigationEvent.enterArticle, modifier, viewModel())
             CourseTabs.PROJECT -> ProjectPage(onNavigationEvent.enterArticle, modifier)
             CourseTabs.OFFICIAL_ACCOUNT -> OfficialAccountPage(onNavigationEvent.enterArticle, modifier)
             CourseTabs.MINE -> ProfilePage(onNavigationEvent,themeViewModel)

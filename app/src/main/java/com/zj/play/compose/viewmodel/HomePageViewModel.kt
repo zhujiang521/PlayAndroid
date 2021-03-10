@@ -43,7 +43,16 @@ class HomePageViewModel(application: Application) : AndroidViewModel(application
         homeRepository.getArticleList(query)
     }
 
-    fun getBanner() = homeRepository.getBanner()
+    private val _bannerState = MutableLiveData<PlayState>()
+
+    val bannerState: LiveData<PlayState>
+        get() = _bannerState
+
+    fun getBanner() {
+        viewModelScope.launch(Dispatchers.IO) {
+            homeRepository.getBanner(_bannerState)
+        }
+    }
 
     fun getArticleList(page: Int, isRefresh: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -87,7 +96,7 @@ class ProjectViewModel(application: Application) :
     }
 
     override suspend fun getData(page: Boolean) {
-        projectRepository.getProjectTree(_state,page)
+        projectRepository.getProjectTree(_state, page)
     }
 
 }

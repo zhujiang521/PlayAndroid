@@ -18,6 +18,9 @@ interface BannerBeanDao {
     @Query("SELECT * FROM banner_bean order by uid desc")
     suspend fun getBannerBeanList(): List<BannerBean>
 
+    @Query("SELECT * FROM banner_bean WHERE id = :sid")
+    fun loadBanner(sid: Int): BannerBean?
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertList(BannerBeanList: List<BannerBean>)
 
