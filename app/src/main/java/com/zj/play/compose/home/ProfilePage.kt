@@ -49,7 +49,7 @@ import com.zj.play.compose.common.utils.baselineHeight
 import dev.chrisbanes.accompanist.insets.navigationBarsPadding
 
 @Composable
-fun ProfilePage(onNavigationEvent: MainActions,themeViewModel: ThemeViewModel) {
+fun ProfilePage(onNavigationEvent: MainActions, themeViewModel: ThemeViewModel) {
 
     val scrollState = rememberScrollState()
     Column(modifier = Modifier.fillMaxSize()) {
@@ -65,8 +65,12 @@ fun ProfilePage(onNavigationEvent: MainActions,themeViewModel: ThemeViewModel) {
                         scrollState,
                         this@BoxWithConstraints.maxHeight
                     )
-                    UserInfoFields(onNavigationEvent.enterArticle, onNavigationEvent.toLogin, this@BoxWithConstraints.maxHeight,
-                        themeViewModel)
+                    UserInfoFields(
+                        onNavigationEvent.enterArticle,
+                        onNavigationEvent.toLogin,
+                        this@BoxWithConstraints.maxHeight,
+                        themeViewModel
+                    )
                 }
             }
             ProfileFab(
@@ -100,17 +104,26 @@ private fun UserInfoFields(
         }
 
         ProfileProperty(
-            Article(title = stringResource(R.string.mine_blog),link = "https://zhujiang.blog.csdn.net/"),
+            Article(
+                title = stringResource(R.string.mine_blog),
+                link = "https://zhujiang.blog.csdn.net/"
+            ),
             enterArticle
         )
 
         ProfileProperty(
-            Article(title = stringResource(R.string.mine_nuggets),link = "https://juejin.im/user/5c07e51de51d451de84324d5"),
+            Article(
+                title = stringResource(R.string.mine_nuggets),
+                link = "https://juejin.im/user/5c07e51de51d451de84324d5"
+            ),
             enterArticle
         )
 
         ProfileProperty(
-            Article(title = stringResource(R.string.mine_github),link = "https://github.com/zhujiang521"),
+            Article(
+                title = stringResource(R.string.mine_github),
+                link = "https://github.com/zhujiang521"
+            ),
             enterArticle
         )
 
@@ -219,12 +232,13 @@ fun ProfileProperty(article: Article, enterArticle: (Article) -> Unit) {
 }
 
 @Composable
-fun ProfileFab(themeViewModel: ThemeViewModel,extended: Boolean, modifier: Modifier = Modifier) {
+fun ProfileFab(themeViewModel: ThemeViewModel, extended: Boolean, modifier: Modifier = Modifier) {
     key(extended) { // Prevent multiple invocations to execute during composition
         FloatingActionButton(
-            onClick = { showToast(if (extended) "哈哈哈😄，被你发现小彩蛋了，真棒👍！！！" else "太过分了，这样都要点我😡！！！")
+            onClick = {
+                showToast(if (extended) "哈哈哈😄，被你发现小彩蛋了，真棒👍！！！" else "太过分了，这样都要点我😡！！！")
                 themeViewModel.onThemeChanged(themeViewModel.theme.value == false)
-                      },
+            },
             modifier = modifier
                 .padding(end = 16.dp, bottom = 70.dp)
                 .navigationBarsPadding()
