@@ -2,7 +2,7 @@ package com.zj.play.compose.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.zj.play.compose.common.PlayState
+import com.zj.play.compose.model.PlayState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

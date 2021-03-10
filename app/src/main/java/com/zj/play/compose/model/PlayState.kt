@@ -1,4 +1,4 @@
-package com.zj.play.compose.common
+package com.zj.play.compose.model
 
 sealed class PlayState
 object PlayLoading : PlayState()

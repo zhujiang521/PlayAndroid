@@ -27,7 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.layout.Layout
-import com.zj.play.compose.utils.lerp
+import com.zj.play.compose.common.utils.lerp
 import kotlin.math.roundToInt
 
 /**

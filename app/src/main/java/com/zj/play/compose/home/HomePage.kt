@@ -34,12 +34,12 @@ import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.BannerBean
 import com.zj.play.R
 import com.zj.play.compose.common.article.ArticleItem
-import com.zj.play.compose.common.ErrorContent
-import com.zj.play.compose.common.LoadingContent
+import com.zj.play.compose.common.lce.ErrorContent
+import com.zj.play.compose.common.lce.LoadingContent
 import com.zj.play.compose.common.PlayAppBar
-import com.zj.play.compose.common.PlayError
-import com.zj.play.compose.common.PlayLoading
-import com.zj.play.compose.common.PlaySuccess
+import com.zj.play.compose.model.PlayError
+import com.zj.play.compose.model.PlayLoading
+import com.zj.play.compose.model.PlaySuccess
 import com.zj.play.compose.common.article.PostCardPopular
 import com.zj.play.compose.viewmodel.HomePageViewModel
 import com.zj.play.compose.viewmodel.REFRESH_DEFAULT

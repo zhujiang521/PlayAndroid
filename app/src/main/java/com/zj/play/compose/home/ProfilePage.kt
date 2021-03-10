@@ -16,8 +16,6 @@
 
 package com.zj.play.compose.home
 
-import android.util.Log
-import androidx.activity.viewModels
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -32,27 +30,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.zj.core.Play
-import com.zj.core.util.LiveDataBus
 import com.zj.core.util.showToast
 import com.zj.model.room.entity.Article
 import com.zj.play.R
 import com.zj.play.compose.MainActions
-import com.zj.play.compose.THEME_REFRESH
 import com.zj.play.compose.ThemeViewModel
 import com.zj.play.compose.common.AnimatingFabContent
-import com.zj.play.compose.common.baselineHeight
-import com.zj.play.compose.theme.PlayTheme
-import com.zj.play.home.LOGIN_REFRESH
 import com.zj.play.main.login.LogoutFinish
 import com.zj.play.main.login.LoginViewModel
 import com.zj.play.main.login.LogoutDefault
+import com.zj.play.compose.common.utils.baselineHeight
 import dev.chrisbanes.accompanist.insets.navigationBarsPadding
 
 @Composable
@@ -77,6 +70,7 @@ fun ProfilePage(onNavigationEvent: MainActions,themeViewModel: ThemeViewModel) {
                 }
             }
             ProfileFab(
+                themeViewModel = themeViewModel,
                 extended = scrollState.value == 0,
                 modifier = Modifier.align(Alignment.BottomEnd)
             )
@@ -104,14 +98,6 @@ private fun UserInfoFields(
                 NameAndPosition(false, toLogin)
             }
         }
-
-        Button(onClick = {
-            themeViewModel.onThemeChanged(themeViewModel.theme.value == false)
-            //LiveDataBus.get().getChannel(THEME_REFRESH).setValue(LiveDataBus.get().getChannel(LOGIN_REFRESH, Boolean::class.java).value == false)
-        }) {
-            Text(text = "切换主题")
-        }
-
 
         ProfileProperty(
             Article(title = stringResource(R.string.mine_blog),link = "https://zhujiang.blog.csdn.net/"),
@@ -233,10 +219,12 @@ fun ProfileProperty(article: Article, enterArticle: (Article) -> Unit) {
 }
 
 @Composable
-fun ProfileFab(extended: Boolean, modifier: Modifier = Modifier) {
+fun ProfileFab(themeViewModel: ThemeViewModel,extended: Boolean, modifier: Modifier = Modifier) {
     key(extended) { // Prevent multiple invocations to execute during composition
         FloatingActionButton(
-            onClick = { showToast(if (extended) "哈哈哈😄，被你发现小彩蛋了，真棒👍！！！" else "太过分了，这样都要点我😡！！！") },
+            onClick = { showToast(if (extended) "哈哈哈😄，被你发现小彩蛋了，真棒👍！！！" else "太过分了，这样都要点我😡！！！")
+                themeViewModel.onThemeChanged(themeViewModel.theme.value == false)
+                      },
             modifier = modifier
                 .padding(end = 16.dp, bottom = 70.dp)
                 .navigationBarsPadding()

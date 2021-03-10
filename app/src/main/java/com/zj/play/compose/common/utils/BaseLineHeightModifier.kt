@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zj.play.compose.common
+package com.zj.play.compose.common.utils
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.FirstBaseline

@@ -24,7 +24,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import com.zj.play.R
-import com.zj.play.compose.common.X5WebView
+import com.zj.play.compose.common.utils.X5WebView
 
 /**
  * Remembers a MapView and gives it the lifecycle of the current LifecycleOwner

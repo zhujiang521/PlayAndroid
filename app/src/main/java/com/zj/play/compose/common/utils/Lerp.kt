@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zj.play.compose.utils
+package com.zj.play.compose.common.utils
 
 import androidx.annotation.FloatRange
 import androidx.compose.ui.graphics.Color
