@@ -16,7 +16,6 @@
 
 package com.zj.play.compose
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -25,12 +24,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
+import com.google.gson.Gson
+import com.zj.model.room.entity.Article
 import com.zj.play.compose.MainDestinations.ARTICLE_ROUTE_URL
 import com.zj.play.compose.common.article.ArticlePage
 import com.zj.play.compose.home.LoginPage
-import com.zj.play.compose.home.SignInEvent
 import com.zj.play.compose.theme.Play2Theme
 import com.zj.play.compose.theme.PlayTheme
+import java.net.URLEncoder
 
 /**
  * Destinations used in the ([NewMainActivity]).
@@ -46,7 +47,7 @@ object MainDestinations {
 }
 
 @Composable
-fun NavGraphPage(){
+fun NavGraphPage() {
     val viewModel: ThemeViewModel = viewModel()
     val theme by viewModel.theme.observeAsState()
     if (theme == false) {
@@ -61,7 +62,10 @@ fun NavGraphPage(){
 }
 
 @Composable
-fun NavGraph(viewModel: ThemeViewModel,startDestination: String = MainDestinations.HOME_PAGE_ROUTE) {
+fun NavGraph(
+    viewModel: ThemeViewModel,
+    startDestination: String = MainDestinations.HOME_PAGE_ROUTE
+) {
     val navController = rememberNavController()
 
     val actions = remember(navController) { MainActions(navController) }
@@ -70,18 +74,22 @@ fun NavGraph(viewModel: ThemeViewModel,startDestination: String = MainDestinatio
         startDestination = startDestination
     ) {
         composable(MainDestinations.HOME_PAGE_ROUTE) {
-            Home(actions,viewModel)
+            Home(actions, viewModel)
         }
         composable(MainDestinations.LOGIN_ROUTE) {
             LoginPage(actions)
         }
         composable(
             "${MainDestinations.ARTICLE_ROUTE}/{$ARTICLE_ROUTE_URL}",
-            arguments = listOf(navArgument(ARTICLE_ROUTE_URL) { type = NavType.StringType })
+            arguments = listOf(navArgument(ARTICLE_ROUTE_URL) {
+                type = NavType.StringType
+            })
         ) { backStackEntry ->
             val arguments = requireNotNull(backStackEntry.arguments)
+            val parcelable = arguments.getString(ARTICLE_ROUTE_URL)
+            val fromJson = Gson().fromJson(parcelable, Article::class.java)
             ArticlePage(
-                url = arguments.getString(ARTICLE_ROUTE_URL) ?: "www.baidu.com",
+                article = fromJson,
                 onBack = actions.upPress
             )
         }
@@ -95,8 +103,12 @@ class MainActions(navController: NavHostController) {
     val homePage: () -> Unit = {
         navController.navigate(MainDestinations.HOME_PAGE_ROUTE)
     }
-    val enterArticle: (String) -> Unit = { url ->
-        navController.navigate("${MainDestinations.ARTICLE_ROUTE}/$url")
+    val enterArticle: (Article) -> Unit = { article ->
+        article.desc = ""
+        val gson = Gson().toJson(article).trim()
+        val result = URLEncoder.encode(gson,"utf-8")
+        //navController.navigate()
+        navController.navigate("${MainDestinations.ARTICLE_ROUTE}/$result")
     }
     val toLogin: () -> Unit = {
         navController.navigate(MainDestinations.LOGIN_ROUTE)

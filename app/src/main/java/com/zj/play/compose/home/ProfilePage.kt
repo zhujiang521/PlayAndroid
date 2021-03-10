@@ -41,6 +41,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.zj.core.Play
 import com.zj.core.util.LiveDataBus
 import com.zj.core.util.showToast
+import com.zj.model.room.entity.Article
 import com.zj.play.R
 import com.zj.play.compose.MainActions
 import com.zj.play.compose.THEME_REFRESH
@@ -85,7 +86,7 @@ fun ProfilePage(onNavigationEvent: MainActions,themeViewModel: ThemeViewModel) {
 
 @Composable
 private fun UserInfoFields(
-    enterArticle: (String) -> Unit,
+    enterArticle: (Article) -> Unit,
     toLogin: () -> Unit,
     containerHeight: Dp,
     themeViewModel: ThemeViewModel
@@ -111,24 +112,19 @@ private fun UserInfoFields(
             Text(text = "切换主题")
         }
 
+
         ProfileProperty(
-            stringResource(R.string.mine_blog),
-            stringResource(R.string.mine_blog),
-            "https://zhujiang.blog.csdn.net/",
+            Article(title = stringResource(R.string.mine_blog),link = "https://zhujiang.blog.csdn.net/"),
             enterArticle
         )
 
         ProfileProperty(
-            stringResource(R.string.mine_nuggets),
-            stringResource(R.string.mine_nuggets),
-            "https://juejin.im/user/5c07e51de51d451de84324d5",
+            Article(title = stringResource(R.string.mine_nuggets),link = "https://juejin.im/user/5c07e51de51d451de84324d5"),
             enterArticle
         )
 
         ProfileProperty(
-            stringResource(R.string.mine_github),
-            stringResource(R.string.mine_github),
-            "https://github.com/zhujiang521",
+            Article(title = stringResource(R.string.mine_github),link = "https://github.com/zhujiang521"),
             enterArticle
         )
 
@@ -212,24 +208,24 @@ private fun ProfileHeader(
 }
 
 @Composable
-fun ProfileProperty(label: String, value: String, link: String, enterArticle: (String) -> Unit) {
+fun ProfileProperty(article: Article, enterArticle: (Article) -> Unit) {
     Column(modifier = Modifier
         .clickable {
-            enterArticle(link)
+            enterArticle(article)
         }
         .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
     ) {
         Divider()
         CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
             Text(
-                text = label,
+                text = article.title,
                 modifier = Modifier.baselineHeight(24.dp),
                 style = MaterialTheme.typography.caption
             )
         }
         val style = MaterialTheme.typography.body1
         Text(
-            text = value,
+            text = article.title,
             modifier = Modifier.baselineHeight(24.dp),
             style = style
         )

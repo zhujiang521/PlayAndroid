@@ -39,7 +39,7 @@ import com.zj.play.compose.viewmodel.REFRESH_STOP
 
 @Composable
 fun HomePage(
-    enterArticle: (String) -> Unit,
+    enterArticle: (Article) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomePageViewModel = viewModel()
 ) {

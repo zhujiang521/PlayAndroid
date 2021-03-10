@@ -46,7 +46,7 @@ import dev.chrisbanes.accompanist.insets.statusBarsHeight
 
 @Composable
 fun ProjectPage(
-    enterArticle: (String) -> Unit,
+    enterArticle: (Article) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ProjectViewModel = viewModel(),
     projectViewModel: ProjectListViewModel = viewModel()

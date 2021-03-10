@@ -43,14 +43,14 @@ import com.zj.play.compose.common.NetworkImage
 fun ArticleItem(
     article: Article,
     index: Int,
-    enterArticle: (urlArgs: String) -> Unit,
+    enterArticle: (urlArgs: Article) -> Unit,
 ) {
     Row(modifier = Modifier.padding(top = 8.dp)) {
         val stagger = if (index % 2 == 0) 42.dp else 16.dp
         Spacer(modifier = Modifier.width(stagger))
         ArticleListItem(
             article = article,
-            onClick = { enterArticle(article.link) },
+            onClick = { enterArticle(article) },
             modifier = Modifier.height(96.dp),
             shape = RoundedCornerShape(topStart = 24.dp)
         )

@@ -1,6 +1,7 @@
 package com.zj.play.compose.common
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -11,13 +12,18 @@ import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.zj.play.R
 import dev.chrisbanes.accompanist.insets.statusBarsHeight
 
 @Composable
-fun PlayAppBar(title: String, showBack: Boolean = true, click: (() -> Unit)? = null) {
+fun PlayAppBar(
+    title: String,
+    showBack: Boolean = true,
+    click: (() -> Unit)? = null,
+    showRight: Boolean = false,
+    rightClick: (() -> Unit)? = null,
+) {
     Column(modifier = Modifier.background(color = MaterialTheme.colors.primary)) {
         Spacer(Modifier.statusBarsHeight())
         Row(
@@ -29,7 +35,6 @@ fun PlayAppBar(title: String, showBack: Boolean = true, click: (() -> Unit)? = n
             if (showBack) {
                 IconButton(
                     modifier = Modifier
-                        .weight(1f)
                         .wrapContentWidth(Alignment.Start), onClick = click!!
                 ) {
                     Icon(
@@ -37,12 +42,6 @@ fun PlayAppBar(title: String, showBack: Boolean = true, click: (() -> Unit)? = n
                         contentDescription = "back"
                     )
                 }
-            } else {
-                Spacer(
-                    modifier = Modifier
-                        .weight(1f)
-                        .wrapContentWidth(Alignment.End),
-                )
             }
             Text(
                 modifier = Modifier
@@ -50,12 +49,16 @@ fun PlayAppBar(title: String, showBack: Boolean = true, click: (() -> Unit)? = n
                     .wrapContentWidth(Alignment.CenterHorizontally),
                 text = title,
                 style = MaterialTheme.typography.subtitle1,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
             )
-            Spacer(
-                modifier = Modifier
-                    .weight(1f)
-                    .wrapContentWidth(Alignment.End),
-            )
+            if (showRight) {
+                Spacer(
+                    modifier = Modifier
+                        .wrapContentWidth(Alignment.End)
+                        .clickable { rightClick!! },
+                )
+            }
         }
     }
 }

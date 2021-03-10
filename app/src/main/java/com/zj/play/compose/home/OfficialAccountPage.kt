@@ -48,7 +48,7 @@ import dev.chrisbanes.accompanist.insets.statusBarsHeight
 
 @Composable
 fun OfficialAccountPage(
-    enterArticle: (String) -> Unit,
+    enterArticle: (Article) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: OfficialViewModel = viewModel(),
     officialListViewModel: OfficialListViewModel = viewModel()

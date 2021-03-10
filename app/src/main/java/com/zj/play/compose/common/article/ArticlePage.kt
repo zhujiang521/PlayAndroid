@@ -12,13 +12,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.zj.core.util.showToast
+import com.zj.model.room.entity.Article
 import com.zj.play.R
+import com.zj.play.article.collect.CollectRepositoryPoint
 import com.zj.play.compose.common.BookmarkButton
 import com.zj.play.compose.common.PlayAppBar
+import dagger.hilt.android.EntryPointAccessors
 import dev.chrisbanes.accompanist.insets.statusBarsHeight
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * Stateful Article Screen that manages state using [produceUiState]
@@ -30,20 +37,14 @@ import dev.chrisbanes.accompanist.insets.statusBarsHeight
 @Suppress("DEPRECATION") // allow ViewModelLifecycleScope call
 @Composable
 fun ArticlePage(
-    url: String,
+    article: Article?,
     onBack: () -> Unit
 ) {
     // Returns a [CoroutineScope] that is scoped to the lifecycle of [ArticleScreen]. When this
     // screen is removed from composition, the scope will be cancelled.
-    val coroutineScope = rememberCoroutineScope()
-    var isFavorite = false
     ArticleScreen(
-        url = url,
-        onBack = onBack,
-        isFavorite = isFavorite,
-        onToggleFavorite = {
-            isFavorite = !isFavorite
-        }
+        article = article,
+        onBack = onBack
     )
 }
 
@@ -57,10 +58,8 @@ fun ArticlePage(
  */
 @Composable
 fun ArticleScreen(
-    url: String,
+    article: Article?,
     onBack: () -> Unit,
-    isFavorite: Boolean,
-    onToggleFavorite: () -> Unit
 ) {
 
     var showDialog by rememberSaveable { mutableStateOf(false) }
@@ -70,7 +69,7 @@ fun ArticleScreen(
     val x5WebView = rememberX5WebViewWithLifecycle()
     Scaffold(
         topBar = {
-            PlayAppBar("文章详情", click = {
+            PlayAppBar(article?.title ?: "文章详情", click = {
                 if (x5WebView.canGoBack()) {
                     //返回上个页面
                     x5WebView.goBack()
@@ -89,15 +88,13 @@ fun ArticleScreen(
             ) { x5WebView ->
                 // Reading zoom so that AndroidView recomposes when it changes. The getMapAsync lambda
                 // is stored for later, Compose doesn't recognize state reads
-                x5WebView.loadUrl(url)
+                x5WebView.loadUrl(article?.link)
             }
         },
         bottomBar = {
             BottomBar(
-                post = url,
+                post = article,
                 onUnimplementedAction = { showDialog = true },
-                isFavorite = isFavorite,
-                onToggleFavorite = onToggleFavorite
             )
         }
     )
@@ -113,15 +110,17 @@ fun ArticleScreen(
  */
 @Composable
 private fun BottomBar(
-    post: String,
+    post: Article?,
     onUnimplementedAction: () -> Unit,
-    isFavorite: Boolean,
-    onToggleFavorite: () -> Unit
 ) {
 
-
-    var favoriteIcon by remember { mutableStateOf(Icons.Filled.FavoriteBorder) }
+    var favoriteIcon by remember { mutableStateOf(if (post?.collect == false) Icons.Filled.FavoriteBorder else Icons.Filled.Favorite) }
     var loadState by remember { mutableStateOf(false) }
+    val coroutineScope = rememberCoroutineScope()
+    val collectRepository = EntryPointAccessors.fromApplication(
+        LocalContext.current,
+        CollectRepositoryPoint::class.java
+    ).collectRepository()
 
     Surface(elevation = 2.dp) {
         Row(
@@ -132,10 +131,28 @@ private fun BottomBar(
         ) {
             IconButton(onClick = {
                 favoriteIcon = if (favoriteIcon == Icons.Filled.Favorite) {
-                    showToast("取消收藏")
+                    coroutineScope.launch(Dispatchers.IO) {
+                        val cancelCollects = collectRepository.cancelCollects(post?.id ?: 0)
+                        if (cancelCollects.errorCode == 0) {
+                            withContext(Dispatchers.Main) {
+                                showToast(R.string.collection_cancelled_successfully)
+                            }
+                        } else {
+                            showToast(R.string.failed_to_cancel_collection)
+                        }
+                    }
                     Icons.Filled.FavoriteBorder
                 } else {
-                    showToast("添加收藏")
+                    coroutineScope.launch {
+                        val cancelCollects = collectRepository.toCollects(post?.id ?: 0)
+                        if (cancelCollects.errorCode == 0) {
+                            withContext(Dispatchers.Main) {
+                                showToast(R.string.collection_successful)
+                            }
+                        } else {
+                            showToast(R.string.collection_failed)
+                        }
+                    }
                     Icons.Filled.Favorite
                 }
             }) {
@@ -147,12 +164,12 @@ private fun BottomBar(
             BookmarkButton(
                 isBookmarked = loadState,
                 onClick = {
-                    showToast(if (loadState) "取消书签" else "添加书签")
+                    showToast(if (loadState) "取消书签(假的)" else "添加书签(假的)")
                     loadState = !loadState
                 }
             )
             val context = LocalContext.current
-            IconButton(onClick = { sharePost(post, context) }) {
+            IconButton(onClick = { sharePost(post?.link ?: "", context) }) {
                 Icon(
                     imageVector = Icons.Filled.Share,
                     contentDescription = "分享"
