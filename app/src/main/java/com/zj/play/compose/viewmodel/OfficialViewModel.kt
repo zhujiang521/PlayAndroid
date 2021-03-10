@@ -28,7 +28,6 @@ class OfficialViewModel(application: Application) :
     }
 
     override suspend fun getData(page: Boolean) {
-        Log.e("ZHUJIANG123", "getData: 111" )
         return officialRepository.getWxArticleTree(_state, page)
     }
 }

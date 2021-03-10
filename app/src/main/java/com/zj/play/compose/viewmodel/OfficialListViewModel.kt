@@ -20,7 +20,6 @@ class OfficialListViewModel(application: Application) :
     private val officialRepository = OfficialRepository(application)
 
     override suspend fun getData(page: QueryArticle){
-        Log.e("ZHUJIANG123", "getData: 22222")
         return officialRepository.getWxArticle(_state,page)
     }
 

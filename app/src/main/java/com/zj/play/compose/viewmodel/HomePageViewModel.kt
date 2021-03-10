@@ -46,8 +46,6 @@ class HomePageViewModel(application: Application) : AndroidViewModel(application
     fun getBanner() = homeRepository.getBanner()
 
     fun getArticleList(page: Int, isRefresh: Boolean) {
-        Log.e("ZHUJIANG123", "getArticleList: 111")
-        //pageLiveData.value = QueryHomeArticle(page, isRefresh)
         viewModelScope.launch(Dispatchers.IO) {
             homeRepository.getArticleList(_state, QueryHomeArticle(page, isRefresh))
         }
