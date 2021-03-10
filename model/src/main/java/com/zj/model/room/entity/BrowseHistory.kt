@@ -4,14 +4,16 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+
 /**
  * 版权：Zhujiang 个人版权
  *
- * @author zhujiang
+ * @author zhujiangz
  * 创建日期：2020/9/11
  * 描述：PlayAndroid
  *
  */
+//@Parcelize
 @Entity(tableName = "browse_history")
 data class Article(
     @PrimaryKey(autoGenerate = true) val uid: Int,

@@ -73,7 +73,6 @@ fun LoginPage(
             }
         }
     })
-    Log.e("ZHUJIANG123", "LoginPage: $state")
     when (state) {
         Logging -> {
             //toProgressVisible(true)

@@ -18,7 +18,7 @@ import dev.chrisbanes.accompanist.insets.statusBarsHeight
 
 @Composable
 fun PlayAppBar(title: String, showBack: Boolean = true, click: (() -> Unit)? = null) {
-    Column(modifier = Modifier.background(color = colorResource(id = R.color.yellow))) {
+    Column(modifier = Modifier.background(color = MaterialTheme.colors.primary)) {
         Spacer(Modifier.statusBarsHeight())
         Row(
             modifier = Modifier

@@ -16,6 +16,8 @@
 
 package com.zj.play.compose.home
 
+import android.util.Log
+import androidx.activity.viewModels
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -37,18 +39,23 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.zj.core.Play
+import com.zj.core.util.LiveDataBus
 import com.zj.core.util.showToast
 import com.zj.play.R
 import com.zj.play.compose.MainActions
+import com.zj.play.compose.THEME_REFRESH
+import com.zj.play.compose.ThemeViewModel
 import com.zj.play.compose.common.AnimatingFabContent
 import com.zj.play.compose.common.baselineHeight
+import com.zj.play.compose.theme.PlayTheme
+import com.zj.play.home.LOGIN_REFRESH
 import com.zj.play.main.login.LogoutFinish
 import com.zj.play.main.login.LoginViewModel
 import com.zj.play.main.login.LogoutDefault
 import dev.chrisbanes.accompanist.insets.navigationBarsPadding
 
 @Composable
-fun ProfilePage(onNavigationEvent: MainActions) {
+fun ProfilePage(onNavigationEvent: MainActions,themeViewModel: ThemeViewModel) {
 
     val scrollState = rememberScrollState()
     Column(modifier = Modifier.fillMaxSize()) {
@@ -64,7 +71,8 @@ fun ProfilePage(onNavigationEvent: MainActions) {
                         scrollState,
                         this@BoxWithConstraints.maxHeight
                     )
-                    UserInfoFields(onNavigationEvent.enterArticle, onNavigationEvent.toLogin, this@BoxWithConstraints.maxHeight)
+                    UserInfoFields(onNavigationEvent.enterArticle, onNavigationEvent.toLogin, this@BoxWithConstraints.maxHeight,
+                        themeViewModel)
                 }
             }
             ProfileFab(
@@ -79,7 +87,8 @@ fun ProfilePage(onNavigationEvent: MainActions) {
 private fun UserInfoFields(
     enterArticle: (String) -> Unit,
     toLogin: () -> Unit,
-    containerHeight: Dp
+    containerHeight: Dp,
+    themeViewModel: ThemeViewModel
 ) {
     val viewModel: LoginViewModel = viewModel()
     val logoutState by viewModel.logoutState.observeAsState(LogoutDefault)
@@ -93,6 +102,13 @@ private fun UserInfoFields(
             LogoutFinish -> {
                 NameAndPosition(false, toLogin)
             }
+        }
+
+        Button(onClick = {
+            themeViewModel.onThemeChanged(themeViewModel.theme.value == false)
+            //LiveDataBus.get().getChannel(THEME_REFRESH).setValue(LiveDataBus.get().getChannel(LOGIN_REFRESH, Boolean::class.java).value == false)
+        }) {
+            Text(text = "切换主题")
         }
 
         ProfileProperty(
@@ -230,7 +246,7 @@ fun ProfileFab(extended: Boolean, modifier: Modifier = Modifier) {
                 .navigationBarsPadding()
                 .height(48.dp)
                 .widthIn(min = 48.dp),
-            backgroundColor = colorResource(id = R.color.yellow),
+            backgroundColor = MaterialTheme.colors.primary,
             contentColor = MaterialTheme.colors.onPrimary
         ) {
             AnimatingFabContent(

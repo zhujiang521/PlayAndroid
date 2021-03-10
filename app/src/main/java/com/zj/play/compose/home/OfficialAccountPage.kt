@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScrollableTabRow
 import androidx.compose.material.Tab
 import androidx.compose.material.Text
@@ -63,7 +64,7 @@ fun OfficialAccountPage(
     val articleList by officialListViewModel.dataLiveData.observeAsState()
 
     Column {
-        Column(modifier = Modifier.background(color = colorResource(id = R.color.yellow))) {
+        Column(modifier = Modifier.background(color = MaterialTheme.colors.primary)) {
             Spacer(modifier = Modifier.statusBarsHeight())
 
             when (result) {

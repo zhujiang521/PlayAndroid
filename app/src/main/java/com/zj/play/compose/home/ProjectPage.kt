@@ -20,6 +20,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScrollableTabRow
 import androidx.compose.material.Tab
 import androidx.compose.material.Text
@@ -60,7 +61,7 @@ fun ProjectPage(
     val position by viewModel.position.observeAsState()
     val articleList by projectViewModel.dataLiveData.observeAsState(PlayLoading)
     Column {
-        Column(modifier = Modifier.background(color = colorResource(id = R.color.yellow))) {
+        Column(modifier = Modifier.background(color = MaterialTheme.colors.primary)) {
             Spacer(modifier = Modifier.statusBarsHeight())
 
             when (result) {

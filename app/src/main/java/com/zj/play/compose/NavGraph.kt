@@ -16,8 +16,12 @@
 
 package com.zj.play.compose
 
+import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
@@ -25,6 +29,8 @@ import com.zj.play.compose.MainDestinations.ARTICLE_ROUTE_URL
 import com.zj.play.compose.common.article.ArticlePage
 import com.zj.play.compose.home.LoginPage
 import com.zj.play.compose.home.SignInEvent
+import com.zj.play.compose.theme.Play2Theme
+import com.zj.play.compose.theme.PlayTheme
 
 /**
  * Destinations used in the ([NewMainActivity]).
@@ -40,7 +46,22 @@ object MainDestinations {
 }
 
 @Composable
-fun NavGraph(startDestination: String = MainDestinations.HOME_PAGE_ROUTE) {
+fun NavGraphPage(){
+    val viewModel: ThemeViewModel = viewModel()
+    val theme by viewModel.theme.observeAsState()
+    if (theme == false) {
+        PlayTheme {
+            NavGraph(viewModel)
+        }
+    } else {
+        Play2Theme {
+            NavGraph(viewModel)
+        }
+    }
+}
+
+@Composable
+fun NavGraph(viewModel: ThemeViewModel,startDestination: String = MainDestinations.HOME_PAGE_ROUTE) {
     val navController = rememberNavController()
 
     val actions = remember(navController) { MainActions(navController) }
@@ -49,7 +70,7 @@ fun NavGraph(startDestination: String = MainDestinations.HOME_PAGE_ROUTE) {
         startDestination = startDestination
     ) {
         composable(MainDestinations.HOME_PAGE_ROUTE) {
-            Home(actions)
+            Home(actions,viewModel)
         }
         composable(MainDestinations.LOGIN_ROUTE) {
             LoginPage(actions)
