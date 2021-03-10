@@ -89,7 +89,7 @@ fun ProjectPage(
                                         QueryArticle(
                                             0,
                                             projectClassify.id,
-                                            true
+                                            false
                                         )
                                     )
                                     viewModel.onPositionChanged(index)

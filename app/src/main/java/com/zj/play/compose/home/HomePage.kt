@@ -60,7 +60,7 @@ fun HomePage(
     val refresh by viewModel.refreshState.observeAsState(REFRESH_DEFAULT)
 
     if (!loadState && refresh == REFRESH_DEFAULT) {
-        viewModel.getArticleList(1, true)
+        viewModel.getArticleList(1, false)
         viewModel.getBanner()
     }
 
