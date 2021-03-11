@@ -9,6 +9,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.More
+import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -57,7 +59,12 @@ fun PlayAppBar(
                     modifier = Modifier
                         .wrapContentWidth(Alignment.End)
                         .clickable { rightClick!! }, onClick = { }
-                ) {}
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.MoreVert,
+                        contentDescription = "more"
+                    )
+                }
             }
         }
     }
