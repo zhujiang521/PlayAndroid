@@ -52,12 +52,12 @@ fun PlayAppBar(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
-            if (showRight) {
-                Spacer(
+            if (showBack || showRight) {
+                IconButton(
                     modifier = Modifier
                         .wrapContentWidth(Alignment.End)
-                        .clickable { rightClick!! },
-                )
+                        .clickable { rightClick!! }, onClick = { }
+                ) {}
             }
         }
     }
