@@ -16,129 +16,24 @@
 
 package com.zj.play.compose.home
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.ScrollableTabRow
-import androidx.compose.material.Tab
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.zj.model.pojo.QueryArticle
 import com.zj.model.room.entity.Article
-import com.zj.model.room.entity.ProjectClassify
-import com.zj.play.compose.common.article.ArticleItem
-import com.zj.play.compose.common.lce.ErrorContent
-import com.zj.play.compose.common.lce.LoadingContent
-import com.zj.play.compose.model.PlayError
-import com.zj.play.compose.model.PlayLoading
-import com.zj.play.compose.model.PlaySuccess
 import com.zj.play.compose.viewmodel.OfficialViewModel
 import com.zj.play.compose.viewmodel.OfficialListViewModel
-import dev.chrisbanes.accompanist.insets.statusBarsHeight
 
 @Composable
 fun OfficialAccountPage(
     enterArticle: (Article) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: OfficialViewModel = viewModel(),
-    officialListViewModel: OfficialListViewModel = viewModel()
 ) {
-    var loadState by remember { mutableStateOf(false) }
-    var loadPageState by remember { mutableStateOf(false) }
-
-    if (!loadState) {
-        viewModel.getDataList(false)
-    }
-    val result by viewModel.dataLiveData.observeAsState()
-    val position by viewModel.position.observeAsState()
-    val articleList by officialListViewModel.dataLiveData.observeAsState()
-
-    Column {
-        Column(modifier = Modifier.background(color = MaterialTheme.colors.primary)) {
-            Spacer(modifier = Modifier.statusBarsHeight())
-
-            when (result) {
-                is PlayError, null -> {
-                    ErrorContent(enterArticle = { })
-                    loadState = true
-                }
-                PlayLoading -> {
-                    LoadingContent()
-                }
-                is PlaySuccess<*> -> {
-                    loadState = true
-                    val data = result as PlaySuccess<List<ProjectClassify>>
-                    ScrollableTabRow(
-                        selectedTabIndex = position ?: 0,
-                        modifier = Modifier.wrapContentWidth(),
-                        edgePadding = 3.dp
-                    ) {
-                        data.data.forEachIndexed { index, projectClassify ->
-                            Tab(
-                                text = { Text(projectClassify.name) },
-                                selected = position == index,
-                                onClick = {
-                                    officialListViewModel.getDataList(
-                                        QueryArticle(
-                                            0,
-                                            projectClassify.id,
-                                            false
-                                        )
-                                    )
-                                    viewModel.onPositionChanged(index)
-                                }
-                            )
-                        }
-
-                        if (position == 0 && !loadPageState) {
-                            officialListViewModel.getDataList(
-                                QueryArticle(
-                                    0,
-                                    data.data[0].id,
-                                    true
-                                )
-                            )
-                        }
-
-                    }
-                }
-            }
-
-            when (articleList) {
-                is PlayLoading -> {
-                    LoadingContent()
-                }
-                is PlaySuccess<*> -> {
-                    loadPageState = true
-                    val articles = articleList as PlaySuccess<List<Article>>
-                    LazyColumn(modifier) {
-                        if (articleList == null) {
-                            item {
-                                ErrorContent(enterArticle = { /*TODO*/ })
-                            }
-                            return@LazyColumn
-                        }
-                        itemsIndexed(articles.data) { index, article ->
-                            ArticleItem(article, index, enterArticle)
-                        }
-                    }
-                }
-                is PlayError -> {
-                    ErrorContent(enterArticle = { })
-                    loadPageState = true
-                }
-            }
-
-        }
-
-    }
-
+    val viewModel: OfficialViewModel = viewModel()
+    val officialListViewModel: OfficialListViewModel = viewModel()
+    ArticleListPage(
+        enterArticle = enterArticle,
+        modifier = modifier,
+        viewModel = viewModel,
+        projectViewModel = officialListViewModel
+    )
 }

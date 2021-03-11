@@ -87,13 +87,6 @@ class ProjectViewModel(application: Application) :
 
     private val projectRepository = ProjectRepository(application)
 
-    private val _position = MutableLiveData(0)
-    val position: LiveData<Int> = _position
-
-    fun onPositionChanged(position: Int) {
-        _position.value = position
-    }
-
     override suspend fun getData(page: Boolean) {
         projectRepository.getProjectTree(_state, page)
     }

@@ -3,11 +3,14 @@ package com.zj.play.compose.repository
 import android.accounts.NetworkErrorException
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
+import com.blankj.utilcode.util.NetworkUtils
 import com.zj.core.util.DataStoreUtils
+import com.zj.core.util.showToast
 import com.zj.model.pojo.QueryArticle
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.PROJECT
 import com.zj.network.base.PlayAndroidNetwork
+import com.zj.play.R
 import com.zj.play.compose.model.PlayError
 import com.zj.play.compose.model.PlayLoading
 import com.zj.play.compose.model.PlayState
@@ -35,6 +38,11 @@ class ProjectRepository constructor(val application: Application) {
      */
     suspend fun getProjectTree(state: MutableLiveData<PlayState>, isRefresh: Boolean) {
         state.postValue(PlayLoading)
+        if (!NetworkUtils.isConnected()) {
+            showToast(R.string.no_network)
+            state.postValue(PlayError(NetworkErrorException("网络未🔗")))
+            return
+        }
         val projectClassifyLists = projectClassifyDao.getAllProject()
         if (projectClassifyLists.isNotEmpty() && !isRefresh) {
             state.postValue(PlaySuccess(projectClassifyLists))
@@ -56,6 +64,11 @@ class ProjectRepository constructor(val application: Application) {
      */
     suspend fun getProject(state: MutableLiveData<PlayState>, query: QueryArticle) {
         state.postValue(PlayLoading)
+        if (!NetworkUtils.isConnected()) {
+            showToast(R.string.no_network)
+            state.postValue(PlayError(NetworkErrorException("网络未🔗")))
+            return
+        }
         if (query.page == 1) {
             val dataStore = DataStoreUtils
             val articleListForChapterId =

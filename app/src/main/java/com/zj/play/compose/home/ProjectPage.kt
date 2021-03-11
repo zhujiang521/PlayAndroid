@@ -38,6 +38,7 @@ import com.zj.play.compose.common.lce.LoadingContent
 import com.zj.play.compose.model.PlayError
 import com.zj.play.compose.model.PlayLoading
 import com.zj.play.compose.model.PlaySuccess
+import com.zj.play.compose.viewmodel.BaseAndroidViewModel
 import com.zj.play.compose.viewmodel.ProjectViewModel
 import com.zj.play.compose.viewmodel.ProjectListViewModel
 import dev.chrisbanes.accompanist.insets.statusBarsHeight
@@ -46,8 +47,24 @@ import dev.chrisbanes.accompanist.insets.statusBarsHeight
 fun ProjectPage(
     enterArticle: (Article) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: ProjectViewModel = viewModel(),
-    projectViewModel: ProjectListViewModel = viewModel()
+) {
+    val viewModel: ProjectViewModel = viewModel()
+    val projectViewModel: ProjectListViewModel = viewModel()
+    ArticleListPage(
+        enterArticle = enterArticle,
+        modifier = modifier,
+        viewModel = viewModel,
+        projectViewModel = projectViewModel
+    )
+}
+
+
+@Composable
+fun ArticleListPage(
+    enterArticle: (Article) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: BaseAndroidViewModel<List<ProjectClassify>, Unit, Boolean>,
+    projectViewModel: BaseAndroidViewModel<List<Article>, Article, QueryArticle>
 ) {
     var loadState by remember { mutableStateOf(false) }
     var loadPageState by remember { mutableStateOf(false) }
@@ -64,7 +81,9 @@ fun ProjectPage(
 
             when (result) {
                 is PlayError -> {
-                    ErrorContent(enterArticle = { })
+                    ErrorContent(enterArticle = {
+                        viewModel.getDataList(false)
+                    })
                     loadState = true
                 }
                 PlayLoading -> {
@@ -106,31 +125,33 @@ fun ProjectPage(
                         }
 
                     }
-                }
-            }
-
-            when (articleList) {
-                is PlayLoading -> {
-                    LoadingContent()
-                }
-                is PlaySuccess<*> -> {
-                    loadPageState = true
-                    val articles = articleList as PlaySuccess<List<Article>>
-                    LazyColumn(modifier) {
-                        if (articleList == null) {
-                            item {
-                                ErrorContent(enterArticle = { /*TODO*/ })
-                            }
-                            return@LazyColumn
+                    when (articleList) {
+                        is PlayLoading -> {
+                            LoadingContent()
                         }
-                        itemsIndexed(articles.data) { index, article ->
-                            ArticleItem(article, index, enterArticle)
+                        is PlaySuccess<*> -> {
+                            loadPageState = true
+                            val articles = articleList as PlaySuccess<List<Article>>
+                            LazyColumn(modifier) {
+                                itemsIndexed(articles.data) { index, article ->
+                                    ArticleItem(article, index, enterArticle)
+                                }
+                            }
+                        }
+                        is PlayError -> {
+                            ErrorContent(enterArticle = {
+                                projectViewModel.getDataList(
+                                    QueryArticle(
+                                        0,
+                                        data.data[position ?: 0].id,
+                                        true
+                                    )
+                                )
+                            })
+                            loadPageState = true
                         }
                     }
-                }
-                is PlayError -> {
-                    ErrorContent(enterArticle = { })
-                    loadPageState = true
+
                 }
             }
 
@@ -138,3 +159,4 @@ fun ProjectPage(
 
     }
 }
+
