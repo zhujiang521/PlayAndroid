@@ -16,7 +16,6 @@
 
 package com.zj.play.compose.common
 
-import android.util.Log
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -143,19 +142,3 @@ private val <T> SwipeableState<T>.LoadPreUpPostDownNestedScrollConnection: Neste
 
         private fun Offset.toFloat(): Float = this.y
     }
-
-
-//@Composable
-//fun Swipe(){
-//    SwipeToRefreshLayout(
-//        refreshingState = refresh == REFRESH_START,
-//        onRefresh = {
-//            viewModel.onRefreshChanged(REFRESH_START)
-//            viewModel.getArticleList(1, true)
-//            Log.e("ZHUJIANG123", "HomePage: ")
-//        },
-//        content = {
-//
-//        },
-//    )
-//}

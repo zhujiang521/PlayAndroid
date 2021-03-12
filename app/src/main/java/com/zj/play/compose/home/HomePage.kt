@@ -75,21 +75,21 @@ fun HomePage(
     Column(modifier = Modifier.fillMaxSize()) {
         PlayAppBar(stringResource(id = R.string.home_page), false)
 
-        SwipeToLoadLayout(
-//            refreshingState = refresh == REFRESH_START,
+        SwipeToRefreshAndLoadLayout(
+            refreshingState = refresh == REFRESH_START,
             loadState = loadRefresh == REFRESH_START,
-//            onRefresh = {
-//                Log.e(TAG, "onRefresh: 开始刷新")
-//                viewModel.getBanner()
-//                viewModel.getArticleList(1, true)
-//                viewModel.onRefreshChanged(REFRESH_START)
-//            },
+            onRefresh = {
+                Log.e(TAG, "onRefresh: 开始刷新")
+                viewModel.getBanner()
+                viewModel.getArticleList(1, true)
+                viewModel.onRefreshChanged(REFRESH_START)
+            },
             onLoad = {
                 Log.e("ZHUJIANG123", "onLoad: 222")
                 viewModel.onLoadRefreshStateChanged(REFRESH_START)
                 viewModel.getBanner()
                 viewModel.getArticleList(1, true)
-                            },
+            },
             content = {
 
                 when (banner) {

@@ -18,10 +18,7 @@ package com.zj.play.compose.common
 
 import android.util.Log
 import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -41,7 +38,7 @@ import kotlin.math.roundToInt
 private const val TAG = "SwipeToRefreshAndLoad"
 
 private val RefreshDistance = 80.dp
-private val LoadDistance = 370.dp
+private val LoadDistance = 100.dp
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -78,7 +75,7 @@ fun SwipeToRefreshAndLoadLayout(
                 thresholds = { _, _ -> FractionalThreshold(0.5f) },
                 orientation = Orientation.Vertical
             )
-            .nestedScroll(state.LoadPreUpPostDownNestedScrollConnection)
+            .nestedScroll(loadRefreshState.LoadPreUpPostDownNestedScrollConnection)
             .swipeable(
                 state = loadRefreshState,
                 anchors = mapOf(
@@ -88,6 +85,7 @@ fun SwipeToRefreshAndLoadLayout(
                 thresholds = { _, _ -> FractionalThreshold(0.5f) },
                 orientation = Orientation.Vertical
             )
+            .fillMaxSize()
     ) {
         content()
         Box(
@@ -109,7 +107,7 @@ fun SwipeToRefreshAndLoadLayout(
         Box(
             Modifier
                 .align(Alignment.BottomCenter)
-                .offset { IntOffset(1000, loadRefreshState.offset.value.roundToInt()) }
+                .offset { IntOffset(0, loadRefreshState.offset.value.roundToInt()) }
         ) {
             if (loadRefreshState.offset.value != loadDistance) {
                 Surface(elevation = 10.dp, shape = CircleShape) {
@@ -126,6 +124,7 @@ fun SwipeToRefreshAndLoadLayout(
         //  workaround for a bug in the SwipableState API. Currently, state.value is a duplicated
         //  source of truth of refreshingState.
         LaunchedEffect(refreshingState) { state.animateTo(refreshingState) }
+        LaunchedEffect(loadState) { loadRefreshState.animateTo(loadState) }
     }
 }
 
@@ -237,19 +236,3 @@ private val <T> SwipeableState<T>.LoadPreUpPostDownNestedScrollConnection: Neste
 
         private fun Offset.toFloat(): Float = this.y
     }
-
-
-//@Composable
-//fun Swipe(){
-//    SwipeToRefreshLayout(
-//        refreshingState = refresh == REFRESH_START,
-//        onRefresh = {
-//            viewModel.onRefreshChanged(REFRESH_START)
-//            viewModel.getArticleList(1, true)
-//            Log.e("ZHUJIANG123", "HomePage: ")
-//        },
-//        content = {
-//
-//        },
-//    )
-//}
