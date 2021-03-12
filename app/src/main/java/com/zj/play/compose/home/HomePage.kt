@@ -35,6 +35,8 @@ import com.zj.play.compose.common.article.ArticleItem
 import com.zj.play.compose.common.lce.ErrorContent
 import com.zj.play.compose.common.lce.LoadingContent
 import com.zj.play.compose.common.PlayAppBar
+import com.zj.play.compose.common.SwipeToLoadLayout
+import com.zj.play.compose.common.SwipeToRefreshAndLoadLayout
 import com.zj.play.compose.common.SwipeToRefreshLayout
 import com.zj.play.compose.model.PlayError
 import com.zj.play.compose.model.PlayLoading
@@ -73,21 +75,21 @@ fun HomePage(
     Column(modifier = Modifier.fillMaxSize()) {
         PlayAppBar(stringResource(id = R.string.home_page), false)
 
-        SwipeToRefreshLayout(
-            refreshingState = refresh == REFRESH_START,
-//                            loadState = loadRefresh == REFRESH_START,
-            onRefresh = {
-                Log.e(TAG, "onRefresh: 开始刷新")
+        SwipeToLoadLayout(
+//            refreshingState = refresh == REFRESH_START,
+            loadState = loadRefresh == REFRESH_START,
+//            onRefresh = {
+//                Log.e(TAG, "onRefresh: 开始刷新")
+//                viewModel.getBanner()
+//                viewModel.getArticleList(1, true)
+//                viewModel.onRefreshChanged(REFRESH_START)
+//            },
+            onLoad = {
+                Log.e("ZHUJIANG123", "onLoad: 222")
+                viewModel.onLoadRefreshStateChanged(REFRESH_START)
                 viewModel.getBanner()
                 viewModel.getArticleList(1, true)
-                viewModel.onRefreshChanged(REFRESH_START)
-            },
-//                            onLoad = {
-//                                Log.e("ZHUJIANG123", "onLoad: 222")
-//                                viewModel.onLoadRefreshStateChanged(REFRESH_START)
-//                                viewModel.getBanner()
-//                                viewModel.getArticleList(1, true)
-//                            },
+                            },
             content = {
 
                 when (banner) {
