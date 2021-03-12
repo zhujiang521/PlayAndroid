@@ -22,8 +22,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
@@ -37,13 +35,17 @@ import com.zj.play.compose.common.article.ArticleItem
 import com.zj.play.compose.common.lce.ErrorContent
 import com.zj.play.compose.common.lce.LoadingContent
 import com.zj.play.compose.common.PlayAppBar
+import com.zj.play.compose.common.SwipeToRefreshLayout
 import com.zj.play.compose.model.PlayError
 import com.zj.play.compose.model.PlayLoading
 import com.zj.play.compose.model.PlaySuccess
 import com.zj.play.compose.common.article.PostCardPopular
 import com.zj.play.compose.viewmodel.HomePageViewModel
 import com.zj.play.compose.viewmodel.REFRESH_DEFAULT
+import com.zj.play.compose.viewmodel.REFRESH_START
 import com.zj.play.compose.viewmodel.REFRESH_STOP
+
+private const val TAG = "HomePage"
 
 @Composable
 fun HomePage(
@@ -57,74 +59,88 @@ fun HomePage(
 
     val banner by viewModel.bannerState.observeAsState(PlayLoading)
 
-    val refresh by viewModel.refreshState.observeAsState(REFRESH_DEFAULT)
+    val refresh by viewModel.refreshState.observeAsState()
 
-    if (!loadState && refresh == REFRESH_DEFAULT) {
+    val loadRefresh by viewModel.loadRefreshState.observeAsState()
+
+    Log.e(TAG, "HomePage:refresh : $refresh")
+
+    if (!loadState && refresh != REFRESH_START && loadRefresh != REFRESH_START) {
         viewModel.getArticleList(1, false)
         viewModel.getBanner()
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
         PlayAppBar(stringResource(id = R.string.home_page), false)
-        when (banner) {
-            PlayLoading -> {
-                LoadingContent()
-            }
-            is PlayError -> {
-                ErrorContent(enterArticle = {
-                    viewModel.getArticleList(1, true)
-                    viewModel.getBanner()
-                })
-            }
-            is PlaySuccess<*> -> {
-                val data = banner as PlaySuccess<List<BannerBean>>
-                Log.e("ZHUJIANG123", "HomePage: ${data.data.size}  ${data.data} ")
-                LazyRow(modifier = Modifier.padding(end = 16.dp)) {
-                    items(data.data) {
-                        PostCardPopular(
-                            it,
-                            enterArticle,
-                            Modifier.padding(start = 16.dp, bottom = 16.dp)
-                        )
-                    }
-                }
-                when (result) {
+
+        SwipeToRefreshLayout(
+            refreshingState = refresh == REFRESH_START,
+//                            loadState = loadRefresh == REFRESH_START,
+            onRefresh = {
+                Log.e(TAG, "onRefresh: 开始刷新")
+                viewModel.getBanner()
+                viewModel.getArticleList(1, true)
+                viewModel.onRefreshChanged(REFRESH_START)
+            },
+//                            onLoad = {
+//                                Log.e("ZHUJIANG123", "onLoad: 222")
+//                                viewModel.onLoadRefreshStateChanged(REFRESH_START)
+//                                viewModel.getBanner()
+//                                viewModel.getArticleList(1, true)
+//                            },
+            content = {
+
+                when (banner) {
                     PlayLoading -> {
-                        Spacer(modifier = Modifier.height(0.dp))
+                        LoadingContent()
+                    }
+                    is PlayError -> {
+                        ErrorContent(enterArticle = {
+                            viewModel.getArticleList(1, true)
+                            viewModel.getBanner()
+                        })
                     }
                     is PlaySuccess<*> -> {
-                        loadState = true
-                        viewModel.onRefreshChanged(REFRESH_STOP)
-                        val datas = result as PlaySuccess<List<Article>>
-                        LazyColumn(modifier) {
-                            itemsIndexed(datas.data) { index, article ->
-                                ArticleItem(
-                                    article,
-                                    index,
-                                    enterArticle = { urlArgs -> enterArticle(urlArgs) })
+                        val data = banner as PlaySuccess<List<BannerBean>>
+                        Column {
+                            LazyRow(modifier = Modifier.padding(end = 16.dp)) {
+                                items(data.data) {
+                                    PostCardPopular(
+                                        it,
+                                        enterArticle,
+                                        Modifier.padding(start = 16.dp, bottom = 16.dp)
+                                    )
+                                }
+                            }
+                            when (result) {
+                                PlayLoading -> {
+                                    Spacer(modifier = Modifier.height(0.dp))
+                                }
+                                is PlaySuccess<*> -> {
+                                    loadState = true
+                                    viewModel.onLoadRefreshStateChanged(REFRESH_STOP)
+                                    viewModel.onRefreshChanged(REFRESH_STOP)
+                                    val articleData = result as PlaySuccess<List<Article>>
+                                    LazyColumn(modifier) {
+                                        itemsIndexed(articleData.data) { index, article ->
+                                            ArticleItem(
+                                                article,
+                                                index,
+                                                enterArticle = { urlArgs -> enterArticle(urlArgs) })
+                                        }
+                                    }
+                                }
+                                is PlayError -> {
+                                    Spacer(modifier = Modifier.height(0.dp))
+                                    loadState = true
+                                    viewModel.onLoadRefreshStateChanged(REFRESH_STOP)
+                                    viewModel.onRefreshChanged(REFRESH_STOP)
+                                }
                             }
                         }
                     }
-                    is PlayError -> {
-                        Spacer(modifier = Modifier.height(0.dp))
-                        loadState = true
-                        viewModel.onRefreshChanged(REFRESH_STOP)
-                    }
                 }
-                //PostListDivider()
-            }
-        }
+            })
     }
 
-}
-
-/**
- * Full-width divider with padding for [PostList]
- */
-@Composable
-private fun PostListDivider() {
-    Divider(
-        modifier = Modifier.padding(horizontal = 14.dp),
-        color = MaterialTheme.colors.onSurface.copy(alpha = 0.08f)
-    )
 }

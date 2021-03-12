@@ -46,4 +46,13 @@ abstract class BaseAndroidViewModel<BaseData, Data, Key>(application: Applicatio
         _position.value = position
     }
 
+    private val _refreshState = MutableLiveData<Int>()
+
+    val refreshState: LiveData<Int>
+        get() = _refreshState
+
+    fun onRefreshChanged(refresh: Int) {
+        _refreshState.postValue(refresh)
+    }
+
 }

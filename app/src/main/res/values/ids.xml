@@ -17,4 +17,6 @@
 <resources>
     <item name="web_view" type="id" />
     <item name="progress_bar" type="id" />
+    <item name="smart_refresh_layout" type="id" />
+    <item name="refresh_compose_view" type="id" />
 </resources>

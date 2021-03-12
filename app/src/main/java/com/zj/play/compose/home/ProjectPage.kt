@@ -16,6 +16,7 @@
 
 package com.zj.play.compose.home
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -32,16 +33,17 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.zj.model.pojo.QueryArticle
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.ProjectClassify
+import com.zj.play.compose.common.SwipeToRefreshLayout
 import com.zj.play.compose.common.article.ArticleItem
 import com.zj.play.compose.common.lce.ErrorContent
 import com.zj.play.compose.common.lce.LoadingContent
 import com.zj.play.compose.model.PlayError
 import com.zj.play.compose.model.PlayLoading
 import com.zj.play.compose.model.PlaySuccess
-import com.zj.play.compose.viewmodel.BaseAndroidViewModel
-import com.zj.play.compose.viewmodel.ProjectViewModel
-import com.zj.play.compose.viewmodel.ProjectListViewModel
+import com.zj.play.compose.viewmodel.*
 import dev.chrisbanes.accompanist.insets.statusBarsHeight
+
+private const val TAG = "ProjectPage"
 
 @Composable
 fun ProjectPage(
@@ -68,8 +70,9 @@ fun ArticleListPage(
 ) {
     var loadState by remember { mutableStateOf(false) }
     var loadPageState by remember { mutableStateOf(false) }
+    val refresh by viewModel.refreshState.observeAsState()
 
-    if (!loadState) {
+    if (!loadState && refresh != REFRESH_START) {
         viewModel.getDataList(false)
     }
     val result by viewModel.dataLiveData.observeAsState(PlayLoading)
@@ -125,32 +128,58 @@ fun ArticleListPage(
                         }
 
                     }
-                    when (articleList) {
-                        is PlayLoading -> {
-                            LoadingContent()
-                        }
-                        is PlaySuccess<*> -> {
-                            loadPageState = true
-                            val articles = articleList as PlaySuccess<List<Article>>
-                            LazyColumn(modifier) {
-                                itemsIndexed(articles.data) { index, article ->
-                                    ArticleItem(article, index, enterArticle)
+
+                    SwipeToRefreshLayout(
+                        refreshingState = refresh == REFRESH_START,
+//                            loadState = loadRefresh == REFRESH_START,
+                        onRefresh = {
+                            viewModel.onRefreshChanged(REFRESH_START)
+                            Log.e(TAG, "onRefresh: 开始刷新")
+                            projectViewModel.getDataList(
+                                QueryArticle(
+                                    0,
+                                    data.data[position ?: 0].id,
+                                    true
+                                )
+                            )
+                        },
+//                            onLoad = {
+//                                Log.e("ZHUJIANG123", "onLoad: 222")
+//                                viewModel.onLoadRefreshStateChanged(REFRESH_START)
+//                                viewModel.getBanner()
+//                                viewModel.getArticleList(1, true)
+//                            },
+                        content = {
+                            when (articleList) {
+                                is PlayLoading -> {
+                                    LoadingContent()
+                                    viewModel.onRefreshChanged(REFRESH_STOP)
+                                }
+                                is PlaySuccess<*> -> {
+                                    viewModel.onRefreshChanged(REFRESH_STOP)
+                                    loadPageState = true
+                                    val articles = articleList as PlaySuccess<List<Article>>
+                                    LazyColumn(modifier) {
+                                        itemsIndexed(articles.data) { index, article ->
+                                            ArticleItem(article, index, enterArticle)
+                                        }
+                                    }
+                                }
+                                is PlayError -> {
+                                    viewModel.onRefreshChanged(REFRESH_STOP)
+                                    ErrorContent(enterArticle = {
+                                        projectViewModel.getDataList(
+                                            QueryArticle(
+                                                0,
+                                                data.data[position ?: 0].id,
+                                                true
+                                            )
+                                        )
+                                    })
+                                    loadPageState = true
                                 }
                             }
-                        }
-                        is PlayError -> {
-                            ErrorContent(enterArticle = {
-                                projectViewModel.getDataList(
-                                    QueryArticle(
-                                        0,
-                                        data.data[position ?: 0].id,
-                                        true
-                                    )
-                                )
-                            })
-                            loadPageState = true
-                        }
-                    }
+                        })
 
                 }
             }

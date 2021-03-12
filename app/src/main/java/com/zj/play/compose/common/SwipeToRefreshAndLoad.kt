@@ -38,32 +38,52 @@ import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
 import kotlin.math.roundToInt
 
-private const val TAG = "SwipeToRefreshLayout"
+private const val TAG = "SwipeToRefreshAndLoad"
 
 private val RefreshDistance = 80.dp
+private val LoadDistance = 370.dp
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SwipeToRefreshLayout(
+fun SwipeToRefreshAndLoadLayout(
     refreshingState: Boolean,
+    loadState: Boolean,
     onRefresh: () -> Unit,
+    onLoad: () -> Unit,
     content: @Composable () -> Unit
 ) {
     val refreshDistance = with(LocalDensity.current) { RefreshDistance.toPx() }
+    val loadDistance = with(LocalDensity.current) { LoadDistance.toPx() }
     val state = rememberSwipeableState(refreshingState) { newValue ->
         // compare both copies of the swipe state before calling onRefresh(). This is a workaround.
         if (newValue && !refreshingState) onRefresh()
         true
     }
 
+    val loadRefreshState = rememberSwipeableState(loadState) { newValue ->
+        // compare both copies of the swipe state before calling onRefresh(). This is a workaround.
+        if (newValue && !loadState) onLoad()
+        true
+    }
+
     Box(
         modifier = Modifier
             .nestedScroll(state.PreUpPostDownNestedScrollConnection)
+            .nestedScroll(state.LoadPreUpPostDownNestedScrollConnection)
             .swipeable(
                 state = state,
                 anchors = mapOf(
                     -refreshDistance to false,
                     refreshDistance to true,
+                ),
+                thresholds = { _, _ -> FractionalThreshold(0.5f) },
+                orientation = Orientation.Vertical
+            )
+            .swipeable(
+                state = loadRefreshState,
+                anchors = mapOf(
+                    loadDistance to false,
+                    -loadDistance to true,
                 ),
                 thresholds = { _, _ -> FractionalThreshold(0.5f) },
                 orientation = Orientation.Vertical
@@ -86,6 +106,21 @@ fun SwipeToRefreshLayout(
             }
         }
 
+        Box(
+            Modifier
+                .align(Alignment.BottomCenter)
+                .offset { IntOffset(1000, loadRefreshState.offset.value.roundToInt()) }
+        ) {
+            if (loadRefreshState.offset.value != loadDistance) {
+                Surface(elevation = 10.dp, shape = CircleShape) {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .size(36.dp)
+                            .padding(4.dp)
+                    )
+                }
+            }
+        }
 
         // TODO (https://issuetracker.google.com/issues/164113834): This state->event trampoline is a
         //  workaround for a bug in the SwipableState API. Currently, state.value is a duplicated
@@ -149,3 +184,72 @@ private val <T> SwipeableState<T>.PreUpPostDownNestedScrollConnection: NestedScr
 
         private fun Offset.toFloat(): Float = this.y
     }
+
+
+/**
+ * Temporary workaround for nested scrolling behavior. There is no default implementation for
+ * pull to refresh yet, this nested scroll connection mimics the behavior.
+ */
+@ExperimentalMaterialApi
+private val <T> SwipeableState<T>.LoadPreUpPostDownNestedScrollConnection: NestedScrollConnection
+    get() = object : NestedScrollConnection {
+        override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+            val delta = available.toFloat()
+            return if (delta > 0 && source == NestedScrollSource.Drag) {
+                performDrag(delta).toOffset()
+            } else {
+                Offset.Zero
+            }
+        }
+
+        override fun onPostScroll(
+            consumed: Offset,
+            available: Offset,
+            source: NestedScrollSource
+        ): Offset {
+            return if (source != NestedScrollSource.Drag) {
+                performDrag(available.toFloat()).toOffset()
+            } else {
+                Offset.Zero
+            }
+        }
+
+        override suspend fun onPreFling(available: Velocity): Velocity {
+            val toFling = Offset(available.x, available.y).toFloat()
+            return if (toFling > 0) {
+                performFling(velocity = toFling)
+                // since we go to the anchor with tween settling, consume all for the best UX
+                available
+            } else {
+                Velocity.Zero
+            }
+        }
+
+        override suspend fun onPostFling(
+            consumed: Velocity,
+            available: Velocity
+        ): Velocity {
+            performFling(velocity = Offset(available.x, available.y).toFloat())
+            return Velocity.Zero
+        }
+
+        private fun Float.toOffset(): Offset = Offset(0f, this)
+
+        private fun Offset.toFloat(): Float = this.y
+    }
+
+
+//@Composable
+//fun Swipe(){
+//    SwipeToRefreshLayout(
+//        refreshingState = refresh == REFRESH_START,
+//        onRefresh = {
+//            viewModel.onRefreshChanged(REFRESH_START)
+//            viewModel.getArticleList(1, true)
+//            Log.e("ZHUJIANG123", "HomePage: ")
+//        },
+//        content = {
+//
+//        },
+//    )
+//}

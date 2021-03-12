@@ -68,6 +68,16 @@ class HomePageViewModel(application: Application) : AndroidViewModel(application
         _refreshState.postValue(refresh)
     }
 
+    private val _loadRefreshState = MutableLiveData<Int>()
+
+    val loadRefreshState: LiveData<Int>
+        get() = _loadRefreshState
+
+    fun onLoadRefreshStateChanged(refresh: Int) {
+        _loadRefreshState.postValue(refresh)
+    }
+
+
 }
 
 const val REFRESH_DEFAULT = 0
