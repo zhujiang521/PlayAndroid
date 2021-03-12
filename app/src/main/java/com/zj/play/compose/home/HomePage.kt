@@ -18,10 +18,7 @@ package com.zj.play.compose.home
 
 import android.util.Log
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
@@ -35,15 +32,12 @@ import com.zj.play.compose.common.article.ArticleItem
 import com.zj.play.compose.common.lce.ErrorContent
 import com.zj.play.compose.common.lce.LoadingContent
 import com.zj.play.compose.common.PlayAppBar
-import com.zj.play.compose.common.SwipeToLoadLayout
 import com.zj.play.compose.common.SwipeToRefreshAndLoadLayout
-import com.zj.play.compose.common.SwipeToRefreshLayout
 import com.zj.play.compose.model.PlayError
 import com.zj.play.compose.model.PlayLoading
 import com.zj.play.compose.model.PlaySuccess
 import com.zj.play.compose.common.article.PostCardPopular
 import com.zj.play.compose.viewmodel.HomePageViewModel
-import com.zj.play.compose.viewmodel.REFRESH_DEFAULT
 import com.zj.play.compose.viewmodel.REFRESH_START
 import com.zj.play.compose.viewmodel.REFRESH_STOP
 
@@ -55,22 +49,21 @@ fun HomePage(
     modifier: Modifier = Modifier,
     viewModel: HomePageViewModel = viewModel()
 ) {
-    var loadState by remember { mutableStateOf(false) }
 
-    val result by viewModel.state.observeAsState(PlayLoading)
+    val articleData by viewModel.state.observeAsState(PlayLoading)
 
-    val banner by viewModel.bannerState.observeAsState(PlayLoading)
+    val bannerData by viewModel.bannerState.observeAsState(PlayLoading)
 
     val refresh by viewModel.refreshState.observeAsState()
 
     val loadRefresh by viewModel.loadRefreshState.observeAsState()
 
-    Log.e(TAG, "HomePage:refresh : $refresh")
-
-    if (!loadState && refresh != REFRESH_START && loadRefresh != REFRESH_START) {
-        viewModel.getArticleList(1, false)
+    if (refresh != REFRESH_START && loadRefresh != REFRESH_START) {
+        viewModel.getArticleList(false)
         viewModel.getBanner()
     }
+
+    val listState = rememberLazyListState()
 
     Column(modifier = Modifier.fillMaxSize()) {
         PlayAppBar(stringResource(id = R.string.home_page), false)
@@ -80,32 +73,36 @@ fun HomePage(
             loadState = loadRefresh == REFRESH_START,
             onRefresh = {
                 Log.e(TAG, "onRefresh: 开始刷新")
+                viewModel.onPageChanged(1)
                 viewModel.getBanner()
-                viewModel.getArticleList(1, true)
+                viewModel.getArticleList()
                 viewModel.onRefreshChanged(REFRESH_START)
             },
             onLoad = {
-                Log.e("ZHUJIANG123", "onLoad: 222")
+                Log.e(TAG, "onLoad: 上拉加载")
                 viewModel.onLoadRefreshStateChanged(REFRESH_START)
-                viewModel.getBanner()
-                viewModel.getArticleList(1, true)
+                viewModel.onPageChanged((viewModel.page.value ?: 1) + 1)
+                viewModel.getArticleList()
             },
             content = {
 
-                when (banner) {
+                when (bannerData) {
                     PlayLoading -> {
                         LoadingContent()
                     }
                     is PlayError -> {
                         ErrorContent(enterArticle = {
-                            viewModel.getArticleList(1, true)
+                            viewModel.getArticleList()
                             viewModel.getBanner()
                         })
                     }
                     is PlaySuccess<*> -> {
-                        val data = banner as PlaySuccess<List<BannerBean>>
+                        val data = bannerData as PlaySuccess<List<BannerBean>>
                         Column {
-                            LazyRow(modifier = Modifier.padding(end = 16.dp)) {
+                            LazyRow(
+                                modifier = Modifier.padding(end = 16.dp),
+                                state = listState
+                            ) {
                                 items(data.data) {
                                     PostCardPopular(
                                         it,
@@ -114,17 +111,20 @@ fun HomePage(
                                     )
                                 }
                             }
-                            when (result) {
+                            when (articleData) {
                                 PlayLoading -> {
                                     Spacer(modifier = Modifier.height(0.dp))
                                 }
                                 is PlaySuccess<*> -> {
-                                    loadState = true
                                     viewModel.onLoadRefreshStateChanged(REFRESH_STOP)
                                     viewModel.onRefreshChanged(REFRESH_STOP)
-                                    val articleData = result as PlaySuccess<List<Article>>
+                                    val articleList = articleData as PlaySuccess<List<Article>>
+                                    Log.e(
+                                        TAG,
+                                        "HomePage: articleData.data:${articleList.data.size}"
+                                    )
                                     LazyColumn(modifier) {
-                                        itemsIndexed(articleData.data) { index, article ->
+                                        itemsIndexed(articleList.data) { index, article ->
                                             ArticleItem(
                                                 article,
                                                 index,
@@ -134,7 +134,6 @@ fun HomePage(
                                 }
                                 is PlayError -> {
                                     Spacer(modifier = Modifier.height(0.dp))
-                                    loadState = true
                                     viewModel.onLoadRefreshStateChanged(REFRESH_STOP)
                                     viewModel.onRefreshChanged(REFRESH_STOP)
                                 }

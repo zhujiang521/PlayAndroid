@@ -38,14 +38,28 @@ class HomePageViewModel(application: Application) : AndroidViewModel(application
     val state: LiveData<PlayState>
         get() = _state
 
-    val articleLiveData = Transformations.switchMap(pageLiveData) { query ->
-        homeRepository.getArticleList(query)
-    }
-
     private val _bannerState = MutableLiveData<PlayState>()
 
     val bannerState: LiveData<PlayState>
         get() = _bannerState
+
+    private val _articleDataList = MutableLiveData<ArrayList<Article>>()
+
+    val articleDataList: LiveData<ArrayList<Article>>
+        get() = _articleDataList
+
+    fun onArticleDataChanged(refresh: Int) {
+        _refreshState.postValue(refresh)
+    }
+
+    private val _page = MutableLiveData<Int>()
+
+    val page: LiveData<Int>
+        get() = _page
+
+    fun onPageChanged(refresh: Int) {
+        _page.postValue(refresh)
+    }
 
     fun getBanner() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -53,13 +67,13 @@ class HomePageViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    fun getArticleList(page: Int, isRefresh: Boolean) {
+    fun getArticleList(isRefresh: Boolean = true) {
         viewModelScope.launch(Dispatchers.IO) {
-            homeRepository.getArticleList(_state, QueryHomeArticle(page, isRefresh))
+            homeRepository.getArticleList(_state, _articleDataList,QueryHomeArticle(page.value ?: 1, isRefresh))
         }
     }
 
-    private val _refreshState = MutableLiveData<Int>()
+    private val _refreshState = MutableLiveData(REFRESH_STOP)
 
     val refreshState: LiveData<Int>
         get() = _refreshState
@@ -68,7 +82,7 @@ class HomePageViewModel(application: Application) : AndroidViewModel(application
         _refreshState.postValue(refresh)
     }
 
-    private val _loadRefreshState = MutableLiveData<Int>()
+    private val _loadRefreshState = MutableLiveData(REFRESH_STOP)
 
     val loadRefreshState: LiveData<Int>
         get() = _loadRefreshState

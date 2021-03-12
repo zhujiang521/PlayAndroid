@@ -119,7 +119,7 @@ class HomePageFragment : ArticleCollectBaseFragment() {
     }
 
     private fun getArticleList(isRefresh: Boolean) {
-        viewModel.getArticleList(page, isRefresh)
+       // viewModel.getArticleList(page, isRefresh)
     }
 
     override fun onPause() {
