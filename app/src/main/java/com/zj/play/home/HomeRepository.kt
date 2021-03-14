@@ -41,7 +41,7 @@ import java.io.File
 
 class HomeRepository constructor(val application: Application) {
 
-    companion object{
+    companion object {
         private const val TAG = "HomeRepository"
     }
 
@@ -129,11 +129,15 @@ class HomeRepository constructor(val application: Application) {
     suspend fun getArticleList(
         state: MutableLiveData<PlayState>,
         value: MutableLiveData<ArrayList<Article>>,
-        query: QueryHomeArticle
+        query: QueryHomeArticle,
+        isLoad: Boolean
     ) {
-        state.postValue(PlayLoading)
-        val res = value.value ?: arrayListOf()
+        if (!isLoad) {
+            state.postValue(PlayLoading)
+        }
+        val res: java.util.ArrayList<Article>
         if (query.page == 1) {
+            res = arrayListOf()
             val dataStore = DataStoreUtils
             var downArticleTime = 0L
             dataStore.readLongFlow(DOWN_ARTICLE_TIME, System.currentTimeMillis()).first {
@@ -152,16 +156,16 @@ class HomeRepository constructor(val application: Application) {
                 downTopArticleTime - System.currentTimeMillis() < FOUR_HOUR && !query.isRefresh
             ) {
                 res.addAll(articleListTop)
-                Log.e(TAG, "getArticleList: 111:$res")
+                Log.e(TAG, "getArticleList: 111:${res.size}")
             } else {
                 val topArticleListDeferred = PlayAndroidNetwork.getTopArticleList()
                 if (topArticleListDeferred.errorCode == 0) {
                     if (articleListTop.isNotEmpty() && articleListTop[0].link == topArticleListDeferred.data[0].link && !query.isRefresh) {
                         res.addAll(articleListTop)
-                        Log.e(TAG, "getArticleList: 222:$res")
+                        Log.e(TAG, "getArticleList: 222:${res.size}")
                     } else {
                         res.addAll(topArticleListDeferred.data)
-                        Log.e(TAG, "getArticleList: 333:$res")
+                        Log.e(TAG, "getArticleList: 333:${res.size}")
                         topArticleListDeferred.data.forEach {
                             it.localType = HOME_TOP
                         }
@@ -180,7 +184,7 @@ class HomeRepository constructor(val application: Application) {
                 res.addAll(articleListHome)
                 state.postValue(PlaySuccess<List<Article>>(res))
                 value.postValue(res)
-                Log.e(TAG, "getArticleList: 444:$res")
+                Log.e(TAG, "getArticleList: 444:${res.size}")
             } else {
                 val articleListDeferred = PlayAndroidNetwork.getArticleList(query.page - 1)
                 if (articleListDeferred.errorCode == 0) {
@@ -202,12 +206,13 @@ class HomeRepository constructor(val application: Application) {
                 }
             }
         } else {
+            res = value.value ?: arrayListOf()
             val articleListDeferred = PlayAndroidNetwork.getArticleList(query.page - 1)
             if (articleListDeferred.errorCode == 0) {
                 res.addAll(articleListDeferred.data.datas)
                 state.postValue(PlaySuccess<List<Article>>(res))
                 value.postValue(res)
-                Log.e(TAG, "getArticleList: 666:$res")
+                Log.e(TAG, "getArticleList: 666:${res.size}")
             } else {
                 state.postValue(PlayError(NetworkErrorException("网络错误")))
             }

@@ -11,6 +11,7 @@
         <entry key="../../../../layout/compose-model-1615363417703.xml" value="0.5" />
         <entry key="../../../../layout/compose-model-1615363417718.xml" value="0.12013888888888889" />
         <entry key="../../../../layout/compose-model-1615383807165.xml" value="0.262037037037037" />
+        <entry key="../../../../layout/compose-model-1615647866274.xml" value="0.3" />
         <entry key="../../../../layout/custom_preview.xml" value="0.26481481481481484" />
         <entry key="app/src/main/res/drawable/ic_grain.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/profile_list_bg.xml" value="0.2712962962962963" />
@@ -21,13 +22,19 @@
         <entry key="app/src/main/res/layout/fragment_base_list.xml" value="0.16084093211752787" />
         <entry key="app/src/main/res/layout/fragment_project.xml" value="0.16084093211752787" />
         <entry key="app/src/main/res/layout/layout_home_bottom_tab.xml" value="0.16084093211752787" />
+        <entry key="app/src/main/res/layout/layout_to_top.xml" value="0.12681159420289856" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2712962962962963" />
         <entry key="core/src/main/res/drawable/bad_loading.xml" value="0.2712962962962963" />
         <entry key="core/src/main/res/drawable/bad_network_image.xml" value="0.2712962962962963" />
         <entry key="core/src/main/res/drawable/img_back.xml" value="0.1" />
         <entry key="core/src/main/res/drawable/img_back_nomal.xml" value="0.1" />
+        <entry key="core/src/main/res/drawable/img_to_top.xml" value="0.3" />
+        <entry key="core/src/main/res/drawable/img_to_top_nomal.xml" value="0.22916666666666666" />
+        <entry key="core/src/main/res/drawable/img_to_top_pressed.xml" value="0.3" />
         <entry key="core/src/main/res/drawable/load_four.xml" value="0.26481481481481484" />
+        <entry key="core/src/main/res/drawable/to_top_bg.xml" value="0.22916666666666666" />
+        <entry key="core/src/main/res/drawable/to_top_bg_nomal.xml" value="0.22916666666666666" />
         <entry key="core/src/main/res/layout/bad_network_view.xml" value="0.2848731884057971" />
         <entry key="core/src/main/res/layout/loading.xml" value="0.2848731884057971" />
       </map>

@@ -67,9 +67,14 @@ class HomePageViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    fun getArticleList(isRefresh: Boolean = true) {
+    fun getArticleList(isLoad: Boolean = false, isRefresh: Boolean = true) {
         viewModelScope.launch(Dispatchers.IO) {
-            homeRepository.getArticleList(_state, _articleDataList,QueryHomeArticle(page.value ?: 1, isRefresh))
+            homeRepository.getArticleList(
+                _state,
+                _articleDataList,
+                QueryHomeArticle(page.value ?: 1, isRefresh),
+                isLoad
+            )
         }
     }
 

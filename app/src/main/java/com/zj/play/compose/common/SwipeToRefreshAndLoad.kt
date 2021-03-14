@@ -136,11 +136,12 @@ fun SwipeToRefreshAndLoadLayout(
 private val <T> SwipeableState<T>.PreUpPostDownNestedScrollConnection: NestedScrollConnection
     get() = object : NestedScrollConnection {
         override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
-            Log.e(TAG, "onPreScroll: available:$available   source:$source")
             val delta = available.toFloat()
             return if (delta < 0 && source == NestedScrollSource.Drag) {
+                Log.e(TAG, "PreUpPost onPreScroll111: delta:$delta")
                 performDrag(delta).toOffset()
             } else {
+                Log.e(TAG, "PreUpPost onPreScroll222: Offset.Zero:${Offset.Zero}")
                 Offset.Zero
             }
         }
@@ -150,22 +151,24 @@ private val <T> SwipeableState<T>.PreUpPostDownNestedScrollConnection: NestedScr
             available: Offset,
             source: NestedScrollSource
         ): Offset {
-            Log.e(TAG, "onPostScroll: consumed:$consumed   available:$available   source:$source ")
             return if (source == NestedScrollSource.Drag) {
+                Log.e(TAG, "PreUpPost onPostScroll: available.toFloat():${available.toFloat()}")
                 performDrag(available.toFloat()).toOffset()
             } else {
+                Log.e(TAG, "PreUpPost onPostScroll: Offset.Zero:${Offset.Zero}")
                 Offset.Zero
             }
         }
 
         override suspend fun onPreFling(available: Velocity): Velocity {
             val toFling = Offset(available.x, available.y).toFloat()
-            Log.e(TAG, "onPreFling: available$available")
             return if (toFling < 0) {
+                Log.e(TAG, "PreUpPost onPreFling: available$available")
                 performFling(velocity = toFling)
                 // since we go to the anchor with tween settling, consume all for the best UX
                 available
             } else {
+                Log.e(TAG, "PreUpPost onPreFling: Offset.Zero:${Offset.Zero}")
                 Velocity.Zero
             }
         }
@@ -174,7 +177,7 @@ private val <T> SwipeableState<T>.PreUpPostDownNestedScrollConnection: NestedScr
             consumed: Velocity,
             available: Velocity
         ): Velocity {
-            Log.e(TAG, "onPostFling: consumed:$consumed   available:$available")
+            Log.e(TAG, "PreUpPost onPostFling: consumed:$consumed   available:$available")
             performFling(velocity = Offset(available.x, available.y).toFloat())
             return Velocity.Zero
         }
@@ -195,8 +198,10 @@ private val <T> SwipeableState<T>.LoadPreUpPostDownNestedScrollConnection: Neste
         override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
             val delta = available.toFloat()
             return if (delta > 0 && source == NestedScrollSource.Drag) {
+                Log.e(TAG, "LoadPreUp onPreScroll: delta:$delta")
                 performDrag(delta).toOffset()
             } else {
+                Log.e(TAG, "LoadPreUp onPreScroll222: Offset.Zero:${Offset.Zero}")
                 Offset.Zero
             }
         }
@@ -207,8 +212,10 @@ private val <T> SwipeableState<T>.LoadPreUpPostDownNestedScrollConnection: Neste
             source: NestedScrollSource
         ): Offset {
             return if (source == NestedScrollSource.Drag) {
+                Log.e(TAG, "LoadPreUp onPostScroll: available.toFloat():${available.toFloat()}")
                 performDrag(available.toFloat()).toOffset()
             } else {
+                Log.e(TAG, "LoadPreUp onPostScroll: Offset.Zero:${Offset.Zero}")
                 Offset.Zero
             }
         }
@@ -216,10 +223,12 @@ private val <T> SwipeableState<T>.LoadPreUpPostDownNestedScrollConnection: Neste
         override suspend fun onPreFling(available: Velocity): Velocity {
             val toFling = Offset(available.x, available.y).toFloat()
             return if (toFling > 0) {
+                Log.e(TAG, "LoadPreUp onPreFling: available$available")
                 performFling(velocity = toFling)
                 // since we go to the anchor with tween settling, consume all for the best UX
                 available
             } else {
+                Log.e(TAG, "LoadPreUp onPreFling: Offset.Zero:${Offset.Zero}")
                 Velocity.Zero
             }
         }
@@ -228,6 +237,7 @@ private val <T> SwipeableState<T>.LoadPreUpPostDownNestedScrollConnection: Neste
             consumed: Velocity,
             available: Velocity
         ): Velocity {
+            Log.e(TAG, "LoadPreUp onPostFling: consumed:$consumed   available:$available")
             performFling(velocity = Offset(available.x, available.y).toFloat())
             return Velocity.Zero
         }
