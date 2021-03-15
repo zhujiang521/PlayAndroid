@@ -124,7 +124,8 @@ private val <T> SwipeableState<T>.LoadPreUpPostDownNestedScrollConnection: Neste
             return if (toFling > 0) {
                 performFling(velocity = toFling)
                 // since we go to the anchor with tween settling, consume all for the best UX
-                available
+                // available
+                Velocity.Zero
             } else {
                 Velocity.Zero
             }

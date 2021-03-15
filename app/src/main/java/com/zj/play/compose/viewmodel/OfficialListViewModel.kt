@@ -19,8 +19,8 @@ class OfficialListViewModel(application: Application) :
 
     private val officialRepository = OfficialRepository(application)
 
-    override suspend fun getData(page: QueryArticle){
-        return officialRepository.getWxArticle(_state,page)
+    override suspend fun getData(page: QueryArticle) {
+        return officialRepository.getWxArticle(_state, _articleDataList, page)
     }
 
 }

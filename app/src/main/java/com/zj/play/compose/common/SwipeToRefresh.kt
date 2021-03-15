@@ -134,7 +134,8 @@ private val <T> SwipeableState<T>.PreUpPostDownNestedScrollConnection: NestedScr
                 Log.e(TAG, "onPreFling111: $toFling")
                 performFling(velocity = toFling)
                 // since we go to the anchor with tween settling, consume all for the best UX
-                available
+                // available
+                Velocity.Zero
             } else {
                 Velocity.Zero
             }

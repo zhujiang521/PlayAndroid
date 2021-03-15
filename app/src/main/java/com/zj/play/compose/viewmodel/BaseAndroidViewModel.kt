@@ -2,6 +2,7 @@ package com.zj.play.compose.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.zj.model.room.entity.Article
 import com.zj.play.compose.model.PlayState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,6 +26,17 @@ abstract class BaseAndroidViewModel<BaseData, Data, Key>(application: Applicatio
 //        getData(page)
 //    }
 
+
+    protected val _articleDataList = MutableLiveData<ArrayList<Article>>()
+
+    private val _page = MutableLiveData<Int>()
+
+    val page: LiveData<Int>
+        get() = _page
+
+    fun onPageChanged(refresh: Int) {
+        _page.postValue(refresh)
+    }
 
     protected val _state = MutableLiveData<PlayState>()
 
@@ -54,5 +66,15 @@ abstract class BaseAndroidViewModel<BaseData, Data, Key>(application: Applicatio
     fun onRefreshChanged(refresh: Int) {
         _refreshState.postValue(refresh)
     }
+
+    private val _loadRefreshState = MutableLiveData(REFRESH_STOP)
+
+    val loadRefreshState: LiveData<Int>
+        get() = _loadRefreshState
+
+    fun onLoadRefreshStateChanged(refresh: Int) {
+        _loadRefreshState.postValue(refresh)
+    }
+
 
 }

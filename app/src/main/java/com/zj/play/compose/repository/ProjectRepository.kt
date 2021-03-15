@@ -8,6 +8,7 @@ import com.zj.core.util.DataStoreUtils
 import com.zj.core.util.showToast
 import com.zj.model.pojo.QueryArticle
 import com.zj.model.room.PlayDatabase
+import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.PROJECT
 import com.zj.network.base.PlayAndroidNetwork
 import com.zj.play.R
@@ -62,14 +63,20 @@ class ProjectRepository constructor(val application: Application) {
      * 获取项目具体文章列表
      * @param query 查询类
      */
-    suspend fun getProject(state: MutableLiveData<PlayState>, query: QueryArticle) {
+    suspend fun getProject(
+        state: MutableLiveData<PlayState>,
+        value: MutableLiveData<ArrayList<Article>>,
+        query: QueryArticle
+    ) {
         state.postValue(PlayLoading)
         if (!NetworkUtils.isConnected()) {
             showToast(R.string.no_network)
             state.postValue(PlayError(NetworkErrorException("网络未🔗")))
             return
         }
+        val res: java.util.ArrayList<Article>
         if (query.page == 1) {
+            res = arrayListOf()
             val dataStore = DataStoreUtils
             val articleListForChapterId =
                 articleListDao.getArticleListForChapterId(PROJECT, query.cid)
@@ -79,7 +86,9 @@ class ProjectRepository constructor(val application: Application) {
                 true
             }
             if (articleListForChapterId.isNotEmpty() && downArticleTime > 0 && downArticleTime - System.currentTimeMillis() < FOUR_HOUR && !query.isRefresh) {
-                state.postValue(PlaySuccess(articleListForChapterId))
+                res.addAll(articleListForChapterId)
+                state.postValue(PlaySuccess(res))
+                value.postValue(res)
             } else {
                 val projectTree = PlayAndroidNetwork.getProject(query.page, query.cid)
                 if (projectTree.errorCode == 0) {
@@ -97,18 +106,24 @@ class ProjectRepository constructor(val application: Application) {
                             articleListDao.deleteAll(PROJECT, query.cid)
                         }
                         articleListDao.insertList(projectTree.data.datas)
-                        state.postValue(PlaySuccess(projectTree.data.datas))
+                        res.addAll(projectTree.data.datas)
+                        state.postValue(PlaySuccess(res))
+                        value.postValue(res)
                     }
                 } else {
+                    value.postValue(res)
                     state.postValue(PlayError(NetworkErrorException("")))
                 }
             }
         } else {
+            res = value.value ?: arrayListOf()
             val projectTree = PlayAndroidNetwork.getProject(query.page, query.cid)
             if (projectTree.errorCode == 0) {
-
-                state.postValue(PlaySuccess(projectTree.data.datas))
+                res.addAll(projectTree.data.datas)
+                state.postValue(PlaySuccess(res))
+                value.postValue(res)
             } else {
+                value.postValue(res)
                 state.postValue(PlayError(NetworkErrorException("")))
             }
         }

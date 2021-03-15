@@ -20,7 +20,7 @@ class ProjectListViewModel(
     private val projectRepository = ProjectRepository(application)
 
     override suspend fun getData(page: QueryArticle) {
-        projectRepository.getProject(_state,page)
+        projectRepository.getProject(_state,_articleDataList,page)
     }
 
 }
