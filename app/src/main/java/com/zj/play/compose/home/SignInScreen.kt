@@ -38,7 +38,7 @@ import com.zj.play.compose.common.PlayAppBar
 import com.zj.play.compose.common.SignInSignUpScreen
 import com.zj.play.compose.common.signin.EmailState
 import com.zj.play.compose.common.signin.PasswordState
-import com.zj.play.compose.theme.snackbarAction
+import com.zj.play.compose.theme.snackBarAction
 import com.zj.play.compose.viewmodel.*
 import kotlinx.coroutines.launch
 
@@ -198,7 +198,7 @@ fun ErrorSnackbar(
                         TextButton(onClick = onDismiss) {
                             Text(
                                 text = stringResource(id = R.string.dismiss),
-                                color = MaterialTheme.colors.snackbarAction
+                                color = MaterialTheme.colors.snackBarAction
                             )
                         }
                     }
