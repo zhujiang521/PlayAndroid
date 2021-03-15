@@ -1,14 +1,15 @@
 package com.zj.play.compose.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.zj.model.pojo.QueryHomeArticle
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.BannerBean
-import com.zj.model.room.entity.ProjectClassify
 import com.zj.play.compose.model.PlayState
-import com.zj.play.home.HomeRepository
-import com.zj.play.compose.repository.ProjectRepository
+import com.zj.play.compose.repository.HomeRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

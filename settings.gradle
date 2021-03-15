@@ -1,5 +1,5 @@
-include ':floating'
-include ':permisson'
+//include ':floating'
+//include ':permisson'
 include ':model'
 include ':network'
 rootProject.name='PlayAndroid'

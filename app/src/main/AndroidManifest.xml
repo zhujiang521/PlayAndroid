@@ -18,7 +18,7 @@
 
     <application
         android:name=".App"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:extractNativeLibs="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -28,52 +28,6 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme"
         tools:targetApi="m">
-        <activity android:name=".home.almanac.AlmanacActivity" />
-        <activity android:name=".profile.share.add.AddShareActivity" />
-        <activity android:name=".profile.share.ShareActivity" />
-        <activity android:name=".profile.history.BrowseHistoryActivity" />
-        <activity
-            android:name=".profile.user.UserActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
-        <activity
-            android:name=".article.collect.CollectListActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
-        <activity
-            android:name=".profile.rank.user.UserRankActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
-        <activity
-            android:name=".main.login.LoginActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
-        <activity
-            android:name=".profile.rank.list.RankActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
-        <activity
-            android:name=".article.ArticleActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity
-            android:name=".home.search.article.ArticleListActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
-        <activity
-            android:name=".home.search.SearchActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
-        <activity
-            android:name=".main.MainActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
-<!--        <activity-->
-<!--            android:name=".WelcomeActivity"-->
-<!--            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize"-->
-<!--            android:theme="@style/AppTheme.NoActionBars">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-
-<!--            <meta-data-->
-<!--                android:name="android.app.shortcuts"-->
-<!--                android:resource="@xml/shortcuts" />-->
-<!--        </activity>-->
 
         <activity
             android:name=".compose.NewMainActivity"
@@ -83,10 +37,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-            <meta-data
-                android:name="android.app.shortcuts"
-                android:resource="@xml/shortcuts" />
         </activity>
 
         <provider

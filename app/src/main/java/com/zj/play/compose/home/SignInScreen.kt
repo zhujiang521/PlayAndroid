@@ -16,7 +16,6 @@
 
 package com.zj.play.compose.home
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -40,7 +39,7 @@ import com.zj.play.compose.common.SignInSignUpScreen
 import com.zj.play.compose.common.signin.EmailState
 import com.zj.play.compose.common.signin.PasswordState
 import com.zj.play.compose.theme.snackbarAction
-import com.zj.play.main.login.*
+import com.zj.play.compose.viewmodel.*
 import kotlinx.coroutines.launch
 
 sealed class SignInEvent {

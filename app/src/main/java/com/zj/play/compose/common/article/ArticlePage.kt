@@ -12,17 +12,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.zj.core.util.showToast
 import com.zj.model.room.entity.Article
 import com.zj.play.R
-import com.zj.play.article.collect.CollectRepositoryPoint
+import com.zj.play.compose.repository.CollectRepository
 import com.zj.play.compose.common.BookmarkButton
 import com.zj.play.compose.common.PlayAppBar
-import dagger.hilt.android.EntryPointAccessors
-import dev.chrisbanes.accompanist.insets.statusBarsHeight
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -117,10 +114,7 @@ private fun BottomBar(
     var favoriteIcon by remember { mutableStateOf(if (post?.collect == false) Icons.Filled.FavoriteBorder else Icons.Filled.Favorite) }
     var loadState by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
-    val collectRepository = EntryPointAccessors.fromApplication(
-        LocalContext.current,
-        CollectRepositoryPoint::class.java
-    ).collectRepository()
+    val collectRepository = CollectRepository()
 
     Surface(elevation = 2.dp) {
         Row(

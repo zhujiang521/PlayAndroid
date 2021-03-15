@@ -1,4 +1,4 @@
-package com.zj.play.main.login
+package com.zj.play.compose.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -6,15 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zj.core.Play
-import com.zj.core.util.LiveDataBus
 import com.zj.core.util.showToast
 import com.zj.model.model.BaseModel
 import com.zj.model.model.Login
 import com.zj.play.R
-import com.zj.play.home.LOGIN_REFRESH
+import com.zj.play.compose.repository.AccountRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 /**
  * 版权：Zhujiang 个人版权
@@ -55,9 +53,6 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                         R.string.register_success
                     )
                 )
-                withContext(Dispatchers.Main) {
-                    LiveDataBus.get().getChannel(LOGIN_REFRESH).setValue(true)
-                }
             } else {
                 showToast(loginModel.errorMsg)
                 _state.postValue(LoginError)

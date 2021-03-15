@@ -22,11 +22,6 @@ abstract class BaseAndroidViewModel<BaseData, Data, Key>(application: Applicatio
 
     private val pageLiveData = MutableLiveData<Key>()
 
-//    val dataLiveData = Transformations.switchMap(pageLiveData) { page ->
-//        getData(page)
-//    }
-
-
     private val _page = MutableLiveData<Int>()
 
     val page: LiveData<Int>

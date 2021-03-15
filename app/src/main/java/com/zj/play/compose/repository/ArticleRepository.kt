@@ -18,8 +18,6 @@ import com.zj.play.compose.model.PlayError
 import com.zj.play.compose.model.PlayLoading
 import com.zj.play.compose.model.PlayState
 import com.zj.play.compose.model.PlaySuccess
-import com.zj.play.home.DOWN_OFFICIAL_ARTICLE_TIME
-import com.zj.play.home.FOUR_HOUR
 import kotlinx.coroutines.flow.first
 
 /**

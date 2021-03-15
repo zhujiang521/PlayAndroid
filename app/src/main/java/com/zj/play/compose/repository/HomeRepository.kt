@@ -1,4 +1,4 @@
-package com.zj.play.home
+package com.zj.play.compose.repository
 
 import android.accounts.NetworkErrorException
 import android.app.Application
@@ -24,7 +24,6 @@ import com.zj.play.compose.model.PlayError
 import com.zj.play.compose.model.PlayLoading
 import com.zj.play.compose.model.PlayState
 import com.zj.play.compose.model.PlaySuccess
-import com.zj.play.main.login.composeFire
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.first
 import java.io.File

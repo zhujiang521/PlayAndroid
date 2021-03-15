@@ -42,9 +42,9 @@ import com.zj.play.R
 import com.zj.play.compose.MainActions
 import com.zj.play.compose.ThemeViewModel
 import com.zj.play.compose.common.AnimatingFabContent
-import com.zj.play.main.login.LogoutFinish
-import com.zj.play.main.login.LoginViewModel
-import com.zj.play.main.login.LogoutDefault
+import com.zj.play.compose.viewmodel.LogoutFinish
+import com.zj.play.compose.viewmodel.LoginViewModel
+import com.zj.play.compose.viewmodel.LogoutDefault
 import com.zj.play.compose.common.utils.baselineHeight
 import dev.chrisbanes.accompanist.insets.navigationBarsPadding
 

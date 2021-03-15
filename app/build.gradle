@@ -112,7 +112,7 @@ dependencies {
     implementation "dev.chrisbanes.accompanist:accompanist-insets:0.6.0"
 
     implementation files('libs/tbs_sdk_thirdapp_v4.3.0.67_43967_sharewithdownloadwithfile_withoutGame_obfs_20200923_120452.jar')
-    implementation project(path: ':floating')
+//    implementation project(path: ':floating')
     testImplementation des.junit
     androidTestImplementation des.extJunit
     androidTestImplementation des.espressoCore
