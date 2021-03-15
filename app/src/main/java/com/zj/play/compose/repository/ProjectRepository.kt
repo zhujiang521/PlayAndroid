@@ -2,6 +2,7 @@ package com.zj.play.compose.repository
 
 import android.accounts.NetworkErrorException
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.NetworkUtils
 import com.zj.core.util.DataStoreUtils
@@ -68,14 +69,16 @@ class ProjectRepository constructor(val application: Application) {
         value: MutableLiveData<ArrayList<Article>>,
         query: QueryArticle
     ) {
+        Log.e("ZHUJIANG521", "getProject: $query")
         state.postValue(PlayLoading)
         if (!NetworkUtils.isConnected()) {
             showToast(R.string.no_network)
             state.postValue(PlayError(NetworkErrorException("网络未🔗")))
             return
         }
+        Log.e("ZHUJIANG521", "getProject111: $query")
         val res: java.util.ArrayList<Article>
-        if (query.page == 1) {
+        if (query.page == 0) {
             res = arrayListOf()
             val dataStore = DataStoreUtils
             val articleListForChapterId =
@@ -89,6 +92,7 @@ class ProjectRepository constructor(val application: Application) {
                 res.addAll(articleListForChapterId)
                 state.postValue(PlaySuccess(res))
                 value.postValue(res)
+                Log.e("ZHUJIANG521", "getProject000: ${res.size}")
             } else {
                 val projectTree = PlayAndroidNetwork.getProject(query.page, query.cid)
                 if (projectTree.errorCode == 0) {
@@ -109,6 +113,7 @@ class ProjectRepository constructor(val application: Application) {
                         res.addAll(projectTree.data.datas)
                         state.postValue(PlaySuccess(res))
                         value.postValue(res)
+                        Log.e("ZHUJIANG521", "getProject111: ${res.size}")
                     }
                 } else {
                     value.postValue(res)

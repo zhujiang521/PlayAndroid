@@ -27,8 +27,6 @@ abstract class BaseAndroidViewModel<BaseData, Data, Key>(application: Applicatio
 //    }
 
 
-    protected val _articleDataList = MutableLiveData<ArrayList<Article>>()
-
     private val _page = MutableLiveData<Int>()
 
     val page: LiveData<Int>

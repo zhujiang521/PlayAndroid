@@ -75,7 +75,7 @@ class OfficialRepository(application: Application) {
             return
         }
         val res: java.util.ArrayList<Article>
-        if (query.page == 1) {
+        if (query.page == 0) {
             res = arrayListOf()
             val dataStore = DataStoreUtils
             val articleListForChapterId =

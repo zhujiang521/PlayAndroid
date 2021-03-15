@@ -2,6 +2,7 @@ package com.zj.play.compose.viewmodel
 
 import android.app.Application
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.zj.model.pojo.QueryArticle
 import com.zj.model.room.entity.Article
 import com.zj.play.compose.repository.OfficialRepository
@@ -16,6 +17,8 @@ import com.zj.play.compose.repository.OfficialRepository
  */
 class OfficialListViewModel(application: Application) :
     BaseAndroidViewModel<List<Article>, Article, QueryArticle>(application) {
+
+    private val _articleDataList = MutableLiveData<ArrayList<Article>>()
 
     private val officialRepository = OfficialRepository(application)
 

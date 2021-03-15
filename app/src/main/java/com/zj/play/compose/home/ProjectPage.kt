@@ -118,9 +118,9 @@ fun ArticleListPage(
                                     onClick = {
                                         projectViewModel.getDataList(
                                             QueryArticle(
-                                                projectViewModel.page.value ?: 0,
+                                                0,
                                                 projectClassify.id,
-                                                false
+                                                true
                                             )
                                         )
                                         viewModel.onPositionChanged(index)
@@ -151,7 +151,7 @@ fun ArticleListPage(
                                     QueryArticle(
                                         0,
                                         data.data[position ?: 0].id,
-                                        true
+                                        false
                                     )
                                 )
                             },
