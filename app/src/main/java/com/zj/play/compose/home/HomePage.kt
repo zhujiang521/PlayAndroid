@@ -178,7 +178,6 @@ fun HomePage(
             coroutineScope.launch {
                 // Animate scroll to the first item
                 listState.animateScrollToItem(index = 0)
-                listState.firstVisibleItemIndex
             }
         }) {
             Image(
