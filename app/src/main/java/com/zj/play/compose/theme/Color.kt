@@ -37,6 +37,6 @@ fun Colors.compositedOnSurface(alpha: Float): Color {
 }
 
 
-val Colors.snackbarAction: Color
+val Colors.snackBarAction: Color
     @Composable
     get() = if (isLight) Purple300 else Purple700

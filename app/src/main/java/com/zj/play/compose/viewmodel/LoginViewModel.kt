@@ -70,7 +70,6 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
             Play.logout()
             _logoutState.postValue(LogoutFinish)
         }
-
     }
 
 }

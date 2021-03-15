@@ -1,10 +1,6 @@
 package com.zj.play.compose.viewmodel
 
 import android.app.Application
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.zj.model.room.entity.ProjectClassify
 import com.zj.play.compose.repository.OfficialRepository
 
 /**
@@ -16,11 +12,11 @@ import com.zj.play.compose.repository.OfficialRepository
  *
  */
 class OfficialViewModel(application: Application) :
-    BaseAndroidViewModel<List<ProjectClassify>, Unit, Boolean>(application) {
+    BaseAndroidViewModel<Boolean>(application) {
 
     private val officialRepository = OfficialRepository(application)
 
     override suspend fun getData(page: Boolean) {
-        return officialRepository.getWxArticleTree(_state, page)
+        return officialRepository.getWxArticleTree(mutableLiveData, page)
     }
 }

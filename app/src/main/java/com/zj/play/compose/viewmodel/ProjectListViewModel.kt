@@ -16,14 +16,14 @@ import com.zj.play.compose.repository.ProjectRepository
  */
 class ProjectListViewModel(
     application: Application
-) : BaseAndroidViewModel<List<Article>, Article, QueryArticle>(application) {
+) : BaseAndroidViewModel<QueryArticle>(application) {
 
     private val _articleDataList = MutableLiveData<ArrayList<Article>>()
 
     private val projectRepository = ProjectRepository(application)
 
     override suspend fun getData(page: QueryArticle) {
-        projectRepository.getProject(_state,_articleDataList,page)
+        projectRepository.getProject(mutableLiveData,_articleDataList,page)
     }
 
 }

@@ -1,20 +1,14 @@
-package com.zj.play
+package com.zj.play.compose
 
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.Application
 import android.util.Log
-import com.scwang.smart.refresh.footer.ClassicsFooter
-import com.scwang.smart.refresh.header.ClassicsHeader
-import com.scwang.smart.refresh.layout.SmartRefreshLayout
-
 import com.tencent.bugly.crashreport.CrashReport
 import com.tencent.smtt.sdk.QbSdk
 import com.zj.core.Play
-import dagger.hilt.android.HiltAndroidApp
-import kotlinx.coroutines.*
-import java.util.*
-import kotlin.system.exitProcess
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 
 /**
@@ -22,12 +16,11 @@ import kotlin.system.exitProcess
  *
  * @author jiang zhu on 2019/10/21
  */
-@HiltAndroidApp
 class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        instances = this
+        //instances = this
         Play.initialize(applicationContext)
         initData()
     }
@@ -57,19 +50,19 @@ class App : Application() {
         })
     }
 
-    companion object {
-        @SuppressLint("StaticFieldLeak")
-        private var instances: App? = null
-
-        fun getInstance(): App {
-            if (instances == null) {
-                synchronized(App::class.java) {
-                    if (instances == null) {
-                        instances = App()
-                    }
-                }
-            }
-            return instances!!
-        }
-    }
+//    companion object {
+//        @SuppressLint("StaticFieldLeak")
+//        private var instances: App? = null
+//
+//        fun getInstance(): App {
+//            if (instances == null) {
+//                synchronized(App::class.java) {
+//                    if (instances == null) {
+//                        instances = App()
+//                    }
+//                }
+//            }
+//            return instances!!
+//        }
+//    }
 }

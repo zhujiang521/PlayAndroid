@@ -2,15 +2,13 @@ package com.zj.play.compose.repository
 
 import android.accounts.NetworkErrorException
 import android.app.Application
+import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestBuilder
-import com.bumptech.glide.RequestManager
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
+import coil.request.ImageRequest
+import com.blankj.utilcode.util.FileUtils
+import com.blankj.utilcode.util.ImageUtils
+import com.blankj.utilcode.util.PathUtils
 import com.zj.core.util.DataStoreUtils
 import com.zj.model.pojo.QueryHomeArticle
 import com.zj.model.room.PlayDatabase
@@ -24,9 +22,13 @@ import com.zj.play.compose.model.PlayError
 import com.zj.play.compose.model.PlayLoading
 import com.zj.play.compose.model.PlayState
 import com.zj.play.compose.model.PlaySuccess
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import java.io.File
+import java.util.*
 
 
 /**
@@ -81,42 +83,37 @@ class HomeRepository constructor(val application: Application) {
         bannerBeanDao: BannerBeanDao,
         bannerList: List<BannerBean>
     ) {
+        Log.e(
+            TAG,
+            "insertBannerList: PathUtils:${PathUtils.getInternalAppDataPath() + "/image/${UUID.randomUUID()}"}"
+        )
+        val file = File(PathUtils.getInternalAppDataPath() + "/image/")
+        if (!FileUtils.isFileExists(file)) {
+            file.mkdir()
+        }
         val uiScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
         bannerList.forEach {
-            val mRequestManager: RequestManager = Glide.with(application)
-            val mRequestBuilder: RequestBuilder<File> = mRequestManager.downloadOnly()
-            mRequestBuilder.load(it.imagePath)
-            mRequestBuilder.listener(object : RequestListener<File> {
-                override fun onLoadFailed(
-                    e: GlideException?, model: Any?, target: Target<File>?, isFirstResource: Boolean
-                ): Boolean {
-                    Log.e("ZHUJIANG", "insertBannerList onLoadFailed: ${e?.message}")
-                    return false
-                }
-
-                override fun onResourceReady(
-                    resource: File?,
-                    model: Any?,
-                    target: Target<File>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    try {
+            ImageRequest.Builder(application)
+                .data(it.imagePath)
+                .target { drawable ->
+                    // Handle the result.
+                    val path = PathUtils.getInternalAppDataPath() + "/image/${UUID.randomUUID()}"
+                    val result = ImageUtils.save(
+                        ImageUtils.drawable2Bitmap(drawable),
+                        File(path), Bitmap.CompressFormat.PNG
+                    )
+                    Log.e(TAG, "insertBannerList: path:$path")
+                    if (result) {
                         val banner = bannerBeanDao.loadBanner(it.id)
                         if (banner == null) {
-                            it.filePath = resource!!.absolutePath
+                            it.filePath = path
                             uiScope.launch {
                                 bannerBeanDao.insert(it)
                             }
                         }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        Log.e("ZHUJIANG", "insertBannerList onResourceReady: ${e.message}")
                     }
-                    return false
                 }
-            })
-            mRequestBuilder.preload()
+                .build()
         }
     }
 
@@ -134,7 +131,7 @@ class HomeRepository constructor(val application: Application) {
         if (!isLoad) {
             state.postValue(PlayLoading)
         }
-        val res: java.util.ArrayList<Article>
+        val res: ArrayList<Article>
         if (query.page == 1) {
             res = arrayListOf()
             val dataStore = DataStoreUtils

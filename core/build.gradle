@@ -55,7 +55,6 @@ dependencies {
     implementation des.coreKtx
     implementation des.appcompat
 
-    api 'androidx.recyclerview:recyclerview:1.1.0'
     api "androidx.lifecycle:lifecycle-extensions:2.2.0"
     api "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0"
     api "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0"
@@ -69,17 +68,8 @@ dependencies {
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2"
     api "androidx.datastore:datastore-preferences:1.0.0-alpha05"
 
-    api  'com.scwang.smart:refresh-layout-kernel:2.0.1'      //核心必须依赖
-    api  'com.scwang.smart:refresh-header-classics:2.0.1'    //经典刷新头
-    //api  'com.scwang.smart:refresh-header-material:2.0.1'    //谷歌刷新头
-    api  'com.scwang.smart:refresh-footer-classics:2.0.1'    //经典加载
-
     // 安卓Utils
     api 'com.blankj:utilcode:1.30.0'
-    // 图片网络框架
-    api 'com.github.bumptech.glide:glide:4.12.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
-
 
     def activity_version = "1.2.0"
     api "androidx.activity:activity-ktx:$activity_version"

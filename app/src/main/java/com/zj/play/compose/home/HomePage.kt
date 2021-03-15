@@ -18,17 +18,9 @@ package com.zj.play.compose.home
 
 import android.util.Log
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowCircleUp
-import androidx.compose.material.icons.rounded.Build
-import androidx.compose.material.icons.rounded.MoreVert
-import androidx.compose.material.icons.rounded.Topic
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -40,15 +32,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.BannerBean
 import com.zj.play.R
-import com.zj.play.compose.common.article.ArticleItem
-import com.zj.play.compose.common.lce.ErrorContent
-import com.zj.play.compose.common.lce.LoadingContent
 import com.zj.play.compose.common.PlayAppBar
 import com.zj.play.compose.common.SwipeToRefreshAndLoadLayout
+import com.zj.play.compose.common.article.ArticleItem
+import com.zj.play.compose.common.article.PostCardPopular
+import com.zj.play.compose.common.lce.ErrorContent
+import com.zj.play.compose.common.lce.LoadingContent
 import com.zj.play.compose.model.PlayError
 import com.zj.play.compose.model.PlayLoading
 import com.zj.play.compose.model.PlaySuccess
-import com.zj.play.compose.common.article.PostCardPopular
 import com.zj.play.compose.viewmodel.HomePageViewModel
 import com.zj.play.compose.viewmodel.REFRESH_START
 import com.zj.play.compose.viewmodel.REFRESH_STOP
@@ -141,7 +133,7 @@ fun HomePage(
                                             "HomePage: articleData.data:${articleList.data.size}"
                                         )
                                         if (articleList.data.isEmpty()) {
-                                            return@Column
+                                            return@SwipeToRefreshAndLoadLayout
                                         }
                                         LazyColumn(
                                             modifier,

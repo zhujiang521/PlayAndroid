@@ -1,12 +1,6 @@
 package com.zj.play.compose.repository
 
-import android.util.Log
-import androidx.lifecycle.liveData
-import com.zj.core.util.showToast
-import com.zj.model.model.BaseModel
 import com.zj.network.base.PlayAndroidNetwork
-import dagger.hilt.android.scopes.ActivityRetainedScoped
-import javax.inject.Inject
 
 /**
  * 版权：Zhujiang 个人版权
@@ -28,65 +22,3 @@ class AccountRepository {
     suspend fun getLogout() = PlayAndroidNetwork.getLogout()
 
 }
-
-private const val TAG = "AccountRepository"
-
-fun <T> fires(block: suspend () -> BaseModel<T>) =
-    liveData {
-        val result = try {
-            val baseModel = block()
-            if (baseModel.errorCode == 0) {
-                val model = baseModel.data
-                Result.success(model)
-            } else {
-                Log.e(
-                    TAG,
-                    "fires: response status is ${baseModel.errorCode}  msg is ${baseModel.errorMsg}"
-                )
-                showToast(baseModel.errorMsg)
-                Result.failure(RuntimeException(baseModel.errorMsg))
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, e.toString())
-            Result.failure(e)
-        }
-        emit(result)
-    }
-
-fun <T> fire(block: suspend () -> Result<T>) =
-    liveData {
-        val result = try {
-            block()
-        } catch (e: Exception) {
-            Log.e(TAG, "fire $e")
-            Result.failure(e)
-        }
-        emit(result)
-    }
-
-fun <T> composeFire(block: suspend () -> T) =
-    liveData {
-        emit(block())
-    }
-
-fun <T> composeFires(block: suspend () -> BaseModel<T>) =
-    liveData {
-        val result = try {
-            val baseModel = block()
-            if (baseModel.errorCode == 0) {
-                val model = baseModel.data
-                model
-            } else {
-                Log.e(
-                    TAG,
-                    "fires: response status is ${baseModel.errorCode}  msg is ${baseModel.errorMsg}"
-                )
-                showToast(baseModel.errorMsg)
-                null
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, e.toString())
-            null
-        }
-        emit(result)
-    }

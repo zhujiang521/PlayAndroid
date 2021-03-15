@@ -1,7 +1,6 @@
 package com.zj.play.compose.viewmodel
 
 import android.app.Application
-import com.zj.model.room.entity.ProjectClassify
 import com.zj.play.compose.repository.ProjectRepository
 
 /**
@@ -13,12 +12,12 @@ import com.zj.play.compose.repository.ProjectRepository
  *
  */
 class ProjectViewModel(application: Application) :
-    BaseAndroidViewModel<List<ProjectClassify>, Unit, Boolean>(application) {
+    BaseAndroidViewModel<Boolean>(application) {
 
     private val projectRepository = ProjectRepository(application)
 
     override suspend fun getData(page: Boolean) {
-        projectRepository.getProjectTree(_state, page)
+        projectRepository.getProjectTree(mutableLiveData, page)
     }
 
 }

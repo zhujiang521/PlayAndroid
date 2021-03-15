@@ -1,13 +1,11 @@
 package com.zj.play.compose.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zj.model.pojo.QueryHomeArticle
 import com.zj.model.room.entity.Article
-import com.zj.model.room.entity.BannerBean
 import com.zj.play.compose.model.PlayState
 import com.zj.play.compose.repository.HomeRepository
 import kotlinx.coroutines.Dispatchers
@@ -22,15 +20,9 @@ import kotlinx.coroutines.launch
  *
  */
 
-class HomePageViewModel(application: Application) : AndroidViewModel(application) {
+class HomePageViewModel(application: Application) : BaseViewModel(application) {
 
     private val homeRepository: HomeRepository = HomeRepository(application)
-
-    val bannerList = ArrayList<BannerBean>()
-
-    val bannerList2 = ArrayList<BannerBean>()
-
-    val articleList = ArrayList<Article>()
 
     private val _state = MutableLiveData<PlayState>()
 
@@ -70,27 +62,7 @@ class HomePageViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    private val _refreshState = MutableLiveData(REFRESH_STOP)
-
-    val refreshState: LiveData<Int>
-        get() = _refreshState
-
-    fun onRefreshChanged(refresh: Int) {
-        _refreshState.postValue(refresh)
-    }
-
-    private val _loadRefreshState = MutableLiveData(REFRESH_STOP)
-
-    val loadRefreshState: LiveData<Int>
-        get() = _loadRefreshState
-
-    fun onLoadRefreshStateChanged(refresh: Int) {
-        _loadRefreshState.postValue(refresh)
-    }
-
-
 }
 
-const val REFRESH_DEFAULT = 0
 const val REFRESH_START = 1
 const val REFRESH_STOP = 2

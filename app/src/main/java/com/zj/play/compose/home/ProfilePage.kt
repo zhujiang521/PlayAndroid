@@ -40,7 +40,7 @@ import com.zj.core.util.showToast
 import com.zj.model.room.entity.Article
 import com.zj.play.R
 import com.zj.play.compose.MainActions
-import com.zj.play.compose.ThemeViewModel
+import com.zj.play.compose.viewmodel.ThemeViewModel
 import com.zj.play.compose.common.AnimatingFabContent
 import com.zj.play.compose.viewmodel.LogoutFinish
 import com.zj.play.compose.viewmodel.LoginViewModel
@@ -68,8 +68,7 @@ fun ProfilePage(onNavigationEvent: MainActions, themeViewModel: ThemeViewModel) 
                     UserInfoFields(
                         onNavigationEvent.enterArticle,
                         onNavigationEvent.toLogin,
-                        this@BoxWithConstraints.maxHeight,
-                        themeViewModel
+                        this@BoxWithConstraints.maxHeight
                     )
                 }
             }
@@ -86,8 +85,7 @@ fun ProfilePage(onNavigationEvent: MainActions, themeViewModel: ThemeViewModel) 
 private fun UserInfoFields(
     enterArticle: (Article) -> Unit,
     toLogin: () -> Unit,
-    containerHeight: Dp,
-    themeViewModel: ThemeViewModel
+    containerHeight: Dp
 ) {
     val viewModel: LoginViewModel = viewModel()
     val logoutState by viewModel.logoutState.observeAsState(LogoutDefault)

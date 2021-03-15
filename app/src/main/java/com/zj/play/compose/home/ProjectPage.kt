@@ -36,7 +36,6 @@ import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.ProjectClassify
 import com.zj.play.R
 import com.zj.play.compose.common.SwipeToRefreshAndLoadLayout
-import com.zj.play.compose.common.SwipeToRefreshLayout
 import com.zj.play.compose.common.article.ArticleItem
 import com.zj.play.compose.common.lce.ErrorContent
 import com.zj.play.compose.common.lce.LoadingContent
@@ -69,8 +68,8 @@ fun ProjectPage(
 fun ArticleListPage(
     enterArticle: (Article) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: BaseAndroidViewModel<List<ProjectClassify>, Unit, Boolean>,
-    projectViewModel: BaseAndroidViewModel<List<Article>, Article, QueryArticle>
+    viewModel: BaseAndroidViewModel<Boolean>,
+    projectViewModel: BaseAndroidViewModel<QueryArticle>
 ) {
 
     val listState = rememberLazyListState()
