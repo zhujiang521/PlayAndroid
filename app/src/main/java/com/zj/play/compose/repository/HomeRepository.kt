@@ -9,6 +9,8 @@ import coil.request.ImageRequest
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.ImageUtils
 import com.blankj.utilcode.util.PathUtils
+import com.zj.core.down.DownloadListener
+import com.zj.core.down.Downloader
 import com.zj.core.util.DataStoreUtils
 import com.zj.model.pojo.QueryHomeArticle
 import com.zj.model.room.PlayDatabase
@@ -83,37 +85,34 @@ class HomeRepository constructor(val application: Application) {
         bannerBeanDao: BannerBeanDao,
         bannerList: List<BannerBean>
     ) {
-        Log.e(
-            TAG,
-            "insertBannerList: PathUtils:${PathUtils.getInternalAppDataPath() + "/image/${UUID.randomUUID()}"}"
-        )
-        val file = File(PathUtils.getInternalAppDataPath() + "/image/")
+        val path = PathUtils.getInternalAppDataPath() + "/image/"
+        val file = File(path)
         if (!FileUtils.isFileExists(file)) {
             file.mkdir()
         }
         val uiScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
         bannerList.forEach {
-            ImageRequest.Builder(application)
-                .data(it.imagePath)
-                .target { drawable ->
-                    // Handle the result.
-                    val path = PathUtils.getInternalAppDataPath() + "/image/${UUID.randomUUID()}"
-                    val result = ImageUtils.save(
-                        ImageUtils.drawable2Bitmap(drawable),
-                        File(path), Bitmap.CompressFormat.PNG
-                    )
-                    Log.e(TAG, "insertBannerList: path:$path")
-                    if (result) {
-                        val banner = bannerBeanDao.loadBanner(it.id)
-                        if (banner == null) {
-                            it.filePath = path
-                            uiScope.launch {
-                                bannerBeanDao.insert(it)
-                            }
+            val imgPath = "$path/${UUID.randomUUID()}"
+            Downloader.startDownload(it.imagePath, imgPath, object : DownloadListener {
+                override fun onProgress(percent: Int) {
+                    Log.e(TAG, "onProgress: $percent")
+                }
+
+                override fun onCompleted(filePath: String) {
+                    val banner = bannerBeanDao.loadBanner(it.id)
+                    if (banner == null) {
+                        it.filePath = filePath
+                        uiScope.launch {
+                            bannerBeanDao.insert(it)
                         }
                     }
                 }
-                .build()
+
+                override fun onFailure(errorMsg: String, tr: Throwable) {
+                    Log.e(TAG, "onFailure: $errorMsg")
+                }
+
+            })
         }
     }
 
