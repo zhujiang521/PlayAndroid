@@ -96,10 +96,11 @@ class HomeRepository constructor(val application: Application) {
                 }
 
                 override fun onCompleted(filePath: String) {
-                    val banner = bannerBeanDao.loadBanner(it.id)
-                    if (banner == null) {
-                        it.filePath = filePath
-                        uiScope.launch {
+                    Log.e(TAG, "onCompleted: $filePath")
+                    uiScope.launch(Dispatchers.IO) {
+                        val banner = bannerBeanDao.loadBanner(it.id)
+                        if (banner == null) {
+                            it.filePath = filePath
                             bannerBeanDao.insert(it)
                         }
                     }
