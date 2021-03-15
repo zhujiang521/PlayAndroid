@@ -2,12 +2,9 @@ package com.zj.play.compose.repository
 
 import android.accounts.NetworkErrorException
 import android.app.Application
-import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import coil.request.ImageRequest
 import com.blankj.utilcode.util.FileUtils
-import com.blankj.utilcode.util.ImageUtils
 import com.blankj.utilcode.util.PathUtils
 import com.zj.core.down.DownloadListener
 import com.zj.core.down.Downloader
