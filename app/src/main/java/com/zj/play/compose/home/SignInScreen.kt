@@ -91,11 +91,11 @@ fun LoginPage(
 @Composable
 fun SignIn(onNavigationEvent: (SignInEvent) -> Unit) {
 
-    val snackbarHostState = remember { SnackbarHostState() }
+    val snackBarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
-    val snackbarErrorText = stringResource(id = R.string.feature_not_available)
-    val snackbarActionLabel = stringResource(id = R.string.dismiss)
+    val snackBarErrorText = stringResource(id = R.string.feature_not_available)
+    val snackBarActionLabel = stringResource(id = R.string.dismiss)
 
     Scaffold(
         topBar = {
@@ -105,7 +105,6 @@ fun SignIn(onNavigationEvent: (SignInEvent) -> Unit) {
         },
         content = {
             SignInSignUpScreen(
-                onSignedInAsGuest = { onNavigationEvent(SignInEvent.SignInAsGuest) },
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Column(modifier = Modifier.fillMaxWidth()) {
@@ -118,9 +117,9 @@ fun SignIn(onNavigationEvent: (SignInEvent) -> Unit) {
                     TextButton(
                         onClick = {
                             scope.launch {
-                                snackbarHostState.showSnackbar(
-                                    message = snackbarErrorText,
-                                    actionLabel = snackbarActionLabel
+                                snackBarHostState.showSnackbar(
+                                    message = snackBarErrorText,
+                                    actionLabel = snackBarActionLabel
                                 )
                             }
                         },
@@ -134,9 +133,9 @@ fun SignIn(onNavigationEvent: (SignInEvent) -> Unit) {
     )
 
     Box(modifier = Modifier.fillMaxSize()) {
-        ErrorSnackbar(
-            snackbarHostState = snackbarHostState,
-            onDismiss = { snackbarHostState.currentSnackbarData?.dismiss() },
+        ErrorSnackBar(
+            snackBarHostState = snackBarHostState,
+            onDismiss = { snackBarHostState.currentSnackbarData?.dismiss() },
             modifier = Modifier.align(Alignment.BottomCenter)
         )
     }
@@ -177,13 +176,13 @@ fun SignInContent(
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ErrorSnackbar(
-    snackbarHostState: SnackbarHostState,
+fun ErrorSnackBar(
+    snackBarHostState: SnackbarHostState,
     modifier: Modifier = Modifier,
     onDismiss: () -> Unit = { }
 ) {
     SnackbarHost(
-        hostState = snackbarHostState,
+        hostState = snackBarHostState,
         snackbar = { data ->
             Snackbar(
                 modifier = Modifier.padding(16.dp),

@@ -16,6 +16,8 @@
 
 package com.zj.play.compose.common.signin
 
+import com.blankj.utilcode.util.StringUtils
+import com.zj.play.R
 import java.util.regex.Pattern
 
 // Consider an email valid if there's some text before and after a "@"
@@ -29,7 +31,7 @@ class EmailState :
  * Returns an error to be displayed or null if no error was found
  */
 private fun emailValidationError(email: String): String {
-    return "Invalid email: $email"
+    return "${StringUtils.getString(R.string.invalid_email)}: $email"
 }
 
 private fun isEmailValid(email: String): Boolean {

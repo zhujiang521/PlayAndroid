@@ -90,4 +90,23 @@
 
     <string name="edit_profile">我会变啊</string>
 
+    <string name="feature_not_available">功能不可用</string>
+    <string name="dismiss">关闭</string>
+    <string name="next">NEXT</string>
+    <string name="previous">PREVIOUS</string>
+    <string name="done">DONE</string>
+    <string name="back">Back</string>
+    <string name="close">关闭</string>
+    <string name="show_password">显示密码</string>
+    <string name="hide_password">隐藏密码</string>
+    <string name="forgot_password">忘记密码？</string>
+    <string name="sign_in">登录</string>
+    <string name="password">密码</string>
+    <string name="confirm_password">确认密码</string>
+    <string name="email">账号</string>
+    <string name="or">或</string>
+    <string name="sign_in_guest">以访客身份登录</string>
+    <string name="invalid_password">密码无效</string>
+    <string name="invalid_email">账号无效</string>
+
 </resources>
