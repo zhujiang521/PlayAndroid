@@ -4,9 +4,6 @@ import android.accounts.NetworkErrorException
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.blankj.utilcode.util.FileUtils
-import com.blankj.utilcode.util.PathUtils
-import com.zj.network.down.*
 import com.zj.core.util.DataStoreUtils
 import com.zj.model.pojo.QueryHomeArticle
 import com.zj.model.room.PlayDatabase
@@ -16,14 +13,19 @@ import com.zj.model.room.entity.BannerBean
 import com.zj.model.room.entity.HOME
 import com.zj.model.room.entity.HOME_TOP
 import com.zj.network.base.PlayAndroidNetwork
+import com.zj.network.down.Download
+import com.zj.network.down.DownloadBuild
+import com.zj.network.down.DownloadStatus
 import com.zj.play.compose.model.PlayError
 import com.zj.play.compose.model.PlayLoading
 import com.zj.play.compose.model.PlayState
 import com.zj.play.compose.model.PlaySuccess
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
-import java.io.File
+import kotlinx.coroutines.launch
 import java.util.*
 
 
@@ -36,7 +38,6 @@ import java.util.*
  *
  */
 
-@InternalCoroutinesApi
 class HomeRepository constructor(val application: Application) {
 
     companion object {
@@ -80,41 +81,33 @@ class HomeRepository constructor(val application: Application) {
         bannerBeanDao: BannerBeanDao,
         bannerList: List<BannerBean>
     ) {
-        val path = PathUtils.getInternalAppDataPath() + "/image/"
-        val file = File(path)
-        if (!FileUtils.isFileExists(file)) {
-            file.mkdir()
-        }
         val uiScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
         bannerList.forEach {
-            val flow = Download.download(it.imagePath, DownloadBuild(application))
-            flow.collect(collector = object : FlowCollector<DownloadStatus> {
-                override suspend fun emit(value: DownloadStatus) {
-                    when (value) {
-                        is DownloadStatus.DownloadError -> {
-                            //下载错误
-                            Log.e(TAG, "emit: error:${value.t}")
-                        }
-                        is DownloadStatus.DownloadSuccess -> {
-                            //下载完成
-                            uiScope.launch(Dispatchers.IO) {
-                                val banner = bannerBeanDao.loadBanner(it.id)
-                                if (banner == null) {
-                                    it.filePath = value.file?.path ?: ""
-                                    bannerBeanDao.insert(it)
-                                }
+            Download.download(it.imagePath, DownloadBuild(application)).collect { value ->
+                when (value) {
+                    is DownloadStatus.DownloadError -> {
+                        //下载错误
+                        Log.e(TAG, "emit: error:${value.t}")
+                    }
+                    is DownloadStatus.DownloadSuccess -> {
+                        Log.e(TAG, "insertBannerList: ${value.file?.path}")
+                        //下载完成
+                        uiScope.launch(Dispatchers.IO) {
+                            val banner = bannerBeanDao.loadBanner(it.id)
+                            if (banner == null) {
+                                it.filePath = value.file?.path ?: ""
+                                bannerBeanDao.insert(it)
                             }
                         }
-                        is DownloadStatus.DownloadProcess -> {
-                            //下载中
-                            //下载进度：it.process
-                            Log.e(TAG, "emit: process${value.process}")
-                        }
+                    }
+                    is DownloadStatus.DownloadProcess -> {
+                        //下载中
+                        //下载进度：it.process
+                        //Log.e(TAG, "emit: process${value.process}")
                     }
                 }
-            })
-
-
+            }
+            Log.e(TAG, "emit: ----------:${it}")
         }
     }
 
