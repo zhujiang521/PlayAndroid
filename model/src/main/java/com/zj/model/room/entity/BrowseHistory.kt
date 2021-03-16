@@ -46,7 +46,7 @@ data class Article(
     @ColumnInfo(name = "super_chapter_id") val superChapterId: Int = 0,
     @ColumnInfo(name = "super_chapter_name") val superChapterName: String = "",
     //@ColumnInfo(name = "tags") val tags: List<Tag>,
-    @ColumnInfo(name = "title") val title: String = "",
+    @ColumnInfo(name = "title") var title: String = "",
     @ColumnInfo(name = "type") val type: Int = 0,
     @ColumnInfo(name = "user_id") val userId: Int = 0,
     @ColumnInfo(name = "visible") val visible: Int = 0,

@@ -25,10 +25,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import com.google.gson.Gson
+import com.zj.core.util.getHtmlText
 import com.zj.model.room.entity.Article
 import com.zj.play.compose.MainDestinations.ARTICLE_ROUTE_URL
 import com.zj.play.compose.common.article.ArticlePage
+import com.zj.play.compose.home.AboutMePage
 import com.zj.play.compose.home.LoginPage
+import com.zj.play.compose.home.SearchPage
 import com.zj.play.compose.theme.Play2Theme
 import com.zj.play.compose.theme.PlayTheme
 import com.zj.play.compose.viewmodel.ThemeViewModel
@@ -38,13 +41,12 @@ import java.net.URLEncoder
  * Destinations used in the ([NewMainActivity]).
  */
 object MainDestinations {
-
     const val HOME_PAGE_ROUTE = "home_page_route"
     const val ARTICLE_ROUTE = "article_route"
     const val ARTICLE_ROUTE_URL = "article_route_url"
     const val LOGIN_ROUTE = "login_route"
-//    const val OFFICIAL_ROUTE = "official_route"
-//    const val MY_INFORMATION_ROUTE = "my_information_route"
+    const val SEARCH_ROUTE = "search_route"
+    const val ABOUT_ME_ROUTE = "about_me_route"
 }
 
 @Composable
@@ -94,6 +96,12 @@ fun NavGraph(
                 onBack = actions.upPress
             )
         }
+        composable(MainDestinations.SEARCH_ROUTE) {
+            SearchPage(actions)
+        }
+        composable(MainDestinations.ABOUT_ME_ROUTE) {
+            AboutMePage(actions)
+        }
     }
 }
 
@@ -106,13 +114,18 @@ class MainActions(navController: NavHostController) {
     }
     val enterArticle: (Article) -> Unit = { article ->
         article.desc = ""
+        article.title = getHtmlText(article.title)
         val gson = Gson().toJson(article).trim()
-        val result = URLEncoder.encode(gson,"utf-8")
-        //navController.navigate()
-        navController.navigate("${MainDestinations.ARTICLE_ROUTE}/$result")
+        navController.navigate("${MainDestinations.ARTICLE_ROUTE}/$gson")
     }
     val toLogin: () -> Unit = {
         navController.navigate(MainDestinations.LOGIN_ROUTE)
+    }
+    val toSearch: () -> Unit = {
+        navController.navigate(MainDestinations.SEARCH_ROUTE)
+    }
+    val toAboutMe: () -> Unit = {
+        navController.navigate(MainDestinations.ABOUT_ME_ROUTE)
     }
     val upPress: () -> Unit = {
         navController.navigateUp()

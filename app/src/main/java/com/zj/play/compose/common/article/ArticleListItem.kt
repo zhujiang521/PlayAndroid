@@ -34,6 +34,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.zj.core.util.getHtmlText
 import com.zj.model.room.entity.Article
 import com.zj.play.R
 import com.zj.play.compose.common.NetworkImage
@@ -95,7 +96,7 @@ fun ArticleListItem(
                 )
             ) {
                 Text(
-                    text = article.title,
+                    text = getHtmlText(article.title),
                     style = titleStyle,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,

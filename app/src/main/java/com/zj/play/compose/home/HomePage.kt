@@ -21,6 +21,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.material.Button
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.MoreVert
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -32,6 +35,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.BannerBean
 import com.zj.play.R
+import com.zj.play.compose.MainActions
 import com.zj.play.compose.common.PlayAppBar
 import com.zj.play.compose.common.SwipeToRefreshAndLoadLayout
 import com.zj.play.compose.common.article.ArticleItem
@@ -50,7 +54,7 @@ private const val TAG = "HomePage"
 
 @Composable
 fun HomePage(
-    enterArticle: (Article) -> Unit,
+    actions: MainActions,
     modifier: Modifier = Modifier,
     viewModel: HomePageViewModel = viewModel()
 ) {
@@ -76,7 +80,13 @@ fun HomePage(
     Box(modifier = Modifier.fillMaxSize()) {
 
         Column(modifier = Modifier.fillMaxSize()) {
-            PlayAppBar(stringResource(id = R.string.home_page), false)
+            PlayAppBar(
+                stringResource(id = R.string.home_page),
+                false,
+                showRight = true,
+                rightImg = Icons.Rounded.Search,
+                rightClick = actions.toSearch
+            )
 
             SwipeToRefreshAndLoadLayout(
                 refreshingState = refresh == REFRESH_START,
@@ -115,7 +125,7 @@ fun HomePage(
                                     items(data.data) {
                                         PostCardPopular(
                                             it,
-                                            enterArticle,
+                                            actions.enterArticle,
                                             Modifier.padding(start = 16.dp, bottom = 16.dp)
                                         )
                                     }
@@ -143,7 +153,11 @@ fun HomePage(
                                                 ArticleItem(
                                                     article,
                                                     index,
-                                                    enterArticle = { urlArgs -> enterArticle(urlArgs) })
+                                                    enterArticle = { urlArgs ->
+                                                        actions.enterArticle(
+                                                            urlArgs
+                                                        )
+                                                    })
                                             }
                                         }
                                     }

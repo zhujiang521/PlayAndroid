@@ -1,7 +1,6 @@
 package com.zj.play.compose.common
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -9,11 +8,11 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.More
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import dev.chrisbanes.accompanist.insets.statusBarsHeight
@@ -24,6 +23,7 @@ fun PlayAppBar(
     showBack: Boolean = true,
     click: (() -> Unit)? = null,
     showRight: Boolean = false,
+    rightImg: ImageVector = Icons.Rounded.MoreVert,
     rightClick: (() -> Unit)? = null,
 ) {
     Column(modifier = Modifier.background(color = MaterialTheme.colors.primary)) {
@@ -33,6 +33,7 @@ fun PlayAppBar(
                 .fillMaxWidth()
                 .height(43.dp),
             verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
         ) {
             if (showBack) {
                 IconButton(
@@ -44,27 +45,39 @@ fun PlayAppBar(
                         contentDescription = "back"
                     )
                 }
+            } else {
+                IconButton(
+                    modifier = Modifier
+                        .wrapContentWidth(Alignment.Start), onClick = {}
+                ) {}
             }
             Text(
                 modifier = Modifier
                     .weight(1f)
-                    .wrapContentWidth(Alignment.CenterHorizontally),
+                    .wrapContentWidth(Alignment.CenterHorizontally)
+                    .padding(horizontal = 60.dp),
                 text = title,
                 style = MaterialTheme.typography.subtitle1,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
-            if (showBack || showRight) {
+            if (showRight) {
+                if (rightClick != null) {
+                    IconButton(
+                        modifier = Modifier.wrapContentWidth(Alignment.End),
+                        onClick = rightClick
+                    ) {
+                        Icon(
+                            imageVector = rightImg,
+                            contentDescription = "more"
+                        )
+                    }
+                }
+            } else {
                 IconButton(
                     modifier = Modifier
-                        .wrapContentWidth(Alignment.End)
-                        .clickable { rightClick!! }, onClick = { }
-                ) {
-                    Icon(
-                        imageVector = Icons.Rounded.MoreVert,
-                        contentDescription = "more"
-                    )
-                }
+                        .wrapContentWidth(Alignment.Start), onClick = {}
+                ) {}
             }
         }
     }

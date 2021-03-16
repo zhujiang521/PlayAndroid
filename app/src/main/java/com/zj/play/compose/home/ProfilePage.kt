@@ -49,7 +49,7 @@ import com.zj.play.compose.common.utils.baselineHeight
 import dev.chrisbanes.accompanist.insets.navigationBarsPadding
 
 @Composable
-fun ProfilePage(onNavigationEvent: MainActions, themeViewModel: ThemeViewModel) {
+fun ProfilePage(actions: MainActions, themeViewModel: ThemeViewModel) {
 
     val scrollState = rememberScrollState()
     Column(modifier = Modifier.fillMaxSize()) {
@@ -62,12 +62,13 @@ fun ProfilePage(onNavigationEvent: MainActions, themeViewModel: ThemeViewModel) 
                 ) {
 
                     ProfileHeader(
+                        actions.toAboutMe,
                         scrollState,
                         this@BoxWithConstraints.maxHeight
                     )
                     UserInfoFields(
-                        onNavigationEvent.enterArticle,
-                        onNavigationEvent.toLogin,
+                        actions.enterArticle,
+                        actions.toLogin,
                         this@BoxWithConstraints.maxHeight
                     )
                 }
@@ -187,6 +188,7 @@ private fun Position(refresh: Boolean, modifier: Modifier = Modifier) {
 
 @Composable
 private fun ProfileHeader(
+    toAboutMePage: () -> Unit,
     scrollState: ScrollState,
     containerHeight: Dp
 ) {
@@ -195,6 +197,9 @@ private fun ProfileHeader(
 
     Image(
         modifier = Modifier
+            .clickable {
+                toAboutMePage()
+            }
             .heightIn(max = containerHeight / 2)
             .fillMaxWidth()
             .padding(top = offsetDp / 2),

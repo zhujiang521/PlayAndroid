@@ -14,6 +14,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import com.zj.core.util.getHtmlText
 import com.zj.core.util.showToast
 import com.zj.model.room.entity.Article
 import com.zj.play.R
@@ -66,7 +67,7 @@ fun ArticleScreen(
     val x5WebView = rememberX5WebViewWithLifecycle()
     Scaffold(
         topBar = {
-            PlayAppBar(article?.title ?: "文章详情", click = {
+            PlayAppBar(getHtmlText(article?.title ?: "文章详情"), click = {
                 if (x5WebView.canGoBack()) {
                     //返回上个页面
                     x5WebView.goBack()
