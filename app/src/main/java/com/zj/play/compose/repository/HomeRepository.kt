@@ -126,7 +126,7 @@ class HomeRepository constructor(val application: Application) {
             state.postValue(PlayLoading)
         }
         val res: ArrayList<Article>
-        if (query.page == 1) {
+        if (query.page == 0) {
             res = arrayListOf()
             val dataStore = DataStoreUtils
             var downArticleTime = 0L
@@ -176,7 +176,7 @@ class HomeRepository constructor(val application: Application) {
                 value.postValue(res)
                 Log.e(TAG, "getArticleList: 444:${res.size}")
             } else {
-                val articleListDeferred = PlayAndroidNetwork.getArticleList(query.page - 1)
+                val articleListDeferred = PlayAndroidNetwork.getArticleList(query.page)
                 if (articleListDeferred.errorCode == 0) {
                     if (articleListHome.isNotEmpty() && articleListHome[0].link == articleListDeferred.data.datas[0].link && !query.isRefresh) {
                         res.addAll(articleListHome)
@@ -197,7 +197,7 @@ class HomeRepository constructor(val application: Application) {
             }
         } else {
             res = value.value ?: arrayListOf()
-            val articleListDeferred = PlayAndroidNetwork.getArticleList(query.page - 1)
+            val articleListDeferred = PlayAndroidNetwork.getArticleList(query.page)
             if (articleListDeferred.errorCode == 0) {
                 res.addAll(articleListDeferred.data.datas)
                 state.postValue(PlaySuccess<List<Article>>(res))

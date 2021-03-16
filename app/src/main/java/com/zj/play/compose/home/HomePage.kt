@@ -83,7 +83,7 @@ fun HomePage(
                 loadState = loadRefresh == REFRESH_START,
                 onRefresh = {
                     Log.e(TAG, "onRefresh: 开始刷新")
-                    viewModel.onPageChanged(1)
+                    viewModel.onPageChanged(0)
                     viewModel.getBanner()
                     viewModel.getArticleList()
                     viewModel.onRefreshChanged(REFRESH_START)
@@ -91,7 +91,7 @@ fun HomePage(
                 onLoad = {
                     Log.e(TAG, "onLoad: 上拉加载")
                     viewModel.onLoadRefreshStateChanged(REFRESH_START)
-                    viewModel.onPageChanged((viewModel.page.value ?: 1) + 1)
+                    viewModel.onPageChanged((viewModel.page.value ?: 0) + 1)
                     viewModel.getArticleList()
                 },
                 content = {

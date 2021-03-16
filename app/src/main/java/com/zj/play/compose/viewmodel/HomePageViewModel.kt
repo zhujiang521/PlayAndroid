@@ -56,7 +56,7 @@ class HomePageViewModel(application: Application) : BaseViewModel(application) {
             homeRepository.getArticleList(
                 _state,
                 _articleDataList,
-                QueryHomeArticle(page.value ?: 1, isRefresh),
+                QueryHomeArticle(page.value ?: 0, isRefresh),
                 isLoad
             )
         }
