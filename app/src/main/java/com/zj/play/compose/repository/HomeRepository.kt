@@ -6,8 +6,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.PathUtils
-import com.zj.core.down.DownloadListener
-import com.zj.core.down.Downloader
+import com.zj.network.down.*
 import com.zj.core.util.DataStoreUtils
 import com.zj.model.pojo.QueryHomeArticle
 import com.zj.model.room.PlayDatabase
@@ -21,11 +20,9 @@ import com.zj.play.compose.model.PlayError
 import com.zj.play.compose.model.PlayLoading
 import com.zj.play.compose.model.PlayState
 import com.zj.play.compose.model.PlaySuccess
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 import java.io.File
 import java.util.*
 
@@ -39,6 +36,7 @@ import java.util.*
  *
  */
 
+@InternalCoroutinesApi
 class HomeRepository constructor(val application: Application) {
 
     companion object {
@@ -89,28 +87,34 @@ class HomeRepository constructor(val application: Application) {
         }
         val uiScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
         bannerList.forEach {
-            val imgPath = "$path/${UUID.randomUUID()}"
-            Downloader.startDownload(it.imagePath, imgPath, object : DownloadListener {
-                override fun onProgress(percent: Int) {
-                    Log.e(TAG, "onProgress: $percent")
-                }
-
-                override fun onCompleted(filePath: String) {
-                    Log.e(TAG, "onCompleted: $filePath")
-                    uiScope.launch(Dispatchers.IO) {
-                        val banner = bannerBeanDao.loadBanner(it.id)
-                        if (banner == null) {
-                            it.filePath = filePath
-                            bannerBeanDao.insert(it)
+            val flow = Download.download(it.imagePath, DownloadBuild(application))
+            flow.collect(collector = object : FlowCollector<DownloadStatus> {
+                override suspend fun emit(value: DownloadStatus) {
+                    when (value) {
+                        is DownloadStatus.DownloadError -> {
+                            //下载错误
+                            Log.e(TAG, "emit: error:${value.t}")
+                        }
+                        is DownloadStatus.DownloadSuccess -> {
+                            //下载完成
+                            uiScope.launch(Dispatchers.IO) {
+                                val banner = bannerBeanDao.loadBanner(it.id)
+                                if (banner == null) {
+                                    it.filePath = value.file?.path ?: ""
+                                    bannerBeanDao.insert(it)
+                                }
+                            }
+                        }
+                        is DownloadStatus.DownloadProcess -> {
+                            //下载中
+                            //下载进度：it.process
+                            Log.e(TAG, "emit: process${value.process}")
                         }
                     }
                 }
-
-                override fun onFailure(errorMsg: String, tr: Throwable) {
-                    Log.e(TAG, "onFailure: $errorMsg")
-                }
-
             })
+
+
         }
     }
 
