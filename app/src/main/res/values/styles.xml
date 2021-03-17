@@ -28,17 +28,4 @@
         <item name="android:colorBackground">@color/colorPrimary</item>
     </style>
 
-    <style name="TabLayoutTextStyle">
-        <item name="android:textSize">@dimen/sp_14</item>
-    </style>
-
-
-    <style name="StyleProgressBarMini" parent="Widget.AppCompat.ProgressBar">
-
-        <item name="android:indeterminateDrawable">
-            @drawable/loading_animation
-        </item>
-
-    </style>
-
 </resources>
