@@ -31,8 +31,8 @@ fun OfficialAccountPage(
     val viewModel: OfficialViewModel = viewModel()
     val officialListViewModel: OfficialListViewModel = viewModel()
     ArticleListPage(
-        enterArticle = enterArticle,
         modifier = modifier,
+        enterArticle = enterArticle,
         viewModel = viewModel,
         projectViewModel = officialListViewModel
     )

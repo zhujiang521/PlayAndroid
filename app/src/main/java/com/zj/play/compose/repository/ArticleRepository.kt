@@ -8,7 +8,7 @@ import com.zj.core.util.DataStoreUtils
 import com.zj.core.util.showToast
 import com.zj.model.model.ArticleList
 import com.zj.model.model.BaseModel
-import com.zj.model.pojo.QueryArticle
+import com.zj.play.compose.model.QueryArticle
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.OFFICIAL

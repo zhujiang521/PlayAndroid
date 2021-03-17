@@ -3,6 +3,7 @@ package com.zj.play.compose.viewmodel
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.zj.model.room.entity.Article
+import com.zj.play.compose.model.QueryArticle
 import com.zj.play.compose.repository.SearchRepository
 
 /**
@@ -15,16 +16,14 @@ import com.zj.play.compose.repository.SearchRepository
  */
 
 class ArticleListViewModel(application: Application) :
-    BaseAndroidViewModel<QueryKeyArticle>(application) {
+    BaseAndroidViewModel<QueryArticle>(application) {
 
     private val searchRepository = SearchRepository(application)
 
     private val _articleDataList = MutableLiveData<ArrayList<Article>>()
 
-    override suspend fun getData(page: QueryKeyArticle) {
+    override suspend fun getData(page: QueryArticle) {
         searchRepository.getQueryArticleList(mutableLiveData, _articleDataList,page.page, page.k)
     }
 
 }
-
-data class QueryKeyArticle(var page: Int, var k: String)

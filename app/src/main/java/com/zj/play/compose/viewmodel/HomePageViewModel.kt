@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.zj.model.pojo.QueryHomeArticle
+import com.zj.play.compose.model.QueryHomeArticle
 import com.zj.model.room.entity.Article
 import com.zj.play.compose.model.PlayState
 import com.zj.play.compose.repository.HomeRepository

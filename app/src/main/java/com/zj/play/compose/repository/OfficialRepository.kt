@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.zj.model.model.ArticleList
 import com.zj.model.model.BaseModel
-import com.zj.model.pojo.QueryArticle
+import com.zj.play.compose.model.QueryArticle
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.OFFICIAL
 import com.zj.model.room.entity.ProjectClassify

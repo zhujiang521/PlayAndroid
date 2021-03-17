@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
  *
  */
 
-abstract class BaseViewModel(application: Application):AndroidViewModel(application){
+abstract class BaseViewModel(application: Application) : AndroidViewModel(application) {
     private val _refreshState = MutableLiveData<Int>()
 
     val refreshState: LiveData<Int>

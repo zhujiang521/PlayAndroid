@@ -5,7 +5,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.zj.core.util.DataStoreUtils
-import com.zj.model.pojo.QueryHomeArticle
+import com.zj.play.compose.model.QueryHomeArticle
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.dao.BannerBeanDao
 import com.zj.model.room.entity.Article

@@ -17,7 +17,7 @@ import com.zj.play.R
 
 @Composable
 fun ErrorContent(
-    enterArticle: () -> Unit
+    onErrorClick: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
@@ -28,7 +28,7 @@ fun ErrorContent(
             painter = painterResource(id = R.drawable.bad_network_image),
             contentDescription = "网络加载失败"
         )
-        Button(onClick = enterArticle) {
+        Button(onClick = onErrorClick) {
             Text(text = stringResource(id = R.string.bad_network_view_tip))
         }
     }

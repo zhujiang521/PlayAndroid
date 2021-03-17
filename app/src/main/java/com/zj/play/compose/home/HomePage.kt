@@ -17,18 +17,13 @@
 package com.zj.play.compose.home
 
 import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
-import androidx.compose.material.Button
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -40,15 +35,14 @@ import com.zj.play.compose.common.PlayAppBar
 import com.zj.play.compose.common.SwipeToRefreshAndLoadLayout
 import com.zj.play.compose.common.article.ArticleItem
 import com.zj.play.compose.common.article.PostCardPopular
-import com.zj.play.compose.common.lce.ErrorContent
-import com.zj.play.compose.common.lce.LoadingContent
+import com.zj.play.compose.common.article.ToTopButton
+import com.zj.play.compose.common.lce.SetLcePage
 import com.zj.play.compose.model.PlayError
 import com.zj.play.compose.model.PlayLoading
 import com.zj.play.compose.model.PlaySuccess
 import com.zj.play.compose.viewmodel.HomePageViewModel
 import com.zj.play.compose.viewmodel.REFRESH_START
 import com.zj.play.compose.viewmodel.REFRESH_STOP
-import kotlinx.coroutines.launch
 
 private const val TAG = "HomePage"
 
@@ -58,9 +52,6 @@ fun HomePage(
     modifier: Modifier = Modifier,
     viewModel: HomePageViewModel = viewModel()
 ) {
-
-    // Remember a CoroutineScope to be able to launch
-    val coroutineScope = rememberCoroutineScope()
 
     val articleData by viewModel.state.observeAsState(PlayLoading)
 
@@ -77,120 +68,91 @@ fun HomePage(
 
     val listState = rememberLazyListState()
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize()) {
+        PlayAppBar(
+            stringResource(id = R.string.home_page),
+            false,
+            showRight = true,
+            rightImg = Icons.Rounded.Search,
+            rightClick = actions.toSearch
+        )
 
-        Column(modifier = Modifier.fillMaxSize()) {
-            PlayAppBar(
-                stringResource(id = R.string.home_page),
-                false,
-                showRight = true,
-                rightImg = Icons.Rounded.Search,
-                rightClick = actions.toSearch
-            )
-
-            SwipeToRefreshAndLoadLayout(
-                refreshingState = refresh == REFRESH_START,
-                loadState = loadRefresh == REFRESH_START,
-                onRefresh = {
-                    Log.e(TAG, "onRefresh: 开始刷新")
-                    viewModel.onPageChanged(0)
+        SwipeToRefreshAndLoadLayout(
+            refreshingState = refresh == REFRESH_START,
+            loadState = loadRefresh == REFRESH_START,
+            onRefresh = {
+                Log.e(TAG, "onRefresh: 开始刷新")
+                viewModel.onPageChanged(0)
+                viewModel.getBanner()
+                viewModel.getArticleList()
+                viewModel.onRefreshChanged(REFRESH_START)
+            },
+            onLoad = {
+                Log.e(TAG, "onLoad: 上拉加载")
+                viewModel.onLoadRefreshStateChanged(REFRESH_START)
+                viewModel.onPageChanged((viewModel.page.value ?: 0) + 1)
+                viewModel.getArticleList()
+            },
+            content = {
+                SetLcePage(playState = bannerData, onErrorClick = {
+                    viewModel.getArticleList()
                     viewModel.getBanner()
-                    viewModel.getArticleList()
-                    viewModel.onRefreshChanged(REFRESH_START)
-                },
-                onLoad = {
-                    Log.e(TAG, "onLoad: 上拉加载")
-                    viewModel.onLoadRefreshStateChanged(REFRESH_START)
-                    viewModel.onPageChanged((viewModel.page.value ?: 0) + 1)
-                    viewModel.getArticleList()
-                },
-                content = {
+                }) {
+                    val data = bannerData as PlaySuccess<List<BannerBean>>
+                    Column {
+                        LazyRow(
+                            modifier = Modifier.padding(end = 16.dp),
+                        ) {
+                            items(data.data) {
+                                PostCardPopular(
+                                    it,
+                                    actions.enterArticle,
+                                    Modifier.padding(start = 16.dp, bottom = 16.dp)
+                                )
+                            }
+                        }
 
-                    when (bannerData) {
-                        PlayLoading -> {
-                            LoadingContent()
-                        }
-                        is PlayError -> {
-                            ErrorContent(enterArticle = {
-                                viewModel.getArticleList()
-                                viewModel.getBanner()
-                            })
-                        }
-                        is PlaySuccess<*> -> {
-                            val data = bannerData as PlaySuccess<List<BannerBean>>
-                            Column {
-                                LazyRow(
-                                    modifier = Modifier.padding(end = 16.dp),
-                                ) {
-                                    items(data.data) {
-                                        PostCardPopular(
-                                            it,
-                                            actions.enterArticle,
-                                            Modifier.padding(start = 16.dp, bottom = 16.dp)
-                                        )
-                                    }
+                        when (articleData) {
+                            PlayLoading -> {
+                                Spacer(modifier = Modifier.height(0.dp))
+                            }
+                            is PlaySuccess<*> -> {
+                                viewModel.onLoadRefreshStateChanged(REFRESH_STOP)
+                                viewModel.onRefreshChanged(REFRESH_STOP)
+                                val articleList = articleData as PlaySuccess<List<Article>>
+                                Log.e(
+                                    TAG,
+                                    "HomePage: articleData.data:${articleList.data.size}"
+                                )
+                                if (articleList.data.isEmpty()) {
+                                    return@SetLcePage
                                 }
-                                when (articleData) {
-                                    PlayLoading -> {
-                                        Spacer(modifier = Modifier.height(0.dp))
-                                    }
-                                    is PlaySuccess<*> -> {
-                                        viewModel.onLoadRefreshStateChanged(REFRESH_STOP)
-                                        viewModel.onRefreshChanged(REFRESH_STOP)
-                                        val articleList = articleData as PlaySuccess<List<Article>>
-                                        Log.e(
-                                            TAG,
-                                            "HomePage: articleData.data:${articleList.data.size}"
-                                        )
-                                        if (articleList.data.isEmpty()) {
-                                            return@SwipeToRefreshAndLoadLayout
-                                        }
-                                        LazyColumn(
-                                            modifier,
-                                            state = listState
-                                        ) {
-                                            itemsIndexed(articleList.data) { index, article ->
-                                                ArticleItem(
-                                                    article,
-                                                    index,
-                                                    enterArticle = { urlArgs ->
-                                                        actions.enterArticle(
-                                                            urlArgs
-                                                        )
-                                                    })
-                                            }
-                                        }
-                                    }
-                                    is PlayError -> {
-                                        Spacer(modifier = Modifier.height(0.dp))
-                                        viewModel.onLoadRefreshStateChanged(REFRESH_STOP)
-                                        viewModel.onRefreshChanged(REFRESH_STOP)
+                                LazyColumn(
+                                    modifier,
+                                    state = listState
+                                ) {
+                                    itemsIndexed(articleList.data) { index, article ->
+                                        ArticleItem(
+                                            article,
+                                            index,
+                                            enterArticle = { urlArgs ->
+                                                actions.enterArticle(
+                                                    urlArgs
+                                                )
+                                            })
                                     }
                                 }
                             }
+                            is PlayError -> {
+                                Spacer(modifier = Modifier.height(0.dp))
+                                viewModel.onLoadRefreshStateChanged(REFRESH_STOP)
+                                viewModel.onRefreshChanged(REFRESH_STOP)
+                            }
                         }
                     }
-                })
-
-        }
-
-        Button(modifier = Modifier
-            .padding(bottom = 65.dp, end = 8.dp)
-            .align(Alignment.BottomEnd), onClick = {
-            Log.e(
-                TAG,
-                "HomePage: listState.firstVisibleItemIndex: ${listState.firstVisibleItemIndex}",
-            )
-            coroutineScope.launch {
-                // Animate scroll to the first item
-                listState.animateScrollToItem(index = 0)
-            }
-        }) {
-            Image(
-                painter = painterResource(id = R.drawable.img_to_top_nomal),
-                contentDescription = ""
-            )
-        }
+                }
+            })
     }
 
+    ToTopButton(listState)
 }
