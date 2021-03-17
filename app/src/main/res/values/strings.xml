@@ -109,5 +109,6 @@
     <string name="sign_in_guest">SIGN IN AS GUEST</string>
     <string name="invalid_password">Invalid password</string>
     <string name="invalid_email">Invalid email</string>
+    <string name="share_article">Share Article</string>
 
 </resources>

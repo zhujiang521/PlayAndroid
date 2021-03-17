@@ -108,5 +108,6 @@
 	<string name="sign_in_guest">以访客身份登录</string>
 	<string name="invalid_password">密码无效</string>
 	<string name="invalid_email">账号无效</string>
+	<string name="share_article">分享文章</string>
 
 </resources>

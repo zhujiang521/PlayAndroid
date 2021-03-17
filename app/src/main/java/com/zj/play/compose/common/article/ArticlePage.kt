@@ -12,8 +12,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import com.blankj.utilcode.util.StringUtils
 import com.zj.core.util.getHtmlText
 import com.zj.core.util.showToast
 import com.zj.model.room.entity.Article
@@ -26,10 +28,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 /**
- * Stateful Article Screen that manages state using [produceUiState]
+ * Stateful Article Screen that manages state using produceUiState
  *
- * @param postId (state) the post to show
- * @param postsRepository data source for this screen
+ * @param article article
  * @param onBack (event) request back navigation
  */
 @Suppress("DEPRECATION") // allow ViewModelLifecycleScope call
@@ -49,10 +50,8 @@ fun ArticlePage(
 /**
  * Stateless Article Screen that displays a single post.
  *
- * @param url (state) item to display
+ * @param article article
  * @param onBack (event) request navigate back
- * @param isFavorite (state) is this item currently a favorite
- * @param onToggleFavorite (event) request that this post toggle it's favorite state
  */
 @Composable
 fun ArticleScreen(
@@ -91,7 +90,7 @@ fun ArticleScreen(
         },
         bottomBar = {
             BottomBar(
-                post = article,
+                article = article,
                 onUnimplementedAction = { showDialog = true },
             )
         }
@@ -101,18 +100,16 @@ fun ArticleScreen(
 /**
  * Bottom bar for Article screen
  *
- * @param post (state) used in share sheet to share the post
+ * @param article article
  * @param onUnimplementedAction (event) called when the user performs an unimplemented action
- * @param isFavorite (state) if this post is currently a favorite
- * @param onToggleFavorite (event) request this post toggle it's favorite status
  */
 @Composable
 private fun BottomBar(
-    post: Article?,
+    article: Article?,
     onUnimplementedAction: () -> Unit,
 ) {
 
-    var favoriteIcon by remember { mutableStateOf(if (post?.collect == false) Icons.Filled.FavoriteBorder else Icons.Filled.Favorite) }
+    var favoriteIcon by remember { mutableStateOf(if (article?.collect == false) Icons.Filled.FavoriteBorder else Icons.Filled.Favorite) }
     var loadState by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
     val collectRepository = CollectRepository()
@@ -127,7 +124,7 @@ private fun BottomBar(
             IconButton(onClick = {
                 favoriteIcon = if (favoriteIcon == Icons.Filled.Favorite) {
                     coroutineScope.launch(Dispatchers.IO) {
-                        val cancelCollects = collectRepository.cancelCollects(post?.id ?: 0)
+                        val cancelCollects = collectRepository.cancelCollects(article?.id ?: 0)
                         if (cancelCollects.errorCode == 0) {
                             withContext(Dispatchers.Main) {
                                 showToast(R.string.collection_cancelled_successfully)
@@ -139,7 +136,7 @@ private fun BottomBar(
                     Icons.Filled.FavoriteBorder
                 } else {
                     coroutineScope.launch {
-                        val cancelCollects = collectRepository.toCollects(post?.id ?: 0)
+                        val cancelCollects = collectRepository.toCollects(article?.id ?: 0)
                         if (cancelCollects.errorCode == 0) {
                             withContext(Dispatchers.Main) {
                                 showToast(R.string.collection_successful)
@@ -164,7 +161,7 @@ private fun BottomBar(
                 }
             )
             val context = LocalContext.current
-            IconButton(onClick = { sharePost(post?.link ?: "", context) }) {
+            IconButton(onClick = { sharePost(article?.title ?: "", article?.link ?: "", context) }) {
                 Icon(
                     imageVector = Icons.Filled.Share,
                     contentDescription = "分享"
@@ -192,13 +189,13 @@ private fun FunctionalityNotAvailablePopup(onDismiss: () -> Unit) {
         onDismissRequest = onDismiss,
         text = {
             Text(
-                text = "Functionality not available \uD83D\uDE48",
+                text = stringResource(id = R.string.feature_not_available),
                 style = MaterialTheme.typography.body2
             )
         },
         confirmButton = {
             TextButton(onClick = onDismiss) {
-                Text(text = "CLOSE")
+                Text(text = stringResource(id = R.string.dismiss))
             }
         }
     )
@@ -210,10 +207,16 @@ private fun FunctionalityNotAvailablePopup(onDismiss: () -> Unit) {
  * @param post to share
  * @param context Android context to show the share sheet in
  */
-private fun sharePost(post: String, context: Context) {
+private fun sharePost(title: String, post: String, context: Context) {
     val intent = Intent(Intent.ACTION_SEND).apply {
         type = "text/plain"
+        putExtra(Intent.EXTRA_TITLE, title)
         putExtra(Intent.EXTRA_TEXT, post)
     }
-    context.startActivity(Intent.createChooser(intent, "Share post"))
+    context.startActivity(
+        Intent.createChooser(
+            intent,
+            StringUtils.getString(R.string.share_article)
+        )
+    )
 }
