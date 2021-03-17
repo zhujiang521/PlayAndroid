@@ -2,13 +2,12 @@ package com.zj.play.compose.common
 
 import androidx.compose.material.Icon
 import androidx.compose.material.IconToggleButton
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Bookmark
-import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
+import com.zj.play.R
 
 @Composable
 fun BookmarkButton(
@@ -27,7 +26,9 @@ fun BookmarkButton(
         }
     ) {
         Icon(
-            imageVector = if (isBookmarked) Icons.Filled.Bookmark else Icons.Filled.BookmarkBorder,
+            if (isBookmarked) painterResource(id = R.drawable.ic_baseline_bookmark_24) else painterResource(
+                id = R.drawable.ic_baseline_bookmark_border_24
+            ),
             contentDescription = null // handled by click label of parent
         )
     }

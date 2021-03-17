@@ -54,8 +54,7 @@ fun PlayAppBar(
             Text(
                 modifier = Modifier
                     .weight(1f)
-                    .wrapContentWidth(Alignment.CenterHorizontally)
-                    .padding(horizontal = 60.dp),
+                    .wrapContentWidth(Alignment.CenterHorizontally),
                 text = title,
                 style = MaterialTheme.typography.subtitle1,
                 maxLines = 1,

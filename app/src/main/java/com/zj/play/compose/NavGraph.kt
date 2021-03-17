@@ -116,7 +116,8 @@ class MainActions(navController: NavHostController) {
         article.desc = ""
         article.title = getHtmlText(article.title)
         val gson = Gson().toJson(article).trim()
-        navController.navigate("${MainDestinations.ARTICLE_ROUTE}/$gson")
+        val result = URLEncoder.encode(gson,"utf-8")
+        navController.navigate("${MainDestinations.ARTICLE_ROUTE}/$result")
     }
     val toLogin: () -> Unit = {
         navController.navigate(MainDestinations.LOGIN_ROUTE)

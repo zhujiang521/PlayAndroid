@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape android:shape="rectangle"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <stroke android:width="1dp" android:color="@color/login_pressed_stroke" />
-    <solid android:color="@color/login_pressed_solid" />
-    <corners android:radius="9dp" />
-</shape>

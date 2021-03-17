@@ -21,9 +21,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.mutableStateOf
@@ -31,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -138,14 +136,14 @@ fun Password(
             if (showPassword.value) {
                 IconButton(onClick = { showPassword.value = false }) {
                     Icon(
-                        imageVector = Icons.Filled.Visibility,
+                        painterResource(id = R.drawable.ic_baseline_visibility_24),
                         contentDescription = stringResource(id = R.string.hide_password)
                     )
                 }
             } else {
                 IconButton(onClick = { showPassword.value = true }) {
                     Icon(
-                        imageVector = Icons.Filled.VisibilityOff,
+                        painterResource(id = R.drawable.ic_baseline_visibility_off_24),
                         contentDescription = stringResource(id = R.string.show_password)
                     )
                 }

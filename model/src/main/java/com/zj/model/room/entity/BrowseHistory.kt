@@ -1,10 +1,8 @@
 package com.zj.model.room.entity
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.android.parcel.Parcelize
 
 
 /**
@@ -17,7 +15,6 @@ import kotlinx.android.parcel.Parcelize
  */
 
 @Entity(tableName = "browse_history")
-@Parcelize
 data class Article(
     @PrimaryKey(autoGenerate = true) val uid: Int = 0,
     @ColumnInfo(name = "apk_link") val apkLink: String = "",
@@ -52,7 +49,7 @@ data class Article(
     @ColumnInfo(name = "visible") val visible: Int = 0,
     @ColumnInfo(name = "zan") val zan: Int = 0,
     @ColumnInfo(name = "local_type") var localType: Int = 0
-) : Parcelable
+)
 
 // 历史记录 localType
 const val HISTORY = 10
