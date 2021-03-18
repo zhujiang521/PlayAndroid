@@ -97,7 +97,9 @@ fun ArticleListPage(
             }
         }
     }
-    ToTopButton(listState)
+    if (result is PlaySuccess<*>) {
+        ToTopButton(listState)
+    }
 
 }
 

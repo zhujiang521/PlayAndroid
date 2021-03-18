@@ -133,7 +133,9 @@ fun HomePage(
         }
     }
 
-    ToTopButton(listState)
+    if (articleData is PlaySuccess<*> && bannerData is PlaySuccess<*>) {
+        ToTopButton(listState)
+    }
 }
 
 @Composable
