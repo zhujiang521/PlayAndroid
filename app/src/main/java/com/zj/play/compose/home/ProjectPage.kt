@@ -185,14 +185,28 @@ fun ArticleTabRow(
         }
 
         if (position == 0 && !loadPageState) {
-            projectViewModel.getDataList(
-                QueryArticle(
-                    projectViewModel.page.value ?: 0,
-                    data[0].id,
-                    true
-                )
-            )
+            val value = projectViewModel.dataLiveData.value
+            if (value !is PlaySuccess<*>) {
+                getDataList(projectViewModel, data)
+            } else {
+                val articleList =
+                    value as PlaySuccess<List<Article>>
+                if (articleList.data.isEmpty()) {
+                    getDataList(projectViewModel, data)
+                }
+            }
+
         }
     }
+}
+
+fun getDataList(projectViewModel: BaseAndroidViewModel<QueryArticle>, data: List<ProjectClassify>) {
+    projectViewModel.getDataList(
+        QueryArticle(
+            projectViewModel.page.value ?: 0,
+            data[0].id,
+            true
+        )
+    )
 }
 
