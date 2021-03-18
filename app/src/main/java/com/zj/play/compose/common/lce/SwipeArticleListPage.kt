@@ -12,6 +12,7 @@ import com.zj.play.compose.common.SwipeToRefreshAndLoadLayout
 import com.zj.play.compose.common.article.ArticleItem
 import com.zj.play.compose.model.*
 import com.zj.play.compose.viewmodel.BaseAndroidViewModel
+import com.zj.play.compose.viewmodel.BaseViewModel
 import com.zj.play.compose.viewmodel.REFRESH_START
 import com.zj.play.compose.viewmodel.REFRESH_STOP
 
@@ -26,7 +27,44 @@ fun SwipeArticleListPage(
     onErrorClick: () -> Unit,
     noContent: @Composable () -> Unit
 ) {
+    val articleData by viewModel.dataLiveData.observeAsState(PlayLoading)
+    BaseSwipeListPage(
+        viewModel = viewModel,
+        onRefresh = onRefresh,
+        onLoad = onLoad,
+        onErrorClick = onErrorClick) {
+        val articleList =
+            articleData as PlaySuccess<List<Article>>
+        if (articleList.data.isEmpty()) {
+            noContent()
+            return@BaseSwipeListPage
+        }
+        LazyColumn(
+            modifier = modifier,
+            state = listState
+        ) {
+            itemsIndexed(articleList.data) { index, article ->
+                ArticleItem(
+                    article,
+                    index,
+                    enterArticle = { urlArgs ->
+                        enterArticle(
+                            urlArgs
+                        )
+                    })
+            }
+        }
+    }
+}
 
+@Composable
+fun  BaseSwipeListPage(
+    viewModel: BaseViewModel,
+    onRefresh: () -> Unit,
+    onLoad: () -> Unit,
+    onErrorClick: () -> Unit,
+    onSuccessContent: @Composable() () -> Unit
+) {
     val refresh by viewModel.refreshState.observeAsState()
     val loadRefresh by viewModel.loadRefreshState.observeAsState()
     val articleData by viewModel.dataLiveData.observeAsState(PlayLoading)
@@ -42,28 +80,7 @@ fun SwipeArticleListPage(
             ) {
                 viewModel.onLoadRefreshStateChanged(REFRESH_STOP)
                 viewModel.onRefreshChanged(REFRESH_STOP)
-                val articleList =
-                    articleData as PlaySuccess<List<Article>>
-                if (articleList.data.isEmpty()) {
-                    noContent()
-                    return@SetLcePage
-                }
-                LazyColumn(
-                    modifier = modifier,
-                    state = listState
-                ) {
-                    itemsIndexed(articleList.data) { index, article ->
-                        ArticleItem(
-                            article,
-                            index,
-                            enterArticle = { urlArgs ->
-                                enterArticle(
-                                    urlArgs
-                                )
-                            })
-                    }
-                }
+                onSuccessContent()
             }
         })
-
 }

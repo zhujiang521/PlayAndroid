@@ -34,6 +34,11 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
         _loadRefreshState.postValue(refresh)
     }
 
+    protected val mutableLiveData = MutableLiveData<PlayState>()
+
+    val dataLiveData: LiveData<PlayState>
+        get() = mutableLiveData
+
 }
 
 abstract class BaseAndroidViewModel<Key>(application: Application) :
@@ -49,11 +54,6 @@ abstract class BaseAndroidViewModel<Key>(application: Application) :
     fun onPageChanged(refresh: Int) {
         _page.postValue(refresh)
     }
-
-    protected val mutableLiveData = MutableLiveData<PlayState>()
-
-    val dataLiveData: LiveData<PlayState>
-        get() = mutableLiveData
 
     abstract suspend fun getData(page: Key)
 

@@ -24,11 +24,6 @@ class HomePageViewModel(application: Application) : BaseViewModel(application) {
 
     private val homeRepository: HomeRepository = HomeRepository(application)
 
-    private val _state = MutableLiveData<PlayState>()
-
-    val state: LiveData<PlayState>
-        get() = _state
-
     private val _bannerState = MutableLiveData<PlayState>()
 
     val bannerState: LiveData<PlayState>
@@ -54,7 +49,7 @@ class HomePageViewModel(application: Application) : BaseViewModel(application) {
     fun getArticleList(isLoad: Boolean = false, isRefresh: Boolean = true) {
         viewModelScope.launch(Dispatchers.IO) {
             homeRepository.getArticleList(
-                _state,
+                mutableLiveData,
                 _articleDataList,
                 QueryHomeArticle(page.value ?: 0, isRefresh),
                 isLoad
