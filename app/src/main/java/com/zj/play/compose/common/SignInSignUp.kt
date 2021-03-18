@@ -42,7 +42,7 @@ import com.zj.play.compose.common.signin.TextFieldState
 @Composable
 fun SignInSignUpScreen(
     modifier: Modifier = Modifier,
-    content: @Composable() () -> Unit
+    content: @Composable () -> Unit
 ) {
     LazyColumn(modifier = modifier) {
         item {

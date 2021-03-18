@@ -1,15 +1,18 @@
 package com.zj.play.compose.home
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
@@ -20,17 +23,14 @@ import com.zj.core.util.showToast
 import com.zj.model.room.entity.Article
 import com.zj.play.R
 import com.zj.play.compose.MainActions
-import com.zj.play.compose.common.SwipeToRefreshAndLoadLayout
-import com.zj.play.compose.common.article.ArticleItem
 import com.zj.play.compose.common.article.ToTopButton
 import com.zj.play.compose.common.lce.NoContent
-import com.zj.play.compose.common.lce.SetLcePage
 import com.zj.play.compose.common.lce.SwipeArticleListPage
 import com.zj.play.compose.common.signin.TextFieldState
-import com.zj.play.compose.model.PlayLoading
-import com.zj.play.compose.model.PlaySuccess
 import com.zj.play.compose.model.QueryArticle
-import com.zj.play.compose.viewmodel.*
+import com.zj.play.compose.viewmodel.ArticleListViewModel
+import com.zj.play.compose.viewmodel.BaseAndroidViewModel
+import com.zj.play.compose.viewmodel.REFRESH_START
 import dev.chrisbanes.accompanist.insets.statusBarsHeight
 
 @Composable

@@ -21,7 +21,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Search
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -32,7 +33,6 @@ import com.zj.model.room.entity.BannerBean
 import com.zj.play.R
 import com.zj.play.compose.MainActions
 import com.zj.play.compose.common.PlayAppBar
-import com.zj.play.compose.common.SwipeToRefreshAndLoadLayout
 import com.zj.play.compose.common.article.ArticleItem
 import com.zj.play.compose.common.article.PostCardPopular
 import com.zj.play.compose.common.article.ToTopButton
@@ -64,8 +64,7 @@ fun HomePage(
     val loadRefresh by viewModel.loadRefreshState.observeAsState()
 
     if (refresh != REFRESH_START && loadRefresh != REFRESH_START) {
-        viewModel.getArticleList(isRefresh = false)
-        viewModel.getBanner()
+        viewModel.getData(isRefresh = false)
     }
 
     val listState = rememberLazyListState()
@@ -84,26 +83,22 @@ fun HomePage(
             onRefresh = {
                 Log.e(TAG, "onRefresh: 开始刷新")
                 viewModel.onPageChanged(0)
-                viewModel.getBanner()
-                viewModel.getArticleList()
+                viewModel.getData()
                 viewModel.onRefreshChanged(REFRESH_START)
             },
             onLoad = {
                 Log.e(TAG, "onLoad: 上拉加载")
                 viewModel.onLoadRefreshStateChanged(REFRESH_START)
                 viewModel.onPageChanged((viewModel.page.value ?: 0) + 1)
-                viewModel.getArticleList()
+                viewModel.getData(isLoad = true)
             },
             onErrorClick = {
-                viewModel.getArticleList()
-                viewModel.getBanner()
+                viewModel.getData()
             }) {
             SetLcePage(
                 playState = bannerData,
                 onErrorClick = {
-                    viewModel.onPageChanged(0)
-                    viewModel.getBanner()
-                    viewModel.getArticleList()
+                    viewModel.getData()
                 }
             ) {
                 val data = bannerData as PlaySuccess<List<BannerBean>>
@@ -128,7 +123,6 @@ fun HomePage(
                     )
                 }
             }
-
 
         }
     }

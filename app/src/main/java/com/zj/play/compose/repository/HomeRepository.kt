@@ -198,7 +198,9 @@ class HomeRepository constructor(val application: Application) {
             res = value.value ?: arrayListOf()
             val articleListDeferred = PlayAndroidNetwork.getArticleList(query.page)
             if (articleListDeferred.errorCode == 0) {
-                res.addAll(articleListDeferred.data.datas)
+                if (!res.contains(articleListDeferred.data.datas[0])) {
+                    res.addAll(articleListDeferred.data.datas)
+                }
                 state.postValue(PlaySuccess<List<Article>>(res))
                 value.postValue(res)
             } else {

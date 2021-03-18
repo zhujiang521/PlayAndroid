@@ -40,14 +40,11 @@ class HomePageViewModel(application: Application) : BaseViewModel(application) {
         _page.postValue(refresh)
     }
 
-    fun getBanner() {
+    fun getData(isLoad: Boolean = false, isRefresh: Boolean = true) {
         viewModelScope.launch(Dispatchers.IO) {
-            homeRepository.getBanner(_bannerState)
-        }
-    }
-
-    fun getArticleList(isLoad: Boolean = false, isRefresh: Boolean = true) {
-        viewModelScope.launch(Dispatchers.IO) {
+            if (!isLoad) {
+                homeRepository.getBanner(_bannerState)
+            }
             homeRepository.getArticleList(
                 mutableLiveData,
                 _articleDataList,

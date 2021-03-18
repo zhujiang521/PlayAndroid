@@ -102,38 +102,15 @@ abstract class ArticleRepository(application: Application) {
                 state.postValue(PlaySuccess(res))
                 value.postValue(res)
             } else {
-                val projectTree = getArticleList(query.page, query.cid)
-                if (projectTree.errorCode == 0) {
-                    if (articleListForChapterId.isNotEmpty() && articleListForChapterId[0].link == projectTree.data.datas[0].link && !query.isRefresh) {
-                        res.addAll(articleListForChapterId)
-                        state.postValue(PlaySuccess(res))
-                        value.postValue(res)
-                    } else {
-                        projectTree.data.datas.forEach {
-                            it.localType = getLocalType()
-                        }
-                        DataStoreUtils.saveLongData(
-                            getFlag(),
-                            System.currentTimeMillis()
-                        )
-                        if (query.isRefresh) {
-                            articleListDao.deleteAll(getLocalType(), query.cid)
-                        }
-                        articleListDao.insertList(projectTree.data.datas)
-                        res.addAll(projectTree.data.datas)
-                        state.postValue(PlaySuccess(res))
-                        value.postValue(res)
-                    }
-                } else {
-                    state.postValue(PlayError(NetworkErrorException("")))
-                    value.postValue(res)
-                }
+                getFirstArticleList(state, value, query, res, articleListForChapterId)
             }
         } else {
             res = value.value ?: arrayListOf()
-            val projectTree = getArticleList(query.page, query.cid)
-            if (projectTree.errorCode == 0) {
-                res.addAll(projectTree.data.datas)
+            val articleList = getArticleList(query.page, query.cid)
+            if (articleList.errorCode == 0) {
+                if (!res.contains(articleList.data.datas[0])) {
+                    res.addAll(articleList.data.datas)
+                }
                 state.postValue(PlaySuccess(res))
                 value.postValue(res)
             } else {
@@ -141,6 +118,41 @@ abstract class ArticleRepository(application: Application) {
             }
         }
 
+    }
+
+    private suspend fun getFirstArticleList(
+        state: MutableLiveData<PlayState>,
+        value: MutableLiveData<java.util.ArrayList<Article>>,
+        query: QueryArticle,
+        res: java.util.ArrayList<Article>,
+        articleListForChapterId: List<Article>
+    ) {
+        val articleList = getArticleList(query.page, query.cid)
+        if (articleList.errorCode == 0) {
+            if (articleListForChapterId.isNotEmpty() && articleListForChapterId[0].link == articleList.data.datas[0].link && !query.isRefresh) {
+                res.addAll(articleListForChapterId)
+                state.postValue(PlaySuccess(res))
+                value.postValue(res)
+            } else {
+                articleList.data.datas.forEach {
+                    it.localType = getLocalType()
+                }
+                DataStoreUtils.saveLongData(
+                    getFlag(),
+                    System.currentTimeMillis()
+                )
+                if (query.isRefresh) {
+                    articleListDao.deleteAll(getLocalType(), query.cid)
+                }
+                articleListDao.insertList(articleList.data.datas)
+                res.addAll(articleList.data.datas)
+                state.postValue(PlaySuccess(res))
+                value.postValue(res)
+            }
+        } else {
+            state.postValue(PlayError(NetworkErrorException("")))
+            value.postValue(res)
+        }
     }
 
 }
