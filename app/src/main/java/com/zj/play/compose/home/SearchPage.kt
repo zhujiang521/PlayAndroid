@@ -1,15 +1,13 @@
 package com.zj.play.compose.home
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.*
@@ -102,44 +100,78 @@ fun SwipeArticleList(
 fun SearchTitleBar(searchState: TextFieldState, upPress: () -> Unit, onSearch: () -> Unit) {
     Column(modifier = Modifier.background(color = MaterialTheme.colors.primary)) {
         Spacer(Modifier.statusBarsHeight())
-        TopAppBar(elevation = 0.dp, modifier = Modifier.height(48.dp)) {
-            IconButton(
-                modifier = Modifier
-                    .wrapContentWidth(Alignment.Start),
-                onClick = upPress
-            ) {
-                Icon(
-                    imageVector = Icons.Rounded.ArrowBack,
-                    contentDescription = "back"
-                )
-            }
-            // TODO hint
-            BasicTextField(
-                value = searchState.text,
-                onValueChange = {
-                    searchState.text = it
-                },
-                textStyle = MaterialTheme.typography.subtitle1.copy(
-                    color = LocalContentColor.current
-                ),
-                maxLines = 1,
-                cursorBrush = SolidColor(LocalContentColor.current),
-                modifier = Modifier
-                    .weight(1f)
-                    .align(Alignment.CenterVertically),
-            )
-            IconButton(
-                modifier = Modifier.align(Alignment.CenterVertically),
-                onClick = {
-                    onSearch()
-                    showToast("搜索:${searchState.text}")
+        Box(
+            modifier = Modifier
+                .height(48.dp)
+                .fillMaxWidth()
+        ) {
+            TopAppBar(elevation = 0.dp, modifier = Modifier.height(48.dp)) {
+                IconButton(
+                    modifier = Modifier
+                        .wrapContentWidth(Alignment.Start),
+                    onClick = upPress
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.ArrowBack,
+                        contentDescription = "back"
+                    )
                 }
-            ) {
-                Icon(
-                    imageVector = Icons.Rounded.Search,
-                    contentDescription = ""
+                BasicTextField(
+                    value = searchState.text,
+                    onValueChange = {
+                        searchState.text = it
+                    },
+                    textStyle = MaterialTheme.typography.subtitle1.copy(
+                        color = LocalContentColor.current
+                    ),
+                    maxLines = 1,
+                    cursorBrush = SolidColor(LocalContentColor.current),
+                    modifier = Modifier
+                        .weight(1f)
+                        .align(Alignment.CenterVertically),
                 )
+                IconButton(
+                    modifier = Modifier.align(Alignment.CenterVertically),
+                    onClick = {
+                        onSearch()
+                        showToast("搜索:${searchState.text}")
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Search,
+                        contentDescription = ""
+                    )
+                }
+
+            }
+            if (searchState.text.isEmpty()) {
+                Box(
+                    modifier = Modifier
+                        .height(48.dp)
+                        .fillMaxWidth()
+                ) {
+                    SearchHint()
+                }
             }
         }
+    }
+}
+
+@Composable
+private fun SearchHint() {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxSize()
+            .wrapContentSize()
+    ) {
+        Icon(
+            imageVector = Icons.Outlined.Search,
+            contentDescription = ""
+        )
+        Spacer(Modifier.width(8.dp))
+        Text(
+            text = "请输入关键字",
+        )
     }
 }

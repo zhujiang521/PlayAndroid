@@ -36,7 +36,7 @@ import com.zj.play.compose.common.NetworkImage
 private const val TAG = "PostCardYourNetwork"
 
 @Composable
-fun PostCardPopular(
+fun Banner(
     bannerBean: BannerBean,
     navigateTo: (Article) -> Unit,
     modifier: Modifier = Modifier

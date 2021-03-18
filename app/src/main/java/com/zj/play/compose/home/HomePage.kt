@@ -34,7 +34,7 @@ import com.zj.play.R
 import com.zj.play.compose.MainActions
 import com.zj.play.compose.common.PlayAppBar
 import com.zj.play.compose.common.article.ArticleItem
-import com.zj.play.compose.common.article.PostCardPopular
+import com.zj.play.compose.common.article.Banner
 import com.zj.play.compose.common.article.ToTopButton
 import com.zj.play.compose.common.lce.BaseSwipeListPage
 import com.zj.play.compose.common.lce.SetLcePage
@@ -107,7 +107,7 @@ fun HomePage(
                         modifier = Modifier.padding(end = 16.dp),
                     ) {
                         items(data.data) {
-                            PostCardPopular(
+                            Banner(
                                 it,
                                 actions.enterArticle,
                                 Modifier.padding(start = 16.dp, bottom = 16.dp)
