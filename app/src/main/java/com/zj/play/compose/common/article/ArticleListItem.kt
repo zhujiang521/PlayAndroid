@@ -64,7 +64,7 @@ fun ArticleListItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     shape: Shape = RectangleShape,
-    elevation: Dp = 0.dp,
+    elevation: Dp = 1.dp,
     titleStyle: TextStyle = MaterialTheme.typography.subtitle1
 ) {
     Surface(

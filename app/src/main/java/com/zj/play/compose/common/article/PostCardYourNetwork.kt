@@ -16,24 +16,31 @@
 
 package com.zj.play.compose.common.article
 
+import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.painter.BitmapPainter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.blankj.utilcode.util.ImageUtils
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.BannerBean
 import com.zj.play.compose.common.NetworkImage
 
+private const val TAG = "PostCardYourNetwork"
+
 @Composable
 fun PostCardPopular(
-    article: BannerBean,
+    bannerBean: BannerBean,
     navigateTo: (Article) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -41,40 +48,32 @@ fun PostCardPopular(
         shape = MaterialTheme.shapes.medium,
         modifier = modifier.size(300.dp, 180.dp)
     ) {
-        Column(modifier = Modifier.clickable(onClick = {
-            navigateTo(
-                Article(
-                    title = article.title,
-                    link = article.url
+        val imgModifier = Modifier
+            .size(300.dp, 180.dp)
+            .clickable(onClick = {
+                navigateTo(
+                    Article(
+                        title = bannerBean.title,
+                        link = bannerBean.url
+                    )
                 )
-            )
-        })) {
+            })
+        if (bannerBean.filePath == "") {
+            Log.e(TAG, "PostCardPopular: 加载网络图片")
             NetworkImage(
-                url = article.imagePath,
+                url = bannerBean.imagePath,
                 contentDescription = null,
-                modifier = Modifier
-                    .size(300.dp, 180.dp)
+                modifier = imgModifier
             )
-
-            Column(modifier = Modifier.padding(16.dp)) {
-                Text(
-                    text = article.title,
-                    style = MaterialTheme.typography.h6,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Text(
-                    text = article.title,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.body2
-                )
-
-                Text(
-                    text = "${article.type} - ",
-                    style = MaterialTheme.typography.body2
-                )
-            }
+        } else {
+            Log.e(TAG, "PostCardPopular: 加载本地图片")
+            val bitmap = ImageUtils.getBitmap(bannerBean.filePath)
+            Image(
+                modifier = imgModifier,
+                painter = BitmapPainter(bitmap.asImageBitmap()),
+                contentDescription = "",
+                contentScale = ContentScale.Crop
+            )
         }
     }
 }

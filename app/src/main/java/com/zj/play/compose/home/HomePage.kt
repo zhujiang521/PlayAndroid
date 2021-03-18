@@ -98,21 +98,38 @@ fun HomePage(
                 viewModel.getArticleList()
                 viewModel.getBanner()
             }) {
-            val data = bannerData as PlaySuccess<List<BannerBean>>
-            Column {
-                LazyRow(
-                    modifier = Modifier.padding(end = 16.dp),
-                ) {
-                    items(data.data) {
-                        PostCardPopular(
-                            it,
-                            actions.enterArticle,
-                            Modifier.padding(start = 16.dp, bottom = 16.dp)
-                        )
-                    }
+            SetLcePage(
+                playState = bannerData,
+                onErrorClick = {
+                    viewModel.onPageChanged(0)
+                    viewModel.getBanner()
+                    viewModel.getArticleList()
                 }
-                HomeArticleList(modifier, articleData, listState, viewModel, actions.enterArticle)
+            ) {
+                val data = bannerData as PlaySuccess<List<BannerBean>>
+                Column {
+                    LazyRow(
+                        modifier = Modifier.padding(end = 16.dp),
+                    ) {
+                        items(data.data) {
+                            PostCardPopular(
+                                it,
+                                actions.enterArticle,
+                                Modifier.padding(start = 16.dp, bottom = 16.dp)
+                            )
+                        }
+                    }
+                    HomeArticleList(
+                        modifier,
+                        articleData,
+                        listState,
+                        viewModel,
+                        actions.enterArticle
+                    )
+                }
             }
+
+
         }
     }
 
