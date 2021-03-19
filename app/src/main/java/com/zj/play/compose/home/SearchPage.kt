@@ -78,7 +78,7 @@ fun SwipeArticleList(
             viewModel.getDataList(
                 QueryArticle(
                     (viewModel.page.value ?: 0) + 1,
-                    k = searchState.text
+                    k = searchState.text, isLoad = true
                 )
             )
             viewModel.onLoadRefreshStateChanged(REFRESH_START)

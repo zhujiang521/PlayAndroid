@@ -22,7 +22,7 @@ class OfficialListViewModel(application: Application) :
     private val officialRepository = OfficialRepository(application)
 
     override suspend fun getData(page: QueryArticle) {
-        return officialRepository.getWxArticle(mutableLiveData, _articleDataList, page)
+        return officialRepository.getWxArticle(mutableLiveData, _articleDataList, page, page.isLoad)
     }
 
 }

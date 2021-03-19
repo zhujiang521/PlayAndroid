@@ -2,6 +2,7 @@ package com.zj.play.compose.repository
 
 import android.accounts.NetworkErrorException
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.NetworkUtils
 import com.zj.core.util.DataStoreUtils
@@ -29,6 +30,10 @@ import kotlinx.coroutines.flow.first
  *
  */
 abstract class ArticleRepository(application: Application) {
+
+    companion object {
+        private const val TAG = "ArticleRepository"
+    }
 
     private val projectClassifyDao = PlayDatabase.getDatabase(application).projectClassifyDao()
     private val articleListDao = PlayDatabase.getDatabase(application).browseHistoryDao()
@@ -78,16 +83,22 @@ abstract class ArticleRepository(application: Application) {
     suspend fun getArticleList(
         state: MutableLiveData<PlayState>,
         value: MutableLiveData<ArrayList<Article>>,
-        query: QueryArticle
+        query: QueryArticle,
+        isLoad: Boolean
     ) {
-        state.postValue(PlayLoading)
+        if (!isLoad) {
+            state.postValue(PlayLoading)
+        }
+        Log.e(TAG, "getArticleList: isLoad:$isLoad   query:$query")
         if (!NetworkUtils.isConnected()) {
             showToast(R.string.no_network)
             state.postValue(PlayError(NetworkErrorException("网络未🔗")))
             return
         }
+        Log.e(TAG, "getArticleList: 111")
         val res: java.util.ArrayList<Article>
         if (query.page == 0) {
+            Log.e(TAG, "getArticleList: 222")
             res = arrayListOf()
             val dataStore = DataStoreUtils
             val articleListForChapterId =
@@ -101,19 +112,24 @@ abstract class ArticleRepository(application: Application) {
                 res.addAll(articleListForChapterId)
                 state.postValue(PlaySuccess(res))
                 value.postValue(res)
+                Log.e(TAG, "getArticleList: 222 : ${res.size}")
             } else {
                 getFirstArticleList(state, value, query, res, articleListForChapterId)
+                Log.e(TAG, "getArticleList: 333 : ${res.size}")
             }
         } else {
+            Log.e(TAG, "getArticleList: 444")
             res = value.value ?: arrayListOf()
             val articleList = getArticleList(query.page, query.cid)
             if (articleList.errorCode == 0) {
-                if (!res.contains(articleList.data.datas[0])) {
+                if (articleList.data.datas.isNotEmpty() && !res.contains(articleList.data.datas[0])) {
                     res.addAll(articleList.data.datas)
                 }
-                state.postValue(PlaySuccess(res))
                 value.postValue(res)
+                state.postValue(PlaySuccess(res))
+                Log.e(TAG, "getArticleList: 555 : ${res.size}")
             } else {
+                Log.e(TAG, "getArticleList: 666 : ${res.size}")
                 state.postValue(PlayError(NetworkErrorException("")))
             }
         }
@@ -127,12 +143,14 @@ abstract class ArticleRepository(application: Application) {
         res: java.util.ArrayList<Article>,
         articleListForChapterId: List<Article>
     ) {
+        Log.e(TAG, "getFirstArticleList: 777")
         val articleList = getArticleList(query.page, query.cid)
         if (articleList.errorCode == 0) {
             if (articleListForChapterId.isNotEmpty() && articleListForChapterId[0].link == articleList.data.datas[0].link && !query.isRefresh) {
                 res.addAll(articleListForChapterId)
                 state.postValue(PlaySuccess(res))
                 value.postValue(res)
+                Log.e(TAG, "getFirstArticleList: 888:${res.size}")
             } else {
                 articleList.data.datas.forEach {
                     it.localType = getLocalType()
@@ -148,10 +166,12 @@ abstract class ArticleRepository(application: Application) {
                 res.addAll(articleList.data.datas)
                 state.postValue(PlaySuccess(res))
                 value.postValue(res)
+                Log.e(TAG, "getFirstArticleList: 999:${res.size}")
             }
         } else {
             state.postValue(PlayError(NetworkErrorException("")))
             value.postValue(res)
+            Log.e(TAG, "getFirstArticleList: 101010:${res.size}")
         }
     }
 

@@ -1,5 +1,6 @@
 package com.zj.play.compose.common.lce
 
+import android.util.Log
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -16,6 +17,8 @@ import com.zj.play.compose.viewmodel.BaseViewModel
 import com.zj.play.compose.viewmodel.REFRESH_START
 import com.zj.play.compose.viewmodel.REFRESH_STOP
 
+private const val TAG = "SwipeArticleListPage"
+
 @Composable
 fun SwipeArticleListPage(
     modifier: Modifier = Modifier,
@@ -27,15 +30,13 @@ fun SwipeArticleListPage(
     onErrorClick: () -> Unit,
     noContent: @Composable () -> Unit
 ) {
-    val articleData by viewModel.dataLiveData.observeAsState(PlayLoading)
     BaseSwipeListPage(
         viewModel = viewModel,
         onRefresh = onRefresh,
         onLoad = onLoad,
-        onErrorClick = onErrorClick) {
-        val articleList =
-            articleData as PlaySuccess<List<Article>>
-        if (articleList.data.isEmpty()) {
+        onErrorClick = onErrorClick
+    ) {
+        if (it.isEmpty()) {
             noContent()
             return@BaseSwipeListPage
         }
@@ -43,7 +44,8 @@ fun SwipeArticleListPage(
             modifier = modifier,
             state = listState
         ) {
-            itemsIndexed(articleList.data) { index, article ->
+            Log.e(TAG, "SwipeArticleListPage: articleList.data:${it.size}")
+            itemsIndexed(it) { index, article ->
                 ArticleItem(
                     article,
                     index,
@@ -58,16 +60,17 @@ fun SwipeArticleListPage(
 }
 
 @Composable
-fun  BaseSwipeListPage(
+fun BaseSwipeListPage(
     viewModel: BaseViewModel,
     onRefresh: () -> Unit,
     onLoad: () -> Unit,
     onErrorClick: () -> Unit,
-    onSuccessContent: @Composable() () -> Unit
+    onSuccessContent: @Composable (articleList: List<Article>) -> Unit
 ) {
     val refresh by viewModel.refreshState.observeAsState()
     val loadRefresh by viewModel.loadRefreshState.observeAsState()
     val articleData by viewModel.dataLiveData.observeAsState(PlayLoading)
+    Log.e(TAG, "BaseSwipeListPage: articleData:${articleData.javaClass}")
     SwipeToRefreshAndLoadLayout(
         refreshingState = refresh == REFRESH_START,
         loadState = loadRefresh == REFRESH_START,
@@ -78,9 +81,11 @@ fun  BaseSwipeListPage(
                 playState = articleData,
                 onErrorClick = onErrorClick
             ) {
+                val articleList = (articleData as PlaySuccess<List<Article>>).data
+                Log.e(TAG, "BaseSwipeListPage: ${articleList.size}")
                 viewModel.onLoadRefreshStateChanged(REFRESH_STOP)
                 viewModel.onRefreshChanged(REFRESH_STOP)
-                onSuccessContent()
+                onSuccessContent(articleList)
             }
         })
 }

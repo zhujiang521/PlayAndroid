@@ -16,5 +16,6 @@ data class QueryArticle(
     var page: Int,
     var cid: Int = -1,
     var isRefresh: Boolean = false,
+    var isLoad: Boolean = false,
     var k: String = ""
 )

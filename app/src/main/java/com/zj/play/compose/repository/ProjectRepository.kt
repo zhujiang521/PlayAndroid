@@ -53,9 +53,10 @@ class ProjectRepository constructor(val application: Application) :
     suspend fun getProject(
         state: MutableLiveData<PlayState>,
         value: MutableLiveData<ArrayList<Article>>,
-        query: QueryArticle
+        query: QueryArticle,
+        isLoad: Boolean
     ) {
-        super.getArticleList(state, value, query)
+        super.getArticleList(state, value, query, isLoad)
     }
 
 }

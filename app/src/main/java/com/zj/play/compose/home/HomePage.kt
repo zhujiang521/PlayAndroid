@@ -21,8 +21,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Search
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -63,8 +62,12 @@ fun HomePage(
 
     val loadRefresh by viewModel.loadRefreshState.observeAsState()
 
-    if (refresh != REFRESH_START && loadRefresh != REFRESH_START) {
-        viewModel.getData(isRefresh = false)
+    var loadArticleState by remember { mutableStateOf(false) }
+
+    if (refresh != REFRESH_START && loadRefresh != REFRESH_START && !loadArticleState) {
+        loadArticleState = true
+        viewModel.getData()
+        Log.e(TAG, "HomePage: 000")
     }
 
     val listState = rememberLazyListState()
@@ -81,24 +84,28 @@ fun HomePage(
         BaseSwipeListPage(
             viewModel = viewModel,
             onRefresh = {
-                Log.e(TAG, "onRefresh: 开始刷新")
+                //Log.e(TAG, "onRefresh: 开始刷新")
                 viewModel.onPageChanged(0)
                 viewModel.getData()
+                Log.e(TAG, "HomePage: 111")
                 viewModel.onRefreshChanged(REFRESH_START)
             },
             onLoad = {
-                Log.e(TAG, "onLoad: 上拉加载")
+                //Log.e(TAG, "onLoad: 上拉加载")
                 viewModel.onLoadRefreshStateChanged(REFRESH_START)
                 viewModel.onPageChanged((viewModel.page.value ?: 0) + 1)
                 viewModel.getData(isLoad = true)
+                Log.e(TAG, "HomePage: 222")
             },
             onErrorClick = {
                 viewModel.getData()
+                Log.e(TAG, "HomePage: 333")
             }) {
             SetLcePage(
                 playState = bannerData,
                 onErrorClick = {
                     viewModel.getData()
+                    Log.e(TAG, "HomePage: 444")
                 }
             ) {
                 val data = bannerData as PlaySuccess<List<BannerBean>>
@@ -120,7 +127,9 @@ fun HomePage(
                         listState,
                         viewModel,
                         actions.enterArticle
-                    )
+                    ) {
+                        loadArticleState = true
+                    }
                 }
             }
 
@@ -138,7 +147,8 @@ fun HomeArticleList(
     articleData: PlayState,
     listState: LazyListState,
     viewModel: HomePageViewModel,
-    enterArticle: (Article) -> Unit
+    enterArticle: (Article) -> Unit,
+    onLoadFinish: () -> Unit
 ) {
     when (articleData) {
         PlayLoading -> {
@@ -170,6 +180,7 @@ fun HomeArticleList(
                         })
                 }
             }
+            onLoadFinish()
         }
         is PlayError -> {
             Spacer(modifier = Modifier.height(0.dp))

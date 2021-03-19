@@ -51,9 +51,10 @@ class SearchRepository(application: Application) {
         state: MutableLiveData<PlayState>,
         value: MutableLiveData<ArrayList<Article>>,
         page: Int,
-        k: String
+        k: String,
+        isLoad: Boolean
     ) {
-        state.postValue(PlayLoading)
+        if (!isLoad) state.postValue(PlayLoading)
         val res: ArrayList<Article>
         val articleList = PlayAndroidNetwork.getQueryArticleList(page, k)
         if (page == 1) {

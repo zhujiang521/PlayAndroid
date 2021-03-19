@@ -18,22 +18,28 @@ package com.zj.play.compose.home
 
 import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ScrollableTabRow
+import androidx.compose.material.Tab
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.zj.play.compose.model.QueryArticle
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.ProjectClassify
 import com.zj.play.compose.common.article.ToTopButton
-import com.zj.play.compose.common.lce.*
+import com.zj.play.compose.common.lce.SetLcePage
+import com.zj.play.compose.common.lce.SwipeArticleListPage
 import com.zj.play.compose.model.PlayLoading
 import com.zj.play.compose.model.PlaySuccess
+import com.zj.play.compose.model.QueryArticle
 import com.zj.play.compose.viewmodel.*
 import dev.chrisbanes.accompanist.insets.statusBarsHeight
 
@@ -70,6 +76,7 @@ fun ArticleListPage(
     val loadRefresh by viewModel.loadRefreshState.observeAsState()
 
     if (!loadState && refresh != REFRESH_START && loadRefresh != REFRESH_START) {
+        loadState = true
         viewModel.getDataList(false)
     }
     val result by viewModel.dataLiveData.observeAsState(PlayLoading)
@@ -83,11 +90,12 @@ fun ArticleListPage(
         }) {
             loadState = true
             val data = (result as PlaySuccess<List<ProjectClassify>>).data
-            ArticleTabRow(data, loadPageState, position, viewModel, projectViewModel)
+            ArticleTabRow(data, loadPageState, position, viewModel, projectViewModel) {
+                loadPageState = true
+            }
             ArticleSwipeList(
                 modifier,
                 data,
-                viewModel,
                 projectViewModel,
                 position,
                 listState,
@@ -97,6 +105,7 @@ fun ArticleListPage(
             }
         }
     }
+
     if (result is PlaySuccess<*>) {
         ToTopButton(listState)
     }
@@ -107,7 +116,6 @@ fun ArticleListPage(
 fun ArticleSwipeList(
     modifier: Modifier,
     data: List<ProjectClassify>,
-    viewModel: BaseAndroidViewModel<Boolean>,
     projectViewModel: BaseAndroidViewModel<QueryArticle>,
     position: Int?,
     listState: LazyListState,
@@ -120,7 +128,7 @@ fun ArticleSwipeList(
         listState = listState,
         enterArticle = enterArticle,
         onRefresh = {
-            viewModel.onPageChanged(0)
+            projectViewModel.onPageChanged(0)
             projectViewModel.onRefreshChanged(REFRESH_START)
             Log.e(TAG, "onRefresh: 开始刷新")
             projectViewModel.getDataList(
@@ -132,24 +140,25 @@ fun ArticleSwipeList(
             )
         },
         onLoad = {
-            viewModel.onPageChanged((viewModel.page.value ?: 1) + 1)
             projectViewModel.onLoadRefreshStateChanged(REFRESH_START)
+            projectViewModel.onPageChanged((projectViewModel.page.value ?: 1) + 1)
             projectViewModel.getDataList(
                 QueryArticle(
-                    viewModel.page.value ?: 0,
+                    (projectViewModel.page.value ?: 0) + 1,
                     data[position ?: 0].id,
-                    true
+                    false,
+                    isLoad = true
                 )
             )
         },
         onErrorClick = {
-            viewModel.onLoadRefreshStateChanged(REFRESH_STOP)
-            viewModel.onRefreshChanged(REFRESH_STOP)
+            projectViewModel.onLoadRefreshStateChanged(REFRESH_STOP)
+            projectViewModel.onRefreshChanged(REFRESH_STOP)
             projectViewModel.getDataList(
                 QueryArticle(
                     0,
                     data[position ?: 0].id,
-                    true
+                    false
                 )
             )
             onErrorClick()
@@ -162,7 +171,8 @@ fun ArticleTabRow(
     loadPageState: Boolean,
     position: Int?,
     viewModel: BaseAndroidViewModel<Boolean>,
-    projectViewModel: BaseAndroidViewModel<QueryArticle>
+    projectViewModel: BaseAndroidViewModel<QueryArticle>,
+    onLoadFinish: () -> Unit
 ) {
     ScrollableTabRow(
         selectedTabIndex = position ?: 0,
@@ -178,7 +188,7 @@ fun ArticleTabRow(
                         QueryArticle(
                             0,
                             projectClassify.id,
-                            true
+                            false
                         )
                     )
                     viewModel.onPositionChanged(index)
@@ -187,6 +197,7 @@ fun ArticleTabRow(
         }
 
         if (position == 0 && !loadPageState) {
+            onLoadFinish()
             val value = projectViewModel.dataLiveData.value
             if (value !is PlaySuccess<*>) {
                 getDataList(projectViewModel, data)
@@ -207,7 +218,7 @@ fun getDataList(projectViewModel: BaseAndroidViewModel<QueryArticle>, data: List
         QueryArticle(
             projectViewModel.page.value ?: 0,
             data[0].id,
-            true
+            false
         )
     )
 }

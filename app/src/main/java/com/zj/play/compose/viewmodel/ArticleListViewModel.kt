@@ -23,7 +23,7 @@ class ArticleListViewModel(application: Application) :
     private val _articleDataList = MutableLiveData<ArrayList<Article>>()
 
     override suspend fun getData(page: QueryArticle) {
-        searchRepository.getQueryArticleList(mutableLiveData, _articleDataList,page.page, page.k)
+        searchRepository.getQueryArticleList(mutableLiveData, _articleDataList,page.page, page.k,page.isLoad)
     }
 
 }

@@ -51,9 +51,10 @@ class OfficialRepository(application: Application) : ArticleRepository(applicati
     suspend fun getWxArticle(
         state: MutableLiveData<PlayState>,
         value: MutableLiveData<ArrayList<Article>>,
-        query: QueryArticle
+        query: QueryArticle,
+        isLoad: Boolean
     ) {
-        super.getArticleList(state, value, query)
+        super.getArticleList(state, value, query, isLoad)
     }
 
 }

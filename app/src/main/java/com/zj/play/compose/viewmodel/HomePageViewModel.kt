@@ -1,6 +1,7 @@
 package com.zj.play.compose.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -40,7 +41,8 @@ class HomePageViewModel(application: Application) : BaseViewModel(application) {
         _page.postValue(refresh)
     }
 
-    fun getData(isLoad: Boolean = false, isRefresh: Boolean = true) {
+    fun getData(isLoad: Boolean = false, isRefresh: Boolean = false) {
+        Log.e(TAG, "getData: 进来了  isLoad:$isLoad   isRefresh:$isRefresh")
         viewModelScope.launch(Dispatchers.IO) {
             if (!isLoad) {
                 homeRepository.getBanner(_bannerState)
@@ -52,6 +54,10 @@ class HomePageViewModel(application: Application) : BaseViewModel(application) {
                 isLoad
             )
         }
+    }
+
+    companion object {
+        private const val TAG = "HomePageViewModel"
     }
 
 }
