@@ -9,16 +9,11 @@ import com.zj.core.util.DataStoreUtils
 import com.zj.core.util.showToast
 import com.zj.model.model.ArticleList
 import com.zj.model.model.BaseModel
-import com.zj.play.compose.model.QueryArticle
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.Article
-import com.zj.model.room.entity.OFFICIAL
 import com.zj.model.room.entity.ProjectClassify
 import com.zj.play.R
-import com.zj.play.compose.model.PlayError
-import com.zj.play.compose.model.PlayLoading
-import com.zj.play.compose.model.PlayState
-import com.zj.play.compose.model.PlaySuccess
+import com.zj.play.compose.model.*
 import kotlinx.coroutines.flow.first
 
 /**
@@ -43,11 +38,6 @@ abstract class ArticleRepository(application: Application) {
      */
     suspend fun getTree(state: MutableLiveData<PlayState>, isRefresh: Boolean) {
         state.postValue(PlayLoading)
-        if (!NetworkUtils.isConnected()) {
-            showToast(R.string.no_network)
-            state.postValue(PlayError(NetworkErrorException("网络未🔗")))
-            return
-        }
         val projectClassifyLists = if (getFlag() == DOWN_OFFICIAL_ARTICLE_TIME) {
             projectClassifyDao.getAllOfficial()
         } else {
@@ -56,6 +46,11 @@ abstract class ArticleRepository(application: Application) {
         if (projectClassifyLists.isNotEmpty() && !isRefresh) {
             state.postValue(PlaySuccess(projectClassifyLists))
         } else {
+            if (!NetworkUtils.isConnected()) {
+                showToast(R.string.no_network)
+                state.postValue(PlayError(NetworkErrorException("网络未🔗")))
+                return
+            }
             val projectTree = getArticleTree()
             if (projectTree.errorCode == 0) {
                 val projectList = projectTree.data
@@ -88,13 +83,13 @@ abstract class ArticleRepository(application: Application) {
     ) {
         if (!isLoad) {
             state.postValue(PlayLoading)
+        } else {
+            if (!NetworkUtils.isConnected()) {
+                showToast(R.string.no_network)
+                return
+            }
         }
         Log.e(TAG, "getArticleList: isLoad:$isLoad   query:$query")
-        if (!NetworkUtils.isConnected()) {
-            showToast(R.string.no_network)
-            state.postValue(PlayError(NetworkErrorException("网络未🔗")))
-            return
-        }
         Log.e(TAG, "getArticleList: 111")
         val res: java.util.ArrayList<Article>
         if (query.page == 0) {
@@ -102,7 +97,7 @@ abstract class ArticleRepository(application: Application) {
             res = arrayListOf()
             val dataStore = DataStoreUtils
             val articleListForChapterId =
-                articleListDao.getArticleListForChapterId(OFFICIAL, query.cid)
+                articleListDao.getArticleListForChapterId(getLocalType(), query.cid)
             var downArticleTime = 0L
             dataStore.readLongFlow(getFlag(), System.currentTimeMillis()).first {
                 downArticleTime = it
@@ -143,6 +138,11 @@ abstract class ArticleRepository(application: Application) {
         res: java.util.ArrayList<Article>,
         articleListForChapterId: List<Article>
     ) {
+        if (!NetworkUtils.isConnected()) {
+            showToast(R.string.no_network)
+            state.postValue(PlayError(NetworkErrorException("网络未🔗")))
+            return
+        }
         Log.e(TAG, "getFirstArticleList: 777")
         val articleList = getArticleList(query.page, query.cid)
         if (articleList.errorCode == 0) {
