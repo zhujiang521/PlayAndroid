@@ -103,7 +103,11 @@ abstract class ArticleRepository(application: Application) {
                 downArticleTime = it
                 true
             }
-            if (articleListForChapterId.isNotEmpty() && downArticleTime > 0 && downArticleTime - System.currentTimeMillis() < FOUR_HOUR && !query.isRefresh) {
+            if (articleListForChapterId.isNotEmpty()
+                && downArticleTime > 0
+                && downArticleTime - System.currentTimeMillis() < FOUR_HOUR
+                && !query.isRefresh
+            ) {
                 res.addAll(articleListForChapterId)
                 state.postValue(PlaySuccess(res))
                 value.postValue(res)
@@ -146,7 +150,10 @@ abstract class ArticleRepository(application: Application) {
         Log.e(TAG, "getFirstArticleList: 777")
         val articleList = getArticleList(query.page, query.cid)
         if (articleList.errorCode == 0) {
-            if (articleListForChapterId.isNotEmpty() && articleListForChapterId[0].link == articleList.data.datas[0].link && !query.isRefresh) {
+            if (articleListForChapterId.isNotEmpty()
+                && articleListForChapterId[0].link == articleList.data.datas[0].link
+                && !query.isRefresh
+            ) {
                 res.addAll(articleListForChapterId)
                 state.postValue(PlaySuccess(res))
                 value.postValue(res)

@@ -35,6 +35,7 @@ import com.zj.play.compose.home.SearchPage
 import com.zj.play.compose.theme.Play2Theme
 import com.zj.play.compose.theme.PlayTheme
 import com.zj.play.compose.viewmodel.ThemeViewModel
+import com.zj.play.R
 import java.net.URLEncoder
 
 /**
@@ -109,26 +110,39 @@ fun NavGraph(
  * Models the navigation actions in the app.
  */
 class MainActions(navController: NavHostController) {
+
     val homePage: () -> Unit = {
-        navController.navigate(MainDestinations.HOME_PAGE_ROUTE)
+        navigate(navController, MainDestinations.HOME_PAGE_ROUTE)
     }
     val enterArticle: (Article) -> Unit = { article ->
         article.desc = ""
         article.title = getHtmlText(article.title)
         val gson = Gson().toJson(article).trim()
-        val result = URLEncoder.encode(gson,"utf-8")
-        navController.navigate("${MainDestinations.ARTICLE_ROUTE}/$result")
+        val result = URLEncoder.encode(gson, "utf-8")
+        navigate(navController, "${MainDestinations.ARTICLE_ROUTE}/$result")
     }
     val toLogin: () -> Unit = {
-        navController.navigate(MainDestinations.LOGIN_ROUTE)
+        navigate(navController, MainDestinations.LOGIN_ROUTE)
     }
     val toSearch: () -> Unit = {
-        navController.navigate(MainDestinations.SEARCH_ROUTE)
+        navigate(navController, MainDestinations.SEARCH_ROUTE)
     }
     val toAboutMe: () -> Unit = {
-        navController.navigate(MainDestinations.ABOUT_ME_ROUTE)
+        navigate(navController, MainDestinations.ABOUT_ME_ROUTE)
     }
     val upPress: () -> Unit = {
         navController.navigateUp()
     }
+
+    private fun navigate(navController: NavHostController, route: String) {
+        navController.navigate(route) {
+            anim {
+                enter = R.anim.in_from_right
+                exit = R.anim.out_to_left
+                popEnter = R.anim.in_from_right
+                popExit = R.anim.out_to_left
+            }
+        }
+    }
+
 }
