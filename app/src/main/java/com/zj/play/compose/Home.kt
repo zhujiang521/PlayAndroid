@@ -30,6 +30,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.paging.ExperimentalPagingApi
 import com.zj.play.R
 import com.zj.play.compose.home.HomePage
 import com.zj.play.compose.home.OfficialAccountPage
@@ -41,6 +42,7 @@ import dev.chrisbanes.accompanist.insets.navigationBarsHeight
 import dev.chrisbanes.accompanist.insets.navigationBarsPadding
 import java.util.*
 
+@ExperimentalPagingApi
 @Composable
 fun Home(actions: MainActions, themeViewModel: ThemeViewModel) {
     val viewModel: HomeViewModel = viewModel()

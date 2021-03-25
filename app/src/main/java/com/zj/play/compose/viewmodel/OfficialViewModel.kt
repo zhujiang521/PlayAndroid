@@ -17,6 +17,6 @@ class OfficialViewModel(application: Application) :
     private val officialRepository = OfficialRepository(application)
 
     override suspend fun getData(page: Boolean) {
-        return officialRepository.getWxArticleTree(mutableLiveData, page)
+        return officialRepository.getTree(mutableLiveData, page)
     }
 }

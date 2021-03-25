@@ -2,7 +2,6 @@ package com.zj.play.compose.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
@@ -17,83 +16,49 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.zj.core.util.showToast
-import com.zj.model.room.entity.Article
 import com.zj.play.R
 import com.zj.play.compose.MainActions
+import com.zj.play.compose.common.article.ArticleListPaging
 import com.zj.play.compose.common.article.ToTopButton
 import com.zj.play.compose.common.lce.NoContent
-import com.zj.play.compose.common.lce.SwipeArticleListPage
 import com.zj.play.compose.common.signin.TextFieldState
-import com.zj.play.compose.model.QueryArticle
-import com.zj.play.compose.viewmodel.ArticleListViewModel
-import com.zj.play.compose.viewmodel.BaseAndroidViewModel
-import com.zj.play.compose.viewmodel.REFRESH_START
+import com.zj.play.compose.viewmodel.SearchViewModel
 import dev.chrisbanes.accompanist.insets.statusBarsHeight
 
+@ExperimentalPagingApi
 @Composable
 fun SearchPage(
     actions: MainActions,
+    viewModel: SearchViewModel = viewModel()
 ) {
     val searchState: TextFieldState = remember { TextFieldState() }
-    val viewModel: ArticleListViewModel = viewModel()
     var clickSearchState by remember { mutableStateOf(false) }
+    val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
     val listState = rememberLazyListState()
     Scaffold(
         backgroundColor = colorResource(id = R.color.yellow),
         topBar = {
             SearchTitleBar(searchState, actions.upPress, {
                 clickSearchState = true
-                viewModel.getDataList(QueryArticle(1, k = searchState.text))
+                viewModel.searchArticle(0)
             })
         },
         content = {
             if (searchState.text.isBlank() || !clickSearchState) {
                 NoContent()
             } else {
-                SwipeArticleList(viewModel, listState, searchState, actions.enterArticle)
+                ArticleListPaging(
+                    listState = listState,
+                    lazyPagingItems = lazyPagingItems,
+                    enterArticle = actions.enterArticle
+                )
                 ToTopButton(listState)
             }
         }
     )
-}
-
-@Composable
-fun SwipeArticleList(
-    viewModel: BaseAndroidViewModel<QueryArticle>,
-    listState: LazyListState,
-    searchState: TextFieldState,
-    enterArticle: (Article) -> Unit,
-) {
-    SwipeArticleListPage(
-        viewModel = viewModel,
-        listState = listState,
-        enterArticle = enterArticle,
-        onRefresh = {
-            viewModel.onPageChanged(0)
-            viewModel.getDataList(QueryArticle(1, k = searchState.text))
-            viewModel.onRefreshChanged(REFRESH_START)
-        },
-        onLoad = {
-            viewModel.getDataList(
-                QueryArticle(
-                    (viewModel.page.value ?: 0) + 1,
-                    k = searchState.text, isLoad = true
-                )
-            )
-            viewModel.onLoadRefreshStateChanged(REFRESH_START)
-            viewModel.onPageChanged((viewModel.page.value ?: 0) + 1)
-        },
-        onErrorClick = {
-            viewModel.getDataList(
-                QueryArticle(
-                    1,
-                    k = searchState.text
-                )
-            )
-        }) {
-        NoContent("没有找到${searchState.text}相关内容")
-    }
 }
 
 @Composable

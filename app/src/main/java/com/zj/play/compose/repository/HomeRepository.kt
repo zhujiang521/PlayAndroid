@@ -1,21 +1,23 @@
 package com.zj.play.compose.repository
 
-import android.accounts.NetworkErrorException
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.zj.core.util.DataStoreUtils
-import com.zj.play.compose.model.QueryHomeArticle
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.dao.BannerBeanDao
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.BannerBean
 import com.zj.model.room.entity.HOME
-import com.zj.model.room.entity.HOME_TOP
 import com.zj.network.base.PlayAndroidNetwork
 import com.zj.network.down.Download
 import com.zj.network.down.DownloadBuild
 import com.zj.network.down.DownloadStatus
+import com.zj.play.compose.mediator.HomeRemoteMediator
 import com.zj.play.compose.model.PlayError
 import com.zj.play.compose.model.PlayLoading
 import com.zj.play.compose.model.PlayState
@@ -23,10 +25,10 @@ import com.zj.play.compose.model.PlaySuccess
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import java.util.*
 
 
 /**
@@ -38,10 +40,22 @@ import java.util.*
  *
  */
 
-class HomeRepository constructor(val application: Application) {
+class HomePagingRepository(private val application: Application) : BasePagingRepository() {
 
     companion object {
-        private const val TAG = "HomeRepository"
+        private const val TAG = "ArticlePagingRepository"
+    }
+
+    @ExperimentalPagingApi
+    override fun getPagingData(cid: Int): Flow<PagingData<Article>> {
+        val database = PlayDatabase.getDatabase(application)
+        return Pager(
+            config = PagingConfig(pageSize = PAGE_SIZE, enablePlaceholders = false),
+            remoteMediator = HomeRemoteMediator(database),
+            pagingSourceFactory = {
+                database.browseHistoryDao().articleByType(HOME)
+            }
+        ).flow
     }
 
     /**
@@ -66,12 +80,10 @@ class HomeRepository constructor(val application: Application) {
                 val bannerList = bannerResponse.data
                 if (bannerBeanList.isNotEmpty() && bannerBeanList[0].url == bannerList[0].url) {
                     state.postValue(PlaySuccess(bannerBeanList))
-                    Log.e(TAG, "getBanner: 111:$bannerBeanList")
                 } else {
                     bannerBeanDao.deleteAll()
                     insertBannerList(bannerBeanDao, bannerList)
                     state.postValue(PlaySuccess(bannerList))
-                    Log.e(TAG, "getBanner: 222:$bannerList")
                 }
                 dataStore.saveLongData(DOWN_IMAGE_TIME, System.currentTimeMillis())
             } else {
@@ -79,6 +91,7 @@ class HomeRepository constructor(val application: Application) {
             }
         }
     }
+
 
     private suspend fun insertBannerList(
         bannerBeanDao: BannerBeanDao,
@@ -111,101 +124,6 @@ class HomeRepository constructor(val application: Application) {
                 }
             }
             Log.e(TAG, "emit: ----------:${it}")
-        }
-    }
-
-
-    /**
-     * 首页获取文章列表
-     * @param query 查询条件
-     */
-    suspend fun getArticleList(
-        state: MutableLiveData<PlayState>,
-        value: MutableLiveData<ArrayList<Article>>,
-        query: QueryHomeArticle,
-        isLoad: Boolean
-    ) {
-        if (!isLoad) {
-            state.postValue(PlayLoading)
-        }
-        val res: ArrayList<Article>
-        if (query.page == 0) {
-            res = arrayListOf()
-            val dataStore = DataStoreUtils
-            var downArticleTime = 0L
-            dataStore.readLongFlow(DOWN_ARTICLE_TIME, System.currentTimeMillis()).first {
-                downArticleTime = it
-                true
-            }
-            val articleListDao = PlayDatabase.getDatabase(application).browseHistoryDao()
-            val articleListHome = articleListDao.getArticleList(HOME)
-            val articleListTop = articleListDao.getTopArticleList(HOME_TOP)
-            var downTopArticleTime = 0L
-            dataStore.readLongFlow(DOWN_TOP_ARTICLE_TIME, System.currentTimeMillis()).first {
-                downTopArticleTime = it
-                true
-            }
-            if (articleListTop.isNotEmpty() && downTopArticleTime > 0 &&
-                downTopArticleTime - System.currentTimeMillis() < FOUR_HOUR && !query.isRefresh
-            ) {
-                res.addAll(articleListTop)
-            } else {
-                val topArticleListDeferred = PlayAndroidNetwork.getTopArticleList()
-                if (topArticleListDeferred.errorCode == 0) {
-                    if (articleListTop.isNotEmpty() && articleListTop[0].link == topArticleListDeferred.data[0].link && !query.isRefresh) {
-                        res.addAll(articleListTop)
-                    } else {
-                        res.addAll(topArticleListDeferred.data)
-                        topArticleListDeferred.data.forEach {
-                            it.localType = HOME_TOP
-                        }
-                        dataStore.saveLongData(
-                            DOWN_TOP_ARTICLE_TIME,
-                            System.currentTimeMillis()
-                        )
-                        articleListDao.deleteAll(HOME_TOP)
-                        articleListDao.insertList(topArticleListDeferred.data)
-                    }
-                }
-            }
-            if (articleListHome.isNotEmpty() && downArticleTime > 0 && downArticleTime - System.currentTimeMillis() < FOUR_HOUR
-                && !query.isRefresh
-            ) {
-                res.addAll(articleListHome)
-                state.postValue(PlaySuccess<List<Article>>(res))
-                value.postValue(res)
-            } else {
-                val articleListDeferred = PlayAndroidNetwork.getArticleList(query.page)
-                if (articleListDeferred.errorCode == 0) {
-                    if (articleListHome.isNotEmpty() && articleListHome[0].link == articleListDeferred.data.datas[0].link && !query.isRefresh) {
-                        res.addAll(articleListHome)
-                    } else {
-                        res.addAll(articleListDeferred.data.datas)
-                        articleListDeferred.data.datas.forEach {
-                            it.localType = HOME
-                        }
-                        dataStore.saveLongData(DOWN_ARTICLE_TIME, System.currentTimeMillis())
-                        articleListDao.deleteAll(HOME)
-                        articleListDao.insertList(articleListDeferred.data.datas)
-                    }
-                    state.postValue(PlaySuccess<List<Article>>(res))
-                    value.postValue(res)
-                } else {
-                    state.postValue(PlayError(NetworkErrorException("网络错误")))
-                }
-            }
-        } else {
-            res = value.value ?: arrayListOf()
-            val articleListDeferred = PlayAndroidNetwork.getArticleList(query.page)
-            if (articleListDeferred.errorCode == 0) {
-                if (!res.contains(articleListDeferred.data.datas[0])) {
-                    res.addAll(articleListDeferred.data.datas)
-                }
-                state.postValue(PlaySuccess<List<Article>>(res))
-                value.postValue(res)
-            } else {
-                state.postValue(PlayError(NetworkErrorException("网络错误")))
-            }
         }
     }
 

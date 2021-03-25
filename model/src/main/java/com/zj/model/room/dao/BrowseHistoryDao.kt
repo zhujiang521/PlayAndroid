@@ -3,6 +3,7 @@ package com.zj.model.room.dao
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.zj.model.room.entity.Article
+import com.zj.model.room.entity.RemoteKeys
 
 
 /**
@@ -35,7 +36,7 @@ interface BrowseHistoryDao {
     suspend fun getArticleListForChapterId(type: Int, chapterId: Int): List<Article>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertList(articleList: List<Article>)
+    suspend fun insertList(articleList: List<Article>): List<Long>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(article: Article)
@@ -55,10 +56,13 @@ interface BrowseHistoryDao {
     @Query("DELETE FROM browse_history where local_type = :type")
     suspend fun deleteAll(type: Int)
 
-    @Query("DELETE FROM browse_history where local_type = :type and  chapter_id = :chapterId")
+    @Query("DELETE FROM browse_history where local_type = :type and chapter_id = :chapterId")
     suspend fun deleteAll(type: Int, chapterId: Int)
 
-    @Query("SELECT * FROM browse_history where chapter_id = :cid")
-    fun articleByCid(cid: Int): PagingSource<Int, Article>
+    @Query("SELECT * FROM browse_history where local_type = :type and chapter_id = :cid")
+    fun articleByCid(type: Int, cid: Int): PagingSource<Int, Article>
+
+    @Query("SELECT * FROM browse_history where local_type = :type")
+    fun articleByType(type: Int): PagingSource<Int, Article>
 
 }

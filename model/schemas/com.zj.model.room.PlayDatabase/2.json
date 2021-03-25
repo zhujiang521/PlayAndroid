@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "aa5708a07724e97e55a6d1b458a082fc",
+    "identityHash": "a1da8f934170c48368cf05137e89bd15",
     "entities": [
       {
         "tableName": "project_classify",
@@ -430,7 +430,7 @@
       },
       {
         "tableName": "remote_keys",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`repoId` INTEGER NOT NULL, `prevKey` INTEGER, `nextKey` INTEGER, PRIMARY KEY(`repoId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`repoId` INTEGER NOT NULL, `prevKey` INTEGER, `nextKey` INTEGER, `localType` INTEGER NOT NULL, PRIMARY KEY(`repoId`))",
         "fields": [
           {
             "fieldPath": "repoId",
@@ -449,6 +449,12 @@
             "columnName": "nextKey",
             "affinity": "INTEGER",
             "notNull": false
+          },
+          {
+            "fieldPath": "localType",
+            "columnName": "localType",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -464,7 +470,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'aa5708a07724e97e55a6d1b458a082fc')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a1da8f934170c48368cf05137e89bd15')"
     ]
   }
 }

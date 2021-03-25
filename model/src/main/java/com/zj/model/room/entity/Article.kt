@@ -65,3 +65,6 @@ const val PROJECT = 40
 
 // 公众号 localType
 const val OFFICIAL = 50
+
+// 搜索 localType
+const val SEARCH = 60

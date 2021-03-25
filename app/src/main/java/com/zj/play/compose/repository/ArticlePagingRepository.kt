@@ -1,12 +1,18 @@
 package com.zj.play.compose.repository
 
 import android.app.Application
-import androidx.paging.*
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.Article
-import com.zj.network.base.ServiceCreator
-import com.zj.network.service.ArticleService
-import com.zj.play.compose.mediator.ArticleRemoteMediator
+import com.zj.model.room.entity.OFFICIAL
+import com.zj.model.room.entity.PROJECT
+import com.zj.model.room.entity.SEARCH
+import com.zj.play.compose.mediator.OfficialRemoteMediator
+import com.zj.play.compose.mediator.ProjectRemoteMediator
+import com.zj.play.compose.mediator.SearchRemoteMediator
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -17,34 +23,56 @@ import kotlinx.coroutines.flow.Flow
  * 描述：PlayAndroid
  *
  */
-class ArticlePagingRepository(private val application: Application) {
 
+abstract class BasePagingRepository {
     companion object {
-        private const val PAGE_SIZE = 25
+        const val PAGE_SIZE = 15
     }
 
-    private val articleService = ServiceCreator.create(ArticleService::class.java)
+    abstract fun getPagingData(cid: Int = 0): Flow<PagingData<Article>>
+}
 
-    fun getPagingData(cid: Int): Flow<PagingData<Article>> {
-//        return Pager(
-//            config = PagingConfig(PAGE_SIZE),
-//            pagingSourceFactory = { ArticlePagingSource(articleService,cid) }
-//        ).flow
+class ProjectPagingRepository(private val application: Application) : BasePagingRepository() {
 
+    @ExperimentalPagingApi
+    override fun getPagingData(cid: Int): Flow<PagingData<Article>> {
         val database = PlayDatabase.getDatabase(application)
-        @OptIn(ExperimentalPagingApi::class)
         return Pager(
             config = PagingConfig(pageSize = PAGE_SIZE, enablePlaceholders = false),
-            remoteMediator = ArticleRemoteMediator(
-                cid,
-                articleService,
-                database
-            ),
+            remoteMediator = ProjectRemoteMediator(cid, database),
             pagingSourceFactory = {
-                database.browseHistoryDao().articleByCid(cid)
+                database.browseHistoryDao().articleByCid(PROJECT, cid)
             }
         ).flow
-
     }
+}
 
+class OfficialPagingRepository(private val application: Application) : BasePagingRepository() {
+
+    @ExperimentalPagingApi
+    override fun getPagingData(cid: Int): Flow<PagingData<Article>> {
+        val database = PlayDatabase.getDatabase(application)
+        return Pager(
+            config = PagingConfig(pageSize = PAGE_SIZE, enablePlaceholders = false),
+            remoteMediator = OfficialRemoteMediator(cid, database),
+            pagingSourceFactory = {
+                database.browseHistoryDao().articleByCid(OFFICIAL, cid)
+            }
+        ).flow
+    }
+}
+
+class SearchPagingRepository(private val application: Application) : BasePagingRepository() {
+
+    @ExperimentalPagingApi
+    override fun getPagingData(cid: Int): Flow<PagingData<Article>> {
+        val database = PlayDatabase.getDatabase(application)
+        return Pager(
+            config = PagingConfig(pageSize = PAGE_SIZE, enablePlaceholders = false),
+            remoteMediator = SearchRemoteMediator("", database),
+            pagingSourceFactory = {
+                database.browseHistoryDao().articleByType(SEARCH)
+            }
+        ).flow
+    }
 }

@@ -19,21 +19,23 @@ package com.zj.play.compose.home
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.paging.ExperimentalPagingApi
 import com.zj.model.room.entity.Article
 import com.zj.play.compose.viewmodel.OfficialViewModel
 import com.zj.play.compose.viewmodel.OfficialListViewModel
 
+@ExperimentalPagingApi
 @Composable
 fun OfficialAccountPage(
     enterArticle: (Article) -> Unit,
     modifier: Modifier = Modifier,
+    viewModel: OfficialViewModel = viewModel(),
+    officialListViewModel: OfficialListViewModel = viewModel()
 ) {
-    val viewModel: OfficialViewModel = viewModel()
-    val officialListViewModel: OfficialListViewModel = viewModel()
     ArticleListPage(
         modifier = modifier,
         enterArticle = enterArticle,
         viewModel = viewModel,
-        projectViewModel = officialListViewModel
+        articleViewModel = officialListViewModel
     )
 }

@@ -17,7 +17,7 @@ class ProjectViewModel(application: Application) :
     private val projectRepository = ProjectRepository(application)
 
     override suspend fun getData(page: Boolean) {
-        projectRepository.getProjectTree(mutableLiveData, page)
+        projectRepository.getTree(mutableLiveData, page)
     }
 
 }

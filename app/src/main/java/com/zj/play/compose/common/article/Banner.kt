@@ -19,7 +19,10 @@ package com.zj.play.compose.common.article
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -32,11 +35,27 @@ import com.blankj.utilcode.util.ImageUtils
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.BannerBean
 import com.zj.play.compose.common.NetworkImage
+import com.zj.play.compose.model.PlaySuccess
 
 private const val TAG = "PostCardYourNetwork"
 
 @Composable
-fun Banner(
+fun Banner(data: PlaySuccess<List<BannerBean>>,navigateTo: (Article) -> Unit,) {
+    LazyRow(
+        modifier = Modifier.padding(end = 16.dp),
+    ) {
+        items(data.data) {
+            BannerCard(
+                it,
+                navigateTo,
+                Modifier.padding(start = 16.dp, bottom = 16.dp)
+            )
+        }
+    }
+}
+
+@Composable
+fun BannerCard(
     bannerBean: BannerBean,
     navigateTo: (Article) -> Unit,
     modifier: Modifier = Modifier

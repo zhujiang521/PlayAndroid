@@ -31,32 +31,4 @@ class ProjectRepository constructor(val application: Application) :
         return DOWN_PROJECT_ARTICLE_TIME
     }
 
-    override suspend fun getLocalType(): Int {
-        return PROJECT
-    }
-
-    override suspend fun getArticleList(page: Int, cid: Int): BaseModel<ArticleList> {
-        return PlayAndroidNetwork.getProject(page, cid)
-    }
-
-    /**
-     * 获取项目标题列表
-     */
-    suspend fun getProjectTree(state: MutableLiveData<PlayState>, isRefresh: Boolean) {
-        super.getTree(state, isRefresh)
-    }
-
-    /**
-     * 获取项目具体文章列表
-     * @param query 查询类
-     */
-    suspend fun getProject(
-        state: MutableLiveData<PlayState>,
-        value: MutableLiveData<ArrayList<Article>>,
-        query: QueryArticle,
-        isLoad: Boolean
-    ) {
-        super.getArticleList(state, value, query, isLoad)
-    }
-
 }

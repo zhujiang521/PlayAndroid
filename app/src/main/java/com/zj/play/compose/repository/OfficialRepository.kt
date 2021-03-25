@@ -29,32 +29,4 @@ class OfficialRepository(application: Application) : ArticleRepository(applicati
         return DOWN_OFFICIAL_ARTICLE_TIME
     }
 
-    override suspend fun getLocalType(): Int {
-        return OFFICIAL
-    }
-
-    override suspend fun getArticleList(page: Int, cid: Int): BaseModel<ArticleList> {
-        return PlayAndroidNetwork.getWxArticle(page, cid)
-    }
-
-    /**
-     * 获取公众号标题列表
-     */
-    suspend fun getWxArticleTree(state: MutableLiveData<PlayState>, isRefresh: Boolean) {
-        super.getTree(state, isRefresh)
-    }
-
-    /**
-     * 获取具体公众号文章列表
-     * @param query 查询
-     */
-    suspend fun getWxArticle(
-        state: MutableLiveData<PlayState>,
-        value: MutableLiveData<ArrayList<Article>>,
-        query: QueryArticle,
-        isLoad: Boolean
-    ) {
-        super.getArticleList(state, value, query, isLoad)
-    }
-
 }

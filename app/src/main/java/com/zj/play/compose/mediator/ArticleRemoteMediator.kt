@@ -16,118 +16,60 @@
 
 package com.zj.play.compose.mediator
 
-import androidx.paging.ExperimentalPagingApi
-import androidx.paging.LoadType
-import androidx.paging.PagingState
-import androidx.paging.RemoteMediator
-import androidx.room.withTransaction
 import com.zj.model.room.PlayDatabase
-import com.zj.model.room.entity.Article
-import com.zj.model.room.entity.RemoteKeys
-import com.zj.network.service.ArticleService
-import retrofit2.HttpException
-import java.io.IOException
+import com.zj.model.room.entity.*
+import com.zj.network.base.ServiceCreator
+import com.zj.network.service.HomePageService
+import com.zj.network.service.OfficialService
+import com.zj.network.service.ProjectService
 
-// GitHub page API is 1 based: https://developer.github.com/v3/#pagination
-private const val GITHUB_STARTING_PAGE_INDEX = 1
-
-@OptIn(ExperimentalPagingApi::class)
-class ArticleRemoteMediator(
+class ProjectRemoteMediator(
     private val cid: Int,
-    private val service: ArticleService,
-    private val repoDatabase: PlayDatabase
-) : RemoteMediator<Int, Article>() {
+    repoDatabase: PlayDatabase,
+    private val service: ProjectService = ServiceCreator.create(ProjectService::class.java),
+) : BaseRemoteMediator(PROJECT, repoDatabase) {
 
-    override suspend fun initialize(): InitializeAction {
-        // Launch remote refresh as soon as paging starts and do not trigger remote prepend or
-        // append until refresh has succeeded. In cases where we don't mind showing out-of-date,
-        // cached offline data, we can return SKIP_INITIAL_REFRESH instead to prevent paging
-        // triggering remote refresh.
-        return InitializeAction.LAUNCH_INITIAL_REFRESH
+    override suspend fun getArticleList(page: Int): List<Article> {
+        val apiResponse = service.getProject(page, cid)
+        return apiResponse.data.datas
     }
 
-    override suspend fun load(
-        loadType: LoadType,
-        state: PagingState<Int, Article>
-    ): MediatorResult {
+}
 
-        val page = when (loadType) {
-            LoadType.REFRESH -> {
-                val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
-                remoteKeys?.nextKey?.minus(1) ?: GITHUB_STARTING_PAGE_INDEX
-            }
-            LoadType.PREPEND -> {
-                val remoteKeys = getRemoteKeyForFirstItem(state)
-                // If the previous key is null, then the list is empty so we should wait for data
-                // fetched by remote refresh and can simply skip loading this time by returning
-                // `false` for endOfPaginationReached.
-                remoteKeys?.prevKey ?: return MediatorResult.Success(endOfPaginationReached = false)
-            }
-            LoadType.APPEND -> {
-                val remoteKeys = getRemoteKeyForLastItem(state)
-                // If the next key is null, then the list is empty so we should wait for data
-                // fetched by remote refresh and can simply skip loading this time by returning
-                // `false` for endOfPaginationReached.
-                remoteKeys?.nextKey ?: return MediatorResult.Success(endOfPaginationReached = false)
-            }
-        }
+class OfficialRemoteMediator(
+    private val cid: Int,
+    repoDatabase: PlayDatabase,
+    private val service: OfficialService = ServiceCreator.create(OfficialService::class.java),
+) : BaseRemoteMediator(OFFICIAL, repoDatabase) {
 
-        try {
-            val apiResponse = service.getProject(page, cid)
-
-            val repos = apiResponse.data.datas
-            val endOfPaginationReached = repos.isEmpty()
-            repoDatabase.withTransaction {
-                // clear all tables in the database
-                if (loadType == LoadType.REFRESH) {
-                    repoDatabase.remoteKeysDao().clearRemoteKeys()
-                    repoDatabase.browseHistoryDao().clearRepos()
-                }
-                val prevKey = if (page == GITHUB_STARTING_PAGE_INDEX) null else page - 1
-                val nextKey = if (endOfPaginationReached) null else page + 1
-                val keys = repos.map {
-                    RemoteKeys(repoId = it.id, prevKey = prevKey, nextKey = nextKey)
-                }
-                repoDatabase.remoteKeysDao().insertAll(keys)
-                repoDatabase.browseHistoryDao().insertList(repos)
-            }
-            return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
-        } catch (exception: IOException) {
-            return MediatorResult.Error(exception)
-        } catch (exception: HttpException) {
-            return MediatorResult.Error(exception)
-        }
+    override suspend fun getArticleList(page: Int): List<Article> {
+        val apiResponse = service.getWxArticle(page, cid)
+        return apiResponse.data.datas
     }
 
-    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, Article>): RemoteKeys? {
-        // Get the last page that was retrieved, that contained items.
-        // From that last page, get the last item
-        return state.pages.lastOrNull() { it.data.isNotEmpty() }?.data?.lastOrNull()
-            ?.let { repo ->
-                // Get the remote keys of the last item retrieved
-                repoDatabase.remoteKeysDao().remoteKeysRepoId(repo.id)
-            }
+}
+
+class HomeRemoteMediator(
+    repoDatabase: PlayDatabase,
+    private val service: HomePageService = ServiceCreator.create(HomePageService::class.java),
+) : BaseRemoteMediator(HOME, repoDatabase) {
+
+    override suspend fun getArticleList(page: Int): List<Article> {
+        val apiResponse = service.getArticle(page)
+        return apiResponse.data.datas
     }
 
-    private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, Article>): RemoteKeys? {
-        // Get the first page that was retrieved, that contained items.
-        // From that first page, get the first item
-        return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
-            ?.let { repo ->
-                // Get the remote keys of the first items retrieved
-                repoDatabase.remoteKeysDao().remoteKeysRepoId(repo.id)
-            }
+}
+
+class SearchRemoteMediator(
+    private val keyword: String,
+    repoDatabase: PlayDatabase,
+    private val service: HomePageService = ServiceCreator.create(HomePageService::class.java),
+) : BaseRemoteMediator(SEARCH, repoDatabase) {
+
+    override suspend fun getArticleList(page: Int): List<Article> {
+        val apiResponse = service.getQueryArticleList(page, keyword)
+        return apiResponse.data.datas
     }
 
-    private suspend fun getRemoteKeyClosestToCurrentPosition(
-        state: PagingState<Int, Article>
-    ): RemoteKeys? {
-        // The paging library is trying to load data after the anchor position
-        // Get the item closest to the anchor position
-        return state.anchorPosition?.let { position ->
-            state.closestItemToPosition(position)?.id?.let { repoId ->
-                repoDatabase.remoteKeysDao().remoteKeysRepoId(repoId)
-            }
-        }
-    }
 }

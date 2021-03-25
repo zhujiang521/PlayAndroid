@@ -2,7 +2,7 @@ package com.zj.play.compose.viewmodel
 
 import android.app.Application
 import com.zj.play.compose.repository.BasePagingRepository
-import com.zj.play.compose.repository.OfficialPagingRepository
+import com.zj.play.compose.repository.SearchPagingRepository
 
 /**
  * 版权：Zhujiang 个人版权
@@ -12,9 +12,11 @@ import com.zj.play.compose.repository.OfficialPagingRepository
  * 描述：PlayAndroid
  *
  */
-class OfficialListViewModel(application: Application) : BaseArticleViewModel(application) {
+
+class SearchViewModel(application: Application) :
+     BaseArticleViewModel(application) {
 
     override val repositoryArticle: BasePagingRepository
-        get() = OfficialPagingRepository(application = getApplication())
+        get() = SearchPagingRepository(getApplication())
 
 }

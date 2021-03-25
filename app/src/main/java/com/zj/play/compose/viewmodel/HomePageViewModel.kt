@@ -1,15 +1,14 @@
 package com.zj.play.compose.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.zj.play.compose.model.QueryHomeArticle
-import com.zj.model.room.entity.Article
 import com.zj.play.compose.model.PlayState
-import com.zj.play.compose.repository.HomeRepository
+import com.zj.play.compose.repository.BasePagingRepository
+import com.zj.play.compose.repository.HomePagingRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 /**
@@ -21,43 +20,23 @@ import kotlinx.coroutines.launch
  *
  */
 
-class HomePageViewModel(application: Application) : BaseViewModel(application) {
+class HomePageViewModel(application: Application) : BaseArticleViewModel(application) {
 
-    private val homeRepository: HomeRepository = HomeRepository(application)
+    override val repositoryArticle: BasePagingRepository
+        get() = HomePagingRepository(application = getApplication())
+
+    private var bannerJob: Job? = null
 
     private val _bannerState = MutableLiveData<PlayState>()
 
     val bannerState: LiveData<PlayState>
         get() = _bannerState
 
-    private val _articleDataList = MutableLiveData<ArrayList<Article>>()
-
-    private val _page = MutableLiveData<Int>()
-
-    val page: LiveData<Int>
-        get() = _page
-
-    fun onPageChanged(refresh: Int) {
-        _page.postValue(refresh)
-    }
-
-    fun getData(isLoad: Boolean = false, isRefresh: Boolean = false) {
-        Log.e(TAG, "getData: 进来了  isLoad:$isLoad   isRefresh:$isRefresh")
-        viewModelScope.launch(Dispatchers.IO) {
-            if (!isLoad) {
-                homeRepository.getBanner(_bannerState)
-            }
-            homeRepository.getArticleList(
-                mutableLiveData,
-                _articleDataList,
-                QueryHomeArticle(page.value ?: 0, isRefresh),
-                isLoad
-            )
+    fun getBanner() {
+        bannerJob?.cancel()
+        bannerJob = viewModelScope.launch(Dispatchers.IO) {
+            (repositoryArticle as HomePagingRepository).getBanner(_bannerState)
         }
-    }
-
-    companion object {
-        private const val TAG = "HomePageViewModel"
     }
 
 }

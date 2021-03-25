@@ -24,6 +24,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
+import androidx.paging.ExperimentalPagingApi
 import com.google.gson.Gson
 import com.zj.core.util.getHtmlText
 import com.zj.model.room.entity.Article
@@ -50,6 +51,7 @@ object MainDestinations {
     const val ABOUT_ME_ROUTE = "about_me_route"
 }
 
+@ExperimentalPagingApi
 @Composable
 fun NavGraphPage() {
     val viewModel: ThemeViewModel = viewModel()
@@ -65,6 +67,7 @@ fun NavGraphPage() {
     }
 }
 
+@ExperimentalPagingApi
 @Composable
 fun NavGraph(
     viewModel: ThemeViewModel,
