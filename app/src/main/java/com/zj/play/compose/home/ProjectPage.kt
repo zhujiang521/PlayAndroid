@@ -1,6 +1,5 @@
 package com.zj.play.compose.home
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -20,6 +19,7 @@ import com.zj.play.compose.common.article.ToTopButton
 import com.zj.play.compose.common.lce.SetLcePage
 import com.zj.play.compose.model.PlayLoading
 import com.zj.play.compose.model.PlaySuccess
+import com.zj.play.compose.model.Query
 import com.zj.play.compose.viewmodel.*
 import dev.chrisbanes.accompanist.insets.statusBarsHeight
 
@@ -60,10 +60,6 @@ fun ArticleListPage(
     val tree by viewModel.dataLiveData.observeAsState(PlayLoading)
     val position by viewModel.position.observeAsState()
     val lazyPagingItems = articleViewModel.articleResult.collectAsLazyPagingItems()
-    Log.e(
-        "ArticleRemoteMediator",
-        "ArticleListPage: lazyPagingItems${lazyPagingItems.itemCount}"
-    )
     Column(modifier = Modifier.background(color = MaterialTheme.colors.primary)) {
         Spacer(modifier = Modifier.statusBarsHeight())
         SetLcePage(playState = tree, onErrorClick = {
@@ -73,11 +69,11 @@ fun ArticleListPage(
             val data = (tree as PlaySuccess<List<ProjectClassify>>).data
             ArticleTabRow(position, data) { index, id, isFirst ->
                 if (!isFirst) {
-                    articleViewModel.searchArticle(id)
+                    articleViewModel.searchArticle(Query(id))
                     viewModel.onPositionChanged(index)
                 } else {
                     if (position == 0 && !loadPageState) {
-                        articleViewModel.searchArticle(id)
+                        articleViewModel.searchArticle(Query(id))
                     }
                 }
                 loadPageState = true

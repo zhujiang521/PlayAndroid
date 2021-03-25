@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,8 +14,6 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.zj.model.room.entity.Article
 import com.zj.play.compose.common.lce.LoadingContent
-
-//var keys = 0
 
 @Composable
 fun ArticleListPaging(

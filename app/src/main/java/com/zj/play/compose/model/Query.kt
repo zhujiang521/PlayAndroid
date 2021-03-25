@@ -9,13 +9,7 @@ package com.zj.play.compose.model
  *
  */
 
-
-//data class QueryArticle(var page: Int, var cid: Int, var isRefresh: Boolean)
-
-data class QueryArticle(
-    var page: Int,
+data class Query(
     var cid: Int = -1,
-    var isRefresh: Boolean = false,
-    var isLoad: Boolean = false,
     var k: String = ""
 )

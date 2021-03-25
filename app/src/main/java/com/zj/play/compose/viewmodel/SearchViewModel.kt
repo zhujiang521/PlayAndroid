@@ -14,7 +14,7 @@ import com.zj.play.compose.repository.SearchPagingRepository
  */
 
 class SearchViewModel(application: Application) :
-     BaseArticleViewModel(application) {
+    BaseArticleViewModel(application) {
 
     override val repositoryArticle: BasePagingRepository
         get() = SearchPagingRepository(getApplication())

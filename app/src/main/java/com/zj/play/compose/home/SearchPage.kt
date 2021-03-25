@@ -25,6 +25,7 @@ import com.zj.play.compose.common.article.ArticleListPaging
 import com.zj.play.compose.common.article.ToTopButton
 import com.zj.play.compose.common.lce.NoContent
 import com.zj.play.compose.common.signin.TextFieldState
+import com.zj.play.compose.model.Query
 import com.zj.play.compose.viewmodel.SearchViewModel
 import dev.chrisbanes.accompanist.insets.statusBarsHeight
 
@@ -43,7 +44,7 @@ fun SearchPage(
         topBar = {
             SearchTitleBar(searchState, actions.upPress, {
                 clickSearchState = true
-                viewModel.searchArticle(0)
+                viewModel.searchArticle(Query(k = searchState.text))
             })
         },
         content = {

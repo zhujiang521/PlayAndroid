@@ -13,6 +13,7 @@ import com.zj.model.room.entity.SEARCH
 import com.zj.play.compose.mediator.OfficialRemoteMediator
 import com.zj.play.compose.mediator.ProjectRemoteMediator
 import com.zj.play.compose.mediator.SearchRemoteMediator
+import com.zj.play.compose.model.Query
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -29,19 +30,19 @@ abstract class BasePagingRepository {
         const val PAGE_SIZE = 15
     }
 
-    abstract fun getPagingData(cid: Int = 0): Flow<PagingData<Article>>
+    abstract fun getPagingData(query: Query): Flow<PagingData<Article>>
 }
 
 class ProjectPagingRepository(private val application: Application) : BasePagingRepository() {
 
     @ExperimentalPagingApi
-    override fun getPagingData(cid: Int): Flow<PagingData<Article>> {
+    override fun getPagingData(query: Query): Flow<PagingData<Article>> {
         val database = PlayDatabase.getDatabase(application)
         return Pager(
             config = PagingConfig(pageSize = PAGE_SIZE, enablePlaceholders = false),
-            remoteMediator = ProjectRemoteMediator(cid, database),
+            remoteMediator = ProjectRemoteMediator(query.cid, database),
             pagingSourceFactory = {
-                database.browseHistoryDao().articleByCid(PROJECT, cid)
+                database.browseHistoryDao().articleByCid(PROJECT, query.cid)
             }
         ).flow
     }
@@ -50,13 +51,13 @@ class ProjectPagingRepository(private val application: Application) : BasePaging
 class OfficialPagingRepository(private val application: Application) : BasePagingRepository() {
 
     @ExperimentalPagingApi
-    override fun getPagingData(cid: Int): Flow<PagingData<Article>> {
+    override fun getPagingData(query: Query): Flow<PagingData<Article>> {
         val database = PlayDatabase.getDatabase(application)
         return Pager(
             config = PagingConfig(pageSize = PAGE_SIZE, enablePlaceholders = false),
-            remoteMediator = OfficialRemoteMediator(cid, database),
+            remoteMediator = OfficialRemoteMediator(query.cid, database),
             pagingSourceFactory = {
-                database.browseHistoryDao().articleByCid(OFFICIAL, cid)
+                database.browseHistoryDao().articleByCid(OFFICIAL, query.cid)
             }
         ).flow
     }
@@ -65,11 +66,11 @@ class OfficialPagingRepository(private val application: Application) : BasePagin
 class SearchPagingRepository(private val application: Application) : BasePagingRepository() {
 
     @ExperimentalPagingApi
-    override fun getPagingData(cid: Int): Flow<PagingData<Article>> {
+    override fun getPagingData(query: Query): Flow<PagingData<Article>> {
         val database = PlayDatabase.getDatabase(application)
         return Pager(
             config = PagingConfig(pageSize = PAGE_SIZE, enablePlaceholders = false),
-            remoteMediator = SearchRemoteMediator("", database),
+            remoteMediator = SearchRemoteMediator(query.k, database),
             pagingSourceFactory = {
                 database.browseHistoryDao().articleByType(SEARCH)
             }

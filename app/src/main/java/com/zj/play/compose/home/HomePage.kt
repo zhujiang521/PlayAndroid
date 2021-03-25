@@ -22,6 +22,7 @@ import com.zj.play.compose.common.article.ToTopButton
 import com.zj.play.compose.common.lce.SetLcePage
 import com.zj.play.compose.model.PlayLoading
 import com.zj.play.compose.model.PlaySuccess
+import com.zj.play.compose.model.Query
 import com.zj.play.compose.viewmodel.HomePageViewModel
 
 private const val TAG = "HomePage"
@@ -40,7 +41,7 @@ fun HomePage(
     if (!loadArticleState) {
         loadArticleState = true
         viewModel.getBanner()
-        viewModel.searchArticle(0)
+        viewModel.searchArticle(Query())
     }
 
     Column(modifier = Modifier.fillMaxSize()) {

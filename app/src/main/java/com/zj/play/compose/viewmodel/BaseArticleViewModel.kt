@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import com.zj.model.room.entity.Article
+import com.zj.play.compose.model.Query
 import com.zj.play.compose.repository.BasePagingRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
@@ -18,7 +19,7 @@ abstract class BaseArticleViewModel(application: Application) : AndroidViewModel
 
     abstract val repositoryArticle: BasePagingRepository
 
-    private val searchResults = MutableSharedFlow<Int>(replay = 1)
+    private val searchResults = MutableSharedFlow<Query>(replay = 1)
 
     @ExperimentalPagingApi
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -31,10 +32,10 @@ abstract class BaseArticleViewModel(application: Application) : AndroidViewModel
     /**
      * Search a repository based on a query string.
      */
-    open fun searchArticle(cid: Int) {
+    open fun searchArticle(query: Query) {
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
-            searchResults.emit(cid)
+            searchResults.emit(query)
         }
     }
 

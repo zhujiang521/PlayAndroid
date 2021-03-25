@@ -18,10 +18,7 @@ import com.zj.network.down.Download
 import com.zj.network.down.DownloadBuild
 import com.zj.network.down.DownloadStatus
 import com.zj.play.compose.mediator.HomeRemoteMediator
-import com.zj.play.compose.model.PlayError
-import com.zj.play.compose.model.PlayLoading
-import com.zj.play.compose.model.PlayState
-import com.zj.play.compose.model.PlaySuccess
+import com.zj.play.compose.model.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -47,7 +44,7 @@ class HomePagingRepository(private val application: Application) : BasePagingRep
     }
 
     @ExperimentalPagingApi
-    override fun getPagingData(cid: Int): Flow<PagingData<Article>> {
+    override fun getPagingData(query: Query): Flow<PagingData<Article>> {
         val database = PlayDatabase.getDatabase(application)
         return Pager(
             config = PagingConfig(pageSize = PAGE_SIZE, enablePlaceholders = false),
