@@ -59,7 +59,7 @@ fun ArticleListPage(
     }
     val tree by viewModel.dataLiveData.observeAsState(PlayLoading)
     val position by viewModel.position.observeAsState()
-    val lazyPagingItems = articleViewModel.articleResult.collectAsLazyPagingItems()
+    val lazyPagingItems = articleViewModel.articleResult
     Column(modifier = Modifier.background(color = MaterialTheme.colors.primary)) {
         Spacer(modifier = Modifier.statusBarsHeight())
         SetLcePage(playState = tree, onErrorClick = {

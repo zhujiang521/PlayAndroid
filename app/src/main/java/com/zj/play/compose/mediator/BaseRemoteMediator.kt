@@ -16,15 +16,19 @@
 
 package com.zj.play.compose.mediator
 
+import android.accounts.NetworkErrorException
 import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
+import com.blankj.utilcode.util.NetworkUtils
+import com.zj.core.util.showToast
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.RemoteKeys
+import com.zj.play.R
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -82,10 +86,10 @@ abstract class BaseRemoteMediator(
             Log.e(TAG, "load: localType:$localType  repos:${repos.size}")
             repoDatabase.withTransaction {
                 // clear all tables in the database
-                if (loadType == LoadType.REFRESH) {
-                    repoDatabase.remoteKeysDao().clearRemoteKeys()
-                    repoDatabase.browseHistoryDao().clearRepos()
-                }
+//                if (loadType == LoadType.REFRESH) {
+//                    repoDatabase.remoteKeysDao().clearRemoteKeys()
+//                    repoDatabase.browseHistoryDao().clearRepos()
+//                }
                 val prevKey = if (page == GITHUB_STARTING_PAGE_INDEX) null else page - 1
                 val nextKey = if (endOfPaginationReached) null else page + 1
                 val keys = repos.map {
@@ -105,7 +109,16 @@ abstract class BaseRemoteMediator(
                     "load: localType:$localType  remoteLong:$remoteLong     articleLong:$articleLong"
                 )
             }
-            return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
+            return if (endOfPaginationReached){
+                if (!NetworkUtils.isConnected()) {
+                    showToast(R.string.no_network)
+                    MediatorResult.Error(NetworkErrorException(""))
+                }else{
+                    MediatorResult.Error(NullPointerException(""))
+                }
+            }else{
+                MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
+            }
         } catch (exception: IOException) {
             return MediatorResult.Error(exception)
         } catch (exception: HttpException) {

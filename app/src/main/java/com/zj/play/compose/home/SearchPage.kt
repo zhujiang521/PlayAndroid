@@ -37,7 +37,7 @@ fun SearchPage(
 ) {
     val searchState: TextFieldState = remember { TextFieldState() }
     var clickSearchState by remember { mutableStateOf(false) }
-    val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
+    val lazyPagingItems = viewModel.articleResult
     val listState = rememberLazyListState()
     Scaffold(
         backgroundColor = colorResource(id = R.color.yellow),
@@ -53,7 +53,7 @@ fun SearchPage(
             } else {
                 ArticleListPaging(
                     listState = listState,
-                    lazyPagingItems = lazyPagingItems,
+                    flowPagingItems = lazyPagingItems,
                     enterArticle = actions.enterArticle
                 )
                 ToTopButton(listState)

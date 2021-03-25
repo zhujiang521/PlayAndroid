@@ -37,7 +37,7 @@ fun HomePage(
     val listState = rememberLazyListState()
     val bannerData by viewModel.bannerState.observeAsState(PlayLoading)
     var loadArticleState by remember { mutableStateOf(false) }
-    val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
+    val lazyPagingItems = viewModel.articleResult
     if (!loadArticleState) {
         loadArticleState = true
         viewModel.getBanner()
