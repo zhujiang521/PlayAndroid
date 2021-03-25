@@ -17,7 +17,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.ExperimentalPagingApi
-import androidx.paging.compose.collectAsLazyPagingItems
 import com.zj.core.util.showToast
 import com.zj.play.R
 import com.zj.play.compose.MainActions
@@ -37,7 +36,6 @@ fun SearchPage(
 ) {
     val searchState: TextFieldState = remember { TextFieldState() }
     var clickSearchState by remember { mutableStateOf(false) }
-    val lazyPagingItems = viewModel.articleResult
     val listState = rememberLazyListState()
     Scaffold(
         backgroundColor = colorResource(id = R.color.yellow),
@@ -53,7 +51,7 @@ fun SearchPage(
             } else {
                 ArticleListPaging(
                     listState = listState,
-                    flowPagingItems = lazyPagingItems,
+                    viewModel = viewModel,
                     enterArticle = actions.enterArticle
                 )
                 ToTopButton(listState)

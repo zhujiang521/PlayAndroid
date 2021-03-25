@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
@@ -21,19 +22,21 @@ import com.zj.model.room.entity.Article
 import com.zj.play.R
 import com.zj.play.compose.common.lce.ErrorContent
 import com.zj.play.compose.common.lce.LoadingContent
+import com.zj.play.compose.viewmodel.BaseArticleViewModel
 import kotlinx.coroutines.flow.Flow
 
 private const val TAG = "ArticleListPaging"
 
+@ExperimentalPagingApi
 @Composable
 fun ArticleListPaging(
     modifier: Modifier = Modifier,
     listState: LazyListState,
-    flowPagingItems: Flow<PagingData<Article>>,
+    viewModel: BaseArticleViewModel,
     enterArticle: (Article) -> Unit
 ) {
 
-    val lazyPagingItems = flowPagingItems.collectAsLazyPagingItems()
+    val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
 
     Log.e(TAG, "ArticleListPaging: lazyPagingItems.itemCount:${lazyPagingItems.itemCount}")
     LazyColumn(

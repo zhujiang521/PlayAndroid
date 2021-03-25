@@ -86,14 +86,15 @@ abstract class BaseRemoteMediator(
             Log.e(TAG, "load: localType:$localType  repos:${repos.size}")
             repoDatabase.withTransaction {
                 // clear all tables in the database
-//                if (loadType == LoadType.REFRESH) {
-//                    repoDatabase.remoteKeysDao().clearRemoteKeys()
-//                    repoDatabase.browseHistoryDao().clearRepos()
-//                }
+                if (loadType == LoadType.REFRESH) {
+                    repoDatabase.remoteKeysDao().clearRemoteKeys()
+                    //repoDatabase.browseHistoryDao().clearRepos()
+                }
                 val prevKey = if (page == GITHUB_STARTING_PAGE_INDEX) null else page - 1
                 val nextKey = if (endOfPaginationReached) null else page + 1
                 val keys = repos.map {
                     it.localType = localType
+                    repoDatabase.browseHistoryDao().deleteById(it.id)
                     RemoteKeys(
                         repoId = it.id,
                         prevKey = prevKey,

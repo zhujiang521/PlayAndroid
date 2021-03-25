@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.ExperimentalPagingApi
-import androidx.paging.compose.collectAsLazyPagingItems
 import com.zj.model.room.entity.BannerBean
 import com.zj.play.R
 import com.zj.play.compose.MainActions
@@ -25,7 +24,6 @@ import com.zj.play.compose.model.PlaySuccess
 import com.zj.play.compose.model.Query
 import com.zj.play.compose.viewmodel.HomePageViewModel
 
-private const val TAG = "HomePage"
 
 @ExperimentalPagingApi
 @Composable
@@ -37,7 +35,6 @@ fun HomePage(
     val listState = rememberLazyListState()
     val bannerData by viewModel.bannerState.observeAsState(PlayLoading)
     var loadArticleState by remember { mutableStateOf(false) }
-    val lazyPagingItems = viewModel.articleResult
     if (!loadArticleState) {
         loadArticleState = true
         viewModel.getBanner()
@@ -61,7 +58,7 @@ fun HomePage(
             val data = bannerData as PlaySuccess<List<BannerBean>>
             Column {
                 Banner(data, actions.enterArticle)
-                ArticleListPaging(modifier, listState, lazyPagingItems, actions.enterArticle)
+                ArticleListPaging(modifier, listState, viewModel, actions.enterArticle)
             }
         }
     }

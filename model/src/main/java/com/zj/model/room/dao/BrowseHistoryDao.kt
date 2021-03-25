@@ -35,7 +35,7 @@ interface BrowseHistoryDao {
     @Query("SELECT * FROM browse_history where local_type = :type and chapter_id = :chapterId")
     suspend fun getArticleListForChapterId(type: Int, chapterId: Int): List<Article>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertList(articleList: List<Article>): List<Long>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -55,6 +55,9 @@ interface BrowseHistoryDao {
 
     @Query("DELETE FROM browse_history where local_type = :type")
     suspend fun deleteAll(type: Int)
+
+    @Query("DELETE FROM browse_history where id = :id")
+    suspend fun deleteById(id: Int)
 
     @Query("DELETE FROM browse_history where local_type = :type and chapter_id = :chapterId")
     suspend fun deleteAll(type: Int, chapterId: Int)

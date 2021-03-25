@@ -10,7 +10,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.ExperimentalPagingApi
-import androidx.paging.compose.collectAsLazyPagingItems
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.ProjectClassify
 import com.zj.play.compose.common.article.ArticleListPaging
@@ -59,7 +58,6 @@ fun ArticleListPage(
     }
     val tree by viewModel.dataLiveData.observeAsState(PlayLoading)
     val position by viewModel.position.observeAsState()
-    val lazyPagingItems = articleViewModel.articleResult
     Column(modifier = Modifier.background(color = MaterialTheme.colors.primary)) {
         Spacer(modifier = Modifier.statusBarsHeight())
         SetLcePage(playState = tree, onErrorClick = {
@@ -79,7 +77,7 @@ fun ArticleListPage(
                 loadPageState = true
             }
 
-            ArticleListPaging(modifier, listState, lazyPagingItems, enterArticle)
+            ArticleListPaging(modifier, listState, articleViewModel, enterArticle)
         }
     }
 
