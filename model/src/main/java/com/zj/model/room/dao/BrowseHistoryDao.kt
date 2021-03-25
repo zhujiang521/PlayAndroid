@@ -1,5 +1,6 @@
 package com.zj.model.room.dao
 
+import androidx.paging.PagingSource
 import androidx.room.*
 import com.zj.model.room.entity.Article
 
@@ -19,7 +20,7 @@ interface BrowseHistoryDao {
     suspend fun getAllArticle(): List<Article>
 
     @Query("SELECT * FROM browse_history where id = :id and local_type = :type")
-    suspend fun getArticle(id: Int,type: Int): Article?
+    suspend fun getArticle(id: Int, type: Int): Article?
 
     @Query("SELECT * FROM browse_history where local_type = :type order by uid desc limit :page,20")
     suspend fun getHistoryArticleList(page: Int, type: Int): List<Article>
@@ -33,7 +34,7 @@ interface BrowseHistoryDao {
     @Query("SELECT * FROM browse_history where local_type = :type and chapter_id = :chapterId")
     suspend fun getArticleListForChapterId(type: Int, chapterId: Int): List<Article>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertList(articleList: List<Article>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -49,12 +50,15 @@ interface BrowseHistoryDao {
     suspend fun deleteList(articleList: List<Article>): Int
 
     @Query("DELETE FROM browse_history")
-    suspend fun deleteAll()
+    suspend fun clearRepos()
 
     @Query("DELETE FROM browse_history where local_type = :type")
     suspend fun deleteAll(type: Int)
 
     @Query("DELETE FROM browse_history where local_type = :type and  chapter_id = :chapterId")
     suspend fun deleteAll(type: Int, chapterId: Int)
+
+    @Query("SELECT * FROM browse_history where chapter_id = :cid")
+    fun articleByCid(cid: Int): PagingSource<Int, Article>
 
 }

@@ -55,13 +55,15 @@ dependencies {
     implementation des.appcompat
     implementation project(path: ':core')
 
-    def room_version = "2.2.6"
+    def room_version = "2.3.0-beta02"
     api "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     // For Kotlin use kapt instead of annotationProcessor
 
     // optional - Kotlin Extensions and Coroutines support for Room
     api "androidx.room:room-ktx:$room_version"
+
+    api 'androidx.paging:paging-compose:1.0.0-alpha08'
 
     testImplementation des.junit
     androidTestImplementation des.extJunit

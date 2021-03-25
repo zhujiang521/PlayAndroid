@@ -18,22 +18,25 @@ package com.zj.play.compose.home
 
 import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.ScrollableTabRow
-import androidx.compose.material.Tab
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.paging.LoadState
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemsIndexed
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.ProjectClassify
+import com.zj.play.compose.common.SwipeToRefreshLayout
+import com.zj.play.compose.common.article.ArticleItem
 import com.zj.play.compose.common.article.ToTopButton
 import com.zj.play.compose.common.lce.SetLcePage
 import com.zj.play.compose.common.lce.SwipeArticleListPage
@@ -49,15 +52,93 @@ private const val TAG = "ProjectPage"
 fun ProjectPage(
     enterArticle: (Article) -> Unit,
     modifier: Modifier = Modifier,
+    viewModel: ProjectViewModel = viewModel(),
+    projectViewModel: ProjectListViewModel = viewModel(),
 ) {
-    val viewModel: ProjectViewModel = viewModel()
-    val projectViewModel: ProjectListViewModel = viewModel()
-    ArticleListPage(
-        modifier = modifier,
-        enterArticle = enterArticle,
-        viewModel = viewModel,
-        projectViewModel = projectViewModel
-    )
+    val listState = rememberLazyListState()
+    var loadState by remember { mutableStateOf(false) }
+    var loadPageState by remember { mutableStateOf(false) }
+
+    val refresh by viewModel.refreshState.observeAsState()
+
+    if (!loadState && refresh != REFRESH_START) {
+        loadState = true
+        viewModel.getDataList(false)
+    }
+    val tree by viewModel.dataLiveData.observeAsState(PlayLoading)
+    val position by viewModel.position.observeAsState()
+
+    Column(modifier = Modifier.background(color = MaterialTheme.colors.primary)) {
+        Spacer(modifier = Modifier.statusBarsHeight())
+        SetLcePage(playState = tree, onErrorClick = {
+            viewModel.getDataList(false)
+            loadState = true
+        }) {
+            val data = (tree as PlaySuccess<List<ProjectClassify>>).data
+            ScrollableTabRow(
+                selectedTabIndex = position ?: 0,
+                modifier = Modifier.wrapContentWidth(),
+                edgePadding = 3.dp
+            ) {
+                data.forEachIndexed { index, projectClassify ->
+                    Tab(
+                        text = { Text(projectClassify.name) },
+                        selected = position == index,
+                        onClick = {
+                            projectViewModel.searchProject(projectClassify.id)
+                            viewModel.onPositionChanged(index)
+                        }
+                    )
+                }
+                if (position == 0 && !loadPageState) {
+                    loadPageState = true
+                    projectViewModel.searchProject(data[position ?: 0].id)
+                }
+            }
+            val lazyPagingItems = projectViewModel.repoResult.collectAsLazyPagingItems()
+            LazyColumn(
+                modifier = modifier,
+                state = listState
+            ) {
+
+                if (lazyPagingItems.loadState.refresh == LoadState.Loading) {
+                    item {
+                        Text(
+                            text = "Waiting for items to load from the backend",
+                            modifier = Modifier.fillMaxWidth()
+                                .wrapContentWidth(Alignment.CenterHorizontally)
+                        )
+                    }
+                }
+
+                itemsIndexed(lazyPagingItems) { index, article ->
+                    ArticleItem(
+                        article,
+                        index,
+                        enterArticle = { urlArgs ->
+                            enterArticle(
+                                urlArgs
+                            )
+                        })
+                }
+
+                if (lazyPagingItems.loadState.append == LoadState.Loading) {
+                    item {
+                        CircularProgressIndicator(
+                            modifier = Modifier.fillMaxWidth()
+                                .wrapContentWidth(Alignment.CenterHorizontally),
+                            color = Color.Magenta
+                        )
+                    }
+                }
+
+            }
+        }
+    }
+
+    if (tree is PlaySuccess<*>) {
+        ToTopButton(listState)
+    }
 }
 
 
@@ -184,6 +265,7 @@ fun ArticleTabRow(
                 text = { Text(projectClassify.name) },
                 selected = position == index,
                 onClick = {
+                    Log.e("ZHUJIANG123", "ArticleTabRow: projectClassify.id:${projectClassify.id}")
                     projectViewModel.getDataList(
                         QueryArticle(
                             0,

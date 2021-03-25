@@ -19,8 +19,8 @@ import com.zj.model.room.entity.*
  *
  */
 @Database(
-    entities = [ProjectClassify::class, Article::class, HotKey::class, BannerBean::class,Almanac::class],
-    version = 2
+    entities = [ProjectClassify::class, Article::class, HotKey::class, BannerBean::class, Almanac::class, RemoteKeys::class],
+    version = 2,
 )
 abstract class PlayDatabase : RoomDatabase() {
 
@@ -33,6 +33,8 @@ abstract class PlayDatabase : RoomDatabase() {
     abstract fun bannerBeanDao(): BannerBeanDao
 
     abstract fun almanacDao(): AlmanacDao
+
+    abstract fun remoteKeysDao(): RemoteKeysDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the

@@ -42,10 +42,11 @@ import com.zj.play.compose.common.NetworkImage
 
 @Composable
 fun ArticleItem(
-    article: Article,
+    article: Article?,
     index: Int,
     enterArticle: (urlArgs: Article) -> Unit,
 ) {
+    if (article == null) return
     Row(modifier = Modifier.padding(top = 8.dp)) {
         val stagger = if (index % 2 == 0) 42.dp else 16.dp
         Spacer(modifier = Modifier.width(stagger))
