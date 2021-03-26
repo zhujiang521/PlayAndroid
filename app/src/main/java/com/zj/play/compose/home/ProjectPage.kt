@@ -10,6 +10,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.ExperimentalPagingApi
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.ProjectClassify
 import com.zj.play.compose.common.article.ArticleListPaging
@@ -49,7 +50,7 @@ fun ArticleListPage(
     val listState = rememberLazyListState()
     var loadState by remember { mutableStateOf(false) }
     var loadPageState by remember { mutableStateOf(false) }
-
+    val lazyPagingItems = articleViewModel.articleResult.collectAsLazyPagingItems()
     val refresh by viewModel.refreshState.observeAsState()
 
     if (!loadState && refresh != REFRESH_START) {
@@ -77,7 +78,7 @@ fun ArticleListPage(
                 loadPageState = true
             }
 
-            ArticleListPaging(modifier, listState, articleViewModel, enterArticle)
+            ArticleListPaging(modifier, listState, lazyPagingItems, enterArticle)
         }
     }
 
