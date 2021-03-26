@@ -110,16 +110,7 @@ abstract class BaseRemoteMediator(
                     "load: localType:$localType  remoteLong:$remoteLong     articleLong:$articleLong"
                 )
             }
-            return if (endOfPaginationReached){
-                if (!NetworkUtils.isConnected()) {
-                    showToast(R.string.no_network)
-                    MediatorResult.Error(NetworkErrorException(""))
-                }else{
-                    MediatorResult.Error(NullPointerException(""))
-                }
-            }else{
-                MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
-            }
+            return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (exception: IOException) {
             return MediatorResult.Error(exception)
         } catch (exception: HttpException) {

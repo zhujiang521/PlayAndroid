@@ -1,12 +1,15 @@
 package com.zj.play.compose.common.article
 
 import android.util.Log
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
@@ -54,8 +57,15 @@ fun ArticleListPaging(
                     }
                     is LoadState.Error ->
                         item {
-                            Button(onClick = { lazyPagingItems.retry() }) {
-                                Text("Retry")
+                            Row(
+                                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Center,
+                            ) {
+                                Button(
+                                    onClick = { lazyPagingItems.retry() }) {
+                                    Text("Retry")
+                                }
                             }
                         }
                 }
