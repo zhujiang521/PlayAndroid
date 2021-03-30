@@ -19,6 +19,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.zj.banner.BannerPager
+import com.zj.banner.ui.indicator.NumberIndicator
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.BannerBean
 import com.zj.play.R
@@ -66,7 +67,7 @@ fun HomePage(
         ) {
             val data = bannerData as PlaySuccess<List<BannerBean>>
             Column {
-                BannerPager(items = data.data) {
+                BannerPager(items = data.data, indicator = NumberIndicator()) {
                     actions.enterArticle(
                         Article(
                             title = it.title,

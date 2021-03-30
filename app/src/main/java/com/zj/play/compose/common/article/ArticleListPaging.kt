@@ -1,12 +1,16 @@
 package com.zj.play.compose.common.article
 
 import android.util.Log
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -37,20 +41,24 @@ fun ArticleListPaging(
                 state = listState
             ) {
                 itemsIndexed(lazyPagingItems) { index, article ->
-                    ArticleItem(article, index, enterArticle = { urlArgs ->
-                        enterArticle(
-                            urlArgs
-                        )
-                    })
-                }
-
-                when (lazyPagingItems.loadState.append) {
-                    is LoadState.NotLoading -> itemsIndexed(lazyPagingItems) { index, article ->
+                    key(article?.id ?: index) {
                         ArticleItem(article, index, enterArticle = { urlArgs ->
                             enterArticle(
                                 urlArgs
                             )
                         })
+                    }
+                }
+
+                when (lazyPagingItems.loadState.append) {
+                    is LoadState.NotLoading -> itemsIndexed(lazyPagingItems) { index, article ->
+                        key(article?.id ?: index) {
+                            ArticleItem(article, index, enterArticle = { urlArgs ->
+                                enterArticle(
+                                    urlArgs
+                                )
+                            })
+                        }
                     }
                     LoadState.Loading -> item {
                         LoadingContent()
