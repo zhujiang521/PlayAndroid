@@ -80,13 +80,10 @@ dependencies {
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.ui:ui-tooling:$compose_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha03"
-//    implementation "androidx.compose.material:material-icons-extended:$compose_version"
 
     // navigation
     implementation "androidx.navigation:navigation-compose:1.0.0-alpha08"
 
-    implementation "dev.chrisbanes.accompanist:accompanist-coil:0.6.2"
     implementation "dev.chrisbanes.accompanist:accompanist-insets:0.6.2"
 
     implementation files('libs/tbs_sdk_thirdapp_v4.3.0.67_43967_sharewithdownloadwithfile_withoutGame_obfs_20200923_120452.jar')
