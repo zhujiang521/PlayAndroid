@@ -1,23 +1,30 @@
 package com.zj.play.compose.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.zj.banner.BannerPager
+import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.BannerBean
 import com.zj.play.R
 import com.zj.play.compose.MainActions
 import com.zj.play.compose.common.PlayAppBar
 import com.zj.play.compose.common.article.ArticleListPaging
-import com.zj.play.compose.common.article.Banner
 import com.zj.play.compose.common.article.ToTopButton
 import com.zj.play.compose.common.lce.SetLcePage
 import com.zj.play.compose.model.PlayLoading
@@ -59,8 +66,20 @@ fun HomePage(
         ) {
             val data = bannerData as PlaySuccess<List<BannerBean>>
             Column {
-                Banner(data, actions.enterArticle)
-                ArticleListPaging(modifier, listState, lazyPagingItems, actions.enterArticle)
+                BannerPager(items = data.data) {
+                    actions.enterArticle(
+                        Article(
+                            title = it.title,
+                            link = it.url
+                        )
+                    )
+                }
+                ArticleListPaging(
+                    modifier,
+                    listState,
+                    lazyPagingItems,
+                    actions.enterArticle
+                )
             }
         }
     }

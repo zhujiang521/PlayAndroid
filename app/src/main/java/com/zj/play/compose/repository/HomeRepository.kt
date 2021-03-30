@@ -108,7 +108,7 @@ class HomePagingRepository(private val application: Application) : BasePagingRep
                         uiScope.launch(Dispatchers.IO) {
                             val banner = bannerBeanDao.loadBanner(it.id)
                             if (banner == null) {
-                                it.filePath = value.file?.path ?: ""
+                                it.data = value.file?.path ?: ""
                                 bannerBeanDao.insert(it)
                             }
                         }
