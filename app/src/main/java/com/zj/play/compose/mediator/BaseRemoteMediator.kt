@@ -16,24 +16,20 @@
 
 package com.zj.play.compose.mediator
 
-import android.accounts.NetworkErrorException
 import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import com.blankj.utilcode.util.NetworkUtils
-import com.zj.core.util.showToast
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.RemoteKeys
-import com.zj.play.R
 import retrofit2.HttpException
 import java.io.IOException
 
 // GitHub page API is 1 based: https://developer.github.com/v3/#pagination
-private const val GITHUB_STARTING_PAGE_INDEX = 1
+private const val PLAY_ANDROID_STARTING_PAGE_INDEX = 0
 
 @OptIn(ExperimentalPagingApi::class)
 abstract class BaseRemoteMediator(
@@ -61,7 +57,7 @@ abstract class BaseRemoteMediator(
         val page = when (loadType) {
             LoadType.REFRESH -> {
                 val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
-                remoteKeys?.nextKey?.minus(1) ?: GITHUB_STARTING_PAGE_INDEX
+                remoteKeys?.nextKey?.minus(1) ?: PLAY_ANDROID_STARTING_PAGE_INDEX
             }
             LoadType.PREPEND -> {
                 val remoteKeys = getRemoteKeyForFirstItem(state)
@@ -88,9 +84,9 @@ abstract class BaseRemoteMediator(
                 // clear all tables in the database
                 if (loadType == LoadType.REFRESH) {
                     repoDatabase.remoteKeysDao().clearRemoteKeys()
-                    //repoDatabase.browseHistoryDao().clearRepos()
+                    repoDatabase.browseHistoryDao().clearRepos()
                 }
-                val prevKey = if (page == GITHUB_STARTING_PAGE_INDEX) null else page - 1
+                val prevKey = if (page == PLAY_ANDROID_STARTING_PAGE_INDEX) null else page - 1
                 val nextKey = if (endOfPaginationReached) null else page + 1
                 val keys = repos.map {
                     it.localType = localType

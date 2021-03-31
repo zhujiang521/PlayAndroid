@@ -13,7 +13,9 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.zj.play.R
 
 @Composable
-fun LoadingContent() {
+fun LoadingContent(
+    modifier: Modifier = Modifier
+) {
     val context = LocalContext.current
     val progressBar = remember {
         ProgressBar(context).apply {
@@ -23,7 +25,7 @@ fun LoadingContent() {
     progressBar.indeterminateDrawable =
         AppCompatResources.getDrawable(LocalContext.current, R.drawable.loading_animation)
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {

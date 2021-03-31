@@ -17,10 +17,11 @@ import com.zj.play.R
 
 @Composable
 fun ErrorContent(
+    modifier: Modifier = Modifier,
     onErrorClick: () -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
+        modifier = modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(

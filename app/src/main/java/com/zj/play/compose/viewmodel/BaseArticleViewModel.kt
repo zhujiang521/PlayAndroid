@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.zj.model.room.entity.Article
 import com.zj.play.compose.model.Query
 import com.zj.play.compose.repository.BasePagingRepository
@@ -25,7 +26,7 @@ abstract class BaseArticleViewModel(application: Application) : AndroidViewModel
     @OptIn(ExperimentalCoroutinesApi::class)
     val articleResult: Flow<PagingData<Article>> = searchResults.flatMapLatest {
         repositoryArticle.getPagingData(it)
-    }
+    }.cachedIn(viewModelScope)
 
     private var searchJob: Job? = null
 
