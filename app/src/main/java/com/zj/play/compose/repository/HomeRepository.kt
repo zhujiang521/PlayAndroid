@@ -79,8 +79,11 @@ class HomePagingRepository(private val application: Application) : BasePagingRep
                     state.postValue(PlaySuccess(bannerBeanList))
                 } else {
                     bannerBeanDao.deleteAll()
-                    insertBannerList(bannerBeanDao, bannerList)
+                    bannerList.forEach {
+                        it.data = it.imagePath
+                    }
                     state.postValue(PlaySuccess(bannerList))
+                    insertBannerList(bannerBeanDao, bannerList)
                 }
                 dataStore.saveLongData(DOWN_IMAGE_TIME, System.currentTimeMillis())
             } else {

@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.itemsIndexed
+import androidx.paging.compose.items
 import com.zj.model.room.entity.Article
 import com.zj.play.compose.common.lce.ErrorContent
 import com.zj.play.compose.common.lce.LoadingContent
@@ -40,24 +40,21 @@ fun ArticleListPaging(
                 modifier = modifier,
                 state = listState
             ) {
-                itemsIndexed(lazyPagingItems) { index, article ->
-                    key(article?.id ?: index) {
-                        ArticleItem(article, index, enterArticle = { urlArgs ->
-                            enterArticle(
-                                urlArgs
-                            )
-                        })
+
+                items(lazyPagingItems) { article ->
+                    key(article) {
+                        ArticleItem(article) { urlArgs ->
+                            enterArticle(urlArgs)
+                        }
                     }
                 }
 
                 when (lazyPagingItems.loadState.append) {
-                    is LoadState.NotLoading -> itemsIndexed(lazyPagingItems) { index, article ->
-                        key(article?.id ?: index) {
-                            ArticleItem(article, index, enterArticle = { urlArgs ->
-                                enterArticle(
-                                    urlArgs
-                                )
-                            })
+                    is LoadState.NotLoading -> items(lazyPagingItems) { article ->
+                        key(article) {
+                            ArticleItem(article) { urlArgs ->
+                                enterArticle(urlArgs)
+                            }
                         }
                     }
                     LoadState.Loading -> item {

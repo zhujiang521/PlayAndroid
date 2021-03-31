@@ -26,20 +26,15 @@ import com.zj.play.compose.common.NetworkImage
 @Composable
 fun ArticleItem(
     article: Article?,
-    index: Int,
     enterArticle: (urlArgs: Article) -> Unit,
 ) {
     if (article == null) return
-    Row(modifier = Modifier.padding(top = 8.dp)) {
-        val stagger = if (index % 2 == 0) 42.dp else 16.dp
-        Spacer(modifier = Modifier.width(stagger))
-        ArticleListItem(
-            article = article,
-            onClick = { enterArticle(article) },
-            modifier = Modifier.height(96.dp),
-            shape = RoundedCornerShape(topStart = 24.dp)
-        )
-    }
+    ArticleListItem(
+        article = article,
+        onClick = { enterArticle(article) },
+        modifier = Modifier.height(96.dp).padding(start = 16.dp, top = 8.dp),
+        shape = RoundedCornerShape(topStart = 24.dp)
+    )
 }
 
 @Composable
@@ -68,7 +63,7 @@ fun ArticleListItem(
                     painter = painterResource(R.drawable.img_default), contentDescription = null,
                     modifier = Modifier
                         .height(96.dp)
-                        .width(100.dp)
+                        .width(91.5.dp)
                 )
             }
             Column(
