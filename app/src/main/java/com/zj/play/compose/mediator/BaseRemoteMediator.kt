@@ -49,24 +49,24 @@ abstract class BaseRemoteMediator(
         // append until refresh has succeeded. In cases where we don't mind showing out-of-date,
         // cached offline data, we can return SKIP_INITIAL_REFRESH instead to prevent paging
         // triggering remote refresh.
-        // return InitializeAction.LAUNCH_INITIAL_REFRESH
-        val dataStore = DataStoreUtils
-
-        val cacheTimeout = TimeUnit.HOURS.convert(1, TimeUnit.MILLISECONDS)
-        return if (System.currentTimeMillis() - dataStore.getSyncData(
-                LAST_UPDATED,
-                0L
-            ) >= cacheTimeout
-        ) {
-            // Cached data is up-to-date, so there is no need to re-fetch
-            // from the network.
-            InitializeAction.SKIP_INITIAL_REFRESH
-        } else {
-            // Need to refresh cached data from network; returning
-            // LAUNCH_INITIAL_REFRESH here will also block RemoteMediator's
-            // APPEND and PREPEND from running until REFRESH succeeds.
-            InitializeAction.LAUNCH_INITIAL_REFRESH
-        }
+        return InitializeAction.LAUNCH_INITIAL_REFRESH
+//        val dataStore = DataStoreUtils
+//
+//        val cacheTimeout = TimeUnit.HOURS.convert(1, TimeUnit.MILLISECONDS)
+//        return if (System.currentTimeMillis() - dataStore.getSyncData(
+//                LAST_UPDATED,
+//                0L
+//            ) >= cacheTimeout
+//        ) {
+//            // Cached data is up-to-date, so there is no need to re-fetch
+//            // from the network.
+//            InitializeAction.SKIP_INITIAL_REFRESH
+//        } else {
+//            // Need to refresh cached data from network; returning
+//            // LAUNCH_INITIAL_REFRESH here will also block RemoteMediator's
+//            // APPEND and PREPEND from running until REFRESH succeeds.
+//            InitializeAction.LAUNCH_INITIAL_REFRESH
+//        }
 
     }
 
@@ -101,8 +101,6 @@ abstract class BaseRemoteMediator(
             repoDatabase.withTransaction {
                 // clear all tables in the database
                 if (loadType == LoadType.REFRESH) {
-                    val dataStore = DataStoreUtils
-                    dataStore.putSyncData(LAST_UPDATED, System.currentTimeMillis())
                     repoDatabase.remoteKeysDao().clearRemoteKeys()
                     repoDatabase.browseHistoryDao().clearRepos()
                 }
@@ -121,6 +119,8 @@ abstract class BaseRemoteMediator(
 
                 val remoteLong = repoDatabase.remoteKeysDao().insertAll(keys)
                 val articleLong = repoDatabase.browseHistoryDao().insertList(repos)
+                val dataStore = DataStoreUtils
+                dataStore.putSyncData(LAST_UPDATED, System.currentTimeMillis())
                 Log.e(
                     TAG,
                     "load: localType:$localType  remoteLong:$remoteLong     articleLong:$articleLong"
