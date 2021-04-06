@@ -22,11 +22,13 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
+import com.zj.core.util.DataStoreUtils
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.RemoteKeys
 import retrofit2.HttpException
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 // GitHub page API is 1 based: https://developer.github.com/v3/#pagination
 private const val PLAY_ANDROID_STARTING_PAGE_INDEX = 0
@@ -39,6 +41,7 @@ abstract class BaseRemoteMediator(
 
     companion object {
         private const val TAG = "ArticleRemoteMediator"
+        private const val LAST_UPDATED = "LAST_UPDATED"
     }
 
     override suspend fun initialize(): InitializeAction {
@@ -46,7 +49,25 @@ abstract class BaseRemoteMediator(
         // append until refresh has succeeded. In cases where we don't mind showing out-of-date,
         // cached offline data, we can return SKIP_INITIAL_REFRESH instead to prevent paging
         // triggering remote refresh.
-        return InitializeAction.LAUNCH_INITIAL_REFRESH
+        // return InitializeAction.LAUNCH_INITIAL_REFRESH
+        val dataStore = DataStoreUtils
+
+        val cacheTimeout = TimeUnit.HOURS.convert(1, TimeUnit.MILLISECONDS)
+        return if (System.currentTimeMillis() - dataStore.getSyncData(
+                LAST_UPDATED,
+                0L
+            ) >= cacheTimeout
+        ) {
+            // Cached data is up-to-date, so there is no need to re-fetch
+            // from the network.
+            InitializeAction.SKIP_INITIAL_REFRESH
+        } else {
+            // Need to refresh cached data from network; returning
+            // LAUNCH_INITIAL_REFRESH here will also block RemoteMediator's
+            // APPEND and PREPEND from running until REFRESH succeeds.
+            InitializeAction.LAUNCH_INITIAL_REFRESH
+        }
+
     }
 
     override suspend fun load(
@@ -55,10 +76,7 @@ abstract class BaseRemoteMediator(
     ): MediatorResult {
 
         val page = when (loadType) {
-            LoadType.REFRESH -> {
-                val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
-                remoteKeys?.nextKey?.minus(1) ?: PLAY_ANDROID_STARTING_PAGE_INDEX
-            }
+            LoadType.REFRESH -> null
             LoadType.PREPEND -> {
                 val remoteKeys = getRemoteKeyForFirstItem(state)
                 // If the previous key is null, then the list is empty so we should wait for data
@@ -73,7 +91,7 @@ abstract class BaseRemoteMediator(
                 // `false` for endOfPaginationReached.
                 remoteKeys?.nextKey ?: return MediatorResult.Success(endOfPaginationReached = false)
             }
-        }
+        } ?: PLAY_ANDROID_STARTING_PAGE_INDEX
 
         Log.e(TAG, "load: localType:$localType  page:$page")
         try {
@@ -83,6 +101,8 @@ abstract class BaseRemoteMediator(
             repoDatabase.withTransaction {
                 // clear all tables in the database
                 if (loadType == LoadType.REFRESH) {
+                    val dataStore = DataStoreUtils
+                    dataStore.putSyncData(LAST_UPDATED, System.currentTimeMillis())
                     repoDatabase.remoteKeysDao().clearRemoteKeys()
                     repoDatabase.browseHistoryDao().clearRepos()
                 }
