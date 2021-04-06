@@ -81,7 +81,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
 
-    def activity_version = "1.1.0"
+    def activity_version = "1.2.1"
     api "androidx.activity:activity-ktx:$activity_version"
     def fragment_version = "1.2.5"
     api "androidx.fragment:fragment-ktx:$fragment_version"
