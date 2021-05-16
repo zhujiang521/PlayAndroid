@@ -7,17 +7,11 @@
         <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="$USER_HOME$/.gradle/wrapper/dists/gradle-5.6.3-all" />
-        <option name="gradleJvm" value="1.8" />
+        <option name="gradleJvm" value="13" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/floating" />
-            <option value="$PROJECT_DIR$/model" />
-            <option value="$PROJECT_DIR$/network" />
-            <option value="$PROJECT_DIR$/permisson" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

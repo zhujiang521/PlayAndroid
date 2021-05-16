@@ -1,1 +1,0 @@
--keep class com.zj.permisson**{*;} # 自定义数据模型的bean目录

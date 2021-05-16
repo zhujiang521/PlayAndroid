@@ -1,52 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <color name="rb_gray">#FAFAFA</color>
-
-    <!-- 灰白 -->
-    <color name="gray">#FDFDFD</color>
-
-    <!-- 灰白 -->
-    <color name="grayWhites">#F8F8F8</color>
-
-    <!-- 灰白 -->
-    <color name="grayWhite">#e9e5e5</color>
-    <!--黑色-->
-    <color name="Black">#000000</color>
-    <!--筛选框-->
-    <color name="black_33">#333333</color>
-
-    <color name="black">#000</color>
-
-    <color name="view_bg">#dde6e4e4</color>
-
-    <color name="yellow">#FEC86D</color>
-
-    <color name="colorBackground">#F4F4F4</color>
-
-    <color name="floatBackground">#FAFAFA</color>
-
-    <color name="login_normal_solid">#ffffffff</color>
-    <color name="login_normal_stroke">#ffe0e0e0</color>
-    <color name="login_pressed_solid">#ededed</color>
-    <color name="login_pressed_stroke">#ededed</color>
-
-    <color name="exit_login_normal_solid">#FA2525</color>
-    <color name="exit_login_normal_stroke">#FA2525</color>
-    <color name="exit_login_pressed_solid">#D61616</color>
-    <color name="exit_login_pressed_stroke">#D61616</color>
-
-    <color name="article_bg">#FDFDFD</color>
-    <color name="article_pressed">#F1F1F1</color>
-
-    <color name="shortcut_icon">#252525</color>
-
-    <color name="almanac_fragment_content_dividline_color">#CDCDCD</color>
-    <color name="lunar_fragment_content_gb">#FFFFFF</color>
-    <color name="almanac_fragment_content_textcolor1">#333333</color>
-    <color name="almanac_fragment_content_textcolor2">#999999</color>
-    <color name="almanac_fragment_content_textcolor3">#FF675C</color>
-
-    <color name="home_bottom_bg_color">#F2EAEAEA</color>
-
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
 </resources>

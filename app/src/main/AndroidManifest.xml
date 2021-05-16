@@ -1,88 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.zj.play">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission
-        android:name="android.permission.READ_LOGS"
-        tools:ignore="ProtectedPermissions" />
 
     <application
         android:name=".App"
         android:allowBackup="true"
-        android:extractNativeLibs="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar"
-        android:usesCleartextTraffic="true"
-        tools:replace="android:theme"
-        tools:targetApi="m">
-        <activity android:name=".home.almanac.AlmanacActivity" />
-        <activity android:name=".profile.share.add.AddShareActivity" />
-        <activity android:name=".profile.share.ShareActivity" />
-        <activity android:name=".profile.history.BrowseHistoryActivity" />
+        android:theme="@style/Theme.PlayAndroid">
         <activity
-            android:name=".profile.user.UserActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
-        <activity
-            android:name=".article.collect.CollectListActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
-        <activity
-            android:name=".profile.rank.user.UserRankActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
-        <activity
-            android:name=".main.login.LoginActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
-        <activity
-            android:name=".profile.rank.list.RankActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
-        <activity
-            android:name=".article.ArticleActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity
-            android:name=".home.search.article.ArticleListActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
-        <activity
-            android:name=".home.search.SearchActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
-        <activity
-            android:name=".main.MainActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
-        <activity
-            android:name=".WelcomeActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize"
-            android:theme="@style/AppTheme.NoActionBars">
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.PlayAndroid.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-            <meta-data
-                android:name="android.app.shortcuts"
-                android:resource="@xml/shortcuts" />
         </activity>
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="com.zj.play.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
     </application>
 
 </manifest>

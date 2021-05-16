@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:color="@color/text_green" android:state_selected="true" />
-    <item android:color="@color/black_33" android:state_selected="false" />
-    <!-- 按压时 -->
-    <item android:color="@color/black_33" android:state_pressed="true" />
-
-</selector>

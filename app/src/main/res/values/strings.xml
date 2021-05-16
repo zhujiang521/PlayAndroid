@@ -88,4 +88,31 @@
     <string name="static_shortcut_long_label_add_share">New article sharing</string>
     <string name="static_shortcut_short_label_add_share">New share</string>
 
+    <string name="edit_profile">Edit Profile</string>
+
+
+    <string name="feature_not_available">Feature not available</string>
+    <string name="dismiss">DISMISS</string>
+    <string name="next">NEXT</string>
+    <string name="previous">PREVIOUS</string>
+    <string name="done">DONE</string>
+    <string name="back">Back</string>
+    <string name="close">Close</string>
+    <string name="show_password">Show password</string>
+    <string name="hide_password">Hide password</string>
+    <string name="forgot_password">FORGOT PASSWORD?</string>
+    <string name="sign_in">Sign in</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="email">Email</string>
+    <string name="or">or</string>
+    <string name="sign_in_guest">SIGN IN AS GUEST</string>
+    <string name="invalid_password">Invalid password</string>
+    <string name="invalid_email">Invalid email</string>
+    <string name="share_article">Share Article</string>
+
+    <string name="bad_network_view_tip">Your network is not to force, can tap the screen to reload</string>
+    <string name="load_failed_click_to_reload">Failed to load, click to reload</string>
+    <string name="failed_load_data">Failed to load data</string>
+
 </resources>
