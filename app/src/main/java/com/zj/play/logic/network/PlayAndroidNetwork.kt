@@ -19,13 +19,7 @@ object PlayAndroidNetwork {
 
     suspend fun getBanner() = homePageService.getBanner()
 
-    suspend fun getTopArticleList() = homePageService.getTopArticle()
-
-    suspend fun getArticleList(page: Int) = homePageService.getArticle(page)
-    
-
-    suspend fun getQueryArticleList(page: Int, k: String) =
-        homePageService.getQueryArticleList(page, k)
+    suspend fun getArticle(page: Int) = homePageService.getArticle(page)
 
     private val projectService = ServiceCreator.create(ProjectService::class.java)
 

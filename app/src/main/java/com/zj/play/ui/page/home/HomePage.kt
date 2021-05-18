@@ -35,7 +35,7 @@ fun HomePage(
         viewModel.getData()
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = modifier.fillMaxSize()) {
         PlayAppBar(
             stringResource(id = R.string.home_page),
             false
@@ -56,7 +56,7 @@ fun HomePage(
                 )
             }
             ArticleListPaging(
-                modifier,
+                Modifier,
                 listState,
                 lazyPagingItems,
                 actions.enterArticle

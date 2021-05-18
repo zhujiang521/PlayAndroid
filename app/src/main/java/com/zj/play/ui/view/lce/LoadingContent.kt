@@ -8,6 +8,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.zj.play.R
@@ -16,12 +17,6 @@ import com.zj.play.R
 fun LoadingContent(
     modifier: Modifier = Modifier
 ) {
-    val context = LocalContext.current
-    val progressBar = remember {
-        ProgressBar(context)
-    }
-    progressBar.indeterminateDrawable =
-        AppCompatResources.getDrawable(LocalContext.current, R.drawable.loading_animation)
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -29,10 +24,19 @@ fun LoadingContent(
     ) {
         // Adds view to Compose
         AndroidView(
-            { progressBar }, modifier = Modifier
+            { ProgressBar(it) }, modifier = Modifier
                 .width(200.dp)
                 .height(110.dp)
-        ) {}
+        ) {
+            it.indeterminateDrawable =
+                AppCompatResources.getDrawable(it.context, R.drawable.loading_animation)
+        }
     }
 
+}
+
+@Preview(showBackground = true)
+@Composable
+fun LoadingContentPreview(){
+    LoadingContent()
 }

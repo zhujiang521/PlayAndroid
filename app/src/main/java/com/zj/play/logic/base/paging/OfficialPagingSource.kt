@@ -16,17 +16,15 @@
 
 package com.zj.play.logic.base.paging
 
-import com.zj.play.logic.network.ServiceCreator
 import com.zj.play.logic.model.ArticleModel
-import com.zj.play.logic.network.service.OfficialService
+import com.zj.play.logic.network.PlayAndroidNetwork
 
 class OfficialPagingSource(
-    private val cid: Int,
-    private val service: OfficialService = ServiceCreator.create(OfficialService::class.java),
+    private val cid: Int
 ) : BasePagingSource() {
 
     override suspend fun getArticleList(page: Int): List<ArticleModel> {
-        val apiResponse = service.getWxArticle(page, cid)
+        val apiResponse = PlayAndroidNetwork.getWxArticle(page, cid)
         return apiResponse.data.datas
     }
 }

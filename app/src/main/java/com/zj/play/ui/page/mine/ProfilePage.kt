@@ -58,6 +58,19 @@ private fun UserInfoFields(
             }
         }
 
+//        Text(
+//            text = "Zhujiang",
+//            modifier = Modifier.height(32.dp).padding(start = 16.dp),
+//            style = MaterialTheme.typography.h5
+//        )
+//        Text(
+//            text = "17695500274",
+//            modifier = Modifier
+//                .padding(start = 16.dp, bottom = 20.dp)
+//                .height(24.dp),
+//            style = MaterialTheme.typography.body1
+//        )
+
         ProfileProperty(
             ArticleModel(
                 title = stringResource(R.string.mine_blog),
@@ -104,34 +117,16 @@ private fun NameAndPosition(refresh: Boolean, toLogin: () -> Unit) {
             .padding(horizontal = 16.dp)
             .clickable { toLogin() }
     }) {
-        Name(
-            refresh,
-            modifier = Modifier.height(32.dp)
+        Text(
+            text = if (Play.isLogin && refresh) Play.nickName else stringResource(R.string.no_login),
+            modifier = Modifier.height(32.dp),
+            style = MaterialTheme.typography.h5
         )
-        Position(
-            refresh,
-            modifier = Modifier
-                .padding(bottom = 20.dp)
-                .height(24.dp)
-        )
-    }
-}
-
-@Composable
-private fun Name(refresh: Boolean, modifier: Modifier = Modifier) {
-    Text(
-        text = if (Play.isLogin && refresh) Play.nickName else stringResource(R.string.no_login),
-        modifier = modifier,
-        style = MaterialTheme.typography.h5
-    )
-}
-
-@Composable
-private fun Position(refresh: Boolean, modifier: Modifier = Modifier) {
-    CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
         Text(
             text = if (Play.isLogin && refresh) Play.username else stringResource(R.string.click_login),
-            modifier = modifier,
+            modifier = Modifier
+                .padding(bottom = 20.dp)
+                .height(24.dp),
             style = MaterialTheme.typography.body1
         )
     }
@@ -146,18 +141,15 @@ fun ProfileProperty(article: ArticleModel, enterArticle: (ArticleModel) -> Unit)
         .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
     ) {
         Divider()
-        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-            Text(
-                text = article.title,
-                modifier = Modifier.height(24.dp),
-                style = MaterialTheme.typography.caption
-            )
-        }
-        val style = MaterialTheme.typography.body1
+        Text(
+            text = article.title,
+            modifier = Modifier.height(24.dp).padding(top = 10.dp),
+            style = MaterialTheme.typography.caption
+        )
         Text(
             text = article.title,
             modifier = Modifier.height(24.dp),
-            style = style
+            style = MaterialTheme.typography.body1
         )
     }
 }

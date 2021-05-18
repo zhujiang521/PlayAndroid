@@ -16,16 +16,13 @@
 
 package com.zj.play.logic.base.paging
 
-import com.zj.play.logic.network.ServiceCreator
 import com.zj.play.logic.model.ArticleModel
-import com.zj.play.logic.network.service.HomePageService
+import com.zj.play.logic.network.PlayAndroidNetwork
 
-class HomePagingSource(
-    private val service: HomePageService = ServiceCreator.create(HomePageService::class.java),
-) : BasePagingSource() {
+class HomePagingSource : BasePagingSource() {
 
     override suspend fun getArticleList(page: Int): List<ArticleModel> {
-        val apiResponse = service.getArticle(page)
+        val apiResponse = PlayAndroidNetwork.getArticle(page)
         return apiResponse.data.datas
     }
 }

@@ -34,9 +34,7 @@ class ProjectRepository constructor(val application: Application) :
             enablePlaceholders = false
         )
     ) {
-        ProjectPagingSource(
-            cid = query.cid,
-        )
+        ProjectPagingSource(query.cid)
     }.flow
 
 }

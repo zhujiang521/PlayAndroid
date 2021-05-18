@@ -13,52 +13,23 @@ import kotlinx.coroutines.launch
  * 版权：Zhujiang 个人版权
  *
  * @author zhujiang
- * 创建日期：2020/10/18
+ * 创建日期：2021/05/18
  * 描述：PlayAndroid
  *
  */
 
-abstract class BaseViewModel<Key>(application: Application) : BaseArticleViewModel(application) {
-    private val _refreshState = MutableLiveData<Int>()
+abstract class BaseViewModel(application: Application) : BaseArticleViewModel(application) {
 
-    val refreshState: LiveData<Int>
-        get() = _refreshState
+    protected val _treeLiveData = MutableLiveData<PlayState>()
 
-    fun onRefreshChanged(refresh: Int) {
-        _refreshState.postValue(refresh)
-    }
+    val treeLiveData: LiveData<PlayState>
+        get() = _treeLiveData
 
-    private val _loadRefreshState = MutableLiveData(REFRESH_STOP)
+    abstract suspend fun getData()
 
-    val loadRefreshState: LiveData<Int>
-        get() = _loadRefreshState
-
-    fun onLoadRefreshStateChanged(refresh: Int) {
-        _loadRefreshState.postValue(refresh)
-    }
-
-    protected val mutableLiveData = MutableLiveData<PlayState>()
-
-    val dataLiveData: LiveData<PlayState>
-        get() = mutableLiveData
-
-
-    private val pageLiveData = MutableLiveData<Key>()
-
-    private val _page = MutableLiveData<Int>()
-
-    val page: LiveData<Int>
-        get() = _page
-
-    fun onPageChanged(refresh: Int) {
-        _page.postValue(refresh)
-    }
-
-    abstract suspend fun getData(page: Key)
-
-    fun getDataList(page: Key) {
+    fun getDataList() {
         viewModelScope.launch(Dispatchers.IO) {
-            getData(page)
+            getData()
         }
     }
 

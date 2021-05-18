@@ -16,17 +16,13 @@
 
 package com.zj.play.logic.base.paging
 
-import com.zj.play.logic.network.ServiceCreator
 import com.zj.play.logic.model.ArticleModel
-import com.zj.play.logic.network.service.ProjectService
+import com.zj.play.logic.network.PlayAndroidNetwork
 
-class ProjectPagingSource(
-    private val cid: Int,
-    private val service: ProjectService = ServiceCreator.create(ProjectService::class.java),
-) : BasePagingSource() {
+class ProjectPagingSource(private val cid: Int) : BasePagingSource() {
 
     override suspend fun getArticleList(page: Int): List<ArticleModel> {
-        val apiResponse = service.getProject(page, cid)
+        val apiResponse = PlayAndroidNetwork.getProject(page, cid)
         return apiResponse.data.datas
     }
 }

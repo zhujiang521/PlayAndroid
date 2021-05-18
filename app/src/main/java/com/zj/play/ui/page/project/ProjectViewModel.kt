@@ -8,20 +8,17 @@ import com.zj.play.logic.base.viewmodel.BaseViewModel
  * 版权：Zhujiang 个人版权
  * @author zhujiang
  * 版本：1.5
- * 创建日期：2020/5/17
+ * 创建日期：2021/5/17
  * 描述：PlayAndroid
  *
  */
-class ProjectViewModel(application: Application) :
-    BaseViewModel<Boolean>(application) {
-
-    private val projectRepository = ProjectRepository(application)
-
-    override suspend fun getData(page: Boolean) {
-        projectRepository.getTree(mutableLiveData)
-    }
+class ProjectViewModel(application: Application) : BaseViewModel(application) {
 
     override val repositoryArticle: BaseArticlePagingRepository
-        get() = projectRepository
+        get() = ProjectRepository(getApplication())
+
+    override suspend fun getData() {
+        (repositoryArticle as ProjectRepository).getTree(_treeLiveData)
+    }
 
 }

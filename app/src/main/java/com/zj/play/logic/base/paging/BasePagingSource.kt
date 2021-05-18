@@ -19,8 +19,9 @@ package com.zj.play.logic.base.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.zj.play.logic.model.ArticleModel
+import com.zj.play.logic.network.PlayAndroidNetwork
 
-abstract class BasePagingSource() : PagingSource<Int, ArticleModel>() {
+abstract class BasePagingSource : PagingSource<Int, ArticleModel>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleModel> {
         return try {

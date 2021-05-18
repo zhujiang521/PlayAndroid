@@ -38,5 +38,4 @@ abstract class BaseArticleViewModel(application: Application) : AndroidViewModel
         }
     }
 
-
 }

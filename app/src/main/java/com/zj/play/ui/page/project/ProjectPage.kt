@@ -38,24 +38,23 @@ fun ProjectPage(
 fun ArticleListPage(
     modifier: Modifier,
     enterArticle: (ArticleModel) -> Unit,
-    viewModel: BaseViewModel<Boolean>,
+    viewModel: BaseViewModel,
 ) {
     val listState = rememberLazyListState()
     var loadState by remember { mutableStateOf(false) }
     var loadPageState by remember { mutableStateOf(false) }
     val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
-    val refresh by viewModel.refreshState.observeAsState()
 
-    if (!loadState && refresh != REFRESH_START) {
+    if (!loadState) {
         loadState = true
-        viewModel.getDataList(false)
+        viewModel.getDataList()
     }
-    val tree by viewModel.dataLiveData.observeAsState(PlayLoading)
+    val tree by viewModel.treeLiveData.observeAsState(PlayLoading)
     val position by viewModel.position.observeAsState()
     Column(modifier = Modifier.background(color = MaterialTheme.colors.primary)) {
         Spacer(modifier = Modifier.statusBarsHeight())
         LcePage(playState = tree, onErrorClick = {
-            viewModel.getDataList(false)
+            viewModel.getDataList()
             loadState = true
         }) {
             val data = (tree as PlaySuccess<List<ClassifyModel>>).data

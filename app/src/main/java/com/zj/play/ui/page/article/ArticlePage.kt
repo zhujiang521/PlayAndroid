@@ -35,71 +35,35 @@ fun ArticlePage(
     article: ArticleModel?,
     onBack: () -> Unit,
 ) {
-    val x5WebView = rememberWebViewWithLifecycle()
+    val context = LocalContext.current
+    val webView = rememberWebViewWithLifecycle()
     Scaffold(
         topBar = {
             PlayAppBar(getHtmlText(article?.title ?: "文章详情"), click = {
-                if (x5WebView.canGoBack()) {
+                if (webView.canGoBack()) {
                     //返回上个页面
-                    x5WebView.goBack()
+                    webView.goBack()
                 } else {
                     onBack.invoke()
                 }
-            })
-        },
-        content = {
-            AndroidView(factory = { x5WebView },
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(bottom = 56.dp),
-            ) { x5WebView ->
-                x5WebView.loadUrl(article?.link ?: "")
-            }
-        },
-        bottomBar = {
-            BottomBar(article = article)
-        }
-    )
-}
-
-/**
- * Bottom bar for Article screen
- *
- * @param article article
- */
-@Composable
-private fun BottomBar(
-    article: ArticleModel?,
-) {
-    val context = LocalContext.current
-    Surface(elevation = 2.dp) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .height(56.dp)
-                .fillMaxWidth()
-        ) {
-            IconButton(onClick = {
+            }, showRight = true, rightImg = Icons.Filled.Share, rightClick = {
                 sharePost(
                     article?.title,
                     article?.link,
                     context
                 )
-            }) {
-                Icon(
-                    imageVector = Icons.Filled.Share,
-                    contentDescription = "分享"
-                )
-            }
-            Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = { showToast(context, R.string.feature_not_available) }) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_text_settings),
-                    contentDescription = "字体设置"
-                )
+            })
+        },
+        content = {
+            AndroidView(
+                factory = { webView },
+                modifier = Modifier
+                    .fillMaxSize()
+            ) { view ->
+                view.loadUrl(article?.link ?: "")
             }
         }
-    }
+    )
 }
 
 /**

@@ -32,9 +32,7 @@ class OfficialRepository(application: Application) : BaseArticleRepository(appli
             enablePlaceholders = false
         )
     ) {
-        OfficialPagingSource(
-            cid = query.cid,
-        )
+        OfficialPagingSource(query.cid)
     }.flow
 
 }

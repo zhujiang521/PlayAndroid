@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zj.play.logic.model.ClassifyModel
+import com.zj.play.logic.utils.getHtmlText
 
 @Composable
 fun ArticleTabRow(
@@ -24,7 +25,7 @@ fun ArticleTabRow(
     ) {
         data.forEachIndexed { index, projectClassify ->
             Tab(
-                text = { Text(projectClassify.name) },
+                text = { Text(getHtmlText(projectClassify.name)) },
                 selected = position == index,
                 onClick = {
                     onTabClick(index, projectClassify.id, false)
