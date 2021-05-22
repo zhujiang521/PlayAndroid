@@ -24,7 +24,7 @@ import com.zj.play.ui.page.login.LogoutDefault
 import com.zj.play.ui.page.login.LogoutFinish
 
 @Composable
-fun ProfilePage(actions: PlayActions) {
+fun ProfilePage(toLogin: () -> Unit, enterArticle: (ArticleModel) -> Unit) {
     Column(modifier = Modifier.fillMaxSize()) {
         Image(
             modifier = Modifier.fillMaxWidth(),
@@ -33,16 +33,16 @@ fun ProfilePage(actions: PlayActions) {
             contentDescription = null
         )
         UserInfoFields(
-            actions.enterArticle,
-            actions.toLogin,
+            toLogin,
+            enterArticle,
         )
     }
 }
 
 @Composable
 private fun UserInfoFields(
-    enterArticle: (ArticleModel) -> Unit,
     toLogin: () -> Unit,
+    enterArticle: (ArticleModel) -> Unit
 ) {
     val viewModel: LoginViewModel = viewModel()
     val logoutState by viewModel.logoutState.observeAsState(LogoutDefault)
@@ -57,19 +57,6 @@ private fun UserInfoFields(
                 NameAndPosition(false, toLogin)
             }
         }
-
-//        Text(
-//            text = "Zhujiang",
-//            modifier = Modifier.height(32.dp).padding(start = 16.dp),
-//            style = MaterialTheme.typography.h5
-//        )
-//        Text(
-//            text = "17695500274",
-//            modifier = Modifier
-//                .padding(start = 16.dp, bottom = 20.dp)
-//                .height(24.dp),
-//            style = MaterialTheme.typography.body1
-//        )
 
         ProfileProperty(
             ArticleModel(

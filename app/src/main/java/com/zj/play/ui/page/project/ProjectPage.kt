@@ -6,64 +6,51 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.ExperimentalPagingApi
-import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.LazyPagingItems
 import com.google.accompanist.insets.statusBarsHeight
-import com.zj.play.logic.base.viewmodel.BaseViewModel
 import com.zj.play.logic.model.*
 import com.zj.play.ui.page.article.list.ArticleListPaging
 import com.zj.play.ui.view.ArticleTabRow
 import com.zj.play.ui.view.lce.LcePage
 
-@ExperimentalPagingApi
-@Composable
-fun ProjectPage(
-    enterArticle: (ArticleModel) -> Unit,
-    modifier: Modifier = Modifier,
-    viewModel: ProjectViewModel = viewModel(),
-) {
-    ArticleListPage(
-        modifier = modifier,
-        enterArticle = enterArticle,
-        viewModel = viewModel,
-    )
-}
-
+/**
+ * 由于项目页面和公众号页面只有数据不同，所以写了一个公用的页面
+ */
 @ExperimentalPagingApi
 @Composable
 fun ArticleListPage(
     modifier: Modifier,
+    tree: PlayState,
+    position: Int?,
+    lazyPagingItems: LazyPagingItems<ArticleModel>,
+    loadData: () -> Unit,
+    searchArticle: (Query) -> Unit,
+    onPositionChanged: (Int) -> Unit,
     enterArticle: (ArticleModel) -> Unit,
-    viewModel: BaseViewModel,
 ) {
     val listState = rememberLazyListState()
     var loadState by remember { mutableStateOf(false) }
     var loadPageState by remember { mutableStateOf(false) }
-    val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
-
     if (!loadState) {
         loadState = true
-        viewModel.getDataList()
+        loadData()
     }
-    val tree by viewModel.treeLiveData.observeAsState(PlayLoading)
-    val position by viewModel.position.observeAsState()
     Column(modifier = Modifier.background(color = MaterialTheme.colors.primary)) {
         Spacer(modifier = Modifier.statusBarsHeight())
         LcePage(playState = tree, onErrorClick = {
-            viewModel.getDataList()
+            loadData()
             loadState = true
         }) {
             val data = (tree as PlaySuccess<List<ClassifyModel>>).data
             ArticleTabRow(position, data) { index, id, isFirst ->
                 if (!isFirst) {
-                    viewModel.searchArticle(Query(id))
-                    viewModel.onPositionChanged(index)
+                    searchArticle(Query(id))
+                    onPositionChanged(index)
                 } else {
                     if (position == 0 && !loadPageState) {
-                        viewModel.searchArticle(Query(id))
+                        searchArticle(Query(id))
                     }
                 }
                 loadPageState = true
