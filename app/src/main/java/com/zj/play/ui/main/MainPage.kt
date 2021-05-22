@@ -7,8 +7,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -23,11 +21,11 @@ import java.util.*
 
 @ExperimentalPagingApi
 @Composable
-fun MainPage(actions: PlayActions, viewModel: HomeViewModel = viewModel()) {
-
-    val position by viewModel.position.observeAsState()
+fun MainPage(
+    actions: PlayActions, position: CourseTabs?,
+    onPositionChanged: (CourseTabs) -> Unit
+) {
     val tabs = CourseTabs.values()
-
     Scaffold(
         backgroundColor = MaterialTheme.colors.primary,
         bottomBar = {
@@ -40,7 +38,7 @@ fun MainPage(actions: PlayActions, viewModel: HomeViewModel = viewModel()) {
                         label = { Text(stringResource(tab.title).toUpperCase(Locale.ROOT)) },
                         selected = tab == position,
                         onClick = {
-                            viewModel.onPositionChanged(tab)
+                            onPositionChanged(tab)
                         },
                         alwaysShowLabel = true,
                     )

@@ -11,13 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.google.accompanist.insets.statusBarsHeight
 import com.zj.play.logic.base.viewmodel.BaseViewModel
 import com.zj.play.logic.model.*
 import com.zj.play.ui.page.article.list.ArticleListPaging
-import com.zj.play.ui.page.home.REFRESH_START
 import com.zj.play.ui.view.ArticleTabRow
 import com.zj.play.ui.view.lce.LcePage
-import dev.chrisbanes.accompanist.insets.statusBarsHeight
 
 @ExperimentalPagingApi
 @Composable

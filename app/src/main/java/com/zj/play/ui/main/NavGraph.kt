@@ -17,7 +17,10 @@
 package com.zj.play.ui.main
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
@@ -28,18 +31,15 @@ import com.zj.play.logic.utils.getHtmlText
 import com.zj.play.ui.main.PlayDestinations.ARTICLE_ROUTE_URL
 import com.zj.play.ui.page.article.ArticlePage
 import com.zj.play.ui.page.login.LoginPage
+import com.zj.play.ui.page.login.LoginViewModel
 import java.net.URLEncoder
 
-/**
- * Destinations used in the ([NewMainActivity]).
- */
 object PlayDestinations {
     const val HOME_PAGE_ROUTE = "home_page_route"
     const val ARTICLE_ROUTE = "article_route"
     const val ARTICLE_ROUTE_URL = "article_route_url"
     const val LOGIN_ROUTE = "login_route"
 }
-
 
 @ExperimentalPagingApi
 @Composable
@@ -54,10 +54,20 @@ fun NavGraph(
         startDestination = startDestination
     ) {
         composable(PlayDestinations.HOME_PAGE_ROUTE) {
-            MainPage(actions)
+            val viewModel: HomeViewModel = viewModel()
+            val position by viewModel.position.observeAsState()
+            MainPage(actions, position) { tab ->
+                viewModel.onPositionChanged(tab)
+            }
         }
         composable(PlayDestinations.LOGIN_ROUTE) {
-            LoginPage(actions)
+            val viewModel: LoginViewModel = viewModel()
+            val loginState by viewModel.state.observeAsState()
+            LoginPage(actions, loginState, {
+                viewModel.logout()
+            }) {
+                viewModel.toLoginOrRegister(it)
+            }
         }
         composable(
             "${PlayDestinations.ARTICLE_ROUTE}/{$ARTICLE_ROUTE_URL}",

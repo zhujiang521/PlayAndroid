@@ -3,8 +3,6 @@ package com.zj.play.ui.page.login
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -13,15 +11,10 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.zj.play.R
-import com.zj.play.ui.view.edit.EmailState
-import com.zj.play.ui.view.edit.PasswordState
 import com.zj.play.ui.main.PlayActions
-import com.zj.play.ui.view.edit.Email
-import com.zj.play.ui.view.edit.Password
 import com.zj.play.ui.view.PlayAppBar
-import com.zj.play.ui.view.edit.SignInSignUpScreen
+import com.zj.play.ui.view.edit.*
 import kotlinx.coroutines.launch
 
 sealed class SignInEvent {
@@ -34,27 +27,28 @@ sealed class SignInEvent {
 @Composable
 fun LoginPage(
     onNavigationEvent: PlayActions,
-    viewModel: LoginViewModel = viewModel()
+    loginState: LoginState?,
+    toLogout: () -> Unit,
+    toLoginOrRegister: (Account) -> Unit,
 ) {
-    val state by viewModel.state.observeAsState()
 
     SignIn(onNavigationEvent = { event ->
         when (event) {
             is SignInEvent.SignIn -> {
-                viewModel.toLoginOrRegister(Account(event.email,event.password,true))
+                toLoginOrRegister(Account(event.email, event.password, true))
             }
             SignInEvent.SignUp -> {
-                viewModel.logout()
+                toLogout()
             }
             SignInEvent.SignInAsGuest -> {
-                viewModel.logout()
+                toLogout()
             }
             SignInEvent.NavigateBack -> {
                 onNavigationEvent.upPress()
             }
         }
     })
-    when (state) {
+    when (loginState) {
         Logging -> {
             //toProgressVisible(true)
         }

@@ -7,10 +7,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.ExperimentalPagingApi
+import com.google.accompanist.insets.ProvideWindowInsets
 import com.zj.play.ui.main.NavGraph
 import com.zj.play.ui.theme.PlayAndroidTheme
 import com.zj.play.ui.view.ProvideImageLoader
-import dev.chrisbanes.accompanist.insets.ProvideWindowInsets
 
 
 class MainActivity : ComponentActivity() {
