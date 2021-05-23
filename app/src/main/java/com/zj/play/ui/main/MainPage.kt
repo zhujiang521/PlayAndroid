@@ -13,9 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.google.accompanist.pager.ExperimentalPagerApi
 import com.zj.play.R
 import com.zj.play.logic.model.PlayLoading
 import com.zj.play.ui.page.home.HomePage
@@ -26,8 +24,6 @@ import com.zj.play.ui.page.project.ArticleListPage
 import com.zj.play.ui.page.project.ProjectViewModel
 import java.util.*
 
-@ExperimentalPagerApi
-@ExperimentalPagingApi
 @Composable
 fun MainPage(
     actions: PlayActions, position: CourseTabs?,

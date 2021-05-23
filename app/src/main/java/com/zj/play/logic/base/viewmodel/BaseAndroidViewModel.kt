@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zj.play.logic.model.PlayState
-import com.zj.play.ui.page.home.REFRESH_STOP
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -20,10 +19,10 @@ import kotlinx.coroutines.launch
 
 abstract class BaseViewModel(application: Application) : BaseArticleViewModel(application) {
 
-    protected val _treeLiveData = MutableLiveData<PlayState>()
+    protected val mutableTreeLiveData = MutableLiveData<PlayState>()
 
     val treeLiveData: LiveData<PlayState>
-        get() = _treeLiveData
+        get() = mutableTreeLiveData
 
     abstract suspend fun getData()
 

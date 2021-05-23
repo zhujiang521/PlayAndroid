@@ -22,7 +22,6 @@ import com.zj.play.ui.view.lce.LoadingContent
 import com.zj.play.logic.model.ArticleModel
 import com.zj.play.logic.utils.showToast
 
-@ExperimentalPagingApi
 @Composable
 fun ArticleListPaging(
     modifier: Modifier = Modifier,

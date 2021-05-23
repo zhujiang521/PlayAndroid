@@ -46,6 +46,3 @@ class HomePageViewModel(application: Application) : BaseArticleViewModel(applica
     }
 
 }
-
-const val REFRESH_START = 1
-const val REFRESH_STOP = 2

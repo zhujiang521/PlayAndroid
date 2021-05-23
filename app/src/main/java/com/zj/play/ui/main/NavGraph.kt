@@ -43,7 +43,6 @@ object PlayDestinations {
 }
 
 @ExperimentalPagerApi
-@ExperimentalPagingApi
 @Composable
 fun NavGraph(
     startDestination: String = PlayDestinations.HOME_PAGE_ROUTE

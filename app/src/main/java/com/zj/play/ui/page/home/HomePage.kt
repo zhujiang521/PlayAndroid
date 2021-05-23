@@ -19,8 +19,6 @@ import com.zj.play.ui.page.article.list.ArticleListPaging
 import com.zj.play.ui.view.PlayAppBar
 import com.zj.play.ui.view.lce.LcePage
 
-@ExperimentalPagerApi
-@ExperimentalPagingApi
 @Composable
 fun HomePage(
     modifier: Modifier = Modifier,

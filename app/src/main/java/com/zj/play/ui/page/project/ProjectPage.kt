@@ -18,7 +18,6 @@ import com.zj.play.ui.view.lce.LcePage
 /**
  * 由于项目页面和公众号页面只有数据不同，所以写了一个公用的页面
  */
-@ExperimentalPagingApi
 @Composable
 fun ArticleListPage(
     modifier: Modifier,

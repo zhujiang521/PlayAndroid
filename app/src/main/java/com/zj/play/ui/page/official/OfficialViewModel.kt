@@ -18,7 +18,7 @@ class OfficialViewModel(application: Application) : BaseViewModel(application) {
         get() = OfficialRepository(getApplication())
 
     override suspend fun getData() {
-        (repositoryArticle as OfficialRepository).getTree(_treeLiveData)
+        (repositoryArticle as OfficialRepository).getTree(mutableTreeLiveData)
     }
 
 }
