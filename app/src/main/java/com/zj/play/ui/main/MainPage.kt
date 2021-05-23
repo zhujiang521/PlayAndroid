@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -38,7 +39,14 @@ fun MainPage(
                     BottomNavigationItem(
                         modifier = Modifier
                             .background(MaterialTheme.colors.primary),
-                        icon = { Icon(painterResource(tab.icon), contentDescription = null) },
+                        icon = {
+                            val painter: Painter = if (tab == position) {
+                                painterResource(tab.selectIcon)
+                            } else {
+                                painterResource(tab.icon)
+                            }
+                            Icon(painter, contentDescription = null)
+                        },
                         label = { Text(stringResource(tab.title).toUpperCase(Locale.ROOT)) },
                         selected = tab == position,
                         onClick = {
@@ -96,10 +104,15 @@ fun MainPage(
 
 enum class CourseTabs(
     @StringRes val title: Int,
-    @DrawableRes val icon: Int
+    @DrawableRes val icon: Int,
+    @DrawableRes val selectIcon: Int
 ) {
-    HOME_PAGE(R.string.home_page, R.drawable.ic_nav_news_normal),
-    PROJECT(R.string.project, R.drawable.ic_nav_tweet_normal),
-    OFFICIAL_ACCOUNT(R.string.official_account, R.drawable.ic_nav_discover_normal),
-    MINE(R.string.mine, R.drawable.ic_nav_my_normal)
+    HOME_PAGE(R.string.home_page, R.drawable.ic_nav_news_normal, R.drawable.ic_nav_news_actived),
+    PROJECT(R.string.project, R.drawable.ic_nav_tweet_normal, R.drawable.ic_nav_tweet_actived),
+    OFFICIAL_ACCOUNT(
+        R.string.official_account,
+        R.drawable.ic_nav_discover_normal,
+        R.drawable.ic_nav_discover_actived
+    ),
+    MINE(R.string.mine, R.drawable.ic_nav_my_normal, R.drawable.ic_nav_my_pressed)
 }
