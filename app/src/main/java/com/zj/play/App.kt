@@ -1,6 +1,7 @@
 package com.zj.play
 
 import android.app.Application
+import com.zj.play.logic.utils.DataStoreUtils
 
 
 /**
@@ -10,9 +11,12 @@ import android.app.Application
  */
 class App : Application() {
 
+    private var dataStore = DataStoreUtils
+
     override fun onCreate() {
         super.onCreate()
-        Play.initialize(applicationContext)
+        DataStoreUtils.init(applicationContext)
+        Play.initialize(dataStore)
     }
 
 }
