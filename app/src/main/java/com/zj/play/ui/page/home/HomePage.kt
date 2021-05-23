@@ -9,6 +9,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.compose.LazyPagingItems
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.zj.banner.BannerPager
 import com.zj.banner.ui.indicator.NumberIndicator
 import com.zj.play.R
@@ -18,6 +19,7 @@ import com.zj.play.ui.page.article.list.ArticleListPaging
 import com.zj.play.ui.view.PlayAppBar
 import com.zj.play.ui.view.lce.LcePage
 
+@ExperimentalPagerApi
 @ExperimentalPagingApi
 @Composable
 fun HomePage(

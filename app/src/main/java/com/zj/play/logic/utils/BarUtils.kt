@@ -8,6 +8,9 @@ import android.view.WindowManager
 
 object BarUtils {
 
+    /**
+     * 设置透明状态栏
+     */
     fun transparentStatusBar(activity: Activity) {
         transparentStatusBar(activity.window)
     }
