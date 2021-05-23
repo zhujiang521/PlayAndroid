@@ -1,5 +1,6 @@
 package com.zj.play.ui.page.article
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.layout.*
@@ -22,6 +23,12 @@ import com.zj.play.logic.utils.getHtmlText
 import com.zj.play.logic.utils.showToast
 import com.zj.play.ui.view.PlayAppBar
 import com.zj.play.ui.view.rememberWebViewWithLifecycle
+import android.webkit.WebSettings
+
+import android.os.Build
+
+
+
 
 
 /**
@@ -30,6 +37,7 @@ import com.zj.play.ui.view.rememberWebViewWithLifecycle
  * @param article article
  * @param onBack (event) request navigate back
  */
+@SuppressLint("SetJavaScriptEnabled")
 @Composable
 fun ArticlePage(
     article: ArticleModel?,
@@ -60,6 +68,11 @@ fun ArticlePage(
                 modifier = Modifier
                     .fillMaxSize()
             ) { view ->
+                val settings: WebSettings = view.settings
+                settings.mixedContentMode =
+                    WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+                settings.javaScriptEnabled = true //启用js
+                settings.blockNetworkImage = false //解决图片不显示
                 view.loadUrl(article?.link ?: "")
             }
         }

@@ -86,7 +86,6 @@ fun ArticleListItem(
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         text = article.superChapterName,
-                        color = MaterialTheme.colors.primary,
                         style = MaterialTheme.typography.caption,
                         modifier = Modifier
                             .padding(start = 8.dp)
@@ -95,7 +94,6 @@ fun ArticleListItem(
                     )
                     Text(
                         text = if (TextUtils.isEmpty(article.author)) article.shareUser else article.author,
-                        color = MaterialTheme.colors.primary,
                         style = MaterialTheme.typography.caption,
                         modifier = Modifier
                             .padding(start = 8.dp)
