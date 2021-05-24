@@ -88,6 +88,8 @@ fun ArticleListItem(
                     Text(
                         text = article.superChapterName,
                         style = MaterialTheme.typography.caption,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                         modifier = Modifier
                             .padding(start = 8.dp)
                             .weight(1f)
