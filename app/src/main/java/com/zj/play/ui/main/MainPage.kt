@@ -1,5 +1,6 @@
 package com.zj.play.ui.main
 
+import android.content.res.Configuration
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.animation.Crossfade
@@ -11,12 +12,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.zj.play.R
 import com.zj.play.logic.model.PlayLoading
+import com.zj.play.logic.model.PlaySuccess
 import com.zj.play.ui.page.home.HomePage
 import com.zj.play.ui.page.home.HomePageViewModel
 import com.zj.play.ui.page.mine.ProfilePage
@@ -59,6 +62,8 @@ fun MainPage(
         }
     ) { innerPadding ->
         val modifier = Modifier.padding(innerPadding)
+        // 当前是否为横屏
+        val isLand = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
         // 淡入淡出布局切换动画
         Crossfade(targetState = position) { screen ->
             when (screen) {
@@ -66,8 +71,13 @@ fun MainPage(
                     val viewModel: HomePageViewModel = viewModel()
                     val bannerData by viewModel.bannerState.observeAsState(PlayLoading)
                     val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
-                    HomePage(modifier, bannerData, lazyPagingItems, {
-                        viewModel.getData()
+                    HomePage(modifier, isLand, bannerData, lazyPagingItems, {
+                        if (bannerData !is PlaySuccess<*>) {
+                            viewModel.getBanner()
+                        }
+                        if (lazyPagingItems.itemCount <= 0) {
+                            viewModel.getHomeArticle()
+                        }
                     }) {
                         actions.enterArticle(it)
                     }

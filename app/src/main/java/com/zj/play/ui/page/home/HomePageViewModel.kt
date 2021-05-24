@@ -33,8 +33,7 @@ class HomePageViewModel(application: Application) : BaseArticleViewModel(applica
     val bannerState: LiveData<PlayState>
         get() = _bannerState
 
-    fun getData(){
-        getBanner()
+    fun getHomeArticle(){
         searchArticle(Query())
     }
 

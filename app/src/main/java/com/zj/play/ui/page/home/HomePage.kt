@@ -1,20 +1,18 @@
 package com.zj.play.ui.page.home
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.paging.ExperimentalPagingApi
+import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
-import com.google.accompanist.pager.ExperimentalPagerApi
 import com.zj.banner.BannerPager
+import com.zj.banner.ui.indicator.CircleIndicator
+import com.zj.banner.ui.indicator.Indicator
 import com.zj.banner.ui.indicator.NumberIndicator
 import com.zj.play.R
 import com.zj.play.logic.model.*
-import com.zj.play.ui.main.PlayActions
 import com.zj.play.ui.page.article.list.ArticleListPaging
 import com.zj.play.ui.view.PlayAppBar
 import com.zj.play.ui.view.lce.LcePage
@@ -22,12 +20,13 @@ import com.zj.play.ui.view.lce.LcePage
 @Composable
 fun HomePage(
     modifier: Modifier = Modifier,
+    isLand: Boolean = false,
     bannerData: PlayState,
     lazyPagingItems: LazyPagingItems<ArticleModel>,
     loadData: () -> Unit,
     toArticleDetails: (ArticleModel) -> Unit
 ) {
-    val listState = rememberLazyListState()
+
     var loadArticleState by remember { mutableStateOf(false) }
     if (!loadArticleState) {
         loadArticleState = true
@@ -45,22 +44,59 @@ fun HomePage(
                 loadData()
             }
         ) {
+            loadArticleState = true
             val data = bannerData as PlaySuccess<List<BannerBean>>
-            BannerPager(items = data.data, indicator = NumberIndicator()) {
-                toArticleDetails(
-                    ArticleModel(
-                        title = it.title,
-                        link = it.url
+            if (isLand) {
+                Row(modifier = Modifier.fillMaxSize()) {
+                    val bannerModifier = Modifier.fillMaxHeight().weight(1f)
+                        .padding(vertical = 15.dp)
+                    val articleModifier = Modifier.weight(1.5f)
+                    HomeContent(
+                        data.data,
+                        bannerModifier,
+                        articleModifier,
+                        NumberIndicator(),
+                        lazyPagingItems,
+                        toArticleDetails
                     )
+                }
+            } else {
+                HomeContent(
+                    data.data,
+                    lazyPagingItems = lazyPagingItems,
+                    toArticleDetails = toArticleDetails
                 )
             }
-            ArticleListPaging(
-                Modifier,
-                listState,
-                lazyPagingItems,
-                toArticleDetails
-            )
         }
     }
+}
 
+@Composable
+fun HomeContent(
+    data: List<BannerBean>,
+    modifier: Modifier = Modifier,
+    articleModifier: Modifier = Modifier,
+    indicator: Indicator = CircleIndicator(),
+    lazyPagingItems: LazyPagingItems<ArticleModel>,
+    toArticleDetails: (ArticleModel) -> Unit
+) {
+    val listState = rememberLazyListState()
+    BannerPager(
+        items = data,
+        modifier = modifier,
+        indicator = indicator
+    ) {
+        toArticleDetails(
+            ArticleModel(
+                title = it.title,
+                link = it.url
+            )
+        )
+    }
+    ArticleListPaging(
+        articleModifier,
+        listState,
+        lazyPagingItems,
+        toArticleDetails
+    )
 }

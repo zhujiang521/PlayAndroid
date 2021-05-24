@@ -3,31 +3,22 @@ package com.zj.play.ui.page.article
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
+import android.webkit.WebSettings
+import android.webkit.WebViewClient
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Share
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 import com.zj.play.R
 import com.zj.play.logic.model.ArticleModel
 import com.zj.play.logic.utils.getHtmlText
-import com.zj.play.logic.utils.showToast
 import com.zj.play.ui.view.PlayAppBar
 import com.zj.play.ui.view.rememberWebViewWithLifecycle
-import android.webkit.WebSettings
-
-import android.os.Build
-import androidx.compose.ui.tooling.preview.Preview
-import com.zj.play.ui.page.article.list.ArticleItem
 
 
 /**
@@ -67,6 +58,7 @@ fun ArticlePage(
                 modifier = Modifier
                     .fillMaxSize()
             ) { view ->
+                view.webViewClient = WebViewClient()
                 val settings: WebSettings = view.settings
                 settings.mixedContentMode =
                     WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
