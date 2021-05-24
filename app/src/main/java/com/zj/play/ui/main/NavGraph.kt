@@ -23,9 +23,10 @@ import androidx.compose.runtime.remember
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
-import androidx.navigation.compose.*
-import androidx.paging.ExperimentalPagingApi
-import com.google.accompanist.pager.ExperimentalPagerApi
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navArgument
+import androidx.navigation.compose.rememberNavController
 import com.google.gson.Gson
 import com.zj.play.logic.model.ArticleModel
 import com.zj.play.logic.utils.getHtmlText
@@ -42,7 +43,6 @@ object PlayDestinations {
     const val LOGIN_ROUTE = "login_route"
 }
 
-@ExperimentalPagerApi
 @Composable
 fun NavGraph(
     startDestination: String = PlayDestinations.HOME_PAGE_ROUTE

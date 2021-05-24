@@ -3,6 +3,7 @@ package com.zj.play.ui.page.home
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -27,7 +28,7 @@ fun HomePage(
     toArticleDetails: (ArticleModel) -> Unit
 ) {
 
-    var loadArticleState by remember { mutableStateOf(false) }
+    var loadArticleState by rememberSaveable { mutableStateOf(false) }
     if (!loadArticleState) {
         loadArticleState = true
         loadData()

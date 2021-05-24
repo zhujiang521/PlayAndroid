@@ -5,9 +5,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.compose.LazyPagingItems
 import com.google.accompanist.insets.statusBarsHeight
 import com.zj.play.logic.model.*
@@ -30,8 +33,8 @@ fun ArticleListPage(
     enterArticle: (ArticleModel) -> Unit,
 ) {
     val listState = rememberLazyListState()
-    var loadState by remember { mutableStateOf(false) }
-    var loadPageState by remember { mutableStateOf(false) }
+    var loadState by rememberSaveable { mutableStateOf(false) }
+    var loadPageState by rememberSaveable { mutableStateOf(false) }
     if (!loadState) {
         loadState = true
         loadData()
