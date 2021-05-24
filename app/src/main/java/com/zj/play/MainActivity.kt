@@ -1,15 +1,9 @@
 package com.zj.play
 
-import android.annotation.TargetApi
-import android.content.Context
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.ExperimentalPagingApi
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -17,11 +11,6 @@ import com.zj.play.logic.utils.BarUtils
 import com.zj.play.ui.main.NavGraph
 import com.zj.play.ui.theme.PlayAndroidTheme
 import com.zj.play.ui.view.ProvideImageLoader
-import android.app.Activity
-
-
-
-
 
 class MainActivity : ComponentActivity() {
     @ExperimentalPagerApi

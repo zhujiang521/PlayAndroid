@@ -26,9 +26,8 @@ import com.zj.play.ui.view.rememberWebViewWithLifecycle
 import android.webkit.WebSettings
 
 import android.os.Build
-
-
-
+import androidx.compose.ui.tooling.preview.Preview
+import com.zj.play.ui.page.article.list.ArticleItem
 
 
 /**
@@ -100,4 +99,18 @@ private fun sharePost(title: String?, post: String?, context: Context) {
             context.getString(R.string.share_article)
         )
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ArticlePagePreview() {
+    ArticlePage(
+        ArticleModel(
+            title = "标题",
+            superChapterName = "分类",
+            author = "作者"
+        )
+    ) {
+        // 回调
+    }
 }

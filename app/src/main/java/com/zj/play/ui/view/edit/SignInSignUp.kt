@@ -163,7 +163,7 @@ fun TextFieldError(textError: String) {
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun SignInSignUpScreenPreview() {
     SignInSignUpScreen {}

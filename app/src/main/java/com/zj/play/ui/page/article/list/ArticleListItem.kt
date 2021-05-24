@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.zj.play.R
@@ -103,5 +104,19 @@ fun ArticleListItem(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ArticleItemPreview() {
+    ArticleItem(
+        ArticleModel(
+            title = "标题",
+            superChapterName = "分类",
+            author = "作者"
+        )
+    ) {
+        // 回调
     }
 }
