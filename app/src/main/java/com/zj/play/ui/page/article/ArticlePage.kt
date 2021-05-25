@@ -3,7 +3,9 @@ package com.zj.play.ui.page.article
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.webkit.WebSettings
+import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Scaffold
@@ -58,7 +60,21 @@ fun ArticlePage(
                 modifier = Modifier
                     .fillMaxSize()
             ) { view ->
-                view.webViewClient = WebViewClient()
+                view.webViewClient = object : WebViewClient() {
+                    override fun shouldOverrideUrlLoading(view: WebView?, url: String): Boolean {
+                        return try {
+                            if (url.startsWith("http:") || url.startsWith("https:")) {
+                                view!!.loadUrl(url)
+                            } else {
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                                webView.context.startActivity(intent)
+                            }
+                            true
+                        } catch (e: Exception) {
+                            false
+                        }
+                    }
+                }
                 val settings: WebSettings = view.settings
                 settings.mixedContentMode =
                     WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
