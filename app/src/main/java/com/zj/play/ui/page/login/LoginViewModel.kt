@@ -7,8 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zj.play.Play
 import com.zj.play.R
-import com.zj.play.logic.model.BaseModel
-import com.zj.play.logic.model.LoginModel
+import com.zj.play.logic.model.*
 import com.zj.play.logic.utils.showToast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,12 +25,12 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     private val accountRepository: AccountRepository = AccountRepository()
 
-    private val _state = MutableLiveData<LoginState>()
-    val state: LiveData<LoginState>
+    private val _state = MutableLiveData<PlayState<LoginModel>>()
+    val state: LiveData<PlayState<LoginModel>>
         get() = _state
 
     fun toLoginOrRegister(account: Account) {
-        _state.postValue(Logging)
+        _state.postValue(PlayLoading())
         viewModelScope.launch(Dispatchers.IO) {
             val loginModel: BaseModel<LoginModel> = if (account.isLogin) {
                 accountRepository.getLogin(account.username, account.password)
@@ -45,10 +44,10 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
             if (loginModel.errorCode == 0) {
                 val login = loginModel.data
-                _state.postValue(LoginSuccess(login))
+                _state.postValue(PlaySuccess(login))
                 Play.isLogin = true
                 Play.setUserInfo(login.nickname, login.username)
-                withContext(Dispatchers.Main){
+                withContext(Dispatchers.Main) {
                     showToast(
                         getApplication(),
                         if (account.isLogin) getApplication<Application>().getString(R.string.login_success) else getApplication<Application>().getString(
@@ -58,7 +57,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 }
             } else {
                 showToast(getApplication(), loginModel.errorMsg)
-                _state.postValue(LoginError)
+                _state.postValue(PlayError(NullPointerException("网络错误")))
             }
         }
     }
@@ -83,7 +82,3 @@ object LogoutFinish : LogoutState()
 object LogoutDefault : LogoutState()
 
 data class Account(val username: String, val password: String, val isLogin: Boolean)
-sealed class LoginState
-object Logging : LoginState()
-data class LoginSuccess(val login: LoginModel) : LoginState()
-object LoginError : LoginState()

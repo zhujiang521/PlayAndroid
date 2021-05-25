@@ -18,10 +18,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.zj.play.R
+import com.zj.play.logic.model.BannerBean
 import com.zj.play.logic.model.PlayLoading
 import com.zj.play.logic.model.PlaySuccess
 import com.zj.play.ui.page.home.HomePage
 import com.zj.play.ui.page.home.HomePageViewModel
+import com.zj.play.ui.page.login.LoginViewModel
+import com.zj.play.ui.page.login.LogoutDefault
 import com.zj.play.ui.page.mine.ProfilePage
 import com.zj.play.ui.page.official.OfficialViewModel
 import com.zj.play.ui.page.project.ArticleListPage
@@ -69,7 +72,7 @@ fun MainPage(
             when (screen) {
                 CourseTabs.HOME_PAGE -> {
                     val viewModel: HomePageViewModel = viewModel()
-                    val bannerData by viewModel.bannerState.observeAsState(PlayLoading)
+                    val bannerData by viewModel.bannerState.observeAsState(PlayLoading())
                     val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
                     HomePage(modifier, isLand, bannerData, lazyPagingItems, {
                         if (bannerData !is PlaySuccess<*>) {
@@ -89,7 +92,7 @@ fun MainPage(
                         viewModel<OfficialViewModel>()
                     }
                     val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
-                    val tree by viewModel.treeLiveData.observeAsState(PlayLoading)
+                    val tree by viewModel.treeLiveData.observeAsState(PlayLoading())
                     val treePosition by viewModel.position.observeAsState(0)
                     // 由于项目页面和公众号页面只有数据不同，所以使用一个公用的页面
                     ArticleListPage(modifier, tree, treePosition, lazyPagingItems, {
@@ -103,7 +106,11 @@ fun MainPage(
                     }
                 }
                 CourseTabs.MINE -> {
-                    ProfilePage(modifier, isLand, actions.toLogin) {
+                    val viewModel: LoginViewModel = viewModel()
+                    val logoutState by viewModel.logoutState.observeAsState(LogoutDefault)
+                    ProfilePage(modifier, isLand, actions.toLogin, logoutState, {
+                        viewModel.logout()
+                    }) {
                         actions.enterArticle(it)
                     }
                 }

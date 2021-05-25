@@ -22,7 +22,7 @@ import com.zj.play.ui.view.lce.LcePage
 fun HomePage(
     modifier: Modifier = Modifier,
     isLand: Boolean = false,
-    bannerData: PlayState,
+    bannerData: PlayState<List<BannerBean>>,
     lazyPagingItems: LazyPagingItems<ArticleModel>,
     loadData: () -> Unit,
     toArticleDetails: (ArticleModel) -> Unit
@@ -44,16 +44,15 @@ fun HomePage(
             onErrorClick = {
                 loadData()
             }
-        ) {
+        ) { data ->
             loadArticleState = true
-            val data = bannerData as PlaySuccess<List<BannerBean>>
             if (isLand) {
                 Row(modifier = Modifier.fillMaxSize()) {
                     val bannerModifier = Modifier.fillMaxHeight().weight(1f)
                         .padding(vertical = 15.dp)
                     val articleModifier = Modifier.weight(1.5f)
                     HomeContent(
-                        data.data,
+                        data,
                         bannerModifier,
                         articleModifier,
                         NumberIndicator(),
@@ -63,7 +62,7 @@ fun HomePage(
                 }
             } else {
                 HomeContent(
-                    data.data,
+                    data,
                     lazyPagingItems = lazyPagingItems,
                     toArticleDetails = toArticleDetails
                 )

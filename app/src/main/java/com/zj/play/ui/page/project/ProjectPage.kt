@@ -24,7 +24,7 @@ import com.zj.play.ui.view.lce.LcePage
 @Composable
 fun ArticleListPage(
     modifier: Modifier,
-    tree: PlayState,
+    tree: PlayState<List<ClassifyModel>>,
     position: Int?,
     lazyPagingItems: LazyPagingItems<ArticleModel>,
     loadData: () -> Unit,
@@ -44,8 +44,7 @@ fun ArticleListPage(
         LcePage(playState = tree, onErrorClick = {
             loadData()
             loadState = true
-        }) {
-            val data = (tree as PlaySuccess<List<ClassifyModel>>).data
+        }) { data ->
             ArticleTabRow(position, data) { index, id, isFirst ->
                 if (!isFirst) {
                     searchArticle(Query(id))

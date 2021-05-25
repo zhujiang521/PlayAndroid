@@ -12,6 +12,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.zj.play.R
+import com.zj.play.logic.model.*
 import com.zj.play.ui.main.PlayActions
 import com.zj.play.ui.view.PlayAppBar
 import com.zj.play.ui.view.edit.*
@@ -27,7 +28,7 @@ sealed class SignInEvent {
 @Composable
 fun LoginPage(
     onNavigationEvent: PlayActions,
-    loginState: LoginState?,
+    loginState: PlayState<LoginModel>?,
     toLogout: () -> Unit,
     toLoginOrRegister: (Account) -> Unit,
 ) {
@@ -49,14 +50,14 @@ fun LoginPage(
         }
     })
     when (loginState) {
-        Logging -> {
+        is PlayLoading -> {
             //toProgressVisible(true)
         }
-        is LoginSuccess -> {
+        is PlaySuccess -> {
             //toProgressVisible(false)
             onNavigationEvent.upPress()
         }
-        LoginError -> {
+        is PlayError -> {
             //toProgressVisible(false)
         }
     }

@@ -10,26 +10,25 @@ import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.zj.play.Play
 import com.zj.play.R
 import com.zj.play.logic.model.ArticleModel
-import com.zj.play.ui.page.login.LoginViewModel
 import com.zj.play.ui.page.login.LogoutDefault
 import com.zj.play.ui.page.login.LogoutFinish
+import com.zj.play.ui.page.login.LogoutState
 
 @Composable
 fun ProfilePage(
     modifier: Modifier = Modifier,
     isLand: Boolean = false,
     toLogin: () -> Unit,
+    logoutState: LogoutState,
+    logout: () -> Unit,
     enterArticle: (ArticleModel) -> Unit
 ) {
     if (isLand) {
@@ -47,6 +46,8 @@ fun ProfilePage(
                 UserInfoFields(
                     toLogin,
                     enterArticle,
+                    logoutState,
+                    logout
                 )
             }
         }
@@ -64,6 +65,8 @@ fun ProfilePage(
             UserInfoFields(
                 toLogin,
                 enterArticle,
+                logoutState,
+                logout
             )
         }
     }
@@ -72,10 +75,10 @@ fun ProfilePage(
 @Composable
 private fun UserInfoFields(
     toLogin: () -> Unit,
-    enterArticle: (ArticleModel) -> Unit
+    enterArticle: (ArticleModel) -> Unit,
+    logoutState: LogoutState,
+    logout: () -> Unit
 ) {
-    val viewModel: LoginViewModel = viewModel()
-    val logoutState by viewModel.logoutState.observeAsState(LogoutDefault)
     Column {
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -114,7 +117,7 @@ private fun UserInfoFields(
 
         if (Play.isLogin) {
             Button(
-                onClick = { viewModel.logout() },
+                onClick = { logout() },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(24.dp),

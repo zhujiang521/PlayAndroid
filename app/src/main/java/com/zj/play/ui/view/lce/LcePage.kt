@@ -7,18 +7,20 @@ import com.zj.play.logic.model.PlayState
 import com.zj.play.logic.model.PlaySuccess
 
 @Composable
-fun LcePage(playState: PlayState, onErrorClick: () -> Unit, content: @Composable () -> Unit) {
-
+fun <T> LcePage(
+    playState: PlayState<T>,
+    onErrorClick: () -> Unit,
+    content: @Composable (data: T) -> Unit
+) {
     when (playState) {
-        PlayLoading -> {
+        is PlayLoading -> {
             LoadingContent()
         }
         is PlayError -> {
             ErrorContent(onErrorClick = onErrorClick)
         }
-        is PlaySuccess<*> -> {
-            content()
+        is PlaySuccess<T> -> {
+            content(playState.data)
         }
     }
-
 }

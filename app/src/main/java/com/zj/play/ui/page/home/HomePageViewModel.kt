@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zj.play.logic.base.repository.BaseArticlePagingRepository
 import com.zj.play.logic.base.viewmodel.BaseArticleViewModel
+import com.zj.play.logic.model.BannerBean
 import com.zj.play.logic.model.PlayState
 import com.zj.play.logic.model.Query
 import kotlinx.coroutines.Dispatchers
@@ -28,12 +29,12 @@ class HomePageViewModel(application: Application) : BaseArticleViewModel(applica
 
     private var bannerJob: Job? = null
 
-    private val _bannerState = MutableLiveData<PlayState>()
+    private val _bannerState = MutableLiveData<PlayState<List<BannerBean>>>()
 
-    val bannerState: LiveData<PlayState>
+    val bannerState: LiveData<PlayState<List<BannerBean>>>
         get() = _bannerState
 
-    fun getHomeArticle(){
+    fun getHomeArticle() {
         searchArticle(Query())
     }
 
