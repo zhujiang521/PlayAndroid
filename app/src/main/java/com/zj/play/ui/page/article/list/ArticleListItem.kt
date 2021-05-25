@@ -98,6 +98,8 @@ fun ArticleListItem(
                     Text(
                         text = if (TextUtils.isEmpty(article.author)) article.shareUser else article.author,
                         style = MaterialTheme.typography.caption,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                         modifier = Modifier
                             .padding(start = 8.dp)
                             .weight(1f)

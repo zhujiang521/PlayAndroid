@@ -103,7 +103,7 @@ fun MainPage(
                     }
                 }
                 CourseTabs.MINE -> {
-                    ProfilePage(actions.toLogin) {
+                    ProfilePage(modifier, isLand, actions.toLogin) {
                         actions.enterArticle(it)
                     }
                 }

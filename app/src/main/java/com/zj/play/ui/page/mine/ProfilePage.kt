@@ -1,41 +1,71 @@
 package com.zj.play.ui.page.mine
 
-import androidx.compose.foundation.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
+import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.zj.play.Play
 import com.zj.play.R
 import com.zj.play.logic.model.ArticleModel
-import com.zj.play.ui.main.PlayActions
 import com.zj.play.ui.page.login.LoginViewModel
 import com.zj.play.ui.page.login.LogoutDefault
 import com.zj.play.ui.page.login.LogoutFinish
 
 @Composable
-fun ProfilePage(toLogin: () -> Unit, enterArticle: (ArticleModel) -> Unit) {
-    Column(modifier = Modifier.fillMaxSize()) {
-        Image(
-            modifier = Modifier.fillMaxWidth(),
-            painter = painterResource(R.drawable.img_head),
-            contentScale = ContentScale.Crop,
-            contentDescription = null
-        )
-        UserInfoFields(
-            toLogin,
-            enterArticle,
-        )
+fun ProfilePage(
+    modifier: Modifier = Modifier,
+    isLand: Boolean = false,
+    toLogin: () -> Unit,
+    enterArticle: (ArticleModel) -> Unit
+) {
+    if (isLand) {
+        Row(modifier = modifier.fillMaxSize()) {
+            Image(
+                modifier = Modifier.fillMaxHeight().weight(1f),
+                painter = painterResource(R.drawable.img_head),
+                contentScale = ContentScale.Crop,
+                contentDescription = null
+            )
+            Column(
+                modifier = Modifier.fillMaxHeight().weight(1.5f)
+                    .verticalScroll(rememberScrollState())
+            ) {
+                UserInfoFields(
+                    toLogin,
+                    enterArticle,
+                )
+            }
+        }
+    } else {
+        Column(
+            modifier = modifier.fillMaxSize()
+                .verticalScroll(rememberScrollState())
+        ) {
+            Image(
+                modifier = Modifier.fillMaxWidth(),
+                painter = painterResource(R.drawable.img_head),
+                contentScale = ContentScale.Crop,
+                contentDescription = null
+            )
+            UserInfoFields(
+                toLogin,
+                enterArticle,
+            )
+        }
     }
 }
 
