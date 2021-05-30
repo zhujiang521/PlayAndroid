@@ -18,7 +18,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.zj.play.R
-import com.zj.play.logic.model.BannerBean
 import com.zj.play.logic.model.PlayLoading
 import com.zj.play.logic.model.PlaySuccess
 import com.zj.play.ui.page.home.HomePage

@@ -8,7 +8,6 @@ import com.google.accompanist.insets.ProvideWindowInsets
 import com.zj.play.logic.utils.BarUtils
 import com.zj.play.ui.main.NavGraph
 import com.zj.play.ui.theme.PlayAndroidTheme
-import com.zj.play.ui.view.ProvideImageLoader
 
 class MainActivity : ComponentActivity() {
 
@@ -19,9 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             PlayAndroidTheme {
                 ProvideWindowInsets {
-                    ProvideImageLoader {
-                        NavGraph()
-                    }
+                    NavGraph()
                 }
             }
         }

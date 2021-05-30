@@ -2,6 +2,7 @@ package com.zj.play.ui.view
 
 import android.util.Log
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScrollableTabRow
 import androidx.compose.material.Tab
 import androidx.compose.material.Text
@@ -21,7 +22,8 @@ fun ArticleTabRow(
     ScrollableTabRow(
         selectedTabIndex = position ?: 0,
         modifier = Modifier.wrapContentWidth(),
-        edgePadding = 3.dp
+        edgePadding = 3.dp,
+        backgroundColor = MaterialTheme.colors.primary
     ) {
         data.forEachIndexed { index, projectClassify ->
             Tab(
