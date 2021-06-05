@@ -71,7 +71,7 @@ fun MainPage(
             when (screen) {
                 CourseTabs.HOME_PAGE -> {
                     val viewModel: HomePageViewModel = viewModel()
-                    val bannerData by viewModel.bannerState.observeAsState(PlayLoading())
+                    val bannerData by viewModel.bannerState.observeAsState(PlayLoading)
                     val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
                     HomePage(modifier, isLand, bannerData, lazyPagingItems, {
                         if (bannerData !is PlaySuccess<*>) {
@@ -91,7 +91,7 @@ fun MainPage(
                         viewModel<OfficialViewModel>()
                     }
                     val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
-                    val tree by viewModel.treeLiveData.observeAsState(PlayLoading())
+                    val tree by viewModel.treeLiveData.observeAsState(PlayLoading)
                     val treePosition by viewModel.position.observeAsState(0)
                     // 由于项目页面和公众号页面只有数据不同，所以使用一个公用的页面
                     ArticleListPage(modifier, tree, treePosition, lazyPagingItems, {
