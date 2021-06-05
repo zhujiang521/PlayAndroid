@@ -35,7 +35,7 @@ class HomeArticlePagingRepository : BaseArticlePagingRepository() {
      * 获取banner
      */
     suspend fun getBanner(state: MutableLiveData<PlayState<List<BannerBean>>>) {
-        state.postValue(PlayLoading())
+        state.postValue(PlayLoading)
         val bannerResponse = PlayAndroidNetwork.getBanner()
         if (bannerResponse.errorCode == 0) {
             val bannerList = bannerResponse.data

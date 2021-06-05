@@ -30,7 +30,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         get() = _state
 
     fun toLoginOrRegister(account: Account) {
-        _state.postValue(PlayLoading())
+        _state.postValue(PlayLoading)
         viewModelScope.launch(Dispatchers.IO) {
             val loginModel: BaseModel<LoginModel> = if (account.isLogin) {
                 accountRepository.getLogin(account.username, account.password)

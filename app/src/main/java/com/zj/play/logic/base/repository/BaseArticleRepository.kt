@@ -23,7 +23,7 @@ abstract class BaseArticleRepository(private val application: Application) :
      * 获取标题列表
      */
     suspend fun getTree(state: MutableLiveData<PlayState<List<ClassifyModel>>>) {
-        state.postValue(PlayLoading())
+        state.postValue(PlayLoading)
         if (!NetworkUtils.isConnected(application)) {
             showToast(application, R.string.no_network)
             state.postValue(PlayError(NetworkErrorException(application.getString(R.string.no_network))))
