@@ -1,11 +1,11 @@
 package com.zj.play
 
 import android.os.Bundle
-import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.google.accompanist.insets.ProvideWindowInsets
-import com.zj.play.logic.utils.BarUtils
+import com.zj.play.logic.utils.setAndroidNativeLightStatusBar
+import com.zj.play.logic.utils.transparentStatusBar
 import com.zj.play.ui.main.NavGraph
 import com.zj.play.ui.theme.PlayAndroidTheme
 
@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        BarUtils.transparentStatusBar(this)
+        transparentStatusBar()
         setAndroidNativeLightStatusBar()
         setContent {
             PlayAndroidTheme {
@@ -21,21 +21,6 @@ class MainActivity : ComponentActivity() {
                     NavGraph()
                 }
             }
-        }
-    }
-
-    /**
-     * 状态栏反色
-     */
-    private fun setAndroidNativeLightStatusBar() {
-        val decor = window.decorView
-        val isDark = resources.configuration.uiMode == 0x21
-        if (!isDark) {
-            decor.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        } else {
-            decor.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         }
     }
 

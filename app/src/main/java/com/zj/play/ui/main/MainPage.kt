@@ -52,7 +52,7 @@ fun MainPage(
                             }
                             Icon(painter, contentDescription = null)
                         },
-                        label = { Text(stringResource(tab.title).toUpperCase(Locale.ROOT)) },
+                        label = { Text(stringResource(tab.title).uppercase(Locale.ROOT)) },
                         selected = tab == position,
                         onClick = {
                             onPositionChanged(tab)

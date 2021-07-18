@@ -2,11 +2,9 @@ package com.zj.play.logic.utils
 
 import android.content.Context
 import android.content.Intent
-import android.net.NetworkInfo
 import android.net.ConnectivityManager
-import android.os.Build
+import android.net.NetworkInfo
 import android.provider.Settings
-import com.zj.play.logic.utils.NetworkUtils
 import android.telephony.TelephonyManager
 
 /**
@@ -147,7 +145,7 @@ object NetworkUtils {
      *  * [.NETWORK_NO] = -1;
      *
      */
-    fun getNetWorkType(context: Context): Int {
+    private fun getNetWorkType(context: Context): Int {
         var netType = NETWORK_NO
         val info = getActiveNetworkInfo(context)
         if (info != null && info.isAvailable) {
