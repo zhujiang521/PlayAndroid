@@ -3,9 +3,8 @@ package com.zj.core.util
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
-import android.view.View
-import com.zj.core.R
-import kotlinx.android.synthetic.main.dialog_progress.view.*
+import android.view.LayoutInflater
+import com.zj.core.databinding.DialogProgressBinding
 import java.lang.ref.WeakReference
 
 /**
@@ -25,12 +24,12 @@ class ProgressDialogUtil {
             return
         }
         progressDialog = Dialog(mContext!!.get()!!)
-        val view = View.inflate(mContext!!.get()!!, R.layout.dialog_progress, null)
-        view.apply {
+        val progressView = DialogProgressBinding.inflate(LayoutInflater.from(mContext!!.get()!!))
+        progressView.apply {
             dialogMessage.text = msg
         }
         progressDialog?.apply {
-            setContentView(view)
+            setContentView(progressView.root)
             setCanceledOnTouchOutside(false)
             if (!(mContext!!.get() as Activity).isFinishing && !progressDialog!!.isShowing) {
                 show()

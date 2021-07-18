@@ -1,13 +1,13 @@
 package com.zj.play.home
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.zj.model.pojo.QueryHomeArticle
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.BannerBean
-import dagger.hilt.android.scopes.FragmentScoped
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * 版权：Zhujiang 个人版权
@@ -17,8 +17,8 @@ import dagger.hilt.android.scopes.FragmentScoped
  * 描述：PlayAndroid
  *
  */
-@FragmentScoped
-class HomePageViewModel @ViewModelInject constructor(
+@HiltViewModel
+class HomePageViewModel @Inject constructor(
     private val homeRepository: HomeRepository
 ) : ViewModel() {
 

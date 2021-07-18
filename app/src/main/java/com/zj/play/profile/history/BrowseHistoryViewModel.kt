@@ -1,10 +1,10 @@
 package com.zj.play.profile.history
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import com.zj.core.view.base.BaseAndroidViewModel
 import com.zj.model.room.entity.Article
-import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * 版权：Zhujiang 个人版权
@@ -14,8 +14,8 @@ import dagger.hilt.android.scopes.ActivityScoped
  * 描述：PlayAndroid
  *
  */
-@ActivityScoped
-class BrowseHistoryViewModel @ViewModelInject constructor(
+@HiltViewModel
+class BrowseHistoryViewModel @Inject constructor(
     private val browseHistoryRepository: BrowseHistoryRepository
 ) : BaseAndroidViewModel<List<Article>, Article, Int>() {
 

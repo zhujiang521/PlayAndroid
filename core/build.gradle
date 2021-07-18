@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
 }
 
 android {
@@ -45,29 +44,25 @@ android {
 
 }
 
-androidExtensions {
-    experimental = true
-}
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation des.kotlinVersion
     implementation des.coreKtx
     implementation des.appcompat
 
-    api 'androidx.recyclerview:recyclerview:1.1.0'
+    api 'androidx.recyclerview:recyclerview:1.2.1'
     api "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    api "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
-    api "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
-    api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
-    api 'com.google.android.material:material:1.2.1'
+    api "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
+    api "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
+    api 'com.google.android.material:material:1.4.0'
     api 'com.squareup.retrofit2:retrofit:2.9.0'
     api 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     api "com.android.support:design:28.0.0"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1"
-    api "androidx.datastore:datastore-preferences:1.0.0-alpha05"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1"
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1-native-mt'
+    api "androidx.datastore:datastore-preferences:1.0.0-beta02"
 
     api  'com.scwang.smart:refresh-layout-kernel:2.0.1'      //核心必须依赖
     api  'com.scwang.smart:refresh-header-classics:2.0.1'    //经典刷新头
@@ -81,9 +76,9 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
 
-    def activity_version = "1.2.1"
+    def activity_version = "1.2.3"
     api "androidx.activity:activity-ktx:$activity_version"
-    def fragment_version = "1.2.5"
+    def fragment_version = "1.3.5"
     api "androidx.fragment:fragment-ktx:$fragment_version"
 
 

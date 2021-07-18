@@ -1,11 +1,11 @@
 package com.zj.play.profile.share
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.zj.model.room.entity.Article
-import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * 版权：Zhujiang 个人版权
@@ -15,8 +15,8 @@ import dagger.hilt.android.scopes.ActivityScoped
  * 描述：PlayAndroid
  *
  */
-@ActivityScoped
-class ShareViewModel @ViewModelInject constructor(private val shareRepository: ShareRepository) :
+@HiltViewModel
+class ShareViewModel @Inject constructor(private val shareRepository: ShareRepository) :
     ViewModel() {
 
     val articleList = ArrayList<Article>()

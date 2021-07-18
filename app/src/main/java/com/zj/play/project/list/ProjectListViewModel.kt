@@ -1,12 +1,12 @@
 package com.zj.play.project.list
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import com.zj.core.view.base.BaseAndroidViewModel
 import com.zj.model.pojo.QueryArticle
 import com.zj.model.room.entity.Article
 import com.zj.play.project.ProjectRepository
-import dagger.hilt.android.scopes.FragmentScoped
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * 版权：Zhujiang 个人版权
@@ -16,8 +16,8 @@ import dagger.hilt.android.scopes.FragmentScoped
  * 描述：PlayAndroid
  *
  */
-@FragmentScoped
-class ProjectListViewModel @ViewModelInject constructor(
+@HiltViewModel
+class ProjectListViewModel @Inject constructor(
     private val projectRepository: ProjectRepository
 ) : BaseAndroidViewModel<List<Article>, Article, QueryArticle>() {
 

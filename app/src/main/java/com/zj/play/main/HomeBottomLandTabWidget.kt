@@ -1,7 +1,6 @@
 package com.zj.play.main
 
 import android.content.Context
-import android.content.res.Configuration
 import android.graphics.BitmapFactory
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -20,7 +19,7 @@ class HomeBottomLandTabWidget @JvmOverloads constructor(
     View.OnClickListener {
 
     private var floatingButtons: ArrayList<FloatingActionButton>? = null
-    private lateinit var fabMenu: FloatingMenu
+    private var fabMenu: FloatingMenu
 
     /**
      * 初始化 设置点击事件。

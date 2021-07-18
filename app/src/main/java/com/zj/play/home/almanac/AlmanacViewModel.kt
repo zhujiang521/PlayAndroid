@@ -2,16 +2,16 @@ package com.zj.play.home.almanac
 
 import android.net.Uri
 import android.view.View
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zj.core.almanac.ScreenShotsUtils
-import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
+import javax.inject.Inject
 
 /**
  * 版权：Zhujiang 个人版权
@@ -21,8 +21,8 @@ import java.util.*
  * 描述：PlayAndroid
  *
  */
-@ActivityScoped
-class AlmanacViewModel @ViewModelInject constructor(
+@HiltViewModel
+class AlmanacViewModel @Inject constructor(
     private val almanacRepository: AlmanacRepository
 ) : ViewModel() {
 

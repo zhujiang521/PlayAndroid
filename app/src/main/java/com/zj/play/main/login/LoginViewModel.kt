@@ -1,7 +1,6 @@
 package com.zj.play.main.login
 
 import android.app.Application
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,10 +12,11 @@ import com.zj.model.model.BaseModel
 import com.zj.model.model.Login
 import com.zj.play.R
 import com.zj.play.home.LOGIN_REFRESH
-import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 /**
  * 版权：Zhujiang 个人版权
@@ -26,8 +26,8 @@ import kotlinx.coroutines.withContext
  * 描述：PlayAndroid
  *
  */
-@ActivityScoped
-class LoginViewModel @ViewModelInject constructor(
+@HiltViewModel
+class LoginViewModel @Inject constructor(
     application: Application,
     private val accountRepository: AccountRepository
 ) : AndroidViewModel(application) {

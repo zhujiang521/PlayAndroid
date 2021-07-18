@@ -1,11 +1,11 @@
 package com.zj.play.article.collect
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import com.zj.core.view.base.BaseViewModel
 import com.zj.model.model.Collect
 import com.zj.model.model.CollectX
-import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * 版权：Zhujiang 个人版权
@@ -15,8 +15,8 @@ import dagger.hilt.android.scopes.ActivityScoped
  * 描述：PlayAndroid
  *
  */
-@ActivityScoped
-class CollectListViewModel @ViewModelInject constructor(private val collectRepository: CollectRepository) :
+@HiltViewModel
+class CollectListViewModel @Inject constructor(private val collectRepository: CollectRepository) :
     BaseViewModel<Collect, CollectX, Int>() {
 
     override fun getData(page: Int): LiveData<Result<Collect>> {

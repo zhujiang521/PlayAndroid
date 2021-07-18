@@ -55,7 +55,7 @@ dependencies {
     implementation des.appcompat
     implementation project(path: ':core')
 
-    def room_version = "2.2.5"
+    def room_version = "2.3.0"
     api "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     // For Kotlin use kapt instead of annotationProcessor

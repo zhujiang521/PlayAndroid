@@ -9,7 +9,6 @@ import android.view.View
 import android.view.animation.OvershootInterpolator
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
-import androidx.lifecycle.observe
 import com.blankj.utilcode.util.NetworkUtils
 import com.zj.core.util.showToast
 import com.zj.core.view.base.ActivityCollector
@@ -36,8 +35,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     override fun initView() {
         binding.loginButton.setOnClickListener(this)
         binding.loginTvRegister.setOnClickListener(this)
-        @Suppress("COMPATIBILITY_WARNING")
-        viewModel.state.observe(this) {
+        viewModel.state.observe(this, {
             when (it) {
                 Logging -> {
                     toProgressVisible(true)
@@ -51,7 +49,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     toProgressVisible(false)
                 }
             }
-        }
+        })
     }
 
     override fun onClick(v: View) {

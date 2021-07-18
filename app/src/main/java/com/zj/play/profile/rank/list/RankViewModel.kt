@@ -1,12 +1,12 @@
 package com.zj.play.profile.rank.list
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import com.zj.core.view.base.BaseViewModel
 import com.zj.model.model.Rank
 import com.zj.model.model.RankData
 import com.zj.play.profile.rank.RankRepository
-import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * 版权：Zhujiang 个人版权
@@ -16,8 +16,8 @@ import dagger.hilt.android.scopes.ActivityScoped
  * 描述：PlayAndroid
  *
  */
-@ActivityScoped
-class RankViewModel @ViewModelInject constructor(private val rankRepository: RankRepository) :
+@HiltViewModel
+class RankViewModel @Inject constructor(private val rankRepository: RankRepository) :
     BaseViewModel<RankData, Rank, Int>() {
 
     override fun getData(page: Int): LiveData<Result<RankData>> {

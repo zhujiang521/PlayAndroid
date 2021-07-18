@@ -1,10 +1,10 @@
 package com.zj.play.article
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * 版权：联想 版权所有
@@ -14,8 +14,8 @@ import kotlinx.coroutines.launch
  * 描述：PlayAndroid
  *
  */
-@ActivityScoped
-class ArticleViewModel @ViewModelInject constructor(private val articleRepository: ArticleRepository) :
+@HiltViewModel
+class ArticleViewModel @Inject constructor(private val articleRepository: ArticleRepository) :
     ViewModel() {
 
     fun setCollect(

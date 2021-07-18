@@ -1,12 +1,12 @@
 package com.zj.play.home.search.article
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import com.zj.core.view.base.BaseAndroidViewModel
 import com.zj.model.model.ArticleList
 import com.zj.model.room.entity.Article
 import com.zj.play.home.search.SearchRepository
-import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * 版权：Zhujiang 个人版权
@@ -16,8 +16,8 @@ import dagger.hilt.android.scopes.ActivityScoped
  * 描述：PlayAndroid
  *
  */
-@ActivityScoped
-class ArticleListViewModel @ViewModelInject constructor(
+@HiltViewModel
+class ArticleListViewModel @Inject constructor(
     private val searchRepository: SearchRepository
 ) : BaseAndroidViewModel<ArticleList, Article, QueryKeyArticle>() {
 

@@ -67,13 +67,13 @@ dependencies {
     //implementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
 
     // hilt
-    implementation 'com.google.dagger:hilt-android:2.32-alpha'
-    kapt 'com.google.dagger:hilt-android-compiler:2.32-alpha'
-    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
-    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
+    implementation 'com.google.dagger:hilt-android:2.37'
+    kapt 'com.google.dagger:hilt-android-compiler:2.37'
+    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0-beta01'
 
     // 异常上报
-    implementation 'com.tencent.bugly:crashreport:3.3.1'
+    implementation 'com.tencent.bugly:crashreport:3.3.92'
     implementation files('libs/tbs_sdk_thirdapp_v4.3.0.67_43967_sharewithdownloadwithfile_withoutGame_obfs_20200923_120452.jar')
     implementation project(path: ':floating')
     testImplementation des.junit
