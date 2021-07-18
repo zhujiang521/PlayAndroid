@@ -42,7 +42,8 @@ class CollectAdapter(
             withContext(Dispatchers.Main) {
                 if (cancelCollects.errorCode == 0) {
                     showToast(mContext.getString(R.string.collection_cancelled_successfully))
-                    notifyItemRemoved(position)
+                    articleList.removeAt(position)
+                    notifyDataSetChanged()
                 } else {
                     showToast(mContext.getString(R.string.failed_to_cancel_collection))
                 }

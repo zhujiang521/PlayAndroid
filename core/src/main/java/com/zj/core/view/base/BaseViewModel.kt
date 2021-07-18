@@ -26,7 +26,7 @@ abstract class BaseViewModel<BaseData, Data, Key> : ViewModel() {
     abstract fun getData(page: Key): LiveData<Result<BaseData>>
 
     fun getDataList(page: Key) {
-        pageLiveData.value = page
+        pageLiveData.value = page!!
     }
 
 }
