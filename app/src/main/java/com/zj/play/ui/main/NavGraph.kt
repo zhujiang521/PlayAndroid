@@ -28,6 +28,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import com.google.gson.Gson
+import com.zj.play.R
 import com.zj.play.logic.model.ArticleModel
 import com.zj.play.logic.utils.getHtmlText
 import com.zj.play.ui.main.PlayDestinations.ARTICLE_ROUTE_URL
@@ -97,13 +98,34 @@ class PlayActions(navController: NavHostController) {
         article.title = getHtmlText(article.title)
         val gson = Gson().toJson(article).trim()
         val result = URLEncoder.encode(gson, "utf-8")
-        navController.navigate("${PlayDestinations.ARTICLE_ROUTE}/$result")
+        toAnimView(navController = navController, "${PlayDestinations.ARTICLE_ROUTE}/$result")
     }
+
     val toLogin: () -> Unit = {
-        navController.navigate(PlayDestinations.LOGIN_ROUTE)
+        toAnimView(navController = navController, PlayDestinations.LOGIN_ROUTE)
     }
+
     val upPress: () -> Unit = {
         navController.navigateUp()
     }
 
+    /**
+     * 跳转动画，之后Navigation如果支持转场动画的话即可生效
+     *
+     * @param navController /
+     * @param route 跳转路径
+     */
+    private fun toAnimView(navController: NavHostController, route: String) {
+        navController.navigate(route) {
+            anim {
+                enter = R.anim.activity_push_in
+                exit = R.anim.activity_push_out
+                popEnter = R.anim.center_zoom_in
+                popExit = R.anim.center_zoom_out
+            }
+        }
+    }
+
 }
+
+
