@@ -56,6 +56,7 @@ class HomePageFragment : ArticleCollectBaseFragment() {
             }
             homeTitleBar.setRightImgOnClickListener {
                 SearchActivity.actionStart(requireContext())
+                activity?.overridePendingTransition(R.anim.search_push_in, R.anim.fake_anim)
             }
             bannerAdapter = ImageAdapter(requireContext(), viewModel.bannerList)
             bannerAdapter2 = ImageAdapter(requireContext(), viewModel.bannerList2)

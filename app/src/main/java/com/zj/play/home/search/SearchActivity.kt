@@ -1,5 +1,6 @@
 package com.zj.play.home.search
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
@@ -105,6 +106,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener, TextView.OnEditorAc
         when (v.id) {
             R.id.searchImgBack -> {
                 finish()
+                overridePendingTransition(0, R.anim.search_push_out)
             }
             R.id.searchTxtRight -> {
                 toSearch()
