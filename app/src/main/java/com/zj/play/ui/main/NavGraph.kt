@@ -16,17 +16,20 @@
 
 package com.zj.play.ui.main
 
+import androidx.compose.animation.*
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
+import androidx.compose.ui.unit.IntOffset
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
+import com.google.accompanist.navigation.animation.composable
 import androidx.navigation.compose.navArgument
-import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.gson.Gson
 import com.zj.play.R
 import com.zj.play.logic.model.ArticleModel
@@ -44,25 +47,41 @@ object PlayDestinations {
     const val LOGIN_ROUTE = "login_route"
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun NavGraph(
     startDestination: String = PlayDestinations.HOME_PAGE_ROUTE
 ) {
-    val navController = rememberNavController()
+    val navController = rememberAnimatedNavController()
 
     val actions = remember(navController) { PlayActions(navController) }
-    NavHost(
+    AnimatedNavHost(
         navController = navController,
         startDestination = startDestination
     ) {
-        composable(PlayDestinations.HOME_PAGE_ROUTE) {
+        composable(PlayDestinations.HOME_PAGE_ROUTE,
+            enterTransition = { _, _ ->
+                // Let's make for a really long fade in
+                expandIn(animationSpec = tween(2000))
+            },
+            exitTransition = { _, _ ->
+                // Let's make for a really long fade in
+                shrinkOut(animationSpec = tween(2000))
+            }) {
             val viewModel: HomeViewModel = viewModel()
             val position by viewModel.position.observeAsState()
             MainPage(actions, position) { tab ->
                 viewModel.onPositionChanged(tab)
             }
         }
-        composable(PlayDestinations.LOGIN_ROUTE) {
+        composable(PlayDestinations.LOGIN_ROUTE, enterTransition = { _, _ ->
+            // Let's make for a really long fade in
+            expandIn(animationSpec = tween(2000))
+        },
+            exitTransition = { _, _ ->
+                // Let's make for a really long fade in
+                shrinkOut(animationSpec = tween(2000))
+            }) {
             val viewModel: LoginViewModel = viewModel()
             val loginState by viewModel.state.observeAsState()
             LoginPage(actions, loginState, {
@@ -75,7 +94,15 @@ fun NavGraph(
             "${PlayDestinations.ARTICLE_ROUTE}/{$ARTICLE_ROUTE_URL}",
             arguments = listOf(navArgument(ARTICLE_ROUTE_URL) {
                 type = NavType.StringType
-            })
+            }),
+            enterTransition = { _, _ ->
+                // Let's make for a really long fade in
+                expandIn(animationSpec = tween(2000))
+            },
+            exitTransition = { _, _ ->
+                // Let's make for a really long fade in
+                shrinkOut(animationSpec = tween(2000))
+            }
         ) { backStackEntry ->
             val arguments = requireNotNull(backStackEntry.arguments)
             val parcelable = arguments.getString(ARTICLE_ROUTE_URL)
@@ -117,12 +144,12 @@ class PlayActions(navController: NavHostController) {
      */
     private fun toAnimView(navController: NavHostController, route: String) {
         navController.navigate(route) {
-            anim {
-                enter = R.anim.activity_push_in
-                exit = R.anim.activity_push_out
-                popEnter = R.anim.center_zoom_in
-                popExit = R.anim.center_zoom_out
-            }
+//            anim {
+//                enter = R.anim.activity_push_in
+//                exit = R.anim.activity_push_out
+//                popEnter = R.anim.center_zoom_in
+//                popExit = R.anim.center_zoom_out
+//            }
         }
     }
 
