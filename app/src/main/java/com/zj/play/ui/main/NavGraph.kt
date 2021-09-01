@@ -107,12 +107,24 @@ fun NavGraphBuilder.setComposable(
         deepLinks = deepLinks,
         enterTransition = { _, _ ->
             // Let's make for a really long fade in
-            slideInVertically(animationSpec = tween(800))
+            slideIntoContainer(AnimatedContentScope.SlideDirection.Up, animationSpec = tween(500))
         },
         exitTransition = { _, _ ->
             // Let's make for a really long fade in
-            slideOutVertically(animationSpec = tween(800))
-        }, content = content
+            slideOutOfContainer(
+                AnimatedContentScope.SlideDirection.Down,
+                animationSpec = tween(300)
+            )
+        }, content = content,
+        popEnterTransition = { _, _ ->
+            slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(500))
+        },
+        popExitTransition = { _, _ ->
+            slideOutOfContainer(
+                AnimatedContentScope.SlideDirection.Right,
+                animationSpec = tween(300)
+            )
+        }
     )
 }
 
