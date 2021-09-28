@@ -27,6 +27,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.*
 import androidx.navigation.compose.NamedNavArgument
 import androidx.navigation.compose.navArgument
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -39,6 +40,7 @@ import com.zj.play.ui.page.article.ArticlePage
 import com.zj.play.ui.page.login.LoginPage
 import com.zj.play.ui.page.login.LoginViewModel
 import com.zj.play.ui.page.search.SearchPage
+import com.zj.play.ui.page.search.SearchViewModel
 import java.net.URLEncoder
 
 object PlayDestinations {
@@ -73,9 +75,20 @@ fun NavGraph(
         setComposable(
             PlayDestinations.SEARCH_PAGE_ROUTE,
         ) {
-            SearchPage(back = actions.upPress) {
-                showToast(current, it)
-            }
+            val viewModel = viewModel<SearchViewModel>()
+            val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
+            SearchPage(back = actions.upPress,
+                lazyPagingItems = lazyPagingItems,
+                enterArticle = {
+                    actions.enterArticle(it)
+                },
+                searchArticle = {
+                    if (it.isEmpty()) {
+                        showToast(current, "请输入搜索内容")
+                        return@SearchPage
+                    }
+                    viewModel.getSearchArticle(it)
+                })
         }
         setComposable(
             PlayDestinations.LOGIN_ROUTE,

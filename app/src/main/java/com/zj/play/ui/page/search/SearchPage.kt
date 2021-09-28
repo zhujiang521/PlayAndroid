@@ -2,6 +2,7 @@ package com.zj.play.ui.page.search
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -10,21 +11,35 @@ import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.insets.statusBarsHeight
+import com.zj.play.logic.model.ArticleModel
+import com.zj.play.logic.model.PlayLoading
+import com.zj.play.ui.main.CourseTabs
+import com.zj.play.ui.page.article.list.ArticleListPaging
+import com.zj.play.ui.page.official.OfficialViewModel
+import com.zj.play.ui.page.project.ProjectViewModel
 
 @Composable
-fun SearchPage(back: () -> Unit, searchArticle: (String) -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
+fun SearchPage(
+    back: () -> Unit,
+    lazyPagingItems: LazyPagingItems<ArticleModel>,
+    enterArticle: (ArticleModel) -> Unit,
+    searchArticle: (String) -> Unit,
+) {
+    Column(modifier = Modifier.fillMaxSize()) {
+        val listState = rememberLazyListState()
         SearchBar(back, searchArticle)
+        ArticleListPaging(Modifier.fillMaxSize(), listState, lazyPagingItems, enterArticle)
     }
 }
 

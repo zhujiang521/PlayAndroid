@@ -1,9 +1,6 @@
 package com.zj.play.logic.network
 
-import com.zj.play.logic.network.service.HomePageService
-import com.zj.play.logic.network.service.LoginService
-import com.zj.play.logic.network.service.OfficialService
-import com.zj.play.logic.network.service.ProjectService
+import com.zj.play.logic.network.service.*
 
 /**
  * 版权：Zhujiang 个人版权
@@ -42,4 +39,12 @@ object PlayAndroidNetwork {
         loginService.getRegister(username, password, rePassword)
 
     suspend fun getLogout() = loginService.getLogout()
+
+    private val searchService = ServiceCreator.create(SearchService::class.java)
+
+    suspend fun getHotkeyModel() = searchService.getHotkeyModel()
+
+    suspend fun getSearchArticleList(page: Int, keyword: String) =
+        searchService.getSearchArticleList(page, keyword)
+
 }
