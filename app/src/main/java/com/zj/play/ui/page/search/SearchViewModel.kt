@@ -1,10 +1,17 @@
 package com.zj.play.ui.page.search
 
 import android.app.Application
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.zj.play.logic.base.repository.BaseArticlePagingRepository
 import com.zj.play.logic.base.viewmodel.BaseArticleViewModel
-import com.zj.play.logic.base.viewmodel.BaseViewModel
+import com.zj.play.logic.model.HotkeyModel
+import com.zj.play.logic.model.PlayState
 import com.zj.play.logic.model.Query
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 /**
  * 版权：Zhujiang 个人版权
@@ -16,11 +23,25 @@ import com.zj.play.logic.model.Query
  */
 class SearchViewModel(application: Application) : BaseArticleViewModel(application) {
 
+    private var hotkeyJob: Job? = null
+
     override val repositoryArticle: BaseArticlePagingRepository
         get() = SearchRepository(getApplication())
 
     fun getSearchArticle(keyword: String) {
         searchArticle(Query(k = keyword))
+    }
+
+    private val _hotkeyState = MutableLiveData<PlayState<List<HotkeyModel>>>()
+
+    val hotkeyState: LiveData<PlayState<List<HotkeyModel>>>
+        get() = _hotkeyState
+
+    fun getHotkeyList() {
+        hotkeyJob?.cancel()
+        hotkeyJob = viewModelScope.launch(Dispatchers.IO) {
+            (repositoryArticle as SearchRepository).getHotKey(_hotkeyState)
+        }
     }
 
 }

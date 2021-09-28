@@ -1,17 +1,13 @@
 package com.zj.play.ui.page.search
 
 import android.app.Application
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import com.zj.play.logic.base.paging.HomePagingSource
-import com.zj.play.logic.base.paging.ProjectPagingSource
 import com.zj.play.logic.base.paging.SearchPagingSource
 import com.zj.play.logic.base.repository.BaseArticlePagingRepository
-import com.zj.play.logic.base.repository.BaseArticleRepository
-import com.zj.play.logic.model.BaseModel
-import com.zj.play.logic.model.ClassifyModel
-import com.zj.play.logic.model.Query
+import com.zj.play.logic.model.*
 import com.zj.play.logic.network.PlayAndroidNetwork
 
 /**
@@ -34,5 +30,19 @@ class SearchRepository constructor(val application: Application) : BaseArticlePa
     ) {
         SearchPagingSource(query.k)
     }.flow
+
+    /**
+     * 获取banner
+     */
+    suspend fun getHotKey(state: MutableLiveData<PlayState<List<HotkeyModel>>>) {
+        state.postValue(PlayLoading)
+        val response = PlayAndroidNetwork.getHotkeyModel()
+        if (response.errorCode == 0) {
+            val bannerList = response.data
+            state.postValue(PlaySuccess(bannerList))
+        } else {
+            state.postValue(PlayError(RuntimeException("response status is ${response.errorCode}  msg is ${response.errorMsg}")))
+        }
+    }
 
 }

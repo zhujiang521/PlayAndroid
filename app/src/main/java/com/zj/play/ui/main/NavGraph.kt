@@ -33,6 +33,8 @@ import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.gson.Gson
 import com.zj.play.logic.model.ArticleModel
+import com.zj.play.logic.model.PlayLoading
+import com.zj.play.logic.model.PlaySuccess
 import com.zj.play.logic.utils.getHtmlText
 import com.zj.play.logic.utils.showToast
 import com.zj.play.ui.main.PlayDestinations.ARTICLE_ROUTE_URL
@@ -77,8 +79,15 @@ fun NavGraph(
         ) {
             val viewModel = viewModel<SearchViewModel>()
             val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
+            val hotkeyModels by viewModel.hotkeyState.observeAsState(PlayLoading)
             SearchPage(back = actions.upPress,
                 lazyPagingItems = lazyPagingItems,
+                hotkeyModels = hotkeyModels,
+                loadHotkey = {
+                    if (hotkeyModels !is PlaySuccess<*>) {
+                        viewModel.getHotkeyList()
+                    }
+                },
                 enterArticle = {
                     actions.enterArticle(it)
                 },
