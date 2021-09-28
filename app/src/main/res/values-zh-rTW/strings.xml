@@ -36,6 +36,7 @@
     <string name="keyword_not_null">搜索關鍵字不能為空</string>
     <string name="keyword_null">沒有關於  %s  的數據，請更換關鍵字搜索</string>
     <string name="home_page">首頁</string>
+    <string name="home_system">体系</string>
     <string name="project">項目</string>
     <string name="official_account">公眾號</string>
     <string name="mine">我的</string>

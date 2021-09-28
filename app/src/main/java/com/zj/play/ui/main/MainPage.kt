@@ -28,6 +28,7 @@ import com.zj.play.ui.page.mine.ProfilePage
 import com.zj.play.ui.page.official.OfficialViewModel
 import com.zj.play.ui.page.project.ArticleListPage
 import com.zj.play.ui.page.project.ProjectViewModel
+import com.zj.play.ui.page.system.SystemPage
 import java.util.*
 
 @Composable
@@ -86,6 +87,9 @@ fun MainPage(
                         actions.enterArticle(it)
                     }
                 }
+                CourseTabs.SYSTEM -> {
+                    SystemPage()
+                }
                 CourseTabs.PROJECT, CourseTabs.OFFICIAL_ACCOUNT -> {
                     val viewModel = if (screen == CourseTabs.PROJECT) {
                         viewModel<ProjectViewModel>()
@@ -126,6 +130,11 @@ enum class CourseTabs(
     @DrawableRes val selectIcon: Int
 ) {
     HOME_PAGE(R.string.home_page, R.drawable.ic_nav_news_normal, R.drawable.ic_nav_news_actived),
+    SYSTEM(
+        R.string.home_system,
+        R.drawable.ic_nav_discover_normal,
+        R.drawable.ic_nav_discover_actived
+    ),
     PROJECT(R.string.project, R.drawable.ic_nav_tweet_normal, R.drawable.ic_nav_tweet_actived),
     OFFICIAL_ACCOUNT(
         R.string.official_account,

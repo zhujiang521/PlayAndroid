@@ -36,6 +36,7 @@
 	<string name="keyword_not_null">搜索关键字不能为空</string>
 	<string name="keyword_null">没有关于  %s  的数据，请更换关键字搜索</string>
 	<string name="home_page">首页</string>
+	<string name="home_system">体系</string>
 	<string name="project">项目</string>
 	<string name="official_account">公众号</string>
 	<string name="mine">我的</string>

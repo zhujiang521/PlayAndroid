@@ -36,6 +36,7 @@
     <string name="keyword_not_null">Search keyword can not be empty</string>
     <string name="keyword_null">No data on %s, replace keyword search</string>
     <string name="home_page">Home</string>
+    <string name="home_system">System</string>
     <string name="project">Project</string>
     <string name="official_account">Official</string>
     <string name="mine">Mine</string>
