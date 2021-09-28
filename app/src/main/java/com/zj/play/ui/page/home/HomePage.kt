@@ -2,8 +2,13 @@ package com.zj.play.ui.page.home
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Search
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -13,7 +18,9 @@ import com.zj.banner.ui.indicator.CircleIndicator
 import com.zj.banner.ui.indicator.Indicator
 import com.zj.banner.ui.indicator.NumberIndicator
 import com.zj.play.R
-import com.zj.play.logic.model.*
+import com.zj.play.logic.model.ArticleModel
+import com.zj.play.logic.model.BannerBean
+import com.zj.play.logic.model.PlayState
 import com.zj.play.ui.page.article.list.ArticleListPaging
 import com.zj.play.ui.view.PlayAppBar
 import com.zj.play.ui.view.lce.LcePage
@@ -25,6 +32,7 @@ fun HomePage(
     bannerData: PlayState<List<BannerBean>>,
     lazyPagingItems: LazyPagingItems<ArticleModel>,
     loadData: () -> Unit,
+    toSearch: () -> Unit,
     toArticleDetails: (ArticleModel) -> Unit
 ) {
 
@@ -33,11 +41,13 @@ fun HomePage(
         loadArticleState = true
         loadData()
     }
-
     Column(modifier = modifier.fillMaxSize()) {
         PlayAppBar(
             stringResource(id = R.string.home_page),
-            false
+            showBack = false,
+            rightImg = Icons.Rounded.Search,
+            showRight = true,
+            rightClick = toSearch
         )
         LcePage(
             playState = bannerData,
@@ -48,7 +58,9 @@ fun HomePage(
             loadArticleState = true
             if (isLand) {
                 Row(modifier = Modifier.fillMaxSize()) {
-                    val bannerModifier = Modifier.fillMaxHeight().weight(1f)
+                    val bannerModifier = Modifier
+                        .fillMaxHeight()
+                        .weight(1f)
                         .padding(vertical = 15.dp)
                     val articleModifier = Modifier.weight(1.5f)
                     HomeContent(

@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.*
 import androidx.navigation.compose.NamedNavArgument
@@ -32,10 +33,12 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.gson.Gson
 import com.zj.play.logic.model.ArticleModel
 import com.zj.play.logic.utils.getHtmlText
+import com.zj.play.logic.utils.showToast
 import com.zj.play.ui.main.PlayDestinations.ARTICLE_ROUTE_URL
 import com.zj.play.ui.page.article.ArticlePage
 import com.zj.play.ui.page.login.LoginPage
 import com.zj.play.ui.page.login.LoginViewModel
+import com.zj.play.ui.page.search.SearchPage
 import java.net.URLEncoder
 
 object PlayDestinations {
@@ -43,6 +46,7 @@ object PlayDestinations {
     const val ARTICLE_ROUTE = "article_route"
     const val ARTICLE_ROUTE_URL = "article_route_url"
     const val LOGIN_ROUTE = "login_route"
+    const val SEARCH_PAGE_ROUTE = "search_page_route"
 }
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -51,7 +55,7 @@ fun NavGraph(
     startDestination: String = PlayDestinations.HOME_PAGE_ROUTE
 ) {
     val navController = rememberAnimatedNavController()
-
+    val current = LocalContext.current
     val actions = remember(navController) { PlayActions(navController) }
     AnimatedNavHost(
         navController = navController,
@@ -64,6 +68,13 @@ fun NavGraph(
             val position by viewModel.position.observeAsState()
             MainPage(actions, position) { tab ->
                 viewModel.onPositionChanged(tab)
+            }
+        }
+        setComposable(
+            PlayDestinations.SEARCH_PAGE_ROUTE,
+        ) {
+            SearchPage(back = actions.upPress) {
+                showToast(current, it)
             }
         }
         setComposable(
@@ -143,6 +154,10 @@ class PlayActions(navController: NavHostController) {
 
     val toLogin: () -> Unit = {
         navController.navigate(PlayDestinations.LOGIN_ROUTE)
+    }
+
+    val toSearch: () -> Unit = {
+        navController.navigate(PlayDestinations.SEARCH_PAGE_ROUTE)
     }
 
     val upPress: () -> Unit = {

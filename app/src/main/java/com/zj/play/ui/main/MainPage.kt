@@ -80,6 +80,8 @@ fun MainPage(
                         if (lazyPagingItems.itemCount <= 0) {
                             viewModel.getHomeArticle()
                         }
+                    }, toSearch = {
+                        actions.toSearch()
                     }) {
                         actions.enterArticle(it)
                     }
