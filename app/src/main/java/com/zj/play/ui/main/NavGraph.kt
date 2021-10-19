@@ -25,8 +25,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.*
-import androidx.navigation.compose.NamedNavArgument
-import androidx.navigation.compose.navArgument
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
