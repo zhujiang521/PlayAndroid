@@ -26,7 +26,7 @@ class SearchViewModel(application: Application) : BaseArticleViewModel(applicati
     private var hotkeyJob: Job? = null
 
     override val repositoryArticle: BaseArticlePagingRepository
-        get() = SearchRepository(getApplication())
+        get() = SearchRepository()
 
     fun getSearchArticle(keyword: String) {
         searchArticle(Query(k = keyword))

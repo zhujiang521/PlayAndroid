@@ -1,6 +1,5 @@
 package com.zj.play.ui.page.search
 
-import android.util.Log
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -29,7 +28,6 @@ import com.zj.play.logic.model.ArticleModel
 import com.zj.play.logic.model.HotkeyModel
 import com.zj.play.logic.model.PlayState
 import com.zj.play.ui.page.article.list.ArticleListPaging
-import com.zj.play.ui.view.FlowView
 import com.zj.play.ui.view.lce.LcePage
 import java.lang.Integer.max
 

@@ -35,7 +35,6 @@ fun ArticleListPaging(
     ) {
 
         items(lazyPagingItems) { article ->
-
             ArticleItem(article) { urlArgs ->
                 enterArticle(urlArgs)
             }

@@ -19,7 +19,7 @@ import com.zj.play.logic.network.PlayAndroidNetwork
  *
  */
 
-class SearchRepository constructor(val application: Application) : BaseArticlePagingRepository() {
+class SearchRepository : BaseArticlePagingRepository() {
 
     @ExperimentalPagingApi
     override fun getPagingData(query: Query) = Pager(

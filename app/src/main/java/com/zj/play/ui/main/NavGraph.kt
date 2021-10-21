@@ -18,6 +18,7 @@ package com.zj.play.ui.main
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -36,18 +37,27 @@ import com.zj.play.logic.model.PlaySuccess
 import com.zj.play.logic.utils.getHtmlText
 import com.zj.play.logic.utils.showToast
 import com.zj.play.ui.main.PlayDestinations.ARTICLE_ROUTE_URL
+import com.zj.play.ui.main.PlayDestinations.SYSTEM_ARTICLE_LIST_ROUTE_CID
+import com.zj.play.ui.main.PlayDestinations.SYSTEM_ARTICLE_LIST_ROUTE_NAME
 import com.zj.play.ui.page.article.ArticlePage
 import com.zj.play.ui.page.login.LoginPage
 import com.zj.play.ui.page.login.LoginViewModel
 import com.zj.play.ui.page.search.SearchPage
 import com.zj.play.ui.page.search.SearchViewModel
+import com.zj.play.ui.page.system.SystemArticleListPage
+import com.zj.play.ui.page.system.SystemViewModel
 import java.net.URLEncoder
+import java.util.*
+
 
 object PlayDestinations {
     const val HOME_PAGE_ROUTE = "home_page_route"
     const val ARTICLE_ROUTE = "article_route"
     const val ARTICLE_ROUTE_URL = "article_route_url"
     const val LOGIN_ROUTE = "login_route"
+    const val SYSTEM_ARTICLE_LIST_ROUTE = "system_article_list_route"
+    const val SYSTEM_ARTICLE_LIST_ROUTE_CID = "system_article_list_route_cid"
+    const val SYSTEM_ARTICLE_LIST_ROUTE_NAME = "system_article_list_route_name"
     const val SEARCH_PAGE_ROUTE = "search_page_route"
 }
 
@@ -106,6 +116,24 @@ fun NavGraph(
                 viewModel.logout()
             }) {
                 viewModel.toLoginOrRegister(it)
+            }
+        }
+        setComposable(
+            "${PlayDestinations.SYSTEM_ARTICLE_LIST_ROUTE}/{$SYSTEM_ARTICLE_LIST_ROUTE_CID}/{$SYSTEM_ARTICLE_LIST_ROUTE_NAME}",
+            arguments = listOf(navArgument(SYSTEM_ARTICLE_LIST_ROUTE_CID) {
+                type = NavType.IntType
+            }, navArgument(SYSTEM_ARTICLE_LIST_ROUTE_NAME) {
+                type = NavType.StringType
+            }),
+        ) { backStackEntry ->
+            val arguments = requireNotNull(backStackEntry.arguments)
+            val cid = arguments.getInt(SYSTEM_ARTICLE_LIST_ROUTE_CID)
+            val name = arguments.getString(SYSTEM_ARTICLE_LIST_ROUTE_NAME)
+            val viewModel: SystemViewModel = viewModel()
+            val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
+            viewModel.getSystemArticle(cid)
+            SystemArticleListPage(name, back = { actions.upPress() }, lazyPagingItems) {
+                actions.enterArticle(it)
             }
         }
         setComposable(
@@ -170,6 +198,10 @@ class PlayActions(navController: NavHostController) {
         val gson = Gson().toJson(article).trim()
         val result = URLEncoder.encode(gson, "utf-8")
         navController.navigate("${PlayDestinations.ARTICLE_ROUTE}/$result")
+    }
+
+    val toSystemArticleList: (Int, String) -> Unit = { cid, name ->
+        navController.navigate("${PlayDestinations.SYSTEM_ARTICLE_LIST_ROUTE}/$cid/$name")
     }
 
     val toLogin: () -> Unit = {

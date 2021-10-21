@@ -47,4 +47,15 @@ object PlayAndroidNetwork {
     suspend fun getSearchArticleList(page: Int, keyword: String) =
         searchService.getSearchArticleList(page, keyword)
 
+    private val systemService = ServiceCreator.create(AndroidSystemService::class.java)
+
+    suspend fun getAndroidSystem() = systemService.getAndroidSystem()
+
+    suspend fun getSystemArticle(page: Int, cid: Int) = systemService.getSystemArticle(page, cid)
+
+    suspend fun getNameToSystemArticle(page: Int, author: String) =
+        systemService.getNameToSystemArticle(page, author)
+
+    suspend fun getNavigationList() = systemService.getNavigationList()
+
 }

@@ -29,6 +29,7 @@ import com.zj.play.ui.page.official.OfficialViewModel
 import com.zj.play.ui.page.project.ArticleListPage
 import com.zj.play.ui.page.project.ProjectViewModel
 import com.zj.play.ui.page.system.SystemPage
+import com.zj.play.ui.page.system.SystemViewModel
 import java.util.*
 
 @Composable
@@ -88,7 +89,15 @@ fun MainPage(
                     }
                 }
                 CourseTabs.SYSTEM -> {
-                    SystemPage()
+                    val viewModel: SystemViewModel = viewModel()
+                    val androidSystemState by viewModel.androidSystemState.observeAsState(
+                        PlayLoading
+                    )
+                    SystemPage(modifier, androidSystemState, loadData = {
+                        viewModel.getAndroidSystem()
+                    }) { cid, name ->
+                        actions.toSystemArticleList(cid, name)
+                    }
                 }
                 CourseTabs.PROJECT, CourseTabs.OFFICIAL_ACCOUNT -> {
                     val viewModel = if (screen == CourseTabs.PROJECT) {
