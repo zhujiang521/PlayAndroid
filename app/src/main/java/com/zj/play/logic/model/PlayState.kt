@@ -10,6 +10,7 @@ sealed class PlayState<out R> {
             is PlaySuccess<*> -> "Success[data=$data]"
             is PlayError -> "Error[exception=${error}]"
             PlayLoading -> "Loading"
+            else -> ""
         }
     }
 }

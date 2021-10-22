@@ -1,7 +1,6 @@
 package com.zj.play.ui.page.system
 
 import androidx.lifecycle.MutableLiveData
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.zj.play.logic.base.paging.SystemPagingSource
@@ -22,12 +21,12 @@ class SystemRepository : BaseArticlePagingRepository() {
 
     suspend fun getAndroidSystem(state: MutableLiveData<PlayState<List<AndroidSystemModel>>>) {
         state.postValue(PlayLoading)
-        val bannerResponse = PlayAndroidNetwork.getAndroidSystem()
-        if (bannerResponse.errorCode == 0) {
-            val data = bannerResponse.data
+        val response = PlayAndroidNetwork.getAndroidSystem()
+        if (response.errorCode == 0) {
+            val data = response.data
             state.postValue(PlaySuccess(data))
         } else {
-            state.postValue(PlayError(RuntimeException("response status is ${bannerResponse.errorCode}  msg is ${bannerResponse.errorMsg}")))
+            state.postValue(PlayError(RuntimeException("response status is ${response.errorCode}  msg is ${response.errorMsg}")))
         }
     }
 

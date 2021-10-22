@@ -25,9 +25,9 @@ abstract class BasePagingSource : PagingSource<Int, ArticleModel>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleModel> {
         return try {
-            val page = params.key ?: 1 // set page 1 as default
+            val page = params.key ?: 0 // set page 1 as default
             val articleList = getArticleList(page)
-            val prevKey = if (page > 1) page - 1 else null
+            val prevKey = if (page > 0) page - 1 else null
             val nextKey = if (articleList.isNotEmpty()) page + 1 else null
             LoadResult.Page(articleList, prevKey, nextKey)
         } catch (e: Exception) {

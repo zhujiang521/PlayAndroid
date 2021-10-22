@@ -83,7 +83,7 @@ fun SystemPage(
                         Chip(text = systemModel.name, modifier = Modifier
                             .padding(8.dp)
                             .clickable {
-                                loadArticle(systemState.id, systemState.name)
+                                loadArticle(systemModel.id, systemModel.name)
                             })
                     }
                 }

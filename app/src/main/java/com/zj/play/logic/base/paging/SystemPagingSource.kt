@@ -16,12 +16,18 @@
 
 package com.zj.play.logic.base.paging
 
+import android.util.Log
 import com.zj.play.logic.model.ArticleModel
 import com.zj.play.logic.network.PlayAndroidNetwork
 
 class SystemPagingSource(private val cid: Int) : BasePagingSource() {
 
+    companion object {
+        private const val TAG = "SystemPagingSource"
+    }
+
     override suspend fun getArticleList(page: Int): List<ArticleModel> {
+        Log.e(TAG, "getArticleList: page:$page   cid:$cid")
         val apiResponse = PlayAndroidNetwork.getSystemArticle(page, cid)
         return apiResponse.data.datas
     }

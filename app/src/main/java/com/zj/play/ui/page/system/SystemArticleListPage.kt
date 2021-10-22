@@ -9,6 +9,7 @@ import androidx.paging.compose.LazyPagingItems
 import com.zj.play.logic.model.ArticleModel
 import com.zj.play.ui.page.article.list.ArticleListPaging
 import com.zj.play.ui.view.PlayAppBar
+import com.zj.play.ui.view.lce.NoContent
 
 @Composable
 fun SystemArticleListPage(
@@ -22,6 +23,10 @@ fun SystemArticleListPage(
         PlayAppBar(name ?: "体系文章", click = {
             back()
         })
-        ArticleListPaging(Modifier.fillMaxSize(), listState, lazyPagingItems, enterArticle)
+        if (lazyPagingItems.itemCount > 0) {
+            ArticleListPaging(Modifier.fillMaxSize(), listState, lazyPagingItems, enterArticle)
+        } else {
+            NoContent()
+        }
     }
 }
