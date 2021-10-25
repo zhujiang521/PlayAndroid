@@ -2,7 +2,7 @@ package com.zj.play.ui.page.project
 
 import android.app.Application
 import com.zj.play.logic.base.repository.BaseArticlePagingRepository
-import com.zj.play.logic.base.viewmodel.BaseViewModel
+import com.zj.play.logic.base.viewmodel.BaseAndroidViewModel
 
 /**
  * 版权：Zhujiang 个人版权
@@ -12,7 +12,7 @@ import com.zj.play.logic.base.viewmodel.BaseViewModel
  * 描述：PlayAndroid
  *
  */
-class ProjectViewModel(application: Application) : BaseViewModel(application) {
+class ProjectAndroidViewModel(application: Application) : BaseAndroidViewModel(application) {
 
     override val repositoryArticle: BaseArticlePagingRepository
         get() = ProjectRepository(getApplication())

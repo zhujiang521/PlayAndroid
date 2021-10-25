@@ -25,15 +25,16 @@ import com.zj.play.ui.page.home.HomePageViewModel
 import com.zj.play.ui.page.login.LoginViewModel
 import com.zj.play.ui.page.login.LogoutDefault
 import com.zj.play.ui.page.mine.ProfilePage
-import com.zj.play.ui.page.official.OfficialViewModel
+import com.zj.play.ui.page.official.OfficialAndroidViewModel
 import com.zj.play.ui.page.project.ArticleListPage
-import com.zj.play.ui.page.project.ProjectViewModel
+import com.zj.play.ui.page.project.ProjectAndroidViewModel
 import com.zj.play.ui.page.system.SystemPage
 import com.zj.play.ui.page.system.SystemViewModel
 import java.util.*
 
 @Composable
 fun MainPage(
+    homeViewModel: HomeViewModel,
     actions: PlayActions, position: CourseTabs?,
     onPositionChanged: (CourseTabs) -> Unit
 ) {
@@ -72,15 +73,14 @@ fun MainPage(
         Crossfade(targetState = position) { screen ->
             when (screen) {
                 CourseTabs.HOME_PAGE -> {
-                    val viewModel: HomePageViewModel = viewModel()
-                    val bannerData by viewModel.bannerState.observeAsState(PlayLoading)
-                    val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
+                    val bannerData by homeViewModel.bannerState.observeAsState(PlayLoading)
+                    val lazyPagingItems = homeViewModel.articleResult.collectAsLazyPagingItems()
                     HomePage(modifier, isLand, bannerData, lazyPagingItems, {
                         if (bannerData !is PlaySuccess<*>) {
-                            viewModel.getBanner()
+                            homeViewModel.getBanner()
                         }
                         if (lazyPagingItems.itemCount <= 0) {
-                            viewModel.getHomeArticle()
+                            homeViewModel.getHomeArticle()
                         }
                     }, toSearch = {
                         actions.toSearch()
@@ -101,9 +101,9 @@ fun MainPage(
                 }
                 CourseTabs.PROJECT, CourseTabs.OFFICIAL_ACCOUNT -> {
                     val viewModel = if (screen == CourseTabs.PROJECT) {
-                        viewModel<ProjectViewModel>()
+                        viewModel<ProjectAndroidViewModel>()
                     } else {
-                        viewModel<OfficialViewModel>()
+                        viewModel<OfficialAndroidViewModel>()
                     }
                     val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
                     val tree by viewModel.treeLiveData.observeAsState(PlayLoading)

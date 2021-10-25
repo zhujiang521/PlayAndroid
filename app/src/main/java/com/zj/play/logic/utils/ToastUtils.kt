@@ -14,13 +14,11 @@ private var mToast: Toast? = null
  * @param text String，显示的内容
  */
 fun showToast(context: Context?, text: String?) {
-    if (context == null) return
-    if (!TextUtils.isEmpty(text)) {
-        if (Thread.currentThread() === Looper.getMainLooper().thread) {
-            showToast(context, text, Toast.LENGTH_SHORT)
-        } else {
-            Handler(context.mainLooper).post { showToast(context, text, Toast.LENGTH_SHORT) }
-        }
+    if (context == null || TextUtils.isEmpty(text)) return
+    if (Thread.currentThread() === Looper.getMainLooper().thread) {
+        showToast(context, text, Toast.LENGTH_SHORT)
+    } else {
+        Handler(context.mainLooper).post { showToast(context, text, Toast.LENGTH_SHORT) }
     }
 }
 
@@ -44,13 +42,11 @@ fun showToast(context: Context?, resId: Int) {
  * @param text String，显示的内容
  */
 fun showLongToast(context: Context?, text: String?) {
-    if (context == null) return
-    if (!TextUtils.isEmpty(text)) {
-        if (Thread.currentThread() === Looper.getMainLooper().thread) {
-            showToast(context, text, Toast.LENGTH_LONG)
-        } else {
-            Handler(context.mainLooper).post { showToast(context, text, Toast.LENGTH_LONG) }
-        }
+    if (context == null || TextUtils.isEmpty(text)) return
+    if (Thread.currentThread() === Looper.getMainLooper().thread) {
+        showToast(context, text, Toast.LENGTH_LONG)
+    } else {
+        Handler(context.mainLooper).post { showToast(context, text, Toast.LENGTH_LONG) }
     }
 }
 

@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
  *
  */
 
-abstract class BaseViewModel(application: Application) : BaseArticleViewModel(application) {
+abstract class BaseAndroidViewModel(application: Application) : BaseArticleViewModel(application) {
 
     protected val mutableTreeLiveData = MutableLiveData<PlayState<List<ClassifyModel>>>()
 
