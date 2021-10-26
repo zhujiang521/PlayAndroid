@@ -21,7 +21,6 @@ import com.zj.play.R
 import com.zj.play.logic.model.PlayLoading
 import com.zj.play.logic.model.PlaySuccess
 import com.zj.play.ui.page.home.HomePage
-import com.zj.play.ui.page.home.HomePageViewModel
 import com.zj.play.ui.page.login.LoginViewModel
 import com.zj.play.ui.page.login.LogoutDefault
 import com.zj.play.ui.page.mine.ProfilePage
