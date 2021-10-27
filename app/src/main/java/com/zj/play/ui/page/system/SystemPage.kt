@@ -9,8 +9,11 @@ import androidx.compose.foundation.lazy.*
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -22,9 +25,11 @@ import com.zj.banner.utils.ImageLoader
 import com.zj.play.R
 import com.zj.play.logic.model.AndroidSystemModel
 import com.zj.play.logic.model.PlayState
+import com.zj.play.logic.model.SystemChildren
 import com.zj.play.ui.theme.Shapes
 import com.zj.play.ui.view.PlayAppBar
 import com.zj.play.ui.view.lce.LcePage
+import kotlinx.coroutines.DelicateCoroutinesApi
 
 private const val TAG = "SystemPage"
 
@@ -33,6 +38,8 @@ private const val TAG = "SystemPage"
 fun SystemPage(
     modifier: Modifier,
     androidSystemState: PlayState<List<AndroidSystemModel>>,
+    systemState: AndroidSystemModel,
+    saveSystemState: (AndroidSystemModel) -> Unit,
     loadData: () -> Unit,
     loadArticle: (Int, String) -> Unit
 ) {
@@ -43,7 +50,7 @@ fun SystemPage(
     }
     val listState = rememberLazyListState()
     val childrenState = rememberLazyListState()
-    var systemState by remember { mutableStateOf(AndroidSystemModel(arrayListOf())) }
+//    val coroutineScope = rememberCoroutineScope()
     Log.e(TAG, "SystemPage: $androidSystemState")
     Column(
         modifier = modifier.fillMaxSize(),
@@ -61,7 +68,6 @@ fun SystemPage(
                     state = listState,
                     modifier = Modifier.weight(1f)
                 ) {
-
                     items(it) { systemModel ->
                         val modifiers = Modifier
                             .fillMaxWidth()
@@ -74,7 +80,7 @@ fun SystemPage(
                                 } else MaterialTheme.colors.background
                             )
                             .clickable {
-                                systemState = systemModel
+                                saveSystemState(systemModel)
                             }
 
                         Column(
@@ -90,9 +96,12 @@ fun SystemPage(
                         }
 
                         if (systemState.id == 0) {
-                            systemState = systemModel
+                            saveSystemState(systemModel)
                         }
                     }
+//                    coroutineScope.launch {
+//                        listState.animateScrollToItem(it.indexOf(systemState))
+//                    }
                 }
                 LazyVerticalGrid(
                     cells = GridCells.Fixed(2),
@@ -102,29 +111,7 @@ fun SystemPage(
                         .weight(2f)
                 ) {
                     items(systemState.children) { systemModel ->
-                        Column(
-                            modifier = Modifier
-                                .padding(4.dp)
-                                .clickable {
-                                    loadArticle(systemModel.id, systemModel.name)
-                                },
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-
-                            Card(
-                                shape = Shapes.small,
-                            ) {
-                                ImageLoader(
-                                    R.drawable.img_default,
-                                    Modifier
-                                        .shadow(1.dp, shape = Shapes.small)
-                                        .size(70.dp)
-                                )
-                            }
-
-
-                            Text(text = systemModel.name, fontSize = 14.sp)
-                        }
+                        SystemCard(loadArticle, systemModel)
                     }
                 }
             }
@@ -154,4 +141,34 @@ fun SystemPage(
 //
 //    val rememberLottieDynamicProperties = rememberLottieDynamicProperties()
 //    LottieAnimation(composition = composition, progress = progress)
+}
+
+@Composable
+private fun SystemCard(
+    loadArticle: (Int, String) -> Unit,
+    systemModel: SystemChildren
+) {
+    Column(
+        modifier = Modifier
+            .padding(4.dp)
+            .clickable {
+                loadArticle(systemModel.id, systemModel.name)
+            },
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
+        Card(
+            shape = Shapes.small,
+        ) {
+            ImageLoader(
+                R.drawable.img_default,
+                Modifier
+                    .shadow(1.dp, shape = Shapes.small)
+                    .size(70.dp)
+            )
+        }
+
+
+        Text(text = systemModel.name, fontSize = 14.sp)
+    }
 }

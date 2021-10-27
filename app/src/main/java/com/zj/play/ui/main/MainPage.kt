@@ -18,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.zj.play.R
+import com.zj.play.logic.model.AndroidSystemModel
 import com.zj.play.logic.model.PlayLoading
 import com.zj.play.logic.model.PlaySuccess
 import com.zj.play.ui.page.home.HomePage
@@ -92,9 +93,17 @@ fun MainPage(
                     val androidSystemState by viewModel.androidSystemState.observeAsState(
                         PlayLoading
                     )
-                    SystemPage(modifier, androidSystemState, loadData = {
-                        viewModel.getAndroidSystem()
-                    }) { cid, name ->
+                    val systemState by viewModel.systemState.observeAsState(
+                        AndroidSystemModel(
+                            arrayListOf()
+                        )
+                    )
+                    SystemPage(modifier, androidSystemState, systemState,
+                        saveSystemState = {
+                            viewModel.onSystemModelChanged(it)
+                        }, loadData = {
+                            viewModel.getAndroidSystem()
+                        }) { cid, name ->
                         actions.toSystemArticleList(cid, name)
                     }
                 }

@@ -1,7 +1,6 @@
 package com.zj.play.ui.page.system
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -10,7 +9,7 @@ import com.zj.play.logic.base.viewmodel.BaseArticleViewModel
 import com.zj.play.logic.model.AndroidSystemModel
 import com.zj.play.logic.model.PlayState
 import com.zj.play.logic.model.Query
-import com.zj.play.ui.page.search.SearchRepository
+import com.zj.play.ui.main.CourseTabs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -45,6 +44,13 @@ class SystemViewModel(application: Application) : BaseArticleViewModel(applicati
 
     fun getSystemArticle(cid: Int) {
         searchArticle(Query(cid = cid))
+    }
+
+    private val _systemState = MutableLiveData(AndroidSystemModel(arrayListOf()))
+    val systemState: LiveData<AndroidSystemModel> = _systemState
+
+    fun onSystemModelChanged(systemModel: AndroidSystemModel) {
+        _systemState.value = systemModel
     }
 
 }
