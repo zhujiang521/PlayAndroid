@@ -78,7 +78,7 @@ fun NavGraph(
         ) {
             val viewModel: HomeViewModel = viewModel()
             val position by viewModel.position.observeAsState()
-            MainPage(viewModel,actions, position) { tab ->
+            MainPage(viewModel, actions, position) { tab ->
                 viewModel.onPositionChanged(tab)
             }
         }
@@ -166,24 +166,28 @@ fun NavGraphBuilder.setComposable(
         deepLinks = deepLinks,
         enterTransition = { _, _ ->
             // Let's make for a really long fade in
+            slideIntoContainer(
+                AnimatedContentScope.SlideDirection.Left,
+                animationSpec = tween(500)
+            )
+        },
+//        exitTransition = { _, _ ->
+//            // Let's make for a really long fade in
+//            slideOutOfContainer(
+//                AnimatedContentScope.SlideDirection.Left,
+//                animationSpec = tween(300)
+//            )
+//        },
+        content = content,
+        popEnterTransition = { _, _ ->
             slideIntoContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(500))
         },
-        exitTransition = { _, _ ->
-            // Let's make for a really long fade in
-            slideOutOfContainer(
-                AnimatedContentScope.SlideDirection.Left,
-                animationSpec = tween(300)
-            )
-        }, content = content,
-        popEnterTransition = { _, _ ->
-            slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(500))
-        },
-        popExitTransition = { _, _ ->
-            slideOutOfContainer(
-                AnimatedContentScope.SlideDirection.Right,
-                animationSpec = tween(300)
-            )
-        }
+//        popExitTransition = { _, _ ->
+//            slideOutOfContainer(
+//                AnimatedContentScope.SlideDirection.Right,
+//                animationSpec = tween(300)
+//            )
+//        }
     )
 }
 
