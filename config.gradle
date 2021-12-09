@@ -11,12 +11,12 @@ ext {
     ]
 
     des = [
-            kotlinVersion: "org.jetbrains.kotlin:kotlin-stdlib:1.5.21",
-            coreKtx      : 'androidx.core:core-ktx:1.5.0',
-            appcompat    : 'androidx.appcompat:appcompat:1.3.0',
+            kotlinVersion: "org.jetbrains.kotlin:kotlin-stdlib:1.6.0",
+            coreKtx      : 'androidx.core:core-ktx:1.6.0',
+            appcompat    : 'androidx.appcompat:appcompat:1.3.1',
             junit        : 'junit:junit:4.13.2',
-            extJunit     : 'androidx.test.ext:junit:1.1.2',
-            espressoCore : 'androidx.test.espresso:espresso-core:3.3.0',
+            extJunit     : 'androidx.test.ext:junit:1.1.3',
+            espressoCore : 'androidx.test.espresso:espresso-core:3.4.0',
     ]
 
     sign = [

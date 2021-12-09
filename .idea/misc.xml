@@ -4,12 +4,21 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.2708333333333333" />
+        <entry key="app/src/main/res/drawable/btn_login_bg.xml" value="0.3537037037037037" />
+        <entry key="app/src/main/res/drawable/btn_login_normal.xml" value="0.3537037037037037" />
         <entry key="app/src/main/res/drawable/home_bottom_bg.xml" value="0.387037037037037" />
+        <entry key="app/src/main/res/drawable/selector_four.xml" value="0.3537037037037037" />
+        <entry key="app/src/main/res/drawable/selector_one.xml" value="0.3537037037037037" />
         <entry key="app/src/main/res/layout/activity_base_list.xml" value="0.1609375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3161231884057971" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.3161231884057971" />
         <entry key="app/src/main/res/layout/layout_home_bottom_tab.xml" value="0.3161231884057971" />
+        <entry key="core/src/main/res/drawable/bad_loading.xml" value="0.3537037037037037" />
+        <entry key="core/src/main/res/drawable/bad_network_image.xml" value="0.3537037037037037" />
+        <entry key="core/src/main/res/layout/layout_lce.xml" value="0.2477355072463768" />
         <entry key="core/src/main/res/layout/layout_title.xml" value="0.3115942028985507" />
+        <entry key="core/src/main/res/layout/load_error_view.xml" value="0.2477355072463768" />
+        <entry key="core/src/main/res/layout/no_content_view.xml" value="0.2477355072463768" />
       </map>
     </option>
   </component>
