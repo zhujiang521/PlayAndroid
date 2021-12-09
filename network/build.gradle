@@ -13,7 +13,6 @@ android {
         }
     }
     compileSdkVersion cfgs.compileSdkVersion
-    buildToolsVersion cfgs.buildToolsVersion
 
     defaultConfig {
         minSdkVersion cfgs.minSdkVersion

@@ -1,11 +1,11 @@
 ext {
     cfgs = [
-            compileSdkVersion        : 30,
-            buildToolsVersion        : "30.0.2",
+            compileSdkVersion        : 31,
+            buildToolsVersion        : "31.0.3",
             minSdkVersion            : 23,
-            targetSdkVersion         : 30,
-            versionCode              : 19,
-            versionName              : "3.2.0",
+            targetSdkVersion         : 31,
+            versionCode              : 20,
+            versionName              : "4.0.0",
             testInstrumentationRunner: "androidx.test.runner.AndroidJUnitRunner",
             consumerProguardFiles    : 'consumer-rules.pro',
     ]
