@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.google.accompanist.insets.statusBarsHeight
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.ProjectClassify
 import com.zj.play.compose.common.article.ArticleListPaging
@@ -21,7 +22,6 @@ import com.zj.play.compose.model.PlayLoading
 import com.zj.play.compose.model.PlaySuccess
 import com.zj.play.compose.model.Query
 import com.zj.play.compose.viewmodel.*
-import dev.chrisbanes.accompanist.insets.statusBarsHeight
 
 @ExperimentalPagingApi
 @Composable

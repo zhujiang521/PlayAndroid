@@ -35,6 +35,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.accompanist.insets.navigationBarsPadding
 import com.zj.core.Play
 import com.zj.core.util.showToast
 import com.zj.model.room.entity.Article
@@ -46,7 +47,6 @@ import com.zj.play.compose.viewmodel.LogoutFinish
 import com.zj.play.compose.viewmodel.LoginViewModel
 import com.zj.play.compose.viewmodel.LogoutDefault
 import com.zj.play.compose.common.utils.baselineHeight
-import dev.chrisbanes.accompanist.insets.navigationBarsPadding
 
 @Composable
 fun ProfilePage(actions: MainActions, themeViewModel: ThemeViewModel) {

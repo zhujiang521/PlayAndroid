@@ -31,6 +31,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.ExperimentalPagingApi
+import com.google.accompanist.insets.navigationBarsHeight
+import com.google.accompanist.insets.navigationBarsPadding
 import com.zj.play.R
 import com.zj.play.compose.home.HomePage
 import com.zj.play.compose.home.OfficialAccountPage
@@ -38,8 +40,6 @@ import com.zj.play.compose.home.ProfilePage
 import com.zj.play.compose.home.ProjectPage
 import com.zj.play.compose.viewmodel.HomeViewModel
 import com.zj.play.compose.viewmodel.ThemeViewModel
-import dev.chrisbanes.accompanist.insets.navigationBarsHeight
-import dev.chrisbanes.accompanist.insets.navigationBarsPadding
 import java.util.*
 
 @ExperimentalPagingApi
@@ -61,7 +61,7 @@ fun Home(actions: MainActions, themeViewModel: ThemeViewModel) {
                             .background(MaterialTheme.colors.primary)
                             .navigationBarsPadding(),
                         icon = { Icon(painterResource(tab.icon), contentDescription = null) },
-                        label = { Text(stringResource(tab.title).toUpperCase(Locale.ROOT)) },
+                        label = { Text(stringResource(tab.title).uppercase(Locale.ROOT)) },
                         selected = tab == position,
                         onClick = { //setSelectedTab(tab)
                             viewModel.onPositionChanged(tab)
@@ -78,6 +78,7 @@ fun Home(actions: MainActions, themeViewModel: ThemeViewModel) {
             CourseTabs.PROJECT -> ProjectPage(actions.enterArticle, modifier)
             CourseTabs.OFFICIAL_ACCOUNT -> OfficialAccountPage(actions.enterArticle, modifier)
             CourseTabs.MINE -> ProfilePage(actions,themeViewModel)
+            else -> HomePage(actions, modifier, viewModel())
         }
     }
 }

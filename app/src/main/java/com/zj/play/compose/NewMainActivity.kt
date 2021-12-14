@@ -6,12 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.paging.ExperimentalPagingApi
 import com.blankj.utilcode.util.BarUtils
-import com.zj.play.compose.common.ProvideImageLoader
-import dev.chrisbanes.accompanist.insets.ProvideWindowInsets
+import com.google.accompanist.insets.ProvideWindowInsets
 
 class NewMainActivity : AppCompatActivity() {
 
-    @ExperimentalPagingApi
+    @OptIn(ExperimentalPagingApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         BarUtils.transparentStatusBar(this)
@@ -20,9 +19,7 @@ class NewMainActivity : AppCompatActivity() {
 
         setContent {
             ProvideWindowInsets {
-                ProvideImageLoader {
-                    NavGraphPage()
-                }
+                NavGraphPage()
             }
         }
 

@@ -16,6 +16,8 @@
         <entry key="../../../../layout/compose-model-1615959597077.xml" value="0.2851851851851852" />
         <entry key="../../../../layout/compose-model-1615959610213.xml" value="0.2851851851851852" />
         <entry key="../../../../layout/compose-model-1615986837197.xml" value="0.27870370370370373" />
+        <entry key="../../../../layout/compose-model-1639462647977.xml" value="0.16638513513513514" />
+        <entry key="../../../../layout/compose-model-1639462772322.xml" value="0.3657094594594595" />
         <entry key="../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2604166666666667" />
         <entry key="app/src/main/res/drawable/almanac_share_button.xml" value="0.2851851851851852" />
@@ -50,7 +52,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_13" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

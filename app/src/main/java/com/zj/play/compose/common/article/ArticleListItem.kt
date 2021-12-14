@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.zj.core.util.getHtmlText
 import com.zj.model.room.entity.Article
 import com.zj.play.R
-import com.zj.play.compose.common.NetworkImage
+import com.zj.play.compose.common.ImageLoader
 
 @Composable
 fun ArticleItem(
@@ -53,9 +53,8 @@ fun ArticleListItem(
     ) {
         Row(modifier = Modifier.clickable(onClick = onClick)) {
             if (article.envelopePic.isNotBlank()) {
-                NetworkImage(
-                    url = article.envelopePic,
-                    contentDescription = null,
+                ImageLoader(
+                    data = article.envelopePic,
                     modifier = Modifier.aspectRatio(1f)
                 )
             } else {

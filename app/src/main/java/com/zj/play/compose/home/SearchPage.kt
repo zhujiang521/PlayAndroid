@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.google.accompanist.insets.statusBarsHeight
 import com.zj.core.util.showToast
 import com.zj.play.R
 import com.zj.play.compose.MainActions
@@ -27,7 +28,6 @@ import com.zj.play.compose.common.lce.NoContent
 import com.zj.play.compose.common.signin.TextFieldState
 import com.zj.play.compose.model.Query
 import com.zj.play.compose.viewmodel.SearchViewModel
-import dev.chrisbanes.accompanist.insets.statusBarsHeight
 
 @ExperimentalPagingApi
 @Composable

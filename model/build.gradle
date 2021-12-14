@@ -59,6 +59,7 @@ dependencies {
 
     // optional - Kotlin Extensions and Coroutines support for Room
     api "androidx.room:room-ktx:$room_version"
+    api "androidx.room:room-paging:$room_version"
 
     api 'androidx.paging:paging-compose:1.0.0-alpha14'
     api 'com.github.zhujiang521:Banner:1.7.0'

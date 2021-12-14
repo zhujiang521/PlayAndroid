@@ -81,9 +81,9 @@ dependencies {
     // navigation
     implementation 'androidx.navigation:navigation-compose:2.4.0-beta02'
 
-    implementation "dev.chrisbanes.accompanist:accompanist-insets:0.6.2"
-
     implementation files('libs/tbs_sdk_thirdapp_v4.3.0.67_43967_sharewithdownloadwithfile_withoutGame_obfs_20200923_120452.jar')
+
+    implementation "com.google.accompanist:accompanist-coil:0.15.0"
 
     testImplementation des.junit
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

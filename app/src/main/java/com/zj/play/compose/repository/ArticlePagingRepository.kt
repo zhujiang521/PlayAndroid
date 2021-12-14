@@ -35,7 +35,7 @@ abstract class BasePagingRepository {
 
 class ProjectPagingRepository(private val application: Application) : BasePagingRepository() {
 
-    @ExperimentalPagingApi
+    @OptIn(ExperimentalPagingApi::class)
     override fun getPagingData(query: Query): Flow<PagingData<Article>> {
         val database = PlayDatabase.getDatabase(application)
         return Pager(
@@ -50,7 +50,7 @@ class ProjectPagingRepository(private val application: Application) : BasePaging
 
 class OfficialPagingRepository(private val application: Application) : BasePagingRepository() {
 
-    @ExperimentalPagingApi
+    @OptIn(ExperimentalPagingApi::class)
     override fun getPagingData(query: Query): Flow<PagingData<Article>> {
         val database = PlayDatabase.getDatabase(application)
         return Pager(
@@ -65,7 +65,7 @@ class OfficialPagingRepository(private val application: Application) : BasePagin
 
 class SearchPagingRepository(private val application: Application) : BasePagingRepository() {
 
-    @ExperimentalPagingApi
+    @OptIn(ExperimentalPagingApi::class)
     override fun getPagingData(query: Query): Flow<PagingData<Article>> {
         val database = PlayDatabase.getDatabase(application)
         return Pager(

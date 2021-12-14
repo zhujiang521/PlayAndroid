@@ -43,7 +43,7 @@ class HomePagingRepository(private val application: Application) : BasePagingRep
         private const val TAG = "ArticlePagingRepository"
     }
 
-    @ExperimentalPagingApi
+    @OptIn(ExperimentalPagingApi::class)
     override fun getPagingData(query: Query): Flow<PagingData<Article>> {
         val database = PlayDatabase.getDatabase(application)
         return Pager(
