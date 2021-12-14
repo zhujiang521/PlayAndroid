@@ -1,6 +1,20 @@
 # Play Android
 
-#### 项目新增了 Compose 版本，大家如果想体验的话下载代码直接切换为 main 分支即可，有问题直接提 issues。
+### 项目新增了 Compose 版本，大家如果想体验的话下载代码直接切换为 main 或 compose 分支即可，有问题直接提 issues。
+
+## 我的新书
+大家可以购买我的新书[《Jetpack Compose：Android全新UI编程》](https://juejin.cn/post/7027020266312056840)进行阅读，里面有完整的 Compose 框架供大家学习。
+
+[京东购买地址](https://item.jd.com/10039809078875.html)
+
+[当当购买地址](http://product.dangdang.com/593507948.html)
+
+呸呸呸，太不要脸了，又在推荐自己的新书。。。
+
+如果对你有帮助的话，别忘记点个 Star，感激不尽。
+
+## 公众号
+如果想关注我的话可以关注我的公众号：《江江安卓》，里面会不定期更新有关安卓的知识及个人见解。
 
 ### 体验
 
