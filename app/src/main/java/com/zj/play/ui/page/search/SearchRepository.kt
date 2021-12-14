@@ -21,7 +21,6 @@ import com.zj.play.logic.network.PlayAndroidNetwork
 
 class SearchRepository : BaseArticlePagingRepository() {
 
-    @ExperimentalPagingApi
     override fun getPagingData(query: Query) = Pager(
         PagingConfig(
             pageSize = PAGE_SIZE,

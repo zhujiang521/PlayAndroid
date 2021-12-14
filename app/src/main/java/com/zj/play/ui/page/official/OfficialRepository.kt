@@ -25,7 +25,6 @@ class OfficialRepository(application: Application) : BaseArticleRepository(appli
         return PlayAndroidNetwork.getWxArticleTree()
     }
 
-    @ExperimentalPagingApi
     override fun getPagingData(query: Query) = Pager(
         PagingConfig(
             pageSize = PAGE_SIZE,

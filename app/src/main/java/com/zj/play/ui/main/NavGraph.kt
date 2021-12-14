@@ -164,7 +164,7 @@ fun NavGraphBuilder.setComposable(
         route = route,
         arguments = arguments,
         deepLinks = deepLinks,
-        enterTransition = { _, _ ->
+        enterTransition = {
             // Let's make for a really long fade in
             slideIntoContainer(
                 AnimatedContentScope.SlideDirection.Left,
@@ -179,7 +179,7 @@ fun NavGraphBuilder.setComposable(
 //            )
 //        },
         content = content,
-        popEnterTransition = { _, _ ->
+        popEnterTransition = {
             slideIntoContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(500))
         },
 //        popExitTransition = { _, _ ->

@@ -27,7 +27,6 @@ class ProjectRepository constructor(val application: Application) :
         return PlayAndroidNetwork.getProjectTree()
     }
 
-    @ExperimentalPagingApi
     override fun getPagingData(query: Query) = Pager(
         PagingConfig(
             pageSize = PAGE_SIZE,

@@ -39,7 +39,6 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion kotlin_version
     }
 }
 
@@ -60,7 +59,10 @@ dependencies {
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
     // navigation
     implementation "androidx.navigation:navigation-compose:2.4.0-beta02"
-    implementation 'com.google.accompanist:accompanist-navigation-animation:0.20.2'
+
+    def accompanist_version = "0.21.4-beta"
+    implementation "com.google.accompanist:accompanist-navigation-animation:$accompanist_version"
+    
     // 网络请求
     def retrofit_version = "2.9.0"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
