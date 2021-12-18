@@ -18,8 +18,6 @@ android {
     defaultConfig {
         minSdkVersion cfgs.minSdkVersion
         targetSdkVersion cfgs.targetSdkVersion
-        versionCode cfgs.versionCode
-        versionName cfgs.versionName
 
         testInstrumentationRunner cfgs.testInstrumentationRunner
         consumerProguardFiles cfgs.consumerProguardFiles
@@ -54,7 +52,7 @@ dependencies {
     implementation des.appcompat
     implementation project(path: ':core')
 
-    def room_version = "2.4.0-rc01"
+    def room_version = "2.4.0"
     api "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     // For Kotlin use kapt instead of annotationProcessor

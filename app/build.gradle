@@ -56,7 +56,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: '*.jar', dir: 'libs')
     implementation des.kotlinVersion
     implementation des.coreKtx
     implementation des.appcompat
@@ -77,7 +77,6 @@ dependencies {
 
     // 异常上报
     implementation 'com.tencent.bugly:crashreport:4.0.0'
-    implementation files('libs/tbs_sdk_thirdapp_v4.3.0.67_43967_sharewithdownloadwithfile_withoutGame_obfs_20200923_120452.jar')
     implementation project(path: ':floating')
     testImplementation des.junit
     androidTestImplementation des.extJunit
