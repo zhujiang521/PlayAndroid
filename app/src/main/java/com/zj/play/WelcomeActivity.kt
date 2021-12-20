@@ -41,7 +41,7 @@ class WelcomeActivity : BaseActivity(),
         alphaAnimation.fillAfter = true
         val animationSet = AnimationSet(true)
         animationSet.addAnimation(alphaAnimation)
-        binding.rlWelcomeBg.startAnimation(animationSet)
+        binding.ivWelcomeBg.startAnimation(animationSet)
         animationSet.setAnimationListener(animationListener)
     }
 
@@ -49,7 +49,7 @@ class WelcomeActivity : BaseActivity(),
     @SuppressLint("SetTextI18n")
     override fun initView() {
         initAnimation()
-        binding.rlWelcomeBg.setOnClickListener(this)
+        binding.ivWelcomeBg.setOnClickListener(this)
     }
 
     private val animationListener = object : Animation.AnimationListener {
@@ -82,7 +82,7 @@ class WelcomeActivity : BaseActivity(),
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.rlWelcomeBg -> {
+            R.id.ivWelcomeBg -> {
                 jump()
             }
         }
