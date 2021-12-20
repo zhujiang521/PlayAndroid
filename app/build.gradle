@@ -58,9 +58,9 @@ dependencies {
     implementation 'androidx.activity:activity-compose:1.4.0'
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
     // navigation
-    implementation "androidx.navigation:navigation-compose:2.4.0-beta02"
+    implementation "androidx.navigation:navigation-compose:2.4.0-rc01"
 
-    def accompanist_version = "0.21.4-beta"
+    def accompanist_version = "0.21.5-rc"
     implementation "com.google.accompanist:accompanist-navigation-animation:$accompanist_version"
     
     // 网络请求
