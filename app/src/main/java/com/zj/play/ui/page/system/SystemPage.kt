@@ -29,7 +29,6 @@ import com.zj.play.logic.model.SystemChildren
 import com.zj.play.ui.theme.Shapes
 import com.zj.play.ui.view.PlayAppBar
 import com.zj.play.ui.view.lce.LcePage
-import kotlinx.coroutines.DelicateCoroutinesApi
 
 private const val TAG = "SystemPage"
 
@@ -49,7 +48,7 @@ fun SystemPage(
         loadData()
     }
     val listState = rememberLazyListState()
-    val childrenState = rememberLazyListState()
+    val childrenState = rememberLazyGridState()
 //    val coroutineScope = rememberCoroutineScope()
     Log.e(TAG, "SystemPage: $androidSystemState")
     Column(

@@ -60,7 +60,7 @@ dependencies {
     // navigation
     implementation "androidx.navigation:navigation-compose:2.4.0-rc01"
 
-    def accompanist_version = "0.21.5-rc"
+    def accompanist_version = '0.24.0-alpha'
     implementation "com.google.accompanist:accompanist-navigation-animation:$accompanist_version"
     
     // 网络请求
