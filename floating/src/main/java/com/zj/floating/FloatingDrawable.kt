@@ -30,12 +30,14 @@ class FloatingDrawable : Drawable {
     override fun draw(canvas: Canvas) {
         // 画背景图
         canvas.save()
-        canvas.drawCircle(
-            (mWidth shr 1).toFloat(),
-            (mWidth shr 1).toFloat(),
-            (mWidth shr 1).toFloat(),
-            mPaint!!
-        )
+        mPaint?.apply {
+            canvas.drawCircle(
+                (mWidth shr 1).toFloat(),
+                (mWidth shr 1).toFloat(),
+                (mWidth shr 1).toFloat(),
+                this
+            )
+        }
         canvas.restore()
     }
 
@@ -48,16 +50,16 @@ class FloatingDrawable : Drawable {
             Shader.TileMode.CLAMP
         )
         mPaint = Paint()
-        mPaint!!.isAntiAlias = true
-        mPaint!!.shader = bitmapShader
+        mPaint?.isAntiAlias = true
+        mPaint?.shader = bitmapShader
         mWidth = mBitmap.width.coerceAtMost(mBitmap.height)
     }
 
     private fun circleBitmapFromDrawable(drawable: Drawable) {
         val mBitmap: Bitmap = if (drawable is ColorDrawable) {
             Bitmap.createBitmap(
-                COLORDRAWABLE_DIMENSION,
-                COLORDRAWABLE_DIMENSION,
+                COLOR_DRAWABLE_DIMENSION,
+                COLOR_DRAWABLE_DIMENSION,
                 BITMAP_CONFIG
             )
         } else {
@@ -81,11 +83,11 @@ class FloatingDrawable : Drawable {
     }
 
     override fun setAlpha(alpha: Int) {
-        mPaint!!.alpha = alpha
+        mPaint?.alpha = alpha
     }
 
     override fun setColorFilter(cf: ColorFilter?) {
-        mPaint!!.colorFilter = cf
+        mPaint?.colorFilter = cf
     }
 
     override fun getOpacity(): Int {
@@ -93,7 +95,7 @@ class FloatingDrawable : Drawable {
     }
 
     companion object {
-        private const val COLORDRAWABLE_DIMENSION = 2
-        private val BITMAP_CONFIG = Bitmap.Config.ARGB_4444
+        private const val COLOR_DRAWABLE_DIMENSION = 2
+        private val BITMAP_CONFIG = Bitmap.Config.RGB_565
     }
 }

@@ -13,11 +13,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
  *
  */
 class FloatingButton @JvmOverloads constructor(
-    context: Context?,
+    context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : FloatingActionButton(
-    context!!, attrs, defStyleAttr
+    context, attrs, defStyleAttr
 ) {
     private var coverDrawable: FloatingDrawable? = null
     private var backgroundHint: ColorStateList? = null
