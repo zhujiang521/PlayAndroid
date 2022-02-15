@@ -1,10 +1,14 @@
 package com.zj.play.home
 
+import android.annotation.SuppressLint
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.youth.banner.indicator.CircleIndicator
+import com.youth.banner.transformer.DepthPageTransformer
+import com.youth.banner.transformer.ZoomOutPageTransformer
 import com.zj.core.almanac.isZhLanguage
 import com.zj.play.R
 import com.zj.play.article.ArticleAdapter
@@ -27,6 +31,16 @@ class HomePageFragment : ArticleCollectBaseFragment() {
     ): View {
         binding = FragmentHomePageBinding.inflate(inflater, container, attachToRoot)
         return binding!!.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding?.apply {
+            homeBanner.addBannerLifecycleObserver(viewLifecycleOwner)
+            homeBanner2.addBannerLifecycleObserver(viewLifecycleOwner)
+            homeBanner.setPageTransformer(ZoomOutPageTransformer())
+            homeBanner2.setPageTransformer(DepthPageTransformer())
+        }
     }
 
     override fun onResume() {
@@ -77,6 +91,7 @@ class HomePageFragment : ArticleCollectBaseFragment() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun initData() {
         startLoading()
         initBanner()
@@ -92,6 +107,7 @@ class HomePageFragment : ArticleCollectBaseFragment() {
         getArticleList(false)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun initBanner() {
         setDataStatus(viewModel.getBanner(), {
             if (viewModel.bannerList.size > 0) loadFinished()
