@@ -10,7 +10,6 @@ import com.zj.play.logic.model.ArticleModel
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.page.article.list.ArticleListPaging
 import com.zj.play.ui.view.PlayAppBar
-import com.zj.play.ui.view.lce.NoContent
 
 @Composable
 fun SystemArticleListPage(name: String?, viewModel: SystemViewModel, actions: PlayActions) {
@@ -31,14 +30,10 @@ fun SystemArticleListPageContent(
         PlayAppBar(name ?: "体系文章", click = {
             back()
         })
-        if (lazyPagingItems.itemCount > 0) {
-            ArticleListPaging(
-                Modifier.fillMaxSize(),
-                lazyPagingItems,
-                enterArticle = enterArticle
-            )
-        } else {
-            NoContent()
-        }
+        ArticleListPaging(
+            Modifier.fillMaxSize(),
+            lazyPagingItems,
+            enterArticle = enterArticle
+        )
     }
 }
