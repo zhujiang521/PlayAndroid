@@ -2,6 +2,7 @@ package com.zj.play
 
 import android.app.Application
 import com.zj.play.logic.utils.DataStoreUtils
+import dagger.hilt.android.HiltAndroidApp
 
 
 /**
@@ -9,6 +10,7 @@ import com.zj.play.logic.utils.DataStoreUtils
  *
  * @author jiang zhu on 2019/10/21
  */
+@HiltAndroidApp
 class App : Application() {
 
     private var dataStore = DataStoreUtils

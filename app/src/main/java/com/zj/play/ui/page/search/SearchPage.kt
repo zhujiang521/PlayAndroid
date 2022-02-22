@@ -1,5 +1,6 @@
 package com.zj.play.ui.page.search
 
+import android.content.Context
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,6 +11,7 @@ import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,18 +24,45 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.insets.statusBarsHeight
 import com.zj.play.R
-import com.zj.play.logic.model.ArticleModel
-import com.zj.play.logic.model.HotkeyModel
-import com.zj.play.logic.model.PlayState
+import com.zj.play.logic.model.*
+import com.zj.play.logic.utils.showToast
+import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.page.article.list.ArticleListPaging
 import com.zj.play.ui.view.lce.LcePage
 import java.lang.Integer.max
 
 @Composable
-fun SearchPage(
+fun SearchPage(actions: PlayActions, current: Context) {
+    val viewModel = hiltViewModel<SearchViewModel>()
+    val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
+    val hotkeyModels by viewModel.hotkeyState.observeAsState(PlayLoading)
+    SearchPageContent(back = actions.upPress,
+        lazyPagingItems = lazyPagingItems,
+        hotkeyModels = hotkeyModels,
+        loadHotkey = {
+            if (hotkeyModels !is PlaySuccess<*>) {
+                viewModel.getHotkeyList()
+            }
+        },
+        enterArticle = {
+            actions.enterArticle(it)
+        },
+        searchArticle = {
+            if (it.isEmpty()) {
+                showToast(current, "请输入搜索内容")
+                return@SearchPageContent
+            }
+            viewModel.getSearchArticle(it)
+        })
+}
+
+@Composable
+fun SearchPageContent(
     back: () -> Unit,
     lazyPagingItems: LazyPagingItems<ArticleModel>,
     hotkeyModels: PlayState<List<HotkeyModel>>,

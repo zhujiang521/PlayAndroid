@@ -3,13 +3,13 @@ package com.zj.play.ui.main
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zj.play.logic.base.repository.BaseArticlePagingRepository
 import com.zj.play.logic.base.viewmodel.BaseArticleViewModel
 import com.zj.play.logic.model.BannerBean
 import com.zj.play.logic.model.PlayState
 import com.zj.play.logic.model.Query
+import com.zj.play.ui.main.nav.CourseTabs
 import com.zj.play.ui.page.home.HomeArticlePagingRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

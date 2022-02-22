@@ -3,6 +3,8 @@ package com.zj.play.ui.page.login
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -11,9 +13,10 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.zj.play.R
 import com.zj.play.logic.model.*
-import com.zj.play.ui.main.PlayActions
+import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.view.PlayAppBar
 import com.zj.play.ui.view.edit.*
 import kotlinx.coroutines.launch
@@ -26,7 +29,18 @@ sealed class SignInEvent {
 }
 
 @Composable
-fun LoginPage(
+fun LoginPage(actions: PlayActions) {
+    val viewModel: LoginViewModel = hiltViewModel()
+    val loginState by viewModel.state.observeAsState()
+    LoginPageContent(actions, loginState, {
+        viewModel.logout()
+    }) {
+        viewModel.toLoginOrRegister(it)
+    }
+}
+
+@Composable
+fun LoginPageContent(
     onNavigationEvent: PlayActions,
     loginState: PlayState<LoginModel>?,
     toLogout: () -> Unit,

@@ -5,25 +5,22 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.snapshotFlow
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.insets.statusBarsHeight
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
 import com.google.accompanist.pager.rememberPagerState
-import com.zj.play.logic.model.ArticleModel
-import com.zj.play.logic.model.ClassifyModel
-import com.zj.play.logic.model.PlayState
-import com.zj.play.logic.model.Query
+import com.zj.play.logic.base.viewmodel.BaseAndroidViewModel
+import com.zj.play.logic.model.*
 import com.zj.play.logic.utils.getHtmlText
+import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.page.article.list.ArticleListPaging
 import com.zj.play.ui.view.lce.LcePage
 import kotlinx.coroutines.flow.collect
@@ -32,9 +29,31 @@ import kotlinx.coroutines.launch
 /**
  * 由于项目页面和公众号页面只有数据不同，所以写了一个公用的页面
  */
-@OptIn(ExperimentalPagerApi::class, kotlinx.coroutines.InternalCoroutinesApi::class)
 @Composable
 fun ArticleListPage(
+    modifier: Modifier,
+    actions: PlayActions,
+    viewModel: BaseAndroidViewModel
+) {
+    val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
+    val tree by viewModel.treeLiveData.observeAsState(PlayLoading)
+    // 由于项目页面和公众号页面只有数据不同，所以使用一个公用的页面
+    ArticleListPageContent(
+        modifier, tree, lazyPagingItems,
+        loadData = {
+            viewModel.getDataList()
+        },
+        searchArticle = {
+            viewModel.searchArticle(it)
+        },
+    ) {
+        actions.enterArticle(it)
+    }
+}
+
+@OptIn(ExperimentalPagerApi::class, kotlinx.coroutines.InternalCoroutinesApi::class)
+@Composable
+fun ArticleListPageContent(
     modifier: Modifier,
     tree: PlayState<List<ClassifyModel>>,
     lazyPagingItems: LazyPagingItems<ArticleModel>,

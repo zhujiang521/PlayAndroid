@@ -4,22 +4,57 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.zj.banner.BannerPager
 import com.zj.play.R
-import com.zj.play.logic.model.ArticleModel
-import com.zj.play.logic.model.BannerBean
-import com.zj.play.logic.model.PlayState
+import com.zj.play.logic.model.*
+import com.zj.play.ui.main.HomeViewModel
+import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.page.article.list.ArticleListPaging
 import com.zj.play.ui.view.PlayAppBar
 import com.zj.play.ui.view.lce.LcePage
 
 @Composable
 fun HomePage(
+    modifier: Modifier,
+    isLand: Boolean,
+    homeViewModel: HomeViewModel,
+    actions: PlayActions
+) {
+    val bannerData by homeViewModel.bannerState.observeAsState(PlayLoading)
+    val lazyPagingItems = homeViewModel.articleResult.collectAsLazyPagingItems()
+    HomePageContent(modifier, isLand, bannerData, lazyPagingItems, {
+        initHomeData(bannerData, homeViewModel, lazyPagingItems)
+    }, toSearch = {
+        actions.toSearch()
+    }) {
+        actions.enterArticle(it)
+    }
+}
+
+private fun initHomeData(
+    bannerData: PlayState<List<BannerBean>>,
+    homeViewModel: HomeViewModel,
+    lazyPagingItems: LazyPagingItems<ArticleModel>
+) {
+    if (bannerData !is PlaySuccess<*>) {
+        homeViewModel.getBanner()
+    }
+    if (lazyPagingItems.itemCount <= 0) {
+        homeViewModel.getHomeArticle()
+    }
+}
+
+
+@Composable
+fun HomePageContent(
     modifier: Modifier = Modifier,
     isLand: Boolean = false,
     bannerData: PlayState<List<BannerBean>>,

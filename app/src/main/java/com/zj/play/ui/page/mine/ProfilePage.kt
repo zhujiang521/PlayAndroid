@@ -9,21 +9,37 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.zj.play.Play
 import com.zj.play.R
 import com.zj.play.logic.model.ArticleModel
+import com.zj.play.ui.main.nav.PlayActions
+import com.zj.play.ui.page.login.LoginViewModel
 import com.zj.play.ui.page.login.LogoutDefault
 import com.zj.play.ui.page.login.LogoutFinish
 import com.zj.play.ui.page.login.LogoutState
 
 @Composable
-fun ProfilePage(
+fun ProfilePage(modifier: Modifier, isLand: Boolean, actions: PlayActions) {
+    val viewModel: LoginViewModel = viewModel()
+    val logoutState by viewModel.logoutState.observeAsState(LogoutDefault)
+    ProfilePageContent(modifier, isLand, actions.toLogin, logoutState, {
+        viewModel.logout()
+    }) {
+        actions.enterArticle(it)
+    }
+}
+
+@Composable
+fun ProfilePageContent(
     modifier: Modifier = Modifier,
     isLand: Boolean = false,
     toLogin: () -> Unit,

@@ -21,45 +21,25 @@ import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.*
-import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.gson.Gson
 import com.zj.play.logic.model.ArticleModel
-import com.zj.play.logic.model.PlayLoading
-import com.zj.play.logic.model.PlaySuccess
-import com.zj.play.logic.utils.getHtmlText
-import com.zj.play.logic.utils.showToast
-import com.zj.play.ui.main.PlayDestinations.ARTICLE_ROUTE_URL
-import com.zj.play.ui.main.PlayDestinations.SYSTEM_ARTICLE_LIST_ROUTE_CID
-import com.zj.play.ui.main.PlayDestinations.SYSTEM_ARTICLE_LIST_ROUTE_NAME
+import com.zj.play.ui.main.nav.PlayActions
+import com.zj.play.ui.main.nav.PlayDestinations
+import com.zj.play.ui.main.nav.PlayDestinations.ARTICLE_ROUTE_URL
+import com.zj.play.ui.main.nav.PlayDestinations.SYSTEM_ARTICLE_LIST_ROUTE_CID
+import com.zj.play.ui.main.nav.PlayDestinations.SYSTEM_ARTICLE_LIST_ROUTE_NAME
 import com.zj.play.ui.page.article.ArticlePage
 import com.zj.play.ui.page.login.LoginPage
-import com.zj.play.ui.page.login.LoginViewModel
 import com.zj.play.ui.page.search.SearchPage
-import com.zj.play.ui.page.search.SearchViewModel
 import com.zj.play.ui.page.system.SystemArticleListPage
 import com.zj.play.ui.page.system.SystemViewModel
-import java.net.URLEncoder
-
-
-object PlayDestinations {
-    const val HOME_PAGE_ROUTE = "home_page_route"
-    const val ARTICLE_ROUTE = "article_route"
-    const val ARTICLE_ROUTE_URL = "article_route_url"
-    const val LOGIN_ROUTE = "login_route"
-    const val SYSTEM_ARTICLE_LIST_ROUTE = "system_article_list_route"
-    const val SYSTEM_ARTICLE_LIST_ROUTE_CID = "system_article_list_route_cid"
-    const val SYSTEM_ARTICLE_LIST_ROUTE_NAME = "system_article_list_route_name"
-    const val SEARCH_PAGE_ROUTE = "search_page_route"
-}
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -73,50 +53,14 @@ fun NavGraph(
         navController = navController,
         startDestination = startDestination
     ) {
-        setComposable(
-            PlayDestinations.HOME_PAGE_ROUTE,
-        ) {
-            val viewModel: HomeViewModel = viewModel()
-            val position by viewModel.position.observeAsState()
-            MainPage(viewModel, actions, position) { tab ->
-                viewModel.onPositionChanged(tab)
-            }
+        setComposable(PlayDestinations.HOME_PAGE_ROUTE) {
+            MainPage(actions)
         }
-        setComposable(
-            PlayDestinations.SEARCH_PAGE_ROUTE,
-        ) {
-            val viewModel = viewModel<SearchViewModel>()
-            val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
-            val hotkeyModels by viewModel.hotkeyState.observeAsState(PlayLoading)
-            SearchPage(back = actions.upPress,
-                lazyPagingItems = lazyPagingItems,
-                hotkeyModels = hotkeyModels,
-                loadHotkey = {
-                    if (hotkeyModels !is PlaySuccess<*>) {
-                        viewModel.getHotkeyList()
-                    }
-                },
-                enterArticle = {
-                    actions.enterArticle(it)
-                },
-                searchArticle = {
-                    if (it.isEmpty()) {
-                        showToast(current, "请输入搜索内容")
-                        return@SearchPage
-                    }
-                    viewModel.getSearchArticle(it)
-                })
+        setComposable(PlayDestinations.SEARCH_PAGE_ROUTE) {
+            SearchPage(actions, current)
         }
-        setComposable(
-            PlayDestinations.LOGIN_ROUTE,
-        ) {
-            val viewModel: LoginViewModel = viewModel()
-            val loginState by viewModel.state.observeAsState()
-            LoginPage(actions, loginState, {
-                viewModel.logout()
-            }) {
-                viewModel.toLoginOrRegister(it)
-            }
+        setComposable(PlayDestinations.LOGIN_ROUTE) {
+            LoginPage(actions)
         }
         setComposable(
             "${PlayDestinations.SYSTEM_ARTICLE_LIST_ROUTE}/{$SYSTEM_ARTICLE_LIST_ROUTE_CID}/{$SYSTEM_ARTICLE_LIST_ROUTE_NAME}",
@@ -129,12 +73,9 @@ fun NavGraph(
             val arguments = requireNotNull(backStackEntry.arguments)
             val cid = arguments.getInt(SYSTEM_ARTICLE_LIST_ROUTE_CID)
             val name = arguments.getString(SYSTEM_ARTICLE_LIST_ROUTE_NAME)
-            val viewModel: SystemViewModel = viewModel()
-            val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
+            val viewModel: SystemViewModel = hiltViewModel()
             viewModel.getSystemArticle(cid)
-            SystemArticleListPage(name, back = { actions.upPress() }, lazyPagingItems) {
-                actions.enterArticle(it)
-            }
+            SystemArticleListPage(name, viewModel, actions)
         }
         setComposable(
             "${PlayDestinations.ARTICLE_ROUTE}/{$ARTICLE_ROUTE_URL}",
@@ -180,7 +121,10 @@ fun NavGraphBuilder.setComposable(
 //        },
         content = content,
         popEnterTransition = {
-            slideIntoContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(300))
+            slideIntoContainer(
+                AnimatedContentScope.SlideDirection.Right,
+                animationSpec = tween(300)
+            )
         },
 //        popExitTransition = { _, _ ->
 //            slideOutOfContainer(
@@ -190,36 +134,3 @@ fun NavGraphBuilder.setComposable(
 //        }
     )
 }
-
-/**
- * 对应用程序中的导航操作进行建模。
- */
-class PlayActions(navController: NavHostController) {
-
-    val enterArticle: (ArticleModel) -> Unit = { article ->
-        article.desc = ""
-        article.title = getHtmlText(article.title)
-        val gson = Gson().toJson(article).trim()
-        val result = URLEncoder.encode(gson, "utf-8")
-        navController.navigate("${PlayDestinations.ARTICLE_ROUTE}/$result")
-    }
-
-    val toSystemArticleList: (Int, String) -> Unit = { cid, name ->
-        navController.navigate("${PlayDestinations.SYSTEM_ARTICLE_LIST_ROUTE}/$cid/$name")
-    }
-
-    val toLogin: () -> Unit = {
-        navController.navigate(PlayDestinations.LOGIN_ROUTE)
-    }
-
-    val toSearch: () -> Unit = {
-        navController.navigate(PlayDestinations.SEARCH_PAGE_ROUTE)
-    }
-
-    val upPress: () -> Unit = {
-        navController.navigateUp()
-    }
-
-}
-
-

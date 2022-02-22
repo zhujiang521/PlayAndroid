@@ -9,6 +9,8 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -20,16 +22,35 @@ import coil.annotation.ExperimentalCoilApi
 import com.zj.banner.utils.ImageLoader
 import com.zj.play.R
 import com.zj.play.logic.model.AndroidSystemModel
+import com.zj.play.logic.model.PlayLoading
 import com.zj.play.logic.model.PlayState
 import com.zj.play.logic.model.SystemChildren
 import com.zj.play.logic.utils.XLog
+import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.theme.Shapes
 import com.zj.play.ui.view.PlayAppBar
 import com.zj.play.ui.view.lce.LcePage
 
+@Composable
+fun SystemPage(modifier: Modifier, actions: PlayActions, viewModel: SystemViewModel) {
+    XLog.e("SystemPage 测试 three")
+    val androidSystemState by viewModel.androidSystemState.observeAsState(
+        PlayLoading
+    )
+    val systemState by viewModel.systemState.observeAsState(
+        AndroidSystemModel(arrayListOf())
+    )
+    SystemPageContent(modifier, androidSystemState, systemState,
+        saveSystemState = {
+            viewModel.onSystemModelChanged(it)
+        }) { cid, name ->
+        actions.toSystemArticleList(cid, name)
+    }
+}
+
 @OptIn(ExperimentalFoundationApi::class, ExperimentalCoilApi::class)
 @Composable
-fun SystemPage(
+fun SystemPageContent(
     modifier: Modifier,
     androidSystemState: PlayState<List<AndroidSystemModel>>,
     systemState: AndroidSystemModel,

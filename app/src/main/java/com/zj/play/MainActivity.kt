@@ -9,7 +9,9 @@ import com.zj.play.logic.utils.setAndroidNativeLightStatusBar
 import com.zj.play.logic.utils.transparentStatusBar
 import com.zj.play.ui.main.NavGraph
 import com.zj.play.ui.theme.PlayAndroidTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

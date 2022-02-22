@@ -1,9 +1,6 @@
 package com.zj.play.ui.main
 
 import android.content.res.Configuration
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
-import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
@@ -15,15 +12,11 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.collectAsLazyPagingItems
-import com.zj.play.R
-import com.zj.play.logic.model.*
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.zj.play.logic.utils.XLog
+import com.zj.play.ui.main.nav.CourseTabs
+import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.page.home.HomePage
-import com.zj.play.ui.page.login.LoginViewModel
-import com.zj.play.ui.page.login.LogoutDefault
 import com.zj.play.ui.page.mine.ProfilePage
 import com.zj.play.ui.page.official.OfficialAndroidViewModel
 import com.zj.play.ui.page.project.ArticleListPage
@@ -33,7 +26,16 @@ import com.zj.play.ui.page.system.SystemViewModel
 import java.util.*
 
 @Composable
-fun MainPage(
+fun MainPage(actions: PlayActions) {
+    val viewModel: HomeViewModel = hiltViewModel()
+    val position by viewModel.position.observeAsState()
+    MainPageContent(viewModel, actions, position) { tab ->
+        viewModel.onPositionChanged(tab)
+    }
+}
+
+@Composable
+fun MainPageContent(
     homeViewModel: HomeViewModel,
     actions: PlayActions, position: CourseTabs?,
     onPositionChanged: (CourseTabs) -> Unit
@@ -69,105 +71,37 @@ fun MainPage(
         // 当前是否为横屏
         val isLand = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
         // 淡入淡出布局切换动画
-        Crossfade(targetState = position) { screen ->
-            when (screen) {
-                CourseTabs.HOME_PAGE -> {
-                    val bannerData by homeViewModel.bannerState.observeAsState(PlayLoading)
-                    val lazyPagingItems = homeViewModel.articleResult.collectAsLazyPagingItems()
-                    initHomeData(bannerData, homeViewModel, lazyPagingItems)
-                    HomePage(modifier, isLand, bannerData, lazyPagingItems, {
-                        initHomeData(bannerData, homeViewModel, lazyPagingItems)
-                    }, toSearch = {
-                        actions.toSearch()
-                    }) {
-                        actions.enterArticle(it)
-                    }
+        when (position) {
+            CourseTabs.HOME_PAGE -> {
+                // 主页
+                homeViewModel.getBanner()
+                homeViewModel.getHomeArticle()
+                HomePage(modifier, isLand, homeViewModel, actions)
+            }
+            CourseTabs.SYSTEM -> {
+                // 体系
+                XLog.e("SystemPage 测试 one")
+                val viewModel: SystemViewModel = hiltViewModel()
+                viewModel.getAndroidSystem()
+                SystemPage(modifier, actions, viewModel)
+            }
+            CourseTabs.PROJECT, CourseTabs.OFFICIAL_ACCOUNT -> {
+                val viewModel = if (position == CourseTabs.PROJECT) {
+                    hiltViewModel<ProjectAndroidViewModel>()
+                } else {
+                    hiltViewModel<OfficialAndroidViewModel>()
                 }
-                CourseTabs.SYSTEM -> {
-                    XLog.e("SystemPage 测试 one")
-                    val viewModel: SystemViewModel = viewModel()
-                    viewModel.getAndroidSystem()
-                    val androidSystemState by viewModel.androidSystemState.observeAsState(
-                        PlayLoading
-                    )
-                    val systemState by viewModel.systemState.observeAsState(
-                        AndroidSystemModel(arrayListOf())
-                    )
-                    SystemPage(modifier, androidSystemState, systemState,
-                        saveSystemState = {
-                            viewModel.onSystemModelChanged(it)
-                        }) { cid, name ->
-                        actions.toSystemArticleList(cid, name)
-                    }
-                }
-                CourseTabs.PROJECT, CourseTabs.OFFICIAL_ACCOUNT -> {
-                    val viewModel = if (screen == CourseTabs.PROJECT) {
-                        viewModel<ProjectAndroidViewModel>()
-                    } else {
-                        viewModel<OfficialAndroidViewModel>()
-                    }
-                    viewModel.getDataList()
-                    val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
-                    val tree by viewModel.treeLiveData.observeAsState(PlayLoading)
-                    // 由于项目页面和公众号页面只有数据不同，所以使用一个公用的页面
-                    ArticleListPage(
-                        modifier, tree, lazyPagingItems,
-                        loadData = {
-                            viewModel.getDataList()
-                        },
-                        searchArticle = {
-                            viewModel.searchArticle(it)
-                        },
-                    ) {
-                        actions.enterArticle(it)
-                    }
-                }
-                CourseTabs.MINE -> {
-                    val viewModel: LoginViewModel = viewModel()
-                    val logoutState by viewModel.logoutState.observeAsState(LogoutDefault)
-                    ProfilePage(modifier, isLand, actions.toLogin, logoutState, {
-                        viewModel.logout()
-                    }) {
-                        actions.enterArticle(it)
-                    }
-                }
-                else -> {
-                    XLog.e("页面显示有问题")
-                }
+                viewModel.getDataList()
+                // 由于项目页面和公众号页面只有数据不同，所以使用一个公用的页面
+                ArticleListPage(modifier, actions, viewModel)
+            }
+            CourseTabs.MINE -> {
+                // 我的页面
+                ProfilePage(modifier, isLand, actions)
+            }
+            else -> {
+                XLog.e("页面显示有问题")
             }
         }
     }
-}
-
-private fun initHomeData(
-    bannerData: PlayState<List<BannerBean>>,
-    homeViewModel: HomeViewModel,
-    lazyPagingItems: LazyPagingItems<ArticleModel>
-) {
-    if (bannerData !is PlaySuccess<*>) {
-        homeViewModel.getBanner()
-    }
-    if (lazyPagingItems.itemCount <= 0) {
-        homeViewModel.getHomeArticle()
-    }
-}
-
-enum class CourseTabs(
-    @StringRes val title: Int,
-    @DrawableRes val icon: Int,
-    @DrawableRes val selectIcon: Int
-) {
-    HOME_PAGE(R.string.home_page, R.drawable.ic_nav_news_normal, R.drawable.ic_nav_news_actived),
-    SYSTEM(
-        R.string.home_system,
-        R.drawable.ic_nav_discover_normal,
-        R.drawable.ic_nav_discover_actived
-    ),
-    PROJECT(R.string.project, R.drawable.ic_nav_tweet_normal, R.drawable.ic_nav_tweet_actived),
-    OFFICIAL_ACCOUNT(
-        R.string.official_account,
-        R.drawable.ic_nav_discover_normal,
-        R.drawable.ic_nav_discover_actived
-    ),
-    MINE(R.string.mine, R.drawable.ic_nav_my_normal, R.drawable.ic_nav_my_pressed)
 }
