@@ -9,14 +9,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import com.zj.banner.BannerPager
-import com.zj.banner.ui.indicator.CircleIndicator
-import com.zj.banner.ui.indicator.Indicator
-import com.zj.banner.ui.indicator.NumberIndicator
 import com.zj.play.R
 import com.zj.play.logic.model.ArticleModel
 import com.zj.play.logic.model.BannerBean
@@ -67,7 +65,6 @@ fun HomePage(
                         data,
                         bannerModifier,
                         articleModifier,
-                        NumberIndicator(),
                         lazyPagingItems,
                         toArticleDetails
                     )
@@ -88,7 +85,6 @@ fun HomeContent(
     data: List<BannerBean>,
     modifier: Modifier = Modifier,
     articleModifier: Modifier = Modifier,
-    indicator: Indicator = CircleIndicator(),
     lazyPagingItems: LazyPagingItems<ArticleModel>,
     toArticleDetails: (ArticleModel) -> Unit
 ) {
@@ -96,7 +92,7 @@ fun HomeContent(
     BannerPager(
         items = data,
         modifier = modifier,
-        indicator = indicator
+        indicatorGravity = Alignment.BottomEnd
     ) {
         toArticleDetails(
             ArticleModel(
