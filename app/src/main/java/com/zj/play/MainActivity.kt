@@ -3,19 +3,14 @@ package com.zj.play
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import com.google.accompanist.insets.ProvideWindowInsets
-import com.zj.play.logic.base.viewmodel.BaseViewModel
 import com.zj.play.logic.utils.cancelToast
 import com.zj.play.logic.utils.setAndroidNativeLightStatusBar
 import com.zj.play.logic.utils.transparentStatusBar
-import com.zj.play.ui.main.HomeViewModel
 import com.zj.play.ui.main.NavGraph
 import com.zj.play.ui.theme.PlayAndroidTheme
 
 class MainActivity : ComponentActivity() {
-
-    private val mainViewModel: BaseViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

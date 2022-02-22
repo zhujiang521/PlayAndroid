@@ -7,7 +7,7 @@ val purple500 = Color(0xFF6200EE)
 val purple700 = Color(0xFF3700B3)
 val teal200 = Color(0xFF03DAC5)
 
-val pink100 = Color(0xFFFFF1F1)
+val pink100 = Color(0xFF85B4FC)
 val pink900 = Color(0xFF3f2c2c)
 val gray = Color(0xFF232323)
 val white = Color.White

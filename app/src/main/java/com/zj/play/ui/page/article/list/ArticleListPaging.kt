@@ -1,5 +1,6 @@
 package com.zj.play.ui.page.article.list
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,6 +22,8 @@ import com.zj.play.logic.utils.showToast
 import com.zj.play.ui.view.lce.ErrorContent
 import com.zj.play.ui.view.lce.LoadingContent
 
+private const val TAG = "ArticleListPaging"
+
 @Composable
 fun ArticleListPaging(
     modifier: Modifier = Modifier,
@@ -28,6 +31,7 @@ fun ArticleListPaging(
     lazyPagingItems: LazyPagingItems<ArticleModel>,
     enterArticle: (ArticleModel) -> Unit
 ) {
+    Log.e(TAG, "ArticleListPaging: ", )
     val context = LocalContext.current
     LazyColumn(
         modifier = modifier,
@@ -61,7 +65,9 @@ fun ArticleListPaging(
                 showToast(context, e.error.localizedMessage ?: "")
                 item {
                     Row(
-                        modifier = Modifier.fillMaxWidth().padding(8.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center,
                     ) {
