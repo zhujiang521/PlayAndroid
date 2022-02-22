@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -27,11 +28,11 @@ private const val TAG = "ArticleListPaging"
 @Composable
 fun ArticleListPaging(
     modifier: Modifier = Modifier,
-    listState: LazyListState,
     lazyPagingItems: LazyPagingItems<ArticleModel>,
     enterArticle: (ArticleModel) -> Unit
 ) {
-    Log.e(TAG, "ArticleListPaging: ", )
+    val listState: LazyListState = rememberLazyListState()
+    Log.e(TAG, "ArticleListPaging: ")
     val context = LocalContext.current
     LazyColumn(
         modifier = modifier,

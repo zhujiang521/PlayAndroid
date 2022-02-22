@@ -19,14 +19,12 @@ fun SystemArticleListPage(
     enterArticle: (ArticleModel) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
-        val listState = rememberLazyListState()
         PlayAppBar(name ?: "体系文章", click = {
             back()
         })
         if (lazyPagingItems.itemCount > 0) {
             ArticleListPaging(
                 Modifier.fillMaxSize(),
-                listState,
                 lazyPagingItems,
                 enterArticle = enterArticle
             )

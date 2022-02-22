@@ -1,7 +1,6 @@
 package com.zj.play.ui.page.home
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.Composable
@@ -88,7 +87,6 @@ fun HomeContent(
     lazyPagingItems: LazyPagingItems<ArticleModel>,
     toArticleDetails: (ArticleModel) -> Unit
 ) {
-    val listState = rememberLazyListState()
     BannerPager(
         items = data,
         modifier = modifier,
@@ -103,7 +101,6 @@ fun HomeContent(
     }
     ArticleListPaging(
         articleModifier,
-        listState,
         lazyPagingItems,
         toArticleDetails
     )

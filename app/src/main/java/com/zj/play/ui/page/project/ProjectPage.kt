@@ -42,7 +42,6 @@ fun ArticleListPage(
     searchArticle: (Query) -> Unit,
     enterArticle: (ArticleModel) -> Unit,
 ) {
-    val listState = rememberLazyListState()
     loadData()
     Column(modifier = Modifier.background(color = MaterialTheme.colors.primary)) {
         Spacer(modifier = Modifier.statusBarsHeight())
@@ -96,7 +95,7 @@ fun ArticleListPage(
                     .weight(1f)
                     .fillMaxWidth()
             ) {
-                ArticleListPaging(modifier, listState, lazyPagingItems, enterArticle)
+                ArticleListPaging(modifier, lazyPagingItems, enterArticle)
             }
 
         }

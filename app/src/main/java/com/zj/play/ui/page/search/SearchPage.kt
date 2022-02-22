@@ -2,7 +2,6 @@ package com.zj.play.ui.page.search
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
@@ -46,14 +45,12 @@ fun SearchPage(
         loadHotkey()
     }
     Column(modifier = Modifier.fillMaxSize()) {
-        val listState = rememberLazyListState()
         SearchBar(back, searchArticle)
         if (lazyPagingItems.itemCount > 0) {
             ArticleListPaging(
                 Modifier.fillMaxSize(),
-                listState,
                 lazyPagingItems,
-                enterArticle = enterArticle
+                enterArticle
             )
         } else {
             LcePage(

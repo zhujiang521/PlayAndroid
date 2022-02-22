@@ -16,9 +16,10 @@
 
 package com.zj.play.ui.main
 
-import androidx.compose.animation.*
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
-import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -47,7 +48,6 @@ import com.zj.play.ui.page.search.SearchViewModel
 import com.zj.play.ui.page.system.SystemArticleListPage
 import com.zj.play.ui.page.system.SystemViewModel
 import java.net.URLEncoder
-import java.util.*
 
 
 object PlayDestinations {
@@ -168,7 +168,7 @@ fun NavGraphBuilder.setComposable(
             // Let's make for a really long fade in
             slideIntoContainer(
                 AnimatedContentScope.SlideDirection.Left,
-                animationSpec = tween(500)
+                animationSpec = tween(300)
             )
         },
 //        exitTransition = { _, _ ->
@@ -180,7 +180,7 @@ fun NavGraphBuilder.setComposable(
 //        },
         content = content,
         popEnterTransition = {
-            slideIntoContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(500))
+            slideIntoContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(300))
         },
 //        popExitTransition = { _, _ ->
 //            slideOutOfContainer(
