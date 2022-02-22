@@ -1,6 +1,5 @@
 package com.zj.play.ui.view
 
-import android.util.Log
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -12,6 +11,7 @@ import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.pagerTabIndicatorOffset
 import com.google.accompanist.pager.rememberPagerState
 import com.zj.play.logic.model.ClassifyModel
+import com.zj.play.logic.utils.XLog
 import com.zj.play.logic.utils.getHtmlText
 
 @ExperimentalPagerApi
@@ -57,6 +57,6 @@ fun ArticleTabRowPreview() {
         )
     }
     ArticleTabRow(0, data, rememberPagerState()) { index, id ->
-        Log.e("ArticleTabRowPreview", "ArticleTabRowPreview: $index  $id")
+        XLog.e("ArticleTabRowPreview", "ArticleTabRowPreview: $index  $id")
     }
 }

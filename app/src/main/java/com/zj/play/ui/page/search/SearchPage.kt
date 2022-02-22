@@ -13,6 +13,8 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.res.painterResource
@@ -131,6 +133,10 @@ fun SearchBar(back: () -> Unit, searchArticle: (String) -> Unit) {
                         )
                     }
                 }
+                val requester = FocusRequester()
+                LaunchedEffect(Unit) {
+                    requester.requestFocus()
+                }
                 BasicTextField(
                     value = value,
                     onValueChange = { value = it },
@@ -139,6 +145,7 @@ fun SearchBar(back: () -> Unit, searchArticle: (String) -> Unit) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 5.dp, end = 45.dp)
+                        .focusRequester(requester)
                 )
             }
             IconButton(

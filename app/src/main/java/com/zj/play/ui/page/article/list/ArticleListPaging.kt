@@ -1,6 +1,5 @@
 package com.zj.play.ui.page.article.list
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,6 +18,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
 import com.zj.play.logic.model.ArticleModel
+import com.zj.play.logic.utils.XLog
 import com.zj.play.logic.utils.showToast
 import com.zj.play.ui.view.lce.ErrorContent
 import com.zj.play.ui.view.lce.LoadingContent
@@ -32,7 +32,7 @@ fun ArticleListPaging(
     enterArticle: (ArticleModel) -> Unit
 ) {
     val listState: LazyListState = rememberLazyListState()
-    Log.e(TAG, "ArticleListPaging: ")
+    XLog.e(TAG, "ArticleListPaging: ")
     val context = LocalContext.current
     LazyColumn(
         modifier = modifier,

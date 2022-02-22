@@ -16,11 +16,11 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.zj.play.R
-import com.zj.play.logic.model.AndroidSystemModel
-import com.zj.play.logic.model.PlayLoading
-import com.zj.play.logic.model.PlaySuccess
+import com.zj.play.logic.model.*
+import com.zj.play.logic.utils.XLog
 import com.zj.play.ui.page.home.HomePage
 import com.zj.play.ui.page.login.LoginViewModel
 import com.zj.play.ui.page.login.LogoutDefault
@@ -45,8 +45,7 @@ fun MainPage(
             BottomNavigation {
                 tabs.forEach { tab ->
                     BottomNavigationItem(
-                        modifier = Modifier
-                            .background(MaterialTheme.colors.primary),
+                        modifier = Modifier.background(MaterialTheme.colors.primary),
                         icon = {
                             val painter: Painter = if (tab == position) {
                                 painterResource(tab.selectIcon)
@@ -75,13 +74,9 @@ fun MainPage(
                 CourseTabs.HOME_PAGE -> {
                     val bannerData by homeViewModel.bannerState.observeAsState(PlayLoading)
                     val lazyPagingItems = homeViewModel.articleResult.collectAsLazyPagingItems()
+                    initHomeData(bannerData, homeViewModel, lazyPagingItems)
                     HomePage(modifier, isLand, bannerData, lazyPagingItems, {
-                        if (bannerData !is PlaySuccess<*>) {
-                            homeViewModel.getBanner()
-                        }
-                        if (lazyPagingItems.itemCount <= 0) {
-                            homeViewModel.getHomeArticle()
-                        }
+                        initHomeData(bannerData, homeViewModel, lazyPagingItems)
                     }, toSearch = {
                         actions.toSearch()
                     }) {
@@ -89,20 +84,18 @@ fun MainPage(
                     }
                 }
                 CourseTabs.SYSTEM -> {
+                    XLog.e("SystemPage 测试 one")
                     val viewModel: SystemViewModel = viewModel()
+                    viewModel.getAndroidSystem()
                     val androidSystemState by viewModel.androidSystemState.observeAsState(
                         PlayLoading
                     )
                     val systemState by viewModel.systemState.observeAsState(
-                        AndroidSystemModel(
-                            arrayListOf()
-                        )
+                        AndroidSystemModel(arrayListOf())
                     )
                     SystemPage(modifier, androidSystemState, systemState,
                         saveSystemState = {
                             viewModel.onSystemModelChanged(it)
-                        }, loadData = {
-                            viewModel.getAndroidSystem()
                         }) { cid, name ->
                         actions.toSystemArticleList(cid, name)
                     }
@@ -113,14 +106,19 @@ fun MainPage(
                     } else {
                         viewModel<OfficialAndroidViewModel>()
                     }
+                    viewModel.getDataList()
                     val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
                     val tree by viewModel.treeLiveData.observeAsState(PlayLoading)
                     // 由于项目页面和公众号页面只有数据不同，所以使用一个公用的页面
-                    ArticleListPage(modifier, tree, lazyPagingItems, {
-                        viewModel.getDataList()
-                    }, {
-                        viewModel.searchArticle(it)
-                    },) {
+                    ArticleListPage(
+                        modifier, tree, lazyPagingItems,
+                        loadData = {
+                            viewModel.getDataList()
+                        },
+                        searchArticle = {
+                            viewModel.searchArticle(it)
+                        },
+                    ) {
                         actions.enterArticle(it)
                     }
                 }
@@ -133,8 +131,24 @@ fun MainPage(
                         actions.enterArticle(it)
                     }
                 }
+                else -> {
+                    XLog.e("页面显示有问题")
+                }
             }
         }
+    }
+}
+
+private fun initHomeData(
+    bannerData: PlayState<List<BannerBean>>,
+    homeViewModel: HomeViewModel,
+    lazyPagingItems: LazyPagingItems<ArticleModel>
+) {
+    if (bannerData !is PlaySuccess<*>) {
+        homeViewModel.getBanner()
+    }
+    if (lazyPagingItems.itemCount <= 0) {
+        homeViewModel.getHomeArticle()
     }
 }
 

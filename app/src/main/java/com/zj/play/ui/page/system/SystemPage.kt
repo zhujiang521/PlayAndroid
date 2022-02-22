@@ -1,6 +1,5 @@
 package com.zj.play.ui.page.system
 
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -10,10 +9,6 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -21,43 +16,35 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.annotation.ExperimentalCoilApi
 import com.zj.banner.utils.ImageLoader
 import com.zj.play.R
 import com.zj.play.logic.model.AndroidSystemModel
 import com.zj.play.logic.model.PlayState
 import com.zj.play.logic.model.SystemChildren
+import com.zj.play.logic.utils.XLog
 import com.zj.play.ui.theme.Shapes
 import com.zj.play.ui.view.PlayAppBar
 import com.zj.play.ui.view.lce.LcePage
 
-private const val TAG = "SystemPage"
-
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalCoilApi::class)
 @Composable
 fun SystemPage(
     modifier: Modifier,
     androidSystemState: PlayState<List<AndroidSystemModel>>,
     systemState: AndroidSystemModel,
     saveSystemState: (AndroidSystemModel) -> Unit,
-    loadData: () -> Unit,
     loadArticle: (Int, String) -> Unit
 ) {
-    var loadArticleState by rememberSaveable { mutableStateOf(false) }
-    if (!loadArticleState) {
-        loadArticleState = true
-        loadData()
-    }
     val listState = rememberLazyListState()
     val childrenState = rememberLazyGridState()
-//    val coroutineScope = rememberCoroutineScope()
-    Log.e(TAG, "SystemPage: $androidSystemState")
+    XLog.e("SystemPage 测试 two")
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         PlayAppBar(title = "体系", showBack = false)
         LcePage(playState = androidSystemState, onErrorClick = {}) {
-            loadArticleState = true
             Row(
                 Modifier
                     .fillMaxSize()
@@ -98,9 +85,6 @@ fun SystemPage(
                             saveSystemState(systemModel)
                         }
                     }
-//                    coroutineScope.launch {
-//                        listState.animateScrollToItem(it.indexOf(systemState))
-//                    }
                 }
                 LazyVerticalGrid(
                     cells = GridCells.Fixed(2),
@@ -118,6 +102,7 @@ fun SystemPage(
     }
 }
 
+@ExperimentalCoilApi
 @Composable
 private fun SystemCard(
     loadArticle: (Int, String) -> Unit,
@@ -142,7 +127,6 @@ private fun SystemCard(
                     .size(70.dp)
             )
         }
-
 
         Text(text = systemModel.name, fontSize = 14.sp)
     }

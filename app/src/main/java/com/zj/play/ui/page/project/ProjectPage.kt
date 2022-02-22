@@ -42,7 +42,6 @@ fun ArticleListPage(
     searchArticle: (Query) -> Unit,
     enterArticle: (ArticleModel) -> Unit,
 ) {
-    loadData()
     Column(modifier = Modifier.background(color = MaterialTheme.colors.primary)) {
         Spacer(modifier = Modifier.statusBarsHeight())
         LcePage(playState = tree, onErrorClick = {

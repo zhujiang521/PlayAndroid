@@ -4,10 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -32,12 +28,6 @@ fun HomePage(
     toSearch: () -> Unit,
     toArticleDetails: (ArticleModel) -> Unit
 ) {
-
-    var loadArticleState by rememberSaveable { mutableStateOf(false) }
-    if (!loadArticleState) {
-        loadArticleState = true
-        loadData()
-    }
     Column(modifier = modifier.fillMaxSize()) {
         PlayAppBar(
             stringResource(id = R.string.home_page),
@@ -52,7 +42,6 @@ fun HomePage(
                 loadData()
             }
         ) { data ->
-            loadArticleState = true
             if (isLand) {
                 Row(modifier = Modifier.fillMaxSize()) {
                     val bannerModifier = Modifier

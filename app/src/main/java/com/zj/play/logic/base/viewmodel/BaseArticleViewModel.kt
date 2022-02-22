@@ -1,7 +1,6 @@
 package com.zj.play.logic.base.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -9,6 +8,7 @@ import androidx.paging.cachedIn
 import com.zj.play.logic.base.repository.BaseArticlePagingRepository
 import com.zj.play.logic.model.ArticleModel
 import com.zj.play.logic.model.Query
+import com.zj.play.logic.utils.XLog
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
@@ -38,7 +38,7 @@ abstract class BaseArticleViewModel(application: Application) : AndroidViewModel
      */
     open fun searchArticle(query: Query) {
         searchJob?.cancel()
-        Log.e(TAG, "searchArticle: ${query.cid}")
+        XLog.e(TAG, "searchArticle: ${query.cid}")
         searchJob = viewModelScope.launch {
             searchResults.emit(query)
         }
