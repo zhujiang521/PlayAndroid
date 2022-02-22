@@ -33,11 +33,4 @@ abstract class BaseAndroidViewModel(application: Application) : BaseArticleViewM
         }
     }
 
-    private val _position = MutableLiveData(0)
-    val position: LiveData<Int> = _position
-
-    fun onPositionChanged(position: Int) {
-        _position.value = position
-    }
-
 }

@@ -115,15 +115,12 @@ fun MainPage(
                     }
                     val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
                     val tree by viewModel.treeLiveData.observeAsState(PlayLoading)
-                    val treePosition by viewModel.position.observeAsState(0)
                     // 由于项目页面和公众号页面只有数据不同，所以使用一个公用的页面
-                    ArticleListPage(modifier, tree, treePosition, lazyPagingItems, {
+                    ArticleListPage(modifier, tree, lazyPagingItems, {
                         viewModel.getDataList()
                     }, {
                         viewModel.searchArticle(it)
-                    }, {
-                        viewModel.onPositionChanged(it)
-                    }) {
+                    },) {
                         actions.enterArticle(it)
                     }
                 }
