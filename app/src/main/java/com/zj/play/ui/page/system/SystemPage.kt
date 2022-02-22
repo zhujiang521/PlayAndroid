@@ -116,30 +116,6 @@ fun SystemPage(
             }
         }
     }
-
-//    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.weather_rain))
-//
-//    val composition1 by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.weather_rain))
-//    val composition2 by rememberLottieComposition(LottieCompositionSpec.Url("动画文件网址"))
-//    val composition3 by rememberLottieComposition(LottieCompositionSpec.File("文件名称"))
-//    val composition4 by rememberLottieComposition(LottieCompositionSpec.Asset("文件"))
-//    val composition5 by rememberLottieComposition(LottieCompositionSpec.JsonString("动画json文件字符串"))
-//
-//    val progress by animateLottieCompositionAsState(
-//        composition = composition,
-//        speed = 2f,
-//        iterations = LottieConstants.IterateForever
-//    )
-////    Column(
-////        modifier = Modifier.fillMaxSize(),
-////        horizontalAlignment = Alignment.CenterHorizontally
-////    ) {
-////        PlayAppBar(title = "体系", showBack = false)
-////        LottieAnimation(composition = composition, progress = progress)
-////    }
-//
-//    val rememberLottieDynamicProperties = rememberLottieDynamicProperties()
-//    LottieAnimation(composition = composition, progress = progress)
 }
 
 @Composable
