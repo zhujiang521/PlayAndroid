@@ -49,7 +49,12 @@ fun SearchPage(
         val listState = rememberLazyListState()
         SearchBar(back, searchArticle)
         if (lazyPagingItems.itemCount > 0) {
-            ArticleListPaging(Modifier.fillMaxSize(), listState, lazyPagingItems, enterArticle)
+            ArticleListPaging(
+                Modifier.fillMaxSize(),
+                listState,
+                lazyPagingItems,
+                enterArticle = enterArticle
+            )
         } else {
             LcePage(
                 playState = hotkeyModels,

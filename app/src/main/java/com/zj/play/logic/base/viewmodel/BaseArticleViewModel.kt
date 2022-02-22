@@ -1,6 +1,7 @@
 package com.zj.play.logic.base.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -16,6 +17,10 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 
 abstract class BaseArticleViewModel(application: Application) : AndroidViewModel(application) {
+
+    companion object {
+        private const val TAG = "BaseArticleViewModel"
+    }
 
     abstract val repositoryArticle: BaseArticlePagingRepository
 
@@ -33,6 +38,7 @@ abstract class BaseArticleViewModel(application: Application) : AndroidViewModel
      */
     open fun searchArticle(query: Query) {
         searchJob?.cancel()
+        Log.e(TAG, "searchArticle: ${query.cid}")
         searchJob = viewModelScope.launch {
             searchResults.emit(query)
         }

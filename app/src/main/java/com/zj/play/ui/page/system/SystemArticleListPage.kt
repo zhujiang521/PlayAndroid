@@ -24,7 +24,12 @@ fun SystemArticleListPage(
             back()
         })
         if (lazyPagingItems.itemCount > 0) {
-            ArticleListPaging(Modifier.fillMaxSize(), listState, lazyPagingItems, enterArticle)
+            ArticleListPaging(
+                Modifier.fillMaxSize(),
+                listState,
+                lazyPagingItems,
+                enterArticle = enterArticle
+            )
         } else {
             NoContent()
         }
