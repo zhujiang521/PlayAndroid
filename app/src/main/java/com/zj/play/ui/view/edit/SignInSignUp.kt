@@ -5,11 +5,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -45,6 +44,10 @@ fun Email(
     imeAction: ImeAction = ImeAction.Next,
     onImeAction: () -> Unit = {}
 ) {
+    val requester = FocusRequester()
+    LaunchedEffect(Unit) {
+        requester.requestFocus()
+    }
     OutlinedTextField(
         value = emailState.text,
         onValueChange = {
@@ -66,7 +69,8 @@ fun Email(
                 if (!focused) {
                     emailState.enableShowErrors()
                 }
-            },
+            }
+            .focusRequester(requester),
         textStyle = MaterialTheme.typography.body2,
         isError = emailState.showErrors(),
         keyboardOptions = KeyboardOptions.Default.copy(imeAction = imeAction),
