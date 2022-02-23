@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zj.play.logic.model.ClassifyModel
 import com.zj.play.logic.model.PlayState
+import com.zj.play.logic.model.PlaySuccess
+import com.zj.play.logic.utils.XLog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -28,6 +30,10 @@ abstract class BaseAndroidViewModel(application: Application) : BaseArticleViewM
     abstract suspend fun getData()
 
     fun getDataList() {
+        if (mutableTreeLiveData.value is PlaySuccess<*>){
+            XLog.e("已有数据，不进行请求")
+            return
+        }
         viewModelScope.launch(Dispatchers.IO) {
             getData()
         }

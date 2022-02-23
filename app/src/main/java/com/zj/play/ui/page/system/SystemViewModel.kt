@@ -8,7 +8,9 @@ import com.zj.play.logic.base.repository.BaseArticlePagingRepository
 import com.zj.play.logic.base.viewmodel.BaseArticleViewModel
 import com.zj.play.logic.model.AndroidSystemModel
 import com.zj.play.logic.model.PlayState
+import com.zj.play.logic.model.PlaySuccess
 import com.zj.play.logic.model.Query
+import com.zj.play.logic.utils.XLog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -32,6 +34,10 @@ class SystemViewModel(application: Application) : BaseArticleViewModel(applicati
         get() = mutableLiveData
 
     fun getAndroidSystem() {
+        if (androidSystemState.value is PlaySuccess<*>) {
+            XLog.e("已有数据，不进行请求")
+            return
+        }
         job?.cancel()
         job = viewModelScope.launch(Dispatchers.IO) {
             SystemRepository().getAndroidSystem(mutableLiveData)

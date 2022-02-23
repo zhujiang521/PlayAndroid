@@ -8,11 +8,14 @@ import com.zj.play.logic.base.repository.BaseArticlePagingRepository
 import com.zj.play.logic.base.viewmodel.BaseArticleViewModel
 import com.zj.play.logic.model.BannerBean
 import com.zj.play.logic.model.PlayState
+import com.zj.play.logic.model.PlaySuccess
 import com.zj.play.logic.model.Query
+import com.zj.play.logic.utils.XLog
 import com.zj.play.ui.main.nav.CourseTabs
 import com.zj.play.ui.page.home.HomeArticlePagingRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 /**
@@ -47,6 +50,10 @@ class HomeViewModel(application: Application) : BaseArticleViewModel(application
     }
 
     fun getBanner() {
+        if (bannerState.value is PlaySuccess<*>){
+            XLog.e("已有数据，不进行请求")
+            return
+        }
         bannerJob?.cancel()
         bannerJob = viewModelScope.launch(Dispatchers.IO) {
             (repositoryArticle as HomeArticlePagingRepository).getBanner(_bannerState)
