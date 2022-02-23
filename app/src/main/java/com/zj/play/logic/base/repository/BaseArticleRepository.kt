@@ -25,7 +25,7 @@ abstract class BaseArticleRepository(private val application: Application) :
     suspend fun getTree(state: MutableLiveData<PlayState<List<ClassifyModel>>>) {
         state.postValue(PlayLoading)
         if (!NetworkUtils.isConnected(application)) {
-            showToast(application, R.string.no_network)
+            showToast(R.string.no_network)
             state.postValue(PlayError(NetworkErrorException(application.getString(R.string.no_network))))
             return
         }

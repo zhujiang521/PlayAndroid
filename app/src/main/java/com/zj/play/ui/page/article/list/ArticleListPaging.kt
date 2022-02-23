@@ -5,14 +5,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
@@ -28,14 +25,12 @@ fun ArticleListPaging(
     lazyPagingItems: LazyPagingItems<ArticleModel>,
     enterArticle: (ArticleModel) -> Unit
 ) {
-    val listState: LazyListState = rememberLazyListState()
-    val context = LocalContext.current
-    LazyColumn(
-        modifier = modifier,
-        state = listState
-    ) {
-
-        items(lazyPagingItems) { article ->
+    LazyColumn(modifier = modifier) {
+        items(
+            items = lazyPagingItems,
+            key = {
+                it.id
+            }) { article ->
             ArticleItem(article) { urlArgs ->
                 enterArticle(urlArgs)
             }
@@ -50,7 +45,7 @@ fun ArticleListPaging(
             }
             loadStates.refresh is LoadState.Error -> {
                 val e = lazyPagingItems.loadState.refresh as LoadState.Error
-                showToast(context, e.error.localizedMessage ?: "")
+                showToast(e.error.localizedMessage ?: "")
                 item {
                     ErrorContent(modifier = Modifier.fillParentMaxSize()) {
                         lazyPagingItems.retry()
@@ -59,7 +54,7 @@ fun ArticleListPaging(
             }
             loadStates.append is LoadState.Error -> {
                 val e = lazyPagingItems.loadState.append as LoadState.Error
-                showToast(context, e.error.localizedMessage ?: "")
+                showToast(e.error.localizedMessage ?: "")
                 item {
                     Row(
                         modifier = Modifier

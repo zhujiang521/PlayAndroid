@@ -1,6 +1,5 @@
 package com.zj.play.ui.page.search
 
-import android.content.Context
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -37,7 +36,7 @@ import com.zj.play.ui.view.lce.LcePage
 import java.lang.Integer.max
 
 @Composable
-fun SearchPage(actions: PlayActions, current: Context) {
+fun SearchPage(actions: PlayActions) {
     val viewModel = hiltViewModel<SearchViewModel>()
     val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
     val hotkeyModels by viewModel.hotkeyState.observeAsState(PlayLoading)
@@ -54,7 +53,7 @@ fun SearchPage(actions: PlayActions, current: Context) {
         },
         searchArticle = {
             if (it.isEmpty()) {
-                showToast(current, "请输入搜索内容")
+                showToast("请输入搜索内容")
                 return@SearchPageContent
             }
             viewModel.getSearchArticle(it)

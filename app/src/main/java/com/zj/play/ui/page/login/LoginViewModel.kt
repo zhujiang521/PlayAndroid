@@ -49,14 +49,13 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 Play.setUserInfo(login.nickname, login.username)
                 withContext(Dispatchers.Main) {
                     showToast(
-                        getApplication(),
                         if (account.isLogin) getApplication<Application>().getString(R.string.login_success) else getApplication<Application>().getString(
                             R.string.register_success
                         )
                     )
                 }
             } else {
-                showToast(getApplication(), loginModel.errorMsg)
+                showToast(loginModel.errorMsg)
                 _state.postValue(PlayError(NullPointerException("网络错误")))
             }
         }

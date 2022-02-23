@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.zj.banner.BannerPager
+import com.zj.banner.ui.config.BannerConfig
 import com.zj.play.R
 import com.zj.play.logic.model.*
 import com.zj.play.ui.main.HomeViewModel
@@ -93,8 +94,11 @@ fun HomePageContent(
                     )
                 }
             } else {
+                val bannerModifier = Modifier
+                    .padding(horizontal = 8.dp)
                 HomeContent(
-                    data,
+                    data = data,
+                    modifier = bannerModifier,
                     lazyPagingItems = lazyPagingItems,
                     toArticleDetails = toArticleDetails
                 )
@@ -114,6 +118,7 @@ fun HomeContent(
     BannerPager(
         items = data,
         modifier = modifier,
+        config = BannerConfig(bannerHeight = 200.dp),
         indicatorGravity = Alignment.BottomEnd
     ) {
         toArticleDetails(

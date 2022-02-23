@@ -22,7 +22,6 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.*
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -47,7 +46,6 @@ fun NavGraph(
     startDestination: String = PlayDestinations.HOME_PAGE_ROUTE
 ) {
     val navController = rememberAnimatedNavController()
-    val current = LocalContext.current
     val actions = remember(navController) { PlayActions(navController) }
     AnimatedNavHost(
         navController = navController,
@@ -57,7 +55,7 @@ fun NavGraph(
             MainPage(actions)
         }
         setComposable(PlayDestinations.SEARCH_PAGE_ROUTE) {
-            SearchPage(actions, current)
+            SearchPage(actions)
         }
         setComposable(PlayDestinations.LOGIN_ROUTE) {
             LoginPage(actions)
