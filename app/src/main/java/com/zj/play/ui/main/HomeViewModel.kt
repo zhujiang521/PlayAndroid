@@ -7,9 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.zj.play.logic.base.repository.BaseArticlePagingRepository
 import com.zj.play.logic.base.viewmodel.ArticleListInterface
-import com.zj.play.logic.base.viewmodel.BaseArticleViewModel
 import com.zj.play.logic.model.*
 import com.zj.play.logic.utils.XLog
 import com.zj.play.ui.main.nav.CourseTabs
@@ -19,7 +17,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 

@@ -1,6 +1,8 @@
 package com.zj.play.logic.model
 
-
+/**
+ * 是否成功[successOr]
+ */
 sealed class PlayState<out R> {
     fun isLoading() = this is PlayLoading
     fun isSuccessful() = this is PlaySuccess
@@ -10,7 +12,6 @@ sealed class PlayState<out R> {
             is PlaySuccess<*> -> "Success[data=$data]"
             is PlayError -> "Error[exception=${error}]"
             PlayLoading -> "Loading"
-            else -> ""
         }
     }
 }
@@ -20,6 +21,7 @@ data class PlayError(val error: Throwable) : PlayState<Nothing>()
 object PlayLoading : PlayState<Nothing>()
 
 /**
+ * 是否成功[successOr]
  * [PlayState.data] if [Result] is of query [PlayState]
  */
 fun <T> PlayState<T>?.successOr(fallback: T): T {

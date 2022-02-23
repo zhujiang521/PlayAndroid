@@ -74,6 +74,7 @@ fun LoginPageContent(
         is PlayError -> {
             //toProgressVisible(false)
         }
+        else -> {}
     }
 
 }
