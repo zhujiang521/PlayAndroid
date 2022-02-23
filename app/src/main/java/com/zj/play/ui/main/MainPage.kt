@@ -70,7 +70,6 @@ fun MainPageContent(
         val modifier = Modifier.padding(innerPadding)
         // 当前是否为横屏
         val isLand = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
-        // 淡入淡出布局切换动画
         when (position) {
             CourseTabs.HOME_PAGE -> {
                 // 主页

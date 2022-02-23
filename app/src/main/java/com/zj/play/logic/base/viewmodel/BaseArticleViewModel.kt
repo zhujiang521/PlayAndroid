@@ -37,6 +37,24 @@ abstract class BaseArticleViewModel(application: Application) : AndroidViewModel
      * Search a repository based on a query string.
      */
     open fun searchArticle(query: Query) {
+        XLog.e("searchArticle: $query")
+        try {
+            XLog.e("searchArticle: six")
+            val queryList = searchResults.replayCache
+            if (queryList.isNotEmpty()) {
+                val q = queryList[0]
+                XLog.e("searchArticle: four")
+                XLog.e("searchArticle q: $q")
+                if (query.k != "" && query.k == q.k || query.cid != -1 && query.cid == q.cid) {
+                    return
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            XLog.e("Exception: ${e.message}")
+        }
+        XLog.e("searchArticle: five")
+
         searchJob?.cancel()
         XLog.e(TAG, "searchArticle: ${query.cid}")
         searchJob = viewModelScope.launch {
