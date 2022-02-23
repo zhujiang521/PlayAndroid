@@ -17,7 +17,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.zj.play.Play
 import com.zj.play.R
 import com.zj.play.logic.model.ArticleModel
@@ -29,7 +29,7 @@ import com.zj.play.ui.page.login.LogoutState
 
 @Composable
 fun ProfilePage(modifier: Modifier, isLand: Boolean, actions: PlayActions) {
-    val viewModel: LoginViewModel = viewModel()
+    val viewModel: LoginViewModel = hiltViewModel()
     val logoutState by viewModel.logoutState.observeAsState(LogoutDefault)
     ProfilePageContent(modifier, isLand, actions.toLogin, logoutState, {
         viewModel.logout()
