@@ -18,12 +18,9 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
 import com.zj.play.logic.model.ArticleModel
-import com.zj.play.logic.utils.XLog
 import com.zj.play.logic.utils.showToast
 import com.zj.play.ui.view.lce.ErrorContent
 import com.zj.play.ui.view.lce.LoadingContent
-
-private const val TAG = "ArticleListPaging"
 
 @Composable
 fun ArticleListPaging(
@@ -32,7 +29,6 @@ fun ArticleListPaging(
     enterArticle: (ArticleModel) -> Unit
 ) {
     val listState: LazyListState = rememberLazyListState()
-    XLog.e(TAG, "ArticleListPaging: ")
     val context = LocalContext.current
     LazyColumn(
         modifier = modifier,
