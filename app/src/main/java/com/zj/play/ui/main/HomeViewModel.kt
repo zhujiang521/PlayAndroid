@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.zj.play.logic.base.repository.BaseArticlePagingRepository
+import com.zj.play.logic.base.viewmodel.ArticleListInterface
 import com.zj.play.logic.base.viewmodel.BaseArticleViewModel
 import com.zj.play.logic.model.*
 import com.zj.play.logic.utils.XLog
@@ -30,7 +31,8 @@ import kotlinx.coroutines.launch
  * 描述：PlayAndroid
  *
  */
-class HomeViewModel(application: Application) : AndroidViewModel(application) {
+class HomeViewModel(application: Application) : AndroidViewModel(application),
+    ArticleListInterface {
 
     companion object {
         private const val TAG = "HomeViewModel"
@@ -38,38 +40,14 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _position = MutableLiveData(CourseTabs.HOME_PAGE)
     val position: LiveData<CourseTabs> = _position
-    private val repositoryArticle = HomeArticlePagingRepository()
+    override val repositoryArticle = HomeArticlePagingRepository()
 
-    private val searchResults = MutableSharedFlow<Query>(replay = 1)
+    override val searchResults = MutableSharedFlow<Query>(replay = 1)
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    val articleResult: Flow<PagingData<ArticleModel>> = searchResults.flatMapLatest {
+    override val articleResult: Flow<PagingData<ArticleModel>> = searchResults.flatMapLatest {
         repositoryArticle.getPagingData(it)
     }.cachedIn(viewModelScope)
-
-    /**
-     * Search a repository based on a query string.
-     */
-    private suspend fun searchArticle(query: Query) {
-        XLog.e("searchArticle: $query")
-        try {
-            XLog.e("searchArticle: one")
-            val queryList = searchResults.replayCache
-            if (queryList.isNotEmpty()) {
-                val q = queryList[0]
-                XLog.e("searchArticle: two")
-                XLog.e("searchArticle q: $q")
-                if (query.k != "" && query.k == q.k || query.cid != -1 && query.cid == q.cid) {
-                    return
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            XLog.e("Exception: ${e.message}")
-        }
-        XLog.e("searchArticle: three")
-        searchResults.emit(query)
-    }
 
     fun onPositionChanged(position: CourseTabs) {
         _position.value = position
