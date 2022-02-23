@@ -20,11 +20,16 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+        // 去除多语言
+        resConfigs "zh", "zh-rCN", "zh-rHK", "zh-rTW"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            // 开启混淆
+            minifyEnabled true
+            // 去除无用资源 与lint不同
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -75,7 +80,7 @@ dependencies {
     // DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
     // lottie动画
-    def lottieVersion = '4.2.2'
+    def lottieVersion = '5.0.1'
     implementation "com.airbnb.android:lottie-compose:$lottieVersion"
 
     // Hilt 依赖注入
