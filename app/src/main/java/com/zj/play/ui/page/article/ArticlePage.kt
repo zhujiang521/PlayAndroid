@@ -3,6 +3,10 @@ package com.zj.play.ui.page.article
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
@@ -11,12 +15,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.content.ContextCompat.startActivity
 import com.google.accompanist.web.WebView
 import com.google.accompanist.web.rememberWebViewState
 import com.zj.play.R
 import com.zj.play.logic.model.ArticleModel
 import com.zj.play.logic.utils.getHtmlText
 import com.zj.play.ui.view.PlayAppBar
+
 
 /**
  * Stateless Article Screen that displays a single post.
@@ -51,7 +57,29 @@ fun ArticlePage(
                 modifier = Modifier.fillMaxSize(),
                 onCreated = { webView ->
                     webView.settings.javaScriptEnabled = true
-                }
+                    webView.webViewClient = object : WebViewClient() {
+                        override fun shouldOverrideUrlLoading(
+                            view: WebView?,
+                            request: WebResourceRequest?
+                        ): Boolean {
+                            try {
+                                if (!url.startsWith("http:") || !url.startsWith("https:")) {
+                                    val intent = Intent(
+                                        Intent.ACTION_VIEW,
+                                        Uri.parse(url)
+                                    )
+                                    view?.context?.startActivity(intent)
+                                    return true
+                                }
+                            } catch (e: Exception) {
+                                return false
+                            }
+
+                            view?.loadUrl(url)
+                            return true
+                        }
+                    }
+                },
             )
         }
     )
