@@ -1,23 +1,25 @@
 package com.zj.play.ui.page.mine
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.annotation.ExperimentalCoilApi
+import com.zj.banner.utils.ImageLoader
 import com.zj.play.Play
 import com.zj.play.R
 import com.zj.play.logic.model.ArticleModel
@@ -26,6 +28,7 @@ import com.zj.play.ui.page.login.LoginViewModel
 import com.zj.play.ui.page.login.LogoutDefault
 import com.zj.play.ui.page.login.LogoutFinish
 import com.zj.play.ui.page.login.LogoutState
+import com.zj.play.ui.view.PlayAppBar
 
 @Composable
 fun ProfilePage(modifier: Modifier, isLand: Boolean, actions: PlayActions) {
@@ -39,75 +42,77 @@ fun ProfilePage(modifier: Modifier, isLand: Boolean, actions: PlayActions) {
 }
 
 @Composable
-fun ProfilePageContent(
-    modifier: Modifier = Modifier,
-    isLand: Boolean = false,
+private fun ProfilePageContent(
+    modifier: Modifier,
+    isLand: Boolean,
     toLogin: () -> Unit,
     logoutState: LogoutState,
     logout: () -> Unit,
     enterArticle: (ArticleModel) -> Unit
 ) {
-    if (isLand) {
-        Row(modifier = modifier.fillMaxSize()) {
-            Image(
-                modifier = Modifier.fillMaxHeight().weight(1f),
-                painter = painterResource(R.drawable.img_head),
-                contentScale = ContentScale.Crop,
-                contentDescription = null
-            )
-            Column(
-                modifier = Modifier.fillMaxHeight().weight(1.5f)
-                    .verticalScroll(rememberScrollState())
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+    ) {
+        PlayAppBar(
+            stringResource(id = R.string.mine),
+            showBack = false
+        )
+
+        if (isLand) {
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
             ) {
-                UserInfoFields(
-                    toLogin,
-                    enterArticle,
-                    logoutState,
-                    logout
-                )
+                val headModifier = Modifier.weight(1f)
+                HeadItem(headModifier, logoutState, toLogin)
+                BlogItem(headModifier, enterArticle, logout)
             }
-        }
-    } else {
-        Column(
-            modifier = modifier.fillMaxSize()
-                .verticalScroll(rememberScrollState())
-        ) {
-            Image(
-                modifier = Modifier.fillMaxWidth(),
-                painter = painterResource(R.drawable.img_head),
-                contentScale = ContentScale.Crop,
-                contentDescription = null
-            )
-            UserInfoFields(
-                toLogin,
-                enterArticle,
-                logoutState,
-                logout
-            )
+        } else {
+            HeadItem(Modifier, logoutState, toLogin)
+            BlogItem(Modifier, enterArticle, logout)
         }
     }
 }
 
 @Composable
-private fun UserInfoFields(
-    toLogin: () -> Unit,
-    enterArticle: (ArticleModel) -> Unit,
+private fun HeadItem(
+    modifier: Modifier = Modifier,
     logoutState: LogoutState,
+    toLogin: () -> Unit
+) {
+    when (logoutState) {
+        LogoutDefault -> {
+            NameAndPosition(modifier, true, toLogin)
+        }
+        LogoutFinish -> {
+            NameAndPosition(modifier, false, toLogin)
+        }
+    }
+}
+
+@Composable
+private fun BlogItem(
+    modifier: Modifier = Modifier,
+    enterArticle: (ArticleModel) -> Unit,
     logout: () -> Unit
 ) {
-    Column {
-        Spacer(modifier = Modifier.height(8.dp))
-
-        when (logoutState) {
-            LogoutDefault -> {
-                NameAndPosition(true, toLogin)
-            }
-            LogoutFinish -> {
-                NameAndPosition(false, toLogin)
-            }
-        }
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+    ) {
+        ProfileProperty(
+            imageVector = Icons.Default.Home,
+            ArticleModel(
+                title = "我的新书：《Jetpack Compose》",
+                link = "https://zhujiang.blog.csdn.net/article/details/121167705?spm=1001.2014.3001.5502"
+            ),
+            enterArticle
+        )
 
         ProfileProperty(
+            imageVector = Icons.Default.Home,
             ArticleModel(
                 title = stringResource(R.string.mine_blog),
                 link = "https://zhujiang.blog.csdn.net/"
@@ -116,6 +121,7 @@ private fun UserInfoFields(
         )
 
         ProfileProperty(
+            imageVector = Icons.Default.AccountBox,
             ArticleModel(
                 title = stringResource(R.string.mine_nuggets),
                 link = "https://juejin.im/user/5c07e51de51d451de84324d5"
@@ -124,9 +130,46 @@ private fun UserInfoFields(
         )
 
         ProfileProperty(
+            imageVector = Icons.Default.DateRange,
             ArticleModel(
                 title = stringResource(R.string.mine_github),
                 link = "https://github.com/zhujiang521"
+            ),
+            enterArticle
+        )
+
+        ProfileProperty(
+            imageVector = Icons.Default.Star,
+            ArticleModel(
+                title = "王飞",
+                link = "https://blog.csdn.net/m0_37667770?type=blog"
+            ),
+            enterArticle
+        )
+
+        ProfileProperty(
+            imageVector = Icons.Default.Star,
+            ArticleModel(
+                title = "任玉刚",
+                link = "https://blog.csdn.net/singwhatiwanna/"
+            ),
+            enterArticle
+        )
+
+        ProfileProperty(
+            imageVector = Icons.Default.Star,
+            ArticleModel(
+                title = "张鸿洋",
+                link = "https://blog.csdn.net/lmj623565791"
+            ),
+            enterArticle
+        )
+
+        ProfileProperty(
+            imageVector = Icons.Default.Star,
+            ArticleModel(
+                title = "郭霖",
+                link = "https://blog.csdn.net/guolin_blog/"
             ),
             enterArticle
         )
@@ -144,32 +187,50 @@ private fun UserInfoFields(
     }
 }
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
-private fun NameAndPosition(refresh: Boolean, toLogin: () -> Unit) {
-    Column(modifier = if (Play.isLogin) {
-        Modifier.padding(horizontal = 16.dp)
-    } else {
-        Modifier
-            .padding(horizontal = 16.dp)
-            .clickable { toLogin() }
-    }) {
+private fun NameAndPosition(modifier: Modifier = Modifier, refresh: Boolean, toLogin: () -> Unit) {
+    Column(
+        modifier = if (Play.isLogin) {
+            modifier
+                .fillMaxWidth()
+                .padding(top = 10.dp, bottom = 20.dp)
+        } else {
+            modifier
+                .fillMaxWidth()
+                .padding(top = 10.dp, bottom = 20.dp)
+                .clickable { toLogin() }
+        },
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        ImageLoader(
+            data = R.drawable.img_head,
+            Modifier
+                .size(65.dp)
+                .shadow(1.dp, shape = RoundedCornerShape(10.dp))
+        )
+
         Text(
             text = if (Play.isLogin && refresh) Play.nickName else stringResource(R.string.no_login),
-            modifier = Modifier.height(32.dp),
+            modifier = Modifier,
             style = MaterialTheme.typography.h5
         )
         Text(
             text = if (Play.isLogin && refresh) Play.username else stringResource(R.string.click_login),
-            modifier = Modifier
-                .padding(bottom = 20.dp)
-                .height(24.dp),
-            style = MaterialTheme.typography.body1
+            modifier = Modifier.padding(top = 5.dp),
+            style = MaterialTheme.typography.subtitle1
         )
     }
+
 }
 
 @Composable
-fun ProfileProperty(article: ArticleModel, enterArticle: (ArticleModel) -> Unit) {
+fun ProfileProperty(
+    imageVector: ImageVector,
+    article: ArticleModel,
+    enterArticle: (ArticleModel) -> Unit
+) {
     Column(modifier = Modifier
         .clickable {
             enterArticle(article)
@@ -177,12 +238,18 @@ fun ProfileProperty(article: ArticleModel, enterArticle: (ArticleModel) -> Unit)
     ) {
         Divider()
         Row(
-            modifier = Modifier.fillMaxWidth().height(55.dp).padding(16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(55.dp)
+                .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
+            Icon(imageVector = imageVector, contentDescription = "")
             Text(
                 text = article.title,
-                modifier = Modifier.weight(1f),
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 5.dp),
                 style = MaterialTheme.typography.subtitle2
             )
             Icon(
