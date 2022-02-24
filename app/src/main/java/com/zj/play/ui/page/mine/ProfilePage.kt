@@ -105,7 +105,7 @@ private fun BlogItem(
         ProfileProperty(
             imageVector = Icons.Default.Home,
             ArticleModel(
-                title = "我的新书：《Jetpack Compose》",
+                title = stringResource(R.string.my_book),
                 link = "https://zhujiang.blog.csdn.net/article/details/121167705?spm=1001.2014.3001.5502"
             ),
             enterArticle
@@ -141,7 +141,7 @@ private fun BlogItem(
         ProfileProperty(
             imageVector = Icons.Default.Star,
             ArticleModel(
-                title = "王飞",
+                title = stringResource(R.string.wang_fei),
                 link = "https://blog.csdn.net/m0_37667770?type=blog"
             ),
             enterArticle
@@ -150,7 +150,7 @@ private fun BlogItem(
         ProfileProperty(
             imageVector = Icons.Default.Star,
             ArticleModel(
-                title = "任玉刚",
+                title = stringResource(R.string.ren_yu_gang),
                 link = "https://blog.csdn.net/singwhatiwanna/"
             ),
             enterArticle
@@ -159,7 +159,7 @@ private fun BlogItem(
         ProfileProperty(
             imageVector = Icons.Default.Star,
             ArticleModel(
-                title = "张鸿洋",
+                title = stringResource(R.string.zhang_hong_yang),
                 link = "https://blog.csdn.net/lmj623565791"
             ),
             enterArticle
@@ -168,7 +168,7 @@ private fun BlogItem(
         ProfileProperty(
             imageVector = Icons.Default.Star,
             ArticleModel(
-                title = "郭霖",
+                title = stringResource(R.string.guo_lin),
                 link = "https://blog.csdn.net/guolin_blog/"
             ),
             enterArticle

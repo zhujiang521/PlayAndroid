@@ -114,5 +114,14 @@
     <string name="bad_network_view_tip">您的網絡不給力，點擊屏幕可重新加載</string>
     <string name="load_failed_click_to_reload">加載失敗，點擊可重新加載</string>
     <string name="failed_load_data">加載數據失敗</string>
+    <string name="my_book">我的新書：《Jetpack Compose》</string>
+    <string name="wang_fei">王飛</string>
+    <string name="ren_yu_gang">任玉剛</string>
+    <string name="zhang_hong_yang">張鴻洋</string>
+    <string name="guo_lin">郭霖</string>
+    <string name="system">體系</string>
+    <string name="system_article">體系文章</string>
+    <string name="search_content_hint">請輸入搜索內容</string>
+    <string name="article_details">文章詳情</string>
 
 </resources>

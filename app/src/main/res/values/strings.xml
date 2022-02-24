@@ -115,5 +115,14 @@
     <string name="bad_network_view_tip">Your network is not to force, can tap the screen to reload</string>
     <string name="load_failed_click_to_reload">Failed to load, click to reload</string>
     <string name="failed_load_data">Failed to load data</string>
+    <string name="my_book">My new book: Jetpack Compose</string>
+    <string name="wang_fei">Wang Fei</string>
+    <string name="ren_yu_gang">Ren Yu Gang</string>
+    <string name="zhang_hong_yang">Zhang Hong Yang</string>
+    <string name="guo_lin">Guo Lin</string>
+    <string name="system">System</string>
+    <string name="system_article">System Article</string>
+    <string name="search_content_hint">Enter search content</string>
+    <string name="article_details">Article Details</string>
 
 </resources>

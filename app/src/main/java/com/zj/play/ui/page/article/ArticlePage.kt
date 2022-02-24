@@ -14,8 +14,8 @@ import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.content.ContextCompat.startActivity
 import com.google.accompanist.web.WebView
 import com.google.accompanist.web.rememberWebViewState
 import com.zj.play.R
@@ -41,7 +41,7 @@ fun ArticlePage(
     val state = rememberWebViewState(url = url)
     Scaffold(
         topBar = {
-            PlayAppBar(getHtmlText(article?.title ?: "文章详情"), click = {
+            PlayAppBar(getHtmlText(article?.title ?: stringResource(R.string.article_details)), click = {
                 onBack.invoke()
             }, showRight = true, rightImg = Icons.Filled.Share, rightClick = {
                 sharePost(
@@ -113,9 +113,9 @@ private fun sharePost(title: String?, post: String?, context: Context) {
 fun ArticlePagePreview() {
     ArticlePage(
         ArticleModel(
-            title = "标题",
-            superChapterName = "分类",
-            author = "作者"
+            title = "Title",
+            superChapterName = "Chapter",
+            author = "author"
         )
     ) {
         // 回调

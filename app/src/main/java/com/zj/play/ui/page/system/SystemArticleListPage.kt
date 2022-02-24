@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.zj.play.R
 import com.zj.play.logic.model.ArticleModel
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.page.article.list.ArticleListPaging
@@ -27,7 +29,7 @@ fun SystemArticleListPageContent(
     enterArticle: (ArticleModel) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
-        PlayAppBar(name ?: "体系文章", click = {
+        PlayAppBar(name ?: stringResource(R.string.system_article), click = {
             back()
         })
         ArticleListPaging(

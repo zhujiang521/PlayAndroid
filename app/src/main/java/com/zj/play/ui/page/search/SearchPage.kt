@@ -19,6 +19,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -53,7 +54,7 @@ fun SearchPage(actions: PlayActions) {
         },
         searchArticle = {
             if (it.isEmpty()) {
-                showToast("请输入搜索内容")
+                showToast(R.string.search_content_hint)
                 return@SearchPageContent
             }
             viewModel.getSearchArticle(it)
@@ -122,7 +123,7 @@ fun SearchBar(back: () -> Unit, searchArticle: (String) -> Unit) {
             ) {
                 Icon(
                     imageVector = Icons.Rounded.ArrowBack,
-                    contentDescription = "返回"
+                    contentDescription = "Back"
                 )
             }
             Box(
@@ -139,7 +140,7 @@ fun SearchBar(back: () -> Unit, searchArticle: (String) -> Unit) {
             ) {
                 if (value.isEmpty()) {
                     Text(
-                        text = "请输入搜索内容",
+                        text = stringResource(R.string.search_content_hint),
                         fontSize = 16.sp,
                         color = Color.Gray,
                         modifier = Modifier.padding(5.dp)
@@ -184,7 +185,7 @@ fun SearchBar(back: () -> Unit, searchArticle: (String) -> Unit) {
             ) {
                 Icon(
                     imageVector = Icons.Rounded.Search,
-                    contentDescription = "查询"
+                    contentDescription = "Search"
                 )
             }
         }
