@@ -23,6 +23,7 @@ import com.zj.play.logic.utils.getHtmlText
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.page.article.list.ArticleListPaging
 import com.zj.play.ui.view.lce.LcePage
+import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -51,7 +52,7 @@ fun ArticleListPage(
     }
 }
 
-@OptIn(ExperimentalPagerApi::class, kotlinx.coroutines.InternalCoroutinesApi::class)
+@OptIn(ExperimentalPagerApi::class, InternalCoroutinesApi::class)
 @Composable
 fun ArticleListPageContent(
     modifier: Modifier,
