@@ -55,7 +55,7 @@ object ServiceCreator {
                 // get domain cookie
                 if (domain.isNotEmpty()) {
                     val spDomain: String = DataStoreUtils.readStringData(domain, "")
-                    val cookie: String = if (spDomain.isNotEmpty()) spDomain else ""
+                    val cookie: String = spDomain.ifEmpty { "" }
                     if (cookie.isNotEmpty()) {
                         builder.addHeader(COOKIE_NAME, cookie)
                     }

@@ -70,7 +70,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application),
         }
         bannerJob?.cancel()
         bannerJob = viewModelScope.launch(Dispatchers.IO) {
-            repositoryArticle.getBanner(_bannerState)
+            repositoryArticle.getBanner(_bannerState, getApplication())
         }
     }
 

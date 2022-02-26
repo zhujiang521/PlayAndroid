@@ -30,7 +30,7 @@ fun ErrorContent(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(color = MaterialTheme.colors.onSecondary),
+            .background(color = MaterialTheme.colors.primary),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

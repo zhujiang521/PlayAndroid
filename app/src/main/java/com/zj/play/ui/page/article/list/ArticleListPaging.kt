@@ -27,10 +27,8 @@ fun ArticleListPaging(
 ) {
     LazyColumn(modifier = modifier) {
         items(
-            items = lazyPagingItems,
-            key = {
-                it.id
-            }) { article ->
+            items = lazyPagingItems
+        ) { article ->
             ArticleItem(article) { urlArgs ->
                 enterArticle(urlArgs)
             }

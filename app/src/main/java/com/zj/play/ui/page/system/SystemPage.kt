@@ -77,35 +77,7 @@ fun SystemPageContent(
                     modifier = Modifier.weight(1f)
                 ) {
                     items(it) { systemModel ->
-                        val modifiers = Modifier
-                            .fillMaxWidth()
-                            .height(45.dp)
-                            .padding(bottom = 5.dp)
-                            .shadow(1.dp, shape = Shapes.small)
-                            .background(
-                                if (systemState.id == systemModel.id) {
-                                    Color.Gray
-                                } else MaterialTheme.colors.background
-                            )
-                            .clickable {
-                                saveSystemState(systemModel)
-                            }
-
-                        Column(
-                            verticalArrangement = Arrangement.Center,
-                            modifier = modifiers
-                        ) {
-                            Text(
-                                text = systemModel.name,
-                                fontSize = 15.sp,
-                                modifier = Modifier.fillMaxWidth(),
-                                textAlign = TextAlign.Center
-                            )
-                        }
-
-                        if (systemState.id == 0) {
-                            saveSystemState(systemModel)
-                        }
+                        SystemItem(systemState, systemModel, saveSystemState)
                     }
                 }
                 LazyVerticalGrid(
@@ -121,6 +93,43 @@ fun SystemPageContent(
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun SystemItem(
+    systemState: AndroidSystemModel,
+    systemModel: AndroidSystemModel,
+    saveSystemState: (AndroidSystemModel) -> Unit
+) {
+    val modifiers = Modifier
+        .fillMaxWidth()
+        .height(45.dp)
+        .padding(bottom = 5.dp)
+        .shadow(1.dp, shape = Shapes.small)
+        .background(
+            if (systemState.id == systemModel.id) {
+                Color.Gray
+            } else MaterialTheme.colors.background
+        )
+        .clickable {
+            saveSystemState(systemModel)
+        }
+
+    Column(
+        verticalArrangement = Arrangement.Center,
+        modifier = modifiers
+    ) {
+        Text(
+            text = systemModel.name,
+            fontSize = 15.sp,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center
+        )
+    }
+
+    if (systemState.id == 0) {
+        saveSystemState(systemModel)
     }
 }
 

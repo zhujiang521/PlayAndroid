@@ -40,7 +40,7 @@ class SystemViewModel(application: Application) : BaseArticleViewModel(applicati
         }
         job?.cancel()
         job = viewModelScope.launch(Dispatchers.IO) {
-            SystemRepository().getAndroidSystem(mutableLiveData)
+            SystemRepository().getAndroidSystem(mutableLiveData, getApplication())
         }
     }
 
