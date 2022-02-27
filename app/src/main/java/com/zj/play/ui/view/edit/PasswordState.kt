@@ -13,5 +13,8 @@ private fun isPasswordValid(password: String): Boolean {
 
 @Suppress("UNUSED_PARAMETER")
 private fun passwordValidationError(password: String): String {
-    return "error"
+    if (password.isEmpty()){
+        return "error: please enter password"
+    }
+    return "error:wrong password format"
 }

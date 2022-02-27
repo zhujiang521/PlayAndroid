@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 
 open class TextFieldState(
     private val validator: (String) -> Boolean = { true },
-    private val errorFor: (String) -> String = { "" }
+    private val errorFor: (String) -> String = { "请输入账号或密码" }
 ) {
     var text: String by mutableStateOf("")
     var isFocusedDirty: Boolean by mutableStateOf(false)

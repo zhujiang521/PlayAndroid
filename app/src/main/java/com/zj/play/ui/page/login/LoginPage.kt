@@ -90,6 +90,7 @@ fun SignIn(onNavigationEvent: (SignInEvent) -> Unit) {
     val snackBarActionLabel = stringResource(id = R.string.dismiss)
 
     Scaffold(
+        backgroundColor = MaterialTheme.colors.primary,
         topBar = {
             PlayAppBar(
                 title = stringResource(id = R.string.sign_in),

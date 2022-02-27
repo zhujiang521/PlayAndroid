@@ -14,7 +14,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -109,7 +108,7 @@ private fun SystemItem(
         .shadow(1.dp, shape = Shapes.small)
         .background(
             if (systemState.id == systemModel.id) {
-                Color.Gray
+                MaterialTheme.colors.onSecondary
             } else MaterialTheme.colors.background
         )
         .clickable {

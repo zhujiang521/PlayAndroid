@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.ExposedDropdownMenuDefaults.textFieldColors
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -78,6 +79,11 @@ fun Email(
             onDone = {
                 onImeAction()
             }
+        ),
+        colors = textFieldColors(
+            unfocusedLabelColor = MaterialTheme.colors.background,
+            focusedLabelColor = MaterialTheme.colors.background,
+            focusedIndicatorColor = MaterialTheme.colors.onSecondary,
         )
     )
 
@@ -145,6 +151,11 @@ fun Password(
             onDone = {
                 onImeAction()
             }
+        ),
+        colors = textFieldColors(
+            unfocusedLabelColor = MaterialTheme.colors.background,
+            focusedLabelColor = MaterialTheme.colors.background,
+            focusedIndicatorColor = MaterialTheme.colors.onSecondary,
         )
     )
 

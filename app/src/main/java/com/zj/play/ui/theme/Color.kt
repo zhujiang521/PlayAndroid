@@ -2,16 +2,31 @@ package com.zj.play.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val purple200 = Color(0xFFBB86FC)
-val purple500 = Color(0xFF6200EE)
-val purple700 = Color(0xFF3700B3)
-val teal200 = Color(0xFF03DAC5)
-
-val pink100 = Color(0xFF85B4FC)
-val pink900 = Color(0xFF3f2c2c)
-val gray = Color(0xFF232323)
 val white = Color.White
-val whit850 = Color.White.copy(alpha = .85f)
-val whit150 = Color.White.copy(alpha = .15f)
-val green900 = Color(0xFF2d3b2d)
-val green300 = Color(0xFFb8c9b8)
+
+// Light 主题颜色
+val pageLight = Color(0xFFf6f6f6)
+
+val primaryLight = Color(0xFF85B4FC)
+val primaryVariantLight = Color(0xFF3700B3)
+val secondaryLight = Color(0xFF3f2c2c)
+val backgroundLight = pageLight
+val surfaceLight = pageLight
+val onPrimaryLight = Color(0xFF232323)
+val onSecondaryLight = Color(0xFFD8D7D7)
+val onBackgroundLight = Color(0xFF232325)
+val onSurfaceLight = Color(0xFF232323)
+
+
+// Dark 主题颜色
+val pageDark = Color(0xFF000000)
+
+val primaryDark = pageDark
+val primaryVariantDark = Color(0xFF3700B3)
+val secondaryDark = Color(0xFFE0E0F0)
+val backgroundDark = Color(0xFF1B1B1B)
+val surfaceDark =  Color(0xFF232323)
+val onPrimaryDark = white
+val onSecondaryDark = Color(0xFF3A3A3A)
+val onBackgroundDark = white
+val onSurfaceDark = white
