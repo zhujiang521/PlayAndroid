@@ -213,7 +213,7 @@ private fun NameAndPosition(modifier: Modifier = Modifier, refresh: Boolean, toL
 
         Text(
             text = if (Play.isLogin && refresh) Play.nickName else stringResource(R.string.no_login),
-            modifier = Modifier,
+            modifier = Modifier.padding(top = 5.dp),
             style = MaterialTheme.typography.h5
         )
         Text(
