@@ -11,6 +11,8 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -29,6 +31,7 @@ import com.zj.play.ui.page.login.LogoutDefault
 import com.zj.play.ui.page.login.LogoutFinish
 import com.zj.play.ui.page.login.LogoutState
 import com.zj.play.ui.view.PlayAppBar
+import com.zj.play.ui.view.ShowDialog
 
 @Composable
 fun ProfilePage(modifier: Modifier, isLand: Boolean, actions: PlayActions) {
@@ -175,8 +178,19 @@ private fun BlogItem(
         )
 
         if (Play.isLogin) {
+            val alertDialog = remember { mutableStateOf(false) }
+
+            ShowDialog(
+                alertDialog = alertDialog,
+                title = stringResource(id = R.string.log_out),
+                content = stringResource(id = R.string.sure_log_out),
+                cancelString = stringResource(id = R.string.cancel),
+                confirmString = stringResource(id = R.string.sure)
+            ) {
+                logout()
+            }
             Button(
-                onClick = { logout() },
+                onClick = { alertDialog.value = true },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(24.dp),
