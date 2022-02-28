@@ -1,8 +1,8 @@
 package com.zj.play.ui.page.official
 
 import android.app.Application
-import com.zj.play.logic.base.repository.BaseArticlePagingRepository
-import com.zj.play.logic.base.viewmodel.BaseAndroidViewModel
+import com.zj.play.logic.repository.BaseArticlePagingRepository
+import com.zj.play.logic.viewmodel.BaseAndroidViewModel
 
 /**
  * 版权：Zhujiang 个人版权

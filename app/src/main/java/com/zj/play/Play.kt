@@ -1,6 +1,6 @@
 package com.zj.play
 
-import com.zj.play.logic.utils.DataStoreUtils
+import com.zj.utils.DataStoreUtils
 
 /**
  * 全局的API接口。

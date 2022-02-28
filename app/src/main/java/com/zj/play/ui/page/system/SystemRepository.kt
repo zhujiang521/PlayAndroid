@@ -6,12 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.zj.play.R
-import com.zj.play.logic.base.paging.SystemPagingSource
-import com.zj.play.logic.base.repository.BaseArticlePagingRepository
-import com.zj.play.logic.model.*
-import com.zj.play.logic.network.PlayAndroidNetwork
-import com.zj.play.logic.utils.NetworkUtils
-import com.zj.play.logic.utils.showToast
+import com.zj.play.logic.paging.SystemPagingSource
+import com.zj.play.logic.repository.BaseArticlePagingRepository
+import com.zj.model.*
+import com.zj.network.PlayAndroidNetwork
+import com.zj.utils.NetworkUtils
+import com.zj.utils.showToast
 
 class SystemRepository : BaseArticlePagingRepository() {
 
@@ -29,7 +29,7 @@ class SystemRepository : BaseArticlePagingRepository() {
         context: Context
     ) {
         if (!NetworkUtils.isConnected(context)) {
-            showToast(R.string.no_network)
+            showToast(context, R.string.no_network)
             state.postValue(PlayError(NetworkErrorException()))
             return
         }

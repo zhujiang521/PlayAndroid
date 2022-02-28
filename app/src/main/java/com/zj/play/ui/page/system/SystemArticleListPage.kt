@@ -8,7 +8,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.zj.play.R
-import com.zj.play.logic.model.ArticleModel
+import com.zj.model.ArticleModel
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.page.article.list.ArticleListPaging
 import com.zj.play.ui.view.PlayAppBar

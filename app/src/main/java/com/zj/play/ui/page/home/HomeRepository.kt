@@ -1,18 +1,17 @@
 package com.zj.play.ui.page.home
 
 import android.accounts.NetworkErrorException
-import android.app.Application
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import com.zj.model.*
+import com.zj.network.PlayAndroidNetwork
 import com.zj.play.App
 import com.zj.play.R
-import com.zj.play.logic.base.paging.HomePagingSource
-import com.zj.play.logic.base.repository.BaseArticlePagingRepository
-import com.zj.play.logic.model.*
-import com.zj.play.logic.network.PlayAndroidNetwork
-import com.zj.play.logic.utils.NetworkUtils
+import com.zj.play.logic.paging.HomePagingSource
+import com.zj.play.logic.repository.BaseArticlePagingRepository
+import com.zj.utils.NetworkUtils
 
 
 /**

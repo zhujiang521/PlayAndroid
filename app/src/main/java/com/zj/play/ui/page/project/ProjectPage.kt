@@ -17,12 +17,12 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
 import com.google.accompanist.pager.rememberPagerState
-import com.zj.play.logic.base.viewmodel.BaseAndroidViewModel
-import com.zj.play.logic.model.*
-import com.zj.play.logic.utils.getHtmlText
+import com.zj.play.logic.viewmodel.BaseAndroidViewModel
+import com.zj.model.*
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.page.article.list.ArticleListPaging
 import com.zj.play.ui.view.lce.LcePage
+import com.zj.utils.getHtmlText
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

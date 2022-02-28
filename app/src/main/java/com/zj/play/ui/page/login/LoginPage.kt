@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.zj.play.R
-import com.zj.play.logic.model.*
+import com.zj.model.*
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.view.PlayAppBar
 import com.zj.play.ui.view.edit.*

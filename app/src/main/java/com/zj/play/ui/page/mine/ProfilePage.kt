@@ -24,7 +24,7 @@ import coil.annotation.ExperimentalCoilApi
 import com.zj.banner.utils.ImageLoader
 import com.zj.play.Play
 import com.zj.play.R
-import com.zj.play.logic.model.ArticleModel
+import com.zj.model.ArticleModel
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.page.login.LoginViewModel
 import com.zj.play.ui.page.login.LogoutDefault

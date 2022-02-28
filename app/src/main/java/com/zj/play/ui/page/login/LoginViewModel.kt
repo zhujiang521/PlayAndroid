@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zj.play.Play
 import com.zj.play.R
-import com.zj.play.logic.model.*
-import com.zj.play.logic.utils.showToast
+import com.zj.model.*
+import com.zj.utils.showToast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -49,13 +49,14 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 Play.setUserInfo(login.nickname, login.username)
                 withContext(Dispatchers.Main) {
                     showToast(
+                        getApplication(),
                         if (account.isLogin) getApplication<Application>().getString(R.string.login_success) else getApplication<Application>().getString(
                             R.string.register_success
                         )
                     )
                 }
             } else {
-                showToast(loginModel.errorMsg)
+                showToast(getApplication(), loginModel.errorMsg)
                 _state.postValue(PlayError(NullPointerException("网络错误")))
             }
         }

@@ -28,7 +28,7 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.gson.Gson
-import com.zj.play.logic.model.ArticleModel
+import com.zj.model.ArticleModel
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.main.nav.PlayDestinations
 import com.zj.play.ui.main.nav.PlayDestinations.ARTICLE_ROUTE_URL

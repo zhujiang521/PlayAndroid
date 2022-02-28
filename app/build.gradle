@@ -54,8 +54,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.4.0'
 
-    // Compose Banner滚动
-    implementation 'com.github.zhujiang521:Banner:2.0.2'
     // Compose依赖库
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
@@ -65,19 +63,14 @@ dependencies {
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
     // navigation
     implementation "androidx.navigation:navigation-compose:2.4.0"
+    implementation project(path: ':network')
 
     def accompanist_version = '0.24.3-alpha'
     implementation "com.google.accompanist:accompanist-navigation-animation:$accompanist_version"
     implementation "com.google.accompanist:accompanist-webview:$accompanist_version"
 
-    // 网络请求
-    def retrofit_version = "2.9.0"
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     // Paging 分页加载
     implementation 'androidx.paging:paging-compose:1.0.0-alpha14'
-    // DataStore
-    implementation "androidx.datastore:datastore-preferences:1.0.0"
     // lottie动画
     def lottieVersion = '5.0.1'
     implementation "com.airbnb.android:lottie-compose:$lottieVersion"

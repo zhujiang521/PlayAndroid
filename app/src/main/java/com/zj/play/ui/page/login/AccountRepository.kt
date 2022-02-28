@@ -1,6 +1,6 @@
 package com.zj.play.ui.page.login
 
-import com.zj.play.logic.network.PlayAndroidNetwork
+import com.zj.network.PlayAndroidNetwork
 
 /**
  * 版权：Zhujiang 个人版权

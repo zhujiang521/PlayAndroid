@@ -17,9 +17,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import com.zj.banner.utils.ImageLoader
+import com.zj.model.ArticleModel
 import com.zj.play.R
-import com.zj.play.logic.model.ArticleModel
-import com.zj.play.logic.utils.getHtmlText
+import com.zj.utils.getHtmlText
 
 @Composable
 fun ArticleItem(

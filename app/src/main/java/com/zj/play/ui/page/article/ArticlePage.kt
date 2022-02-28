@@ -18,10 +18,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.web.WebView
 import com.google.accompanist.web.rememberWebViewState
+import com.zj.model.ArticleModel
 import com.zj.play.R
-import com.zj.play.logic.model.ArticleModel
-import com.zj.play.logic.utils.getHtmlText
 import com.zj.play.ui.view.PlayAppBar
+import com.zj.utils.getHtmlText
 
 
 /**

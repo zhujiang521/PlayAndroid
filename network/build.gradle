@@ -1,0 +1,54 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    signingConfigs {
+        play {
+            storeFile file(sign.file)
+            storePassword sign.storePassword
+            keyAlias sign.keyAlias
+            keyPassword sign.keyPassword
+        }
+    }
+    compileSdkVersion cfgs.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion cfgs.minSdkVersion
+        targetSdkVersion cfgs.targetSdkVersion
+
+        testInstrumentationRunner cfgs.testInstrumentationRunner
+        consumerProguardFiles cfgs.consumerProguardFiles
+        signingConfig signingConfigs.play
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation des.coreKtx
+    implementation des.appcompat
+    api project(path: ':model')
+    api project(path: ':utils')
+    // 网络请求
+    def retrofit_version = "2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    api "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    testImplementation des.junit
+    androidTestImplementation des.extJunit
+    androidTestImplementation des.espressoCore
+}

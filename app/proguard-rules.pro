@@ -21,7 +21,7 @@
 #-renamesourcefileattribute SourceFile
 
 # Gson
--keep class com.zj.play.logic.model**{*;} # 自定义数据模型的bean目录
+-keep class com.zj.model**{*;} # 自定义数据模型的bean目录
 -keep class com.google.gson.stream.** { *; }
 -keepattributes EnclosingMethod
 

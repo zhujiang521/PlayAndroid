@@ -2,8 +2,8 @@ package com.zj.play.ui.main.nav
 
 import androidx.navigation.NavHostController
 import com.google.gson.Gson
-import com.zj.play.logic.model.ArticleModel
-import com.zj.play.logic.utils.getHtmlText
+import com.zj.model.ArticleModel
+import com.zj.utils.getHtmlText
 import java.net.URLEncoder
 
 /**

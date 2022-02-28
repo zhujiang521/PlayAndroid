@@ -18,6 +18,8 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
+import com.zj.utils.showToast
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,8 +31,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.insets.statusBarsHeight
 import com.zj.play.R
-import com.zj.play.logic.model.*
-import com.zj.play.logic.utils.showToast
+import com.zj.model.*
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.page.article.list.ArticleListPaging
 import com.zj.play.ui.view.lce.LcePage
@@ -41,6 +42,7 @@ fun SearchPage(actions: PlayActions) {
     val viewModel = hiltViewModel<SearchViewModel>()
     val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
     val hotkeyModels by viewModel.hotkeyState.observeAsState(PlayLoading)
+    val context = LocalContext .current
     SearchPageContent(back = actions.upPress,
         lazyPagingItems = lazyPagingItems,
         hotkeyModels = hotkeyModels,
@@ -54,7 +56,7 @@ fun SearchPage(actions: PlayActions) {
         },
         searchArticle = {
             if (it.isEmpty()) {
-                showToast(R.string.search_content_hint)
+                showToast(context,R.string.search_content_hint)
                 return@SearchPageContent
             }
             viewModel.getSearchArticle(it)

@@ -20,16 +20,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
 import com.zj.banner.utils.ImageLoader
+import com.zj.model.AndroidSystemModel
+import com.zj.model.PlayLoading
+import com.zj.model.PlayState
+import com.zj.model.SystemChildren
 import com.zj.play.R
-import com.zj.play.logic.model.AndroidSystemModel
-import com.zj.play.logic.model.PlayLoading
-import com.zj.play.logic.model.PlayState
-import com.zj.play.logic.model.SystemChildren
-import com.zj.play.logic.utils.XLog
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.theme.Shapes
 import com.zj.play.ui.view.PlayAppBar
 import com.zj.play.ui.view.lce.LcePage
+import com.zj.utils.XLog
 
 @Composable
 fun SystemPage(modifier: Modifier, actions: PlayActions, viewModel: SystemViewModel) {

@@ -4,11 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.google.accompanist.insets.ProvideWindowInsets
-import com.zj.play.logic.utils.cancelToast
-import com.zj.play.logic.utils.setAndroidNativeLightStatusBar
-import com.zj.play.logic.utils.transparentStatusBar
 import com.zj.play.ui.main.NavGraph
 import com.zj.play.ui.theme.PlayAndroidTheme
+import com.zj.utils.cancelToast
+import com.zj.utils.setAndroidNativeLightStatusBar
+import com.zj.utils.transparentStatusBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

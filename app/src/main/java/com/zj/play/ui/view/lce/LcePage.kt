@@ -1,7 +1,7 @@
 package com.zj.play.ui.view.lce
 
 import androidx.compose.runtime.Composable
-import com.zj.play.logic.model.*
+import com.zj.model.*
 
 
 @Composable

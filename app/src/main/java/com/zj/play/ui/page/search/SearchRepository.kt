@@ -1,14 +1,12 @@
 package com.zj.play.ui.page.search
 
-import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import com.zj.play.logic.base.paging.SearchPagingSource
-import com.zj.play.logic.base.repository.BaseArticlePagingRepository
-import com.zj.play.logic.model.*
-import com.zj.play.logic.network.PlayAndroidNetwork
+import com.zj.model.*
+import com.zj.network.PlayAndroidNetwork
+import com.zj.play.logic.paging.SearchPagingSource
+import com.zj.play.logic.repository.BaseArticlePagingRepository
 
 /**
  * 版权：Zhujiang 个人版权

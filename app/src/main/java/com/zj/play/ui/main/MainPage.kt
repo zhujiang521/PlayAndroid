@@ -13,7 +13,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.zj.play.logic.utils.XLog
 import com.zj.play.ui.main.nav.CourseTabs
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.page.home.HomePage
@@ -23,6 +22,7 @@ import com.zj.play.ui.page.project.ArticleListPage
 import com.zj.play.ui.page.project.ProjectAndroidViewModel
 import com.zj.play.ui.page.system.SystemPage
 import com.zj.play.ui.page.system.SystemViewModel
+import com.zj.utils.XLog
 import java.util.*
 
 @Composable

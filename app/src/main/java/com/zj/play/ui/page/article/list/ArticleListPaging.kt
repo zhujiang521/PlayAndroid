@@ -11,10 +11,10 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
-import com.zj.play.logic.model.ArticleModel
-import com.zj.play.logic.utils.showToast
+import com.zj.model.ArticleModel
 import com.zj.play.ui.view.lce.ErrorContent
 import com.zj.play.ui.view.lce.LoadingContent
+import com.zj.utils.XLog
 
 @Composable
 fun ArticleListPaging(
@@ -40,7 +40,7 @@ fun ArticleListPaging(
             }
             loadStates.refresh is LoadState.Error -> {
                 val e = lazyPagingItems.loadState.refresh as LoadState.Error
-                showToast(e.error.localizedMessage ?: "")
+                XLog.e("loadStates one:${e}")
                 item {
                     ErrorContent(modifier = Modifier.fillParentMaxSize()) {
                         lazyPagingItems.retry()
@@ -49,7 +49,7 @@ fun ArticleListPaging(
             }
             loadStates.append is LoadState.Error -> {
                 val e = lazyPagingItems.loadState.append as LoadState.Error
-                showToast(e.error.localizedMessage ?: "")
+                XLog.e("loadStates two:${e}")
                 item {
                     Row(
                         modifier = Modifier

@@ -1,15 +1,14 @@
 package com.zj.play.ui.page.project
 
 import android.app.Application
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import com.zj.play.logic.base.paging.ProjectPagingSource
-import com.zj.play.logic.base.repository.BaseArticleRepository
-import com.zj.play.logic.model.BaseModel
-import com.zj.play.logic.model.ClassifyModel
-import com.zj.play.logic.model.Query
-import com.zj.play.logic.network.PlayAndroidNetwork
+import com.zj.model.BaseModel
+import com.zj.model.ClassifyModel
+import com.zj.model.Query
+import com.zj.network.PlayAndroidNetwork
+import com.zj.play.logic.paging.ProjectPagingSource
+import com.zj.play.logic.repository.BaseArticleRepository
 
 /**
  * 版权：Zhujiang 个人版权

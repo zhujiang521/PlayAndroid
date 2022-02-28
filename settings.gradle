@@ -8,3 +8,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "PlayAndroid"
 include ':app'
+include ':model'
+include ':network'
+include ':utils'

@@ -3,7 +3,7 @@ package com.zj.play
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import com.zj.play.logic.utils.DataStoreUtils
+import com.zj.utils.DataStoreUtils
 import dagger.hilt.android.HiltAndroidApp
 
 
