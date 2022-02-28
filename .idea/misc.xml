@@ -65,8 +65,22 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2604166666666667" />
         <entry key="app/src/main/res/drawable/almanac_share_button.xml" value="0.2851851851851852" />
         <entry key="app/src/main/res/drawable/article_list_bg.xml" value="0.2604166666666667" />
+        <entry key="app/src/main/res/drawable/bad_loading.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/bad_network_image.xml" value="0.1935" />
         <entry key="app/src/main/res/drawable/bottom_item.xml" value="0.2604166666666667" />
+        <entry key="app/src/main/res/drawable/color_progressbar.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_baseline_bookmark_24.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_baseline_bookmark_border_24.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_baseline_visibility_24.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_baseline_visibility_off_24.xml" value="0.1935" />
         <entry key="app/src/main/res/drawable/ic_grain.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_text_settings.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/img_to_top_nomal.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/load_four.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/loading_animation.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/no_content_image.xml" value="0.1935" />
         <entry key="app/src/main/res/drawable/profile_list_bg.xml" value="0.2712962962962963" />
         <entry key="app/src/main/res/drawable/selector_four.xml" value="0.275" />
         <entry key="app/src/main/res/drawable/selector_one.xml" value="0.1" />
