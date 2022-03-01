@@ -21,11 +21,15 @@ android {
         testInstrumentationRunner cfgs.testInstrumentationRunner
         consumerProguardFiles cfgs.consumerProguardFiles
         signingConfig signingConfigs.play
+
+        // 去除多语言
+        resConfigs "zh", "zh-rCN", "zh-rHK", "zh-rTW"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            // 开启混淆
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
