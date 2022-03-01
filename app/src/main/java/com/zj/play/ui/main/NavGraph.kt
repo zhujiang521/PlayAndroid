@@ -51,16 +51,16 @@ fun NavGraph(
         navController = navController,
         startDestination = startDestination
     ) {
-        setComposable(PlayDestinations.HOME_PAGE_ROUTE) {
+        composableHorizontal(PlayDestinations.HOME_PAGE_ROUTE) {
             MainPage(actions)
         }
-        setComposable(PlayDestinations.SEARCH_PAGE_ROUTE) {
+        composableVertical(PlayDestinations.SEARCH_PAGE_ROUTE) {
             SearchPage(actions)
         }
-        setComposable(PlayDestinations.LOGIN_ROUTE) {
+        composableHorizontal(PlayDestinations.LOGIN_ROUTE) {
             LoginPage(actions)
         }
-        setComposable(
+        composableHorizontal(
             "${PlayDestinations.SYSTEM_ARTICLE_LIST_ROUTE}/{$SYSTEM_ARTICLE_LIST_ROUTE_CID}/{$SYSTEM_ARTICLE_LIST_ROUTE_NAME}",
             arguments = listOf(navArgument(SYSTEM_ARTICLE_LIST_ROUTE_CID) {
                 type = NavType.IntType
@@ -75,7 +75,7 @@ fun NavGraph(
             viewModel.getSystemArticle(cid)
             SystemArticleListPage(name, viewModel, actions)
         }
-        setComposable(
+        composableHorizontal(
             "${PlayDestinations.ARTICLE_ROUTE}/{$ARTICLE_ROUTE_URL}",
             arguments = listOf(navArgument(ARTICLE_ROUTE_URL) {
                 type = NavType.StringType
@@ -93,13 +93,13 @@ fun NavGraph(
 }
 
 @ExperimentalAnimationApi
-fun NavGraphBuilder.setComposable(
+fun NavGraphBuilder.composableHorizontal(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
     content: @Composable AnimatedVisibilityScope.(NavBackStackEntry) -> Unit
 ) {
-    composable(
+    this@composableHorizontal.composable(
         route = route,
         arguments = arguments,
         deepLinks = deepLinks,
@@ -110,13 +110,6 @@ fun NavGraphBuilder.setComposable(
                 animationSpec = tween(300)
             )
         },
-//        exitTransition = { _, _ ->
-//            // Let's make for a really long fade in
-//            slideOutOfContainer(
-//                AnimatedContentScope.SlideDirection.Left,
-//                animationSpec = tween(300)
-//            )
-//        },
         content = content,
         popEnterTransition = {
             slideIntoContainer(
@@ -124,11 +117,27 @@ fun NavGraphBuilder.setComposable(
                 animationSpec = tween(300)
             )
         },
-//        popExitTransition = { _, _ ->
-//            slideOutOfContainer(
-//                AnimatedContentScope.SlideDirection.Right,
-//                animationSpec = tween(300)
-//            )
-//        }
+    )
+}
+
+@ExperimentalAnimationApi
+fun NavGraphBuilder.composableVertical(
+    route: String,
+    arguments: List<NamedNavArgument> = emptyList(),
+    deepLinks: List<NavDeepLink> = emptyList(),
+    content: @Composable AnimatedVisibilityScope.(NavBackStackEntry) -> Unit
+) {
+    this@composableVertical.composable(
+        route = route,
+        arguments = arguments,
+        deepLinks = deepLinks,
+        enterTransition = {
+            // Let's make for a really long fade in
+            slideIntoContainer(
+                AnimatedContentScope.SlideDirection.Up,
+                animationSpec = tween(300)
+            )
+        },
+        content = content,
     )
 }

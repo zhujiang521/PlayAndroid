@@ -69,7 +69,9 @@ fun SearchPageContent(
         loadArticleState = true
         loadHotkey()
     }
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .background(color = MaterialTheme.colors.primary)) {
         SearchBar(back, searchArticle)
         if (lazyPagingItems.itemCount > 0) {
             ArticleListPaging(

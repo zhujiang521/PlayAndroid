@@ -1,7 +1,9 @@
 package com.zj.play.ui.page.system
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -28,7 +30,11 @@ fun SystemArticleListPageContent(
     lazyPagingItems: LazyPagingItems<ArticleModel>,
     enterArticle: (ArticleModel) -> Unit,
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = MaterialTheme.colors.primary)
+    ) {
         PlayAppBar(name ?: stringResource(R.string.system_article), click = {
             back()
         })
