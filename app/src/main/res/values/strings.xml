@@ -124,5 +124,6 @@
     <string name="system_article">System Article</string>
     <string name="search_content_hint">Enter search content</string>
     <string name="article_details">Article Details</string>
+    <string name="theme_change">Theme change</string>
 
 </resources>

@@ -27,6 +27,10 @@ class PlayActions(navController: NavHostController) {
         navController.navigate(PlayDestinations.LOGIN_ROUTE)
     }
 
+    val toTheme: () -> Unit = {
+        navController.navigate(PlayDestinations.THEME_ROUTE)
+    }
+
     val toSearch: () -> Unit = {
         navController.navigate(PlayDestinations.SEARCH_PAGE_ROUTE)
     }

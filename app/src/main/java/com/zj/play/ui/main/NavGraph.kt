@@ -36,6 +36,7 @@ import com.zj.play.ui.main.nav.PlayDestinations.SYSTEM_ARTICLE_LIST_ROUTE_CID
 import com.zj.play.ui.main.nav.PlayDestinations.SYSTEM_ARTICLE_LIST_ROUTE_NAME
 import com.zj.play.ui.page.article.ArticlePage
 import com.zj.play.ui.page.login.LoginPage
+import com.zj.play.ui.page.mine.ThemePage
 import com.zj.play.ui.page.search.SearchPage
 import com.zj.play.ui.page.system.SystemArticleListPage
 import com.zj.play.ui.page.system.SystemViewModel
@@ -59,6 +60,9 @@ fun NavGraph(
         }
         composableHorizontal(PlayDestinations.LOGIN_ROUTE) {
             LoginPage(actions)
+        }
+        composableHorizontal(PlayDestinations.THEME_ROUTE) {
+            ThemePage(actions)
         }
         composableHorizontal(
             "${PlayDestinations.SYSTEM_ARTICLE_LIST_ROUTE}/{$SYSTEM_ARTICLE_LIST_ROUTE_CID}/{$SYSTEM_ARTICLE_LIST_ROUTE_NAME}",

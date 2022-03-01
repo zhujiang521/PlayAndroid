@@ -39,7 +39,7 @@ import com.zj.play.ui.view.ShowDialog
 fun ProfilePage(modifier: Modifier, isLand: Boolean, actions: PlayActions) {
     val viewModel: LoginViewModel = hiltViewModel()
     val logoutState by viewModel.logoutState.observeAsState(LogoutDefault)
-    ProfilePageContent(modifier, isLand, actions.toLogin, logoutState, {
+    ProfilePageContent(modifier, isLand, actions.toLogin, actions.toTheme, logoutState, {
         viewModel.logout()
     }) {
         actions.enterArticle(it)
@@ -51,6 +51,7 @@ private fun ProfilePageContent(
     modifier: Modifier,
     isLand: Boolean,
     toLogin: () -> Unit,
+    toTheme: () -> Unit,
     logoutState: LogoutState,
     logout: () -> Unit,
     enterArticle: (ArticleModel) -> Unit
@@ -71,11 +72,11 @@ private fun ProfilePageContent(
             ) {
                 val headModifier = Modifier.weight(1f)
                 HeadItem(headModifier, logoutState, toLogin)
-                BlogItem(headModifier, enterArticle, logout)
+                BlogItem(headModifier, enterArticle, logout, toTheme)
             }
         } else {
             HeadItem(Modifier, logoutState, toLogin)
-            BlogItem(Modifier, enterArticle, logout)
+            BlogItem(Modifier, enterArticle, logout, toTheme)
         }
     }
 }
@@ -100,13 +101,17 @@ private fun HeadItem(
 private fun BlogItem(
     modifier: Modifier = Modifier,
     enterArticle: (ArticleModel) -> Unit,
-    logout: () -> Unit
+    logout: () -> Unit,
+    toTheme: () -> Unit
 ) {
     Column(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
+        ProfilePropertyItem(Icons.Default.Favorite, stringResource(id = R.string.theme_change)) {
+            toTheme()
+        }
         ProfileProperty(
             imageVector = Icons.Default.Home,
             ArticleModel(
@@ -252,9 +257,20 @@ fun ProfileProperty(
     article: ArticleModel,
     enterArticle: (ArticleModel) -> Unit
 ) {
+    ProfilePropertyItem(imageVector, article.title) {
+        enterArticle(article)
+    }
+}
+
+@Composable
+fun ProfilePropertyItem(
+    imageVector: ImageVector,
+    title: String,
+    onClick: () -> Unit
+) {
     Column(modifier = Modifier
         .clickable {
-            enterArticle(article)
+            onClick()
         }
     ) {
         Divider()
@@ -267,7 +283,7 @@ fun ProfileProperty(
         ) {
             Icon(imageVector = imageVector, contentDescription = "")
             Text(
-                text = article.title,
+                text = title,
                 modifier = Modifier
                     .weight(1f)
                     .padding(start = 5.dp),
@@ -281,3 +297,4 @@ fun ProfileProperty(
         }
     }
 }
+

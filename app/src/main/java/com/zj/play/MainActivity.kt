@@ -1,15 +1,23 @@
 package com.zj.play
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.zj.play.ui.main.NavGraph
 import com.zj.play.ui.theme.PlayAndroidTheme
-import com.zj.utils.cancelToast
-import com.zj.utils.setAndroidNativeLightStatusBar
-import com.zj.utils.transparentStatusBar
+import com.zj.play.ui.theme.SKY_BLUE_THEME
+import com.zj.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+
+const val CHANGED_THEME_ACTION = "com.zj.play.CHANGED_THEME"
+const val CHANGED_THEME = "default"
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -19,7 +27,32 @@ class MainActivity : ComponentActivity() {
         transparentStatusBar()
         setAndroidNativeLightStatusBar()
         setContent {
-            PlayAndroidTheme {
+            val context = LocalContext.current
+
+            // Safely use the latest onSystemEvent lambda passed to the function
+            var playTheme by remember { mutableStateOf(SKY_BLUE_THEME) }
+            LaunchedEffect(Unit) {
+                playTheme = DataStoreUtils.getSyncData(CHANGED_THEME, SKY_BLUE_THEME)
+            }
+            // If either context or systemAction changes, unregister and register again
+            DisposableEffect(context) {
+                val intentFilter = IntentFilter(CHANGED_THEME_ACTION)
+                val broadcast = object : BroadcastReceiver() {
+                    override fun onReceive(context: Context, intent: Intent) {
+                        playTheme = intent.getIntExtra(CHANGED_THEME, SKY_BLUE_THEME)
+                        XLog.e("theme:$playTheme")
+                        DataStoreUtils.putSyncData(CHANGED_THEME, playTheme)
+                    }
+                }
+
+                context.registerReceiver(broadcast, intentFilter)
+
+                // When the effect leaves the Composition, remove the callback
+                onDispose {
+                    context.unregisterReceiver(broadcast)
+                }
+            }
+            PlayAndroidTheme(playTheme) {
                 ProvideWindowInsets {
                     NavGraph()
                 }

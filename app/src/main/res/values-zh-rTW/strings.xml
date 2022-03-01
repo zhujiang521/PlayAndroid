@@ -123,5 +123,6 @@
     <string name="system_article">體系文章</string>
     <string name="search_content_hint">請輸入搜索內容</string>
     <string name="article_details">文章詳情</string>
+    <string name="theme_change">主题更换</string>
 
 </resources>
