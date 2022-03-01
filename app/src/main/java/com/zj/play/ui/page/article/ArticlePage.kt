@@ -20,7 +20,7 @@ import com.google.accompanist.web.WebView
 import com.google.accompanist.web.rememberWebViewState
 import com.zj.model.ArticleModel
 import com.zj.play.R
-import com.zj.play.ui.view.PlayAppBar
+import com.zj.play.ui.view.bar.PlayAppBar
 import com.zj.utils.getHtmlText
 
 

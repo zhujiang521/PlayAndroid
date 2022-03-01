@@ -19,7 +19,7 @@ import com.zj.model.*
 import com.zj.play.ui.main.HomeViewModel
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.page.article.list.ArticleListPaging
-import com.zj.play.ui.view.PlayAppBar
+import com.zj.play.ui.view.bar.PlayAppBar
 import com.zj.play.ui.view.lce.LcePage
 
 @Composable

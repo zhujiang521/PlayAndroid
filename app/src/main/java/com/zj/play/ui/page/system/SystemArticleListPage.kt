@@ -11,7 +11,7 @@ import com.zj.play.R
 import com.zj.model.ArticleModel
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.page.article.list.ArticleListPaging
-import com.zj.play.ui.view.PlayAppBar
+import com.zj.play.ui.view.bar.PlayAppBar
 
 @Composable
 fun SystemArticleListPage(name: String?, viewModel: SystemViewModel, actions: PlayActions) {

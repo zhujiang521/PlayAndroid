@@ -6,6 +6,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
+import androidx.compose.material.ButtonDefaults.buttonColors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
@@ -16,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -30,7 +32,7 @@ import com.zj.play.ui.page.login.LoginViewModel
 import com.zj.play.ui.page.login.LogoutDefault
 import com.zj.play.ui.page.login.LogoutFinish
 import com.zj.play.ui.page.login.LogoutState
-import com.zj.play.ui.view.PlayAppBar
+import com.zj.play.ui.view.bar.PlayAppBar
 import com.zj.play.ui.view.ShowDialog
 
 @Composable
@@ -194,8 +196,13 @@ private fun BlogItem(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(24.dp),
+                shape = MaterialTheme.shapes.medium,
+                colors = buttonColors(
+                    backgroundColor = Color.Red,
+                    disabledBackgroundColor = Color.Red.copy(alpha = 0.12f)
+                )
             ) {
-                Text(text = stringResource(R.string.log_out))
+                Text(text = stringResource(R.string.log_out), color = Color.LightGray)
             }
         }
     }

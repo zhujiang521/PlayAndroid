@@ -1,4 +1,4 @@
-package com.zj.play.ui.view
+package com.zj.play.ui.view.bar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -43,7 +43,8 @@ fun PlayAppBar(
                 ) {
                     Icon(
                         imageVector = Icons.Rounded.ArrowBack,
-                        contentDescription = "back"
+                        contentDescription = "back",
+                        tint = MaterialTheme.colors.secondary
                     )
                 }
             } else {
@@ -60,6 +61,7 @@ fun PlayAppBar(
                 style = MaterialTheme.typography.subtitle1,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
+                color = MaterialTheme.colors.secondary
             )
             if (showRight) {
                 if (rightClick != null) {
@@ -69,7 +71,8 @@ fun PlayAppBar(
                     ) {
                         Icon(
                             imageVector = rightImg,
-                            contentDescription = "more"
+                            contentDescription = "more",
+                            tint = MaterialTheme.colors.secondary
                         )
                     }
                 }

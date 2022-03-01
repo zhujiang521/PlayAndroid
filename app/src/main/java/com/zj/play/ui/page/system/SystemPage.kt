@@ -27,7 +27,7 @@ import com.zj.model.SystemChildren
 import com.zj.play.R
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.theme.Shapes
-import com.zj.play.ui.view.PlayAppBar
+import com.zj.play.ui.view.bar.PlayAppBar
 import com.zj.play.ui.view.lce.LcePage
 import com.zj.utils.XLog
 

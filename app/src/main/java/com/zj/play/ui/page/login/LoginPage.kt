@@ -17,7 +17,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.zj.play.R
 import com.zj.model.*
 import com.zj.play.ui.main.nav.PlayActions
-import com.zj.play.ui.view.PlayAppBar
+import com.zj.play.ui.view.bar.PlayAppBar
 import com.zj.play.ui.view.edit.*
 import kotlinx.coroutines.launch
 
