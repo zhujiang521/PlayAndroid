@@ -8,15 +8,19 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Check
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.zj.play.CHANGED_THEME
 import com.zj.play.CHANGED_THEME_ACTION
@@ -24,6 +28,8 @@ import com.zj.play.R
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.theme.*
 import com.zj.play.ui.view.bar.PlayAppBar
+import com.zj.utils.DataStoreUtils
+import com.zj.utils.XLog
 
 data class ThemeModel(val color: Color, val colorId: Int, val colorName: String)
 
@@ -44,6 +50,12 @@ private val themeList = arrayListOf(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ThemePage(actions: PlayActions) {
+    var playTheme by remember { mutableStateOf(SKY_BLUE_THEME) }
+    val context = LocalContext.current
+    LaunchedEffect(Unit) {
+        playTheme = DataStoreUtils.getSyncData(CHANGED_THEME, SKY_BLUE_THEME)
+        XLog.e("playTheme:$playTheme")
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -52,37 +64,61 @@ fun ThemePage(actions: PlayActions) {
         PlayAppBar(stringResource(R.string.theme_change), click = {
             actions.upPress()
         })
+
         LazyVerticalGrid(
             cells = GridCells.Fixed(5),
             modifier = Modifier.padding(horizontal = 10.dp)
         ) {
             items(themeList) { item: ThemeModel ->
-                ThemeItem(item)
+                ThemeItem(playTheme, item) {
+                    playTheme = item.colorId
+                    context.sendBroadcast(Intent(CHANGED_THEME_ACTION).apply {
+                        putExtra(CHANGED_THEME, item.colorId)
+                    })
+                }
             }
         }
+
+        Text(
+            text = stringResource(R.string.theme_warn),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(15.dp),
+            color = MaterialTheme.colors.secondary,
+            textAlign = TextAlign.Center
+        )
+
     }
 }
 
 @Composable
-fun ThemeItem(item: ThemeModel) {
-    val context = LocalContext.current
+private fun ThemeItem(playTheme: Int, item: ThemeModel, onClick: () -> Unit) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .clickable {
-                context.sendBroadcast(Intent(CHANGED_THEME_ACTION).apply {
-                    putExtra(CHANGED_THEME, item.colorId)
-                })
+                onClick()
             }
             .padding(10.dp)
     ) {
+        val isCurrentTheme = item.colorId == playTheme
         Box(
             modifier = Modifier
                 .size(50.dp)
                 .shadow(2.dp, shape = MaterialTheme.shapes.medium)
-                .background(color = item.color)
-        )
+                .background(color = item.color),
+            contentAlignment = Alignment.Center,
+
+            ) {
+            if (isCurrentTheme) {
+                Icon(
+                    imageVector = Icons.Rounded.Check,
+                    contentDescription = "back",
+                    tint = select_theme
+                )
+            }
+        }
         Text(
             text = item.colorName,
             color = MaterialTheme.colors.secondary,

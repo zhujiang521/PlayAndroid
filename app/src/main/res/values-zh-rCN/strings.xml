@@ -124,5 +124,6 @@
 	<string name="search_content_hint">请输入搜索内容</string>
 	<string name="article_details">文章详情</string>
     <string name="theme_change">主题更换</string>
+    <string name="theme_warn">注意：主题切换只在浅色模式生效，深色模式为纯黑（为了省电）</string>
 
 </resources>

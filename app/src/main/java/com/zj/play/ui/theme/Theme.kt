@@ -36,22 +36,20 @@ const val CYAN_THEME = 8
 const val MAGENTA_THEME = 9
 
 /**
- * @param theme 主题，这里需要注意，只有在浅色模式下可以进行更换主题，
+ * @param themeId 主题，这里需要注意，只有在浅色模式下可以进行更换主题，
  * 在深色模式下不支持更换主题
  */
 @Composable
 fun PlayAndroidTheme(
-    theme: Int = 0,
+    themeId: Int = 0,
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
     Color.Gray
     val colors = if (darkTheme) {
-        DarkColorPalette
+        playDarkColors()
     } else {
-        playLightColors(
-            primary = getLightPrimaryColor(theme)
-        )
+        getThemeForThemeId(themeId)
     }
 
     MaterialTheme(
@@ -62,38 +60,64 @@ fun PlayAndroidTheme(
     )
 }
 
-private fun getLightPrimaryColor(theme: Int) = when (theme) {
+/**
+ * 通过主题 ID 来获取需要的主题
+ */
+private fun getThemeForThemeId(themeId: Int) = when (themeId) {
     SKY_BLUE_THEME -> {
-        primaryLight
+        playLightColors(
+            primary = primaryLight
+        )
     }
     GRAY_THEME -> {
-        gray_theme
+        playLightColors(
+            primary = gray_theme
+        )
     }
     DEEP_BLUE_THEME -> {
-        deep_blue_theme
+        playDarkColors(
+            primary = deep_blue_theme
+        )
     }
     GREEN_THEME -> {
-        green_theme
+        playLightColors(
+            primary = green_theme
+        )
     }
     PURPLE_THEME -> {
-        purple_theme
+        playLightColors(
+            primary = purple_theme
+        )
     }
     ORANGE_THEME -> {
-        orange_theme
+        playLightColors(
+            primary = orange_theme
+        )
     }
     BROWN_THEME -> {
-        brown_theme
+        playDarkColors(
+            primary = brown_theme
+        )
     }
     RED_THEME -> {
-        red_theme
+        playLightColors(
+            primary = red_theme
+        )
+
     }
     CYAN_THEME -> {
-        cyan_theme
+        playLightColors(
+            primary = cyan_theme
+        )
     }
     MAGENTA_THEME -> {
-        magenta_theme
+        playLightColors(
+            primary = magenta_theme
+        )
     }
     else -> {
-        primaryLight
+        playLightColors(
+            primary = primaryLight
+        )
     }
 }

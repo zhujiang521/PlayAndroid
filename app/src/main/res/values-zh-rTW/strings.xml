@@ -81,13 +81,13 @@
     <string name="share_success">分享成功</string>
     <string name="no_app">沒有安裝支持打開此網頁的應用!</string>
 
-	<string name="static_disabled_message_search">搜索妳想要的技術文章</string>
-	<string name="static_shortcut_long_label_search">搜索技術文章</string>
-	<string name="static_shortcut_short_label_search">搜索文章</string>
+    <string name="static_disabled_message_search">搜索妳想要的技術文章</string>
+    <string name="static_shortcut_long_label_search">搜索技術文章</string>
+    <string name="static_shortcut_short_label_search">搜索文章</string>
 
-	<string name="static_disabled_message_add_share">新增妳想分享的文章</string>
-	<string name="static_shortcut_long_label_add_share">新增分享文章</string>
-	<string name="static_shortcut_short_label_add_share">新增文章</string>
+    <string name="static_disabled_message_add_share">新增妳想分享的文章</string>
+    <string name="static_shortcut_long_label_add_share">新增分享文章</string>
+    <string name="static_shortcut_short_label_add_share">新增文章</string>
 
     <string name="edit_profile">我会变啊</string>
 
@@ -123,6 +123,7 @@
     <string name="system_article">體系文章</string>
     <string name="search_content_hint">請輸入搜索內容</string>
     <string name="article_details">文章詳情</string>
-    <string name="theme_change">主题更换</string>
+    <string name="theme_change">主題更換</string>
+    <string name="theme_warn">註意：主題切換只在淺色模式生效，深色模式為純黑（為了省電）</string>
 
 </resources>

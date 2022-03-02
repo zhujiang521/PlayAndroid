@@ -7,7 +7,7 @@ import androidx.compose.ui.graphics.Color
 val white = Color.White
 
 // 天蓝色
-val sky_blue_theme = Color(0xFF85B4FC)
+val select_theme = Color(0xFF65A2FF)
 
 // 灰色
 val gray_theme = Color(0xFF888888)
@@ -96,18 +96,34 @@ fun playLightColors(
     true
 )
 
-
 /**
- * 深色主题颜色
+ * 玩安卓深色主题方法
  */
-val DarkColorPalette = darkColors(
-    primary = primaryDark,
-    primaryVariant = primaryVariantDark,
-    secondary = secondaryDark,
-    background = backgroundDark,
-    surface = surfaceDark,
-    onPrimary = onPrimaryDark,
-    onSecondary = onSecondaryDark,
-    onBackground = onBackgroundDark,
-    onSurface = onSurfaceDark,
+fun playDarkColors(
+    primary: Color = primaryDark,
+    primaryVariant: Color = primaryVariantDark,
+    secondary: Color = secondaryDark,
+    secondaryVariant: Color = secondary,
+    background: Color = backgroundDark,
+    surface: Color = surfaceDark,
+    error: Color = Color(0xFFCF6679),
+    onPrimary: Color = onPrimaryDark,
+    onSecondary: Color = onSecondaryDark,
+    onBackground: Color = onBackgroundDark,
+    onSurface: Color = onSurfaceDark,
+    onError: Color = Color.Black
+): Colors = Colors(
+    primary,
+    primaryVariant,
+    secondary,
+    secondaryVariant,
+    background,
+    surface,
+    error,
+    onPrimary,
+    onSecondary,
+    onBackground,
+    onSurface,
+    onError,
+    false
 )
