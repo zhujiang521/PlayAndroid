@@ -114,7 +114,7 @@ private fun getThemeForThemeId(themeId: Int) = when (themeId) {
         )
     }
     RED_THEME -> {
-        playLightColors(
+        playDarkColors(
             primary = red_theme
         )
 

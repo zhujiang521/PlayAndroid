@@ -10,15 +10,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.zj.play.R
 import com.zj.model.*
+import com.zj.play.R
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.view.bar.PlayAppBar
 import com.zj.play.ui.view.edit.*
