@@ -1,6 +1,5 @@
 package com.zj.play.ui.page.mine
 
-import android.content.Intent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,12 +17,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.zj.play.CHANGED_THEME
-import com.zj.play.CHANGED_THEME_ACTION
 import com.zj.play.R
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.theme.*
@@ -51,7 +48,6 @@ private val themeList = arrayListOf(
 @Composable
 fun ThemePage(actions: PlayActions) {
     var playTheme by remember { mutableStateOf(SKY_BLUE_THEME) }
-    val context = LocalContext.current
     LaunchedEffect(Unit) {
         playTheme = DataStoreUtils.getSyncData(CHANGED_THEME, SKY_BLUE_THEME)
         XLog.e("playTheme:$playTheme")
@@ -72,9 +68,8 @@ fun ThemePage(actions: PlayActions) {
             items(themeList) { item: ThemeModel ->
                 ThemeItem(playTheme, item) {
                     playTheme = item.colorId
-                    context.sendBroadcast(Intent(CHANGED_THEME_ACTION).apply {
-                        putExtra(CHANGED_THEME, item.colorId)
-                    })
+                    themeTypeState.value = playTheme
+                    DataStoreUtils.putSyncData(CHANGED_THEME, playTheme)
                 }
             }
         }

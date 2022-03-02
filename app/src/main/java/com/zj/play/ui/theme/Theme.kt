@@ -3,7 +3,10 @@ package com.zj.play.ui.theme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import com.zj.play.CHANGED_THEME
+import com.zj.utils.DataStoreUtils
 
 // 天蓝色
 const val SKY_BLUE_THEME = 0
@@ -36,6 +39,18 @@ const val CYAN_THEME = 8
 const val MAGENTA_THEME = 9
 
 /**
+ * 主题状态
+ */
+val themeTypeState: MutableState<Int> by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
+    mutableStateOf(getDefaultThemeId())
+}
+
+/**
+ * 获取当前默认主题
+ */
+fun getDefaultThemeId(): Int = DataStoreUtils.getSyncData(CHANGED_THEME, SKY_BLUE_THEME)
+
+/**
  * @param themeId 主题，这里需要注意，只有在浅色模式下可以进行更换主题，
  * 在深色模式下不支持更换主题
  */
@@ -45,7 +60,6 @@ fun PlayAndroidTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    Color.Gray
     val colors = if (darkTheme) {
         playDarkColors()
     } else {

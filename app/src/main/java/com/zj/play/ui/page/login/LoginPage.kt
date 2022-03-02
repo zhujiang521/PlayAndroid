@@ -1,5 +1,6 @@
 package com.zj.play.ui.page.login
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -9,8 +10,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -155,10 +158,21 @@ fun SignInContent(
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = { onSignInSubmitted(emailState.text, passwordState.text) },
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = MaterialTheme.colors.primary,
+                disabledBackgroundColor = MaterialTheme.colors.primary.copy(
+                    alpha = 0.82f,
+                ),
+            ),
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 16.dp),
-            enabled = emailState.isValid && passwordState.isValid
+                .fillMaxWidth(),
+            enabled = emailState.isValid && passwordState.isValid,
+            shape = MaterialTheme.shapes.medium,
+            border = BorderStroke(
+                width = 1.dp, color = MaterialTheme.colors.primary.copy(
+                    alpha = 0.82f, red = 0.7f
+                )
+            )
         ) {
             Text(
                 text = stringResource(id = R.string.sign_in)
