@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.zj.play.ui.main.NavGraph
+import com.zj.play.ui.theme.GrayAppAdapter
 import com.zj.play.ui.theme.PlayAndroidTheme
 import com.zj.play.ui.theme.SKY_BLUE_THEME
 import com.zj.utils.*
@@ -29,12 +30,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             val context = LocalContext.current
 
-            // Safely use the latest onSystemEvent lambda passed to the function
             var playTheme by remember { mutableStateOf(SKY_BLUE_THEME) }
             LaunchedEffect(Unit) {
                 playTheme = DataStoreUtils.getSyncData(CHANGED_THEME, SKY_BLUE_THEME)
             }
-            // If either context or systemAction changes, unregister and register again
             DisposableEffect(context) {
                 val intentFilter = IntentFilter(CHANGED_THEME_ACTION)
                 val broadcast = object : BroadcastReceiver() {
@@ -44,17 +43,17 @@ class MainActivity : ComponentActivity() {
                         DataStoreUtils.putSyncData(CHANGED_THEME, playTheme)
                     }
                 }
-
                 context.registerReceiver(broadcast, intentFilter)
-
-                // When the effect leaves the Composition, remove the callback
                 onDispose {
                     context.unregisterReceiver(broadcast)
                 }
             }
             PlayAndroidTheme(playTheme) {
                 ProvideWindowInsets {
-                    NavGraph()
+                    // 清明、七月十五或者是国家公祭日的时候展示黑白化效果
+                    GrayAppAdapter {
+                        NavGraph()
+                    }
                 }
             }
         }
