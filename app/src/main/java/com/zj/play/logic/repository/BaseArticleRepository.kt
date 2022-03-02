@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.zj.model.*
 import com.zj.play.R
 import com.zj.utils.NetworkUtils
+import com.zj.utils.NetworkUtils.isConnected
 
 /**
  * 版权：Zhujiang 个人版权
@@ -22,7 +23,7 @@ abstract class BaseArticleRepository(private val application: Application) :
      * 获取标题列表
      */
     suspend fun getTree(state: MutableLiveData<PlayState<List<ClassifyModel>>>) {
-        if (!NetworkUtils.isConnected(application)) {
+        if (!application.isConnected()) {
             state.postValue(PlayError(NetworkErrorException(application.getString(R.string.no_network))))
             return
         }

@@ -12,6 +12,7 @@ import com.zj.play.R
 import com.zj.play.logic.paging.HomePagingSource
 import com.zj.play.logic.repository.BaseArticlePagingRepository
 import com.zj.utils.NetworkUtils
+import com.zj.utils.NetworkUtils.isConnected
 
 
 /**
@@ -38,7 +39,7 @@ class HomeArticlePagingRepository : BaseArticlePagingRepository() {
      * 获取banner
      */
     suspend fun getBanner(state: MutableLiveData<PlayState<List<BannerBean>>>, context: Context) {
-        if (!NetworkUtils.isConnected(context)) {
+        if (!context.isConnected()) {
             state.postValue(
                 PlayError(NetworkErrorException(App.context?.getString(R.string.bad_network_view_tip)))
             )

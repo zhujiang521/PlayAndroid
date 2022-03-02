@@ -11,6 +11,7 @@ import com.zj.play.logic.repository.BaseArticlePagingRepository
 import com.zj.model.*
 import com.zj.network.PlayAndroidNetwork
 import com.zj.utils.NetworkUtils
+import com.zj.utils.NetworkUtils.isConnected
 import com.zj.utils.showToast
 
 class SystemRepository : BaseArticlePagingRepository() {
@@ -28,7 +29,7 @@ class SystemRepository : BaseArticlePagingRepository() {
         state: MutableLiveData<PlayState<List<AndroidSystemModel>>>,
         context: Context
     ) {
-        if (!NetworkUtils.isConnected(context)) {
+        if (!context.isConnected()) {
             showToast(context, R.string.no_network)
             state.postValue(PlayError(NetworkErrorException()))
             return
