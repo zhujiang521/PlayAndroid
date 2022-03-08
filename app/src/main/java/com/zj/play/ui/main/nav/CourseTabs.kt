@@ -9,17 +9,17 @@ enum class CourseTabs(
     @DrawableRes val icon: Int,
     @DrawableRes val selectIcon: Int
 ) {
-    HOME_PAGE(R.string.home_page, R.drawable.ic_nav_news_normal, R.drawable.ic_nav_news_actived),
+    HOME_PAGE(R.string.home_page, R.drawable.ic_home, R.drawable.ic_home_fill),
     SYSTEM(
         R.string.home_system,
-        R.drawable.ic_nav_discover_normal,
-        R.drawable.ic_nav_discover_actived
+        R.drawable.ic_system,
+        R.drawable.ic_system_fill
     ),
-    PROJECT(R.string.project, R.drawable.ic_nav_tweet_normal, R.drawable.ic_nav_tweet_actived),
+    PROJECT(R.string.project, R.drawable.ic_project, R.drawable.ic_project_fill),
     OFFICIAL_ACCOUNT(
         R.string.official_account,
-        R.drawable.ic_nav_discover_normal,
-        R.drawable.ic_nav_discover_actived
+        R.drawable.ic_official,
+        R.drawable.ic_official_fill
     ),
-    MINE(R.string.mine, R.drawable.ic_nav_my_normal, R.drawable.ic_nav_my_pressed)
+    MINE(R.string.mine, R.drawable.ic_mine, R.drawable.ic_mine_fill)
 }

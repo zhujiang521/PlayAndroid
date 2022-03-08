@@ -82,8 +82,16 @@
         <entry key="app/src/main/res/drawable/ic_baseline_visibility_24.xml" value="0.1935" />
         <entry key="app/src/main/res/drawable/ic_baseline_visibility_off_24.xml" value="0.1935" />
         <entry key="app/src/main/res/drawable/ic_grain.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_home.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_home_fill.xml" value="0.1935" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1935" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_mine.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_mine_fill.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_official.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_official_fill.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_system.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_system_fill.xml" value="0.1935" />
         <entry key="app/src/main/res/drawable/ic_text_settings.xml" value="0.1935" />
         <entry key="app/src/main/res/drawable/img_to_top_nomal.xml" value="0.1935" />
         <entry key="app/src/main/res/drawable/load_four.xml" value="0.1935" />
