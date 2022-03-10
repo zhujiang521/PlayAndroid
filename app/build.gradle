@@ -80,7 +80,7 @@ dependencies {
     // Paging 分页加载
     implementation 'androidx.paging:paging-compose:1.0.0-alpha14'
     // lottie动画
-    def lottieVersion = '5.0.2'
+    def lottieVersion = '5.0.3'
     implementation "com.airbnb.android:lottie-compose:$lottieVersion"
 
     // Hilt 依赖注入

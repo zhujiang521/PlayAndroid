@@ -3,7 +3,7 @@ apply from: "config.gradle"
 
 buildscript {
     ext {
-        compose_version = '1.2.0-alpha04'
+        compose_version = '1.2.0-alpha05'
         kotlin_version = '1.6.10'
         hilt_version = '2.41'
     }
