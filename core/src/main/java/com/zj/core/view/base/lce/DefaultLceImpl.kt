@@ -1,7 +1,6 @@
 package com.zj.core.view.base.lce
 
 import android.view.View
-import android.widget.ProgressBar
 import android.widget.TextView
 import com.zj.core.R
 
@@ -11,7 +10,7 @@ import com.zj.core.R
  * @author zhujiang
  */
 class DefaultLceImpl constructor(
-    private val loading: ProgressBar?,
+    private val loading: View?,
     private val loadErrorView: View?,
     private val badNetworkView: View?,
     private val noContentView: View?

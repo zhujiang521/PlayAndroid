@@ -1,33 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/wall">
+    android:background="@color/wall"
+    android:gravity="center"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="@dimen/dp_200"
+        android:layout_height="@dimen/dp_200"
+        android:layout_gravity="center"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/play_error" />
+
+    <TextView
+        android:id="@+id/loadErrorText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:textColor="@color/secondary_text"
+        android:textSize="@dimen/sp_13"
+        tools:text="@string/failed_load_data" />
 
-        <ImageView
-            android:layout_width="@dimen/dp_200"
-            android:layout_height="@dimen/dp_100"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/bad_loading" />
-
-        <TextView
-            android:id="@+id/loadErrorText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dp_20"
-            android:layout_marginBottom="@dimen/dp_20"
-            android:textColor="@color/secondary_text"
-            android:textSize="@dimen/sp_13"
-            tools:text="@string/failed_load_data" />
-
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ProgressBar xmlns:android="http://schemas.android.com/apk/res/android"
+<com.airbnb.lottie.LottieAnimationView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/loading"
     android:layout_width="@dimen/dp_200"
-    android:layout_height="@dimen/dp_110"
+    android:layout_height="@dimen/dp_200"
     android:layout_gravity="center"
-    android:indeterminate="true"
-    android:indeterminateDrawable="@drawable/loading_animation"
-    android:indeterminateTintMode="src_atop" />
+    app:lottie_autoPlay="true"
+    app:lottie_loop="true"
+    app:lottie_rawRes="@raw/play_load" />

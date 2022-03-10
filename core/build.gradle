@@ -74,6 +74,8 @@ dependencies {
     api "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
+    //Lottie动画
+    implementation "com.airbnb.android:lottie:5.0.3"
 
     def activity_version = "1.4.0"
     api "androidx.activity:activity-ktx:$activity_version"

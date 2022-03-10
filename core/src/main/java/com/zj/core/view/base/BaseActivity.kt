@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.ProgressBar
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
@@ -30,7 +29,7 @@ abstract class BaseActivity : AppCompatActivity(), ILce, BaseActivityInit {
     /**
      * Activity中显示加载等待的控件。
      */
-    private var loading: ProgressBar? = null
+    private var loading: View? = null
 
     /**
      * Activity中由于服务器异常导致加载失败显示的布局。

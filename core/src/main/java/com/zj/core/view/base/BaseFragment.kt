@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.ProgressBar
-import android.widget.RelativeLayout
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -25,23 +23,23 @@ abstract class BaseFragment : Fragment(), ILce, BaseFragmentInit {
     /**
      * Fragment中由于服务器异常导致加载失败显示的布局。
      */
-    private var loadErrorView: RelativeLayout? = null
+    private var loadErrorView: View? = null
 
     /**
      * Fragment中由于网络异常导致加载失败显示的布局。
      */
-    private var badNetworkView: RelativeLayout? = null
+    private var badNetworkView: View? = null
 
     /**
      * Fragment中当界面上没有任何内容时展示的布局。
      */
-    private var noContentView: RelativeLayout? = null
+    private var noContentView: View? = null
 
 
     /**
      * Fragment中显示加载等待的控件。
      */
-    private var loading: ProgressBar? = null
+    private var loading: View? = null
 
     private var defaultLce: ILce? = null
 
