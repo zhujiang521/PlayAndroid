@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.tabs.TabLayoutMediator
 import com.zj.core.view.custom.FragmentAdapter
 import com.zj.play.databinding.FragmentOfficialAccountsBinding
 import com.zj.play.official.list.OfficialListFragment
@@ -29,12 +30,14 @@ class OfficialAccountsFragment : BaseTabFragment() {
     private lateinit var adapter: FragmentAdapter
 
     override fun initView() {
-        adapter = FragmentAdapter(activity?.supportFragmentManager)
+        adapter = FragmentAdapter(requireActivity().supportFragmentManager, lifecycle)
         binding?.apply {
-            officialViewPager.adapter = adapter
+            officialViewPager2?.adapter = adapter
             officialTabLayout.setupWithViewPager(officialViewPager)
-            officialViewPager.addOnPageChangeListener(this@OfficialAccountsFragment)
             officialTabLayout.addOnTabSelectedListener(this@OfficialAccountsFragment)
+            TabLayoutMediator(officialTabLayout, officialViewPager2!!) { tab, position ->
+                tab.text = adapter.title(position)
+            }.attach()
         }
     }
 

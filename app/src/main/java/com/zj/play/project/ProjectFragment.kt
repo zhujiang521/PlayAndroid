@@ -1,10 +1,12 @@
 package com.zj.play.project
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.tabs.TabLayoutMediator
 import com.zj.core.view.custom.FragmentAdapter
 import com.zj.play.databinding.FragmentProjectBinding
 import com.zj.play.project.list.ProjectListFragment
@@ -28,15 +30,17 @@ class ProjectFragment : BaseTabFragment() {
     }
 
     override fun initView() {
-        adapter = FragmentAdapter(activity?.supportFragmentManager)
+        adapter = FragmentAdapter(requireActivity().supportFragmentManager, lifecycle)
         binding?.apply {
-            projectViewPager.adapter = adapter
-            projectTabLayout.setupWithViewPager(projectViewPager)
-            projectViewPager.addOnPageChangeListener(this@ProjectFragment)
+            projectViewPager2?.adapter = adapter
             projectTabLayout.addOnTabSelectedListener(this@ProjectFragment)
+            TabLayoutMediator(projectTabLayout, projectViewPager2!!) { tab, position ->
+                tab.text = adapter.title(position)
+            }.attach()
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun initData() {
         startLoading()
         setDataStatus(viewModel.dataLiveData) {
@@ -51,7 +55,7 @@ class ProjectFragment : BaseTabFragment() {
                 reset(viewList)
                 notifyDataSetChanged()
             }
-            binding?.projectViewPager?.currentItem = viewModel.position
+            binding?.projectViewPager2?.currentItem = viewModel.position
         }
         getProjectTree()
     }
