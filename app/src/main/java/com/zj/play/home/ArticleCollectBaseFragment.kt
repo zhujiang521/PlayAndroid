@@ -23,10 +23,10 @@ abstract class ArticleCollectBaseFragment : BaseFragment() {
         super.onResume()
         articleReceiver =
             ArticleBroadCast.setArticleChangesReceiver(requireActivity()) { refreshData() }
-        LiveDataBus.get().getChannel(LOGIN_REFRESH, Boolean::class.java).observe(this, {
+        LiveDataBus.get().getChannel(LOGIN_REFRESH, Boolean::class.java).observe(this) {
             Log.e(TAG, "Fragment onResume: $it")
             if (it) refreshData()
-        })
+        }
     }
 
     abstract fun refreshData()
@@ -37,7 +37,7 @@ abstract class ArticleCollectBaseFragment : BaseFragment() {
     }
 
     companion object {
-        private const val TAG = "ArticleCollectBaseFragm"
+        private const val TAG = "ArticleBaseFragment"
     }
 
 }

@@ -1,5 +1,6 @@
 package com.zj.play.article
 
+import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -12,12 +13,16 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import com.tencent.smtt.sdk.*
 import com.zj.core.util.showToast
 import com.zj.play.R
 import java.util.*
 
+/**
+ * [setShowProgress]
+ */
 class X5WebView @JvmOverloads constructor(
     context: Context?,
     attrs: AttributeSet? = null,
@@ -39,7 +44,8 @@ class X5WebView @JvmOverloads constructor(
 //      setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);//滚动条在WebView外侧显示
         progressBar = ProgressBar(context, null, android.R.attr.progressBarStyleHorizontal)
         progressBar?.max = 100
-        progressBar?.progressDrawable = resources.getDrawable(R.drawable.color_progressbar)
+        progressBar?.progressDrawable =
+            ResourcesCompat.getDrawable(resources, R.drawable.color_progressbar, null)
         addView(progressBar, LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 6))
 //        imageView = new ImageView (getContext());
 //        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -55,8 +61,9 @@ class X5WebView @JvmOverloads constructor(
     }
 
     //   基本的WebViewSetting
+    @SuppressLint("ClickableViewAccessibility", "SetJavaScriptEnabled")
     private fun initWebViewSettings() {
-        setBackgroundColor(resources.getColor(android.R.color.white))
+        setBackgroundColor(resources.getColor(android.R.color.white, null))
         webViewClient = client
         webChromeClient = chromeClient
         setDownloadListener(downloadListener)
