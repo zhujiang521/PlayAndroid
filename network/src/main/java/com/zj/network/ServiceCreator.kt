@@ -33,8 +33,8 @@ object ServiceCreator {
             addInterceptor {
                 val request = it.request()
                 val response = it.proceed(request)
-                val requestUrl = request.url().toString()
-                val domain = request.url().host()
+                val requestUrl = request.url.toString()
+                val domain = request.url.host
                 // set-cookie maybe has multi, login to save cookie
                 if ((requestUrl.contains(SAVE_USER_LOGIN_KEY) || requestUrl.contains(
                         SAVE_USER_REGISTER_KEY
@@ -51,7 +51,7 @@ object ServiceCreator {
             addInterceptor {
                 val request = it.request()
                 val builder = request.newBuilder()
-                val domain = request.url().host()
+                val domain = request.url.host
                 // get domain cookie
                 if (domain.isNotEmpty()) {
                     val spDomain: String = DataStoreUtils.readStringData(domain, "")

@@ -22,18 +22,17 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.annotation.ExperimentalCoilApi
 import com.zj.banner.utils.ImageLoader
+import com.zj.model.ArticleModel
 import com.zj.play.Play
 import com.zj.play.R
-import com.zj.model.ArticleModel
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.page.login.LoginViewModel
 import com.zj.play.ui.page.login.LogoutDefault
 import com.zj.play.ui.page.login.LogoutFinish
 import com.zj.play.ui.page.login.LogoutState
-import com.zj.play.ui.view.bar.PlayAppBar
 import com.zj.play.ui.view.ShowDialog
+import com.zj.play.ui.view.bar.PlayAppBar
 
 @Composable
 fun ProfilePage(modifier: Modifier, isLand: Boolean, actions: PlayActions) {
@@ -213,7 +212,6 @@ private fun BlogItem(
     }
 }
 
-@OptIn(ExperimentalCoilApi::class)
 @Composable
 private fun NameAndPosition(modifier: Modifier = Modifier, refresh: Boolean, toLogin: () -> Unit) {
     Column(

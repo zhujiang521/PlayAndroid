@@ -1,10 +1,15 @@
 package com.zj.play.ui.page.system
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -18,7 +23,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.annotation.ExperimentalCoilApi
 import com.zj.banner.utils.ImageLoader
 import com.zj.model.AndroidSystemModel
 import com.zj.model.PlayLoading
@@ -48,7 +52,6 @@ fun SystemPage(modifier: Modifier, actions: PlayActions, viewModel: SystemViewMo
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalCoilApi::class)
 @Composable
 fun SystemPageContent(
     modifier: Modifier,
@@ -80,7 +83,7 @@ fun SystemPageContent(
                     }
                 }
                 LazyVerticalGrid(
-                    cells = GridCells.Fixed(2),
+                    columns = GridCells.Fixed(2),
                     state = childrenState,
                     modifier = Modifier
                         .fillMaxSize()
@@ -132,7 +135,6 @@ private fun SystemItem(
     }
 }
 
-@ExperimentalCoilApi
 @Composable
 private fun SystemCard(
     loadArticle: (Int, String) -> Unit,

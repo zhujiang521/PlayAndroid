@@ -15,7 +15,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.annotation.ExperimentalCoilApi
 import com.zj.banner.utils.ImageLoader
 import com.zj.model.ArticleModel
 import com.zj.play.R
@@ -37,7 +36,6 @@ fun ArticleItem(
     )
 }
 
-@OptIn(ExperimentalCoilApi::class)
 @Composable
 fun ArticleListItem(
     article: ArticleModel,
