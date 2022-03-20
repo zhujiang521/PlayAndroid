@@ -73,7 +73,7 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:2.4.0"
     implementation project(path: ':network')
 
-    def accompanist_version = '0.24.3-alpha'
+    def accompanist_version = '0.24.4-alpha'
     implementation "com.google.accompanist:accompanist-navigation-animation:$accompanist_version"
     implementation "com.google.accompanist:accompanist-webview:$accompanist_version"
 
