@@ -73,7 +73,7 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:2.4.0"
     implementation project(path: ':network')
 
-    def accompanist_version = '0.24.4-alpha'
+    def accompanist_version = '0.24.5-alpha'
     implementation "com.google.accompanist:accompanist-navigation-animation:$accompanist_version"
     implementation "com.google.accompanist:accompanist-webview:$accompanist_version"
 
@@ -84,7 +84,7 @@ dependencies {
     implementation "com.airbnb.android:lottie-compose:$lottieVersion"
 
     // material3
-    implementation "androidx.compose.material3:material3:1.0.0-alpha06"
+    implementation "androidx.compose.material3:material3:1.0.0-alpha08"
 
     // Hilt 依赖注入
     implementation "com.google.dagger:hilt-android:$hilt_version"
