@@ -83,6 +83,9 @@ dependencies {
     def lottieVersion = '5.0.3'
     implementation "com.airbnb.android:lottie-compose:$lottieVersion"
 
+    // material3
+    implementation "androidx.compose.material3:material3:1.0.0-alpha06"
+
     // Hilt 依赖注入
     implementation "com.google.dagger:hilt-android:$hilt_version"
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'

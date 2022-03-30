@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.Checkbox
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -72,16 +73,45 @@ fun ThemePage(actions: PlayActions) {
             }
         }
 
+        ThemeCheckbox()
+
         Text(
             text = stringResource(R.string.theme_warn),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(15.dp),
             color = MaterialTheme.colors.secondary,
-            textAlign = TextAlign.Center
         )
 
     }
+}
+
+@Composable
+fun ThemeCheckbox() {
+    var isDynamicColorScheme by remember {
+        mutableStateOf(
+            DataStoreUtils.getSyncData(
+                DYNAMIC_COLOR_SCHEME,
+                true
+            )
+        )
+    }
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(horizontal = 20.dp)
+    ) {
+        Text(
+            text = stringResource(R.string.dynamic_color),
+            modifier = Modifier.weight(1f),
+            color = MaterialTheme.colors.secondary,
+        )
+        Checkbox(checked = isDynamicColorScheme, onCheckedChange = {
+            isDynamicColorScheme = it
+            DataStoreUtils.putSyncData(DYNAMIC_COLOR_SCHEME, it)
+            themeTypeState.value = SKY_BLUE_THEME
+        })
+    }
+
 }
 
 @Composable

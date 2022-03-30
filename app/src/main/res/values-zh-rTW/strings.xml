@@ -124,6 +124,7 @@
     <string name="search_content_hint">請輸入搜索內容</string>
     <string name="article_details">文章詳情</string>
     <string name="theme_change">主題更換</string>
-    <string name="theme_warn">註意：主題切換只在淺色模式生效，深色模式為純黑（為了省電）</string>
+    <string name="theme_warn">註意：主題切換只在淺色模式生效，深色模式為純黑（為了省電）；但有一種特殊情況：即如果打開使用系統壁紙相關顏色的話，主題顏色將設置為和系統壁紙顏色相關。</string>
+    <string name="dynamic_color">使用系統壁紙相關顏色</string>
 
 </resources>
