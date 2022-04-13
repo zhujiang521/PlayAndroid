@@ -3,8 +3,6 @@ package com.zj.play
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.core.view.WindowCompat
-import com.google.accompanist.insets.ProvideWindowInsets
 import com.zj.play.ui.main.NavGraph
 import com.zj.play.ui.theme.GrayAppAdapter
 import com.zj.play.ui.theme.PlayAndroidTheme
@@ -25,11 +23,9 @@ class MainActivity : ComponentActivity() {
         setAndroidNativeLightStatusBar()
         setContent {
             PlayAndroidTheme(themeTypeState.value) {
-                ProvideWindowInsets {
-                    // 清明、七月十五或者是国家公祭日的时候展示黑白化效果
-                    GrayAppAdapter {
-                        NavGraph()
-                    }
+                // 清明、七月十五或者是国家公祭日的时候展示黑白化效果
+                GrayAppAdapter {
+                    NavGraph()
                 }
             }
         }

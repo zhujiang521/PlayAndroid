@@ -1,5 +1,6 @@
 package com.zj.play.ui.view.bar
 
+import android.app.Activity
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
@@ -17,17 +18,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.accompanist.insets.statusBarsHeight
 import com.zj.play.R
+import com.zj.utils.hideIme
 
 @Composable
 fun SearchBar(back: () -> Unit, searchArticle: (String) -> Unit) {
     var value by remember { mutableStateOf("") }
+    val context = LocalContext.current
     Column(modifier = Modifier.background(color = MaterialTheme.colors.primary)) {
-        Spacer(Modifier.statusBarsHeight())
+        Spacer(Modifier.windowInsetsTopHeight(WindowInsets.statusBars))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -37,7 +40,10 @@ fun SearchBar(back: () -> Unit, searchArticle: (String) -> Unit) {
         ) {
             IconButton(
                 modifier = Modifier
-                    .wrapContentWidth(Alignment.Start), onClick = back
+                    .wrapContentWidth(Alignment.Start), onClick = {
+                    (context as Activity).hideIme()
+                    back()
+                }
             ) {
                 Icon(
                     imageVector = Icons.Rounded.ArrowBack,

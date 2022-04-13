@@ -1,10 +1,7 @@
 package com.zj.play.ui.page.project
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
@@ -12,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.google.accompanist.insets.statusBarsHeight
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
@@ -63,7 +59,7 @@ fun ArticleListPageContent(
     enterArticle: (ArticleModel) -> Unit,
 ) {
     Column(modifier = Modifier.background(color = MaterialTheme.colors.primary)) {
-        Spacer(modifier = Modifier.statusBarsHeight())
+        Spacer(modifier = Modifier.windowInsetsTopHeight(WindowInsets.statusBars))
         LcePage(playState = tree, onErrorClick = {
             loadData()
         }) { data ->

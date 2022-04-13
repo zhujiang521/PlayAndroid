@@ -73,7 +73,7 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:2.4.0"
     implementation project(path: ':network')
 
-    def accompanist_version = '0.24.5-alpha'
+    def accompanist_version = '0.24.6-alpha'
     implementation "com.google.accompanist:accompanist-navigation-animation:$accompanist_version"
     implementation "com.google.accompanist:accompanist-webview:$accompanist_version"
 
@@ -83,8 +83,8 @@ dependencies {
     def lottieVersion = '5.0.3'
     implementation "com.airbnb.android:lottie-compose:$lottieVersion"
 
-    // material3
-    implementation "androidx.compose.material3:material3:1.0.0-alpha08"
+    // material3 动态主题颜色切换应用颜色
+//    implementation "androidx.compose.material3:material3:1.0.0-alpha09"
 
     // Hilt 依赖注入
     implementation "com.google.dagger:hilt-android:$hilt_version"

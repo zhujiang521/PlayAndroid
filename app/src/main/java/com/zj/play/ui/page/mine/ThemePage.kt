@@ -73,7 +73,7 @@ fun ThemePage(actions: PlayActions) {
             }
         }
 
-        ThemeCheckbox()
+//        ThemeCheckbox()
 
         Text(
             text = stringResource(R.string.theme_warn),

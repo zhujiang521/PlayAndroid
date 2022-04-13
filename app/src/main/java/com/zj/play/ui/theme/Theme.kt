@@ -1,16 +1,10 @@
 package com.zj.play.ui.theme
 
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material3.ColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.platform.LocalContext
 import com.zj.play.CHANGED_THEME
 import com.zj.utils.DataStoreUtils
 
@@ -68,32 +62,43 @@ fun PlayAndroidTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val dynamic = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-    val isDynamicColorScheme = DataStoreUtils.getSyncData(DYNAMIC_COLOR_SCHEME, true)
-    if (dynamic && isDynamicColorScheme) {
-        val context = LocalContext.current
-        val colorScheme =
-            if (darkTheme) dynamicLightColorScheme(context) else dynamicDarkColorScheme(context)
-        MaterialTheme(
-            colors = getSchemeColor(colorScheme, darkTheme),
-            typography = typography,
-            shapes = Shapes,
-            content = content
-        )
-    } else {
-        val colors = if (darkTheme) {
-            playDarkColors()
-        } else {
-            getThemeForThemeId(themeId)
-        }
-        MaterialTheme(
-            colors = colors,
-            typography = typography,
-            shapes = Shapes,
-            content = content
-        )
-    }
+//    val dynamic = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+//    val isDynamicColorScheme = DataStoreUtils.getSyncData(DYNAMIC_COLOR_SCHEME, true)
+//    if (dynamic && isDynamicColorScheme) {
+//        val context = LocalContext.current
+//        val colorScheme =
+//            if (darkTheme) dynamicLightColorScheme(context) else dynamicDarkColorScheme(context)
+//        MaterialTheme(
+//            colors = getSchemeColor(colorScheme, darkTheme),
+//            typography = typography,
+//            shapes = Shapes,
+//            content = content
+//        )
+//    } else {
+//        val colors = if (darkTheme) {
+//            playDarkColors()
+//        } else {
+//            getThemeForThemeId(themeId)
+//        }
+//        MaterialTheme(
+//            colors = colors,
+//            typography = typography,
+//            shapes = Shapes,
+//            content = content
+//        )
+//    }
 
+    val colors = if (darkTheme) {
+        playDarkColors()
+    } else {
+        getThemeForThemeId(themeId)
+    }
+    MaterialTheme(
+        colors = colors,
+        typography = typography,
+        shapes = Shapes,
+        content = content
+    )
 }
 
 /**
@@ -102,23 +107,23 @@ fun PlayAndroidTheme(
  * @param colorScheme 主题
  * @param darkTheme 是否为深色主题
  */
-fun getSchemeColor(colorScheme: ColorScheme, darkTheme: Boolean): Colors {
-    return Colors(
-        primary = colorScheme.primary,
-        primaryVariant = colorScheme.primaryContainer,
-        secondary = colorScheme.secondary,
-        secondaryVariant = colorScheme.secondaryContainer,
-        background = colorScheme.background,
-        surface = colorScheme.surface,
-        error = colorScheme.error,
-        onPrimary = colorScheme.onPrimary,
-        onSecondary = colorScheme.onSecondary,
-        onBackground = colorScheme.onBackground,
-        onSurface = colorScheme.onSurface,
-        onError = colorScheme.onError,
-        isLight = !darkTheme
-    )
-}
+//fun getSchemeColor(colorScheme: ColorScheme, darkTheme: Boolean): Colors {
+//    return Colors(
+//        primary = colorScheme.primary,
+//        primaryVariant = colorScheme.primaryContainer,
+//        secondary = colorScheme.secondary,
+//        secondaryVariant = colorScheme.secondaryContainer,
+//        background = colorScheme.background,
+//        surface = colorScheme.surface,
+//        error = colorScheme.error,
+//        onPrimary = colorScheme.onPrimary,
+//        onSecondary = colorScheme.onSecondary,
+//        onBackground = colorScheme.onBackground,
+//        onSurface = colorScheme.onSurface,
+//        onError = colorScheme.onError,
+//        isLight = !darkTheme
+//    )
+//}
 
 /**
  * 通过主题 ID 来获取需要的主题

@@ -16,7 +16,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.insets.statusBarsHeight
 
 @Composable
 fun PlayAppBar(
@@ -28,7 +27,7 @@ fun PlayAppBar(
     rightClick: (() -> Unit)? = null,
 ) {
     Column(modifier = Modifier.background(color = MaterialTheme.colors.primary)) {
-        Spacer(Modifier.statusBarsHeight())
+        Spacer(Modifier.windowInsetsTopHeight(WindowInsets.statusBars))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
