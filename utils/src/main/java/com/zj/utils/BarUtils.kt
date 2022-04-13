@@ -2,9 +2,9 @@ package com.zj.utils
 
 import android.app.Activity
 import android.content.Context
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowCompat.getInsetsController
+import androidx.core.view.WindowInsetsCompat.Type.ime
 
 /**
  * 设置为沉浸式状态栏
@@ -17,8 +17,8 @@ fun Activity.transparentStatusBar() {
  * 状态栏反色
  */
 fun Activity.setAndroidNativeLightStatusBar() {
-    val controller = ViewCompat.getWindowInsetsController(window.decorView)
-    controller?.isAppearanceLightStatusBars = !isDarkMode()
+    val controller = getInsetsController(window, window.decorView)
+    controller.isAppearanceLightStatusBars = !isDarkMode()
 }
 
 /**
@@ -26,8 +26,8 @@ fun Activity.setAndroidNativeLightStatusBar() {
  */
 fun Activity?.hideIme() {
     if (this == null || window == null) return
-    val controller = ViewCompat.getWindowInsetsController(window.decorView)
-    controller?.hide(WindowInsetsCompat.Type.ime())
+    val controller = getInsetsController(window, window.decorView)
+    controller.hide(ime())
 }
 
 /**
@@ -35,8 +35,8 @@ fun Activity?.hideIme() {
  */
 fun Activity?.showIme() {
     if (this == null || window == null) return
-    val controller = ViewCompat.getWindowInsetsController(window.decorView)
-    controller?.show(WindowInsetsCompat.Type.ime())
+    val controller = getInsetsController(window, window.decorView)
+    controller.show(ime())
 }
 
 
