@@ -80,7 +80,6 @@ fun LoginPageContent(
 
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SignIn(onNavigationEvent: (SignInEvent) -> Unit) {
 
@@ -97,9 +96,10 @@ fun SignIn(onNavigationEvent: (SignInEvent) -> Unit) {
                 title = stringResource(id = R.string.sign_in),
                 click = { onNavigationEvent(SignInEvent.NavigateBack) })
         },
-        content = {
+        content = { innerPadding ->
+            val modifier = Modifier.padding(innerPadding)
             SignInSignUpScreen(
-                modifier = Modifier.fillMaxWidth()
+                modifier = modifier.fillMaxWidth()
             ) {
                 Column(modifier = Modifier.fillMaxWidth()) {
                     SignInContent(

@@ -6,8 +6,8 @@ import android.content.Intent
 import android.net.Uri
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Share
@@ -16,12 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.accompanist.web.WebView
-import com.google.accompanist.web.rememberWebViewState
+import com.google.accompanist.web.*
 import com.zj.model.ArticleModel
 import com.zj.play.R
 import com.zj.play.ui.view.bar.PlayAppBar
+import com.zj.utils.XLog
 import com.zj.utils.getHtmlText
+import com.zj.utils.showToast
 
 
 /**
@@ -39,47 +40,62 @@ fun ArticlePage(
     val context = LocalContext.current
     val url = article?.link ?: "https://www.baidu.com"
     val state = rememberWebViewState(url = url)
+    val client = object : AccompanistWebViewClient() {
+        override fun shouldOverrideUrlLoading(
+            view: WebView?,
+            request: WebResourceRequest?
+        ): Boolean {
+            try {
+                if (!url.startsWith("http:") || !url.startsWith("https:")) {
+                    val intent = Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(url)
+                    )
+                    view?.context?.startActivity(intent)
+                    return true
+                }
+            } catch (e: Exception) {
+                XLog.e("AccompanistWebViewClient:$e")
+                showToast(context, e.message)
+                return false
+            }
+            view?.loadUrl(url)
+            return true
+        }
+    }
+    val navigator: WebViewNavigator = rememberWebViewNavigator()
     Scaffold(
         topBar = {
-            PlayAppBar(getHtmlText(article?.title ?: stringResource(R.string.article_details)), click = {
-                onBack.invoke()
-            }, showRight = true, rightImg = Icons.Filled.Share, rightClick = {
-                sharePost(
-                    article?.title,
-                    article?.link,
-                    context
-                )
-            })
-        },
-        content = {
-            WebView(
-                state = state,
-                modifier = Modifier.fillMaxSize(),
-                onCreated = { webView ->
-                    webView.settings.javaScriptEnabled = true
-                    webView.webViewClient = object : WebViewClient() {
-                        override fun shouldOverrideUrlLoading(
-                            view: WebView?,
-                            request: WebResourceRequest?
-                        ): Boolean {
-                            try {
-                                if (!url.startsWith("http:") || !url.startsWith("https:")) {
-                                    val intent = Intent(
-                                        Intent.ACTION_VIEW,
-                                        Uri.parse(url)
-                                    )
-                                    view?.context?.startActivity(intent)
-                                    return true
-                                }
-                            } catch (e: Exception) {
-                                return false
-                            }
-
-                            view?.loadUrl(url)
-                            return true
-                        }
+            PlayAppBar(
+                getHtmlText(article?.title ?: stringResource(R.string.article_details)),
+                click = {
+                    if (navigator.canGoBack) {
+                        navigator.navigateBack()
+                    } else {
+                        onBack.invoke()
                     }
                 },
+                showRight = true,
+                rightImg = Icons.Filled.Share,
+                rightClick = {
+                    sharePost(
+                        article?.title,
+                        article?.link,
+                        context
+                    )
+                })
+        },
+        content =
+        { innerPadding ->
+            val modifier = Modifier.padding(innerPadding)
+            WebView(
+                state = state,
+                modifier = modifier.fillMaxSize(),
+                onCreated = { webView ->
+                    webView.settings.javaScriptEnabled = true
+                },
+                navigator = navigator,
+                client = client,
             )
         }
     )
