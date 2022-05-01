@@ -3,8 +3,8 @@ apply from: "config.gradle"
 
 buildscript {
     ext {
-        compose_version = '1.2.0-alpha07'
-        kotlin_version = '1.6.10'
+        compose_version = '1.2.0-alpha08'
+        kotlin_version = '1.6.20'
         hilt_version = '2.41'
     }
     repositories {
