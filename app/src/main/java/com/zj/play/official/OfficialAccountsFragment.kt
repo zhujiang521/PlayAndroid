@@ -33,7 +33,6 @@ class OfficialAccountsFragment : BaseTabFragment() {
         adapter = FragmentAdapter(requireActivity().supportFragmentManager, lifecycle)
         binding?.apply {
             officialViewPager2?.adapter = adapter
-            officialTabLayout.setupWithViewPager(officialViewPager)
             officialTabLayout.addOnTabSelectedListener(this@OfficialAccountsFragment)
             TabLayoutMediator(officialTabLayout, officialViewPager2!!) { tab, position ->
                 tab.text = adapter.title(position)
