@@ -135,6 +135,7 @@ fun SignIn(onNavigationEvent: (SignInEvent) -> Unit) {
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SignInContent(
     onSignInSubmitted: (email: String, password: String) -> Unit,

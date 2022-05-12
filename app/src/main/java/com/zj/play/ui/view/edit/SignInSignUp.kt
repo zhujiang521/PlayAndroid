@@ -39,6 +39,7 @@ fun SignInSignUpScreen(
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun Email(
     emailState: TextFieldState = remember { EmailState() },
@@ -90,6 +91,7 @@ fun Email(
     emailState.getError()?.let { error -> TextFieldError(textError = error) }
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun Password(
     label: String,

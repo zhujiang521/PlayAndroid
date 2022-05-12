@@ -9,7 +9,6 @@ import com.zj.model.ArticleModel
 import com.zj.model.Query
 import com.zj.play.logic.repository.BaseArticlePagingRepository
 import com.zj.utils.XLog
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -26,7 +25,6 @@ abstract class BaseArticleViewModel(application: Application) : AndroidViewModel
 
     private val searchResults = MutableSharedFlow<Query>(replay = 1)
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     val articleResult: Flow<PagingData<ArticleModel>> = searchResults.flatMapLatest {
         repositoryArticle.getPagingData(it)
     }.cachedIn(viewModelScope)

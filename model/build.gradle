@@ -47,7 +47,7 @@ dependencies {
     implementation des.coreKtx
     implementation des.appcompat
     // Compose Banner滚动
-    api 'com.github.zhujiang521:Banner:2.1.1'
+    api 'com.github.zhujiang521:Banner:2.2.0'
     testImplementation des.junit
     androidTestImplementation des.extJunit
     androidTestImplementation des.espressoCore
