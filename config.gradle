@@ -1,10 +1,10 @@
 ext {
     cfgs = [
-            compileSdkVersion        : 31,
+            compileSdkVersion        : 32,
             minSdkVersion            : 25,
-            targetSdkVersion         : 31,
-            versionCode              : 8,
-            versionName              : "2.2.2",
+            targetSdkVersion         : 32,
+            versionCode              : 9,
+            versionName              : "2.3.0",
             testInstrumentationRunner: "androidx.test.runner.AndroidJUnitRunner",
             consumerProguardFiles    : 'consumer-rules.pro',
             jvmTarget               : '11',
@@ -12,7 +12,7 @@ ext {
     ]
 
     des = [
-            kotlinVersion: "org.jetbrains.kotlin:kotlin-stdlib:1.6.10",
+            kotlinVersion: "org.jetbrains.kotlin:kotlin-stdlib:1.6.21",
             coreKtx      : 'androidx.core:core-ktx:1.8.0-alpha06',
             appcompat    : 'androidx.appcompat:appcompat:1.4.1',
             junit        : 'junit:junit:4.13.2',
