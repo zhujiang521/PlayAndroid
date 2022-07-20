@@ -26,8 +26,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
-        tools:replace="android:theme"
-        tools:targetApi="m">
+        tools:replace="android:theme">
         <receiver
             android:name=".widget.PlayAndroidWidget"
             android:exported="true">

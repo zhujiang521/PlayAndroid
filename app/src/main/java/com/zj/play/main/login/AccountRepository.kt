@@ -5,7 +5,7 @@ import androidx.lifecycle.liveData
 import com.zj.core.util.showToast
 import com.zj.model.model.BaseModel
 import com.zj.network.base.PlayAndroidNetwork
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
 /**
@@ -16,7 +16,7 @@ import javax.inject.Inject
  * 描述：PlayAndroid
  *
  */
-@ActivityRetainedScoped
+@ActivityScoped
 class AccountRepository @Inject constructor() {
 
     suspend fun getLogin(username: String, password: String) =

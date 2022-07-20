@@ -4,7 +4,7 @@ import android.app.Application
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.HISTORY
 import com.zj.play.main.login.fire
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
 /**
@@ -15,7 +15,7 @@ import javax.inject.Inject
  * 描述：PlayAndroid
  *
  */
-@ActivityRetainedScoped
+@ActivityScoped
 class BrowseHistoryRepository @Inject constructor(val application: Application) {
 
     private val browseHistoryDao = PlayDatabase.getDatabase(application).browseHistoryDao()

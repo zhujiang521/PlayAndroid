@@ -22,10 +22,10 @@ abstract class ArticleCollectBaseActivity : BaseActivity() {
         super.onResume()
         articleReceiver =
             ArticleBroadCast.setArticleChangesReceiver(this) { initData() }
-        LiveDataBus.get().getChannel(LOGIN_REFRESH, Boolean::class.java).observe(this, {
+        LiveDataBus.get().getChannel(LOGIN_REFRESH, Boolean::class.java).observe(this) {
             Log.e(TAG, "Activity onResume: $it")
             if (it) initData()
-        })
+        }
     }
 
     override fun onPause() {

@@ -5,7 +5,7 @@ import android.net.Uri
 import com.zj.core.almanac.CalendarUtils
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.Almanac
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dagger.hilt.android.scopes.ActivityScoped
 import java.util.*
 import javax.inject.Inject
 
@@ -17,7 +17,7 @@ import javax.inject.Inject
  * 描述：PlayAndroid
  *
  */
-@ActivityRetainedScoped
+@ActivityScoped
 class AlmanacRepository @Inject constructor(application: Application) {
 
     private val almanacDao = PlayDatabase.getDatabase(application).almanacDao()

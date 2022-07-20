@@ -9,7 +9,7 @@ import com.zj.network.base.PlayAndroidNetwork
 import com.zj.play.home.DOWN_PROJECT_ARTICLE_TIME
 import com.zj.play.home.FOUR_HOUR
 import com.zj.play.main.login.fire
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dagger.hilt.android.scopes.FragmentScoped
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
@@ -21,7 +21,7 @@ import javax.inject.Inject
  * 描述：PlayAndroid
  *
  */
-@ActivityRetainedScoped
+@FragmentScoped
 class ProjectRepository @Inject constructor(val application: Application) {
 
     private val projectClassifyDao = PlayDatabase.getDatabase(application).projectClassifyDao()

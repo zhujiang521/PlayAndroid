@@ -4,9 +4,10 @@ import com.zj.network.base.PlayAndroidNetwork
 import com.zj.play.main.login.fires
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.scopes.ActivityScoped
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * 版权：Zhujiang 个人版权
@@ -16,7 +17,7 @@ import javax.inject.Singleton
  * 描述：PlayAndroid
  *
  */
-@Singleton
+@ActivityScoped
 class CollectRepository @Inject constructor() {
 
     /**
@@ -32,7 +33,7 @@ class CollectRepository @Inject constructor() {
 }
 
 @EntryPoint
-@InstallIn(SingletonComponent::class)
+@InstallIn(ActivityComponent::class)
 interface CollectRepositoryPoint {
     fun collectRepository(): CollectRepository
 }

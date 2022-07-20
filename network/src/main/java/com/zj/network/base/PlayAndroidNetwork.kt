@@ -1,12 +1,6 @@
 package com.zj.network.base
 
 import com.zj.network.service.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
 
 /**
  * 版权：Zhujiang 个人版权

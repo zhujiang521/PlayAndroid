@@ -60,12 +60,12 @@ class AddShareActivity : BaseActivity(), View.OnClickListener {
             binding.addShareEtLink.error = getString(R.string.link_format_error)
             return
         }
-        shareRepository.shareArticle(title, link).observe(this, {
+        shareRepository.shareArticle(title, link).observe(this) {
             if (it.isSuccess) {
                 showToast(getString(R.string.share_success))
                 finish()
             }
-        })
+        }
     }
 
     companion object {
