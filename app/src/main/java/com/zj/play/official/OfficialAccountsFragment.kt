@@ -56,11 +56,6 @@ class OfficialAccountsFragment : BaseTabFragment() {
             }
             binding?.officialViewPager?.currentItem = viewModel.position
         }
-        getOfficialTree()
-    }
-
-    private fun getOfficialTree() {
-        viewModel.getDataList(false)
     }
 
     override fun onTabPageSelected(position: Int) {

@@ -26,4 +26,8 @@ class ProjectViewModel @Inject constructor(
         return projectRepository.getProjectTree(page)
     }
 
+    init {
+        getDataList(false)
+    }
+
 }

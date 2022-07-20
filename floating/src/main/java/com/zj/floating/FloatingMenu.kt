@@ -500,6 +500,7 @@ class FloatingMenu @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(
             }
         }
 
+        @Deprecated("Deprecated in Java")
         override fun onStartNestedScroll(
             coordinatorLayout: CoordinatorLayout,
             child: FloatingMenu,

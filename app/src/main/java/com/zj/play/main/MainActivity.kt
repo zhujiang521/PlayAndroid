@@ -40,11 +40,6 @@ class MainActivity : BaseActivity() {
         return binding.root
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        exitProcess(0)
-    }
-
     private var exitTime: Long = 0
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

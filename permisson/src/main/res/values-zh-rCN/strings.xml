@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<string name="activity_permission_setting">在设置中允许以下权限</string>
-	<string name="activity_permission">需要下列权限</string>
-	<string name="activity_permission_cancel">取消</string>
-	<string name="activity_permission_sure">确定</string>
-</resources>

@@ -24,4 +24,9 @@ class OfficialViewModel @Inject constructor(
     override fun getData(page: Boolean): LiveData<Result<List<ProjectClassify>>> {
         return officialRepository.getWxArticleTree(page)
     }
+
+    init {
+        getDataList(false)
+    }
+
 }

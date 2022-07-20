@@ -57,11 +57,6 @@ class ProjectFragment : BaseTabFragment() {
             }
             binding?.projectViewPager2?.currentItem = viewModel.position
         }
-        getProjectTree()
-    }
-
-    private fun getProjectTree() {
-        viewModel.getDataList(false)
     }
 
     override fun onTabPageSelected(position: Int) {

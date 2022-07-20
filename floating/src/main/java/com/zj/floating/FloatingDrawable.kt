@@ -90,6 +90,9 @@ class FloatingDrawable : Drawable {
         mPaint?.colorFilter = cf
     }
 
+    @Deprecated("Deprecated in Java",
+        ReplaceWith("PixelFormat.TRANSLUCENT", "android.graphics.PixelFormat")
+    )
     override fun getOpacity(): Int {
         return PixelFormat.TRANSLUCENT
     }

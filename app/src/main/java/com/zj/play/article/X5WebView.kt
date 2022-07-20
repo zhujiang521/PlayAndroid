@@ -31,7 +31,7 @@ class X5WebView @JvmOverloads constructor(
 
     private var progressBar: ProgressBar? = null
 
-    fun setShowProgress(showProgress: Boolean) {
+    private fun setShowProgress(showProgress: Boolean) {
         progressBar?.isVisible = showProgress
     }
 
@@ -70,7 +70,7 @@ class X5WebView @JvmOverloads constructor(
         isClickable = true
         setOnTouchListener { _: View?, _: MotionEvent? -> false }
         val webSetting = settings
-        webSetting.javaScriptEnabled = true
+//        webSetting.javaScriptEnabled = true
         webSetting.builtInZoomControls = true
         webSetting.javaScriptCanOpenWindowsAutomatically = true
         webSetting.domStorageEnabled = true
@@ -81,9 +81,9 @@ class X5WebView @JvmOverloads constructor(
         webSetting.setSupportMultipleWindows(true)
         webSetting.setAppCacheEnabled(true)
         webSetting.setGeolocationEnabled(true)
-        webSetting.setAppCacheMaxSize(Long.MAX_VALUE)
-        webSetting.pluginState = WebSettings.PluginState.ON_DEMAND
-        webSetting.setRenderPriority(WebSettings.RenderPriority.HIGH)
+//        webSetting.setAppCacheMaxSize(Long.MAX_VALUE)
+//        webSetting.pluginState = WebSettings.PluginState.ON_DEMAND
+//        webSetting.setRenderPriority(WebSettings.RenderPriority.HIGH)
         //android 默认是可以打开_bank的，是因为它默认设置了WebSettings.setSupportMultipleWindows(false)
         //在false状态下，_bank也会在当前页面打开……
         //而x5浏览器，默认开启了WebSettings.setSupportMultipleWindows(true)，

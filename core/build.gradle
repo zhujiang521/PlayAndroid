@@ -31,7 +31,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 
 
@@ -57,8 +57,8 @@ dependencies {
     api 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     api "com.android.support:design:28.0.0"
-    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2'
-    api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.2'
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
     api 'androidx.datastore:datastore-preferences:1.0.0'
 
     api  'com.scwang.smart:refresh-layout-kernel:2.0.1'      //核心必须依赖
@@ -82,6 +82,8 @@ dependencies {
     def fragment_version = "1.4.1"
     api "androidx.fragment:fragment-ktx:$fragment_version"
 
+    // tbs
+    api 'com.tencent.tbs:tbssdk:44199'
 
     testImplementation des.junit
     androidTestImplementation des.extJunit
