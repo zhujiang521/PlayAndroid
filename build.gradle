@@ -3,9 +3,9 @@ apply from: "config.gradle"
 
 buildscript {
     ext {
-        compose_version = '1.2.0-rc01'
-        kotlin_version = '1.6.21'
-        hilt_version = '2.42'
+        compose_version = '1.2.0'
+        kotlin_version = '1.7.0'
+        hilt_version = '2.43'
     }
     repositories {
         google()
