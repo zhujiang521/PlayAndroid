@@ -50,21 +50,25 @@ dependencies {
     api 'androidx.recyclerview:recyclerview:1.2.1'
     api "androidx.lifecycle:lifecycle-extensions:2.2.0"
     api "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
-    api "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
-    api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
+    api "androidx.lifecycle:lifecycle-runtime-ktx:2.5.0"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0"
     api 'com.google.android.material:material:1.6.0'
-    api 'com.squareup.retrofit2:retrofit:2.9.0'
-    api 'com.squareup.retrofit2:converter-gson:2.9.0'
 
-    api "com.android.support:design:28.0.0"
-    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
-    api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    def retrofit_version = "2.9.0"
+    api "com.squareup.retrofit2:retrofit:$retrofit_version"
+    api "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    def coroutines_version = "1.6.4"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+
     api 'androidx.datastore:datastore-preferences:1.0.0'
 
-    api  'com.scwang.smart:refresh-layout-kernel:2.0.1'      //核心必须依赖
-    api  'com.scwang.smart:refresh-header-classics:2.0.1'    //经典刷新头
+    def refresh_version = "2.0.1"
+    api "com.scwang.smart:refresh-layout-kernel:$refresh_version"      //核心必须依赖
+    api "com.scwang.smart:refresh-header-classics:$refresh_version"    //经典刷新头
     //api  'com.scwang.smart:refresh-header-material:2.0.1'    //谷歌刷新头
-    api  'com.scwang.smart:refresh-footer-classics:2.0.1'    //经典加载
+    api "com.scwang.smart:refresh-footer-classics:$refresh_version"    //经典加载
 
     // 安卓Utils
     api 'com.blankj:utilcode:1.30.7'
@@ -77,9 +81,9 @@ dependencies {
     //Lottie动画
     implementation "com.airbnb.android:lottie:5.2.0"
 
-    def activity_version = "1.4.0"
+    def activity_version = "1.5.0"
     api "androidx.activity:activity-ktx:$activity_version"
-    def fragment_version = "1.4.1"
+    def fragment_version = "1.5.0"
     api "androidx.fragment:fragment-ktx:$fragment_version"
 
     // tbs

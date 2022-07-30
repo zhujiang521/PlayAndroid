@@ -108,7 +108,9 @@
         <entry key="app/src/main/res/drawable/selector_one.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/selector_two.xml" value="0.275" />
         <entry key="app/src/main/res/layout/activity_article.xml" value="0.2848731884057971" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.15416666666666667" />
         <entry key="app/src/main/res/layout/fragment_base_list.xml" value="0.16084093211752787" />
+        <entry key="app/src/main/res/layout/fragment_home_page.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/fragment_official_accounts.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/fragment_project.xml" value="0.16084093211752787" />
         <entry key="app/src/main/res/layout/layout_home_bottom_tab.xml" value="0.16084093211752787" />
