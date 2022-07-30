@@ -109,13 +109,20 @@
         <entry key="app/src/main/res/drawable/selector_four.xml" value="0.275" />
         <entry key="app/src/main/res/drawable/selector_one.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/selector_two.xml" value="0.275" />
+        <entry key="app/src/main/res/layout-land/activity_login.xml" value="0.19583333333333333" />
+        <entry key="app/src/main/res/layout-land/activity_main.xml" value="0.13756613756613756" />
+        <entry key="app/src/main/res/layout-land/activity_search.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout-land/adapter_article.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout-land/dialog_bottom_sheet.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout-land/fragment_home_page.xml" value="0.1" />
         <entry key="app/src/main/res/layout-land/fragment_official_accounts.xml" value="0.1" />
         <entry key="app/src/main/res/layout-land/fragment_project.xml" value="0.19583333333333333" />
+        <entry key="app/src/main/res/layout-land/layout_home_bottom_land_tab.xml" value="0.1693121693121693" />
+        <entry key="app/src/main/res/layout/activity_almanac.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/activity_article.xml" value="0.2848731884057971" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.15416666666666667" />
+        <entry key="app/src/main/res/layout/activity_search.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/adapter_article.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/dialog_bottom_sheet.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/fragment_base_list.xml" value="0.16084093211752787" />
@@ -139,7 +146,9 @@
         <entry key="core/src/main/res/drawable/no_content_image.xml" value="0.22291666666666668" />
         <entry key="core/src/main/res/drawable/to_top_bg.xml" value="0.22916666666666666" />
         <entry key="core/src/main/res/drawable/to_top_bg_nomal.xml" value="0.22916666666666666" />
+        <entry key="core/src/main/res/layout-land/layout_title.xml" value="0.19583333333333333" />
         <entry key="core/src/main/res/layout/bad_network_view.xml" value="0.2848731884057971" />
+        <entry key="core/src/main/res/layout/layout_title.xml" value="0.20643363728470113" />
         <entry key="core/src/main/res/layout/loading.xml" value="0.2848731884057971" />
       </map>
     </option>

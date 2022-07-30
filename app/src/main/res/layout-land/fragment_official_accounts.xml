@@ -5,15 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_10"
-        android:background="@color/colorPrimary" />
-
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/officialTabLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_45"
+        android:layout_height="@dimen/dp_60"
         android:background="@color/colorPrimary"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/white"

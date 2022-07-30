@@ -11,8 +11,9 @@
         android:layout_width="@dimen/dp_70"
         android:layout_height="@dimen/dp_70"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_150"
-        android:src="@drawable/logo_reverse" />
+        android:layout_marginTop="@dimen/dp_120"
+        android:src="@drawable/logo_reverse"
+        tools:ignore="ContentDescription" />
 
     <FrameLayout
         android:id="@+id/loginLayoutBottom"
@@ -35,7 +36,7 @@
             android:id="@+id/loginInputElements"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center"
             android:orientation="vertical"
             tools:ignore="UselessParent">
 
@@ -45,7 +46,7 @@
                 android:gravity="center_horizontal"
                 android:text="@string/app_name"
                 android:textColor="@color/white"
-                android:textSize="@dimen/dp_24" />
+                android:textSize="@dimen/sp_24" />
 
             <EditText
                 android:id="@+id/loginUserNumberEdit"
@@ -55,12 +56,14 @@
                 android:layout_marginTop="@dimen/dp_25"
                 android:background="@drawable/bg_edittext"
                 android:hint="@string/enter_name"
+                android:importantForAutofill="no"
                 android:lines="1"
                 android:paddingHorizontal="@dimen/dp_5"
                 android:singleLine="true"
                 android:textColor="@color/text_color"
                 android:textColorHint="@color/plain"
-                android:textSize="@dimen/dp_14" />
+                android:textSize="@dimen/sp_14"
+                tools:ignore="TextFields" />
 
             <EditText
                 android:id="@+id/loginPassNumberEdit"
@@ -70,23 +73,25 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:background="@drawable/bg_edittext"
                 android:hint="@string/enter_password"
+                android:importantForAutofill="no"
                 android:lines="1"
                 android:paddingHorizontal="@dimen/dp_5"
                 android:singleLine="true"
                 android:textColor="@color/text_color"
                 android:textColorHint="@color/plain"
-                android:textSize="@dimen/dp_14" />
+                android:textSize="@dimen/sp_14"
+                tools:ignore="TextFields" />
 
             <TextView
                 android:id="@+id/loginTvRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
                 android:layout_marginHorizontal="@dimen/dp_35"
                 android:layout_marginTop="@dimen/dp_10"
                 android:text="@string/register_account"
                 android:textColor="@color/text_click_color"
-                android:textSize="@dimen/dp_14" />
+                android:textSize="@dimen/sp_14" />
 
             <Button
                 android:id="@+id/loginButton"
@@ -98,7 +103,7 @@
                 android:background="@drawable/btn_login_bg"
                 android:text="@string/login"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/dp_14" />
+                android:textSize="@dimen/sp_14" />
 
         </LinearLayout>
 

@@ -35,7 +35,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     override fun initView() {
         binding.loginButton.setOnClickListener(this)
         binding.loginTvRegister.setOnClickListener(this)
-        viewModel.state.observe(this, {
+        viewModel.state.observe(this) {
             when (it) {
                 Logging -> {
                     toProgressVisible(true)
@@ -49,7 +49,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     toProgressVisible(false)
                 }
             }
-        })
+        }
     }
 
     override fun onClick(v: View) {
