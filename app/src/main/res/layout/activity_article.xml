@@ -21,7 +21,8 @@
             android:backgroundTint="@color/white"
             android:paddingTop="@dimen/dp_8"
             android:paddingBottom="@dimen/dp_8"
-            android:src="@drawable/img_back" />
+            android:src="@drawable/img_back"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/articleTxtTitle"
@@ -32,19 +33,20 @@
             android:gravity="center"
             android:lines="1"
             android:singleLine="true"
-            android:text="玩安卓"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp_18" />
+            android:textSize="@dimen/sp_18"
+            tools:text="玩安卓" />
 
         <ImageView
             android:id="@+id/articleImgRight"
             android:layout_width="@dimen/dp_40"
             android:layout_height="@dimen/dp_40"
-            android:layout_gravity="center_vertical|right"
+            android:layout_gravity="center_vertical|end"
             android:backgroundTint="@color/white"
             android:paddingTop="@dimen/dp_8"
             android:paddingBottom="@dimen/dp_8"
-            android:src="@drawable/ic_more_vert_black_24dp" />
+            android:src="@drawable/ic_more_vert_black_24dp"
+            tools:ignore="ContentDescription" />
 
     </FrameLayout>
 

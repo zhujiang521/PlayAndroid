@@ -32,9 +32,9 @@ class ProjectFragment : BaseTabFragment() {
     override fun initView() {
         adapter = FragmentAdapter(requireActivity().supportFragmentManager, lifecycle)
         binding?.apply {
-            projectViewPager2?.adapter = adapter
+            projectViewPager2.adapter = adapter
             projectTabLayout.addOnTabSelectedListener(this@ProjectFragment)
-            TabLayoutMediator(projectTabLayout, projectViewPager2!!) { tab, position ->
+            TabLayoutMediator(projectTabLayout, projectViewPager2) { tab, position ->
                 tab.text = adapter.title(position)
             }.attach()
         }

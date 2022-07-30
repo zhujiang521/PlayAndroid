@@ -75,10 +75,12 @@
         <entry key="../../../../layout/compose-model-1649859394796.xml" value="0.1" />
         <entry key="../../../../layout/compose-model-1649919359383.xml" value="0.2601851851851852" />
         <entry key="../../../../layout/custom_preview.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-night-xxhdpi/article_share_bg.xml" value="0.202" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2604166666666667" />
         <entry key="app/src/main/res/drawable/almanac_share_button.xml" value="0.2851851851851852" />
         <entry key="app/src/main/res/drawable/article_bg.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/article_list_bg.xml" value="0.2604166666666667" />
+        <entry key="app/src/main/res/drawable/article_share_bg.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/bad_loading.xml" value="0.1935" />
         <entry key="app/src/main/res/drawable/bad_network_image.xml" value="0.1935" />
         <entry key="app/src/main/res/drawable/bottom_item.xml" value="0.2604166666666667" />
@@ -107,11 +109,18 @@
         <entry key="app/src/main/res/drawable/selector_four.xml" value="0.275" />
         <entry key="app/src/main/res/drawable/selector_one.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/selector_two.xml" value="0.275" />
+        <entry key="app/src/main/res/layout-land/adapter_article.xml" value="0.19583333333333333" />
+        <entry key="app/src/main/res/layout-land/dialog_bottom_sheet.xml" value="0.19583333333333333" />
+        <entry key="app/src/main/res/layout-land/fragment_home_page.xml" value="0.1" />
+        <entry key="app/src/main/res/layout-land/fragment_official_accounts.xml" value="0.1" />
+        <entry key="app/src/main/res/layout-land/fragment_project.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout/activity_article.xml" value="0.2848731884057971" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.15416666666666667" />
+        <entry key="app/src/main/res/layout/adapter_article.xml" value="0.20643363728470113" />
+        <entry key="app/src/main/res/layout/dialog_bottom_sheet.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/fragment_base_list.xml" value="0.16084093211752787" />
         <entry key="app/src/main/res/layout/fragment_home_page.xml" value="0.20643363728470113" />
-        <entry key="app/src/main/res/layout/fragment_official_accounts.xml" value="0.20643363728470113" />
+        <entry key="app/src/main/res/layout/fragment_official_accounts.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_project.xml" value="0.16084093211752787" />
         <entry key="app/src/main/res/layout/layout_home_bottom_tab.xml" value="0.16084093211752787" />
         <entry key="app/src/main/res/layout/layout_to_top.xml" value="0.12681159420289856" />

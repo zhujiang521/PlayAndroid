@@ -49,4 +49,6 @@
 
     <color name="home_bottom_bg_color">#F2272727</color>
 
+    <color name="article_share_bg">#000000</color>
+
 </resources>

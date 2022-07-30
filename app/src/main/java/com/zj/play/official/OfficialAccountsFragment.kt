@@ -32,9 +32,9 @@ class OfficialAccountsFragment : BaseTabFragment() {
     override fun initView() {
         adapter = FragmentAdapter(requireActivity().supportFragmentManager, lifecycle)
         binding?.apply {
-            officialViewPager2?.adapter = adapter
+            officialViewPager2.adapter = adapter
             officialTabLayout.addOnTabSelectedListener(this@OfficialAccountsFragment)
-            TabLayoutMediator(officialTabLayout, officialViewPager2!!) { tab, position ->
+            TabLayoutMediator(officialTabLayout, officialViewPager2) { tab, position ->
                 tab.text = adapter.title(position)
             }.attach()
         }
@@ -54,7 +54,7 @@ class OfficialAccountsFragment : BaseTabFragment() {
                 reset(viewList)
                 notifyDataSetChanged()
             }
-            binding?.officialViewPager?.currentItem = viewModel.position
+            binding?.officialViewPager2?.currentItem = viewModel.position
         }
     }
 
