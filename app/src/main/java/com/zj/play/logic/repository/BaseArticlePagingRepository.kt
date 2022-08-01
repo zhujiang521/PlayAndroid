@@ -20,4 +20,50 @@ abstract class BaseArticlePagingRepository {
     }
 
     abstract fun getPagingData(query: Query): Flow<PagingData<ArticleModel>>
+    
+      fun <T> http(
+        scope: CoroutineScope = GlobalScope,
+        dispatchers: CoroutineDispatcher = Dispatchers.Main,
+        request: suspend CoroutineScope.() -> BaseModel<T>,
+        state: MutableLiveData<PlayState<T>>
+    ): Job {
+        return scope.launch(dispatchers) {
+            try {
+                val response = request()
+                if (response.errorCode == 0) {
+                    val bannerList = response.data
+                    state.postValue(PlaySuccess(bannerList))
+                } else {
+                    state.postValue(PlayError(RuntimeException("response status is ${response.errorCode}  msg is ${response.errorMsg}")))
+                }
+
+            } catch (e: Exception) {
+                state.postValue(PlayError(RuntimeException(handleException(e))))
+            }
+        }
+
+    }
+
+    /**
+     * 异常处理
+     */
+    private fun handleException(e: Exception): String {
+        val msg = when (e) {
+            is CancellationException -> {
+                "取消异常"   // 取消异常
+            }
+            is JsonSyntaxException -> {
+                "解析异常"
+            }
+            is HttpException -> {
+                "url不存在"
+            }
+            // .....TODO 其他异常
+            else -> {
+                "网络异常"
+            }
+        }
+
+        return msg
+    }
 }
