@@ -31,6 +31,10 @@ class SearchViewModel(application: Application) : BaseArticleViewModel(applicati
     fun getSearchArticle(keyword: String) {
         searchArticle(Query(k = keyword))
     }
+    
+//     private val exceptionHandler = CoroutineExceptionHandler { _, e ->
+//         _hotkeyState.postValue(PlayError(RuntimeException(e.message)))
+//     }
 
     private val _hotkeyState = MutableLiveData<PlayState<List<HotkeyModel>>>()
 
@@ -39,9 +43,27 @@ class SearchViewModel(application: Application) : BaseArticleViewModel(applicati
 
     fun getHotkeyList() {
         hotkeyJob?.cancel()
-        hotkeyJob = viewModelScope.launch(Dispatchers.IO) {
-            (repositoryArticle as SearchRepository).getHotKey(_hotkeyState)
-        }
+//        hotkeyJob = viewModelScope.launch(Dispatchers.Main) {
+//            try {
+//                (repositoryArticle as SearchRepository).getHotKey(_hotkeyState)
+//            } catch (e: Exception) {
+//                _hotkeyState.postValue(PlayError(RuntimeException(e.message)))
+//            }
+//        }
+
+
+//        hotkeyJob = viewModelScope.launch(
+//            CoroutineName("handlerExcept") + exceptionHandler
+//        ) {
+//            (repositoryArticle as SearchRepository).getHotKey(_hotkeyState)
+//        }
+        
+        hotkeyJob = (repositoryArticle as SearchRepository)
+            .http(
+                scope = viewModelScope,
+                request = { PlayAndroidNetwork.getHotkeyModel() },
+                state = _hotkeyState
+            )
     }
 
 }
