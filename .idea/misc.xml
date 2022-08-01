@@ -109,9 +109,11 @@
         <entry key="app/src/main/res/drawable/selector_four.xml" value="0.275" />
         <entry key="app/src/main/res/drawable/selector_one.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/selector_two.xml" value="0.275" />
+        <entry key="app/src/main/res/layout-land/activity_article.xml" value="0.12433862433862433" />
         <entry key="app/src/main/res/layout-land/activity_login.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout-land/activity_main.xml" value="0.13756613756613756" />
         <entry key="app/src/main/res/layout-land/activity_search.xml" value="0.19583333333333333" />
+        <entry key="app/src/main/res/layout-land/activity_share.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout-land/adapter_article.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout-land/dialog_bottom_sheet.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout-land/fragment_home_page.xml" value="0.1" />

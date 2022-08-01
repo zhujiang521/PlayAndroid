@@ -11,7 +11,6 @@ import androidx.core.view.isVisible
 import com.blankj.utilcode.util.NetworkUtils
 import com.bumptech.glide.Glide
 import com.zj.core.Play
-import com.zj.core.util.ProgressDialogUtil
 import com.zj.core.util.getHtmlText
 import com.zj.core.util.setSafeListener
 import com.zj.core.util.showToast
@@ -30,10 +29,7 @@ class ArticleAdapter(
     private val mContext: Context,
     private val articleList: ArrayList<Article>,
     private val isShowCollect: Boolean = true,
-) : BaseRecyclerAdapter<AdapterArticleBinding>() {
-
-    private val uiScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
-    private var progressDialogUtil: ProgressDialogUtil = ProgressDialogUtil.getInstance(mContext)!!
+) : BaseRecyclerAdapter<AdapterArticleBinding>(), CoroutineScope by MainScope() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -49,12 +45,7 @@ class ArticleAdapter(
         t: Article,
         articleTvCollect: ImageView
     ) {
-        progressDialogUtil.progressDialogShow(
-            if (t.collect) mContext.getString(R.string.bookmarking) else mContext.getString(
-                R.string.unfavorite
-            )
-        )
-        uiScope.launch {
+        launch(Dispatchers.IO) {
             val articleDao = PlayDatabase.getDatabase(mContext).browseHistoryDao()
             if (!t.collect) {
                 val cancelCollects = collectRepository.cancelCollects(t.id)
@@ -63,11 +54,9 @@ class ArticleAdapter(
                         articleTvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
                         showToast(mContext.getString(R.string.collection_cancelled_successfully))
                         articleDao.update(t)
-                        progressDialogUtil.progressDialogDismiss()
                     }
                 } else {
                     showToast(mContext.getString(R.string.failed_to_cancel_collection))
-                    progressDialogUtil.progressDialogDismiss()
                 }
             } else {
                 val toCollects = collectRepository.toCollects(t.id)
@@ -76,11 +65,9 @@ class ArticleAdapter(
                         articleTvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
                         showToast(mContext.getString(R.string.collection_successful))
                         articleDao.update(t)
-                        progressDialogUtil.progressDialogDismiss()
                     }
                 } else {
                     showToast(mContext.getString(R.string.collection_failed))
-                    progressDialogUtil.progressDialogDismiss()
                 }
             }
         }
@@ -133,7 +120,7 @@ class ArticleAdapter(
                 }
                 ArticleActivity.actionStart(mContext, data)
                 val browseHistoryDao = PlayDatabase.getDatabase(mContext).browseHistoryDao()
-                uiScope.launch {
+                launch(Dispatchers.IO) {
                     if (browseHistoryDao.getArticle(data.id, HISTORY) == null) {
                         data.localType = HISTORY
                         data.desc = ""
