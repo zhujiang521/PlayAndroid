@@ -12,11 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.zj.floating.FloatingMenu
+    <com.zj.core.view.custom.floating.FloatingMenu
         android:id="@+id/fabMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
+        android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/dp_16"
         android:layout_marginBottom="@dimen/dp_16"
         app:fmm_backgroundTint="@color/floatBackground"
@@ -74,6 +74,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-    </com.zj.floating.FloatingMenu>
+    </com.zj.core.view.custom.floating.FloatingMenu>
 
 </FrameLayout>

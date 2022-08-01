@@ -30,6 +30,7 @@
                 android:id="@+id/homeBanner"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_margin="@dimen/dp_2"
                 android:layout_weight="1"
                 tools:ignore="NestedWeights" />
 
@@ -37,6 +38,8 @@
                 android:id="@+id/homeBanner2"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginHorizontal="@dimen/dp_2"
+                android:layout_marginBottom="@dimen/dp_2"
                 android:layout_weight="1" />
 
         </LinearLayout>
@@ -45,7 +48,7 @@
             android:id="@+id/homeToTopRecyclerView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"/>
+            android:layout_weight="2" />
 
 
     </LinearLayout>

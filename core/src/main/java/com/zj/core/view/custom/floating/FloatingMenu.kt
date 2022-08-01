@@ -1,15 +1,13 @@
-package com.zj.floating
+package com.zj.core.view.custom.floating
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.annotation.TargetApi
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
@@ -20,6 +18,7 @@ import android.view.animation.OvershootInterpolator
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.zj.core.R
 
 /**
  *
@@ -32,7 +31,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
  * 可以通过调用 [addButton] 和 [removeButton] 来动态增减按钮数量。
  *
  */
-class FloatingMenu @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(
+class FloatingMenu constructor(
     context: Context,
     attrs: AttributeSet?,
     defStyleAttr: Int,
@@ -315,7 +314,7 @@ class FloatingMenu @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(
         requestLayout()
     }
 
-    fun addButton(button: FloatingActionButton?) {
+    private fun addButton(button: FloatingActionButton?) {
         addView(button, 0)
         requestLayout()
     }
@@ -325,20 +324,20 @@ class FloatingMenu @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(
         requestLayout()
     }
 
-    fun removeButton(button: FloatingActionButton?) {
+    private fun removeButton(button: FloatingActionButton?) {
         removeView(button)
         requestLayout()
     }
 
-    fun setCover(drawable: Drawable?) {
-        floatingMusicButton!!.setCoverDrawable(drawable)
+    private fun setCover(drawable: Drawable?) {
+        floatingMusicButton?.setCoverDrawable(drawable)
     }
 
     fun setCover(bitmap: Bitmap?) {
-        floatingMusicButton!!.setCover(bitmap)
+        floatingMusicButton?.setCover(bitmap)
     }
 
-    fun setFloatingDirection(floatingDirection: Int) {
+    private fun setFloatingDirection(floatingDirection: Int) {
         this.floatingDirection = floatingDirection
         postInvalidate()
     }
@@ -443,16 +442,16 @@ class FloatingMenu @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(
     fun hide() {
         if (!isHided) {
             isHided = true
-            hideAnimation!!.start()
-            showAnimation!!.cancel()
+            hideAnimation?.start()
+            showAnimation?.cancel()
         }
     }
 
     fun show() {
         if (isHided) {
             isHided = false
-            showAnimation!!.start()
-            hideAnimation!!.cancel()
+            showAnimation?.start()
+            hideAnimation?.cancel()
         }
     }
 
@@ -500,7 +499,11 @@ class FloatingMenu @TargetApi(Build.VERSION_CODES.LOLLIPOP) constructor(
             }
         }
 
-        @Deprecated("Deprecated in Java")
+        @Deprecated("Deprecated in Java", ReplaceWith(
+            "nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL",
+            "androidx.core.view.ViewCompat"
+        )
+        )
         override fun onStartNestedScroll(
             coordinatorLayout: CoordinatorLayout,
             child: FloatingMenu,

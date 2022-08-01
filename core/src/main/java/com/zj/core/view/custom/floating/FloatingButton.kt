@@ -1,4 +1,4 @@
-package com.zj.floating
+package com.zj.core.view.custom.floating
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -19,7 +19,6 @@ class FloatingButton @JvmOverloads constructor(
 ) : FloatingActionButton(
     context, attrs, defStyleAttr
 ) {
-    private var coverDrawable: FloatingDrawable? = null
     private var backgroundHint: ColorStateList? = null
 
     /**
@@ -47,18 +46,15 @@ class FloatingButton @JvmOverloads constructor(
         if (drawable == null) {
             throw NullPointerException("drawable is not null")
         }
-        coverDrawable = FloatingDrawable(drawable)
         config()
-        paddingBottom
-        setImageDrawable(coverDrawable)
+        setImageDrawable(drawable)
         postInvalidate()
     }
 
 
     fun setCover(bitmap: Bitmap?) {
-        coverDrawable = FloatingDrawable(resources, bitmap)
         config()
-        setImageDrawable(coverDrawable)
+        setImageBitmap(bitmap)
         postInvalidate()
     }
 

@@ -1,4 +1,3 @@
-include ':floating'
 include ':model'
 include ':network'
 rootProject.name='PlayAndroid'
