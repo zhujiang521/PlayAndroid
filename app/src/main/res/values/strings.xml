@@ -19,8 +19,6 @@
     <string name="not_currently_logged_in">Currently logged</string>
     <string name="login_success">Login successful</string>
     <string name="register_success">Registration success</string>
-    <string name="account_password_mismatch">Account password does not match!</string>
-    <string name="user_name_already_registered">User name has been registered!</string>
     <string name="enter_name_format">Please enter the correct user name format</string>
     <string name="enter_password_format">Please enter the correct password format</string>
     <string name="log_out">Sign out</string>
@@ -32,7 +30,6 @@
     <string name="register_account">Register an account</string>
     <string name="no_login">Not Logged</string>
     <string name="click_login">Click to login</string>
-    <string name="search">Search</string>
     <string name="keyword_not_null">Search keyword can not be empty</string>
     <string name="keyword_null">No data on %s, replace keyword search</string>
     <string name="home_page">Home</string>

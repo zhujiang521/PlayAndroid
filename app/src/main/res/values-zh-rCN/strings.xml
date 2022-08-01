@@ -19,9 +19,7 @@
 	<string name="not_currently_logged_in">当前未登录</string>
 	<string name="login_success">登录成功</string>
 	<string name="register_success">注册成功</string>
-	<string name="account_password_mismatch">账号密码不匹配！</string>
-	<string name="user_name_already_registered">用户名已被注册！</string>
-	<string name="enter_name_format">请输入正确的用户名格式</string>
+    <string name="enter_name_format">请输入正确的用户名格式</string>
 	<string name="enter_password_format">请输入正确的密码格式</string>
 	<string name="log_out">退出登录</string>
 	<string name="return_login">返回登录</string>
@@ -32,8 +30,7 @@
 	<string name="register_account">注册账号</string>
 	<string name="no_login">未登录</string>
 	<string name="click_login">请点击进行登录</string>
-	<string name="search">搜索</string>
-	<string name="keyword_not_null">搜索关键字不能为空</string>
+    <string name="keyword_not_null">搜索关键字不能为空</string>
 	<string name="keyword_null">没有关于  %s  的数据，请更换关键字搜索</string>
 	<string name="home_page">首页</string>
 	<string name="project">项目</string>

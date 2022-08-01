@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="rb_gray">#FAFAFA</color>
-
     <!-- 灰白 -->
-    <color name="gray">#FDFDFD</color>
 
     <!-- 灰白 -->
     <color name="grayWhites">#F8F8F8</color>
@@ -12,13 +9,8 @@
     <!-- 灰白 -->
     <color name="grayWhite">#e9e5e5</color>
     <!--黑色-->
-    <color name="Black">#000000</color>
     <!--筛选框-->
     <color name="black_33">#D1D1D1</color>
-
-    <color name="black">#000</color>
-
-    <color name="view_bg">#dde6e4e4</color>
 
     <color name="yellow">#FEC86D</color>
 
@@ -44,7 +36,6 @@
     <color name="almanac_fragment_content_dividline_color">#CDCDCD</color>
     <color name="lunar_fragment_content_gb">#FFFFFF</color>
     <color name="almanac_fragment_content_textcolor1">#333333</color>
-    <color name="almanac_fragment_content_textcolor2">#999999</color>
     <color name="almanac_fragment_content_textcolor3">#FF675C</color>
 
     <color name="home_bottom_bg_color">#F2272727</color>

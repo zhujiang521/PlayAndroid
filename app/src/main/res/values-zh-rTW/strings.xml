@@ -19,8 +19,6 @@
     <string name="not_currently_logged_in">當前未登錄</string>
     <string name="login_success">登錄成功</string>
     <string name="register_success">註冊成功</string>
-    <string name="account_password_mismatch">賬號密碼不匹配！</string>
-    <string name="user_name_already_registered">用戶名已被註冊！</string>
     <string name="enter_name_format">請輸入正確的用戶名格式</string>
     <string name="enter_password_format">請輸入正確的密碼格式</string>
     <string name="log_out">退出登錄</string>
@@ -32,7 +30,6 @@
     <string name="register_account">註冊賬號</string>
     <string name="no_login">未登錄</string>
     <string name="click_login">請點擊進行登錄</string>
-    <string name="search">搜索</string>
     <string name="keyword_not_null">搜索關鍵字不能為空</string>
     <string name="keyword_null">沒有關於  %s  的數據，請更換關鍵字搜索</string>
     <string name="home_page">首頁</string>

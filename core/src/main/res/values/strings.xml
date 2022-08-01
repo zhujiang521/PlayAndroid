@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="bad_network_view_tip">Your network is not to force, can tap the screen to reload</string>
-	<string name="load_failed_click_to_reload">Failed to load, click to reload</string>
-	<string name="failed_load_data">Failed to load data</string>
+    <string name="failed_load_data">Failed to load data</string>
 </resources>

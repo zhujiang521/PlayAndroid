@@ -1,12 +1,6 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
 
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -40,24 +34,8 @@
     </style>
 
     <!-- 自定义progressbar -->
-    <style name="ProgressBar_Main" parent="@android:style/Widget.ProgressBar.Horizontal">
-        <item name="android:maxHeight">50dip</item>
-        <item name="android:minHeight">10dip</item>
-        <item name="android:indeterminateOnly">false</item>
-        <item name="android:indeterminateDrawable">
-            @android:drawable/progress_indeterminate_horizontal
-        </item>
-        <item name="android:progressDrawable">@drawable/progressbar_main</item>
-    </style>
 
 
     <!-- 自定义progressbar -->
-    <style name="ProgressBar_Vertical" parent="@android:style/Widget.ProgressBar.Large">
-        <item name="android:maxHeight">150dip</item>
-        <item name="android:minHeight">10dip</item>
-        <item name="android:indeterminateOnly">false</item>
-        <item name="android:progressDrawable">@drawable/progressbar_main</item>
-        <item name="android:indeterminateDrawable">@drawable/progressbar_main</item>
-    </style>
 
 </resources>
