@@ -7,10 +7,10 @@
             <corners android:radius="3dip" />
             <gradient
                 android:angle="270"
-                android:centerColor="#ffffff"
+                android:centerColor="@color/article_share_bg"
                 android:centerY="0.75"
-                android:endColor="#ffffff"
-                android:startColor="#ffffff" />
+                android:endColor="@color/article_share_bg"
+                android:startColor="@color/article_share_bg" />
         </shape>
     </item>
 

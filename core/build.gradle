@@ -86,9 +86,6 @@ dependencies {
     def fragment_version = "1.5.0"
     api "androidx.fragment:fragment-ktx:$fragment_version"
 
-    // tbs
-    api 'com.tencent.tbs:tbssdk:54002-beta'
-
     testImplementation des.junit
     androidTestImplementation des.extJunit
     androidTestImplementation des.espressoCore
