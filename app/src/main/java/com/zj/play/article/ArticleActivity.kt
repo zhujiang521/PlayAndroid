@@ -3,7 +3,6 @@ package com.zj.play.article
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.PixelFormat
 import android.view.KeyEvent
 import android.view.View
 import android.widget.ImageView
@@ -62,7 +61,6 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initView() {
-        window.setFormat(PixelFormat.TRANSLUCENT)
         binding.articleImgBack.setOnClickListener(this)
         binding.articleImgRight.setOnClickListener(this)
     }
