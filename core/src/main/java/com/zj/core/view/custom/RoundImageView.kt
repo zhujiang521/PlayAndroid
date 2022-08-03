@@ -99,10 +99,10 @@ class RoundImageView @JvmOverloads constructor(
              * 通过设置滤镜来改变图片亮度@minghao
              */
             this.colorFilter = ColorMatrixColorFilter(bgPressed)
-            this.background.colorFilter = ColorMatrixColorFilter(bgPressed)
+            this.background?.colorFilter = ColorMatrixColorFilter(bgPressed)
         } else { //未点击
             this.colorFilter = ColorMatrixColorFilter(bgNotPressed)
-            this.background.colorFilter = ColorMatrixColorFilter(bgNotPressed)
+            this.background?.colorFilter = ColorMatrixColorFilter(bgNotPressed)
         }
     }
 
