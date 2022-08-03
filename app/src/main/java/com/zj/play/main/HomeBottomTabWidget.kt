@@ -1,7 +1,6 @@
 package com.zj.play.main
 
 import android.content.Context
-import android.content.res.Configuration
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +16,7 @@ class HomeBottomTabWidget @JvmOverloads constructor(
 ) : BaseHomeBottomTabWidget(context, attrs, defStyleAttr),
     View.OnClickListener {
 
-    private var textViews: ArrayList<TextView>? = null
+    private var textViews: ArrayList<TextView> = arrayListOf()
 
     /**
      * 初始化 设置点击事件。
@@ -28,7 +27,7 @@ class HomeBottomTabWidget @JvmOverloads constructor(
         view.apply {
             textViews = arrayListOf(llHomeATHome, llHomeATCalendar, llHomeATObject, llHomeATMy)
         }
-        for (textView in textViews!!) {
+        for (textView in textViews) {
             textView.setOnClickListener(this)
         }
     }
@@ -38,9 +37,8 @@ class HomeBottomTabWidget @JvmOverloads constructor(
      */
     override fun destroy() {
         super.destroy()
-        if (!textViews.isNullOrEmpty()) {
-            textViews?.clear()
-            textViews = null
+        if (textViews.isNotEmpty()) {
+            textViews.clear()
         }
     }
 
@@ -63,8 +61,8 @@ class HomeBottomTabWidget @JvmOverloads constructor(
      */
     override fun fragmentManger(position: Int) {
         super.fragmentManger(position)
-        for (j in textViews!!.indices) {
-            textViews!![j].isSelected = position == j
+        for (j in textViews.indices) {
+            textViews[j].isSelected = position == j
         }
     }
 

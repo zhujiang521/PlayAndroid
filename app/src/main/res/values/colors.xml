@@ -10,7 +10,7 @@
     <color name="grayWhite">#e9e5e5</color>
     <!--黑色-->
     <!--筛选框-->
-    <color name="black_33">#D1D1D1</color>
+    <color name="icon_normal">#D1D1D1</color>
 
     <color name="yellow">#FEC86D</color>
 
@@ -38,7 +38,7 @@
     <color name="almanac_fragment_content_textcolor1">#333333</color>
     <color name="almanac_fragment_content_textcolor3">#FF675C</color>
 
-    <color name="home_bottom_bg_color">#F2272727</color>
+    <color name="home_bottom_bg_color">#FC272727</color>
 
     <color name="article_share_bg">#ffffff</color>
 

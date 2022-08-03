@@ -11,7 +11,7 @@
     <!-- 字体颜色 -->
     <color name="text_color_dark">#858585</color>
     <color name="text_color">#F1F1F1</color>
-    <color name="text_green">#25C84C</color>
+    <color name="icon_selected">#25C84C</color>
     <color name="text_color_black">#B5B5B5</color>
     <!-- 下拉刷新颜色 -->
     <color name="refresh">#000000</color>
