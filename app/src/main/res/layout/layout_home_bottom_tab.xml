@@ -10,6 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_90"
+        android:layout_gravity="bottom"
+        android:background="@drawable/home_bottom_mask" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_55"

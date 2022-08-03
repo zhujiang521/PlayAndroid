@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/dp_200"
     android:layout_height="@dimen/dp_144"
-    android:background="@color/dialog_content_bg"
+    android:layout_gravity="center"
+    android:background="@drawable/dialog_progress_bg"
     android:baselineAligned="false"
     android:orientation="vertical"
     android:paddingTop="@dimen/dp_33">
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
+    <com.airbnb.lottie.LottieAnimationView
         android:layout_width="@dimen/dp_100"
         android:layout_height="@dimen/dp_55"
-        android:layout_gravity="center_horizontal"
-        android:indeterminateDrawable="@drawable/loading_animation"
-        android:indeterminateTintMode="src_atop" />
+        android:layout_gravity="center"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/play_load" />
 
     <TextView
         android:id="@+id/dialogMessage"
@@ -26,6 +28,7 @@
         android:gravity="center"
         android:maxLines="1"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/dp_16"
+        android:textSize="@dimen/sp_16"
         tools:text="测试" />
+
 </LinearLayout>
