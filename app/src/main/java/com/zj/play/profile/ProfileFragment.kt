@@ -30,13 +30,13 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
     private lateinit var nameArray: Array<String>
     private var profileItemList = ArrayList<ProfileItem>()
     private val imageArray = arrayOf(
-        R.drawable.ic_message_black_24dp,
-        R.drawable.ic_collections_black_24dp,
-        R.drawable.ic_account_blog_black_24dp,
-        R.drawable.ic_baseline_history_24,
-        R.drawable.ic_bug_report_black_24dp,
-        R.drawable.ic_github_black_24dp,
-        R.drawable.ic_account_circle_black_24dp
+        R.drawable.ic_integral,
+        R.drawable.ic_profile_collect,
+        R.drawable.ic_csdn,
+        R.drawable.ic_history,
+        R.drawable.ic_cnblogs,
+        R.drawable.ic_github,
+        R.drawable.ic_profile_mine
     )
 
     override fun getLayoutView(

@@ -91,11 +91,12 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
         val bottomDialogLlDynamic =
             dialogView.findViewById<LinearLayout>(R.id.bottomDialogLlDynamic)
         val bottomDialogLlReload = dialogView.findViewById<LinearLayout>(R.id.bottomDialogLlReload)
+        val bottomDialogTvCancel = dialogView.findViewById<TextView>(R.id.bottomDialogTvCancel)
         if (isCollection == 1) {
-            bottomDialogIvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
+            bottomDialogIvCollect.setImageResource(R.drawable.ic_collect_selected)
             bottomDialogTvCollect.text = getString(R.string.cancel_collection)
         } else {
-            bottomDialogIvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
+            bottomDialogIvCollect.setImageResource(R.drawable.ic_collect)
             bottomDialogTvCollect.text = getString(R.string.collection)
         }
         bottomDialogLlCollect.setOnClickListener(this)
@@ -104,9 +105,10 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
         bottomDialogLlShare.setOnClickListener(this)
         bottomDialogLlDynamic.setOnClickListener(this)
         bottomDialogLlReload.setOnClickListener(this)
-        bottomSheetDialog!!.setContentView(dialogView) //给布局设置透明背景色
+        bottomDialogTvCancel.setOnClickListener(this)
+        bottomSheetDialog?.setContentView(dialogView) //给布局设置透明背景色
         ((dialogView.parent) as View).setBackgroundColor(Color.TRANSPARENT)
-        bottomSheetDialog!!.show()
+        bottomSheetDialog?.show()
     }
 
     override fun onClick(v: View) {
@@ -128,11 +130,11 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
                 viewModel.setCollect(isCollection, pageId, originId) {
                     if (it) {
                         isCollection = 1
-                        bottomDialogIvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
+                        bottomDialogIvCollect.setImageResource(R.drawable.ic_collect_selected)
                         bottomDialogTvCollect.text = getString(R.string.cancel_collection)
                     } else {
                         isCollection = 0
-                        bottomDialogIvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
+                        bottomDialogIvCollect.setImageResource(R.drawable.ic_collect)
                         bottomDialogTvCollect.text = getString(R.string.collection)
                     }
                 }
@@ -157,6 +159,9 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
             R.id.bottomDialogLlReload -> {
                 bottomSheetDialog?.dismiss()
                 binding.articleWebView.reload()
+            }
+            R.id.bottomDialogTvCancel -> {
+                bottomSheetDialog?.dismiss()
             }
         }
     }

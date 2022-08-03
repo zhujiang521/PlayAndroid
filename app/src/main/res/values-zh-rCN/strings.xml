@@ -9,9 +9,7 @@
 	<string name="failed_to_cancel_collection">取消收藏失败</string>
 	<string name="collection_successful">收藏成功</string>
 	<string name="collection_failed">收藏失败</string>
-	<string name="bookmarking">正在收藏</string>
-	<string name="unfavorite">正在取消收藏</string>
-	<string name="collection">收藏</string>
+    <string name="collection">收藏</string>
 	<string name="cancel_collection">取消收藏</string>
 	<string name="my_collection">我的收藏</string>
 	<string name="page_is_not_collection">当前页面不可收藏</string>
@@ -75,9 +73,8 @@
 	<string name="link_cannot_empty">链接不能为空</string>
 	<string name="link_format_error">链接格式输入错误</string>
 	<string name="share_success">分享成功</string>
-	<string name="no_app">没有安装支持打开此网页的应用!</string>
 
-	<string name="static_disabled_message_search">搜索你想要的技术文章</string>
+    <string name="static_disabled_message_search">搜索你想要的技术文章</string>
 	<string name="static_shortcut_long_label_search">搜索技术文章</string>
 	<string name="static_shortcut_short_label_search">搜索文章</string>
 

@@ -9,8 +9,6 @@
     <string name="failed_to_cancel_collection">Unsubscribe failure</string>
     <string name="collection_successful">Bookmarked</string>
     <string name="collection_failed">Favorite Failed</string>
-    <string name="bookmarking">Bookmarking</string>
-    <string name="unfavorite">Unfavorite</string>
     <string name="collection">Collect</string>
     <string name="cancel_collection">Unfavorite</string>
     <string name="my_collection">My collection</string>
@@ -75,7 +73,6 @@
     <string name="link_cannot_empty">Link cannot be empty</string>
     <string name="link_format_error">Link format input error</string>
     <string name="share_success">Share success</string>
-    <string name="no_app">There are no apps installed that support opening this page!</string>
 
     <string name="static_disabled_message_search">Search for technical articles you want!</string>
     <string name="static_shortcut_long_label_search">Search for technical articles</string>

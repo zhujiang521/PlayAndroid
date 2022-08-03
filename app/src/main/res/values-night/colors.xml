@@ -40,9 +40,13 @@
 
     <color name="home_bottom_bg_color">#272727</color>
 
-    <color name="article_share_bg">#000000</color>
+    <color name="article_share_bg">#222222</color>
+    <color name="article_share_item_bg">#2F2F2F</color>
+    <color name="article_share_icon">#E9E9E9</color>
 
     <color name="home_bottom_mask_start">#00F7F7F7</color>
     <color name="home_bottom_mask_end">#000000</color>
+
+    <color name="profile_icon">#E9E9E9</color>
 
 </resources>

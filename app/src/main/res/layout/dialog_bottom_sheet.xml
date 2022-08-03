@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottomDialogRv"
     android:layout_width="match_parent"
@@ -8,7 +7,7 @@
     android:layout_gravity="center_horizontal"
     android:background="@drawable/article_share_bg"
     android:orientation="vertical"
-    android:paddingVertical="@dimen/dp_20">
+    android:paddingTop="@dimen/dp_20">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,11 +26,11 @@
 
             <ImageView
                 android:id="@+id/bottomDialogIvCollect"
-                android:layout_width="@dimen/dp_48"
-                android:layout_height="@dimen/dp_48"
+                android:layout_width="@dimen/dp_45"
+                android:layout_height="@dimen/dp_45"
                 android:background="@drawable/bottom_item"
-                android:padding="@dimen/dp_11"
-                android:src="@drawable/ic_favorite_black_24dp" />
+                android:padding="@dimen/dp_10"
+                android:src="@drawable/ic_collect_selected" />
 
             <TextView
                 android:id="@+id/bottomDialogTvCollect"
@@ -56,11 +55,11 @@
 
             <ImageView
                 android:id="@+id/bottomDialogIvCopy"
-                android:layout_width="@dimen/dp_48"
-                android:layout_height="@dimen/dp_48"
+                android:layout_width="@dimen/dp_45"
+                android:layout_height="@dimen/dp_45"
                 android:background="@drawable/bottom_item"
-                android:padding="@dimen/dp_12"
-                android:src="@drawable/ic_collections_black_24dp" />
+                android:padding="@dimen/dp_10"
+                android:src="@drawable/ic_copy" />
 
             <TextView
                 android:id="@+id/bottomDialogTvCopy"
@@ -85,11 +84,11 @@
 
             <ImageView
                 android:id="@+id/bottomDialogIvBrowser"
-                android:layout_width="@dimen/dp_48"
-                android:layout_height="@dimen/dp_48"
+                android:layout_width="@dimen/dp_45"
+                android:layout_height="@dimen/dp_45"
                 android:background="@drawable/bottom_item"
-                android:padding="@dimen/dp_12"
-                android:src="@drawable/ic_account_blog_black_24dp" />
+                android:padding="@dimen/dp_10"
+                android:src="@drawable/ic_browser" />
 
             <TextView
                 android:id="@+id/bottomDialogTvBrowser"
@@ -114,11 +113,11 @@
 
             <ImageView
                 android:id="@+id/bottomDialogIvShare"
-                android:layout_width="@dimen/dp_48"
-                android:layout_height="@dimen/dp_48"
+                android:layout_width="@dimen/dp_45"
+                android:layout_height="@dimen/dp_45"
                 android:background="@drawable/bottom_item"
-                android:padding="@dimen/dp_12"
-                android:src="@drawable/ic_bug_report_black_24dp" />
+                android:padding="@dimen/dp_10"
+                android:src="@drawable/ic_share" />
 
             <TextView
                 android:id="@+id/bottomDialogTvShare"
@@ -137,7 +136,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_13"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -151,12 +150,11 @@
 
             <ImageView
                 android:id="@+id/bottomDialogIvDynamic"
-                android:layout_width="@dimen/dp_48"
-                android:layout_height="@dimen/dp_48"
+                android:layout_width="@dimen/dp_45"
+                android:layout_height="@dimen/dp_45"
                 android:background="@drawable/bottom_item"
-                android:padding="@dimen/dp_9"
-                android:src="@drawable/ic_github_black_24dp"
-                app:tint="@color/colorAccent" />
+                android:padding="@dimen/dp_10"
+                android:src="@drawable/ic_dynamic" />
 
             <TextView
                 android:id="@+id/bottomDialogTvDynamic"
@@ -181,11 +179,11 @@
 
             <ImageView
                 android:id="@+id/bottomDialogIvReload"
-                android:layout_width="@dimen/dp_48"
-                android:layout_height="@dimen/dp_48"
+                android:layout_width="@dimen/dp_45"
+                android:layout_height="@dimen/dp_45"
                 android:background="@drawable/bottom_item"
-                android:padding="@dimen/dp_9"
-                android:src="@drawable/ic_github_black_24dp" />
+                android:padding="@dimen/dp_10"
+                android:src="@drawable/ic_refresh" />
 
             <TextView
                 android:id="@+id/bottomDialogTvReload"
@@ -205,5 +203,18 @@
             android:layout_weight="2" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/bottomDialogTvCancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_18"
+        android:background="@color/article_share_item_bg"
+        android:gravity="center"
+        android:paddingTop="@dimen/dp_13"
+        android:paddingBottom="@dimen/dp_15"
+        android:text="@string/cancel"
+        android:textColor="@color/text_color_dark"
+        android:textSize="@dimen/sp_15" />
 
 </LinearLayout>
