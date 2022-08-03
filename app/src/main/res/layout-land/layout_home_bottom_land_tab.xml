@@ -21,7 +21,7 @@
         android:layout_marginBottom="@dimen/dp_16"
         app:fmm_backgroundTint="@color/floatBackground"
         app:fmm_button_interval="2dp"
-        app:fmm_cover="@drawable/ic_nav_news_actived"
+        app:fmm_cover="@drawable/ic_project_selected"
         app:fmm_floating_direction="left"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">

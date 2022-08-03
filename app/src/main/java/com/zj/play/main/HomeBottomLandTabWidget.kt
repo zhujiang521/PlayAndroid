@@ -18,7 +18,7 @@ class HomeBottomLandTabWidget @JvmOverloads constructor(
 ) : BaseHomeBottomTabWidget(context, attrs, defStyleAttr),
     View.OnClickListener {
 
-    private var floatingButtons: ArrayList<FloatingActionButton>? = null
+    private var floatingButtons: ArrayList<FloatingActionButton> = arrayListOf()
     private var fabMenu: FloatingMenu
 
     /**
@@ -32,7 +32,7 @@ class HomeBottomLandTabWidget @JvmOverloads constructor(
             floatingButtons = arrayListOf(fabHome, fabRepo, fabProject, fabProfile)
         }
         fabMenu = view.fabMenu
-        for (floatingButton in floatingButtons!!) {
+        for (floatingButton in floatingButtons) {
             floatingButton.setOnClickListener(this)
         }
     }
@@ -42,9 +42,8 @@ class HomeBottomLandTabWidget @JvmOverloads constructor(
      */
     override fun destroy() {
         super.destroy()
-        if (!floatingButtons.isNullOrEmpty()) {
-            floatingButtons?.clear()
-            floatingButtons = null
+        if (floatingButtons.isNotEmpty()) {
+            floatingButtons.clear()
         }
     }
 
@@ -79,17 +78,17 @@ class HomeBottomLandTabWidget @JvmOverloads constructor(
             BitmapFactory.decodeResource(
                 context.resources,
                 when (position) {
-                    0 -> R.drawable.ic_nav_news_actived
-                    1 -> R.drawable.ic_nav_tweet_actived
-                    2 -> R.drawable.ic_nav_discover_actived
-                    3 -> R.drawable.ic_nav_my_pressed
-                    else -> R.drawable.ic_nav_news_actived
+                    0 -> R.drawable.ic_home_selected
+                    1 -> R.drawable.ic_project_selected
+                    2 -> R.drawable.ic_account_selected
+                    3 -> R.drawable.ic_mine_selected
+                    else -> R.drawable.ic_project_selected
                 }
             )
         )
         if (fabMenu.isExpanded) fabMenu.toggle()
-        for (j in floatingButtons!!.indices) {
-            floatingButtons!![j].isSelected = position == j
+        for (j in floatingButtons.indices) {
+            floatingButtons[j].isSelected = position == j
         }
     }
 
