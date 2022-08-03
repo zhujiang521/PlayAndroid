@@ -67,23 +67,53 @@
                 android:textSize="@dimen/sp_14"
                 tools:ignore="TextFields" />
 
-            <EditText
-                android:id="@+id/loginPassNumberEdit"
+            <LinearLayout
                 android:layout_width="@dimen/dp_300"
                 android:layout_height="@dimen/dp_35"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="@dimen/dp_35"
                 android:layout_marginTop="@dimen/dp_10"
                 android:background="@drawable/bg_edittext"
-                android:hint="@string/enter_password"
-                android:importantForAutofill="no"
-                android:lines="1"
-                android:paddingHorizontal="@dimen/dp_5"
-                android:singleLine="true"
-                android:textColor="@color/text_color_black"
-                android:textColorHint="@color/plain"
-                android:textSize="@dimen/sp_14"
-                tools:ignore="TextFields" />
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/loginPassNumberEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:hint="@string/enter_password"
+                    android:importantForAutofill="no"
+                    android:inputType="textEmailAddress"
+                    android:lines="1"
+                    android:paddingHorizontal="@dimen/dp_5"
+                    android:singleLine="true"
+                    android:textColor="@color/text_color_black"
+                    android:textColorHint="@color/plain"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="TextFields" />
+
+                <ImageView
+                    android:id="@+id/loginPassNumberClear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="@dimen/dp_3"
+                    android:src="@drawable/ic_close"
+                    android:tint="@color/text_color_black"
+                    android:visibility="gone"
+                    tools:ignore="ContentDescription,UseAppTint" />
+
+                <ImageView
+                    android:id="@+id/loginPassNumberVisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="@dimen/dp_3"
+                    android:src="@drawable/ic_eye"
+                    android:tint="@color/text_color_black"
+                    tools:ignore="ContentDescription,UseAppTint" />
+
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/loginTvRegister"

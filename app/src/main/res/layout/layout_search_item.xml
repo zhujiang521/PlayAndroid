@@ -15,7 +15,7 @@
         android:paddingVertical="@dimen/dp_5"
         android:singleLine="true"
         android:textColor="@color/white"
-        android:textSize="@dimen/dp_13" />
+        android:textSize="@dimen/sp_13" />
 
     <LinearLayout
         android:id="@+id/searchLlDelete"
@@ -27,10 +27,10 @@
         tools:ignore="RtlHardcoded">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="center"
-            android:src="@drawable/img_delet_picture" />
+            android:layout_width="@dimen/dp_12"
+            android:layout_height="@dimen/dp_12"
+            android:background="@drawable/ic_close"
+            android:scaleType="center" />
 
     </LinearLayout>
 

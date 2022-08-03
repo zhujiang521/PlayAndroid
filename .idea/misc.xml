@@ -101,6 +101,8 @@
         <entry key="app/src/main/res/drawable/ic_copy.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/ic_csdn.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/ic_dynamic.xml" value="0.202" />
+        <entry key="app/src/main/res/drawable/ic_eye.xml" value="0.202" />
+        <entry key="app/src/main/res/drawable/ic_eye_selected.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/ic_github.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/ic_grain.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_history.xml" value="0.202" />
@@ -151,7 +153,7 @@
         <entry key="app/src/main/res/layout-land/layout_to_top.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_almanac.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/activity_article.xml" value="0.2848731884057971" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.20643363728470113" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/activity_user_info.xml" value="0.20643363728470113" />
@@ -164,6 +166,7 @@
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/fragment_project.xml" value="0.16084093211752787" />
         <entry key="app/src/main/res/layout/layout_home_bottom_tab.xml" value="0.16084093211752787" />
+        <entry key="app/src/main/res/layout/layout_search_item.xml" value="0.45" />
         <entry key="app/src/main/res/layout/layout_to_top.xml" value="0.12681159420289856" />
         <entry key="app/src/main/res/layout/main_fragment.xml" value="0.19959473150962512" />
         <entry key="app/src/main/res/layout/play_android_widget.xml" value="0.20643363728470113" />
@@ -172,7 +175,9 @@
         <entry key="core/src/main/res/drawable/bad_loading.xml" value="0.2712962962962963" />
         <entry key="core/src/main/res/drawable/bad_network_image.xml" value="0.2712962962962963" />
         <entry key="core/src/main/res/drawable/bg_edittext.xml" value="0.22291666666666668" />
+        <entry key="core/src/main/res/drawable/bg_edittext_normal.xml" value="0.202" />
         <entry key="core/src/main/res/drawable/dialog_progress_bg.xml" value="0.202" />
+        <entry key="core/src/main/res/drawable/ic_close.xml" value="0.202" />
         <entry key="core/src/main/res/drawable/img_back.xml" value="0.1" />
         <entry key="core/src/main/res/drawable/img_back_nomal.xml" value="0.1" />
         <entry key="core/src/main/res/drawable/img_back_press.xml" value="0.202" />

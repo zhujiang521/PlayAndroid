@@ -4,7 +4,11 @@ import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.view.animation.OvershootInterpolator
 import androidx.activity.viewModels
@@ -19,7 +23,7 @@ import com.zj.play.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginActivity : BaseActivity(), View.OnClickListener {
+class LoginActivity : BaseActivity(), View.OnClickListener, TextWatcher {
 
     private lateinit var binding: ActivityLoginBinding
     private val viewModel by viewModels<LoginViewModel>()
@@ -35,6 +39,11 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     override fun initView() {
         binding.loginButton.setOnClickListener(this)
         binding.loginTvRegister.setOnClickListener(this)
+        binding.loginPassNumberClear.setOnClickListener(this)
+        binding.loginPassNumberVisible.setOnClickListener(this)
+        binding.loginPassNumberEdit.addTextChangedListener(this)
+        binding.loginPassNumberEdit.transformationMethod =
+            PasswordTransformationMethod.getInstance()
         viewModel.state.observe(this) {
             when (it) {
                 Logging -> {
@@ -59,6 +68,24 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.loginButton -> {
                 loginOrRegister()
+            }
+            R.id.loginPassNumberClear -> {
+                binding.loginPassNumberEdit.setText("")
+            }
+            R.id.loginPassNumberVisible -> {
+                val transformationMethod = binding.loginPassNumberEdit.transformationMethod
+                if (transformationMethod is PasswordTransformationMethod) {
+                    binding.loginPassNumberEdit.transformationMethod =
+                        HideReturnsTransformationMethod.getInstance()
+                    binding.loginPassNumberVisible.setColorFilter(getColor(R.color.colorLoading))
+                } else {
+                    binding.loginPassNumberEdit.transformationMethod =
+                        PasswordTransformationMethod.getInstance()
+                    binding.loginPassNumberVisible.setColorFilter(getColor(R.color.text_color_black))
+                }
+                binding.loginPassNumberEdit.setSelection(
+                    binding.loginPassNumberEdit.text.toString().trim().length
+                )
             }
         }
     }
@@ -114,6 +141,18 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     private fun toProgressVisible(visible: Boolean) {
         binding.loginProgressBar.isVisible = visible
         binding.loginInputElements.isVisible = !visible
+    }
+
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+    }
+
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+    }
+
+    override fun afterTextChanged(s: Editable?) {
+        binding.loginPassNumberClear.isVisible = !s.isNullOrEmpty()
     }
 
     companion object {
