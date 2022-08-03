@@ -9,10 +9,10 @@ import com.zj.core.Play
 import com.zj.core.Play.logout
 import com.zj.core.view.base.BaseFragment
 import com.zj.play.R
-import com.zj.play.main.login.LoginActivity
 import com.zj.play.article.ArticleBroadCast
 import com.zj.play.databinding.FragmentProfileBinding
 import com.zj.play.main.login.AccountRepository
+import com.zj.play.main.login.LoginActivity
 import com.zj.play.profile.rank.list.RankActivity
 import com.zj.play.profile.share.ShareActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -62,7 +62,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
             profileAdapter = ProfileAdapter(requireContext(), profileItemList)
             profileRv.adapter = profileAdapter
             if (Play.isLogin) {
-                profileIvHead.setBackgroundResource(R.drawable.ic_head)
+                profileIvHead.setImageResource(R.drawable.ic_head)
                 profileTvName.text = Play.nickName
                 profileTvRank.text = Play.username
                 profileBtnLogout.visibility = View.VISIBLE
@@ -75,7 +75,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
     private fun clearInfo() {
         binding?.apply {
             profileBtnLogout.visibility = View.GONE
-            profileIvHead.setBackgroundResource(R.drawable.img_nomal_head)
+            profileIvHead.setImageResource(R.drawable.img_nomal_head)
             profileTvName.text = getString(R.string.no_login)
             profileTvRank.text = getString(R.string.click_login)
         }

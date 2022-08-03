@@ -34,7 +34,7 @@
                     android:layout_height="@dimen/dp_70"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/dp_30"
-                    android:background="@drawable/img_nomal_head" />
+                    android:src="@drawable/img_nomal_head" />
 
                 <TextView
                     android:id="@+id/profileTvName"

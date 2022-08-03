@@ -27,7 +27,7 @@
         android:background="@drawable/to_top_bg"
         android:padding="@dimen/dp_10"
         android:src="@drawable/ic_to_top"
-        android:visibility="visible"
+        android:visibility="gone"
         tools:ignore="ContentDescription" />
 
 </FrameLayout>
