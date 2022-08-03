@@ -156,6 +156,7 @@
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/activity_user_info.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/adapter_article.xml" value="0.20643363728470113" />
+        <entry key="app/src/main/res/layout/adapter_rank.xml" value="0.17028985507246377" />
         <entry key="app/src/main/res/layout/dialog_bottom_sheet.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/fragment_base_list.xml" value="0.16084093211752787" />
         <entry key="app/src/main/res/layout/fragment_home_page.xml" value="0.20643363728470113" />

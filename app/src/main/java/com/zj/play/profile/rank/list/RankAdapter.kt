@@ -8,7 +8,6 @@ import com.zj.model.model.Rank
 import com.zj.play.R
 import com.zj.play.databinding.AdapterRankBinding
 import com.zj.play.profile.share.ShareActivity
-import java.util.*
 
 class RankAdapter(
     private val mContext: Context,
@@ -33,7 +32,7 @@ class RankAdapter(
             rankAdTvUsername.text = data.username
             rankAdTvRank.text = mContext.getString(R.string.ranking, data.rank)
             rankAdTvCoinCount.text = mContext.getString(R.string.coin, data.coinCount)
-            rankAdTvLevel.text = mContext.getString(R.string.lever, data.level)
+            rankAdTvTime.text = mContext.getString(R.string.lever, data.level)
             rankAdRlItem.setOnClickListener {
                 ShareActivity.actionStart(mContext, false, data.userId)
             }

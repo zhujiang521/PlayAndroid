@@ -55,8 +55,8 @@
     <string name="add">新增</string>
     <string name="no_data">沒有數據</string>
     <string name="man_info">等級  %d   排名  %s   積分  %d</string>
-    <string name="add_reason">增減原因%s</string>
-    <string name="rank">積分%d</string>
+    <string name="add_reason">增減原因: %s</string>
+    <string name="rank">積分%s</string>
     <string name="ranking_list">排行榜</string>
     <string name="ranking">第%s名</string>
     <string name="coin">%d積分</string>

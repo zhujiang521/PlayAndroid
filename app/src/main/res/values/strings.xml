@@ -55,8 +55,8 @@
     <string name="add">New</string>
     <string name="no_data">No data</string>
     <string name="man_info">Level %d ranking %s points %d</string>
-    <string name="add_reason">Reason %s</string>
-    <string name="rank">%d points</string>
+    <string name="add_reason">Reason: %s</string>
+    <string name="rank">%s points</string>
     <string name="ranking_list">Leaderboard</string>
     <string name="ranking">The first %s name</string>
     <string name="coin">%d points</string>
