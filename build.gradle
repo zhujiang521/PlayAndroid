@@ -4,7 +4,7 @@ apply from: "config.gradle"
 buildscript {
     ext {
         kotlin_version = '1.7.10'
-        hilt_version = '2.43.1'
+        hilt_version = '2.43.2'
     }
     repositories {
         google()
