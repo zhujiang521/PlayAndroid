@@ -27,7 +27,9 @@
         android:singleLine="true"
         android:textColor="@color/text_color_black"
         android:textColorHint="@color/plain"
-        android:textSize="@dimen/dp_14" />
+        android:textSize="@dimen/sp_14"
+        android:importantForAutofill="no"
+        tools:ignore="TextFields" />
 
     <EditText
         android:id="@+id/addShareEtLink"
@@ -42,7 +44,9 @@
         android:singleLine="true"
         android:textColor="@color/text_color_black"
         android:textColorHint="@color/plain"
-        android:textSize="@dimen/dp_14" />
+        android:textSize="@dimen/sp_14"
+        android:importantForAutofill="no"
+        tools:ignore="TextFields" />
 
     <Button
         android:id="@+id/addShareBtnAdd"

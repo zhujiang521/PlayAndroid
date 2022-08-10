@@ -47,19 +47,19 @@
                         android:layout_marginTop="@dimen/dp_8"
                         android:layout_marginBottom="@dimen/dp_8"
                         android:textColor="@color/text_color"
-                        android:textSize="@dimen/dp_14"
+                        android:textSize="@dimen/sp_14"
                         tools:text="XXXXXXXXXXX" />
 
                     <TextView
                         android:id="@+id/almanacTvWeekDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|right"
+                        android:layout_gravity="center_vertical|end"
                         android:layout_marginTop="@dimen/dp_8"
                         android:layout_marginEnd="@dimen/dp_6"
                         android:layout_marginBottom="@dimen/dp_8"
                         android:textColor="@color/text_color"
-                        android:textSize="@dimen/dp_14"
+                        android:textSize="@dimen/sp_14"
                         tools:text="XXXXXXXXXXX" />
 
                 </FrameLayout>
@@ -71,22 +71,25 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_168"
+                    android:layout_height="0dp"
                     android:layout_weight="10"
                     android:background="@color/lunar_fragment_content_gb"
-                    android:gravity="center">
+                    android:gravity="center"
+                    tools:ignore="NestedWeights">
 
                     <ImageView
                         android:id="@+id/almanacIvNumberOne"
                         android:layout_width="@dimen/dp_68"
                         android:layout_height="@dimen/dp_110"
-                        android:src="@drawable/almanac_number_2" />
+                        android:src="@drawable/almanac_number_2"
+                        tools:ignore="ContentDescription" />
 
                     <ImageView
                         android:id="@+id/almanacIvNumberTwo"
                         android:layout_width="@dimen/dp_68"
                         android:layout_height="@dimen/dp_110"
-                        android:src="@drawable/almanac_number_8" />
+                        android:src="@drawable/almanac_number_8"
+                        tools:ignore="ContentDescription" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -126,13 +129,15 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            tools:ignore="UseCompoundDrawables">
 
                             <ImageView
                                 android:layout_width="@dimen/dp_36"
                                 android:layout_height="@dimen/dp_36"
                                 android:gravity="center"
-                                android:src="@drawable/almanac_yi" />
+                                android:src="@drawable/almanac_yi"
+                                tools:ignore="ContentDescription" />
 
                             <TextView
                                 android:id="@+id/almanacTvYi"
@@ -142,7 +147,7 @@
                                 android:layout_marginStart="@dimen/dp_16"
                                 android:gravity="center_vertical"
                                 android:textColor="@color/almanac_fragment_content_textcolor3"
-                                android:textSize="@dimen/dp_12"
+                                android:textSize="@dimen/sp_12"
                                 tools:text="八" />
                         </LinearLayout>
 
@@ -151,13 +156,15 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp_20"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            tools:ignore="UseCompoundDrawables">
 
                             <ImageView
                                 android:layout_width="@dimen/dp_36"
                                 android:layout_height="@dimen/dp_36"
                                 android:gravity="center"
-                                android:src="@drawable/almanac_ji" />
+                                android:src="@drawable/almanac_ji"
+                                tools:ignore="ContentDescription" />
 
                             <TextView
                                 android:id="@+id/almanacTvJi"
@@ -167,7 +174,7 @@
                                 android:layout_marginStart="@dimen/dp_16"
                                 android:gravity="center_vertical"
                                 android:textColor="@color/almanac_fragment_content_textcolor1"
-                                android:textSize="@dimen/dp_12"
+                                android:textSize="@dimen/sp_12"
                                 tools:text="八" />
                         </LinearLayout>
 
@@ -186,7 +193,8 @@
                     android:background="@color/lunar_fragment_content_gb"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
-                    android:paddingStart="@dimen/dp_16">
+                    android:paddingStart="@dimen/dp_16"
+                    android:paddingEnd="@dimen/dp_0">
 
                     <TextView
                         android:id="@+id/almanacTvSeat"
@@ -195,7 +203,7 @@
                         android:drawablePadding="@dimen/dp_6"
                         android:gravity="center_vertical"
                         android:textColor="@color/almanac_fragment_content_textcolor1"
-                        android:textSize="@dimen/dp_12"
+                        android:textSize="@dimen/sp_12"
                         tools:text="【座位朝向】" />
 
                     <TextView
@@ -207,7 +215,7 @@
                         android:drawablePadding="@dimen/dp_6"
                         android:gravity="center_vertical"
                         android:textColor="@color/almanac_fragment_content_textcolor1"
-                        android:textSize="@dimen/dp_12"
+                        android:textSize="@dimen/sp_12"
                         tools:text="【今日宜饮】" />
 
                     <TextView
@@ -217,7 +225,7 @@
                         android:drawablePadding="@dimen/dp_8"
                         android:gravity="center_vertical"
                         android:textColor="@color/almanac_fragment_content_textcolor1"
-                        android:textSize="@dimen/dp_12"
+                        android:textSize="@dimen/sp_12"
                         tools:text="【女神亲近指数】" />
                 </LinearLayout>
 

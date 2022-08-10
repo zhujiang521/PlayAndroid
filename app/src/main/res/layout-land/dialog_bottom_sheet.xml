@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottomDialogRv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -21,7 +22,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/bottomDialogIvCollect"
@@ -29,7 +31,8 @@
             android:layout_height="@dimen/dp_38"
             android:background="@drawable/bottom_item"
             android:padding="@dimen/dp_9"
-            android:src="@drawable/ic_collect_selected" />
+            android:src="@drawable/ic_collect_selected"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/bottomDialogTvCollect"
@@ -50,7 +53,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/bottomDialogIvCopy"
@@ -58,7 +62,8 @@
             android:layout_height="@dimen/dp_38"
             android:background="@drawable/bottom_item"
             android:padding="@dimen/dp_10"
-            android:src="@drawable/ic_copy" />
+            android:src="@drawable/ic_copy"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/bottomDialogTvCopy"
@@ -79,7 +84,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/bottomDialogIvBrowser"
@@ -87,7 +93,8 @@
             android:layout_height="@dimen/dp_38"
             android:background="@drawable/bottom_item"
             android:padding="@dimen/dp_10"
-            android:src="@drawable/ic_browser" />
+            android:src="@drawable/ic_browser"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/bottomDialogTvBrowser"
@@ -108,7 +115,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/bottomDialogIvShare"
@@ -116,7 +124,8 @@
             android:layout_height="@dimen/dp_38"
             android:background="@drawable/bottom_item"
             android:padding="@dimen/dp_10"
-            android:src="@drawable/ic_share" />
+            android:src="@drawable/ic_share"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/bottomDialogTvShare"
@@ -137,7 +146,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/bottomDialogIvDynamic"
@@ -145,7 +155,8 @@
             android:layout_height="@dimen/dp_38"
             android:background="@drawable/bottom_item"
             android:padding="@dimen/dp_9"
-            android:src="@drawable/ic_dynamic" />
+            android:src="@drawable/ic_dynamic"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/bottomDialogTvDynamic"
@@ -166,7 +177,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/bottomDialogIvReload"
@@ -174,7 +186,8 @@
             android:layout_height="@dimen/dp_38"
             android:background="@drawable/bottom_item"
             android:padding="@dimen/dp_9"
-            android:src="@drawable/ic_refresh" />
+            android:src="@drawable/ic_refresh"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/bottomDialogTvReload"

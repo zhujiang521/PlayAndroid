@@ -30,7 +30,9 @@
             android:layout_width="@dimen/dp_12"
             android:layout_height="@dimen/dp_12"
             android:background="@drawable/ic_close"
-            android:scaleType="center" />
+            android:contentDescription="Close"
+            android:scaleType="center"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 

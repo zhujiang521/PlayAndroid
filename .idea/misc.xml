@@ -133,31 +133,42 @@
         <entry key="app/src/main/res/drawable/img_to_top_nomal.xml" value="0.1935" />
         <entry key="app/src/main/res/drawable/load_four.xml" value="0.1935" />
         <entry key="app/src/main/res/drawable/loading_animation.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/logout_bg.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/no_content_image.xml" value="0.1935" />
         <entry key="app/src/main/res/drawable/profile_list_bg.xml" value="0.2712962962962963" />
         <entry key="app/src/main/res/drawable/selector_four.xml" value="0.275" />
         <entry key="app/src/main/res/drawable/selector_one.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/selector_three.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/selector_two.xml" value="0.275" />
+        <entry key="app/src/main/res/layout-land/activity_add_share.xml" value="0.19583333333333333" />
+        <entry key="app/src/main/res/layout-land/activity_almanac.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout-land/activity_article.xml" value="0.12433862433862433" />
         <entry key="app/src/main/res/layout-land/activity_login.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout-land/activity_main.xml" value="0.13756613756613756" />
         <entry key="app/src/main/res/layout-land/activity_search.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout-land/activity_share.xml" value="0.19583333333333333" />
+        <entry key="app/src/main/res/layout-land/activity_user_info.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout-land/adapter_article.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout-land/dialog_bottom_sheet.xml" value="0.19583333333333333" />
+        <entry key="app/src/main/res/layout-land/fragment_base_list.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout-land/fragment_home_page.xml" value="0.1" />
         <entry key="app/src/main/res/layout-land/fragment_official_accounts.xml" value="0.1" />
+        <entry key="app/src/main/res/layout-land/fragment_profile.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout-land/fragment_project.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout-land/layout_home_bottom_land_tab.xml" value="0.1693121693121693" />
         <entry key="app/src/main/res/layout-land/layout_to_top.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/activity_add_share.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/activity_almanac.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/activity_article.xml" value="0.2848731884057971" />
+        <entry key="app/src/main/res/layout/activity_base_list.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.20643363728470113" />
+        <entry key="app/src/main/res/layout/activity_share.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/activity_user_info.xml" value="0.20643363728470113" />
+        <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/adapter_article.xml" value="0.20643363728470113" />
+        <entry key="app/src/main/res/layout/adapter_profile.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/adapter_rank.xml" value="0.17028985507246377" />
         <entry key="app/src/main/res/layout/dialog_bottom_sheet.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/fragment_base_list.xml" value="0.16084093211752787" />
@@ -166,6 +177,7 @@
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/fragment_project.xml" value="0.16084093211752787" />
         <entry key="app/src/main/res/layout/layout_home_bottom_tab.xml" value="0.16084093211752787" />
+        <entry key="app/src/main/res/layout/layout_logout.xml" value="0.20592705167173253" />
         <entry key="app/src/main/res/layout/layout_search_item.xml" value="0.45" />
         <entry key="app/src/main/res/layout/layout_to_top.xml" value="0.12681159420289856" />
         <entry key="app/src/main/res/layout/main_fragment.xml" value="0.19959473150962512" />

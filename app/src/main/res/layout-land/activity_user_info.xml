@@ -18,7 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:ignore="DisableBaselineAlignment">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -40,7 +41,8 @@
                 android:layout_marginTop="@dimen/dp_25"
                 android:text="ZhuJiang"
                 android:textColor="@color/white"
-                android:textSize="@dimen/dp_15" />
+                android:textSize="@dimen/sp_15"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:layout_width="@dimen/dp_150"
@@ -49,7 +51,7 @@
                 android:layout_marginTop="@dimen/dp_15"
                 android:text="@string/motto"
                 android:textColor="@color/white"
-                android:textSize="@dimen/dp_14" />
+                android:textSize="@dimen/sp_14" />
 
         </LinearLayout>
 
@@ -59,7 +61,6 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-
             <TextView
                 android:layout_width="@dimen/dp_200"
                 android:layout_height="wrap_content"
@@ -67,7 +68,7 @@
                 android:layout_marginTop="@dimen/dp_30"
                 android:text="@string/we_chat_official_account"
                 android:textColor="@color/yellow"
-                android:textSize="@dimen/dp_15" />
+                android:textSize="@dimen/sp_15" />
 
             <com.zj.core.view.custom.RoundImageView
                 android:layout_width="@dimen/dp_200"

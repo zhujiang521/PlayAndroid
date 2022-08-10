@@ -3,8 +3,8 @@ ext {
             compileSdkVersion        : 32,
             minSdkVersion            : 23,
             targetSdkVersion         : 32,
-            versionCode              : 29,
-            versionName              : "4.5.1",
+            versionCode              : 30,
+            versionName              : "4.5.2",
             testInstrumentationRunner: "androidx.test.runner.AndroidJUnitRunner",
             consumerProguardFiles    : 'consumer-rules.pro',
     ]

@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.core.Play
 import com.zj.core.Play.logout
@@ -29,6 +30,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
     private lateinit var profileAdapter: ProfileAdapter
     private lateinit var nameArray: Array<String>
     private var profileItemList = ArrayList<ProfileItem>()
+    private var dialog: AlertDialog? = null
     private val imageArray = arrayOf(
         R.drawable.ic_integral,
         R.drawable.ic_profile_collect,
@@ -106,21 +108,25 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
         when (v.id) {
             R.id.profileIvHead, R.id.profileTvName, R.id.profileTvRank -> personalInformation()
             R.id.profileBtnLogout -> setLogout()
-        }
-    }
-
-    private fun setLogout() {
-        AlertDialog.Builder(context).setTitle(getString(R.string.log_out))
-            .setMessage(getString(R.string.sure_log_out))
-            .setNegativeButton(
-                getString(R.string.cancel)
-            ) { dialog, _ -> dialog?.dismiss() }
-            .setPositiveButton(getString(R.string.sure)) { dialog, _ ->
+            R.id.logout_cancel -> dialog?.dismiss()
+            R.id.logout_sure -> {
                 dialog?.dismiss()
                 clearInfo()
                 logout()
                 accountRepository.getLogout()
-            }.show()
+            }
+        }
+    }
+
+    private fun setLogout() {
+        val view = LayoutInflater.from(context).inflate(R.layout.layout_logout, null)
+        view.apply {
+            findViewById<TextView>(R.id.logout_cancel).setOnClickListener(this@ProfileFragment)
+            findViewById<TextView>(R.id.logout_sure).setOnClickListener(this@ProfileFragment)
+        }
+        dialog = AlertDialog.Builder(context).setView(view).create()
+        dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog?.show()
     }
 
     private fun personalInformation() {

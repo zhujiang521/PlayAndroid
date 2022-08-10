@@ -17,7 +17,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:ignore="DisableBaselineAlignment">
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -41,7 +42,7 @@
                 android:layout_marginTop="@dimen/dp_115"
                 android:layout_toEndOf="@id/profileIvHead"
                 android:textColor="@color/text_click_color"
-                android:textSize="@dimen/dp_17"
+                android:textSize="@dimen/sp_17"
                 tools:text="Zhujiang" />
 
             <TextView
@@ -53,7 +54,7 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_toEndOf="@id/profileIvHead"
                 android:textColor="@color/text_click_color"
-                android:textSize="@dimen/dp_15"
+                android:textSize="@dimen/sp_15"
                 tools:text="账号" />
 
         </RelativeLayout>
@@ -91,7 +92,7 @@
                     android:background="@drawable/btn_exit_login_bg"
                     android:text="@string/log_out"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/dp_13" />
+                    android:textSize="@dimen/sp_13" />
 
             </LinearLayout>
 

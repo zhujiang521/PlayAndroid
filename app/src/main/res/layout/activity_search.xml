@@ -20,7 +20,9 @@
             android:layout_gravity="center_vertical"
             android:paddingTop="@dimen/dp_8"
             android:paddingBottom="@dimen/dp_8"
-            android:src="@drawable/img_back" />
+            android:src="@drawable/img_back"
+            android:contentDescription="Back"
+            tools:ignore="HardcodedText" />
 
         <EditText
             android:id="@+id/searchTxtKeyword"
@@ -33,19 +35,24 @@
             android:imeOptions="actionSearch"
             android:maxLines="1"
             android:paddingStart="@dimen/dp_5"
+            android:paddingEnd="@dimen/dp_0"
             android:singleLine="true"
             android:textColor="@color/white"
             android:textColorHint="@color/plain"
-            android:textSize="@dimen/dp_15" />
+            android:textSize="@dimen/sp_15"
+            android:importantForAutofill="no"
+            tools:ignore="TextFields" />
 
         <ImageView
             android:id="@+id/searchTxtRight"
             android:layout_width="@dimen/dp_40"
             android:layout_height="@dimen/dp_40"
-            android:layout_gravity="center_vertical|right"
+            android:layout_gravity="center_vertical|end"
             android:gravity="center"
             android:padding="@dimen/dp_8"
-            android:src="@drawable/home_search_button" />
+            android:src="@drawable/home_search_button"
+            android:contentDescription="Search"
+            tools:ignore="HardcodedText" />
 
     </FrameLayout>
 

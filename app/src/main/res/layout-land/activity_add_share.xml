@@ -21,13 +21,15 @@
         android:layout_marginBottom="@dimen/dp_10"
         android:background="@drawable/bg_edittext"
         android:hint="@string/enter_article_title"
+        android:importantForAutofill="no"
         android:lines="1"
         android:maxLines="1"
         android:paddingHorizontal="@dimen/dp_5"
         android:singleLine="true"
         android:textColor="@color/text_color_black"
         android:textColorHint="@color/plain"
-        android:textSize="@dimen/dp_14" />
+        android:textSize="@dimen/sp_14"
+        tools:ignore="TextFields" />
 
     <EditText
         android:id="@+id/addShareEtLink"
@@ -37,13 +39,15 @@
         android:background="@drawable/bg_edittext"
         android:gravity="start"
         android:hint="@string/enter_article_link"
+        android:importantForAutofill="no"
         android:lines="1"
         android:maxLines="1"
         android:paddingHorizontal="@dimen/dp_5"
         android:singleLine="true"
         android:textColor="@color/text_color_black"
         android:textColorHint="@color/plain"
-        android:textSize="@dimen/dp_14" />
+        android:textSize="@dimen/sp_14"
+        tools:ignore="TextFields" />
 
     <Button
         android:id="@+id/addShareBtnAdd"
