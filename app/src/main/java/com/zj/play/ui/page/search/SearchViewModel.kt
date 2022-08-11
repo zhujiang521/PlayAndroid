@@ -4,14 +4,13 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.zj.play.logic.repository.BaseArticlePagingRepository
-import com.zj.play.logic.viewmodel.BaseArticleViewModel
 import com.zj.model.HotkeyModel
 import com.zj.model.PlayState
 import com.zj.model.Query
-import kotlinx.coroutines.Dispatchers
+import com.zj.network.PlayAndroidNetwork
+import com.zj.play.logic.repository.BaseArticlePagingRepository
+import com.zj.play.logic.viewmodel.BaseArticleViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 
 /**
  * 版权：Zhujiang 个人版权

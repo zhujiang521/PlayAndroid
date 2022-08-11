@@ -1,9 +1,12 @@
 package com.zj.play.logic.repository
 
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagingData
-import com.zj.model.ArticleModel
-import com.zj.model.Query
+import com.google.gson.JsonSyntaxException
+import com.zj.model.*
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
+import retrofit2.HttpException
 
 /**
  * 版权：Zhujiang 个人版权
@@ -21,11 +24,12 @@ abstract class BaseArticlePagingRepository {
 
     abstract fun getPagingData(query: Query): Flow<PagingData<ArticleModel>>
     
+      @OptIn(DelicateCoroutinesApi::class)
       fun <T> http(
-        scope: CoroutineScope = GlobalScope,
-        dispatchers: CoroutineDispatcher = Dispatchers.Main,
-        request: suspend CoroutineScope.() -> BaseModel<T>,
-        state: MutableLiveData<PlayState<T>>
+          scope: CoroutineScope = GlobalScope,
+          dispatchers: CoroutineDispatcher = Dispatchers.Main,
+          request: suspend CoroutineScope.() -> BaseModel<T>,
+          state: MutableLiveData<PlayState<T>>
     ): Job {
         return scope.launch(dispatchers) {
             try {
