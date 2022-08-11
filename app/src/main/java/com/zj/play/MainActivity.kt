@@ -1,15 +1,15 @@
 package com.zj.play
 
 import android.os.Bundle
+import android.view.ViewGroup
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.core.view.WindowInsetsCompat
 import com.zj.play.ui.main.NavGraph
 import com.zj.play.ui.theme.GrayAppAdapter
 import com.zj.play.ui.theme.PlayAndroidTheme
 import com.zj.play.ui.theme.themeTypeState
-import com.zj.utils.cancelToast
-import com.zj.utils.setAndroidNativeLightStatusBar
-import com.zj.utils.transparentStatusBar
+import com.zj.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 const val CHANGED_THEME = "CHANGED_THEME"
@@ -19,13 +19,22 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        transparentStatusBar()
-        setAndroidNativeLightStatusBar()
         setContent {
             PlayAndroidTheme(themeTypeState.value) {
                 // 清明、七月十五或者是国家公祭日的时候展示黑白化效果
                 GrayAppAdapter {
                     NavGraph()
+                }
+            }
+        }
+
+        applyImmersionWithWindowInsets()
+
+        // 适配”三大金刚“导航栏  设置padding
+        window.decorView.findViewById<ViewGroup>(android.R.id.content).getChildAt(0)?.let {
+            it.doOnApplyWindowInsets { _, windowInsets, _, _ ->
+                if (!EdgeInsetDelegate.isGestureNavigation(windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars()), this)) {
+                    it.applyBottomInsetMargin()
                 }
             }
         }
