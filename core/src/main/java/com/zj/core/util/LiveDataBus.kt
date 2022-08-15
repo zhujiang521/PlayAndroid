@@ -1,5 +1,6 @@
 package com.zj.core.util
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 
 /**
@@ -17,10 +18,14 @@ class LiveDataBus private constructor() {
         val DATA_BUS = LiveDataBus()
     }
 
+    /**
+     * @param type 类型
+     */
     @Suppress("UNCHECKED_CAST")
     fun <T> getChannel(target: String, type: Class<T>?): MutableLiveData<T> {
         if (!bus.containsKey(target)) {
             bus[target] = MutableLiveData()
+            Log.d("TAG", "getChannel: type:$type")
         }
         return bus[target] as MutableLiveData<T>
     }

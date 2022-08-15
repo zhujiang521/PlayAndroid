@@ -3,7 +3,6 @@ package com.zj.play.article
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
-import android.os.Build
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.Log
@@ -16,6 +15,7 @@ import android.webkit.WebSettings.FORCE_DARK_OFF
 import android.widget.ProgressBar
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
+import com.zj.core.util.AndroidVersion
 import com.zj.play.R
 
 
@@ -35,24 +35,26 @@ class X5WebView @JvmOverloads constructor(
     }
 
     init {
+        setDefaultWebSettings()
         isHorizontalScrollBarEnabled = false //水平不显示小方块
         isVerticalScrollBarEnabled = false //垂直不显示小方块
+        overScrollMode = OVER_SCROLL_NEVER
+        isFocusable = true
 
         progressBar = ProgressBar(context, null, android.R.attr.progressBarStyleHorizontal)
         progressBar?.max = 100
         progressBar?.progressDrawable =
             ResourcesCompat.getDrawable(resources, R.drawable.color_progressbar, null)
         addView(progressBar, LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 6))
-        setDefaultWebSettings()
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private fun setDefaultWebSettings() {
+        webViewClient = client
         webChromeClient = chromeClient
         val webSettings = settings
         //5.0以上开启混合模式加载
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            webSettings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
-        }
+        webSettings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
         webSettings.loadWithOverviewMode = true
         webSettings.useWideViewPort = true
         //允许js代码
@@ -64,30 +66,28 @@ class X5WebView @JvmOverloads constructor(
         webSettings.builtInZoomControls = false
         //禁用文字缩放
         webSettings.textZoom = 100
-        //10M缓存，api 18后，系统自动管理。
-        webSettings.setAppCacheMaxSize((10 * 1024 * 1024).toLong())
-        //允许缓存，设置缓存位置
-        webSettings.setAppCacheEnabled(true)
-        webSettings.setAppCachePath(context.getDir("appcache", 0).path)
         //允许WebView使用File协议
         webSettings.allowFileAccess = true
-        //不保存密码
-        webSettings.savePassword = false
         //设置UA
         webSettings.userAgentString = webSettings.userAgentString + " playAndroid"
         //自动加载图片
         webSettings.loadsImagesAutomatically = true
-        if (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES) { //判断如果系统是深色主题
-            webSettings.forceDark = WebSettings.FORCE_DARK_ON //强制开启webview深色主题模式
-        } else {
-            webSettings.forceDark = FORCE_DARK_OFF
+        if (AndroidVersion.hasQ()) {
+            if (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES) {
+                // 判断如果系统是深色主题,强制开启webView深色主题模式
+                webSettings.forceDark = WebSettings.FORCE_DARK_ON
+            } else {
+                webSettings.forceDark = FORCE_DARK_OFF
+            }
         }
+
     }
 
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK && canGoBack()) {
-            goBack() // goBack()表示返回WebView的上一页面
+            // goBack()表示返回WebView的上一页面
+            goBack()
             return true
         }
         return super.onKeyDown(keyCode, event)
@@ -177,44 +177,32 @@ class X5WebView @JvmOverloads constructor(
         return super.onTouchEvent(event)
     }
 
-    override fun setWebViewClient(client: WebViewClient) {
-        Log.w(TAG, "setWebViewClient: $client")
-        super.setWebViewClient(object : WebViewClient() {
-
-
-            @Deprecated("Deprecated in Java")
-            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                val handleByChild = client.shouldOverrideUrlLoading(view, url)
-                return if (handleByChild) {
-                    // 开放client接口给上层业务调用，如果返回true，表示业务已处理。
-                    true
-                } else if (!isTouchByUser()) {
-                    // 如果业务没有处理，并且在加载过程中用户没有再次触摸屏幕，认为是301/302事件，直接交由系统处理。
-                    super.shouldOverrideUrlLoading(view, url)
-                } else {
-                    //否则，属于二次加载某个链接的情况，为了解决拼接参数丢失问题，重新调用loadUrl方法添加固有参数。
-                    loadUrl(url)
-                    true
-                }
+    private val client = object : WebViewClient() {
+        override fun shouldOverrideUrlLoading(
+            view: WebView?,
+            request: WebResourceRequest
+        ): Boolean {
+            Log.w(TAG, "shouldOverrideUrlLoading: ${request.url}")
+            val handleByChild = shouldOverrideUrlLoading(view, request)
+            return if (handleByChild) {
+                true
+            } else if (!isTouchByUser()) {
+                return true
+            } else {
+                loadUrl(request.url.toString())
+                true
             }
+        }
 
-            override fun shouldOverrideUrlLoading(
-                view: WebView?,
-                request: WebResourceRequest
-            ): Boolean {
-                Log.w(TAG, "shouldOverrideUrlLoading: ${request.url}")
-                val handleByChild = client.shouldOverrideUrlLoading(view, request)
-                return if (handleByChild) {
-                    true
-                } else if (!isTouchByUser()) {
-                    return true
-                } else {
-                    loadUrl(request.url.toString())
-                    true
-                }
-            }
-        })
+        override fun shouldInterceptRequest(
+            view: WebView?,
+            request: WebResourceRequest?
+        ): WebResourceResponse? {
+            return super.shouldInterceptRequest(view, request)
+        }
+
     }
+
 
     companion object {
         private const val TAG = "X5WebView"
