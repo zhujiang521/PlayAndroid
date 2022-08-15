@@ -1,7 +1,6 @@
 package com.zj.play.main
 
 import android.content.Context
-import android.graphics.BitmapFactory
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -75,16 +74,13 @@ class HomeBottomLandTabWidget @JvmOverloads constructor(
     override fun fragmentManger(position: Int) {
         super.fragmentManger(position)
         fabMenu.setCover(
-            BitmapFactory.decodeResource(
-                context.resources,
-                when (position) {
-                    0 -> R.drawable.ic_home_selected
-                    1 -> R.drawable.ic_project_selected
-                    2 -> R.drawable.ic_account_selected
-                    3 -> R.drawable.ic_mine_selected
-                    else -> R.drawable.ic_project_selected
-                }
-            )
+            when (position) {
+                0 -> R.drawable.ic_home_selected
+                1 -> R.drawable.ic_project_selected
+                2 -> R.drawable.ic_account_selected
+                3 -> R.drawable.ic_mine_selected
+                else -> R.drawable.ic_project_selected
+            }
         )
         if (fabMenu.isExpanded) fabMenu.toggle()
         for (j in floatingButtons.indices) {

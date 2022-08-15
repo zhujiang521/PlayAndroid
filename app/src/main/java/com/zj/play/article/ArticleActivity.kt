@@ -78,7 +78,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
         val behavior: BottomSheetBehavior<*> = bottomSheetDialog!!.behavior
         behavior.state = BottomSheetBehavior.STATE_EXPANDED
         val dialogView: View = View.inflate(this, R.layout.dialog_bottom_sheet, null)
-        bottomSheetDialog!!.setContentView(dialogView)
+        bottomSheetDialog?.setContentView(dialogView)
         val bottomDialogLlCollect =
             dialogView.findViewById<LinearLayout>(R.id.bottomDialogLlCollect)
         bottomDialogIvCollect = dialogView.findViewById(R.id.bottomDialogIvCollect)

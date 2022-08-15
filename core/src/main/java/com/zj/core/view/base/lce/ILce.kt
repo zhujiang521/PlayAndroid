@@ -21,7 +21,9 @@ interface ILce {
      * @param tip
      * 界面中的提示信息
      */
-    fun showLoadErrorView(tip: String = Play.context!!.getString(R.string.failed_load_data))
+    fun showLoadErrorView(
+        tip: String = Play.context?.getString(R.string.failed_load_data) ?: "Failed to load data"
+    )
 
     /**
      * 当Activity中的内容因为网络原因无法显示的时候，通过此方法显示提示界面给用户。

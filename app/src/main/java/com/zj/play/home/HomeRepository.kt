@@ -1,5 +1,6 @@
 package com.zj.play.home
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
 import com.bumptech.glide.Glide
@@ -69,6 +70,7 @@ class HomeRepository @Inject constructor(val application: Application) {
         }
     }
 
+    @SuppressLint("CheckResult")
     private suspend fun insertBannerList(
         bannerBeanDao: BannerBeanDao,
         bannerList: List<BannerBean>
@@ -94,9 +96,11 @@ class HomeRepository @Inject constructor(val application: Application) {
                     isFirstResource: Boolean
                 ): Boolean {
                     try {
-                        it.filePath = resource!!.absolutePath
+                        it.filePath = resource?.absolutePath ?: ""
                         uiScope.launch {
-                            bannerBeanDao.insert(it)
+                            if (it.filePath.isNotEmpty()) {
+                                bannerBeanDao.insert(it)
+                            }
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()

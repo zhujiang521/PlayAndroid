@@ -8,8 +8,8 @@ import com.blankj.utilcode.util.NetworkUtils
 import com.bumptech.glide.Glide
 import com.youth.banner.adapter.BannerAdapter
 import com.zj.core.util.showToast
-import com.zj.play.R
 import com.zj.model.room.entity.BannerBean
+import com.zj.play.R
 import com.zj.play.article.ArticleActivity
 
 
@@ -51,14 +51,21 @@ open class ImageAdapter(private val mContext: Context, mData: List<BannerBean>) 
         position: Int,
         size: Int
     ) {
-        Glide.with(mContext).load(if (data?.filePath == null) data?.imagePath else data.filePath)
-            .into(holder!!.imageView)
-        holder.imageView.setOnClickListener {
-            if (!NetworkUtils.isConnected()) {
-                showToast(mContext.getString(R.string.no_network))
-                return@setOnClickListener
+        holder?.imageView?.apply {
+            Glide.with(mContext)
+                .load(if (data?.filePath == null) data?.imagePath else data.filePath)
+                .into(this)
+            setOnClickListener {
+                if (!NetworkUtils.isConnected()) {
+                    showToast(mContext.getString(R.string.no_network))
+                    return@setOnClickListener
+                }
+                ArticleActivity.actionStart(
+                    mContext,
+                    data?.title ?: "",
+                    data?.url ?: "www.baidu.com"
+                )
             }
-            ArticleActivity.actionStart(mContext, data!!.title, data.url)
         }
     }
 }

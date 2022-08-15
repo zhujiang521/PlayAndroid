@@ -1,6 +1,5 @@
 package com.zj.play.home.search
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
@@ -137,10 +136,9 @@ class SearchActivity : BaseActivity(), View.OnClickListener, TextView.OnEditorAc
 
     override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
         //以下方法防止两次发送请求
-        return if (actionId == EditorInfo.IME_ACTION_SEND ||
-            event != null && event.keyCode == KeyEvent.KEYCODE_ENTER
-        ) {
-            when (event!!.action) {
+        if (event == null) return false
+        return if (actionId == EditorInfo.IME_ACTION_SEND || event.keyCode == KeyEvent.KEYCODE_ENTER) {
+            when (event.action) {
                 KeyEvent.ACTION_UP -> {
                     //发送请求
                     toSearch()

@@ -2,7 +2,6 @@ package com.zj.core.view.custom.floating
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -52,9 +51,9 @@ class FloatingButton @JvmOverloads constructor(
     }
 
 
-    fun setCover(bitmap: Bitmap?) {
+    fun setCover(resId: Int) {
         config()
-        setImageBitmap(bitmap)
+        setImageResource(resId)
         postInvalidate()
     }
 

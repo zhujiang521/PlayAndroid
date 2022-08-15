@@ -3,8 +3,6 @@ package com.zj.core.almanac
 import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 /**
  * 版权：Zhujiang 个人版权
@@ -109,7 +107,7 @@ class ProgrammerCalendar {
         // 周末的话，只留下 weekend = true 的事件
         if (isWeekend) {
             for (e in ActivitiesEnum.values()) {
-                if (e.weekend!!) {
+                if (e.weekend != false) {
                     thisEnum.add(e)
                 }
             }
@@ -202,15 +200,15 @@ class ProgrammerCalendar {
         map["name"] = ae.names
         map["good"] = ae.good
         map["bad"] = ae.bad
-        if (map["name"]!!.indexOf("%t") != -1) {
-            map["name"] = map["name"]!!.replace(
+        if (map["name"]?.indexOf("%t") != -1) {
+            map["name"] = map["name"]?.replace(
                 "%t".toRegex(),
                 tools[random(iday, 11) % tools.size]
             )
         }
-        if (map["name"]!!.indexOf("%t") != -1) {
+        if (map["name"]?.indexOf("%t") != -1) {
             map["name"] =
-                map["name"]!!.replace("%l".toRegex(), (random(iday, 12) % 247 + 30).toString() + "")
+                map["name"]?.replace("%l".toRegex(), (random(iday, 12) % 247 + 30).toString() + "")
         }
         return map
     }

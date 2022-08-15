@@ -1,5 +1,6 @@
 package com.zj.play.official.list
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.viewModels
 import com.zj.model.pojo.QueryArticle
@@ -38,9 +39,13 @@ class OfficialListFragment : BaseListFragment() {
 
     private fun getArticleList(isRefresh: Boolean) {
         if (viewModel.dataList.size <= 0) startLoading()
-        viewModel.getDataList(QueryArticle(page, projectCid!!, isRefresh))
+        projectCid?.apply {
+            viewModel.getDataList(QueryArticle(page, this, isRefresh))
+        }
+
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun initData() {
         setDataStatus(viewModel.dataLiveData, {
             if (viewModel.dataList.size > 0) loadFinished()

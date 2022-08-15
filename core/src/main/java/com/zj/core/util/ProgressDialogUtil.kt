@@ -3,6 +3,7 @@ package com.zj.core.util
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import com.zj.core.databinding.DialogProgressBinding
 import java.lang.ref.WeakReference
@@ -14,24 +15,27 @@ class ProgressDialogUtil {
 
     @Synchronized
     fun progressDialogShow(msg: String) {
-        if (progressDialog != null && progressDialog!!.isShowing) {
-            if ((mContext!!.get() as Activity).isFinishing) {
-                progressDialog!!.dismiss()
+        val context = mContext?.get() ?: return
+        if (context !is Activity) {
+            Log.w(TAG, "progressDialogShow: no activity")
+            return
+        }
+        if (progressDialog != null && progressDialog?.isShowing != false) {
+            if (context.isFinishing) {
+                progressDialog?.dismiss()
             }
             return
         }
-        if (mContext == null || mContext!!.get() !is Activity) {
-            return
-        }
-        progressDialog = Dialog(mContext!!.get()!!)
-        val progressView = DialogProgressBinding.inflate(LayoutInflater.from(mContext!!.get()!!))
+
+        progressDialog = Dialog(context)
+        val progressView = DialogProgressBinding.inflate(LayoutInflater.from(context))
         progressView.apply {
             dialogMessage.text = msg
         }
         progressDialog?.apply {
             setContentView(progressView.root)
             setCanceledOnTouchOutside(false)
-            if (!(mContext!!.get() as Activity).isFinishing && !progressDialog!!.isShowing) {
+            if (!(mContext?.get() as Activity).isFinishing && progressDialog?.isShowing == false) {
                 show()
             }
         }
@@ -39,13 +43,14 @@ class ProgressDialogUtil {
 
     @Synchronized
     fun progressDialogDismiss() {
-        if (progressDialog != null && progressDialog!!.isShowing) {
-            progressDialog!!.dismiss()
+        if (progressDialog != null && progressDialog?.isShowing != false) {
+            progressDialog?.dismiss()
         }
         progressDialog = null
     }
 
     companion object {
+        private const val TAG = "ProgressDialogUtil"
         private var mProgressDialogUtil: ProgressDialogUtil? = null
 
         @Volatile

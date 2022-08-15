@@ -2,13 +2,16 @@ package com.zj.core
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import com.zj.core.util.DataStoreUtils
 
 /**
  * 全局的API接口。
  *
  */
+@SuppressLint("StaticFieldLeak")
 object Play {
+    private const val TAG = "Play"
     private const val USERNAME = "username"
     private const val NICE_NAME = "nickname"
     private const val IS_LOGIN = "isLogin"
@@ -19,7 +22,6 @@ object Play {
      *
      * @return 全局Context对象。
      */
-    @SuppressLint("StaticFieldLeak")
     var context: Context? = null
         private set
 
@@ -30,7 +32,13 @@ object Play {
      */
     fun initialize(c: Context?) {
         context = c
-        DataStoreUtils.init(context!!)
+        if (context == null){
+            Log.w(TAG, "initialize: context is null")
+            return
+        }
+        context?.apply {
+            DataStoreUtils.init(this)
+        }
         dataStore = DataStoreUtils
     }
 

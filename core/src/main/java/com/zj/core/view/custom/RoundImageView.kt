@@ -1,5 +1,6 @@
 package com.zj.core.view.custom
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
@@ -40,6 +41,7 @@ class RoundImageView @JvmOverloads constructor(
 
     //渲染图像，使用图像为绘制图形着色
     private var mBitmapShader: BitmapShader? = null
+    @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas) {
         if (drawable == null) {
             return

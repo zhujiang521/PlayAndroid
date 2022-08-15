@@ -19,7 +19,7 @@ abstract class BaseHomeBottomTabWidget @JvmOverloads constructor(
 ) : LinearLayout(context, attrs, defStyleAttr), View.OnClickListener {
 
     private var mFragmentManager: FragmentManager? = null
-    private var mFragments: ArrayList<Fragment>? = null
+    private var mFragments: ArrayList<Fragment> = arrayListOf()
     private lateinit var mViewModel: MainViewModel
     private var currentFragment: Fragment? = null
 
@@ -31,13 +31,12 @@ abstract class BaseHomeBottomTabWidget @JvmOverloads constructor(
     fun init(fm: FragmentManager?, viewModel: MainViewModel) {
         mFragmentManager = fm
         mViewModel = viewModel
-        if (mFragments == null) {
-            mFragments = arrayListOf()
-            mFragments?.apply {
-                add(getCurrentFragment(0)!!)
-                add(getCurrentFragment(1)!!)
-                add(getCurrentFragment(2)!!)
-                add(getCurrentFragment(3)!!)
+        if (mFragments.isEmpty()) {
+            mFragments.apply {
+                add(getCurrentFragment(0))
+                add(getCurrentFragment(1))
+                add(getCurrentFragment(2))
+                add(getCurrentFragment(3))
             }
         }
         fragmentManger(viewModel.getPage() ?: 0)
@@ -47,13 +46,12 @@ abstract class BaseHomeBottomTabWidget @JvmOverloads constructor(
      * 销毁，避免内存泄漏
      */
     open fun destroy() {
-        if (null != mFragmentManager) {
-            if (!mFragmentManager!!.isDestroyed)
+        mFragmentManager?.apply {
+            if (!isDestroyed)
                 mFragmentManager = null
         }
-        if (!mFragments.isNullOrEmpty()) {
-            mFragments?.clear()
-            mFragments = null
+        if (mFragments.isNotEmpty()) {
+            mFragments.clear()
         }
     }
 
@@ -64,11 +62,10 @@ abstract class BaseHomeBottomTabWidget @JvmOverloads constructor(
      */
     protected open fun fragmentManger(position: Int) {
         mViewModel.setPage(position)
-        val targetFg: Fragment = mFragments!![position]
-        val transaction = mFragmentManager!!.beginTransaction()
-        transaction.apply {
-            if (currentFragment != null) {
-                hide(currentFragment!!)
+        val targetFg: Fragment = mFragments[position]
+        mFragmentManager?.beginTransaction()?.apply {
+            currentFragment?.apply {
+                hide(this)
             }
             setReorderingAllowed(true)
             if (!targetFg.isAdded) {
@@ -85,13 +82,13 @@ abstract class BaseHomeBottomTabWidget @JvmOverloads constructor(
     private val mObjectListFragment: OfficialAccountsFragment by lazy { OfficialAccountsFragment.newInstance() }
     private val mProfileFragment: ProfileFragment by lazy { ProfileFragment.newInstance() }
 
-    private fun getCurrentFragment(index: Int): Fragment? {
+    private fun getCurrentFragment(index: Int): Fragment {
         return when (index) {
             0 -> mHomeFragment
             1 -> mProjectFragment
             2 -> mObjectListFragment
             3 -> mProfileFragment
-            else -> null
+            else -> mHomeFragment
         }
     }
 

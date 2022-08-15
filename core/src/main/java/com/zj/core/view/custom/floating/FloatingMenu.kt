@@ -6,7 +6,6 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
@@ -333,8 +332,8 @@ class FloatingMenu constructor(
         floatingMusicButton?.setCoverDrawable(drawable)
     }
 
-    fun setCover(bitmap: Bitmap?) {
-        floatingMusicButton?.setCover(bitmap)
+    fun setCover(resId: Int) {
+        floatingMusicButton?.setCover(resId)
     }
 
     private fun setFloatingDirection(floatingDirection: Int) {
