@@ -6,16 +6,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zj.core.Play
-import com.zj.core.util.LiveDataBus
 import com.zj.core.util.showToast
 import com.zj.model.model.BaseModel
 import com.zj.model.model.Login
 import com.zj.play.R
-import com.zj.play.home.LOGIN_REFRESH
+import com.zj.play.article.ArticleBroadCast
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -52,16 +50,14 @@ class LoginViewModel @Inject constructor(
             if (loginModel.errorCode == 0) {
                 val login = loginModel.data
                 _state.postValue(LoginSuccess(login))
-                Play.isLogin = true
+                Play.setLogin(true)
                 Play.setUserInfo(login.nickname, login.username)
                 showToast(
                     if (account.isLogin) getApplication<Application>().getString(R.string.login_success) else getApplication<Application>().getString(
                         R.string.register_success
                     )
                 )
-                withContext(Dispatchers.Main) {
-                    LiveDataBus.get().getChannel(LOGIN_REFRESH).setValue(true)
-                }
+                ArticleBroadCast.sendArticleChangesReceiver(context = getApplication())
             } else {
                 showToast(loginModel.errorMsg)
                 _state.postValue(LoginError)

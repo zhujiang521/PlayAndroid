@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import com.zj.core.util.DataStoreUtils
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 /**
  * 全局的API接口。
@@ -31,15 +33,14 @@ object Play {
      * @param c Context参数，注意这里要传入的是Application的Context，千万不能传入Activity或者Service的Context。
      */
     fun initialize(c: Context?) {
-        context = c
-        if (context == null){
+        if (c == null) {
             Log.w(TAG, "initialize: context is null")
             return
         }
+        context = c
         context?.apply {
-            DataStoreUtils.init(this)
+            dataStore = DataStoreUtils.init(this)
         }
-        dataStore = DataStoreUtils
     }
 
     /**
@@ -47,11 +48,27 @@ object Play {
      *
      * @return 已登录返回true，未登录返回false。
      */
-    var isLogin: Boolean
-        get() = dataStore.readBooleanData(IS_LOGIN)
-        set(b) {
-            dataStore.saveSyncBooleanData(IS_LOGIN, b)
+    fun isLogin(): Flow<Boolean> {
+        return if (::dataStore.isInitialized) {
+            dataStore.readBooleanFlow(IS_LOGIN)
+        } else {
+            flow {
+                emit(false)
+            }
         }
+    }
+
+    fun isLoginResult(): Boolean {
+        return if (::dataStore.isInitialized) {
+            dataStore.readBooleanData(IS_LOGIN)
+        } else {
+            false
+        }
+    }
+
+    fun setLogin(isLogin: Boolean) {
+        dataStore.saveSyncBooleanData(IS_LOGIN, isLogin)
+    }
 
     /**
      * 注销用户登录。

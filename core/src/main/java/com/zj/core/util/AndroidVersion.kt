@@ -1,91 +1,53 @@
 package com.zj.core.util
 
 import android.os.Build
+import androidx.annotation.ChecksSdkIntAtLeast
+import com.zj.core.util.AndroidVersion.hasR
+import com.zj.core.util.AndroidVersion.hasS
 
 /**
  * 以更加可读的方式提供Android系统版本号的判断方法。
  *
+ * [hasR] 判断版本是否在R以上
+ * [hasS] 判断版本是否在S以上
  */
 object AndroidVersion {
-
-    /**
-     * 判断当前手机系统版本API是否是16以上。
-     * @return 16以上返回true，否则返回false。
-     */
-    fun hasJellyBean(): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
-    }
-
-    /**
-     * 判断当前手机系统版本API是否是17以上。
-     * @return 17以上返回true，否则返回false。
-     */
-    fun hasJellyBeanMR1(): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
-    }
-
-    /**
-     * 判断当前手机系统版本API是否是18以上。
-     * @return 18以上返回true，否则返回false。
-     */
-    fun hasJellyBeanMR2(): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2
-    }
-
-    /**
-     * 判断当前手机系统版本API是否是19以上。
-     * @return 19以上返回true，否则返回false。
-     */
-    fun hasKitkat(): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
-    }
-
-    /**
-     * 判断当前手机系统版本API是否是21以上。
-     * @return 21以上返回true，否则返回false。
-     */
-    fun hasLollipop(): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
-    }
-
-    /**
-     * 判断当前手机系统版本API是否是22以上。
-     * @return 22以上返回true，否则返回false。
-     */
-    fun hasLollipopMR1(): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1
-    }
-
-    /**
-     * 判断当前手机系统版本API是否是23以上。
-     * @return 23以上返回true，否则返回false。
-     */
-    fun hasMarshmallow(): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-    }
 
     /**
      * 判断当前手机系统版本API是否是24以上。
      * @return 24以上返回true，否则返回false。
      */
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.N)
     fun hasNougat(): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+        return true
     }
 
     /**
      * 判断当前手机系统版本API是否是29以上。
      * @return 29以上返回true，否则返回false。
      */
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.Q)
     fun hasQ(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
     }
 
     /**
-     * 判断当前手机系统版本API是否是29以上。
-     * @return 29以上返回true，否则返回false。
+     * 判断当前手机系统版本API是否是30以上。
+     * @return 30以上返回true，否则返回false。
      */
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.Q)
     fun hasR(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+    }
+
+
+    /**
+     * 判断当前手机系统版本API是否是31以上。
+     * @return 31以上返回true，否则返回false。
+     */
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
+    fun hasS(): Boolean {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     }
 
 }

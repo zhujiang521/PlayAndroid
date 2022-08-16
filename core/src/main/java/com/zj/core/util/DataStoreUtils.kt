@@ -46,8 +46,9 @@ object DataStoreUtils {
      * init Context
      * @param context Context
      */
-    fun init(context: Context) {
+    fun init(context: Context): DataStoreUtils {
         dataStore = context.dataStore
+        return this
     }
 
     @Suppress("UNCHECKED_CAST")

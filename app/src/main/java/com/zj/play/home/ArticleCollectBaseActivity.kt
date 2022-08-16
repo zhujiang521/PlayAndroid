@@ -1,8 +1,7 @@
 package com.zj.play.home
 
 import android.content.BroadcastReceiver
-import android.util.Log
-import com.zj.core.util.LiveDataBus
+import android.os.Bundle
 import com.zj.core.view.base.BaseActivity
 import com.zj.play.article.ArticleBroadCast
 
@@ -18,23 +17,15 @@ abstract class ArticleCollectBaseActivity : BaseActivity() {
 
     private var articleReceiver: BroadcastReceiver? = null
 
-    override fun onResume() {
-        super.onResume()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         articleReceiver =
             ArticleBroadCast.setArticleChangesReceiver(this) { initData() }
-        LiveDataBus.get().getChannel(LOGIN_REFRESH, Boolean::class.java).observe(this) {
-            Log.e(TAG, "Activity onResume: $it")
-            if (it) initData()
-        }
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onDestroy() {
+        super.onDestroy()
         ArticleBroadCast.clearArticleChangesReceiver(this, articleReceiver)
-    }
-
-    companion object {
-        private const val TAG = "ArticleCollectBaseActiv"
     }
 
 }

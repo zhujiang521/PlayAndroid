@@ -4,15 +4,18 @@ import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.RegexUtils
 import com.zj.core.Play
 import com.zj.core.util.showToast
 import com.zj.core.view.base.BaseActivity
-import com.zj.play.profile.share.ShareRepository
 import com.zj.play.R
 import com.zj.play.databinding.ActivityAddShareBinding
 import com.zj.play.main.login.LoginActivity
+import com.zj.play.profile.share.ShareRepository
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -41,10 +44,14 @@ class AddShareActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun addShare() {
-        if (!Play.isLogin) {
-            showToast(getString(R.string.not_currently_logged_in))
-            LoginActivity.actionStart(this)
-            return
+        lifecycleScope.launch {
+            Play.isLogin().first {
+                if (!it) {
+                    showToast(getString(R.string.not_currently_logged_in))
+                    LoginActivity.actionStart(this@AddShareActivity)
+                }
+                it
+            }
         }
         val title = binding.addShareEtTitle.text.toString().trim()
         if (TextUtils.isEmpty(title) || title == "") {

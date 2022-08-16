@@ -3,8 +3,7 @@ package com.zj.play.article
 import android.content.Context
 import android.text.TextUtils
 import android.view.LayoutInflater
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.view.View.*
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.view.isVisible
@@ -24,6 +23,7 @@ import com.zj.play.article.collect.CollectRepositoryPoint
 import com.zj.play.databinding.AdapterArticleBinding
 import dagger.hilt.android.EntryPointAccessors
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collectLatest
 
 class ArticleAdapter(
     private val mContext: Context,
@@ -101,16 +101,29 @@ class ArticleAdapter(
             } else {
                 articleIvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
             }
-            articleIvCollect.setSafeListener {
-                if (Play.isLogin) {
-                    if (NetworkUtils.isConnected()) {
-                        data.collect = !data.collect
-                        setCollect(collectRepository, data, articleIvCollect)
+            launch {
+                Play.isLogin().collectLatest {
+                    if (it) {
+                        articleIvCollect.visibility = VISIBLE
                     } else {
-                        showToast(mContext.getString(R.string.no_network))
+                        articleIvCollect.visibility = INVISIBLE
                     }
-                } else {
-                    showToast(mContext.getString(R.string.not_currently_logged_in))
+                }
+            }
+            articleIvCollect.setSafeListener {
+                launch {
+                    Play.isLogin().collectLatest {
+                        if (it) {
+                            if (NetworkUtils.isConnected()) {
+                                data.collect = !data.collect
+                                setCollect(collectRepository, data, articleIvCollect)
+                            } else {
+                                showToast(mContext.getString(R.string.no_network))
+                            }
+                        } else {
+                            showToast(mContext.getString(R.string.not_currently_logged_in))
+                        }
+                    }
                 }
             }
             articleLlItem.setOnClickListener {

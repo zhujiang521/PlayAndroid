@@ -7,8 +7,8 @@ import com.zj.play.R
 import com.zj.play.article.collect.CollectRepositoryPoint
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.android.scopes.ActivityRetainedScoped
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 /**
@@ -20,7 +20,8 @@ import javax.inject.Inject
  *
  */
 @ActivityRetainedScoped
-class ArticleRepository @Inject constructor(val application: Application) {
+class ArticleRepository @Inject constructor(val application: Application) :
+    CoroutineScope by MainScope() {
 
     suspend fun setCollect(
         isCollection: Int,
@@ -28,10 +29,15 @@ class ArticleRepository @Inject constructor(val application: Application) {
         originId: Int,
         collectListener: (Boolean) -> Unit
     ) {
-
-        if (!Play.isLogin) {
-            showToast(R.string.not_currently_logged_in)
-            return
+        coroutineScope {
+            launch {
+                Play.isLogin().collectLatest {
+                    if (!it) {
+                        showToast(R.string.not_currently_logged_in)
+                        return@collectLatest
+                    }
+                }
+            }
         }
 
         if (isCollection == -1 || pageId == -1) {

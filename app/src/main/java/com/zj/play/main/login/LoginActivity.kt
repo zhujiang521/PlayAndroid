@@ -15,11 +15,9 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import com.blankj.utilcode.util.NetworkUtils
 import com.zj.core.util.showToast
-import com.zj.core.view.base.ActivityCollector
 import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
 import com.zj.play.databinding.ActivityLoginBinding
-import com.zj.play.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -51,8 +49,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener, TextWatcher {
                 }
                 is LoginSuccess -> {
                     toProgressVisible(false)
-                    ActivityCollector.finishAll()
-                    MainActivity.actionStart(this)
+                    finish()
                 }
                 LoginError -> {
                     toProgressVisible(false)

@@ -1,26 +1,30 @@
 package com.zj.play.profile
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.core.Play
 import com.zj.core.Play.logout
-import com.zj.core.view.base.BaseFragment
 import com.zj.play.R
 import com.zj.play.article.ArticleBroadCast
 import com.zj.play.databinding.FragmentProfileBinding
+import com.zj.play.home.ArticleCollectBaseFragment
 import com.zj.play.main.login.AccountRepository
 import com.zj.play.main.login.LoginActivity
 import com.zj.play.profile.rank.list.RankActivity
 import com.zj.play.profile.share.ShareActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ProfileFragment : BaseFragment(), View.OnClickListener {
+class ProfileFragment : ArticleCollectBaseFragment(), View.OnClickListener {
 
     private var binding: FragmentProfileBinding? = null
 
@@ -63,13 +67,23 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
             profileRv.layoutManager = LinearLayoutManager(context)
             profileAdapter = ProfileAdapter(requireContext(), profileItemList)
             profileRv.adapter = profileAdapter
-            if (Play.isLogin) {
-                profileIvHead.setImageResource(R.drawable.ic_head)
-                profileTvName.text = Play.nickName
-                profileTvRank.text = Play.username
-                profileBtnLogout.visibility = View.VISIBLE
-            } else {
-                clearInfo()
+            refreshData()
+        }
+    }
+
+    override fun refreshData() {
+        lifecycleScope.launch {
+            Play.isLogin().collectLatest {
+                binding?.apply {
+                    if (it) {
+                        profileIvHead.setImageResource(R.drawable.ic_head)
+                        profileTvName.text = Play.nickName
+                        profileTvRank.text = Play.username
+                        profileBtnLogout.visibility = View.VISIBLE
+                    } else {
+                        clearInfo()
+                    }
+                }
             }
         }
     }
@@ -81,9 +95,9 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
             profileTvName.text = getString(R.string.no_login)
             profileTvRank.text = getString(R.string.click_login)
         }
-        ArticleBroadCast.sendArticleChangesReceiver(requireContext())
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun initData() {
         if (profileItemList.size == 0) {
             nameArray = arrayOf(
@@ -113,6 +127,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
                 dialog?.dismiss()
                 clearInfo()
                 logout()
+                ArticleBroadCast.sendArticleChangesReceiver(requireContext())
                 accountRepository.getLogout()
             }
         }
@@ -130,7 +145,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun personalInformation() {
-        if (!Play.isLogin) {
+        if (!Play.isLoginResult()) {
             LoginActivity.actionStart(requireContext())
         } else {
             ShareActivity.actionStart(requireContext(), true)
