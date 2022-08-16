@@ -21,7 +21,7 @@ class RankActivity : BaseListActivity() {
                 viewModel.dataList.clear()
             }
             viewModel.dataList.addAll(it.datas)
-            rankAdapter.notifyDataSetChanged()
+            rankAdapter.notifyItemInserted(it.datas.size)
         }
     }
 

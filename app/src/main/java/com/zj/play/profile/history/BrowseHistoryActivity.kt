@@ -39,7 +39,7 @@ class BrowseHistoryActivity : BaseListActivity() {
 
     override fun initData() {
         super.initData()
-        viewModel.dataLiveData.observe(this, {
+        viewModel.dataLiveData.observe(this) {
             if (it.isSuccess) {
                 val articleList = it.getOrNull()
                 if (articleList != null) {
@@ -48,7 +48,7 @@ class BrowseHistoryActivity : BaseListActivity() {
                         viewModel.dataList.clear()
                     }
                     viewModel.dataList.addAll(articleList)
-                    articleAdapter.notifyDataSetChanged()
+                    articleAdapter.notifyItemInserted(articleList.size)
                 } else {
                     showLoadErrorView()
                 }
@@ -60,7 +60,7 @@ class BrowseHistoryActivity : BaseListActivity() {
                     loadFinished()
                 }
             }
-        })
+        }
     }
 
     companion object {

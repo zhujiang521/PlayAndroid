@@ -1,5 +1,6 @@
 package com.zj.play.official
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +43,7 @@ class OfficialAccountsFragment : BaseTabFragment() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun initData() {
         startLoading()
         setDataStatus(viewModel.dataLiveData) {

@@ -3,7 +3,8 @@ package com.zj.play.article
 import android.content.Context
 import android.text.TextUtils
 import android.view.LayoutInflater
-import android.view.View.*
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.view.isVisible
@@ -103,11 +104,7 @@ class ArticleAdapter(
             }
             launch {
                 Play.isLogin().collectLatest {
-                    if (it) {
-                        articleIvCollect.visibility = VISIBLE
-                    } else {
-                        articleIvCollect.visibility = INVISIBLE
-                    }
+                    articleIvCollect.isVisible = it
                 }
             }
             articleIvCollect.setSafeListener {

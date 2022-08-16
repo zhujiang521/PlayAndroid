@@ -30,7 +30,7 @@ class ArticleListActivity : BaseListActivity() {
             if (viewModel.dataList.size == 0) {
                 showNoContentView(getString(R.string.keyword_null, keyword))
             }
-            articleAdapter.notifyDataSetChanged()
+            articleAdapter.notifyItemInserted(it.datas.size)
         }
     }
 

@@ -23,7 +23,7 @@ class CollectListActivity : BaseListActivity() {
                 viewModel.dataList.clear()
             }
             viewModel.dataList.addAll(it.datas)
-            articleAdapter.notifyDataSetChanged()
+            articleAdapter.notifyItemInserted(it.datas.size)
         }
     }
 

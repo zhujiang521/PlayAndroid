@@ -34,8 +34,8 @@ object ArticleBroadCast {
     }
 
     fun clearArticleChangesReceiver(c: Activity, r: BroadcastReceiver?) {
-        if (r != null) {
-            LocalBroadcastManager.getInstance(c).unregisterReceiver(r)
+        r?.apply {
+            LocalBroadcastManager.getInstance(c).unregisterReceiver(this)
         }
     }
 

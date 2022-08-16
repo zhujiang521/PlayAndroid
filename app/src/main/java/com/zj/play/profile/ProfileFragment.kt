@@ -1,6 +1,5 @@
 package com.zj.play.profile
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
@@ -97,7 +96,6 @@ class ProfileFragment : ArticleCollectBaseFragment(), View.OnClickListener {
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun initData() {
         if (profileItemList.size == 0) {
             nameArray = arrayOf(
@@ -114,7 +112,7 @@ class ProfileFragment : ArticleCollectBaseFragment(), View.OnClickListener {
                     ProfileItem(nameArray[index], imageArray[index])
                 )
             }
-            profileAdapter.notifyDataSetChanged()
+            profileAdapter.notifyItemInserted(profileItemList.size)
         }
     }
 

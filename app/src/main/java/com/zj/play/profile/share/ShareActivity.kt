@@ -1,6 +1,5 @@
 package com.zj.play.profile.share
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.View
@@ -65,7 +64,6 @@ class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
         getArticleList()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun setArticleData(shareModel: ShareModel) {
         if (page == 1 && viewModel.articleList.size > 0) {
             viewModel.articleList.clear()
@@ -75,7 +73,7 @@ class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
         if (viewModel.articleList.size == 0) {
             showNoContentView(getString(R.string.no_data))
         }
-        articleAdapter.notifyDataSetChanged()
+        articleAdapter.notifyItemInserted(viewModel.articleList.size)
     }
 
     private fun setUserInfo(coinInfo: CoinInfo) {

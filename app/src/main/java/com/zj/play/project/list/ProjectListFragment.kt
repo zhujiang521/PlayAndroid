@@ -1,6 +1,5 @@
 package com.zj.play.project.list
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.viewModels
 import com.zj.model.pojo.QueryArticle
@@ -46,7 +45,6 @@ class ProjectListFragment : BaseListFragment() {
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun initData() {
         setDataStatus(viewModel.dataLiveData, {
             if (viewModel.dataList.size > 0) loadFinished()
@@ -55,7 +53,7 @@ class ProjectListFragment : BaseListFragment() {
                 viewModel.dataList.clear()
             }
             viewModel.dataList.addAll(it)
-            articleAdapter.notifyDataSetChanged()
+            articleAdapter.notifyItemInserted(it.size)
         }
         getArticleList(false)
     }

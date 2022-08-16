@@ -93,7 +93,6 @@ class HomePageFragment : ArticleCollectBaseFragment() {
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun initData() {
         startLoading()
         initBanner()
@@ -104,7 +103,7 @@ class HomePageFragment : ArticleCollectBaseFragment() {
                 viewModel.articleList.clear()
             }
             viewModel.articleList.addAll(it)
-            articleAdapter.notifyDataSetChanged()
+            articleAdapter.notifyItemInserted(it.size)
         }
         getArticleList(false)
     }
