@@ -21,14 +21,19 @@ object ServiceCreator {
     private const val SAVE_USER_REGISTER_KEY = "user/register"
     private const val SET_COOKIE_KEY = "set-cookie"
     private const val COOKIE_NAME = "Cookie"
-    private const val CONNECT_TIMEOUT = 30L
+    private const val CONNECT_TIMEOUT = 10L
     private const val READ_TIMEOUT = 10L
+    private const val WRITE_TIMEOUT = 10L
+    private const val CALL_TIMEOUT = 2L
 
     private fun create(): Retrofit {
         // okHttpClientBuilder
         val okHttpClientBuilder = OkHttpClient().newBuilder().apply {
+            callTimeout(CALL_TIMEOUT, TimeUnit.MINUTES)
             connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
             readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+            writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
+            retryOnConnectionFailure(true)
             // get response cookie
             addInterceptor {
                 val request = it.request()
@@ -95,7 +100,6 @@ class RetrofitBuild(
         baseUrl(url)
         client(client)
         addConverterFactory(gsonFactory)
-
     }.build()
 }
 
