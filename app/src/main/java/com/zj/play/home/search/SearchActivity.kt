@@ -11,7 +11,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.blankj.utilcode.util.KeyboardUtils
+import com.zj.core.util.hideIme
+import com.zj.core.util.showIme
 import com.zj.core.util.showToast
 import com.zj.core.view.base.BaseActivity
 import com.zj.model.room.PlayDatabase
@@ -38,7 +39,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener, TextView.OnEditorAc
     override fun onResume() {
         super.onResume()
         addFlowView()
-        KeyboardUtils.showSoftInput(binding.searchTxtKeyword)
+        showIme(binding.searchTxtKeyword)
     }
 
     override fun initData() {
@@ -59,7 +60,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener, TextView.OnEditorAc
 
     override fun onPause() {
         super.onPause()
-        KeyboardUtils.hideSoftInput(binding.searchTxtKeyword)
+        hideIme(binding.searchTxtKeyword)
     }
 
     private fun addFlowView() {

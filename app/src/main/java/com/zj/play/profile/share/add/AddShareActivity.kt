@@ -5,8 +5,8 @@ import android.content.Intent
 import android.text.TextUtils
 import android.view.View
 import androidx.lifecycle.lifecycleScope
-import com.blankj.utilcode.util.RegexUtils
 import com.zj.core.Play
+import com.zj.core.util.isHttpUrl
 import com.zj.core.util.showToast
 import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
@@ -63,7 +63,7 @@ class AddShareActivity : BaseActivity(), View.OnClickListener {
             binding.addShareEtLink.error = getString(R.string.link_cannot_empty)
             return
         }
-        if (!RegexUtils.isURL(link)) {
+        if (!link.isHttpUrl()) {
             binding.addShareEtLink.error = getString(R.string.link_format_error)
             return
         }

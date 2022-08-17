@@ -9,9 +9,9 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
-import com.blankj.utilcode.util.KeyboardUtils
 import com.zj.core.R
 import com.zj.core.databinding.LayoutTitleBinding
+import com.zj.core.util.hideIme
 
 /**
  * 自定义头部View
@@ -136,9 +136,7 @@ class TitleBar @JvmOverloads constructor(
     override fun onClick(v: View) {
         if (v.id == R.id.imgBack) {
             //关闭页面
-            if (KeyboardUtils.isSoftInputVisible(mContext as Activity)) KeyboardUtils.hideSoftInput(
-                this
-            )
+            (mContext as Activity).hideIme()
             mContext.finish()
         }
     }

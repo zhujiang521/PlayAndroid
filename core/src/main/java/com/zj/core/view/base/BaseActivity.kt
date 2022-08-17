@@ -1,23 +1,20 @@
 package com.zj.core.view.base
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
-import com.blankj.utilcode.util.BarUtils
-import com.blankj.utilcode.util.ConvertUtils
 import com.zj.core.R
+import com.zj.core.util.PlayLog
+import com.zj.core.util.dp2px
 import com.zj.core.util.showToast
+import com.zj.core.util.transparentStatusBar
 import com.zj.core.view.base.lce.DefaultLceImpl
 import com.zj.core.view.base.lce.ILce
-import java.lang.ref.WeakReference
-
 
 /**
  * 应用程序中所有Activity的基类。
@@ -48,14 +45,10 @@ abstract class BaseActivity : AppCompatActivity(), ILce, BaseActivityInit {
 
     private var defaultLce: ILce? = null
 
-    private var weakRefActivity: WeakReference<Activity>? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        BarUtils.transparentStatusBar(this)
+        transparentStatusBar()
         setContentView(getLayoutView())
-        ActivityCollector.add(WeakReference(this))
-        weakRefActivity = WeakReference(this)
         initView()
         initData()
     }
@@ -75,7 +68,7 @@ abstract class BaseActivity : AppCompatActivity(), ILce, BaseActivityInit {
         )
         params.setMargins(
             0,
-            ConvertUtils.dp2px(if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT || isSearchPage()) 70f else 55f),
+            dp2px(if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT || isSearchPage()) 70f else 55f),
             0,
             0
         )
@@ -85,13 +78,13 @@ abstract class BaseActivity : AppCompatActivity(), ILce, BaseActivityInit {
         badNetworkView = view.findViewById(R.id.badNetworkView)
         loadErrorView = view.findViewById(R.id.loadErrorView)
         if (loading == null) {
-            Log.e(TAG, "loading is null")
+            PlayLog.e(TAG, "loading is null")
         }
         if (badNetworkView == null) {
-            Log.e(TAG, "badNetworkView is null")
+            PlayLog.e(TAG, "badNetworkView is null")
         }
         if (loadErrorView == null) {
-            Log.e(TAG, "loadErrorView is null")
+            PlayLog.e(TAG, "loadErrorView is null")
         }
         defaultLce = DefaultLceImpl(
             loading,
@@ -149,11 +142,6 @@ abstract class BaseActivity : AppCompatActivity(), ILce, BaseActivityInit {
 
     override fun showNoContentView(tip: String) {
         defaultLce?.showNoContentView(tip)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        ActivityCollector.remove(weakRefActivity)
     }
 
     companion object {

@@ -6,9 +6,9 @@ import com.zj.model.pojo.QueryArticle
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.PROJECT
 import com.zj.network.base.PlayAndroidNetwork
+import com.zj.play.base.liveDataFire
 import com.zj.play.home.DOWN_PROJECT_ARTICLE_TIME
 import com.zj.play.home.FOUR_HOUR
-import com.zj.play.main.login.fire
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
@@ -30,7 +30,7 @@ class ProjectRepository @Inject constructor(val application: Application) {
     /**
      * 获取项目标题列表
      */
-    fun getProjectTree(isRefresh: Boolean) = fire {
+    fun getProjectTree(isRefresh: Boolean) = liveDataFire {
         val projectClassifyLists = projectClassifyDao.getAllProject()
         if (projectClassifyLists.isNotEmpty() && !isRefresh) {
             Result.success(projectClassifyLists)
@@ -50,7 +50,7 @@ class ProjectRepository @Inject constructor(val application: Application) {
      * 获取项目具体文章列表
      * @param query 查询类
      */
-    fun getProject(query: QueryArticle) = fire {
+    fun getProject(query: QueryArticle) = liveDataFire {
         if (query.page == 1) {
             val dataStore = DataStoreUtils
             val articleListForChapterId =

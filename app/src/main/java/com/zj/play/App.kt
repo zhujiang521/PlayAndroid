@@ -1,7 +1,5 @@
 package com.zj.play
 
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.Application
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.ClassicsHeader
@@ -13,9 +11,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import java.util.*
-import kotlin.system.exitProcess
-
 
 /**
  * Application
@@ -25,12 +20,8 @@ import kotlin.system.exitProcess
 @HiltAndroidApp
 class App : Application() {
 
-    //所有活动集合
-    private var activityLinkedList = LinkedList<Activity>()
-
     override fun onCreate() {
         super.onCreate()
-        instances = this
         Play.initialize(applicationContext)
         initData()
     }
@@ -46,35 +37,7 @@ class App : Application() {
         CrashReport.initCrashReport(applicationContext, "0f4f8e06b4", false)
     }
 
-    /**
-     * 将所有类退出栈
-     */
-    fun exit() {
-        try {
-            for (i in activityLinkedList.indices) {
-                activityLinkedList[i].finish()
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            exitProcess(0)
-        }
-    }
-
     companion object {
-        @SuppressLint("StaticFieldLeak")
-        private var instances: App? = null
-
-        fun getInstance(): App {
-            if (instances == null) {
-                synchronized(App::class.java) {
-                    if (instances == null) {
-                        instances = App()
-                    }
-                }
-            }
-            return instances!!
-        }
-
         //static 代码段可以防止内存泄露
         init { //设置全局的Header构建器
             //设置全局的Header构建器

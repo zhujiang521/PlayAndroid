@@ -70,9 +70,6 @@ dependencies {
     //api  'com.scwang.smart:refresh-header-material:2.0.1'    //谷歌刷新头
     api "com.scwang.smart:refresh-footer-classics:$refresh_version"    //经典加载
 
-    // 安卓Utils
-    api 'com.blankj:utilcode:1.30.7'
-
     // 图片网络框架
     def glide_version = "4.13.2"
     api "com.github.bumptech.glide:glide:$glide_version"

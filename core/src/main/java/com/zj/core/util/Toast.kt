@@ -1,29 +1,37 @@
 package com.zj.core.util
 
-import androidx.annotation.StringRes
-import com.blankj.utilcode.util.ToastUtils
+import android.content.Context
+import android.widget.Toast
 
-/**
- * 版权：Zhujiang 个人版权
- * @author zhujiang
- * 版本：1.5
- * 创建日期：2020/5/15
- * 描述：PlayAndroid
- *
- */
 
-fun showToast(msg: String) {
-    ToastUtils.showShort(msg)
+private var toast: Toast? = null
+
+fun Context?.showToast(
+    content: String?
+) {
+    if (this == null) return
+    if (toast == null) {
+        toast = Toast.makeText(
+            this,
+            content,
+            Toast.LENGTH_SHORT
+        )
+    } else {
+        toast?.setText(content)
+    }
+    toast?.show()
 }
 
-fun showToast(@StringRes msg: Int) {
-    ToastUtils.showShort(msg)
-}
-
-fun showLongToast(msg: String) {
-    ToastUtils.showLong(msg)
-}
-
-fun showLongToast(@StringRes msg: Int) {
-    ToastUtils.showLong(msg)
+fun Context?.showToast(resId: Int) {
+    if (this == null) return
+    if (toast == null) {
+        toast = Toast.makeText(
+            this,
+            resId,
+            Toast.LENGTH_SHORT
+        )
+    } else {
+        toast?.setText(resId)
+    }
+    toast?.show()
 }

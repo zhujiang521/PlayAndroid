@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.blankj.utilcode.util.BarUtils
 import com.google.android.material.tabs.TabLayoutMediator
+import com.zj.core.util.getStatusBarHeightCompat
 import com.zj.core.view.custom.FragmentAdapter
 import com.zj.play.databinding.FragmentOfficialAccountsBinding
 import com.zj.play.official.list.OfficialListFragment
@@ -39,7 +39,7 @@ class OfficialAccountsFragment : BaseTabFragment() {
             TabLayoutMediator(officialTabLayout, officialViewPager2) { tab, position ->
                 tab.text = adapter.title(position)
             }.attach()
-            officialTabLayout.setPadding(0, BarUtils.getStatusBarHeight(), 0, 0)
+            officialTabLayout.setPadding(0, context.getStatusBarHeightCompat(), 0, 0)
         }
     }
 

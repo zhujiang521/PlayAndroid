@@ -1,7 +1,7 @@
 package com.zj.play.profile.rank
 
 import com.zj.network.base.PlayAndroidNetwork
-import com.zj.play.main.login.fires
+import com.zj.play.base.liveDataModel
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import javax.inject.Inject
 
@@ -21,19 +21,19 @@ class RankRepository @Inject constructor(){
      *
      * @param page 页码
      */
-    fun getRankList(page: Int) = fires { PlayAndroidNetwork.getRankList(page) }
+    fun getRankList(page: Int) = liveDataModel { PlayAndroidNetwork.getRankList(page) }
 
     /**
      * 获取个人积分获取列表
      *
      * @param page 页码
      */
-    fun getUserRank(page: Int) = fires { PlayAndroidNetwork.getUserRank(page) }
+    fun getUserRank(page: Int) = liveDataModel { PlayAndroidNetwork.getUserRank(page) }
 
     /**
      * 获取个人积分信息
      */
-    fun getUserInfo() = fires { PlayAndroidNetwork.getUserInfo() }
+    fun getUserInfo() = liveDataModel { PlayAndroidNetwork.getUserInfo() }
 
 
 }

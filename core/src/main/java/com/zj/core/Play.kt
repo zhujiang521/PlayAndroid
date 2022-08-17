@@ -2,8 +2,8 @@ package com.zj.core
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import com.zj.core.util.DataStoreUtils
+import com.zj.core.util.PlayLog
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -34,7 +34,7 @@ object Play {
      */
     fun initialize(c: Context?) {
         if (c == null) {
-            Log.w(TAG, "initialize: context is null")
+            PlayLog.w(TAG, "initialize: context is null")
             return
         }
         context = c

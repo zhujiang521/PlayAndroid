@@ -3,7 +3,6 @@ package com.zj.core.util
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import com.zj.core.databinding.DialogProgressBinding
 import java.lang.ref.WeakReference
@@ -17,7 +16,7 @@ class ProgressDialogUtil {
     fun progressDialogShow(msg: String) {
         val context = mContext?.get() ?: return
         if (context !is Activity) {
-            Log.w(TAG, "progressDialogShow: no activity")
+            PlayLog.w(TAG, "progressDialogShow: no activity")
             return
         }
         if (progressDialog != null && progressDialog?.isShowing != false) {
