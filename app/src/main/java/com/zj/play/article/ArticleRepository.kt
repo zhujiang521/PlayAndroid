@@ -33,7 +33,7 @@ class ArticleRepository @Inject constructor(val application: Application) :
             launch {
                 Play.isLogin().collectLatest {
                     if (!it) {
-                        showToast(R.string.not_currently_logged_in)
+                        application.showToast(R.string.not_currently_logged_in)
                         return@collectLatest
                     }
                 }
@@ -41,7 +41,7 @@ class ArticleRepository @Inject constructor(val application: Application) :
         }
 
         if (isCollection == -1 || pageId == -1) {
-            showToast(R.string.page_is_not_collection)
+            application.showToast(R.string.page_is_not_collection)
             return
         }
         val collectRepository = EntryPointAccessors.fromApplication(
@@ -53,20 +53,20 @@ class ArticleRepository @Inject constructor(val application: Application) :
                 val cancelCollects =
                     collectRepository.cancelCollects(if (originId != -1) originId else pageId)
                 if (cancelCollects.errorCode == 0) {
-                    showToast(R.string.collection_cancelled_successfully)
+                    application.showToast(R.string.collection_cancelled_successfully)
                     ArticleBroadCast.sendArticleChangesReceiver(application)
                     collectListener.invoke(false)
                 } else {
-                    showToast(R.string.failed_to_cancel_collection)
+                    application.showToast(R.string.failed_to_cancel_collection)
                 }
             } else {
                 val toCollects = collectRepository.toCollects(pageId)
                 if (toCollects.errorCode == 0) {
-                    showToast(R.string.collection_successful)
+                    application.showToast(R.string.collection_successful)
                     ArticleBroadCast.sendArticleChangesReceiver(application)
                     collectListener.invoke(true)
                 } else {
-                    showToast(R.string.collection_failed)
+                    application.showToast(R.string.collection_failed)
                 }
 
             }

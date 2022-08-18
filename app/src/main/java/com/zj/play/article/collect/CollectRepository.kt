@@ -1,7 +1,7 @@
 package com.zj.play.article.collect
 
 import com.zj.network.base.PlayAndroidNetwork
-import com.zj.play.main.login.fires
+import com.zj.play.base.liveDataModel
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
@@ -24,7 +24,7 @@ class CollectRepository @Inject constructor() {
      *
      * @param page 页码
      */
-    fun getCollectList(page: Int) = fires { PlayAndroidNetwork.getCollectList(page) }
+    fun getCollectList(page: Int) = liveDataModel { PlayAndroidNetwork.getCollectList(page) }
 
     suspend fun cancelCollects(id: Int) = PlayAndroidNetwork.cancelCollect(id)
     suspend fun toCollects(id: Int) = PlayAndroidNetwork.toCollect(id)

@@ -13,7 +13,7 @@ import android.view.View
 import android.view.animation.OvershootInterpolator
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
-import com.blankj.utilcode.util.NetworkUtils
+import com.zj.core.util.checkNetworkAvailable
 import com.zj.core.util.showToast
 import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
@@ -128,7 +128,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener, TextWatcher {
             binding.loginPassNumberEdit.error = getString(R.string.enter_password_format)
             return false
         }
-        if (!NetworkUtils.isConnected()) {
+        if (!checkNetworkAvailable()) {
             showToast(getString(R.string.no_network))
             return false
         }

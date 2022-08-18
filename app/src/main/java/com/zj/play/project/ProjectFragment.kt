@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.blankj.utilcode.util.BarUtils.getStatusBarHeight
 import com.google.android.material.tabs.TabLayoutMediator
+import com.zj.core.util.getStatusBarHeight
 import com.zj.core.view.custom.FragmentAdapter
 import com.zj.play.databinding.FragmentProjectBinding
 import com.zj.play.project.list.ProjectListFragment
@@ -38,7 +38,7 @@ class ProjectFragment : BaseTabFragment() {
             TabLayoutMediator(projectTabLayout, projectViewPager2) { tab, position ->
                 tab.text = adapter.title(position)
             }.attach()
-            projectTabLayout.setPadding(0, getStatusBarHeight(), 0, 0)
+            projectTabLayout.setPadding(0, context.getStatusBarHeight(), 0, 0)
         }
     }
 

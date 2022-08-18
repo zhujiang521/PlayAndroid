@@ -10,10 +10,10 @@ import android.widget.FrameLayout
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
-import com.blankj.utilcode.util.BarUtils
-import com.blankj.utilcode.util.ConvertUtils
+import com.scwang.smart.refresh.layout.util.SmartUtil.dp2px
 import com.zj.core.R
 import com.zj.core.util.showToast
+import com.zj.core.util.transparentStatusBar
 import com.zj.core.view.base.lce.DefaultLceImpl
 import com.zj.core.view.base.lce.ILce
 import java.lang.ref.WeakReference
@@ -52,7 +52,7 @@ abstract class BaseActivity : AppCompatActivity(), ILce, BaseActivityInit {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        BarUtils.transparentStatusBar(this)
+        transparentStatusBar()
         setContentView(getLayoutView())
         ActivityCollector.add(WeakReference(this))
         weakRefActivity = WeakReference(this)
@@ -75,7 +75,7 @@ abstract class BaseActivity : AppCompatActivity(), ILce, BaseActivityInit {
         )
         params.setMargins(
             0,
-            ConvertUtils.dp2px(if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT || isSearchPage()) 70f else 55f),
+            dp2px(if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT || isSearchPage()) 70f else 55f),
             0,
             0
         )

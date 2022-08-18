@@ -1,10 +1,7 @@
 package com.zj.play.main.login
 
-import android.util.Log
-import androidx.lifecycle.liveData
-import com.zj.core.util.showToast
-import com.zj.model.model.BaseModel
 import com.zj.network.base.PlayAndroidNetwork
+import com.zj.play.base.liveDataModel
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import javax.inject.Inject
 
@@ -25,41 +22,6 @@ class AccountRepository @Inject constructor() {
     suspend fun getRegister(username: String, password: String, repassword: String) =
         PlayAndroidNetwork.getRegister(username, password, repassword)
 
-    fun getLogout() = fires { PlayAndroidNetwork.getLogout() }
+    fun getLogout() = liveDataModel { PlayAndroidNetwork.getLogout() }
 
 }
-
-private const val TAG = "AccountRepository"
-
-fun <T> fires(block: suspend () -> BaseModel<T>) =
-    liveData {
-        val result = try {
-            val baseModel = block()
-            if (baseModel.errorCode == 0) {
-                val model = baseModel.data
-                Result.success(model)
-            } else {
-                Log.e(
-                    TAG,
-                    "fires: response status is ${baseModel.errorCode}  msg is ${baseModel.errorMsg}"
-                )
-                showToast(baseModel.errorMsg)
-                Result.failure(RuntimeException(baseModel.errorMsg))
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, e.toString())
-            Result.failure(e)
-        }
-        emit(result)
-    }
-
-fun <T> fire(block: suspend () -> Result<T>) =
-    liveData {
-        val result = try {
-            block()
-        } catch (e: Exception) {
-            Log.e(TAG, "fire $e")
-            Result.failure(e)
-        }
-        emit(result)
-    }

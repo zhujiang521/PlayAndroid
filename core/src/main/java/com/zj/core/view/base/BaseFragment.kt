@@ -9,7 +9,7 @@ import android.widget.FrameLayout
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
-import com.blankj.utilcode.util.ConvertUtils
+import com.scwang.smart.refresh.layout.util.SmartUtil.dp2px
 import com.zj.core.R
 import com.zj.core.util.showToast
 import com.zj.core.view.base.lce.DefaultLceImpl
@@ -61,7 +61,7 @@ abstract class BaseFragment : Fragment(), ILce, BaseFragmentInit {
         params.setMargins(
             0,
             if (isHaveHeadMargin()) {
-                ConvertUtils.dp2px(if (isPort) 70f else 55f)
+                dp2px(if (isPort) 70f else 55f)
             } else 0,
             0,
             0
@@ -101,7 +101,7 @@ abstract class BaseFragment : Fragment(), ILce, BaseFragmentInit {
                     showLoadErrorView()
                 }
             } else {
-                showToast(getString(R.string.bad_network_view_tip))
+                context?.showToast(getString(R.string.bad_network_view_tip))
                 showBadNetworkView { initData() }
                 onBadNetwork.invoke()
             }

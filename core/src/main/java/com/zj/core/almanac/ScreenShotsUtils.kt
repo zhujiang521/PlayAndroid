@@ -9,7 +9,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
 import android.widget.FrameLayout
-import com.blankj.utilcode.util.ConvertUtils
+import com.scwang.smart.refresh.layout.util.SmartUtil.dp2px
 import com.zj.core.util.AndroidVersion
 import java.util.*
 
@@ -28,7 +28,7 @@ object ScreenShotsUtils {
         for (i in 0 until frameLayout.childCount) {
             height += frameLayout.getChildAt(i).height
         }
-        height += ConvertUtils.dp2px(8f)
+        height += dp2px(8f)
         val bitmap = Bitmap.createBitmap(frameLayout.width, height, Bitmap.Config.RGB_565)
         val canvas = Canvas(bitmap)
         frameLayout.draw(canvas)

@@ -52,14 +52,14 @@ class LoginViewModel @Inject constructor(
                 _state.postValue(LoginSuccess(login))
                 Play.setLogin(true)
                 Play.setUserInfo(login.nickname, login.username)
-                showToast(
+                getApplication<Application>().showToast(
                     if (account.isLogin) getApplication<Application>().getString(R.string.login_success) else getApplication<Application>().getString(
                         R.string.register_success
                     )
                 )
                 ArticleBroadCast.sendArticleChangesReceiver(context = getApplication())
             } else {
-                showToast(loginModel.errorMsg)
+                getApplication<Application>().showToast(loginModel.errorMsg)
                 _state.postValue(LoginError)
             }
         }

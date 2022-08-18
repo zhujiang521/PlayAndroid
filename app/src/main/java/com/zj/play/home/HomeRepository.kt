@@ -19,7 +19,7 @@ import com.zj.model.room.entity.BannerBean
 import com.zj.model.room.entity.HOME
 import com.zj.model.room.entity.HOME_TOP
 import com.zj.network.base.PlayAndroidNetwork
-import com.zj.play.main.login.fire
+import com.zj.play.base.liveDataFire
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.first
@@ -41,7 +41,7 @@ class HomeRepository @Inject constructor(val application: Application) {
     /**
      * 获取banner
      */
-    fun getBanner() = fire {
+    fun getBanner() = liveDataFire {
         val dataStore = DataStoreUtils
         var downImageTime = 0L
         dataStore.readLongFlow(DOWN_IMAGE_TIME, System.currentTimeMillis()).first {
@@ -117,7 +117,7 @@ class HomeRepository @Inject constructor(val application: Application) {
      * 首页获取文章列表
      * @param query 查询条件
      */
-    fun getArticleList(query: QueryHomeArticle) = fire {
+    fun getArticleList(query: QueryHomeArticle) = liveDataFire {
         coroutineScope {
             val res = arrayListOf<Article>()
             if (query.page == 1) {
