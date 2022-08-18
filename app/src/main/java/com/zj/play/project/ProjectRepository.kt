@@ -10,6 +10,7 @@ import com.zj.play.base.liveDataFire
 import com.zj.play.home.DOWN_PROJECT_ARTICLE_TIME
 import com.zj.play.home.FOUR_HOUR
 import dagger.hilt.android.scopes.ActivityRetainedScoped
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 /**
@@ -25,7 +26,6 @@ class ProjectRepository @Inject constructor(val application: Application) {
 
     private val projectClassifyDao = PlayDatabase.getDatabase(application).projectClassifyDao()
     private val articleListDao = PlayDatabase.getDatabase(application).browseHistoryDao()
-    private val dataStore = DataStoreUtils.init(application)
 
     /**
      * 获取项目标题列表
@@ -52,11 +52,14 @@ class ProjectRepository @Inject constructor(val application: Application) {
      */
     fun getProject(query: QueryArticle) = liveDataFire {
         if (query.page == 1) {
-
+            val dataStore = DataStoreUtils
             val articleListForChapterId =
                 articleListDao.getArticleListForChapterId(PROJECT, query.cid)
-            val downArticleTime =
-                dataStore.readLongData(DOWN_PROJECT_ARTICLE_TIME, System.currentTimeMillis())
+            var downArticleTime = 0L
+            dataStore.readLongFlow(DOWN_PROJECT_ARTICLE_TIME, System.currentTimeMillis()).first {
+                downArticleTime = it
+                true
+            }
             if (articleListForChapterId.isNotEmpty() && downArticleTime > 0 && downArticleTime - System.currentTimeMillis() < FOUR_HOUR && !query.isRefresh) {
                 Result.success(articleListForChapterId)
             } else {

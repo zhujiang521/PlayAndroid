@@ -1,6 +1,7 @@
 package com.zj.play.main.login
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,9 +12,9 @@ import com.zj.model.model.BaseModel
 import com.zj.model.model.Login
 import com.zj.play.R
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -36,7 +37,10 @@ class LoginViewModel @Inject constructor(
 
     fun toLoginOrRegister(account: Account) {
         _state.postValue(Logging)
-        viewModelScope.launch(Dispatchers.IO) {
+        val handler = CoroutineExceptionHandler { _, exception ->
+            Log.w("Network", "Caught $exception")
+        }
+        viewModelScope.launch(Dispatchers.IO + handler) {
             val loginModel: BaseModel<Login> = if (account.isLogin) {
                 accountRepository.getLogin(account.username, account.password)
             } else {
@@ -52,17 +56,13 @@ class LoginViewModel @Inject constructor(
                 _state.postValue(LoginSuccess(login))
                 Play.setLogin(true)
                 Play.setUserInfo(login.nickname, login.username)
-                withContext(Dispatchers.Main) {
-                    getApplication<Application>().showToast(
-                        if (account.isLogin) getApplication<Application>().getString(R.string.login_success) else getApplication<Application>().getString(
-                            R.string.register_success
-                        )
+                getApplication<Application>().showToast(
+                    if (account.isLogin) getApplication<Application>().getString(R.string.login_success) else getApplication<Application>().getString(
+                        R.string.register_success
                     )
-                }
+                )
             } else {
-                withContext(Dispatchers.Main) {
-                    getApplication<Application>().showToast(loginModel.errorMsg)
-                }
+                getApplication<Application>().showToast(loginModel.errorMsg)
                 _state.postValue(LoginError)
             }
         }
