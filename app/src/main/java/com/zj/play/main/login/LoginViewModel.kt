@@ -14,6 +14,7 @@ import com.zj.play.article.ArticleBroadCast
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -52,14 +53,18 @@ class LoginViewModel @Inject constructor(
                 _state.postValue(LoginSuccess(login))
                 Play.setLogin(true)
                 Play.setUserInfo(login.nickname, login.username)
-                getApplication<Application>().showToast(
-                    if (account.isLogin) getApplication<Application>().getString(R.string.login_success) else getApplication<Application>().getString(
-                        R.string.register_success
+                withContext(Dispatchers.Main) {
+                    getApplication<Application>().showToast(
+                        if (account.isLogin) getApplication<Application>().getString(R.string.login_success) else getApplication<Application>().getString(
+                            R.string.register_success
+                        )
                     )
-                )
+                }
                 ArticleBroadCast.sendArticleChangesReceiver(context = getApplication())
             } else {
-                getApplication<Application>().showToast(loginModel.errorMsg)
+                withContext(Dispatchers.Main) {
+                    getApplication<Application>().showToast(loginModel.errorMsg)
+                }
                 _state.postValue(LoginError)
             }
         }
