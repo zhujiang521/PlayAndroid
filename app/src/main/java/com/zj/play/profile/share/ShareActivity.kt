@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.View
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.zj.core.Play
 import com.zj.model.model.CoinInfo
 import com.zj.model.model.ShareModel
@@ -14,6 +15,8 @@ import com.zj.play.home.ArticleCollectBaseActivity
 import com.zj.play.profile.rank.user.UserRankActivity
 import com.zj.play.profile.share.add.AddShareActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 const val IS_MINE = "IS_MINE"
 const val USER_ID = "USER_ID"
@@ -47,10 +50,14 @@ class ShareActivity : ArticleCollectBaseActivity(), View.OnClickListener {
             }
         }
 
-        if (Play.isLoginResult()) {
-            binding.shareTitleBar.setRightText(getString(R.string.add))
-            binding.shareTitleBar.setRightTextOnClickListener {
-                AddShareActivity.actionStart(this@ShareActivity)
+        lifecycleScope.launch {
+            Play.isLogin().collectLatest {
+                if (it) {
+                    binding.shareTitleBar.setRightText(getString(R.string.add))
+                    binding.shareTitleBar.setRightTextOnClickListener {
+                        AddShareActivity.actionStart(this@ShareActivity)
+                    }
+                }
             }
         }
 
