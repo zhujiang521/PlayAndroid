@@ -6,9 +6,9 @@ import com.zj.model.pojo.QueryArticle
 import com.zj.model.room.PlayDatabase
 import com.zj.model.room.entity.OFFICIAL
 import com.zj.network.base.PlayAndroidNetwork
-import com.zj.play.base.liveDataFire
 import com.zj.play.home.DOWN_OFFICIAL_ARTICLE_TIME
 import com.zj.play.home.FOUR_HOUR
+import com.zj.play.main.login.fire
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
@@ -30,7 +30,7 @@ class OfficialRepository @Inject constructor(application: Application) {
     /**
      * 获取公众号标题列表
      */
-    fun getWxArticleTree(isRefresh: Boolean) = liveDataFire {
+    fun getWxArticleTree(isRefresh: Boolean) = fire {
         val projectClassifyLists = projectClassifyDao.getAllOfficial()
         if (projectClassifyLists.isNotEmpty() && !isRefresh) {
             Result.success(projectClassifyLists)
@@ -51,7 +51,7 @@ class OfficialRepository @Inject constructor(application: Application) {
      * 获取具体公众号文章列表
      * @param query 查询
      */
-    fun getWxArticle(query: QueryArticle) = liveDataFire {
+    fun getWxArticle(query: QueryArticle) = fire {
         if (query.page == 1) {
             val dataStore = DataStoreUtils
             val articleListForChapterId =

@@ -13,7 +13,7 @@ import android.view.View
 import android.view.animation.OvershootInterpolator
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
-import com.zj.core.util.checkNetworkAvailable
+import com.blankj.utilcode.util.NetworkUtils
 import com.zj.core.util.showToast
 import com.zj.core.view.base.BaseActivity
 import com.zj.play.R
@@ -106,14 +106,14 @@ class LoginActivity : BaseActivity(), View.OnClickListener, TextWatcher {
         animator2.interpolator = OvershootInterpolator(2.0f)
         animator1.setDuration(700).start()
         animator1.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator) {}
-            override fun onAnimationEnd(animation: Animator) {
+            override fun onAnimationStart(animation: Animator?) {}
+            override fun onAnimationEnd(animation: Animator?) {
                 animator2.setDuration(700).start()
                 updateState()
             }
 
-            override fun onAnimationCancel(animation: Animator) {}
-            override fun onAnimationRepeat(animation: Animator) {}
+            override fun onAnimationCancel(animation: Animator?) {}
+            override fun onAnimationRepeat(animation: Animator?) {}
         })
     }
 
@@ -128,7 +128,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener, TextWatcher {
             binding.loginPassNumberEdit.error = getString(R.string.enter_password_format)
             return false
         }
-        if (!checkNetworkAvailable()) {
+        if (!NetworkUtils.isConnected()) {
             showToast(getString(R.string.no_network))
             return false
         }

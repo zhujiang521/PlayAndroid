@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleCoroutineScope
+import com.blankj.utilcode.util.NetworkUtils
 import com.bumptech.glide.Glide
-import com.zj.core.util.checkNetworkAvailable
 import com.zj.core.util.getHtmlText
 import com.zj.core.util.setSafeListener
 import com.zj.core.util.showToast
@@ -41,11 +41,11 @@ class CollectAdapter(
             val cancelCollects = collectRepository.cancelCollects(id)
             withContext(Dispatchers.Main) {
                 if (cancelCollects.errorCode == 0) {
-                    mContext.showToast(mContext.getString(R.string.collection_cancelled_successfully))
+                    showToast(mContext.getString(R.string.collection_cancelled_successfully))
                     articleList.removeAt(position)
                     notifyItemChanged(position)
                 } else {
-                    mContext.showToast(mContext.getString(R.string.failed_to_cancel_collection))
+                    showToast(mContext.getString(R.string.failed_to_cancel_collection))
                 }
             }
         }
@@ -72,8 +72,8 @@ class CollectAdapter(
                 cancelCollect(data.originId, position)
             }
             articleLlItem.setOnClickListener {
-                if (!mContext.checkNetworkAvailable()) {
-                    mContext.showToast(mContext.getString(R.string.no_network))
+                if (!NetworkUtils.isConnected()) {
+                    showToast(mContext.getString(R.string.no_network))
                     return@setOnClickListener
                 }
                 ArticleActivity.actionStart(mContext, data)

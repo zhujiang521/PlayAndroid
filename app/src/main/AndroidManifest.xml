@@ -24,7 +24,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.PlayNoActionBar"
+        android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
 
@@ -64,7 +64,7 @@
             android:name=".WelcomeActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize"
             android:exported="true"
-            android:theme="@style/AppTheme.WelcomeNoActionBar">
+            android:theme="@style/AppTheme.NoActionBars">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

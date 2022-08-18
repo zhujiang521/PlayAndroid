@@ -2,12 +2,8 @@ package com.zj.play.home
 
 import android.content.BroadcastReceiver
 import android.os.Bundle
-import androidx.lifecycle.lifecycleScope
-import com.zj.core.Play
 import com.zj.core.view.base.BaseActivity
 import com.zj.play.article.ArticleBroadCast
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 /**
  * 版权：Zhujiang 个人版权
@@ -23,11 +19,6 @@ abstract class ArticleCollectBaseActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycleScope.launch {
-            Play.isLogin().collectLatest {
-                initData()
-            }
-        }
         articleReceiver =
             ArticleBroadCast.setArticleChangesReceiver(this) { initData() }
     }

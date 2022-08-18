@@ -4,9 +4,9 @@ import android.content.Context
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.NetworkUtils
 import com.bumptech.glide.Glide
 import com.youth.banner.adapter.BannerAdapter
-import com.zj.core.util.checkNetworkAvailable
 import com.zj.core.util.showToast
 import com.zj.model.room.entity.BannerBean
 import com.zj.play.R
@@ -56,8 +56,8 @@ open class ImageAdapter(private val mContext: Context, mData: List<BannerBean>) 
                 .load(if (data?.filePath == null) data?.imagePath else data.filePath)
                 .into(this)
             setOnClickListener {
-                if (!mContext.checkNetworkAvailable()) {
-                    mContext.showToast(mContext.getString(R.string.no_network))
+                if (!NetworkUtils.isConnected()) {
+                    showToast(mContext.getString(R.string.no_network))
                     return@setOnClickListener
                 }
                 ArticleActivity.actionStart(

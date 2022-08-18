@@ -101,6 +101,7 @@ class WelcomeActivity : BaseActivity(),
             showToast(R.string.exit_program)
             exitTime = System.currentTimeMillis()
         } else {
+            App.getInstance().exit()
             finish()
         }
     }

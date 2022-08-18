@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.res.Configuration
 import android.text.TextUtils
 import android.util.AttributeSet
+import android.util.Log
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.ViewGroup
@@ -15,7 +16,6 @@ import android.widget.ProgressBar
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import com.zj.core.util.AndroidVersion
-import com.zj.core.util.PlayLog
 import com.zj.play.R
 
 
@@ -156,7 +156,7 @@ class X5WebView @JvmOverloads constructor(
     }
 
     private fun resetAllStateInternal(url: String?) {
-        PlayLog.w(TAG, "resetAllStateInternal: url:$url")
+        Log.w(TAG, "resetAllStateInternal: url:$url")
         if (url != null && !TextUtils.isEmpty(url) && url.startsWith("javascript:")) {
             return
         }
@@ -182,7 +182,7 @@ class X5WebView @JvmOverloads constructor(
             view: WebView?,
             request: WebResourceRequest
         ): Boolean {
-            PlayLog.w(TAG, "shouldOverrideUrlLoading: ${request.url}")
+            Log.w(TAG, "shouldOverrideUrlLoading: ${request.url}")
             val handleByChild = shouldOverrideUrlLoading(view, request)
             return if (handleByChild) {
                 true

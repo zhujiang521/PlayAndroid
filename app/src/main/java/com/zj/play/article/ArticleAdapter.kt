@@ -8,9 +8,9 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.view.isVisible
+import com.blankj.utilcode.util.NetworkUtils
 import com.bumptech.glide.Glide
 import com.zj.core.Play
-import com.zj.core.util.checkNetworkAvailable
 import com.zj.core.util.getHtmlText
 import com.zj.core.util.setSafeListener
 import com.zj.core.util.showToast
@@ -53,22 +53,22 @@ class ArticleAdapter(
                 if (cancelCollects.errorCode == 0) {
                     withContext(Dispatchers.Main) {
                         articleTvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
-                        mContext.showToast(mContext.getString(R.string.collection_cancelled_successfully))
+                        showToast(mContext.getString(R.string.collection_cancelled_successfully))
                         articleDao.update(t)
                     }
                 } else {
-                    mContext.showToast(mContext.getString(R.string.failed_to_cancel_collection))
+                    showToast(mContext.getString(R.string.failed_to_cancel_collection))
                 }
             } else {
                 val toCollects = collectRepository.toCollects(t.id)
                 if (toCollects.errorCode == 0) {
                     withContext(Dispatchers.Main) {
                         articleTvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
-                        mContext.showToast(mContext.getString(R.string.collection_successful))
+                        showToast(mContext.getString(R.string.collection_successful))
                         articleDao.update(t)
                     }
                 } else {
-                    mContext.showToast(mContext.getString(R.string.collection_failed))
+                    showToast(mContext.getString(R.string.collection_failed))
                 }
             }
         }
@@ -111,21 +111,21 @@ class ArticleAdapter(
                 launch {
                     Play.isLogin().collectLatest {
                         if (it) {
-                            if (mContext.checkNetworkAvailable()) {
+                            if (NetworkUtils.isConnected()) {
                                 data.collect = !data.collect
                                 setCollect(collectRepository, data, articleIvCollect)
                             } else {
-                                mContext.showToast(mContext.getString(R.string.no_network))
+                                showToast(mContext.getString(R.string.no_network))
                             }
                         } else {
-                            mContext.showToast(mContext.getString(R.string.not_currently_logged_in))
+                            showToast(mContext.getString(R.string.not_currently_logged_in))
                         }
                     }
                 }
             }
             articleLlItem.setOnClickListener {
-                if (!mContext.checkNetworkAvailable()) {
-                    mContext.showToast(mContext.getString(R.string.no_network))
+                if (!NetworkUtils.isConnected()) {
+                    showToast(mContext.getString(R.string.no_network))
                     return@setOnClickListener
                 }
                 ArticleActivity.actionStart(mContext, data)

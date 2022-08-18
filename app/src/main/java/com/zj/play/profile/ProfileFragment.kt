@@ -9,9 +9,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zj.core.Play
 import com.zj.core.Play.logout
-import com.zj.core.view.base.BaseFragment
 import com.zj.play.R
+import com.zj.play.article.ArticleBroadCast
 import com.zj.play.databinding.FragmentProfileBinding
+import com.zj.play.home.ArticleCollectBaseFragment
 import com.zj.play.main.login.AccountRepository
 import com.zj.play.main.login.LoginActivity
 import com.zj.play.profile.rank.list.RankActivity
@@ -22,7 +23,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ProfileFragment : BaseFragment(), View.OnClickListener {
+class ProfileFragment : ArticleCollectBaseFragment(), View.OnClickListener {
 
     private var binding: FragmentProfileBinding? = null
 
@@ -69,7 +70,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-    private fun refreshData() {
+    override fun refreshData() {
         lifecycleScope.launch {
             Play.isLogin().collectLatest {
                 binding?.apply {
@@ -124,6 +125,7 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
                 dialog?.dismiss()
                 clearInfo()
                 logout()
+                ArticleBroadCast.sendArticleChangesReceiver(requireContext())
                 accountRepository.getLogout()
             }
         }

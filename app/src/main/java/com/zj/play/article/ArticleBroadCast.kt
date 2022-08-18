@@ -5,8 +5,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.zj.core.util.PlayLog
 
 /**
  * 版权：Zhujiang 个人版权
@@ -45,7 +45,7 @@ private class ArticleBroadcastReceiver(val block: () -> Unit) :
     BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        PlayLog.e("TAG", "onReceive: ${intent.action}")
+        Log.e("TAG", "onReceive: ${intent.action}")
         if (intent.action == ArticleBroadCast.COLLECT_RECEIVER) {
             block.invoke()
         }

@@ -3,8 +3,8 @@ package com.zj.play.home.search
 import android.app.Application
 import com.zj.model.room.PlayDatabase
 import com.zj.network.base.PlayAndroidNetwork
-import com.zj.play.base.liveDataFire
-import com.zj.play.base.liveDataModel
+import com.zj.play.main.login.fire
+import com.zj.play.main.login.fires
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import javax.inject.Inject
 
@@ -24,7 +24,7 @@ class SearchRepository @Inject constructor(application: Application) {
     /**
      * 获取搜索热词
      */
-    fun getHotKey() = liveDataFire {
+    fun getHotKey() = fire {
         val hotKeyList = hotKeyDao.getHotKeyList()
         if (hotKeyList.isNotEmpty()) {
             Result.success(hotKeyList)
@@ -43,7 +43,7 @@ class SearchRepository @Inject constructor(application: Application) {
     /**
      * 获取搜索结果
      */
-    fun getQueryArticleList(page: Int, k: String) = liveDataModel {
+    fun getQueryArticleList(page: Int, k: String) = fires {
         PlayAndroidNetwork.getQueryArticleList(page, k)
     }
 

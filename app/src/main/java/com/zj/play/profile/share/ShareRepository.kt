@@ -1,7 +1,7 @@
 package com.zj.play.profile.share
 
 import com.zj.network.base.PlayAndroidNetwork
-import com.zj.play.base.liveDataModel
+import com.zj.play.main.login.fires
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import javax.inject.Inject
 
@@ -16,13 +16,13 @@ import javax.inject.Inject
 @ActivityRetainedScoped
 class ShareRepository @Inject constructor() {
 
-    fun getMyShareList(page: Int) = liveDataModel { PlayAndroidNetwork.getMyShareList(page) }
+    fun getMyShareList(page: Int) = fires { PlayAndroidNetwork.getMyShareList(page) }
 
-    fun getShareList(cid: Int, page: Int) = liveDataModel { PlayAndroidNetwork.getShareList(cid, page) }
+    fun getShareList(cid: Int, page: Int) = fires { PlayAndroidNetwork.getShareList(cid, page) }
 
-    fun deleteMyArticle(cid: Int) = liveDataModel { PlayAndroidNetwork.deleteMyArticle(cid) }
+    fun deleteMyArticle(cid: Int) = fires { PlayAndroidNetwork.deleteMyArticle(cid) }
 
     fun shareArticle(title: String, link: String) =
-        liveDataModel { PlayAndroidNetwork.shareArticle(title, link) }
+        fires { PlayAndroidNetwork.shareArticle(title, link) }
 
 }
