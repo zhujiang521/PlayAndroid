@@ -9,6 +9,7 @@ private var toast: Toast? = null
 fun Context?.showToast(
     content: String?
 ) {
+      if (Thread.currentThread().name != "main") return
     if (this == null) return
     if (toast == null) {
         toast = Toast.makeText(
