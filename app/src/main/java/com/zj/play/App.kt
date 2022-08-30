@@ -23,6 +23,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+         app = this
         Play.initialize(applicationContext)
         initData()
     }
@@ -39,6 +40,7 @@ class App : Application() {
     }
 
     companion object {
+         lateinit var app: App
         //static 代码段可以防止内存泄露
         init { //设置全局的Header构建器
             //设置全局的Header构建器
