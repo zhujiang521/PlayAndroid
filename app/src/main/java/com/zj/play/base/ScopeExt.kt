@@ -1,3 +1,9 @@
+package com.zj.play.base
+
+import android.util.Log
+import com.zj.model.model.BaseModel
+import kotlinx.coroutines.*
+
 /**
  * create by Rui on 2022/8/30
  * desc: 协程http 请求扩展
@@ -60,8 +66,8 @@ fun <T> CoroutineScope.http2(
     }
 }
 
+private const val TAG = "ScopeExt"
+
 private fun showToast(isShow: Boolean, msg: String?) {
-    if (isShow) {
-        App.app.showToast(msg)
-    }
+    Log.e(TAG, "showToast: isShow:$isShow   msg:$msg")
 }

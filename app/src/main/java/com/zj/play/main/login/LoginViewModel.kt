@@ -7,14 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zj.core.Play
 import com.zj.core.util.showToast
-import com.zj.model.model.BaseModel
 import com.zj.model.model.Login
 import com.zj.play.R
 import com.zj.play.article.ArticleBroadCast
+import com.zj.play.base.http
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -37,47 +34,14 @@ class LoginViewModel @Inject constructor(
 
     fun toLoginOrRegister(account: Account) {
         _state.postValue(Logging)
-         if (account.isLogin) {
+        if (account.isLogin) {
             login(account)
         } else {
             register(account)
         }
-        
-        
-//         viewModelScope.launch(Dispatchers.IO) {
-//             val loginModel: BaseModel<Login> = if (account.isLogin) {
-//                 accountRepository.getLogin(account.username, account.password)
-//             } else {
-//                 accountRepository.getRegister(
-//                     account.username,
-//                     account.password,
-//                     account.password
-//                 )
-//             }
-
-//             if (loginModel.errorCode == 0) {
-//                 val login = loginModel.data
-//                 _state.postValue(LoginSuccess(login))
-//                 Play.setLogin(true)
-//                 Play.setUserInfo(login.nickname, login.username)
-//                 withContext(Dispatchers.Main) {
-//                     getApplication<Application>().showToast(
-//                         if (account.isLogin) getApplication<Application>().getString(R.string.login_success) else getApplication<Application>().getString(
-//                             R.string.register_success
-//                         )
-//                     )
-//                 }
-//                 ArticleBroadCast.sendArticleChangesReceiver(context = getApplication())
-//             } else {
-//                 withContext(Dispatchers.Main) {
-//                     getApplication<Application>().showToast(loginModel.errorMsg)
-//                 }
-//                 _state.postValue(LoginError)
-//             }
-//         }
     }
-    
-     private fun login(account: Account) {
+
+    private fun login(account: Account) {
         viewModelScope.http(
             request = { accountRepository.getLogin(account.username, account.password) },
             response = { success(it, account.isLogin) },
