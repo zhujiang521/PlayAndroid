@@ -37,37 +37,80 @@ class LoginViewModel @Inject constructor(
 
     fun toLoginOrRegister(account: Account) {
         _state.postValue(Logging)
-        viewModelScope.launch(Dispatchers.IO) {
-            val loginModel: BaseModel<Login> = if (account.isLogin) {
-                accountRepository.getLogin(account.username, account.password)
-            } else {
+         if (account.isLogin) {
+            login(account)
+        } else {
+            register(account)
+        }
+        
+        
+//         viewModelScope.launch(Dispatchers.IO) {
+//             val loginModel: BaseModel<Login> = if (account.isLogin) {
+//                 accountRepository.getLogin(account.username, account.password)
+//             } else {
+//                 accountRepository.getRegister(
+//                     account.username,
+//                     account.password,
+//                     account.password
+//                 )
+//             }
+
+//             if (loginModel.errorCode == 0) {
+//                 val login = loginModel.data
+//                 _state.postValue(LoginSuccess(login))
+//                 Play.setLogin(true)
+//                 Play.setUserInfo(login.nickname, login.username)
+//                 withContext(Dispatchers.Main) {
+//                     getApplication<Application>().showToast(
+//                         if (account.isLogin) getApplication<Application>().getString(R.string.login_success) else getApplication<Application>().getString(
+//                             R.string.register_success
+//                         )
+//                     )
+//                 }
+//                 ArticleBroadCast.sendArticleChangesReceiver(context = getApplication())
+//             } else {
+//                 withContext(Dispatchers.Main) {
+//                     getApplication<Application>().showToast(loginModel.errorMsg)
+//                 }
+//                 _state.postValue(LoginError)
+//             }
+//         }
+    }
+    
+     private fun login(account: Account) {
+        viewModelScope.http(
+            request = { accountRepository.getLogin(account.username, account.password) },
+            response = { success(it, account.isLogin) },
+            error = { _state.postValue(LoginError) }
+        )
+    }
+
+
+    private fun register(account: Account) {
+        viewModelScope.http(
+            request = {
                 accountRepository.getRegister(
                     account.username,
                     account.password,
                     account.password
                 )
-            }
+            },
+            response = { success(it, account.isLogin) },
+            error = { _state.postValue(LoginError) }
+        )
+    }
 
-            if (loginModel.errorCode == 0) {
-                val login = loginModel.data
-                _state.postValue(LoginSuccess(login))
-                Play.setLogin(true)
-                Play.setUserInfo(login.nickname, login.username)
-                withContext(Dispatchers.Main) {
-                    getApplication<Application>().showToast(
-                        if (account.isLogin) getApplication<Application>().getString(R.string.login_success) else getApplication<Application>().getString(
-                            R.string.register_success
-                        )
-                    )
-                }
-                ArticleBroadCast.sendArticleChangesReceiver(context = getApplication())
-            } else {
-                withContext(Dispatchers.Main) {
-                    getApplication<Application>().showToast(loginModel.errorMsg)
-                }
-                _state.postValue(LoginError)
-            }
-        }
+    private fun success(it: Login?, isLogin: Boolean) {
+        it ?: return
+        _state.postValue(LoginSuccess(it))
+        Play.setLogin(true)
+        Play.setUserInfo(it.nickname, it.username)
+        ArticleBroadCast.sendArticleChangesReceiver(context = getApplication())
+        getApplication<Application>().showToast(
+            if (isLogin) getApplication<Application>().getString(R.string.login_success) else getApplication<Application>().getString(
+                R.string.register_success
+            )
+        )
     }
 
 }
