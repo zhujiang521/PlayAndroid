@@ -106,14 +106,14 @@ class LoginActivity : BaseActivity(), View.OnClickListener, TextWatcher {
         animator2.interpolator = OvershootInterpolator(2.0f)
         animator1.setDuration(700).start()
         animator1.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator?) {}
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationStart(animation: Animator) {}
+            override fun onAnimationEnd(animation: Animator) {
                 animator2.setDuration(700).start()
                 updateState()
             }
 
-            override fun onAnimationCancel(animation: Animator?) {}
-            override fun onAnimationRepeat(animation: Animator?) {}
+            override fun onAnimationCancel(animation: Animator) {}
+            override fun onAnimationRepeat(animation: Animator) {}
         })
     }
 
