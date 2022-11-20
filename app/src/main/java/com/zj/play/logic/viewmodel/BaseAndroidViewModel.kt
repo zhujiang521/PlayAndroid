@@ -31,7 +31,7 @@ abstract class BaseAndroidViewModel(application: Application) : BaseArticleViewM
 
     fun getDataList() {
         if (mutableTreeLiveData.value is PlaySuccess<*>){
-            XLog.e("已有数据，不进行请求")
+            XLog.e("Do not request existing data")
             return
         }
         viewModelScope.launch(Dispatchers.IO) {

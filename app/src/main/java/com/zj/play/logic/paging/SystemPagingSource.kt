@@ -23,7 +23,7 @@ import com.zj.utils.XLog
 class SystemPagingSource(private val cid: Int) : BasePagingSource() {
 
     override suspend fun getArticleList(page: Int): List<ArticleModel> {
-        XLog.e("getArticleList: page:$page   cid:$cid")
+        XLog.i("getArticleList: page:$page   cid:$cid")
         val apiResponse = PlayAndroidNetwork.getSystemArticle(page, cid)
         return apiResponse.data.datas
     }

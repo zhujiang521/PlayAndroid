@@ -35,14 +35,12 @@ abstract class BaseArticleViewModel(application: Application) : AndroidViewModel
      * Search a repository based on a query string.
      */
     open fun searchArticle(query: Query) {
-        XLog.e("searchArticle: $query")
+        XLog.i("searchArticle: $query")
         try {
-            XLog.e("searchArticle: six")
             val queryList = searchResults.replayCache
             if (queryList.isNotEmpty()) {
                 val q = queryList[0]
-                XLog.e("searchArticle: four")
-                XLog.e("searchArticle q: $q")
+                XLog.i("searchArticle: query:$q")
                 if (query.k != "" && query.k == q.k || query.cid != -1 && query.cid == q.cid) {
                     return
                 }
@@ -51,10 +49,9 @@ abstract class BaseArticleViewModel(application: Application) : AndroidViewModel
             e.printStackTrace()
             XLog.e("Exception: ${e.message}")
         }
-        XLog.e("searchArticle: five")
 
         searchJob?.cancel()
-        XLog.e(TAG, "searchArticle: ${query.cid}")
+        XLog.i(TAG, "searchArticle: ${query.cid}")
         searchJob = viewModelScope.launch {
             searchResults.emit(query)
         }

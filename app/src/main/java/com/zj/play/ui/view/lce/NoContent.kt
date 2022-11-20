@@ -32,7 +32,7 @@ fun NoContent(tip: String = "当前无内容") {
         LottieAnimation(
             composition = composition,
             modifier = Modifier.size(130.dp),
-            progress = progress
+            progress = { progress }
         )
         Text(text = tip, modifier = Modifier.padding(10.dp))
     }

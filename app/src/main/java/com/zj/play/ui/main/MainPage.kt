@@ -2,6 +2,8 @@ package com.zj.play.ui.main
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -43,6 +45,9 @@ fun MainPageContent(
     val tabs = CourseTabs.values()
     Scaffold(
         backgroundColor = MaterialTheme.colors.primary,
+        modifier = Modifier
+            .fillMaxSize()
+            .navigationBarsPadding(),
         bottomBar = {
             BottomNavigation {
                 tabs.forEach { tab ->
@@ -79,7 +84,6 @@ fun MainPageContent(
             }
             CourseTabs.SYSTEM -> {
                 // 体系
-                XLog.e("SystemPage 测试 one")
                 val viewModel: SystemViewModel = hiltViewModel()
                 viewModel.getAndroidSystem()
                 SystemPage(modifier, actions, viewModel)
@@ -99,7 +103,8 @@ fun MainPageContent(
                 ProfilePage(modifier, isLand, actions)
             }
             else -> {
-                XLog.e("页面显示有问题")
+                XLog.e("The page display is faulty")
+                throw IllegalAccessException()
             }
         }
     }

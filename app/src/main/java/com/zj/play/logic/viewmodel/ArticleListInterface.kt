@@ -21,14 +21,12 @@ interface ArticleListInterface {
      * Search a repository based on a query string.
      */
     suspend fun searchArticle(query: Query) {
-        XLog.e("searchArticle: $query")
+        XLog.i("searchArticle: $query")
         try {
-            XLog.e("searchArticle: one")
             val queryList = searchResults.replayCache
             if (queryList.isNotEmpty()) {
                 val q = queryList[0]
-                XLog.e("searchArticle: two")
-                XLog.e("searchArticle q: $q")
+                XLog.i("searchArticle: query:$q")
                 if (query.k != "" && query.k == q.k || query.cid != -1 && query.cid == q.cid) {
                     return
                 }
@@ -37,7 +35,6 @@ interface ArticleListInterface {
             e.printStackTrace()
             XLog.e("Exception: ${e.message}")
         }
-        XLog.e("searchArticle: three")
         searchResults.emit(query)
     }
 

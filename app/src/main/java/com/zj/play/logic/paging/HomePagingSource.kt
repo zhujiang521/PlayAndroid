@@ -24,7 +24,7 @@ import com.zj.utils.XLog
 class HomePagingSource : BasePagingSource() {
 
     override suspend fun getArticleList(page: Int): List<ArticleModel> {
-        XLog.e("获取首页列表数据")
+        XLog.i("Obtain the home page list data")
         val apiResponse = PlayAndroidNetwork.getArticle(page)
         return apiResponse.data.datas
     }

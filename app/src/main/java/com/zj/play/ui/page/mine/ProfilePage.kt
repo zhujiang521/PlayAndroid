@@ -69,9 +69,8 @@ private fun ProfilePageContent(
                 modifier = Modifier
                     .fillMaxSize()
             ) {
-                val headModifier = Modifier.weight(1f)
-                HeadItem(headModifier, logoutState, toLogin)
-                BlogItem(headModifier, enterArticle, logout, toTheme)
+                HeadItem(Modifier.weight(0.3f), logoutState, toLogin)
+                BlogItem(Modifier.weight(0.7f), enterArticle, logout, toTheme)
             }
         } else {
             HeadItem(Modifier, logoutState, toLogin)
@@ -106,7 +105,8 @@ private fun BlogItem(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.Center,
     ) {
         ProfilePropertyItem(Icons.Default.Favorite, stringResource(id = R.string.theme_change)) {
             toTheme()
@@ -217,11 +217,11 @@ private fun NameAndPosition(modifier: Modifier = Modifier, refresh: Boolean, toL
     Column(
         modifier = if (Play.isLogin) {
             modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .padding(top = 10.dp, bottom = 20.dp)
         } else {
             modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .padding(top = 10.dp, bottom = 20.dp)
                 .clickable { toLogin() }
         },

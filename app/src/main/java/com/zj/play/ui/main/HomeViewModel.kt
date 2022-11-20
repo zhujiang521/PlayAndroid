@@ -65,7 +65,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application),
 
     fun getBanner() {
         if (bannerState.value is PlaySuccess<*>) {
-            XLog.e("已有数据，不进行请求")
+            XLog.e("Do not request existing data")
             return
         }
         bannerJob?.cancel()

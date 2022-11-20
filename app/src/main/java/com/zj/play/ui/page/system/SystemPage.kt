@@ -33,11 +33,9 @@ import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.theme.Shapes
 import com.zj.play.ui.view.bar.PlayAppBar
 import com.zj.play.ui.view.lce.LcePage
-import com.zj.utils.XLog
 
 @Composable
 fun SystemPage(modifier: Modifier, actions: PlayActions, viewModel: SystemViewModel) {
-    XLog.e("SystemPage 测试 three")
     val androidSystemState by viewModel.androidSystemState.observeAsState(
         PlayLoading
     )
@@ -62,7 +60,6 @@ fun SystemPageContent(
 ) {
     val listState = rememberLazyListState()
     val childrenState = rememberLazyGridState()
-    XLog.e("SystemPage 测试 two")
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally

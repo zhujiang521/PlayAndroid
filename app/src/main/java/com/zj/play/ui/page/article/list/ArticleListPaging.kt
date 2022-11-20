@@ -40,7 +40,6 @@ fun ArticleListPaging(
             }
             loadStates.refresh is LoadState.Error -> {
                 val e = lazyPagingItems.loadState.refresh as LoadState.Error
-                XLog.e("loadStates one:${e}")
                 item {
                     ErrorContent(modifier = Modifier.fillParentMaxSize()) {
                         lazyPagingItems.retry()

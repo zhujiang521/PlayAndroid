@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.zj.play.CHANGED_THEME
 import com.zj.play.R
@@ -26,7 +25,6 @@ import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.theme.*
 import com.zj.play.ui.view.bar.PlayAppBar
 import com.zj.utils.DataStoreUtils
-import com.zj.utils.XLog
 
 data class ThemeModel(val color: Color, val colorId: Int, val colorName: String)
 
@@ -49,7 +47,6 @@ fun ThemePage(actions: PlayActions) {
     var playTheme by remember { mutableStateOf(SKY_BLUE_THEME) }
     LaunchedEffect(Unit) {
         playTheme = DataStoreUtils.getSyncData(CHANGED_THEME, SKY_BLUE_THEME)
-        XLog.e("playTheme:$playTheme")
     }
     Column(
         modifier = Modifier

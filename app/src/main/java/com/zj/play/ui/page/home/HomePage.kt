@@ -14,8 +14,8 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.zj.banner.BannerPager
 import com.zj.banner.ui.config.BannerConfig
-import com.zj.play.R
 import com.zj.model.*
+import com.zj.play.R
 import com.zj.play.ui.main.HomeViewModel
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.page.article.list.ArticleListPaging
@@ -83,7 +83,7 @@ fun HomePageContent(
                     val bannerModifier = Modifier
                         .fillMaxHeight()
                         .weight(1f)
-                        .padding(vertical = 15.dp)
+                        .padding(vertical = 5.dp)
                     val articleModifier = Modifier.weight(1.5f)
                     HomeContent(
                         data,

@@ -4,12 +4,12 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.zj.play.logic.repository.BaseArticlePagingRepository
-import com.zj.play.logic.viewmodel.BaseArticleViewModel
 import com.zj.model.AndroidSystemModel
 import com.zj.model.PlayState
 import com.zj.model.PlaySuccess
 import com.zj.model.Query
+import com.zj.play.logic.repository.BaseArticlePagingRepository
+import com.zj.play.logic.viewmodel.BaseArticleViewModel
 import com.zj.utils.XLog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -35,7 +35,7 @@ class SystemViewModel(application: Application) : BaseArticleViewModel(applicati
 
     fun getAndroidSystem() {
         if (androidSystemState.value is PlaySuccess<*>) {
-            XLog.e("已有数据，不进行请求")
+            XLog.e("Do not request existing data")
             return
         }
         job?.cancel()
