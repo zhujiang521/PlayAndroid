@@ -90,7 +90,8 @@ fun HomePageContent(
                         bannerModifier,
                         articleModifier,
                         lazyPagingItems,
-                        toArticleDetails
+                        toArticleDetails,
+                        isLand
                     )
                 }
             } else {
@@ -100,7 +101,8 @@ fun HomePageContent(
                     data = data,
                     modifier = bannerModifier,
                     lazyPagingItems = lazyPagingItems,
-                    toArticleDetails = toArticleDetails
+                    toArticleDetails = toArticleDetails,
+                    isLand = isLand
                 )
             }
         }
@@ -113,21 +115,41 @@ fun HomeContent(
     modifier: Modifier = Modifier,
     articleModifier: Modifier = Modifier,
     lazyPagingItems: LazyPagingItems<ArticleModel>,
-    toArticleDetails: (ArticleModel) -> Unit
+    toArticleDetails: (ArticleModel) -> Unit,
+    isLand: Boolean
 ) {
-    BannerPager(
-        items = data,
-        modifier = modifier,
-        config = BannerConfig(bannerHeight = 200.dp),
-        indicatorGravity = Alignment.BottomEnd
-    ) {
-        toArticleDetails(
-            ArticleModel(
-                title = it.title,
-                link = it.url
+
+    Column(modifier = modifier) {
+        BannerPager(
+            items = data,
+            modifier = Modifier.weight(1f),
+            config = BannerConfig(bannerHeight = 200.dp),
+            indicatorGravity = Alignment.BottomEnd
+        ) {
+            toArticleDetails(
+                ArticleModel(
+                    title = it.title,
+                    link = it.url
+                )
             )
-        )
+        }
+        if (isLand){
+            BannerPager(
+                items = data,
+                modifier = Modifier.weight(1f),
+                config = BannerConfig(bannerHeight = 200.dp),
+                indicatorGravity = Alignment.BottomEnd
+            ) {
+                toArticleDetails(
+                    ArticleModel(
+                        title = it.title,
+                        link = it.url
+                    )
+                )
+            }
+        }
     }
+
     ArticleListPaging(
         articleModifier,
         lazyPagingItems,

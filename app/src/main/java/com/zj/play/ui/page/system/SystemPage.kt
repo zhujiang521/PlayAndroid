@@ -1,6 +1,5 @@
 package com.zj.play.ui.page.system
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -19,8 +18,10 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.zj.banner.utils.ImageLoader
@@ -67,9 +68,7 @@ fun SystemPageContent(
         PlayAppBar(title = stringResource(R.string.system), showBack = false)
         LcePage(playState = androidSystemState, onErrorClick = {}) {
             Row(
-                Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 10.dp)
+                Modifier.fillMaxSize()
             ) {
                 LazyColumn(
                     state = listState,
@@ -80,11 +79,11 @@ fun SystemPageContent(
                     }
                 }
                 LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
+                    columns = GridCells.Adaptive(130.dp),
                     state = childrenState,
                     modifier = Modifier
                         .fillMaxSize()
-                        .weight(2f)
+                        .weight(3f)
                 ) {
                     items(systemState.children) { systemModel ->
                         SystemCard(loadArticle, systemModel)
@@ -105,12 +104,6 @@ private fun SystemItem(
         .fillMaxWidth()
         .height(45.dp)
         .padding(bottom = 5.dp)
-        .shadow(1.dp, shape = Shapes.small)
-        .background(
-            if (systemState.id == systemModel.id) {
-                MaterialTheme.colors.onSecondary
-            } else MaterialTheme.colors.background
-        )
         .clickable {
             saveSystemState(systemModel)
         }
@@ -122,6 +115,9 @@ private fun SystemItem(
         Text(
             text = systemModel.name,
             fontSize = 15.sp,
+            color = if (systemState.id == systemModel.id) {
+                MaterialTheme.colors.error
+            } else Color.Unspecified,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center
         )
@@ -139,7 +135,7 @@ private fun SystemCard(
 ) {
     Column(
         modifier = Modifier
-            .padding(4.dp)
+            .padding(top = 8.dp, bottom = 8.dp, end = 8.dp)
             .clickable {
                 loadArticle(systemModel.id, systemModel.name)
             },
@@ -159,4 +155,18 @@ private fun SystemCard(
 
         Text(text = systemModel.name, fontSize = 14.sp)
     }
+}
+
+@Preview(name = "")
+@Composable
+fun SystemCardPreview() {
+    SystemCard(
+        loadArticle = { _, _ ->
+
+        }, systemModel = SystemChildren(
+            arrayListOf(), 1, 1,
+            "进程启动相关", 1, 1,
+            true, 1
+        )
+    )
 }

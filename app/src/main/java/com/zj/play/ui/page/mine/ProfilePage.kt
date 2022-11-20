@@ -69,11 +69,11 @@ private fun ProfilePageContent(
                 modifier = Modifier
                     .fillMaxSize()
             ) {
-                HeadItem(Modifier.weight(0.3f), logoutState, toLogin)
+                HeadItem(Modifier.weight(0.3f), logoutState, toLogin, isLand)
                 BlogItem(Modifier.weight(0.7f), enterArticle, logout, toTheme)
             }
         } else {
-            HeadItem(Modifier, logoutState, toLogin)
+            HeadItem(Modifier, logoutState, toLogin, isLand)
             BlogItem(Modifier, enterArticle, logout, toTheme)
         }
     }
@@ -83,14 +83,15 @@ private fun ProfilePageContent(
 private fun HeadItem(
     modifier: Modifier = Modifier,
     logoutState: LogoutState,
-    toLogin: () -> Unit
+    toLogin: () -> Unit,
+    isLand: Boolean
 ) {
     when (logoutState) {
         LogoutDefault -> {
-            NameAndPosition(modifier, true, toLogin)
+            NameAndPosition(modifier, true, toLogin, isLand)
         }
         LogoutFinish -> {
-            NameAndPosition(modifier, false, toLogin)
+            NameAndPosition(modifier, false, toLogin, isLand)
         }
     }
 }
@@ -213,15 +214,22 @@ private fun BlogItem(
 }
 
 @Composable
-private fun NameAndPosition(modifier: Modifier = Modifier, refresh: Boolean, toLogin: () -> Unit) {
+private fun NameAndPosition(
+    modifier: Modifier = Modifier,
+    refresh: Boolean,
+    toLogin: () -> Unit,
+    isLand: Boolean
+) {
+    val m = if (isLand) {
+        modifier.fillMaxSize()
+    } else {
+        modifier.fillMaxWidth()
+    }
     Column(
         modifier = if (Play.isLogin) {
-            modifier
-                .fillMaxSize()
-                .padding(top = 10.dp, bottom = 20.dp)
+            m.padding(top = 10.dp, bottom = 20.dp)
         } else {
-            modifier
-                .fillMaxSize()
+            m
                 .padding(top = 10.dp, bottom = 20.dp)
                 .clickable { toLogin() }
         },

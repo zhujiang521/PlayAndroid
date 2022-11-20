@@ -5,12 +5,11 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import com.zj.model.*
+import com.zj.network.PlayAndroidNetwork
 import com.zj.play.R
 import com.zj.play.logic.paging.SystemPagingSource
 import com.zj.play.logic.repository.BaseArticlePagingRepository
-import com.zj.model.*
-import com.zj.network.PlayAndroidNetwork
-import com.zj.utils.NetworkUtils
 import com.zj.utils.NetworkUtils.isConnected
 import com.zj.utils.showToast
 
@@ -38,6 +37,9 @@ class SystemRepository : BaseArticlePagingRepository() {
         val response = PlayAndroidNetwork.getAndroidSystem()
         if (response.errorCode == 0) {
             val data = response.data
+            data.sortedBy {
+                it.id
+            }
             state.postValue(PlaySuccess(data))
         } else {
             state.postValue(PlayError(RuntimeException("response status is ${response.errorCode}  msg is ${response.errorMsg}")))
