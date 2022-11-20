@@ -91,7 +91,7 @@ fun HomePageContent(
                         articleModifier,
                         lazyPagingItems,
                         toArticleDetails,
-                        isLand
+                        true
                     )
                 }
             } else {
@@ -102,7 +102,7 @@ fun HomePageContent(
                     modifier = bannerModifier,
                     lazyPagingItems = lazyPagingItems,
                     toArticleDetails = toArticleDetails,
-                    isLand = isLand
+                    isLand = false
                 )
             }
         }
@@ -120,9 +120,12 @@ fun HomeContent(
 ) {
 
     Column(modifier = modifier) {
+        val m = if (isLand) {
+            Modifier.weight(1f)
+        } else Modifier
         BannerPager(
             items = data,
-            modifier = Modifier.weight(1f),
+            modifier = m,
             config = BannerConfig(bannerHeight = 200.dp),
             indicatorGravity = Alignment.BottomEnd
         ) {
@@ -133,10 +136,10 @@ fun HomeContent(
                 )
             )
         }
-        if (isLand){
+        if (isLand) {
             BannerPager(
                 items = data,
-                modifier = Modifier.weight(1f),
+                modifier = m,
                 config = BannerConfig(bannerHeight = 200.dp),
                 indicatorGravity = Alignment.BottomEnd
             ) {
