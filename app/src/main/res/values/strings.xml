@@ -129,5 +129,6 @@
     <string name="dynamic_color">Use system wallpaper-related colors</string>
     <string name="widget_name">Hot article</string>
     <string name="app_widget_description">This is a widget for popular articles</string>
+    <string name="widget_retry">Retry</string>
 
 </resources>

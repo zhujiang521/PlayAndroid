@@ -128,5 +128,6 @@
     <string name="dynamic_color">使用系統壁紙相關顏色</string>
     <string name="widget_name">熱門文章</string>
     <string name="app_widget_description">這是一個熱門文章的小部件</string>
+    <string name="widget_retry">重試</string>
 
 </resources>

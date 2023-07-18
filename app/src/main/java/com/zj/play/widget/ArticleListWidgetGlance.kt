@@ -3,13 +3,12 @@ package com.zj.play.widget
 import android.content.Context
 import androidx.compose.runtime.key
 import androidx.compose.ui.unit.dp
+import androidx.glance.Button
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
 import androidx.glance.LocalSize
 import androidx.glance.action.ActionParameters
-import androidx.glance.action.clickable
-import androidx.glance.appwidget.CircularProgressIndicator
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.SizeMode
 import androidx.glance.appwidget.action.ActionCallback
@@ -28,6 +27,7 @@ import com.zj.model.ArticleModel
 import com.zj.network.PlayAndroidNetwork
 import com.zj.play.R
 import com.zj.play.ui.theme.GlanceTextStyles
+import com.zj.utils.NetworkUtils.isConnected
 import com.zj.utils.XLog
 
 class ArticleListWidgetGlance : GlanceAppWidget() {
@@ -42,6 +42,7 @@ class ArticleListWidgetGlance : GlanceAppWidget() {
                     modifier = GlanceModifier.fillMaxSize().background(GlanceTheme.colors.surface)
                         .appWidgetBackgroundCornerRadius(),
                     horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     if (articleList.isNotEmpty()) {
                         key(LocalSize.current) {
@@ -60,10 +61,16 @@ class ArticleListWidgetGlance : GlanceAppWidget() {
                         }
 
                     } else {
-                        CircularProgressIndicator(
-                            modifier = GlanceModifier.clickable(
-                                actionRunCallback<RefreshAction>()
-                            )
+                        val strRes =
+                            if (context.isConnected()) R.string.no_data else R.string.no_network
+                        Text(
+                            text = stringResource(id = strRes),
+                            modifier = GlanceModifier.padding(10.dp),
+                            style = GlanceTextStyles.bodyLarge.copy(color = GlanceTheme.colors.onBackground)
+                        )
+                        Button(
+                            text = stringResource(id = R.string.widget_retry),
+                            actionRunCallback<RefreshAction>()
                         )
                     }
                 }
@@ -73,8 +80,13 @@ class ArticleListWidgetGlance : GlanceAppWidget() {
 
     private suspend fun getArticleList(): List<ArticleModel> {
         XLog.i("Obtain the home page list data")
-        val apiResponse = PlayAndroidNetwork.getArticle(0)
-        return apiResponse.data.datas
+        return try {
+            val apiResponse = PlayAndroidNetwork.getArticle(0)
+            apiResponse.data.datas
+        } catch (e: Exception) {
+            e.printStackTrace()
+            arrayListOf()
+        }
     }
 
     companion object {
