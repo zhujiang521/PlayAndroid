@@ -6,6 +6,11 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
+object GlanceTextStyles {
+    val bodyLarge = androidx.glance.text.TextStyle(fontSize = 16.sp)
+    val bodySmall = androidx.glance.text.TextStyle(fontSize = 12.sp)
+}
+
 // Set of Material typography styles to start with
 val typography = Typography(
     h1 = TextStyle(

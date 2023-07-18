@@ -126,5 +126,7 @@
     <string name="theme_change">主题更换</string>
     <string name="theme_warn">注意：主题切换只在浅色模式生效，深色模式为纯黑（为了省电）；但有一种特殊情况：即如果打开使用系统壁纸相关颜色的话，主题颜色将设置为和系统壁纸颜色相关。</string>
     <string name="dynamic_color">使用系统壁纸相关颜色</string>
+    <string name="widget_name">热门文章</string>
+    <string name="app_widget_description">这是一个热门文章的小部件</string>
 
 </resources>

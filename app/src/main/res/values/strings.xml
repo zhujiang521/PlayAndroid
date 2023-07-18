@@ -127,5 +127,7 @@
     <string name="theme_change">Theme change</string>
     <string name="theme_warn">Note: Theme switching only takes effect in light mode, and dark mode is pure black (for power saving); but there is a special case: that is, if you open the use of system wallpaper related colors, the theme color will be set to be related to the system wallpaper color.</string>
     <string name="dynamic_color">Use system wallpaper-related colors</string>
+    <string name="widget_name">Hot article</string>
+    <string name="app_widget_description">This is a widget for popular articles</string>
 
 </resources>

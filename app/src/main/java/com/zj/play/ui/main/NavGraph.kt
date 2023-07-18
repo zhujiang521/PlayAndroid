@@ -44,7 +44,8 @@ import com.zj.play.ui.page.system.SystemViewModel
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun NavGraph(
-    startDestination: String = PlayDestinations.HOME_PAGE_ROUTE
+    startDestination: String = PlayDestinations.HOME_PAGE_ROUTE,
+    articleModel: ArticleModel? = null
 ) {
     val navController = rememberNavController()
     val actions = remember(navController) { PlayActions(navController) }
@@ -93,6 +94,9 @@ fun NavGraph(
                 onBack = actions.upPress
             )
         }
+    }
+    if (articleModel != null) {
+        actions.enterArticle(articleModel)
     }
 }
 

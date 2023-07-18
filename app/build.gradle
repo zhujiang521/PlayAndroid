@@ -76,8 +76,13 @@ dependencies {
     implementation "com.google.accompanist:accompanist-webview:$accompanist_version"
     implementation "com.google.accompanist:accompanist-navigation-animation:$accompanist_version"
 
+    def glanceVersion = "1.0.0-beta01"
+    implementation "androidx.glance:glance:$glanceVersion"
+    implementation "androidx.glance:glance-appwidget:$glanceVersion"
+    implementation "androidx.glance:glance-material3:$glanceVersion"
+
     // Paging 分页加载
-    implementation 'androidx.paging:paging-compose:1.0.0-alpha17'
+    implementation 'androidx.paging:paging-compose:1.0.0-alpha20'
     // lottie动画
     def lottieVersion = '6.1.0'
     implementation "com.airbnb.android:lottie-compose:$lottieVersion"

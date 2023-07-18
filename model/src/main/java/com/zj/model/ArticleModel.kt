@@ -1,5 +1,8 @@
 package com.zj.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 
 /**
  * 版权：Zhujiang 个人版权
@@ -10,6 +13,7 @@ package com.zj.model
  *
  */
 
+@Parcelize
 data class ArticleModel(
     val uid: Int = 0,
     val apkLink: String = "",
@@ -43,4 +47,4 @@ data class ArticleModel(
     val visible: Int = 0,
     val zan: Int = 0,
     var localType: Int = 0
-)
+) : Parcelable

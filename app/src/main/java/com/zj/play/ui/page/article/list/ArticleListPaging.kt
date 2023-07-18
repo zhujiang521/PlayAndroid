@@ -1,6 +1,10 @@
 package com.zj.play.ui.page.article.list
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Button
 import androidx.compose.material.Text
@@ -10,7 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.items
+import androidx.paging.compose.itemContentType
+import androidx.paging.compose.itemKey
 import com.zj.model.ArticleModel
 import com.zj.play.ui.view.lce.ErrorContent
 import com.zj.play.ui.view.lce.LoadingContent
@@ -24,9 +29,14 @@ fun ArticleListPaging(
 ) {
     LazyColumn(modifier = modifier.fillMaxSize()) {
         items(
-            items = lazyPagingItems
-        ) { article ->
-            ArticleItem(article) { urlArgs ->
+            count = lazyPagingItems
+                .itemCount,
+            key = lazyPagingItems.itemKey(),
+            contentType = lazyPagingItems.itemContentType(
+            )
+        ) { index ->
+            val item = lazyPagingItems[index]
+            ArticleItem(item) { urlArgs ->
                 enterArticle(urlArgs)
             }
         }
