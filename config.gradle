@@ -13,7 +13,7 @@ ext {
 
     des = [
             kotlinVersion: "org.jetbrains.kotlin:kotlin-stdlib:1.8.22",
-            coreKtx      : 'androidx.core:core-ktx:1.9.0',
+            coreKtx      : 'androidx.core:core-ktx:1.11.0-beta02',
             appcompat    : 'androidx.appcompat:appcompat:1.6.1',
             junit        : 'junit:junit:4.13.2',
             extJunit     : 'androidx.test.ext:junit:1.1.5',

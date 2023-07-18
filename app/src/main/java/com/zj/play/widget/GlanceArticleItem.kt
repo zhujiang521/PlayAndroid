@@ -85,6 +85,6 @@ private fun openArticle(context: Context, article: ArticleModel): Action {
     return actionStartActivity(
         Intent(context, MainActivity::class.java).apply {
             putExtra(ARTICLE_DATA, article)
-        }
+        }.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
     )
 }
