@@ -30,14 +30,20 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility cfgs.JavaVersion
+        targetCompatibility cfgs.JavaVersion
+    }
+
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = cfgs.jvmTarget
     }
 
 
     buildFeatures {
         viewBinding true
     }
+    namespace 'com.zj.core'
 
 }
 
@@ -47,18 +53,19 @@ dependencies {
     implementation des.coreKtx
     implementation des.appcompat
 
+    def lifecycle_version = "2.6.1"
     api 'androidx.recyclerview:recyclerview:1.2.1'
     api "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    api "androidx.lifecycle:lifecycle-livedata-ktx:2.5.0"
-    api "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
-    api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
-    api 'com.google.android.material:material:1.6.1'
+    api "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    api "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    api 'com.google.android.material:material:1.9.0'
 
     def retrofit_version = "2.9.0"
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
     api "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
-    def coroutines_version = "1.6.4"
+    def coroutines_version = "1.7.2"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
@@ -74,16 +81,16 @@ dependencies {
 //    api 'com.blankj:utilcode:1.30.7'
 
     // 图片网络框架
-    def glide_version = "4.14.2"
+    def glide_version = "4.15.1"
     api "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
     //Lottie动画
-    implementation "com.airbnb.android:lottie:5.2.0"
+    implementation "com.airbnb.android:lottie:6.1.0"
 
-    def activity_version = "1.5.1"
+    def activity_version = "1.7.2"
     api "androidx.activity:activity-ktx:$activity_version"
-    def fragment_version = "1.5.2"
+    def fragment_version = "1.6.0"
     api "androidx.fragment:fragment-ktx:$fragment_version"
 
     testImplementation des.junit

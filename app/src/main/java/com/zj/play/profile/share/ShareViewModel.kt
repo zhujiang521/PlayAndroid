@@ -1,8 +1,8 @@
 package com.zj.play.profile.share
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
 import com.zj.model.room.entity.Article
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -25,11 +25,11 @@ class ShareViewModel @Inject constructor(private val shareRepository: ShareRepos
 
     private val pageAndCidLiveData = MutableLiveData<ShareArticle>()
 
-    val articleLiveData = Transformations.switchMap(pageLiveData) { page ->
+    val articleLiveData = pageLiveData.switchMap { page ->
         shareRepository.getMyShareList(page)
     }
 
-    val articleAndCidLiveData = Transformations.switchMap(pageAndCidLiveData) { page ->
+    val articleAndCidLiveData = pageAndCidLiveData.switchMap { page ->
         shareRepository.getShareList(page.cid, page.page)
     }
 

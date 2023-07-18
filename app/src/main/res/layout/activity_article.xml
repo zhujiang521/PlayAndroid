@@ -8,9 +8,10 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_70"
+        android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:fitsSystemWindows="true"
+        android:minHeight="@dimen/dp_50"
         android:orientation="vertical">
 
         <ImageView

@@ -39,12 +39,13 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility cfgs.JavaVersion
+        targetCompatibility cfgs.JavaVersion
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = cfgs.jvmTarget
     }
+    namespace 'com.zj.model'
 }
 
 dependencies {
@@ -54,7 +55,7 @@ dependencies {
     implementation des.appcompat
     implementation project(path: ':core')
 
-    def room_version = "2.4.3"
+    def room_version = "2.5.2"
     api "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     // For Kotlin use kapt instead of annotationProcessor

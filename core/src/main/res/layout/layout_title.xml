@@ -2,10 +2,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_75"
+    android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
     android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:minHeight="@dimen/dp_50">
 
     <ImageView
         android:id="@+id/imgBack"

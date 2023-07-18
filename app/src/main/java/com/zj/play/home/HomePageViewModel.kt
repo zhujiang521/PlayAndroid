@@ -1,8 +1,8 @@
 package com.zj.play.home
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
 import com.zj.model.pojo.QueryHomeArticle
 import com.zj.model.room.entity.Article
 import com.zj.model.room.entity.BannerBean
@@ -30,7 +30,7 @@ class HomePageViewModel @Inject constructor(
 
     val articleList = ArrayList<Article>()
 
-    val articleLiveData = Transformations.switchMap(pageLiveData) { query ->
+    val articleLiveData = pageLiveData.switchMap { query ->
         homeRepository.getArticleList(query)
     }
 

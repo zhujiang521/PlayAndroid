@@ -23,21 +23,18 @@ object ServiceCreator {
     private const val COOKIE_NAME = "Cookie"
     private const val CONNECT_TIMEOUT = 30L
     private const val READ_TIMEOUT = 10L
-    
-    
-    
-    
-     private val  okHttpClient by lazy (LazyThreadSafetyMode.SYNCHRONIZED){
+
+
+    private val okHttpClient by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
         OkHttpClient().newBuilder().apply {
             connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
             readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
             // get response cookie
-            addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             addInterceptor {
                 val request = it.request()
                 val response = it.proceed(request)
-                val requestUrl = request.url.toString()
-                val domain = request.url.host
+                val requestUrl = request.url().toString()
+                val domain = request.url().host()
                 // set-cookie maybe has multi, login to save cookie
                 if ((requestUrl.contains(SAVE_USER_LOGIN_KEY) || requestUrl.contains(
                         SAVE_USER_REGISTER_KEY
@@ -53,7 +50,7 @@ object ServiceCreator {
             addInterceptor {
                 val request = it.request()
                 val builder = request.newBuilder()
-                val domain = request.url.host
+                val domain = request.url().host()
                 // get domain cookie
                 if (domain.isNotEmpty()) {
                     val spDomain: String = DataStoreUtils.readStringData(domain, "")
@@ -69,7 +66,7 @@ object ServiceCreator {
     }
 
     private fun create(): Retrofit {
-       
+
         return RetrofitBuild(
             url = BASE_URL,
             client = okHttpClient,
