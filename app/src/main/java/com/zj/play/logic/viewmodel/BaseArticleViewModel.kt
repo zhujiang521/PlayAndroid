@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalCoroutinesApi::class)
+
 package com.zj.play.logic.viewmodel
 
 import android.app.Application
@@ -9,6 +11,7 @@ import com.zj.model.ArticleModel
 import com.zj.model.Query
 import com.zj.play.logic.repository.BaseArticlePagingRepository
 import com.zj.utils.XLog
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow

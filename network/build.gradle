@@ -21,9 +21,7 @@ android {
         testInstrumentationRunner cfgs.testInstrumentationRunner
         consumerProguardFiles cfgs.consumerProguardFiles
         signingConfig signingConfigs.play
-
-        // 去除多语言
-        resConfigs "zh", "zh-rCN", "zh-rHK", "zh-rTW"
+        resourceConfigurations += ['zh', 'zh-rCN', 'zh-rHK', 'zh-rTW']
     }
 
     buildTypes {
@@ -41,6 +39,7 @@ android {
     kotlinOptions {
         jvmTarget = cfgs.jvmTarget
     }
+    namespace 'com.zj.network'
 }
 
 dependencies {

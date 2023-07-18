@@ -35,17 +35,21 @@ fun ArticleListPaging(
             loadStates.refresh is LoadState.Loading -> {
                 item { LoadingContent(modifier = Modifier.fillParentMaxSize()) }
             }
+
             loadStates.append is LoadState.Loading -> {
                 item { LoadingContent() }
             }
+
             loadStates.refresh is LoadState.Error -> {
                 val e = lazyPagingItems.loadState.refresh as LoadState.Error
+                XLog.e("Exception:$e")
                 item {
                     ErrorContent(modifier = Modifier.fillParentMaxSize()) {
                         lazyPagingItems.retry()
                     }
                 }
             }
+
             loadStates.append is LoadState.Error -> {
                 val e = lazyPagingItems.loadState.append as LoadState.Error
                 XLog.e("loadStates two:${e}")

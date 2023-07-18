@@ -16,7 +16,7 @@
 
 package com.zj.play.ui.main
 
-import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
@@ -24,9 +24,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.*
+import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.gson.Gson
 import com.zj.model.ArticleModel
 import com.zj.play.ui.main.nav.PlayActions
@@ -46,7 +46,7 @@ import com.zj.play.ui.page.system.SystemViewModel
 fun NavGraph(
     startDestination: String = PlayDestinations.HOME_PAGE_ROUTE
 ) {
-    val navController = rememberAnimatedNavController()
+    val navController = rememberNavController()
     val actions = remember(navController) { PlayActions(navController) }
     AnimatedNavHost(
         navController = navController,
@@ -110,14 +110,14 @@ fun NavGraphBuilder.composableHorizontal(
         enterTransition = {
             // Let's make for a really long fade in
             slideIntoContainer(
-                AnimatedContentScope.SlideDirection.Left,
+                AnimatedContentTransitionScope.SlideDirection.Left,
                 animationSpec = tween(300)
             )
         },
         content = content,
         popEnterTransition = {
             slideIntoContainer(
-                AnimatedContentScope.SlideDirection.Right,
+                AnimatedContentTransitionScope.SlideDirection.Right,
                 animationSpec = tween(300)
             )
         },
@@ -138,7 +138,7 @@ fun NavGraphBuilder.composableVertical(
         enterTransition = {
             // Let's make for a really long fade in
             slideIntoContainer(
-                AnimatedContentScope.SlideDirection.Up,
+                AnimatedContentTransitionScope.SlideDirection.Up,
                 animationSpec = tween(300)
             )
         },
