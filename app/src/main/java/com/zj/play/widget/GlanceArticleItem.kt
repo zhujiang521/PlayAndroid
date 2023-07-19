@@ -32,7 +32,7 @@ import com.zj.play.widget.ArticleListWidgetGlance.Companion.ARTICLE_DATA
 fun GlanceArticleItem(context: Context, articleModel: ArticleModel) {
     Column {
         Row(
-            modifier = GlanceModifier.padding(8.dp)
+            modifier = GlanceModifier.fillMaxWidth().padding(8.dp)
                 .clickable(onClick = openArticle(context, articleModel))
                 .cornerRadius(10.dp)
                 .background(GlanceTheme.colors.onTertiary),
