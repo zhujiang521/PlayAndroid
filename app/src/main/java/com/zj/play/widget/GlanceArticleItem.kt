@@ -52,7 +52,7 @@ fun GlanceArticleItem(context: Context, articleModel: ArticleModel) {
                 Text(
                     text = articleModel.title,
                     maxLines = 1,
-                    style = GlanceTextStyles.bodyLarge.copy(color = GlanceTheme.colors.onBackground)
+                    style = GlanceTextStyles.bodyMedium.copy(color = GlanceTheme.colors.onBackground)
                 )
                 Spacer(modifier = GlanceModifier.height(4.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -60,14 +60,16 @@ fun GlanceArticleItem(context: Context, articleModel: ArticleModel) {
                         text = articleModel.superChapterName,
                         maxLines = 1,
                         modifier = GlanceModifier
-                            .wrapContentWidth()
+                            .wrapContentWidth(),
+                        style = GlanceTextStyles.bodySmall.copy(color = GlanceTheme.colors.onBackground)
                     )
                     Text(
                         text = if (TextUtils.isEmpty(articleModel.author)) articleModel.shareUser else articleModel.author,
                         maxLines = 1,
                         modifier = GlanceModifier
                             .padding(start = 5.dp)
-                            .wrapContentWidth()
+                            .wrapContentWidth(),
+                        style = GlanceTextStyles.bodySmall.copy(color = GlanceTheme.colors.onBackground)
                     )
                 }
             }
@@ -85,6 +87,7 @@ private fun openArticle(context: Context, article: ArticleModel): Action {
     return actionStartActivity(
         Intent(context, MainActivity::class.java).apply {
             putExtra(ARTICLE_DATA, article)
-        }.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
     )
 }

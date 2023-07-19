@@ -1,7 +1,12 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.zj.play.ui.page.project
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
@@ -9,18 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.pagerTabIndicatorOffset
-import com.google.accompanist.pager.rememberPagerState
-import com.zj.play.logic.viewmodel.BaseAndroidViewModel
+import com.zj.banner.utils.pagerTabIndicatorOffset
 import com.zj.model.*
+import com.zj.play.logic.viewmodel.BaseAndroidViewModel
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.page.article.list.ArticleListPaging
 import com.zj.play.ui.view.lce.LcePage
 import com.zj.utils.getHtmlText
-import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 /**
@@ -48,7 +48,6 @@ fun ArticleListPage(
     }
 }
 
-@OptIn(ExperimentalPagerApi::class, InternalCoroutinesApi::class)
 @Composable
 fun ArticleListPageContent(
     modifier: Modifier,
@@ -66,7 +65,12 @@ fun ArticleListPageContent(
             val coroutineScope = rememberCoroutineScope()
 
             // Remember a PagerState
-            val pagerState = rememberPagerState()
+            val pagerState = rememberPagerState(
+                initialPage = 0,
+                initialPageOffsetFraction = 0f
+            ) {
+                data.size
+            }
 
             ScrollableTabRow(
                 // Our selected tab is our current page
@@ -104,8 +108,8 @@ fun ArticleListPageContent(
             }
 
             HorizontalPager(
-                count = data.size,
                 state = pagerState,
+                key = { data[it].id },
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth()

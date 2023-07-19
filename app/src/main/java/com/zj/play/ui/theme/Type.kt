@@ -8,6 +8,7 @@ import androidx.compose.ui.unit.sp
 
 object GlanceTextStyles {
     val bodyLarge = androidx.glance.text.TextStyle(fontSize = 16.sp)
+    val bodyMedium = androidx.glance.text.TextStyle(fontSize = 14.sp)
     val bodySmall = androidx.glance.text.TextStyle(fontSize = 12.sp)
 }
 

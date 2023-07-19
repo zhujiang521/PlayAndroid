@@ -9,6 +9,8 @@ import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
 import androidx.glance.LocalSize
 import androidx.glance.action.ActionParameters
+import androidx.glance.action.actionStartActivity
+import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.SizeMode
 import androidx.glance.appwidget.action.ActionCallback
@@ -25,6 +27,7 @@ import androidx.glance.layout.padding
 import androidx.glance.text.Text
 import com.zj.model.ArticleModel
 import com.zj.network.PlayAndroidNetwork
+import com.zj.play.MainActivity
 import com.zj.play.R
 import com.zj.play.ui.theme.GlanceTextStyles
 import com.zj.utils.NetworkUtils.isConnected
@@ -40,7 +43,9 @@ class ArticleListWidgetGlance : GlanceAppWidget() {
             GlanceTheme {
                 Column(
                     modifier = GlanceModifier.fillMaxSize().background(GlanceTheme.colors.surface)
-                        .appWidgetBackgroundCornerRadius(),
+                        .appWidgetBackgroundCornerRadius().clickable(
+                            actionStartActivity<MainActivity>()
+                        ),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
