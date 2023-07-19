@@ -9,8 +9,8 @@ open class TextFieldState(
     private val errorFor: (String) -> String = { "请输入账号或密码" }
 ) {
     var text: String by mutableStateOf("")
-    var isFocusedDirty: Boolean by mutableStateOf(false)
-    var isFocused: Boolean by mutableStateOf(false)
+    private var isFocusedDirty: Boolean by mutableStateOf(false)
+    private var isFocused: Boolean by mutableStateOf(false)
     private var displayErrors: Boolean by mutableStateOf(false)
 
     open val isValid: Boolean

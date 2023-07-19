@@ -1,6 +1,5 @@
 package com.zj.play.widget
 
-import android.content.res.Resources
 import android.os.Build
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
@@ -22,5 +21,3 @@ fun GlanceModifier.appWidgetBackgroundCornerRadius(): GlanceModifier {
 fun stringResource(@StringRes id: Int): String {
     return LocalContext.current.getString(id)
 }
-
-val Float.toPx get() = this * Resources.getSystem().displayMetrics.density

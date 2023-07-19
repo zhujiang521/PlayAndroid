@@ -3,9 +3,13 @@ package com.zj.play.ui.main
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -25,7 +29,7 @@ import com.zj.play.ui.page.project.ProjectAndroidViewModel
 import com.zj.play.ui.page.system.SystemPage
 import com.zj.play.ui.page.system.SystemViewModel
 import com.zj.utils.XLog
-import java.util.*
+import java.util.Locale
 
 @Composable
 fun MainPage(actions: PlayActions) {
@@ -46,8 +50,7 @@ fun MainPageContent(
     Scaffold(
         backgroundColor = MaterialTheme.colors.primary,
         modifier = Modifier
-            .fillMaxSize()
-            .navigationBarsPadding(),
+            .fillMaxSize(),
         bottomBar = {
             BottomNavigation {
                 tabs.forEach { tab ->

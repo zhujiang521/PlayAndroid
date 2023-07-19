@@ -69,11 +69,11 @@ private fun ProfilePageContent(
                 modifier = Modifier
                     .fillMaxSize()
             ) {
-                HeadItem(Modifier.weight(0.3f), logoutState, toLogin, isLand)
+                HeadItem(Modifier.weight(0.3f), logoutState, toLogin, true)
                 BlogItem(Modifier.weight(0.7f), enterArticle, logout, toTheme)
             }
         } else {
-            HeadItem(Modifier, logoutState, toLogin, isLand)
+            HeadItem(Modifier, logoutState, toLogin, false)
             BlogItem(Modifier, enterArticle, logout, toTheme)
         }
     }

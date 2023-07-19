@@ -2,31 +2,19 @@ package com.zj.utils
 
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 /**
  * 农历工具类
  *
- * [cyclical] 干支
- * [animalsYear] 当年的生肖
  */
 class Lunar(cal: Calendar) {
     private val year: Int
     private val month: Int
     private val day: Int
     private var leap: Boolean
-
-    //====== 传回农历 y年的生肖
-    private fun animalsYear(): String {
-        val animals = arrayOf("鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪")
-        return animals[(year - 4) % 12]
-    }
-
-    //====== 传入 offset 传回干支, 0=甲子
-    private fun cyclical(): String {
-        val num = year - 1900 + 36
-        return cyclical(num)
-    }
 
     override fun toString(): String {
         return (if (leap) "闰" else "") + chineseNumber[month - 1] + "月" + getChinaDayString(day)
@@ -40,7 +28,8 @@ class Lunar(cal: Calendar) {
     }
 
     companion object {
-        val chineseNumber = arrayOf("一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二")
+        val chineseNumber =
+            arrayOf("一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二")
         var chineseDateFormat = SimpleDateFormat("yyyy年MM月dd日", Locale.getDefault())
         private val lunarInfo = longArrayOf(
             0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554,
@@ -108,13 +97,6 @@ class Lunar(cal: Calendar) {
             }
         }
 
-        //====== 传入 月日的offset 传回干支, 0=甲子
-        private fun cyclical(num: Int): String {
-            val gan = arrayOf("甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸")
-            val zhi = arrayOf("子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥")
-            return gan[num % 10] + zhi[num % 12]
-        }
-
         fun getChinaDayString(day: Int): String {
             val chineseTen = arrayOf("初", "十", "廿", "三")
             val n = if (day % 10 == 0) 9 else day % 10 - 1
@@ -127,21 +109,6 @@ class Lunar(cal: Calendar) {
                 chineseTen[day / 10] + chineseNumber[n]
             }
         }
-
-        val week: String
-            get() {
-                val cal = Calendar.getInstance()
-                return when (cal[Calendar.DAY_OF_WEEK]) {
-                    1 -> "周日"
-                    2 -> "周一"
-                    3 -> "周二"
-                    4 -> "周三"
-                    5 -> "周四"
-                    6 -> "周五"
-                    7 -> "周六"
-                    else -> ""
-                }
-            }
     }
 
     init {

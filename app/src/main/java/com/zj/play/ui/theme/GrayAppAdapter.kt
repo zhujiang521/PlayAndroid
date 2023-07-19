@@ -2,6 +2,7 @@ package com.zj.play.ui.theme
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
@@ -9,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import com.zj.utils.Lunar
-import java.util.*
+import java.util.Calendar
 
 /**
  * 是否需要黑白化应用
@@ -38,7 +39,12 @@ fun isNeedGray(): Boolean {
  */
 @Composable
 fun GrayAppAdapter(isGray: Boolean = isNeedGray(), content: @Composable () -> Unit) {
-    Surface(color = MaterialTheme.colors.background) {
+    Surface(
+        modifier = Modifier
+            .fillMaxSize()
+            .navigationBarsPadding(),
+        color = MaterialTheme.colors.background
+    ) {
         content()
         if (isGray) {
             // 黑白化

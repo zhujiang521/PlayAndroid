@@ -180,7 +180,6 @@ fun SignInContent(
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ErrorSnackBar(
     snackBarHostState: SnackbarHostState,

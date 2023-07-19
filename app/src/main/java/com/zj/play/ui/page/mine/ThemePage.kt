@@ -2,7 +2,14 @@ package com.zj.play.ui.page.mine
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -12,7 +19,13 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Check
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -22,7 +35,29 @@ import androidx.compose.ui.unit.dp
 import com.zj.play.CHANGED_THEME
 import com.zj.play.R
 import com.zj.play.ui.main.nav.PlayActions
-import com.zj.play.ui.theme.*
+import com.zj.play.ui.theme.BROWN_THEME
+import com.zj.play.ui.theme.CYAN_THEME
+import com.zj.play.ui.theme.DEEP_BLUE_THEME
+import com.zj.play.ui.theme.DYNAMIC_COLOR_SCHEME
+import com.zj.play.ui.theme.GRAY_THEME
+import com.zj.play.ui.theme.GREEN_THEME
+import com.zj.play.ui.theme.MAGENTA_THEME
+import com.zj.play.ui.theme.ORANGE_THEME
+import com.zj.play.ui.theme.PURPLE_THEME
+import com.zj.play.ui.theme.RED_THEME
+import com.zj.play.ui.theme.SKY_BLUE_THEME
+import com.zj.play.ui.theme.brown_theme
+import com.zj.play.ui.theme.cyan_theme
+import com.zj.play.ui.theme.deep_blue_theme
+import com.zj.play.ui.theme.gray_theme
+import com.zj.play.ui.theme.green_theme
+import com.zj.play.ui.theme.magenta_theme
+import com.zj.play.ui.theme.orange_theme
+import com.zj.play.ui.theme.primaryLight
+import com.zj.play.ui.theme.purple_theme
+import com.zj.play.ui.theme.red_theme
+import com.zj.play.ui.theme.select_theme
+import com.zj.play.ui.theme.themeTypeState
 import com.zj.play.ui.view.bar.PlayAppBar
 import com.zj.utils.DataStoreUtils
 
@@ -44,9 +79,9 @@ private val themeList = arrayListOf(
 
 @Composable
 fun ThemePage(actions: PlayActions) {
-    var playTheme by remember { mutableStateOf(SKY_BLUE_THEME) }
+    var playTheme by remember { mutableIntStateOf(ORANGE_THEME) }
     LaunchedEffect(Unit) {
-        playTheme = DataStoreUtils.getSyncData(CHANGED_THEME, SKY_BLUE_THEME)
+        playTheme = DataStoreUtils.getSyncData(CHANGED_THEME, ORANGE_THEME)
     }
     Column(
         modifier = Modifier

@@ -11,7 +11,6 @@ private fun isPasswordValid(password: String): Boolean {
     return Pattern.matches(PASSWORD_VALIDATION_REGEX, password)
 }
 
-@Suppress("UNUSED_PARAMETER")
 private fun passwordValidationError(password: String): String {
     if (password.isEmpty()){
         return "error: please enter password"
