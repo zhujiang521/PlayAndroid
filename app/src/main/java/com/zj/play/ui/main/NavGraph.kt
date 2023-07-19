@@ -24,9 +24,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.*
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.navigation.animation.composable
 import com.google.gson.Gson
 import com.zj.model.ArticleModel
 import com.zj.play.ui.main.nav.PlayActions
@@ -49,10 +49,7 @@ fun NavGraph(
 ) {
     val navController = rememberNavController()
     val actions = remember(navController) { PlayActions(navController) }
-    AnimatedNavHost(
-        navController = navController,
-        startDestination = startDestination
-    ) {
+    NavHost(navController = navController, startDestination = startDestination) {
         composableHorizontal(PlayDestinations.HOME_PAGE_ROUTE) {
             MainPage(actions)
         }
