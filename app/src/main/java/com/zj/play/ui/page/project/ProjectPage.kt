@@ -109,7 +109,14 @@ fun ArticleListPageContent(
 
             HorizontalPager(
                 state = pagerState,
-                key = { data[it].id },
+                key = {
+                    try {
+                        data[it].id
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        System.currentTimeMillis()
+                    }
+                },
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth()
