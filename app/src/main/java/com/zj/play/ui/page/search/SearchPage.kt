@@ -8,12 +8,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.staggeredgrid.LazyHorizontalStaggeredGrid
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -44,6 +42,7 @@ import com.zj.model.PlaySuccess
 import com.zj.play.R
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.page.article.list.ArticleListPaging
+import com.zj.play.ui.view.StaggeredGrid
 import com.zj.play.ui.view.bar.SearchBar
 import com.zj.play.ui.view.lce.LcePage
 import com.zj.utils.showToast
@@ -106,17 +105,18 @@ fun SearchPageContent(
                 onErrorClick = loadHotkey
             ) {
                 loadArticleState = true
-                LazyHorizontalStaggeredGrid(rows = StaggeredGridCells.Adaptive(80.dp), content = {
-                    items(it) {
+                StaggeredGrid {
+                    it.forEach {
                         Chip(text = it.name,
                             modifier = Modifier
+                                .height(50.dp)
                                 .padding(8.dp)
                                 .clickable {
                                     searchArticle(it.name)
                                 }
                         )
                     }
-                })
+                }
             }
         }
     }
