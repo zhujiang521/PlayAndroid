@@ -5,10 +5,16 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.zj.model.ArticleModel
 import com.zj.play.ui.main.NavGraph
 import com.zj.play.ui.theme.GrayAppAdapter
 import com.zj.play.ui.theme.PlayAndroidTheme
+import com.zj.play.ui.theme.getThemeForThemeId
+import com.zj.play.ui.theme.playDarkColors
 import com.zj.play.ui.theme.themeTypeState
 import com.zj.play.widget.ArticleListWidgetGlance
 import com.zj.utils.cancelToast
@@ -29,7 +35,25 @@ class MainActivity : ComponentActivity() {
         setAndroidNativeLightStatusBar()
         disposeIntent(intent)
         setContent {
-            PlayAndroidTheme(themeTypeState.value) {
+            val themeType = themeTypeState.value
+            val colors = if (isSystemInDarkTheme()) {
+                playDarkColors()
+            } else {
+                getThemeForThemeId(themeType)
+            }
+            PlayAndroidTheme(colors) {
+                val systemUiController = rememberSystemUiController()
+                val useDarkIcons = !isSystemInDarkTheme()
+                SideEffect {
+                    systemUiController.setStatusBarColor(
+                        Color.Transparent,
+                        darkIcons = useDarkIcons
+                    )
+                    systemUiController.setNavigationBarColor(
+                        colors.primary,
+                        darkIcons = useDarkIcons
+                    )
+                }
                 // 清明、七月十五或者是国家公祭日的时候展示黑白化效果
                 GrayAppAdapter {
                     NavGraph(articleModel = articleModel)

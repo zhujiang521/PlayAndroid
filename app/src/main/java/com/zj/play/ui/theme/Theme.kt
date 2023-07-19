@@ -1,6 +1,6 @@
 package com.zj.play.ui.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -53,13 +53,12 @@ val themeTypeState: MutableState<Int> by lazy(mode = LazyThreadSafetyMode.SYNCHR
 fun getDefaultThemeId(): Int = DataStoreUtils.getSyncData(CHANGED_THEME, ORANGE_THEME)
 
 /**
- * @param themeId 主题，这里需要注意，只有在浅色模式下可以进行更换主题，
+ * @param colors 主题颜色
  * 在深色模式下不支持更换主题
  */
 @Composable
 fun PlayAndroidTheme(
-    themeId: Int = 0,
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    colors: Colors,
     content: @Composable () -> Unit
 ) {
 //    val dynamic = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
@@ -88,11 +87,6 @@ fun PlayAndroidTheme(
 //        )
 //    }
 
-    val colors = if (darkTheme) {
-        playDarkColors()
-    } else {
-        getThemeForThemeId(themeId)
-    }
     MaterialTheme(
         colors = colors,
         typography = typography,
@@ -104,8 +98,8 @@ fun PlayAndroidTheme(
 /**
  * 获取根据壁纸获取的颜色
  *
- * @param colorScheme 主题
- * @param darkTheme 是否为深色主题
+ * colorScheme 主题
+ * darkTheme 是否为深色主题
  */
 //fun getSchemeColor(colorScheme: ColorScheme, darkTheme: Boolean): Colors {
 //    return Colors(
@@ -128,58 +122,68 @@ fun PlayAndroidTheme(
 /**
  * 通过主题 ID 来获取需要的主题
  */
-private fun getThemeForThemeId(themeId: Int) = when (themeId) {
+fun getThemeForThemeId(themeId: Int) = when (themeId) {
     SKY_BLUE_THEME -> {
         playLightColors(
             primary = primaryLight
         )
     }
+
     GRAY_THEME -> {
         playLightColors(
             primary = gray_theme
         )
     }
+
     DEEP_BLUE_THEME -> {
         playDarkColors(
             primary = deep_blue_theme
         )
     }
+
     GREEN_THEME -> {
         playLightColors(
             primary = green_theme
         )
     }
+
     PURPLE_THEME -> {
         playLightColors(
             primary = purple_theme
         )
     }
+
     ORANGE_THEME -> {
         playLightColors(
             primary = orange_theme
         )
     }
+
     BROWN_THEME -> {
         playDarkColors(
             primary = brown_theme
         )
     }
+
     RED_THEME -> {
         playDarkColors(
             primary = red_theme
         )
 
     }
+
     CYAN_THEME -> {
         playLightColors(
             primary = cyan_theme
         )
     }
+
     MAGENTA_THEME -> {
         playLightColors(
             primary = magenta_theme
         )
     }
+
     else -> {
         playLightColors(
             primary = primaryLight

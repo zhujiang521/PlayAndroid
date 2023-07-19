@@ -74,6 +74,7 @@ dependencies {
 
     def accompanist_version = '0.31.5-beta'
     implementation "com.google.accompanist:accompanist-webview:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanist_version"
 
     def glanceVersion = "1.0.0-beta01"
     implementation "androidx.glance:glance:$glanceVersion"
