@@ -66,6 +66,7 @@ fun ArticlePage(
                 modifier = modifier.fillMaxSize(),
                 onCreated = { webView ->
                     webView.settings.javaScriptEnabled = true
+                    webView.settings.domStorageEnabled = true
                     webView.webViewClient = AndroidWebViewClient()
                 },
                 navigator = navigator,
@@ -74,6 +75,7 @@ fun ArticlePage(
                 LoadingState.Finished -> {
                     XLog.i("Load complete")
                 }
+
                 else -> {
                     LoadingContent(modifier)
                 }
