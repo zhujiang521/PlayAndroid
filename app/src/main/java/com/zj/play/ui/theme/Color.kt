@@ -1,7 +1,9 @@
 package com.zj.play.ui.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.Colors
 import androidx.compose.material.darkColors
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 val white = Color.White
@@ -49,6 +51,16 @@ val onSecondaryLight = Color(0xFFD8D7D7)
 val onBackgroundLight = Color(0xFF232325)
 val onSurfaceLight = Color(0xFF232323)
 
+@Composable
+fun getCurrentColors():Colors{
+    val themeType = themeTypeState.value
+    val colors = if (isSystemInDarkTheme()) {
+        playDarkColors()
+    } else {
+        getThemeForThemeId(themeType)
+    }
+    return colors
+}
 
 // Dark 主题颜色
 val pageDark = Color(0xFF000000)

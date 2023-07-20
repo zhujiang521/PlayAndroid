@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -28,6 +29,7 @@ import com.zj.play.ui.page.project.ArticleListPage
 import com.zj.play.ui.page.project.ProjectAndroidViewModel
 import com.zj.play.ui.page.system.SystemPage
 import com.zj.play.ui.page.system.SystemViewModel
+import com.zj.play.ui.theme.getCurrentColors
 import com.zj.utils.XLog
 import java.util.Locale
 
@@ -53,7 +55,15 @@ fun MainPageContent(
             .fillMaxSize(),
         bottomBar = {
             BottomNavigation {
+                val primaryColor = getCurrentColors().primary
+                val reversalColor = Color(
+                    red = (255f - (primaryColor.red * 255f)) / 255f,
+                    green = (255f - (primaryColor.green * 255f)) / 255f,
+                    blue = (255f - (primaryColor.blue * 255f)) / 255f,
+                )
                 tabs.forEach { tab ->
+                    val color =
+                        if (tab == position) reversalColor else MaterialTheme.colors.secondary
                     BottomNavigationItem(
                         modifier = Modifier.background(MaterialTheme.colors.primary),
                         icon = {
@@ -62,9 +72,14 @@ fun MainPageContent(
                             } else {
                                 painterResource(tab.icon)
                             }
-                            Icon(painter, contentDescription = null)
+                            Icon(painter, contentDescription = null, tint = color)
                         },
-                        label = { Text(stringResource(tab.title).uppercase(Locale.ROOT)) },
+                        label = {
+                            Text(
+                                stringResource(tab.title).uppercase(Locale.ROOT),
+                                color = color
+                            )
+                        },
                         selected = tab == position,
                         onClick = {
                             onPositionChanged(tab)
@@ -85,12 +100,14 @@ fun MainPageContent(
                 homeViewModel.getHomeArticle()
                 HomePage(modifier, isLand, homeViewModel, actions)
             }
+
             CourseTabs.SYSTEM -> {
                 // 体系
                 val viewModel: SystemViewModel = hiltViewModel()
                 viewModel.getAndroidSystem()
                 SystemPage(modifier, actions, viewModel)
             }
+
             CourseTabs.PROJECT, CourseTabs.OFFICIAL_ACCOUNT -> {
                 val viewModel = if (position == CourseTabs.PROJECT) {
                     hiltViewModel<ProjectAndroidViewModel>()
@@ -101,10 +118,12 @@ fun MainPageContent(
                 // 由于项目页面和公众号页面只有数据不同，所以使用一个公用的页面
                 ArticleListPage(modifier, actions, viewModel)
             }
+
             CourseTabs.MINE -> {
                 // 我的页面
                 ProfilePage(modifier, isLand, actions)
             }
+
             else -> {
                 XLog.e("The page display is faulty")
                 throw IllegalAccessException()

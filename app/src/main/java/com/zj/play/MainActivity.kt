@@ -13,6 +13,7 @@ import com.zj.model.ArticleModel
 import com.zj.play.ui.main.NavGraph
 import com.zj.play.ui.theme.GrayAppAdapter
 import com.zj.play.ui.theme.PlayAndroidTheme
+import com.zj.play.ui.theme.getCurrentColors
 import com.zj.play.ui.theme.getThemeForThemeId
 import com.zj.play.ui.theme.playDarkColors
 import com.zj.play.ui.theme.themeTypeState
@@ -35,12 +36,7 @@ class MainActivity : ComponentActivity() {
         setAndroidNativeLightStatusBar()
         disposeIntent(intent)
         setContent {
-            val themeType = themeTypeState.value
-            val colors = if (isSystemInDarkTheme()) {
-                playDarkColors()
-            } else {
-                getThemeForThemeId(themeType)
-            }
+            val colors = getCurrentColors()
             PlayAndroidTheme(colors) {
                 val systemUiController = rememberSystemUiController()
                 val useDarkIcons = !isSystemInDarkTheme()
