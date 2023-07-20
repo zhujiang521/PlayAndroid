@@ -1,7 +1,17 @@
 package com.zj.play.ui.page.system
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -108,22 +118,29 @@ private fun SystemItem(
             saveSystemState(systemModel)
         }
 
-    Column(
-        verticalArrangement = Arrangement.Center,
+    Row(
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
         modifier = modifiers
     ) {
+        val color = if (systemState.id == systemModel.id) {
+            MaterialTheme.colors.error
+        } else Color.Unspecified
+        Spacer(modifier = Modifier
+            .height(30.dp)
+            .width(5.dp)
+            .background(color))
+
         Text(
             text = systemModel.name,
             fontSize = 15.sp,
-            color = if (systemState.id == systemModel.id) {
-                MaterialTheme.colors.error
-            } else Color.Unspecified,
+            color = color,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center
         )
     }
 
-    if (systemState.id == 0) {
+    if (systemState.id == 0 && systemModel.order == 1) {
         saveSystemState(systemModel)
     }
 }
