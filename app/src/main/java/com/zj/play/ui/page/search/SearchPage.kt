@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalLayoutApi::class)
+
 package com.zj.play.ui.page.search
 
 import androidx.compose.foundation.BorderStroke
@@ -5,10 +7,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imeNestedScroll
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -91,6 +95,7 @@ fun SearchPageContent(
         modifier = Modifier
             .fillMaxSize()
             .background(color = MaterialTheme.colors.primary)
+            .imeNestedScroll()
     ) {
         SearchBar(back, searchArticle)
         if (lazyPagingItems.itemCount > 0) {
@@ -141,7 +146,6 @@ fun Chip(modifier: Modifier = Modifier, text: String) {
                     .size(16.dp, 16.dp)
                     .shadow(1.dp, RoundedCornerShape(3))
                     .background(color = MaterialTheme.colors.secondary)
-
             )
             Spacer(Modifier.width(4.dp))
             Text(text = text)

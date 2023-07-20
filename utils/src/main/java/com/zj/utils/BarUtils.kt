@@ -21,6 +21,11 @@ fun Activity.setAndroidNativeLightStatusBar() {
     controller.isAppearanceLightStatusBars = !isDarkMode()
 }
 
+fun Context?.hideIme(){
+    if (this == null) return
+    (this as Activity).hideIme()
+}
+
 /**
  * 隐藏ime
  */
