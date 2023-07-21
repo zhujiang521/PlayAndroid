@@ -15,10 +15,15 @@ import com.zj.utils.XLog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
+import kotlin.system.measureTimeMillis
 
 /**
  * 版权：Zhujiang 个人版权
@@ -60,6 +65,25 @@ class HomeViewModel(application: Application) : AndroidViewModel(application),
     fun getHomeArticle() {
         viewModelScope.launch {
             searchArticle(Query(k = TAG))
+        }
+    }
+
+    private val _isRefreshing = MutableStateFlow(false)
+
+    val isRefreshing: StateFlow<Boolean>
+        get() = _isRefreshing.asStateFlow()
+
+    fun refresh() {
+        // This doesn't handle multiple 'refreshing' tasks, don't use this
+        viewModelScope.launch {
+            // A fake 2 second 'refresh'
+            _isRefreshing.emit(true)
+            val time = measureTimeMillis {
+                getBanner()
+                getHomeArticle()
+            }
+            delay(if (time > 1000L) time else 1000L)
+            _isRefreshing.emit(false)
         }
     }
 
