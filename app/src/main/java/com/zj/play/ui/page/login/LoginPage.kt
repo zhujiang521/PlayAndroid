@@ -48,7 +48,7 @@ fun LoginPageContent(
     toLoginOrRegister: (Account) -> Unit,
 ) {
 
-    SignIn(onNavigationEvent = { event ->
+    SignIn(loginState, onNavigationEvent = { event ->
         when (event) {
             is SignInEvent.SignIn -> {
                 toLoginOrRegister(Account(event.email, event.password, true))
@@ -67,27 +67,14 @@ fun LoginPageContent(
             }
         }
     })
-    when (loginState) {
-        is PlayLoading -> {
-            //toProgressVisible(true)
-        }
-
-        is PlaySuccess -> {
-            //toProgressVisible(false)
-            onNavigationEvent.upPress()
-        }
-
-        is PlayError -> {
-            //toProgressVisible(false)
-        }
-
-        else -> {}
+    
+    if (loginState is PlaySuccess) {
+        onNavigationEvent.upPress()
     }
-
 }
 
 @Composable
-fun SignIn(onNavigationEvent: (SignInEvent) -> Unit) {
+fun SignIn(loginState: PlayState<LoginModel>?, onNavigationEvent: (SignInEvent) -> Unit) {
 
     val snackBarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -113,7 +100,11 @@ fun SignIn(onNavigationEvent: (SignInEvent) -> Unit) {
                             onNavigationEvent(SignInEvent.SignIn(email, password))
                         }
                     )
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
+                    if (loginState is PlayLoading) {
+                        CircularProgressIndicator()
+                    }
+                    Spacer(modifier = Modifier.height(10.dp))
                     TextButton(
                         onClick = {
                             scope.launch {
