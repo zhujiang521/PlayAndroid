@@ -35,7 +35,7 @@ abstract class BasePagingSource : PagingSource<Int, ArticleModel>() {
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, ArticleModel>): Int? =null
+    override fun getRefreshKey(state: PagingState<Int, ArticleModel>): Int? = null
 
     abstract suspend fun getArticleList(page: Int): List<ArticleModel>
 }

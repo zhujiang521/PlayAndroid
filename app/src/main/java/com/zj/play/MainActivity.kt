@@ -14,9 +14,6 @@ import com.zj.play.ui.main.NavGraph
 import com.zj.play.ui.theme.GrayAppAdapter
 import com.zj.play.ui.theme.PlayAndroidTheme
 import com.zj.play.ui.theme.getCurrentColors
-import com.zj.play.ui.theme.getThemeForThemeId
-import com.zj.play.ui.theme.playDarkColors
-import com.zj.play.ui.theme.themeTypeState
 import com.zj.play.widget.ArticleListWidgetGlance
 import com.zj.utils.cancelToast
 import com.zj.utils.setAndroidNativeLightStatusBar

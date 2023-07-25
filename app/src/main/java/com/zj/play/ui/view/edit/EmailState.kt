@@ -11,7 +11,7 @@ class EmailState :
  * Returns an error to be displayed or null if no error was found
  */
 private fun emailValidationError(email: String): String {
-    if (email.isEmpty()){
+    if (email.isEmpty()) {
         return "error: please enter account"
     }
     return "error: $email"

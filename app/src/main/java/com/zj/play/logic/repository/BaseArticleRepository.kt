@@ -3,9 +3,13 @@ package com.zj.play.logic.repository
 import android.accounts.NetworkErrorException
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import com.zj.model.*
+import com.zj.model.BaseModel
+import com.zj.model.ClassifyModel
+import com.zj.model.PlayError
+import com.zj.model.PlayLoading
+import com.zj.model.PlayState
+import com.zj.model.PlaySuccess
 import com.zj.play.R
-import com.zj.utils.NetworkUtils
 import com.zj.utils.NetworkUtils.isConnected
 
 /**

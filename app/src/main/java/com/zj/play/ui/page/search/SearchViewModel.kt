@@ -30,7 +30,7 @@ class SearchViewModel(application: Application) : BaseArticleViewModel(applicati
     fun getSearchArticle(keyword: String) {
         searchArticle(Query(k = keyword))
     }
-    
+
 //     private val exceptionHandler = CoroutineExceptionHandler { _, e ->
 //         _hotkeyState.postValue(PlayError(RuntimeException(e.message)))
 //     }
@@ -56,7 +56,7 @@ class SearchViewModel(application: Application) : BaseArticleViewModel(applicati
 //        ) {
 //            (repositoryArticle as SearchRepository).getHotKey(_hotkeyState)
 //        }
-        
+
         hotkeyJob = (repositoryArticle as SearchRepository)
             .http(
                 scope = viewModelScope,

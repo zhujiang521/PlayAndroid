@@ -23,13 +23,13 @@ abstract class BaseArticlePagingRepository {
     }
 
     abstract fun getPagingData(query: Query): Flow<PagingData<ArticleModel>>
-    
-      @OptIn(DelicateCoroutinesApi::class)
-      fun <T> http(
-          scope: CoroutineScope = GlobalScope,
-          dispatchers: CoroutineDispatcher = Dispatchers.Main,
-          request: suspend CoroutineScope.() -> BaseModel<T>,
-          state: MutableLiveData<PlayState<T>>
+
+    @OptIn(DelicateCoroutinesApi::class)
+    fun <T> http(
+        scope: CoroutineScope = GlobalScope,
+        dispatchers: CoroutineDispatcher = Dispatchers.Main,
+        request: suspend CoroutineScope.() -> BaseModel<T>,
+        state: MutableLiveData<PlayState<T>>
     ): Job {
         return scope.launch(dispatchers) {
             try {
@@ -56,9 +56,11 @@ abstract class BaseArticlePagingRepository {
             is CancellationException -> {
                 "取消异常"   // 取消异常
             }
+
             is JsonSyntaxException -> {
                 "解析异常"
             }
+
             is HttpException -> {
                 "url不存在"
             }

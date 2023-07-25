@@ -65,9 +65,11 @@ fun ArticlePage(
                 state = state,
                 modifier = modifier.fillMaxSize(),
                 onCreated = { webView ->
-                    webView.settings.javaScriptEnabled = true
-                    webView.settings.domStorageEnabled = true
-                    webView.webViewClient = AndroidWebViewClient()
+                    webView.apply {
+                        settings.javaScriptEnabled = true
+                        settings.domStorageEnabled = true
+                        webViewClient = AndroidWebViewClient()
+                    }
                 },
                 navigator = navigator,
             )

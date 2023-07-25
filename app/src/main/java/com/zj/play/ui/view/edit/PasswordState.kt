@@ -12,7 +12,7 @@ private fun isPasswordValid(password: String): Boolean {
 }
 
 private fun passwordValidationError(password: String): String {
-    if (password.isEmpty()){
+    if (password.isEmpty()) {
         return "error: please enter password"
     }
     return "error:wrong password format"

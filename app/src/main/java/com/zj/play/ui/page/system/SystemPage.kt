@@ -126,10 +126,12 @@ private fun SystemItem(
         val color = if (systemState.id == systemModel.id) {
             MaterialTheme.colors.error
         } else Color.Unspecified
-        Spacer(modifier = Modifier
-            .height(30.dp)
-            .width(5.dp)
-            .background(color))
+        Spacer(
+            modifier = Modifier
+                .height(30.dp)
+                .width(5.dp)
+                .background(color)
+        )
 
         Text(
             text = systemModel.name,

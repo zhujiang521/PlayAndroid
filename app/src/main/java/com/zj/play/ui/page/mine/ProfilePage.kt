@@ -90,6 +90,7 @@ private fun HeadItem(
         LogoutDefault -> {
             NameAndPosition(modifier, true, toLogin, isLand)
         }
+
         LogoutFinish -> {
             NameAndPosition(modifier, false, toLogin, isLand)
         }

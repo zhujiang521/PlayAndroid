@@ -52,7 +52,7 @@ val onBackgroundLight = Color(0xFF232325)
 val onSurfaceLight = Color(0xFF232323)
 
 @Composable
-fun getCurrentColors():Colors{
+fun getCurrentColors(): Colors {
     val themeType = themeTypeState.value
     val colors = if (isSystemInDarkTheme()) {
         playDarkColors()

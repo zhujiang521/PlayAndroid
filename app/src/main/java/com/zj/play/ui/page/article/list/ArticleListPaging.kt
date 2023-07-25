@@ -29,8 +29,7 @@ fun ArticleListPaging(
 ) {
     LazyColumn(modifier = modifier.fillMaxSize()) {
         items(
-            count = lazyPagingItems
-                .itemCount,
+            count = lazyPagingItems.itemCount,
             key = lazyPagingItems.itemKey(),
             contentType = lazyPagingItems.itemContentType(
             )

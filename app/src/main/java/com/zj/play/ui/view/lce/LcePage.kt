@@ -14,9 +14,11 @@ fun <T> LcePage(
         is PlayLoading -> {
             LoadingContent()
         }
+
         is PlayError -> {
             ErrorContent(onErrorClick = onErrorClick)
         }
+
         is PlaySuccess<T> -> {
             content(playState.data)
         }

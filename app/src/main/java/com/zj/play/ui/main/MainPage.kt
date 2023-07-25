@@ -55,12 +55,7 @@ fun MainPageContent(
             .fillMaxSize(),
         bottomBar = {
             BottomNavigation {
-                val primaryColor = getCurrentColors().primary
-                val reversalColor = Color(
-                    red = (255f - (primaryColor.red * 255f)) / 255f,
-                    green = (255f - (primaryColor.green * 255f)) / 255f,
-                    blue = (255f - (primaryColor.blue * 255f)) / 255f,
-                )
+                val reversalColor = reversalColor()
                 tabs.forEach { tab ->
                     val color =
                         if (tab == position) reversalColor else MaterialTheme.colors.secondary
@@ -130,4 +125,14 @@ fun MainPageContent(
             }
         }
     }
+}
+
+@Composable
+private fun reversalColor(): Color {
+    val primaryColor = getCurrentColors().primary
+    return Color(
+        red = (255f - (primaryColor.red * 255f)) / 255f,
+        green = (255f - (primaryColor.green * 255f)) / 255f,
+        blue = (255f - (primaryColor.blue * 255f)) / 255f,
+    )
 }

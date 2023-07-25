@@ -30,7 +30,7 @@ abstract class BaseAndroidViewModel(application: Application) : BaseArticleViewM
     abstract suspend fun getData()
 
     fun getDataList() {
-        if (mutableTreeLiveData.value is PlaySuccess<*>){
+        if (mutableTreeLiveData.value is PlaySuccess<*>) {
             XLog.e("Do not request existing data")
             return
         }

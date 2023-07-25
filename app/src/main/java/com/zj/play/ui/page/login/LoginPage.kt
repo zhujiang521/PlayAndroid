@@ -53,12 +53,15 @@ fun LoginPageContent(
             is SignInEvent.SignIn -> {
                 toLoginOrRegister(Account(event.email, event.password, true))
             }
+
             SignInEvent.SignUp -> {
                 toLogout()
             }
+
             SignInEvent.SignInAsGuest -> {
                 toLogout()
             }
+
             SignInEvent.NavigateBack -> {
                 onNavigationEvent.upPress()
             }
@@ -68,13 +71,16 @@ fun LoginPageContent(
         is PlayLoading -> {
             //toProgressVisible(true)
         }
+
         is PlaySuccess -> {
             //toProgressVisible(false)
             onNavigationEvent.upPress()
         }
+
         is PlayError -> {
             //toProgressVisible(false)
         }
+
         else -> {}
     }
 
