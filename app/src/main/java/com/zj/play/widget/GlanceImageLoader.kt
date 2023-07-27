@@ -7,6 +7,9 @@ import androidx.glance.GlanceModifier
 import androidx.glance.Image
 import androidx.glance.ImageProvider
 import androidx.glance.layout.ContentScale
+import com.zj.utils.requestWebPhotoBitmap
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 
 @Composable
 fun GlanceImageLoader(
@@ -49,6 +52,6 @@ private fun getImageProvider(path: String): ImageProvider {
     if (path.startsWith("content://")) {
         return androidx.glance.appwidget.ImageProvider(path.toUri())
     }
-    val bitmap = BitmapFactory.decodeFile(path)
-    return ImageProvider(bitmap)
+    val requestWebPhotoBitmap = runBlocking(Dispatchers.IO) { requestWebPhotoBitmap(path) }
+    return ImageProvider(requestWebPhotoBitmap)
 }

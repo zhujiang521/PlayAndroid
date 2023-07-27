@@ -69,20 +69,20 @@ dependencies {
     implementation 'androidx.activity:activity-compose:1.7.2'
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
     // navigation
-    implementation "androidx.navigation:navigation-compose:2.7.0-beta02"
+    implementation "androidx.navigation:navigation-compose:2.7.0-rc01"
     implementation project(path: ':network')
 
     def accompanist_version = '0.31.5-beta'
     implementation "com.google.accompanist:accompanist-webview:$accompanist_version"
     implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanist_version"
 
-    def glanceVersion = "1.0.0-beta01"
+    def glanceVersion = "1.0.0-rc01"
     implementation "androidx.glance:glance:$glanceVersion"
     implementation "androidx.glance:glance-appwidget:$glanceVersion"
     implementation "androidx.glance:glance-material3:$glanceVersion"
 
     // Paging 分页加载
-    implementation 'androidx.paging:paging-compose:1.0.0-alpha20'
+    implementation 'androidx.paging:paging-compose:3.2.0'
     // lottie动画
     def lottieVersion = '6.1.0'
     implementation "com.airbnb.android:lottie-compose:$lottieVersion"
