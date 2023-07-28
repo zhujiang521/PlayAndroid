@@ -17,7 +17,7 @@ ext {
             appcompat    : 'androidx.appcompat:appcompat:1.6.1',
             junit        : 'junit:junit:4.13.2',
             extJunit     : 'androidx.test.ext:junit:1.1.5',
-            espressoCore : 'androidx.test.espresso:espresso-core:3.5.0',
+            espressoCore : 'androidx.test.espresso:espresso-core:3.5.1',
     ]
 
     sign = [
