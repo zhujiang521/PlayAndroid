@@ -8,6 +8,7 @@ import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
 
+private const val TIMEOUT = 5000
 
 /**
  * 通过 网络图片 url 获取图片 Bitmap
@@ -19,12 +20,13 @@ suspend fun requestWebPhotoBitmap(photoUrl: String): Bitmap =
         try {
             val bitmapUrl = URL(photoUrl)
             connection = bitmapUrl.openConnection() as HttpURLConnection
-            connection.requestMethod = "GET"
-            connection.connectTimeout = 5000
-            connection.readTimeout = 5000
-
+            connection.apply {
+                requestMethod = "GET"
+                connectTimeout = TIMEOUT
+                readTimeout = TIMEOUT
+            }
             // 判断是否请求成功
-            if (connection.responseCode == 200) {
+            if (connection.responseCode == HttpURLConnection.HTTP_OK) {
                 val inputStream = connection.inputStream
                 val imgBitmap = BitmapFactory.decodeStream(inputStream)
                 cancellableContinuation.resumeWith(Result.success(imgBitmap))
