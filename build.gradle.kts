@@ -13,7 +13,6 @@ ext{
     extra["testInstrumentationRunner"] = "androidx.test.runner.AndroidJUnitRunner"
     extra["consumerProguardFiles"] = "consumer-rules.pro"
 
-    extra["jvmTarget"] = "17"
     extra["javaVersion"] = JavaVersion.VERSION_17
 
     extra["coreKtx"] = "androidx.core:core-ktx:1.11.0-beta02"

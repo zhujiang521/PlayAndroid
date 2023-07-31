@@ -27,7 +27,7 @@ android {
             )
         }
     }
-    val javaVersion = JavaVersion.VERSION_17
+    val javaVersion = rootProject.extra["javaVersion"] as JavaVersion
     val javaVersionName = javaVersion.toString()
 
     kotlin {

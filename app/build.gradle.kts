@@ -37,7 +37,7 @@ android {
             )
         }
     }
-    val javaVersion = JavaVersion.VERSION_17
+    val javaVersion = rootProject.extra["javaVersion"] as JavaVersion
     val javaVersionName = javaVersion.toString()
 
     kotlin {
@@ -78,9 +78,9 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.0-rc01")
     implementation(project(":network"))
 
-    val accompanist_version = "0.31.6-rc"
-    implementation("com.google.accompanist:accompanist-webview:$accompanist_version")
-    implementation("com.google.accompanist:accompanist-systemuicontroller:$accompanist_version")
+    val accompanistVersion = "0.31.6-rc"
+    implementation("com.google.accompanist:accompanist-webview:$accompanistVersion")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion")
 
     val glanceVersion = "1.0.0-rc01"
     implementation("androidx.glance:glance:$glanceVersion")
