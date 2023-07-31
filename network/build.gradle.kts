@@ -14,9 +14,8 @@ android {
         targetSdk = sdkVersion
 
         testInstrumentationRunner = rootProject.extra["testInstrumentationRunner"] as String?
-//        consumerProguardFiles = rootProject.extra["consumerProguardFiles"] as String?
         rootProject.extra["consumerProguardFiles"]?.let { consumerProguardFiles(it) }
-//        resourceConfigurations += ['zh', 'zh-rCN', 'zh-rHK', 'zh-rTW']
+        resourceConfigurations += listOf("en", "zh", "zh-rCN", "zh-rHK", "zh-rTW")
     }
 
     buildTypes {

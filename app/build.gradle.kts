@@ -22,7 +22,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-//        resourceConfigurations += ['zh', 'zh-rCN', 'zh-rHK', 'zh-rTW']
+        resourceConfigurations += listOf("en", "zh", "zh-rCN", "zh-rHK", "zh-rTW")
     }
 
     buildTypes {
