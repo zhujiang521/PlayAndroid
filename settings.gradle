@@ -1,5 +1,0 @@
-include ':model'
-include ':network'
-rootProject.name='PlayAndroid'
-include ':app'
-include ':core'
