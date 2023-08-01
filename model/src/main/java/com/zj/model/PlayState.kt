@@ -12,6 +12,7 @@ sealed class PlayState<out R> {
             is PlaySuccess<*> -> "Success[data=$data]"
             is PlayError -> "Error[exception=${error}]"
             PlayLoading -> "Loading"
+            PlayDefault -> "Default"
         }
     }
 }
@@ -19,6 +20,8 @@ sealed class PlayState<out R> {
 data class PlaySuccess<out T>(val data: T) : PlayState<T>()
 data class PlayError(val error: Throwable) : PlayState<Nothing>()
 object PlayLoading : PlayState<Nothing>()
+
+object PlayDefault : PlayState<Nothing>()
 
 /**
  * 是否成功[successOr]

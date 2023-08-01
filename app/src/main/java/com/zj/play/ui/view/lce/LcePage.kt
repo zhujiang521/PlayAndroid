@@ -1,7 +1,10 @@
 package com.zj.play.ui.view.lce
 
 import androidx.compose.runtime.Composable
-import com.zj.model.*
+import com.zj.model.PlayError
+import com.zj.model.PlayLoading
+import com.zj.model.PlayState
+import com.zj.model.PlaySuccess
 
 
 @Composable
@@ -22,5 +25,7 @@ fun <T> LcePage(
         is PlaySuccess<T> -> {
             content(playState.data)
         }
+
+        else -> {}
     }
 }

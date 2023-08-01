@@ -66,7 +66,7 @@ fun LoginPageContent(
             }
         }
     })
-    
+
     if (loginState is PlaySuccess) {
         onNavigationEvent.upPress()
     }
@@ -93,7 +93,10 @@ fun SignIn(loginState: PlayState<LoginModel>?, onNavigationEvent: (SignInEvent) 
             SignInSignUpScreen(
                 modifier = modifier.fillMaxWidth()
             ) {
-                Column(modifier = Modifier.fillMaxWidth()) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
                     SignInContent(
                         onSignInSubmitted = { email, password ->
                             onNavigationEvent(SignInEvent.SignIn(email, password))
@@ -101,7 +104,7 @@ fun SignIn(loginState: PlayState<LoginModel>?, onNavigationEvent: (SignInEvent) 
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     if (loginState is PlayLoading) {
-                        CircularProgressIndicator()
+                        CircularProgressIndicator(color = MaterialTheme.colors.error)
                     }
                     Spacer(modifier = Modifier.height(10.dp))
                     TextButton(
@@ -115,7 +118,10 @@ fun SignIn(loginState: PlayState<LoginModel>?, onNavigationEvent: (SignInEvent) 
                         },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(text = stringResource(id = R.string.forgot_password))
+                        Text(
+                            text = stringResource(id = R.string.forgot_password),
+                            style = MaterialTheme.typography.subtitle1,
+                        )
                     }
                 }
             }

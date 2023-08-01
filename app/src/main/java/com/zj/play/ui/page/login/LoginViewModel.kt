@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.zj.model.BaseModel
 import com.zj.model.LoginModel
+import com.zj.model.PlayDefault
 import com.zj.model.PlayError
 import com.zj.model.PlayLoading
 import com.zj.model.PlayState
@@ -30,12 +31,13 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     private val accountRepository: AccountRepository = AccountRepository()
 
-    private val _state = mutableStateOf<PlayState<LoginModel>>(PlayLoading)
+    private val _state = mutableStateOf<PlayState<LoginModel>>(PlayDefault)
     val state: State<PlayState<LoginModel>>
         get() = _state
 
     fun toLoginOrRegister(account: Account) {
         viewModelScope.launch(Dispatchers.IO) {
+            _state.value = PlayLoading
             val loginModel: BaseModel<LoginModel> = if (account.isLogin) {
                 accountRepository.getLogin(account.username, account.password)
             } else {
