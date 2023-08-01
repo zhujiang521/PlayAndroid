@@ -42,6 +42,7 @@ import com.zj.banner.utils.ImageLoader
 import com.zj.model.ArticleModel
 import com.zj.play.Play
 import com.zj.play.R
+import com.zj.play.loginState
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.page.login.LoginViewModel
 import com.zj.play.ui.page.login.LogoutDefault
@@ -201,31 +202,37 @@ private fun BlogItem(
             enterArticle
         )
 
-        if (Play.isLogin) {
-            val alertDialog = remember { mutableStateOf(false) }
+        ShowLogoutDialog(logout)
+    }
+}
 
-            ShowDialog(
-                alertDialog = alertDialog,
-                title = stringResource(id = R.string.log_out),
-                content = stringResource(id = R.string.sure_log_out),
-                cancelString = stringResource(id = R.string.cancel),
-                confirmString = stringResource(id = R.string.sure)
-            ) {
-                logout()
-            }
-            Button(
-                onClick = { alertDialog.value = true },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(24.dp),
-                shape = MaterialTheme.shapes.medium,
-                colors = buttonColors(
-                    backgroundColor = Color.Red,
-                    disabledBackgroundColor = Color.Red.copy(alpha = 0.12f)
-                )
-            ) {
-                Text(text = stringResource(R.string.log_out), color = Color.LightGray)
-            }
+@Composable
+private fun ShowLogoutDialog(logout: () -> Unit) {
+    val loginState by loginState
+    if (loginState) {
+        val alertDialog = remember { mutableStateOf(false) }
+
+        ShowDialog(
+            alertDialog = alertDialog,
+            title = stringResource(id = R.string.log_out),
+            content = stringResource(id = R.string.sure_log_out),
+            cancelString = stringResource(id = R.string.cancel),
+            confirmString = stringResource(id = R.string.sure)
+        ) {
+            logout()
+        }
+        Button(
+            onClick = { alertDialog.value = true },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(24.dp),
+            shape = MaterialTheme.shapes.medium,
+            colors = buttonColors(
+                backgroundColor = Color.Red,
+                disabledBackgroundColor = Color.Red.copy(alpha = 0.12f)
+            )
+        ) {
+            Text(text = stringResource(R.string.log_out), color = Color.LightGray)
         }
     }
 }
@@ -242,8 +249,10 @@ private fun NameAndPosition(
     } else {
         modifier.fillMaxWidth()
     }
+    val loginState by loginState
+
     Column(
-        modifier = if (Play.isLogin) {
+        modifier = if (loginState) {
             m.padding(top = 10.dp, bottom = 20.dp)
         } else {
             m
@@ -261,12 +270,12 @@ private fun NameAndPosition(
         )
 
         Text(
-            text = if (Play.isLogin && refresh) Play.nickName else stringResource(R.string.no_login),
+            text = if (loginState && refresh) Play.nickName else stringResource(R.string.no_login),
             modifier = Modifier.padding(top = 5.dp),
             style = MaterialTheme.typography.h6
         )
         Text(
-            text = if (Play.isLogin && refresh) Play.username else stringResource(R.string.click_login),
+            text = if (loginState && refresh) Play.username else stringResource(R.string.click_login),
             modifier = Modifier.padding(top = 5.dp),
             style = MaterialTheme.typography.subtitle1
         )

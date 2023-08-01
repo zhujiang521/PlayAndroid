@@ -1,6 +1,20 @@
 package com.zj.play
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import com.zj.utils.DataStoreUtils
+
+/**
+ * 登录状态
+ */
+val loginState: MutableState<Boolean> by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
+    mutableStateOf(getDefaultLogin())
+}
+
+/**
+ * 获取当前默认登录状态
+ */
+fun getDefaultLogin(): Boolean = DataStoreUtils.getSyncData(Play.IS_LOGIN, false)
 
 /**
  * 全局的API接口。
@@ -9,33 +23,15 @@ import com.zj.utils.DataStoreUtils
 object Play {
     private const val USERNAME = "username"
     private const val NICE_NAME = "nickname"
-    private const val IS_LOGIN = "isLogin"
+    const val IS_LOGIN = "isLogin"
     private var dataStore = DataStoreUtils
-
-    /**
-     * 初始化接口。这里会进行应用程序的初始化操作，一定要在代码执行的最开始调用。
-     *
-     */
-    fun initialize(dataStoreUtils: DataStoreUtils) {
-        dataStore = dataStoreUtils
-    }
-
-    /**
-     * 判断用户是否已登录。
-     *
-     * @return 已登录返回true，未登录返回false。
-     */
-    var isLogin: Boolean
-        get() = dataStore.readBooleanData(IS_LOGIN)
-        set(b) {
-            dataStore.saveSyncBooleanData(IS_LOGIN, b)
-        }
 
     /**
      * 注销用户登录。
      */
     fun logout() {
-        dataStore.clearSync()
+        loginState.value = false
+        dataStore.putSyncData(IS_LOGIN, false)
     }
 
     fun setUserInfo(nickname: String, username: String) {

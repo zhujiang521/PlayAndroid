@@ -20,13 +20,10 @@ class App : Application() {
         var context: Context? = null
     }
 
-    private var dataStore = DataStoreUtils
-
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
         DataStoreUtils.init(applicationContext)
-        Play.initialize(dataStore)
     }
 
 }

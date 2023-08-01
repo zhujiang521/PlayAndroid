@@ -13,7 +13,10 @@ import com.zj.model.PlayLoading
 import com.zj.model.PlayState
 import com.zj.model.PlaySuccess
 import com.zj.play.Play
+import com.zj.play.Play.IS_LOGIN
 import com.zj.play.R
+import com.zj.play.loginState
+import com.zj.utils.DataStoreUtils
 import com.zj.utils.showToast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -51,7 +54,8 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
             if (loginModel.errorCode == 0) {
                 val login = loginModel.data
                 _state.value = PlaySuccess(login)
-                Play.isLogin = true
+                loginState.value = true
+                DataStoreUtils.putSyncData(IS_LOGIN, true)
                 Play.setUserInfo(login.nickname, login.username)
                 withContext(Dispatchers.Main) {
                     showToast(
