@@ -7,7 +7,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.zj.model.AndroidSystemModel
 import com.zj.model.PlayError
-import com.zj.model.PlayLoading
 import com.zj.model.PlayState
 import com.zj.model.PlaySuccess
 import com.zj.model.Query
@@ -38,7 +37,6 @@ class SystemRepository : BaseArticlePagingRepository() {
             state.value = PlayError(NetworkErrorException())
             return
         }
-        state.value = PlayLoading
         val response = PlayAndroidNetwork.getAndroidSystem()
         if (response.errorCode == 0) {
             val data = response.data

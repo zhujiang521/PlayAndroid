@@ -32,7 +32,6 @@ abstract class BaseArticleRepository(private val application: Application) :
                 PlayError(NetworkErrorException(application.getString(R.string.no_network)))
             return
         }
-        state.value = PlayLoading
         val tree = getArticleTree()
         if (tree.errorCode == 0) {
             val projectList = tree.data

@@ -48,7 +48,6 @@ class HomeArticlePagingRepository : BaseArticlePagingRepository() {
                 PlayError(NetworkErrorException(App.context?.getString(R.string.bad_network_view_tip)))
             return
         }
-        state.value = PlayLoading
         val bannerResponse = PlayAndroidNetwork.getBanner()
         if (bannerResponse.errorCode == 0) {
             val bannerList = bannerResponse.data

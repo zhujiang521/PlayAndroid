@@ -37,7 +37,6 @@ class SearchRepository : BaseArticlePagingRepository() {
      * 获取banner
      */
     suspend fun getHotKey(state: MutableState<PlayState<List<HotkeyModel>>>) {
-        state.value = PlayLoading
         val response = PlayAndroidNetwork.getHotkeyModel()
         if (response.errorCode == 0) {
             val bannerList = response.data
