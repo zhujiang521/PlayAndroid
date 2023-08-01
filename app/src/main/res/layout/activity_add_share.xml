@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".profile.share.add.AddShareActivity">
 
@@ -21,6 +22,7 @@
         android:layout_marginBottom="@dimen/dp_10"
         android:background="@drawable/bg_edittext"
         android:hint="@string/enter_article_title"
+        android:importantForAutofill="no"
         android:lines="1"
         android:maxLines="1"
         android:paddingHorizontal="@dimen/dp_5"
@@ -28,7 +30,6 @@
         android:textColor="@color/text_color_black"
         android:textColorHint="@color/plain"
         android:textSize="@dimen/sp_14"
-        android:importantForAutofill="no"
         tools:ignore="TextFields" />
 
     <EditText
@@ -38,6 +39,7 @@
         android:layout_marginHorizontal="@dimen/dp_30"
         android:background="@drawable/bg_edittext"
         android:hint="@string/enter_article_link"
+        android:importantForAutofill="no"
         android:lines="1"
         android:maxLines="1"
         android:paddingHorizontal="@dimen/dp_5"
@@ -45,7 +47,6 @@
         android:textColor="@color/text_color_black"
         android:textColorHint="@color/plain"
         android:textSize="@dimen/sp_14"
-        android:importantForAutofill="no"
         tools:ignore="TextFields" />
 
     <Button

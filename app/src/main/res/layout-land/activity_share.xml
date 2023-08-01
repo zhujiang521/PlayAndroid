@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <com.zj.core.view.custom.TitleBar
@@ -64,7 +65,7 @@
             android:id="@+id/shareToTopRecyclerView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.5"/>
+            android:layout_weight="1.5" />
 
     </LinearLayout>
 
