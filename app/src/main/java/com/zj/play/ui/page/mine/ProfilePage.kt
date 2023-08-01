@@ -45,7 +45,6 @@ import com.zj.play.R
 import com.zj.play.loginState
 import com.zj.play.ui.main.nav.PlayActions
 import com.zj.play.ui.page.login.LoginViewModel
-import com.zj.play.ui.page.login.LogoutDefault
 import com.zj.play.ui.page.login.LogoutFinish
 import com.zj.play.ui.page.login.LogoutState
 import com.zj.play.ui.view.ShowDialog
@@ -103,15 +102,7 @@ private fun HeadItem(
     toLogin: () -> Unit,
     isLand: Boolean
 ) {
-    when (logoutState) {
-        LogoutDefault -> {
-            NameAndPosition(modifier, true, toLogin, isLand)
-        }
-
-        LogoutFinish -> {
-            NameAndPosition(modifier, false, toLogin, isLand)
-        }
-    }
+    NameAndPosition(modifier, logoutState !is LogoutFinish, toLogin, isLand)
 }
 
 @Composable
