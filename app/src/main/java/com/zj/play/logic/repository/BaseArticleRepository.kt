@@ -2,7 +2,7 @@ package com.zj.play.logic.repository
 
 import android.accounts.NetworkErrorException
 import android.app.Application
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.MutableState
 import com.zj.model.BaseModel
 import com.zj.model.ClassifyModel
 import com.zj.model.PlayError
@@ -26,18 +26,20 @@ abstract class BaseArticleRepository(private val application: Application) :
     /**
      * 获取标题列表
      */
-    suspend fun getTree(state: MutableLiveData<PlayState<List<ClassifyModel>>>) {
+    suspend fun getTree(state: MutableState<PlayState<List<ClassifyModel>>>) {
         if (!application.isConnected()) {
-            state.postValue(PlayError(NetworkErrorException(application.getString(R.string.no_network))))
+            state.value =
+                PlayError(NetworkErrorException(application.getString(R.string.no_network)))
             return
         }
-        state.postValue(PlayLoading)
+        state.value = PlayLoading
         val tree = getArticleTree()
         if (tree.errorCode == 0) {
             val projectList = tree.data
-            state.postValue(PlaySuccess(projectList))
+            state.value = PlaySuccess(projectList)
         } else {
-            state.postValue(PlayError(NetworkErrorException(application.getString(R.string.no_network))))
+            state.value =
+                PlayError(NetworkErrorException(application.getString(R.string.no_network)))
         }
     }
 

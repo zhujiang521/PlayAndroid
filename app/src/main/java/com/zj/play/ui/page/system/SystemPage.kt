@@ -24,7 +24,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -36,7 +35,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.zj.banner.utils.ImageLoader
 import com.zj.model.AndroidSystemModel
-import com.zj.model.PlayLoading
 import com.zj.model.PlayState
 import com.zj.model.SystemChildren
 import com.zj.play.R
@@ -47,12 +45,8 @@ import com.zj.play.ui.view.lce.LcePage
 
 @Composable
 fun SystemPage(modifier: Modifier, actions: PlayActions, viewModel: SystemViewModel) {
-    val androidSystemState by viewModel.androidSystemState.observeAsState(
-        PlayLoading
-    )
-    val systemState by viewModel.systemState.observeAsState(
-        AndroidSystemModel(arrayListOf())
-    )
+    val androidSystemState by viewModel.androidSystemState
+    val systemState by viewModel.systemState
     SystemPageContent(modifier, androidSystemState, systemState,
         saveSystemState = {
             viewModel.onSystemModelChanged(it)

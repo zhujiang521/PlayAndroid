@@ -22,7 +22,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -40,7 +39,6 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.zj.model.ArticleModel
 import com.zj.model.HotkeyModel
-import com.zj.model.PlayLoading
 import com.zj.model.PlayState
 import com.zj.model.PlaySuccess
 import com.zj.play.R
@@ -55,7 +53,7 @@ import com.zj.utils.showToast
 fun SearchPage(actions: PlayActions) {
     val viewModel = hiltViewModel<SearchViewModel>()
     val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
-    val hotkeyModels by viewModel.hotkeyState.observeAsState(PlayLoading)
+    val hotkeyModels by viewModel.hotkeyState
     val context = LocalContext.current
     SearchPageContent(back = actions.upPress,
         lazyPagingItems = lazyPagingItems,

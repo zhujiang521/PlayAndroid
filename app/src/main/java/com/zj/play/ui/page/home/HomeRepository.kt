@@ -2,7 +2,7 @@ package com.zj.play.ui.page.home
 
 import android.accounts.NetworkErrorException
 import android.content.Context
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.MutableState
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.zj.model.BannerBean
@@ -42,23 +42,23 @@ class HomeArticlePagingRepository : BaseArticlePagingRepository() {
     /**
      * 获取banner
      */
-    suspend fun getBanner(state: MutableLiveData<PlayState<List<BannerBean>>>, context: Context) {
+    suspend fun getBanner(state: MutableState<PlayState<List<BannerBean>>>, context: Context) {
         if (!context.isConnected()) {
-            state.postValue(
+            state.value =
                 PlayError(NetworkErrorException(App.context?.getString(R.string.bad_network_view_tip)))
-            )
             return
         }
-        state.postValue(PlayLoading)
+        state.value = PlayLoading
         val bannerResponse = PlayAndroidNetwork.getBanner()
         if (bannerResponse.errorCode == 0) {
             val bannerList = bannerResponse.data
             bannerList.forEach {
                 it.data = it.imagePath
             }
-            state.postValue(PlaySuccess(bannerList))
+            state.value = PlaySuccess(bannerList)
         } else {
-            state.postValue(PlayError(RuntimeException("response status is ${bannerResponse.errorCode}  msg is ${bannerResponse.errorMsg}")))
+            state.value =
+                PlayError(RuntimeException("response status is ${bannerResponse.errorCode}  msg is ${bannerResponse.errorMsg}"))
         }
     }
 

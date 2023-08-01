@@ -1,10 +1,11 @@
 package com.zj.play.ui.page.system
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.zj.model.AndroidSystemModel
+import com.zj.model.PlayLoading
 import com.zj.model.PlayState
 import com.zj.model.PlaySuccess
 import com.zj.model.Query
@@ -28,10 +29,10 @@ class SystemViewModel(application: Application) : BaseArticleViewModel(applicati
 
     private var job: Job? = null
 
-    private val mutableLiveData = MutableLiveData<PlayState<List<AndroidSystemModel>>>()
+    private val mutableState = mutableStateOf<PlayState<List<AndroidSystemModel>>>(PlayLoading)
 
-    val androidSystemState: LiveData<PlayState<List<AndroidSystemModel>>>
-        get() = mutableLiveData
+    val androidSystemState: State<PlayState<List<AndroidSystemModel>>>
+        get() = mutableState
 
     fun getAndroidSystem() {
         if (androidSystemState.value is PlaySuccess<*>) {
@@ -40,7 +41,7 @@ class SystemViewModel(application: Application) : BaseArticleViewModel(applicati
         }
         job?.cancel()
         job = viewModelScope.launch(Dispatchers.IO) {
-            SystemRepository().getAndroidSystem(mutableLiveData, getApplication())
+            SystemRepository().getAndroidSystem(mutableState, getApplication())
         }
     }
 
@@ -51,8 +52,8 @@ class SystemViewModel(application: Application) : BaseArticleViewModel(applicati
         searchArticle(Query(cid = cid))
     }
 
-    private val _systemState = MutableLiveData(AndroidSystemModel(arrayListOf()))
-    val systemState: LiveData<AndroidSystemModel> = _systemState
+    private val _systemState = mutableStateOf(AndroidSystemModel(arrayListOf()))
+    val systemState: State<AndroidSystemModel> = _systemState
 
     fun onSystemModelChanged(systemModel: AndroidSystemModel) {
         _systemState.value = systemModel

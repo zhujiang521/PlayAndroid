@@ -1,10 +1,11 @@
 package com.zj.play.logic.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.zj.model.ClassifyModel
+import com.zj.model.PlayLoading
 import com.zj.model.PlayState
 import com.zj.model.PlaySuccess
 import com.zj.utils.XLog
@@ -22,15 +23,15 @@ import kotlinx.coroutines.launch
 
 abstract class BaseAndroidViewModel(application: Application) : BaseArticleViewModel(application) {
 
-    protected val mutableTreeLiveData = MutableLiveData<PlayState<List<ClassifyModel>>>()
+    protected val mutableTreeState = mutableStateOf<PlayState<List<ClassifyModel>>>(PlayLoading)
 
-    val treeLiveData: LiveData<PlayState<List<ClassifyModel>>>
-        get() = mutableTreeLiveData
+    val treeState: State<PlayState<List<ClassifyModel>>>
+        get() = mutableTreeState
 
     abstract suspend fun getData()
 
     fun getDataList() {
-        if (mutableTreeLiveData.value is PlaySuccess<*>) {
+        if (mutableTreeState.value is PlaySuccess<*>) {
             XLog.e("Do not request existing data")
             return
         }

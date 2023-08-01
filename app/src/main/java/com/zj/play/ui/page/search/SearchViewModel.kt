@@ -1,10 +1,11 @@
 package com.zj.play.ui.page.search
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.zj.model.HotkeyModel
+import com.zj.model.PlayLoading
 import com.zj.model.PlayState
 import com.zj.model.Query
 import com.zj.network.PlayAndroidNetwork
@@ -31,32 +32,13 @@ class SearchViewModel(application: Application) : BaseArticleViewModel(applicati
         searchArticle(Query(k = keyword))
     }
 
-//     private val exceptionHandler = CoroutineExceptionHandler { _, e ->
-//         _hotkeyState.postValue(PlayError(RuntimeException(e.message)))
-//     }
+    private val _hotkeyState = mutableStateOf<PlayState<List<HotkeyModel>>>(PlayLoading)
 
-    private val _hotkeyState = MutableLiveData<PlayState<List<HotkeyModel>>>()
-
-    val hotkeyState: LiveData<PlayState<List<HotkeyModel>>>
+    val hotkeyState: State<PlayState<List<HotkeyModel>>>
         get() = _hotkeyState
 
     fun getHotkeyList() {
         hotkeyJob?.cancel()
-//        hotkeyJob = viewModelScope.launch(Dispatchers.Main) {
-//            try {
-//                (repositoryArticle as SearchRepository).getHotKey(_hotkeyState)
-//            } catch (e: Exception) {
-//                _hotkeyState.postValue(PlayError(RuntimeException(e.message)))
-//            }
-//        }
-
-
-//        hotkeyJob = viewModelScope.launch(
-//            CoroutineName("handlerExcept") + exceptionHandler
-//        ) {
-//            (repositoryArticle as SearchRepository).getHotKey(_hotkeyState)
-//        }
-
         hotkeyJob = (repositoryArticle as SearchRepository)
             .http(
                 scope = viewModelScope,

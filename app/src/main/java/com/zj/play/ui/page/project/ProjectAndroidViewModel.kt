@@ -18,7 +18,7 @@ class ProjectAndroidViewModel(application: Application) : BaseAndroidViewModel(a
         get() = ProjectRepository(getApplication())
 
     override suspend fun getData() {
-        (repositoryArticle as ProjectRepository).getTree(mutableTreeLiveData)
+        (repositoryArticle as ProjectRepository).getTree(mutableTreeState)
     }
 
 }

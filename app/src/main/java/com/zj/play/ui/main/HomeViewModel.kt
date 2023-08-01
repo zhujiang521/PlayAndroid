@@ -1,9 +1,9 @@
 package com.zj.play.ui.main
 
 import android.app.Application
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -40,8 +40,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application),
         private const val TAG = "HomeViewModel"
     }
 
-    private val _position = MutableLiveData(CourseTabs.HOME_PAGE)
-    val position: LiveData<CourseTabs> = _position
+    private val _position = mutableStateOf(CourseTabs.HOME_PAGE)
+    val position: State<CourseTabs> = _position
     override val repositoryArticle = HomeArticlePagingRepository()
 
     override val searchResults = MutableSharedFlow<Query>(replay = 1)
@@ -57,9 +57,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application),
 
     private var bannerJob: Job? = null
 
-    private val _bannerState = MutableLiveData<PlayState<List<BannerBean>>>()
+    private val _bannerState = mutableStateOf<PlayState<List<BannerBean>>>(PlayLoading)
 
-    val bannerState: LiveData<PlayState<List<BannerBean>>>
+    val bannerState: State<PlayState<List<BannerBean>>>
         get() = _bannerState
 
     fun getHomeArticle() {

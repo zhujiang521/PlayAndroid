@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -24,15 +23,15 @@ import kotlinx.coroutines.launch
 
 sealed class SignInEvent {
     data class SignIn(val email: String, val password: String) : SignInEvent()
-    object SignUp : SignInEvent()
-    object SignInAsGuest : SignInEvent()
-    object NavigateBack : SignInEvent()
+    data object SignUp : SignInEvent()
+    data object SignInAsGuest : SignInEvent()
+    data object NavigateBack : SignInEvent()
 }
 
 @Composable
 fun LoginPage(actions: PlayActions) {
     val viewModel: LoginViewModel = hiltViewModel()
-    val loginState by viewModel.state.observeAsState()
+    val loginState by viewModel.state
     LoginPageContent(actions, loginState, {
         viewModel.logout()
     }) {

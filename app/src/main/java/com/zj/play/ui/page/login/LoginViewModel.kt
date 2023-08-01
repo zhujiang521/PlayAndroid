@@ -1,13 +1,18 @@
 package com.zj.play.ui.page.login
 
 import android.app.Application
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.zj.model.BaseModel
+import com.zj.model.LoginModel
+import com.zj.model.PlayError
+import com.zj.model.PlayLoading
+import com.zj.model.PlayState
+import com.zj.model.PlaySuccess
 import com.zj.play.Play
 import com.zj.play.R
-import com.zj.model.*
 import com.zj.utils.showToast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,12 +30,12 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     private val accountRepository: AccountRepository = AccountRepository()
 
-    private val _state = MutableLiveData<PlayState<LoginModel>>()
-    val state: LiveData<PlayState<LoginModel>>
+    private val _state = mutableStateOf<PlayState<LoginModel>>(PlayLoading)
+    val state: State<PlayState<LoginModel>>
         get() = _state
 
     fun toLoginOrRegister(account: Account) {
-        _state.postValue(PlayLoading)
+        _state.value = PlayLoading
         viewModelScope.launch(Dispatchers.IO) {
             val loginModel: BaseModel<LoginModel> = if (account.isLogin) {
                 accountRepository.getLogin(account.username, account.password)
@@ -44,7 +49,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
             if (loginModel.errorCode == 0) {
                 val login = loginModel.data
-                _state.postValue(PlaySuccess(login))
+                _state.value = PlaySuccess(login)
                 Play.isLogin = true
                 Play.setUserInfo(login.nickname, login.username)
                 withContext(Dispatchers.Main) {
@@ -57,20 +62,20 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 }
             } else {
                 showToast(getApplication(), loginModel.errorMsg)
-                _state.postValue(PlayError(NullPointerException("网络错误")))
+                _state.value = PlayError(NullPointerException("网络错误"))
             }
         }
     }
 
-    private val _logoutState = MutableLiveData<LogoutState>()
-    val logoutState: LiveData<LogoutState>
+    private val _logoutState = mutableStateOf<LogoutState>(LogoutDefault)
+    val logoutState: State<LogoutState>
         get() = _logoutState
 
     fun logout() {
         viewModelScope.launch {
             accountRepository.getLogout()
             Play.logout()
-            _logoutState.postValue(LogoutFinish)
+            _logoutState.value = LogoutFinish
         }
     }
 
@@ -78,7 +83,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
 
 sealed class LogoutState
-object LogoutFinish : LogoutState()
-object LogoutDefault : LogoutState()
+data object LogoutFinish : LogoutState()
+data object LogoutDefault : LogoutState()
 
 data class Account(val username: String, val password: String, val isLogin: Boolean)

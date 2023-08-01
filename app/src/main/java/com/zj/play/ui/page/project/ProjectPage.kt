@@ -9,7 +9,6 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
@@ -33,7 +32,7 @@ fun ArticleListPage(
     viewModel: BaseAndroidViewModel
 ) {
     val lazyPagingItems = viewModel.articleResult.collectAsLazyPagingItems()
-    val tree by viewModel.treeLiveData.observeAsState(PlayLoading)
+    val tree by viewModel.treeState
     // 由于项目页面和公众号页面只有数据不同，所以使用一个公用的页面
     ArticleListPageContent(
         modifier, tree, lazyPagingItems,

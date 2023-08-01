@@ -12,7 +12,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
@@ -36,7 +35,7 @@ import java.util.Locale
 @Composable
 fun MainPage(actions: PlayActions) {
     val viewModel: HomeViewModel = hiltViewModel()
-    val position by viewModel.position.observeAsState()
+    val position by viewModel.position
     MainPageContent(viewModel, actions, position) { tab ->
         viewModel.onPositionChanged(tab)
     }

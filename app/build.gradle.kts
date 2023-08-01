@@ -73,7 +73,6 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling:$composeVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("androidx.activity:activity-compose:1.7.2")
-    implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
     // navigation
     implementation("androidx.navigation:navigation-compose:2.7.0-rc01")
     implementation(project(":network"))

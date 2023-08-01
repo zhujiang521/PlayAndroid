@@ -17,7 +17,6 @@ import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -42,7 +41,7 @@ fun HomePage(
     homeViewModel: HomeViewModel,
     actions: PlayActions
 ) {
-    val bannerData by homeViewModel.bannerState.observeAsState(PlayLoading)
+    val bannerData by homeViewModel.bannerState
     val lazyPagingItems = homeViewModel.articleResult.collectAsLazyPagingItems()
     HomePageContent(modifier, homeViewModel, isLand, bannerData, lazyPagingItems, {
         initHomeData(bannerData, homeViewModel, lazyPagingItems)

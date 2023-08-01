@@ -1,6 +1,6 @@
 package com.zj.play.logic.repository
 
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.MutableState
 import androidx.paging.PagingData
 import com.google.gson.JsonSyntaxException
 import com.zj.model.*
@@ -29,20 +29,21 @@ abstract class BaseArticlePagingRepository {
         scope: CoroutineScope = GlobalScope,
         dispatchers: CoroutineDispatcher = Dispatchers.Main,
         request: suspend CoroutineScope.() -> BaseModel<T>,
-        state: MutableLiveData<PlayState<T>>
+        state: MutableState<PlayState<T>>
     ): Job {
         return scope.launch(dispatchers) {
             try {
                 val response = request()
                 if (response.errorCode == 0) {
                     val bannerList = response.data
-                    state.postValue(PlaySuccess(bannerList))
+                    state.value = PlaySuccess(bannerList)
                 } else {
-                    state.postValue(PlayError(RuntimeException("response status is ${response.errorCode}  msg is ${response.errorMsg}")))
+                    state.value =
+                        PlayError(RuntimeException("response status is ${response.errorCode}  msg is ${response.errorMsg}"))
                 }
 
             } catch (e: Exception) {
-                state.postValue(PlayError(RuntimeException(handleException(e))))
+                state.value = PlayError(RuntimeException(handleException(e)))
             }
         }
 
