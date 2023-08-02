@@ -7,12 +7,10 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.zj.model.BannerBean
 import com.zj.model.PlayError
-import com.zj.model.PlayLoading
 import com.zj.model.PlayState
 import com.zj.model.PlaySuccess
 import com.zj.model.Query
 import com.zj.network.PlayAndroidNetwork
-import com.zj.play.App
 import com.zj.play.R
 import com.zj.play.logic.paging.HomePagingSource
 import com.zj.play.logic.repository.BaseArticlePagingRepository
@@ -45,7 +43,7 @@ class HomeArticlePagingRepository : BaseArticlePagingRepository() {
     suspend fun getBanner(state: MutableState<PlayState<List<BannerBean>>>, context: Context) {
         if (!context.isConnected()) {
             state.value =
-                PlayError(NetworkErrorException(App.context?.getString(R.string.bad_network_view_tip)))
+                PlayError(NetworkErrorException(context.getString(R.string.bad_network_view_tip)))
             return
         }
         val bannerResponse = PlayAndroidNetwork.getBanner()

@@ -1,11 +1,8 @@
 package com.zj.play
 
-import android.annotation.SuppressLint
 import android.app.Application
-import android.content.Context
 import com.zj.utils.DataStoreUtils
 import dagger.hilt.android.HiltAndroidApp
-
 
 /**
  * Application
@@ -15,14 +12,8 @@ import dagger.hilt.android.HiltAndroidApp
 @HiltAndroidApp
 class App : Application() {
 
-    companion object {
-        @SuppressLint("StaticFieldLeak")
-        var context: Context? = null
-    }
-
     override fun onCreate() {
         super.onCreate()
-        context = applicationContext
         DataStoreUtils.init(applicationContext)
     }
 
