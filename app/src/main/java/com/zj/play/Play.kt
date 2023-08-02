@@ -1,7 +1,10 @@
 package com.zj.play
 
+import android.content.res.Configuration
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.platform.LocalConfiguration
 import com.zj.utils.DataStoreUtils
 
 /**
@@ -15,6 +18,11 @@ val loginState: MutableState<Boolean> by lazy(mode = LazyThreadSafetyMode.SYNCHR
  * 获取当前默认登录状态
  */
 fun getDefaultLogin(): Boolean = DataStoreUtils.getSyncData(Play.IS_LOGIN, false)
+
+@Composable
+fun isLand(): Boolean {
+    return LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+}
 
 /**
  * 全局的API接口。

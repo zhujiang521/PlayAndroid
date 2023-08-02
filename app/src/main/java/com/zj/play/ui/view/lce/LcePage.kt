@@ -5,6 +5,7 @@ import com.zj.model.PlayError
 import com.zj.model.PlayLoading
 import com.zj.model.PlayState
 import com.zj.model.PlaySuccess
+import com.zj.utils.XLog
 
 
 @Composable
@@ -26,6 +27,8 @@ fun <T> LcePage(
             content(playState.data)
         }
 
-        else -> {}
+        else -> {
+            XLog.i()
+        }
     }
 }
