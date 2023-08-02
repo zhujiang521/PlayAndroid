@@ -208,10 +208,9 @@ private fun ShowLogoutDialog(logout: () -> Unit) {
             title = stringResource(id = R.string.log_out),
             content = stringResource(id = R.string.sure_log_out),
             cancelString = stringResource(id = R.string.cancel),
-            confirmString = stringResource(id = R.string.sure)
-        ) {
-            logout()
-        }
+            confirmString = stringResource(id = R.string.sure),
+            onConfirmListener = logout
+        )
         Button(
             onClick = { alertDialog.value = true },
             modifier = Modifier
