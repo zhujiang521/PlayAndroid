@@ -51,7 +51,7 @@ dependencies {
     implementation("${rootProject.extra["appcompat"] as String?}")
 
     // Compose Banner滚动
-    api("com.github.zhujiang521:banner:2.6.3")
+    api("com.github.zhujiang521:banner:2.6.5")
     testImplementation("${rootProject.extra["junit"] as String?}")
     androidTestImplementation("${rootProject.extra["extJunit"] as String?}")
     androidTestImplementation("${rootProject.extra["espressoCore"] as String?}")
