@@ -7,7 +7,7 @@ ext{
     extra["minSdkVersion"] = 24
 
     extra["kotlinCompiler"] = "1.5.1"
-    extra["composeVersion"] = "1.5.0-rc01"
+    extra["composeVersion"] = "1.5.0"
     extra["hiltVersion"] = "2.47"
 
     extra["testInstrumentationRunner"] = "androidx.test.runner.AndroidJUnitRunner"
@@ -15,7 +15,7 @@ ext{
 
     extra["javaVersion"] = JavaVersion.VERSION_17
 
-    extra["coreKtx"] = "androidx.core:core-ktx:1.11.0-beta02"
+    extra["coreKtx"] = "androidx.core:core-ktx:1.12.0-rc01"
     extra["appcompat"] = "androidx.appcompat:appcompat:1.6.1"
     extra["kotlinVersion"] = "org.jetbrains.kotlin:kotlin-stdlib:1.9.0"
     extra["junit"] = "junit:junit:4.13.2"
