@@ -77,7 +77,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.0")
     implementation(project(":network"))
 
-    val accompanistVersion = "0.32"
+    val accompanistVersion = "0.32.0"
     implementation("com.google.accompanist:accompanist-webview:$accompanistVersion")
     implementation("com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion")
 
