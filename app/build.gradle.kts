@@ -77,7 +77,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.0")
     implementation(project(":network"))
 
-    val accompanistVersion = "0.31.6-rc"
+    val accompanistVersion = "0.32"
     implementation("com.google.accompanist:accompanist-webview:$accompanistVersion")
     implementation("com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion")
 
@@ -88,7 +88,7 @@ dependencies {
 
     // Paging 分页加载
     implementation("androidx.paging:paging-compose:3.2.0")
-    // lottie动画
+    // lottie 动画
     val lottieVersion = "6.1.0"
     implementation("com.airbnb.android:lottie-compose:$lottieVersion")
 
