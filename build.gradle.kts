@@ -6,7 +6,7 @@ ext{
     extra["sdkVersion"] = 34
     extra["minSdkVersion"] = 24
 
-    extra["kotlinCompiler"] = "1.5.1"
+    extra["kotlinCompiler"] = "1.5.2"
     extra["composeVersion"] = "1.5.0"
     extra["hiltVersion"] = "2.47"
 
