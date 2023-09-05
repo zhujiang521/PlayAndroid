@@ -6,9 +6,9 @@ ext{
     extra["sdkVersion"] = 34
     extra["minSdkVersion"] = 24
 
-    extra["kotlinCompiler"] = "1.5.2"
+    extra["kotlinCompiler"] = "1.5.3"
     extra["composeVersion"] = "1.5.0"
-    extra["hiltVersion"] = "2.47"
+    extra["hiltVersion"] = "2.48"
 
     extra["testInstrumentationRunner"] = "androidx.test.runner.AndroidJUnitRunner"
     extra["consumerProguardFiles"] = "consumer-rules.pro"
