@@ -81,7 +81,7 @@ dependencies {
     implementation("com.google.accompanist:accompanist-webview:$accompanistVersion")
     implementation("com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion")
 
-    val glanceVersion = "1.0.0-rc01"
+    val glanceVersion = "1.0.0"
     implementation("androidx.glance:glance:$glanceVersion")
     implementation("androidx.glance:glance-appwidget:$glanceVersion")
     implementation("androidx.glance:glance-material3:$glanceVersion")
