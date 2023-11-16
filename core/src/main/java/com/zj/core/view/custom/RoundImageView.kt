@@ -25,7 +25,7 @@ class RoundImageView @JvmOverloads constructor(
     context!!, attrs, defStyleAttr
 ) {
     //圆角大小，默认为10
-    private val mBorderRadius = 20
+    private val mBorderRadius = 24
     private val mPaint: Paint = Paint()
 
     // 3x3 矩阵，主要用于缩小放大
@@ -56,7 +56,7 @@ class RoundImageView @JvmOverloads constructor(
         // shader的变换矩阵，我们这里主要用于放大或者缩小
         mMatrix.setScale(scale, scale)
         // 设置变换矩阵
-        mBitmapShader!!.setLocalMatrix(mMatrix)
+        mBitmapShader?.setLocalMatrix(mMatrix)
         // 设置shader
         mPaint.shader = mBitmapShader
         canvas.drawRoundRect(
@@ -72,8 +72,8 @@ class RoundImageView @JvmOverloads constructor(
             return drawable.bitmap
         }
         // 当设置不为图片，为颜色时，获取的drawable宽高会有问题，所有当为颜色时候获取控件的宽高
-        val w = if (drawable.intrinsicWidth <= 0) width else drawable.intrinsicWidth
-        val h = if (drawable.intrinsicHeight <= 0) height else drawable.intrinsicHeight
+        val w = (if (drawable.intrinsicWidth <= 0) width else drawable.intrinsicWidth)-20
+        val h = (if (drawable.intrinsicHeight <= 0) height else drawable.intrinsicHeight)-20
         val bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
         drawable.setBounds(0, 0, w, h)

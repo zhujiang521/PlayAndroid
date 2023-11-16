@@ -72,7 +72,7 @@ dependencies {
 
     api ("androidx.datastore:datastore-preferences:1.0.0")
 
-    val refreshVersion = "2.0.6"
+    val refreshVersion = "2.1.0"
     api ("io.github.scwang90:refresh-layout-kernel:$refreshVersion")      //核心必须依赖
     api ("io.github.scwang90:refresh-header-classics:$refreshVersion")    //经典刷新头
     //api  'com.scwang.smart:refresh-header-material:2.0.1'    //谷歌刷新头

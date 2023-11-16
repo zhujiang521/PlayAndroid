@@ -59,7 +59,7 @@ dependencies {
     implementation("${rootProject.extra["appcompat"] as String?}")
     implementation(project(":core"))
 
-    val room_version = "2.5.2"
+    val room_version = "2.6.0"
     api("androidx.room:room-runtime:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
     // For Kotlin use kapt instead of annotationProcessor
