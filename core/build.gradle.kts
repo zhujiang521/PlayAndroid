@@ -54,8 +54,8 @@ dependencies {
     implementation("${rootProject.extra["coreKtx"] as String?}")
     implementation("${rootProject.extra["appcompat"] as String?}")
 
-    val lifecycleVersion = "2.6.1"
-    api("androidx.recyclerview:recyclerview:1.3.0")
+    val lifecycleVersion = "2.6.2"
+    api("androidx.recyclerview:recyclerview:1.3.1")
     api("androidx.lifecycle:lifecycle-extensions:2.2.0")
     api("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
     api("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
@@ -82,7 +82,7 @@ dependencies {
 //    api 'com.blankj:utilcode:1.30.7'
 
     // 图片网络框架
-    val glideVersion = "4.15.1"
+    val glideVersion = "4.16.0"
     api ("com.github.bumptech.glide:glide:$glideVersion")
     annotationProcessor("com.github.bumptech.glide:compiler:$glideVersion")
 
