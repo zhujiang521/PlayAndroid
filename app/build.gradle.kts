@@ -89,7 +89,7 @@ dependencies {
     // Paging 分页加载
     implementation("androidx.paging:paging-compose:3.2.1")
     // lottie 动画
-    val lottieVersion = "6.1.0"
+    val lottieVersion = "6.2.0"
     implementation("com.airbnb.android:lottie-compose:$lottieVersion")
 
     // material3 动态主题颜色切换应用颜色
