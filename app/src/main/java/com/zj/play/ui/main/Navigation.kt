@@ -25,7 +25,10 @@ fun PlayLandNavigation(
     position: CourseTabs?,
     onPositionChanged: (CourseTabs) -> Unit
 ) {
-    LandNavigation {
+    LandNavigation(
+        backgroundColor = MaterialTheme.colors.primary,
+        contentColor = MaterialTheme.colors.primary
+    ) {
         val reversalColor = reversalColor()
         tabs.forEach { tab ->
             val color =
@@ -51,6 +54,8 @@ fun PlayLandNavigation(
                     onPositionChanged(tab)
                 },
                 alwaysShowLabel = true,
+                selectedContentColor = MaterialTheme.colors.secondary,
+                unselectedContentColor = reversalColor,
             )
         }
     }
