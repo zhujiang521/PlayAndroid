@@ -71,13 +71,13 @@ dependencies {
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling:$composeVersion")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation("androidx.activity:activity-compose:1.7.2")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+    implementation("androidx.activity:activity-compose:1.8.2")
     // navigation
-    implementation("androidx.navigation:navigation-compose:2.7.4")
+    implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation(project(":network"))
 
-    val accompanistVersion = "0.32.0"
+    val accompanistVersion = "0.34.0"
     implementation("com.google.accompanist:accompanist-webview:$accompanistVersion")
     implementation("com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion")
 
@@ -89,7 +89,7 @@ dependencies {
     // Paging 分页加载
     implementation("androidx.paging:paging-compose:3.2.1")
     // lottie 动画
-    val lottieVersion = "6.2.0"
+    val lottieVersion = "6.4.0"
     implementation("com.airbnb.android:lottie-compose:$lottieVersion")
 
     // material3 动态主题颜色切换应用颜色
@@ -98,7 +98,7 @@ dependencies {
     val hiltVersion = rootProject.extra["hiltVersion"] as String?
     // Hilt 依赖注入
     implementation("com.google.dagger:hilt-android:$hiltVersion")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     ksp("com.google.dagger:hilt-android-compiler:$hiltVersion")
 
     testImplementation("${rootProject.extra["junit"] as String?}")
