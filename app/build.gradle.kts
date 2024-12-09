@@ -3,6 +3,7 @@ plugins {
     id("kotlin-android")
     id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
+    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 android {
@@ -55,9 +56,6 @@ android {
         compose = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = rootProject.extra["kotlinCompiler"] as String?
-    }
     namespace = "com.zj.play"
 }
 
@@ -71,8 +69,9 @@ dependencies {
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling:$composeVersion")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
-    implementation("androidx.activity:activity-compose:1.8.2")
+    implementation("androidx.compose.material:material-icons-core:$composeVersion")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
+    implementation("androidx.activity:activity-compose:1.9.3")
     // navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation(project(":network"))
@@ -81,7 +80,7 @@ dependencies {
     implementation("com.google.accompanist:accompanist-webview:$accompanistVersion")
     implementation("com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion")
 
-    val glanceVersion = "1.0.0"
+    val glanceVersion = "1.1.0"
     implementation("androidx.glance:glance:$glanceVersion")
     implementation("androidx.glance:glance-appwidget:$glanceVersion")
     implementation("androidx.glance:glance-material3:$glanceVersion")
@@ -89,7 +88,7 @@ dependencies {
     // Paging 分页加载
     implementation("androidx.paging:paging-compose:3.2.1")
     // lottie 动画
-    val lottieVersion = "6.4.0"
+    val lottieVersion = "6.5.0"
     implementation("com.airbnb.android:lottie-compose:$lottieVersion")
 
     // material3 动态主题颜色切换应用颜色

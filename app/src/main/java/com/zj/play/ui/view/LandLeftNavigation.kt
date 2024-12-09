@@ -141,10 +141,6 @@ fun ColumnScope.LandNavigationItem(
             ProvideTextStyle(style, content = label)
         }
     }
-    // The color of the Ripple should always the selected color, as we want to show the color
-    // before the item is considered selected, and hence before the new contentColor is
-    // provided by LandNavigationTransition.
-    val ripple = rememberRipple(bounded = false, color = selectedContentColor)
 
     Box(
         modifier
@@ -153,8 +149,6 @@ fun ColumnScope.LandNavigationItem(
                 onClick = onClick,
                 enabled = enabled,
                 role = Role.Tab,
-                interactionSource = interactionSource,
-                indication = ripple
             )
             .weight(1f),
         contentAlignment = Alignment.Center
