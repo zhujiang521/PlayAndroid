@@ -83,7 +83,7 @@ dependencies {
     val hiltVersion = rootProject.extra["hiltVersion"] as String?
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     ksp("com.google.dagger:hilt-android-compiler:$hiltVersion")
-    ksp("androidx.hilt:hilt-compiler:1.0.0")
+    ksp("androidx.hilt:hilt-compiler:1.2.0")
 
     // 异常上报
     implementation("com.tencent.bugly:crashreport:4.1.9")

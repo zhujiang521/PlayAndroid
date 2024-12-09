@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".article.ArticleActivity">
 
@@ -12,7 +11,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:fitsSystemWindows="true"
-        android:minHeight="@dimen/dp_50"
+        android:minHeight="@dimen/dp_70"
         android:orientation="vertical">
 
         <ImageView

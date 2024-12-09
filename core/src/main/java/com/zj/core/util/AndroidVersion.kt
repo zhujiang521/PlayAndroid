@@ -50,4 +50,13 @@ object AndroidVersion {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     }
 
+    /**
+     * 判断当前手机系统版本API是否是31以上。
+     * @return 35以上返回true，否则返回false。
+     */
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.VANILLA_ICE_CREAM)
+    fun hasV(): Boolean {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM
+    }
+
 }

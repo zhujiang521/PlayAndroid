@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
-    android:minHeight="@dimen/dp_50">
+    android:fitsSystemWindows="true"
+    android:minHeight="@dimen/dp_70">
 
     <ImageView
         android:id="@+id/imgBack"

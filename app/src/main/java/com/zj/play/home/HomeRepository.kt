@@ -38,6 +38,10 @@ import javax.inject.Inject
 @ActivityRetainedScoped
 class HomeRepository @Inject constructor(val application: Application) {
 
+    companion object {
+        private const val TAG = "HomeRepository"
+    }
+
     /**
      * 获取banner
      */
@@ -82,21 +86,24 @@ class HomeRepository @Inject constructor(val application: Application) {
             mRequestBuilder.load(it.imagePath)
             mRequestBuilder.listener(object : RequestListener<File> {
                 override fun onLoadFailed(
-                    e: GlideException?, model: Any?, target: Target<File>?, isFirstResource: Boolean
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<File>,
+                    isFirstResource: Boolean
                 ): Boolean {
-                    Log.e("ZHUJIANG", "insertBannerList onLoadFailed: ${e?.message}")
+                    Log.e(TAG, "insertBannerList onLoadFailed: ${e?.message}")
                     return false
                 }
 
                 override fun onResourceReady(
-                    resource: File?,
-                    model: Any?,
+                    resource: File,
+                    model: Any,
                     target: Target<File>?,
-                    dataSource: DataSource?,
+                    dataSource: DataSource,
                     isFirstResource: Boolean
                 ): Boolean {
                     try {
-                        it.filePath = resource?.absolutePath ?: ""
+                        it.filePath = resource.absolutePath ?: ""
                         uiScope.launch {
                             if (it.filePath.isNotEmpty()) {
                                 bannerBeanDao.insert(it)
@@ -104,7 +111,7 @@ class HomeRepository @Inject constructor(val application: Application) {
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()
-                        Log.e("ZHUJIANG", "insertBannerList onResourceReady: ${e.message}")
+                        Log.e(TAG, "insertBannerList onResourceReady: ${e.message}")
                     }
                     return false
                 }

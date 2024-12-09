@@ -7,11 +7,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
+import androidx.activity.enableEdgeToEdge
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import com.scwang.smart.refresh.layout.util.SmartUtil.dp2px
 import com.zj.core.R
+import com.zj.core.util.AndroidVersion
 import com.zj.core.util.showToast
 import com.zj.core.util.transparentStatusBar
 import com.zj.core.view.base.lce.DefaultLceImpl
@@ -52,7 +54,11 @@ abstract class BaseActivity : AppCompatActivity(), ILce, BaseActivityInit {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        transparentStatusBar()
+        if (!AndroidVersion.hasV()) {
+            transparentStatusBar()
+        } else {
+            enableEdgeToEdge()
+        }
         setContentView(getLayoutView())
         ActivityCollector.add(WeakReference(this))
         weakRefActivity = WeakReference(this)

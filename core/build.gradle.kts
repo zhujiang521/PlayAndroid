@@ -54,23 +54,23 @@ dependencies {
     implementation("${rootProject.extra["coreKtx"] as String?}")
     implementation("${rootProject.extra["appcompat"] as String?}")
 
-    val lifecycleVersion = "2.6.2"
-    api("androidx.recyclerview:recyclerview:1.3.1")
+    val lifecycleVersion = "2.8.7"
+    api("androidx.recyclerview:recyclerview:1.3.2")
     api("androidx.lifecycle:lifecycle-extensions:2.2.0")
     api("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
     api("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
     api("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
-    api("com.google.android.material:material:1.9.0")
+    api("com.google.android.material:material:1.12.0")
 
-    val retrofitVersion = "2.9.0"
+    val retrofitVersion = "2.11.0"
     api("com.squareup.retrofit2:retrofit:$retrofitVersion")
     api ("com.squareup.retrofit2:converter-gson:$retrofitVersion")
 
-    val coroutinesVersion = "1.7.3"
+    val coroutinesVersion = "1.9.0"
     api ("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
     api ("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
 
-    api ("androidx.datastore:datastore-preferences:1.0.0")
+    api ("androidx.datastore:datastore-preferences:1.1.1")
 
     val refreshVersion = "2.1.0"
     api ("io.github.scwang90:refresh-layout-kernel:$refreshVersion")      //核心必须依赖
@@ -87,11 +87,11 @@ dependencies {
     annotationProcessor("com.github.bumptech.glide:compiler:$glideVersion")
 
     //Lottie动画
-    implementation ("com.airbnb.android:lottie:6.1.0")
+    implementation ("com.airbnb.android:lottie:6.5.0")
 
-    val activityVersion = "1.7.2"
+    val activityVersion = "1.9.3"
     api ("androidx.activity:activity-ktx:$activityVersion")
-    val fragmentVersion = "1.6.0"
+    val fragmentVersion = "1.8.5"
     api ("androidx.fragment:fragment-ktx:$fragmentVersion")
 
     testImplementation("${rootProject.extra["junit"] as String?}")
